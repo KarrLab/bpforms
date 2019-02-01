@@ -70,7 +70,7 @@ class CliTestCase(unittest.TestCase):
                 self.assertRegex(captured.stderr.get_text(), '^Form is invalid')
 
     @unittest.skip('Code not implemented yet')
-    def test_get_formula(self):
+    def test_get_properties(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             with __main__.App(argv=['get-formula', 'rna', 'ACGU', '--ph', '7.0']) as app:
                 # run app
@@ -80,6 +80,7 @@ class CliTestCase(unittest.TestCase):
                 self.assertEqual(captured.stdout.get_text(), 'C H O N P')
                 self.assertEqual(captured.stderr.get_text(), '')
 
+    @unittest.skip('Code not implemented yet')
     def test_protonate(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             with __main__.App(argv=['protonate', 'rna', 'ACGU[structure: InChI=1/]']) as app:
@@ -89,16 +90,3 @@ class CliTestCase(unittest.TestCase):
                 # test that the CLI produced the correct output
                 self.assertEqual(captured.stdout.get_text(), 'ACGU[structure: InChI=1/]')
                 self.assertEqual(captured.stderr.get_text(), '')
-
-    @unittest.skip('Code not implemented yet')
-    def test_gen_visualization(self):
-        filename = os.path.join(self.tempdir, 'test.pdf')
-        with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['visualize', 'rna', 'ACGU', filename]) as app:
-                # run app
-                app.run()
-
-                # test that the CLI produced the correct output
-                self.assertEqual(captured.stdout.get_text(), '')
-                self.assertEqual(captured.stderr.get_text(), '')
-                self.assertTrue(os.ispath(filename))

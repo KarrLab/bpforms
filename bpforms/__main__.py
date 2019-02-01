@@ -37,7 +37,6 @@ class ValidateController(cement.Controller):
         arguments = [
             (['type'], dict(type=str, help='Type of biopolymer')),
             (['structure'], dict(type=str, help='Biopolymer structure')),
-            (['--ph'], dict(default=7., type=float, help='pH')),
         ]
 
     @cement.ex(hide=True)
@@ -45,32 +44,34 @@ class ValidateController(cement.Controller):
         args = self.app.pargs
         type = bpforms.core.get_form(args.type)
         try:
-            form = type(args.structure, ph=args.ph)
+            form = type(args.structure)
             print('Form is valid')
         except Exception as error:
             print('Form is invalid: '.format(str(error)))
 
 
-class CalcFormulaController(cement.Controller):
-    """ Calculate chemical formula """
+class GetPropertiesController(cement.Controller):
+    """ Calculate physical properties such as length, chemical formula, molecular weight, and charge """
 
     class Meta:
-        label = 'get-formula'
-        description = 'Calculate chemical formula'
+        label = 'get-properties'
+        description = 'Calculate physical properties such as length, chemical formula, molecular weight, and charge'
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
             (['type'], dict(type=str, help='Type of biopolymer')),
             (['structure'], dict(type=str, help='Biopolymer structure')),
-            (['--ph'], dict(default=7., type=float, help='pH')),
         ]
 
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
         type = bpforms.core.get_form(args.type)
-        form = type(args.structure, ph=args.ph)
-        print(form.get_formula())
+        form = type(args.structure)
+        print('Length: {}'.format(form.get_length()))
+        print('Formula: {}'.format(form.get_formula()))
+        print('Molecular weight: {}'.format(form.get_mol_wt()))
+        print('Charge: {}'.format(form.get_charge()))
 
 
 class ProtonateController(cement.Controller):
@@ -91,32 +92,9 @@ class ProtonateController(cement.Controller):
     def _default(self):
         args = self.app.pargs
         type = bpforms.core.get_form(args.type)
-        form = type(args.structure, ph=args.ph)
-        form.protonate()
+        form = type(args.structure)
+        form.protonate(ph=args.ph)
         print(form.structure)
-
-
-class VisualizeController(cement.Controller):
-    """ Generate a graphical depiction of the chemical structure of a biopolymer form """
-
-    class Meta:
-        label = 'visualize'
-        description = 'Generate a graphical depiction of the chemical structure of a biopolymer form'
-        stacked_on = 'base'
-        stacked_type = 'nested'
-        arguments = [
-            (['type'], dict(type=str, help='Type of biopolymer')),
-            (['structure'], dict(type=str, help='Biopolymer structure')),
-            (['filename'], dict(type=str, help='Path to save graphical depiction of the biopolymer form')),
-            (['--ph'], dict(default=7., type=float, help='pH')),
-        ]
-
-    @cement.ex(hide=True)
-    def _default(self):
-        args = self.app.pargs
-        type = bpforms.core.get_form(args.type)
-        form = type(args.structure, ph=args.ph)
-        form.gen_visualization(args.filename)
 
 
 class App(cement.App):
@@ -127,9 +105,8 @@ class App(cement.App):
         handlers = [
             BaseController,
             ValidateController,
-            CalcFormulaController,
+            GetPropertiesController,
             ProtonateController,
-            VisualizeController,
         ]
 
 
