@@ -62,7 +62,7 @@ The following command can be run to calculate the length, formula, molecular wei
         => AttrDefault(<class 'float'>, False, {'C': 59.0, 'N': 24.0, 'O': 37.0, 'P': 5.0, 'H': 66.0})
     
     dna_form.get_mol_wt()
-        => 1858.1624450000002
+        => 1858.17680999
     
     dna_form.get_charge()
         => -7
