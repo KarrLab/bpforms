@@ -371,7 +371,6 @@ class BaseTestCase(unittest.TestCase):
         self.assertEqual(base.get_formula(), None)
 
         base = core.Base(structure=dAMP_inchi)
-        print(base.get_formula())
         self.assertEqual(base.get_formula(), EmpiricalFormula('C10H12N5O6P'))
 
     def test_get_mol_wt(self):
@@ -677,7 +676,6 @@ class BpFormTestCase(unittest.TestCase):
         base_2 = core.Base(id='B')
         base_3 = core.Base(id='C')
         bp_form = core.BpForm([base_1, base_2, base_1, base_1, base_1, base_2, base_2, base_3])
-        print(bp_form.get_base_counts())
         self.assertEqual(bp_form.get_base_counts(), {
             base_1: 4,
             base_2: 3,
@@ -734,7 +732,6 @@ class BpFormTestCase(unittest.TestCase):
             'C': base_C,
         }))
         self.assertEqual(str(bp_form), '{}{}{}{}'.format('A', 'C', str(base_G), 'A'))
-        print(str(bp_form))
         self.assertEqual(str(bp_form), '{}{}{}{}'.format('A', 'C', '[id: "{}" | structure: {}]'.format('G', dGMP_inchi), 'A'))
 
     def test_from_str(self):

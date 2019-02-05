@@ -524,6 +524,7 @@ class Base(object):
         if self.structure:
             el_table = openbabel.OBElementTable()
             formula = {}
+            mass = 0
             for i_atom in range(self.structure.NumAtoms()):
                 atom = self.structure.GetAtom(i_atom + 1)
                 el = el_table.GetSymbol(atom.GetAtomicNum())
@@ -531,8 +532,11 @@ class Base(object):
                     formula[el] += 1
                 else:
                     formula[el] = 1
+                mass += el_table.GetMass(atom.GetAtomicNum())
             formula = EmpiricalFormula(formula)
-            formula['H'] = round((self.structure.GetMolWt() - formula.get_molecular_weight()) / 1.008)
+
+            # calc hydrogens because OpenBabel doesn't output this
+            formula['H'] = round((self.structure.GetMolWt() - mass) / el_table.GetMass(1))
             return formula
         else:
             return None
