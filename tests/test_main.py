@@ -8,16 +8,22 @@
 
 from bpforms import __main__
 import bpforms
+import bpforms.core
 import capturer
+import importlib
 import mock
 import os
 import shutil
 import tempfile
 import unittest
 
+ala_inchi = 'InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1'
+ala_inchi_ph_14 = 'InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/p-1/t2-/m0/s1'
+
 
 class CliTestCase(unittest.TestCase):
     def setUp(self):
+        importlib.reload(bpforms.core)
         self.tempdir = tempfile.mkdtemp()
 
     def tearDown(self):
@@ -49,10 +55,9 @@ class CliTestCase(unittest.TestCase):
                 self.assertEqual(captured.stdout.get_text(), bpforms.__version__)
                 self.assertEqual(captured.stderr.get_text(), '')
 
-    @unittest.skip('Code not implemented yet')
     def test_validate(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['validate', 'rna', 'ACGU']) as app:
+            with __main__.App(argv=['validate', 'dna', 'ACGT']) as app:
                 # run app
                 app.run()
 
@@ -61,32 +66,66 @@ class CliTestCase(unittest.TestCase):
                 self.assertEqual(captured.stderr.get_text(), '')
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['validate', 'rna', 'ACGU[']) as app:
+            with __main__.App(argv=['validate', 'dna', 'ACG[id: "ala" | structure: {}]T'.format(ala_inchi)]) as app:
                 # run app
                 app.run()
 
                 # test that the CLI produced the correct output
-                self.assertEqual(captured.stdout.get_text(), '')
-                self.assertRegex(captured.stderr.get_text(), '^Form is invalid')
+                self.assertEqual(captured.stdout.get_text(), 'Form is valid')
+                self.assertEqual(captured.stderr.get_text(), '')
 
-    @unittest.skip('Code not implemented yet')
+        with self.assertRaisesRegex(SystemExit, '^Form is invalid'):
+            with __main__.App(argv=['validate', 'dna', 'ACGT[']) as app:
+                # run app
+                app.run()
+
     def test_get_properties(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['get-formula', 'rna', 'ACGU', '--ph', '7.0']) as app:
+            with __main__.App(argv=['get-properties', 'dna', 'ACGT']) as app:
                 # run app
                 app.run()
 
                 # test that the CLI produced the correct output
-                self.assertEqual(captured.stdout.get_text(), 'C H O N P')
+                text = captured.stdout.get_text()
+                self.assertIn('Length: 4', text)
+                self.assertIn('Formula: C39H46N15O28P4', text)
+                self.assertIn('Molecular weight: 1296.7611040000002', text)
+                self.assertIn('Charge: -5', text)
                 self.assertEqual(captured.stderr.get_text(), '')
 
-    @unittest.skip('Code not implemented yet')
+        with capturer.CaptureOutput(merged=False, relay=False) as captured:
+            with __main__.App(argv=['get-properties', 'dna', 'ACGT', '--ph', '7.0']) as app:
+                # run app
+                app.run()
+
+                # test that the CLI produced the correct output
+                text = captured.stdout.get_text()
+                self.assertIn('Length: 4', text)
+                self.assertIn('Formula: C39H43N15O28P4', text)
+                self.assertIn('Molecular weight: 1293.737284', text)
+                self.assertIn('Charge: -8', text)
+                self.assertEqual(captured.stderr.get_text(), '')
+
     def test_protonate(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['protonate', 'rna', 'ACGU[structure: InChI=1/]']) as app:
+            with __main__.App(argv=['protonate', 'dna', 'ACGT', '7.']) as app:
                 # run app
                 app.run()
 
                 # test that the CLI produced the correct output
-                self.assertEqual(captured.stdout.get_text(), 'ACGU[structure: InChI=1/]')
+                self.assertEqual(captured.stdout.get_text(), 'ACGT')
                 self.assertEqual(captured.stderr.get_text(), '')
+
+        with capturer.CaptureOutput(merged=False, relay=False) as captured:
+            with __main__.App(argv=['protonate', 'dna', 'ACG[id: "ala" | structure: {}]T'.format(ala_inchi), '14.']) as app:
+                # run app
+                app.run()
+
+                # test that the CLI produced the correct output
+                self.assertEqual(captured.stdout.get_text(), 'ACG[id: "ala" | structure: {}]T'.format(ala_inchi_ph_14))
+                self.assertEqual(captured.stderr.get_text(), '')
+
+        with self.assertRaises(SystemExit):
+            with __main__.App(argv=['protonate', 'dna', 'ACGT[', '7.']) as app:
+                # run app
+                app.run()

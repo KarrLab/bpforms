@@ -6,9 +6,9 @@
 :License: MIT
 """
 
-import cement
 import bpforms
 import bpforms.core
+import cement
 
 
 class BaseController(cement.Controller):
@@ -44,10 +44,10 @@ class ValidateController(cement.Controller):
         args = self.app.pargs
         type = bpforms.core.get_form(args.type)
         try:
-            form = type(args.structure)
+            form = type.from_str(args.structure)
             print('Form is valid')
         except Exception as error:
-            print('Form is invalid: '.format(str(error)))
+            raise SystemExit('Form is invalid: {}'.format(str(error)))
 
 
 class GetPropertiesController(cement.Controller):
@@ -61,14 +61,20 @@ class GetPropertiesController(cement.Controller):
         arguments = [
             (['type'], dict(type=str, help='Type of biopolymer')),
             (['structure'], dict(type=str, help='Biopolymer structure')),
+            (['--ph'], dict(default=None, type=float, help='pH')),
         ]
 
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
         type = bpforms.core.get_form(args.type)
-        form = type(args.structure)
-        print('Length: {}'.format(form.get_length()))
+        try:
+            form = type.from_str(args.structure)
+        except Exception as error:
+            raise SystemExit('Form is invalid: {}'.format(str(error)))
+        if args.ph is not None:
+            form.protonate(args.ph)
+        print('Length: {}'.format(len(form)))
         print('Formula: {}'.format(form.get_formula()))
         print('Molecular weight: {}'.format(form.get_mol_wt()))
         print('Charge: {}'.format(form.get_charge()))
@@ -85,16 +91,19 @@ class ProtonateController(cement.Controller):
         arguments = [
             (['type'], dict(type=str, help='Type of biopolymer')),
             (['structure'], dict(type=str, help='Biopolymer structure')),
-            (['--ph'], dict(default=7., type=float, help='pH')),
+            (['ph'], dict(type=float, help='pH')),
         ]
 
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
         type = bpforms.core.get_form(args.type)
-        form = type(args.structure)
-        form.protonate(ph=args.ph)
-        print(form.structure)
+        try:
+            form = type.from_str(args.structure)
+        except Exception as error:
+            raise SystemExit('Form is invalid: {}'.format(str(error)))
+        form.protonate(args.ph)
+        print(str(form))
 
 
 class App(cement.App):
