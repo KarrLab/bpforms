@@ -1,5 +1,5 @@
 `BpForms` documentation
-=====================
+=======================
 
 
 `BpForms` is a set of tools for unambiguously representing the structures of modified forms of biopolymers such as DNA, RNA, and protein. 
