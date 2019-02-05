@@ -7,15 +7,17 @@
 """
 
 from bpforms import core
+from bpforms import dna
+from bpforms import rna
 from wc_utils.util.chem import EmpiricalFormula
 import copy
 import mock
 import openbabel
 import unittest
 
-dAMP_inchi = core.dna_alphabet.A.get_inchi()
-dCMP_inchi = core.dna_alphabet.C.get_inchi()
-dGMP_inchi = core.dna_alphabet.G.get_inchi()
+dAMP_inchi = dna.dna_alphabet.A.get_inchi()
+dCMP_inchi = dna.dna_alphabet.C.get_inchi()
+dGMP_inchi = dna.dna_alphabet.G.get_inchi()
 dIMP_inchi = 'InChI=1S/C10H12N4O4/c15-2-6-5(16)1-7(18-6)14-4-13-8-9(14)11-3-12-10(8)17/h3-7,15-16H,1-2H2,(H,11,12,17)/t5-,6+,7+/m0/s1'
 
 
@@ -541,7 +543,7 @@ class BpFormTestCase(unittest.TestCase):
     def test_set_alphabet(self):
         bp_form = core.BpForm()
 
-        bp_form.alphabet = core.dna_alphabet
+        bp_form.alphabet = dna.dna_alphabet
         self.assertEqual(len(bp_form.alphabet), 4)
 
         with self.assertRaises(ValueError):
@@ -587,7 +589,7 @@ class BpFormTestCase(unittest.TestCase):
         bp_form_1 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]))
         bp_form_2 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]))
         bp_form_3 = None
-        bp_form_4 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), alphabet=core.dna_alphabet)
+        bp_form_4 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), alphabet=dna.dna_alphabet)
         bp_form_5 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), bond_charge=-1)
         bp_form_6 = core.BpForm(base_seq=core.BaseSequence(
             [core.Base(id='A'), core.Base(id='B')]), bond_formula=EmpiricalFormula('H'))
@@ -735,20 +737,20 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(str(bp_form), '{}{}{}{}'.format('A', 'C', '[id: "{}" | structure: {}]'.format('G', dGMP_inchi), 'A'))
 
     def test_from_str(self):
-        self.assertTrue(core.DnaForm.from_str('AAA').is_equal(core.DnaForm([
-            core.dna_alphabet.A, core.dna_alphabet.A, core.dna_alphabet.A,
+        self.assertTrue(dna.DnaForm.from_str('AAA').is_equal(dna.DnaForm([
+            dna.dna_alphabet.A, dna.dna_alphabet.A, dna.dna_alphabet.A,
         ])))
 
-        self.assertTrue(core.DnaForm.from_str('ACTG').is_equal(core.DnaForm([
-            core.dna_alphabet.A, core.dna_alphabet.C, core.dna_alphabet.T, core.dna_alphabet.G,
+        self.assertTrue(dna.DnaForm.from_str('ACTG').is_equal(dna.DnaForm([
+            dna.dna_alphabet.A, dna.dna_alphabet.C, dna.dna_alphabet.T, dna.dna_alphabet.G,
         ])))
 
         with self.assertRaisesRegex(ValueError, 'not in alphabet'):
-            self.assertTrue(core.DnaForm.from_str('UAA').is_equal(core.DnaForm([
-                core.dna_alphabet.A, core.dna_alphabet.A, core.dna_alphabet.A,
+            self.assertTrue(dna.DnaForm.from_str('UAA').is_equal(dna.DnaForm([
+                dna.dna_alphabet.A, dna.dna_alphabet.A, dna.dna_alphabet.A,
             ])))
 
-        self.assertTrue(core.DnaForm.from_str(
+        self.assertTrue(dna.DnaForm.from_str(
             'AA[id: "dI"'
             + ' | name: "2\'-deoxyinosine"'
             + ' | synonym: "2\'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"'
@@ -757,9 +759,9 @@ class BpFormTestCase(unittest.TestCase):
             + ' | delta-mass: -2.5'
             + ' | delta-charge: 3'
             + ' | position: 3-5'
-            + ' | comments: "A purine 2\'-deoxyribonucleoside that is inosine ..."]A').is_equal(core.DnaForm([
-                core.dna_alphabet.A,
-                core.dna_alphabet.A,
+            + ' | comments: "A purine 2\'-deoxyribonucleoside that is inosine ..."]A').is_equal(dna.DnaForm([
+                dna.dna_alphabet.A,
+                dna.dna_alphabet.A,
                 core.Base(
                     id='dI',
                     name="2'-deoxyinosine",
@@ -773,63 +775,45 @@ class BpFormTestCase(unittest.TestCase):
                     end_position=5,
                     comments="A purine 2'-deoxyribonucleoside that is inosine ...",
                 ),
-                core.dna_alphabet.A,
+                dna.dna_alphabet.A,
             ])))
 
-        self.assertTrue(core.DnaForm.from_str(
+        self.assertTrue(dna.DnaForm.from_str(
             'AA[id: "dI"'
-            ' | position: 3-]A').is_equal(core.DnaForm([
-                core.dna_alphabet.A,
-                core.dna_alphabet.A,
+            ' | position: 3-]A').is_equal(dna.DnaForm([
+                dna.dna_alphabet.A,
+                dna.dna_alphabet.A,
                 core.Base(
                     id='dI',
                     start_position=3,
                     end_position=None,
                 ),
-                core.dna_alphabet.A,
+                dna.dna_alphabet.A,
             ])))
 
-        self.assertTrue(core.DnaForm.from_str(
+        self.assertTrue(dna.DnaForm.from_str(
             'AA[id: "dI"'
-            ' | position: -5]A').is_equal(core.DnaForm([
-                core.dna_alphabet.A,
-                core.dna_alphabet.A,
+            ' | position: -5]A').is_equal(dna.DnaForm([
+                dna.dna_alphabet.A,
+                dna.dna_alphabet.A,
                 core.Base(
                     id='dI',
                     start_position=None,
                     end_position=5,
                 ),
-                core.dna_alphabet.A,
+                dna.dna_alphabet.A,
             ])))
 
         with self.assertRaisesRegex(ValueError, 'cannot be repeated'):
-            core.DnaForm.from_str(
+            dna.DnaForm.from_str(
                 'AA[id: "dI"'
                 ' | name: "2\'-deoxyinosine"'
                 ' | name: "2\'-deoxyinosine"]A')
 
 
-class BioFormsTestCase(unittest.TestCase):
-    def test_DnaForm_init(self):
-        core.DnaForm()
-
-    def test_RnaForm_init(self):
-        core.RnaForm()
-
-    def test_ProteinForm_init(self):
-        core.ProteinForm()
-
-    def test_get_form(self):
-        self.assertEqual(core.get_form('dna'), core.DnaForm)
-        self.assertEqual(core.get_form('rna'), core.RnaForm)
-        self.assertEqual(core.get_form('protein'), core.ProteinForm)
-        with self.assertRaises(ValueError):
-            core.get_form('lipid')
-
-
 class AlphabetTestCase(unittest.TestCase):
     def test_getitem(self):
-        self.assertEqual(core.dna_alphabet.A.get_inchi(), dAMP_inchi)
+        self.assertEqual(dna.dna_alphabet.A.get_inchi(), dAMP_inchi)
 
     def test_protonate(self):
         alphabet = core.Alphabet({
@@ -839,33 +823,15 @@ class AlphabetTestCase(unittest.TestCase):
         alphabet.protonate(7.)
 
     def test_is_equal(self):
-        self.assertTrue(core.dna_alphabet.is_equal(core.dna_alphabet))
-        self.assertFalse(core.dna_alphabet.is_equal(core.rna_alphabet))
-        self.assertFalse(core.dna_alphabet.is_equal(None))
-        self.assertFalse(core.dna_alphabet.is_equal(core.Alphabet()))
+        self.assertTrue(dna.dna_alphabet.is_equal(dna.dna_alphabet))
+        self.assertFalse(dna.dna_alphabet.is_equal(rna.rna_alphabet))
+        self.assertFalse(dna.dna_alphabet.is_equal(None))
+        self.assertFalse(dna.dna_alphabet.is_equal(core.Alphabet()))
 
         dna_alphabet = core.Alphabet({
-            'A': core.dna_alphabet.A,
-            'C': core.dna_alphabet.C,
-            'G': core.dna_alphabet.G,
-            'T': core.dna_alphabet.T,
+            'A': dna.dna_alphabet.A,
+            'C': dna.dna_alphabet.C,
+            'G': dna.dna_alphabet.G,
+            'T': dna.dna_alphabet.T,
         })
-        self.assertTrue(dna_alphabet.is_equal(core.dna_alphabet))
-
-
-class BioAlphabetsTestCase(unittest.TestCase):
-    def test_dna_alphabet(self):
-        self.assertEqual(core.dna_alphabet.A.get_formula(), EmpiricalFormula('C10H12N5O6P'))
-        self.assertEqual(core.dna_alphabet.C.get_formula(), EmpiricalFormula('C9H12N3O7P'))
-        self.assertEqual(core.dna_alphabet.G.get_formula(), EmpiricalFormula('C10H12N5O7P'))
-        self.assertEqual(core.dna_alphabet.T.get_formula(), EmpiricalFormula('C10H13N2O8P'))
-
-    def test_rna_alphabet(self):
-        self.assertEqual(core.rna_alphabet.A.get_formula(), EmpiricalFormula('C10H12N5O7P'))
-        self.assertEqual(core.rna_alphabet.C.get_formula(), EmpiricalFormula('C9H12N3O8P'))
-        self.assertEqual(core.rna_alphabet.G.get_formula(), EmpiricalFormula('C10H12N5O8P'))
-        self.assertEqual(core.rna_alphabet.U.get_formula(), EmpiricalFormula('C9H11N2O9P'))
-
-    @unittest.skip('Todo')
-    def test_protein_alphabet(self):
-        pass
+        self.assertTrue(dna_alphabet.is_equal(dna.dna_alphabet))

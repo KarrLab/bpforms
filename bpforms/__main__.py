@@ -7,7 +7,7 @@
 """
 
 import bpforms
-import bpforms.core
+import bpforms.util
 import cement
 
 
@@ -42,7 +42,7 @@ class ValidateController(cement.Controller):
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        type = bpforms.core.get_form(args.type)
+        type = bpforms.util.get_form(args.type)
         try:
             form = type.from_str(args.structure)
             print('Form is valid')
@@ -67,7 +67,7 @@ class GetPropertiesController(cement.Controller):
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        type = bpforms.core.get_form(args.type)
+        type = bpforms.util.get_form(args.type)
         try:
             form = type.from_str(args.structure)
         except Exception as error:
@@ -97,7 +97,7 @@ class ProtonateController(cement.Controller):
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        type = bpforms.core.get_form(args.type)
+        type = bpforms.util.get_form(args.type)
         try:
             form = type.from_str(args.structure)
         except Exception as error:
