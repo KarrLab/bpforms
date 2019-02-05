@@ -23,7 +23,7 @@ class BaseController(cement.Controller):
 
     @cement.ex(hide=True)
     def _default(self):
-        self._parser.print_help()
+        raise SystemExit(self._parser.print_help())
 
 
 class ValidateController(cement.Controller):

@@ -37,6 +37,10 @@ class CliTestCase(unittest.TestCase):
 
     def test_help(self):
         with self.assertRaises(SystemExit):
+            with __main__.App(argv=[]) as app:
+                app.run()
+
+        with self.assertRaises(SystemExit):
             with __main__.App(argv=['--help']) as app:
                 app.run()
 
@@ -105,6 +109,11 @@ class CliTestCase(unittest.TestCase):
                 self.assertIn('Molecular weight: 1293.737284', text)
                 self.assertIn('Charge: -8', text)
                 self.assertEqual(captured.stderr.get_text(), '')
+
+        with self.assertRaises(SystemExit):
+            with __main__.App(argv=['get-properties', 'dna', 'ACGT[']) as app:
+                # run app
+                app.run()
 
     def test_protonate(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
