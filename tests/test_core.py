@@ -380,10 +380,10 @@ class BaseTestCase(unittest.TestCase):
         self.assertEqual(base.get_mol_wt(), None)
 
         base = core.Base(structure=dAMP_inchi)
-        self.assertEqual(base.get_mol_wt(), 329.205941)
+        self.assertEqual(base.get_mol_wt(), 329.208761998)
 
         base.delta_mass = 1.
-        self.assertEqual(base.get_mol_wt(), 330.205941)
+        self.assertEqual(base.get_mol_wt(), 330.208761998)
 
     def test_get_charge(self):
         base = core.Base()

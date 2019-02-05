@@ -548,7 +548,7 @@ class Base(object):
             :obj:`float`: molecular weight
         """
         if self.structure:
-            return self.structure.GetMolWt() + (self.delta_mass or 0.)
+            return self.get_formula().get_molecular_weight() + (self.delta_mass or 0.)
         return None
 
     def get_charge(self):

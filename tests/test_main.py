@@ -91,7 +91,7 @@ class CliTestCase(unittest.TestCase):
                 text = captured.stdout.get_text()
                 self.assertIn('Length: 4', text)
                 self.assertIn('Formula: C39H46N15O28P4', text)
-                self.assertIn('Molecular weight: 1296.7611040000002', text)
+                self.assertIn('Molecular weight: 1296.769047992', text)
                 self.assertIn('Charge: -5', text)
                 self.assertEqual(captured.stderr.get_text(), '')
 
@@ -110,7 +110,7 @@ class CliTestCase(unittest.TestCase):
                 text = captured.stdout.get_text()
                 self.assertIn('Length: 4', text)
                 self.assertIn('Formula: C39H43N15O28P4', text)
-                self.assertIn('Molecular weight: 1293.737284', text)
+                self.assertIn('Molecular weight: 1293.745047992', text)
                 self.assertIn('Charge: -8', text)
                 self.assertEqual(captured.stderr.get_text(), '')
 
