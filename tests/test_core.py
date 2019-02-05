@@ -11,6 +11,7 @@ from bpforms import dna
 from bpforms import rna
 from wc_utils.util.chem import EmpiricalFormula
 import copy
+import lark.exceptions
 import mock
 import openbabel
 import unittest
@@ -745,7 +746,7 @@ class BpFormTestCase(unittest.TestCase):
             dna.dna_alphabet.A, dna.dna_alphabet.C, dna.dna_alphabet.T, dna.dna_alphabet.G,
         ])))
 
-        with self.assertRaisesRegex(ValueError, 'not in alphabet'):
+        with self.assertRaisesRegex(lark.exceptions.VisitError, 'not in alphabet'):
             self.assertTrue(dna.DnaForm.from_str('UAA').is_equal(dna.DnaForm([
                 dna.dna_alphabet.A, dna.dna_alphabet.A, dna.dna_alphabet.A,
             ])))
@@ -804,7 +805,7 @@ class BpFormTestCase(unittest.TestCase):
                 dna.dna_alphabet.A,
             ])))
 
-        with self.assertRaisesRegex(ValueError, 'cannot be repeated'):
+        with self.assertRaisesRegex(lark.exceptions.VisitError, 'cannot be repeated'):
             dna.DnaForm.from_str(
                 'AA[id: "dI"'
                 ' | name: "2\'-deoxyinosine"'

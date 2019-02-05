@@ -35,7 +35,7 @@ class Identifier(object):
 
     @property
     def ns(self):
-        """ Get the namespace 
+        """ Get the namespace
 
         Returns:
             :obj:`str`: namespace
@@ -58,7 +58,7 @@ class Identifier(object):
 
     @property
     def id(self):
-        """ Get the id 
+        """ Get the id
 
         Returns:
             :obj:`str`: id
@@ -113,10 +113,10 @@ class IdentifierSet(set):
                 self.add(identifier)
 
     def add(self, identifier):
-        """ Add an identifier 
+        """ Add an identifier
 
         Args:
-            identifier (:obj:`Identifier`): identifier 
+            identifier (:obj:`Identifier`): identifier
 
         Raises:
             :obj:`ValueError`: if the `identifier` is not an instance of `Indentifier`
@@ -126,7 +126,7 @@ class IdentifierSet(set):
         super(IdentifierSet, self).add(identifier)
 
     def update(self, identifiers):
-        """ Add a set of identifiers 
+        """ Add a set of identifiers
 
         Args:
             identifiers (iterable of :obj:`Identifier`): identifiers
@@ -135,7 +135,7 @@ class IdentifierSet(set):
             self.add(identifier)
 
     def symmetric_difference_update(self, other):
-        """ Remove common elements with other and add elements from other not in self 
+        """ Remove common elements with other and add elements from other not in self
 
         Args:
             other (:obj:`IdentifierSet`): other set of identifiers
@@ -164,10 +164,10 @@ class SynonymSet(set):
                 self.add(synonym)
 
     def add(self, synonym):
-        """ Add an synonym 
+        """ Add an synonym
 
         Args:
-            synonym (:obj:`str`): synonym 
+            synonym (:obj:`str`): synonym
 
         Raises:
             :obj:`ValueError`: if the `synonym` is not an instance of `Indentifier`
@@ -177,7 +177,7 @@ class SynonymSet(set):
         super(SynonymSet, self).add(synonym)
 
     def update(self, synonyms):
-        """ Add a set of synonyms 
+        """ Add a set of synonyms
 
         Args:
             synonyms (iterable of :obj:`SynonymSet`): synonyms
@@ -186,7 +186,7 @@ class SynonymSet(set):
             self.add(synonym)
 
     def symmetric_difference_update(self, other):
-        """ Remove common synonyms with other and add synonyms from other not in self 
+        """ Remove common synonyms with other and add synonyms from other not in self
 
         Args:
             other (:obj:`SynonymSet`): other set of synonyms
@@ -202,7 +202,7 @@ class Base(object):
     Attributes:
         id (:obj:`str`): id
         name (:obj:`str`): name
-        synonyms (:obj:`set` of :obj:`str`): synonyms        
+        synonyms (:obj:`set` of :obj:`str`): synonyms
         identifiers (:obj:`set` of :obj:`Identifier`, optional): identifiers in namespaces for external databases
         structure (:obj:`openbabel.OBMol`): chemical structure
         delta_mass (:obj:`float`): additional mass (Dalton) relative to structure
@@ -240,7 +240,7 @@ class Base(object):
 
     @property
     def id(self):
-        """ Get id 
+        """ Get id
 
         Returns:
             :obj:`str`: id
@@ -249,7 +249,7 @@ class Base(object):
 
     @id.setter
     def id(self, value):
-        """ Set id 
+        """ Set id
 
         Args:
             value (:obj:`str`): id
@@ -263,7 +263,7 @@ class Base(object):
 
     @property
     def name(self):
-        """ Get name 
+        """ Get name
 
         Returns:
             :obj:`str`: name
@@ -272,7 +272,7 @@ class Base(object):
 
     @name.setter
     def name(self, value):
-        """ Set name 
+        """ Set name
 
         Args:
             value (:obj:`str`): name
@@ -286,7 +286,7 @@ class Base(object):
 
     @property
     def synonyms(self):
-        """ Get synonyms 
+        """ Get synonyms
 
         Returns:
             :obj:`SynonymSet`: synonyms
@@ -311,7 +311,7 @@ class Base(object):
 
     @property
     def identifiers(self):
-        """ Get identifiers 
+        """ Get identifiers
 
         Returns:
             :obj:`IdentifierSet`: identifiers
@@ -336,7 +336,7 @@ class Base(object):
 
     @property
     def structure(self):
-        """ Get structure 
+        """ Get structure
 
         Returns:
             :obj:`openbabel.OBMol`: structure
@@ -365,7 +365,7 @@ class Base(object):
 
     @property
     def delta_mass(self):
-        """ Get extra mass 
+        """ Get extra mass
 
         Returns:
             :obj:`float`: extra mass
@@ -390,7 +390,7 @@ class Base(object):
 
     @property
     def delta_charge(self):
-        """ Get extra charge 
+        """ Get extra charge
 
         Returns:
             :obj:`int`: extra charge
@@ -417,7 +417,7 @@ class Base(object):
 
     @property
     def start_position(self):
-        """ Get start position 
+        """ Get start position
 
         Returns:
             :obj:`int`: start position
@@ -471,7 +471,7 @@ class Base(object):
 
     @property
     def comments(self):
-        """ Get comments 
+        """ Get comments
 
         Returns:
             :obj:`str`: comments
@@ -493,7 +493,7 @@ class Base(object):
         self._comments = value
 
     def protonate(self, ph):
-        """ Update to the major protonation state at the pH 
+        """ Update to the major protonation state at the pH
 
         Args:
             ph (:obj:`float`): pH
@@ -630,10 +630,10 @@ class BaseSequence(list):
                 self.append(base)
 
     def append(self, base):
-        """ Add a base 
+        """ Add a base
 
         Args:
-            base (:obj:`Base`): base 
+            base (:obj:`Base`): base
 
         Raises:
             :obj:`ValueError`: if the `base` is not an instance of `Base`
@@ -643,7 +643,7 @@ class BaseSequence(list):
         super(BaseSequence, self).append(base)
 
     def extend(self, bases):
-        """ Add a list of bases 
+        """ Add a list of bases
 
         Args:
             bases (iterable of :obj:`Base`): iterable of bases
@@ -656,7 +656,7 @@ class BaseSequence(list):
 
         Args:
             i (:obj:`int`): position to insert base
-            base (:obj:`Base`): base 
+            base (:obj:`Base`): base
         """
         if not isinstance(base, Base):
             raise ValueError('`base` must be an instance of `Base`')
@@ -694,7 +694,7 @@ class BaseSequence(list):
         return counts
 
     def is_equal(self, other):
-        """ Determine if two base sequences are semantically equal 
+        """ Determine if two base sequences are semantically equal
 
         Args:
             other (:obj:`BaseSequence`): other base sequence
@@ -716,7 +716,7 @@ class Alphabet(attrdict.AttrDict):
     """ Alphabet for bases """
 
     def protonate(self, ph):
-        """ Protonate bases 
+        """ Protonate bases
 
         Args:
             ph (:obj:`float`): pH
@@ -746,7 +746,7 @@ class Alphabet(attrdict.AttrDict):
 
 
 class BpForm(object):
-    """ Biopolymer form 
+    """ Biopolymer form
 
     Attributes:
         base_seq (:obj:`BaseSequence`): bases of the biopolymer
@@ -834,7 +834,7 @@ class BpForm(object):
 
     @property
     def bond_formula(self):
-        """ Get the formula of the bonds 
+        """ Get the formula of the bonds
 
         Returns:
             :obj:`EmpiricalFormula`: formula of the bonds
@@ -855,7 +855,7 @@ class BpForm(object):
 
     @property
     def bond_charge(self):
-        """ Get the bond charge 
+        """ Get the bond charge
 
         Returns:
             :obj:`str`: bond charge
@@ -894,7 +894,7 @@ class BpForm(object):
     def __getitem__(self, slice):
         """ Get base(s) at slice
 
-        Args:   
+        Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
 
         Returns:
@@ -905,7 +905,7 @@ class BpForm(object):
     def __setitem__(self, slice, base):
         """ Set base(s) at slice
 
-        Args:   
+        Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
             base (:obj:`Base` or :obj:`Bases`): base or bases
         """
@@ -914,13 +914,13 @@ class BpForm(object):
     def __delitem__(self, slice):
         """ Delete base(s) at slice
 
-        Args:   
+        Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
         """
         self.base_seq.__delitem__(slice)
 
     def __iter__(self):
-        """ Get iterator over base sequence 
+        """ Get iterator over base sequence
 
         Returns:
             :obj:`iterator` of :obj:`Base`: iterator of bases
@@ -928,7 +928,7 @@ class BpForm(object):
         return self.base_seq.__iter__()
 
     def __reversed__(self):
-        """ Get reverse iterator over base sequence 
+        """ Get reverse iterator over base sequence
 
         Returns:
             :obj:`iterator` of :obj:`Base`: iterator of bases
@@ -963,7 +963,7 @@ class BpForm(object):
         return self.base_seq.get_base_counts()
 
     def protonate(self, ph):
-        """ Update to the major protonation state of each modification at the pH 
+        """ Update to the major protonation state of each modification at the pH
 
         Args:
             ph (:obj:`float`): pH
@@ -1028,19 +1028,19 @@ class BpForm(object):
             alphabet_base: CHARS
             inline_base: "[" WS* inline_base_attr (ATTR_SEP inline_base_attr)* WS* "]"
             ?inline_base_attr: id | name | synonym | identifier | structure | delta_mass | delta_charge | position | comments
-            ?id: "id" FIELD_SEP WS* ESCAPED_STRING
-            ?name: "name" FIELD_SEP WS* ESCAPED_STRING
-            ?synonym: "synonym" FIELD_SEP WS* ESCAPED_STRING
-            ?identifier: "identifier" FIELD_SEP WS* identifier_ns "/" identifier_id
+            ?id: "id" FIELD_SEP ESCAPED_STRING
+            ?name: "name" FIELD_SEP ESCAPED_STRING
+            ?synonym: "synonym" FIELD_SEP ESCAPED_STRING
+            ?identifier: "identifier" FIELD_SEP identifier_ns "/" identifier_id
             ?identifier_ns: /[A-Za-z0-9_\.\-]+/
             ?identifier_id: /[A-Za-z0-9_\.\-:]+/
-            ?structure: "structure" FIELD_SEP WS* INCHI            
-            ?delta_mass: "delta-mass" FIELD_SEP WS* DALTON
-            ?delta_charge: "delta-charge" FIELD_SEP WS* CHARGE
-            ?position: "position" FIELD_SEP WS* START_POSITION? WS* "-" WS* END_POSITION?
-            ?comments: "comments" FIELD_SEP WS* ESCAPED_STRING
+            ?structure: "structure" FIELD_SEP INCHI
+            ?delta_mass: "delta-mass" FIELD_SEP DALTON
+            ?delta_charge: "delta-charge" FIELD_SEP CHARGE
+            ?position: "position" FIELD_SEP START_POSITION? "-" END_POSITION?
+            ?comments: "comments" FIELD_SEP ESCAPED_STRING
             ATTR_SEP: WS* "|" WS*
-            FIELD_SEP: ":"
+            FIELD_SEP: WS* ":" WS*
             CHARS: /[A-Z][a-z0-9_]*/
             INCHI: /InChI=1S\/[A-Za-z0-9\(\)\-\+,\/]+/
             DALTON: /[\-\+]?[0-9]+(\.[0-9]*)?/

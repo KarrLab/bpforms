@@ -1,4 +1,5 @@
 attrdict
+capturer
 py4j # must be installed before cdk_pywrapper
 git+https://github.com/sebotic/cdk_pywrapper.git#egg=cdk_pywrapper
 cement >= 3.0.0
