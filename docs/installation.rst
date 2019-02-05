@@ -5,8 +5,8 @@ Prerequisites
 --------------------------
 
 * `OpenBabel <http://openbabel.org>`_
-* Python
-* Pip
+* `Pip <https://pip.pypa.io>`_ >= 18.0
+* `Python <https://www.python.org>`_ >= 3.6
 
 Latest release From PyPI
 ---------------------------

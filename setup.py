@@ -22,7 +22,7 @@ md = pkg_utils.get_package_metadata(dirname, name, package_data_filename_pattern
 setuptools.setup(
     name=name,
     version=md.version,
-    description='Package for unambiguously representing the structure of modified forms of biopolymers such as DNA, RNA, and protein',
+    description='Unambiguous representation of modified DNA, RNA, and proteins',
     long_description=md.long_description,
     url="https://github.com/KarrLab/" + name,
     download_url='https://github.com/KarrLab/' + name,
