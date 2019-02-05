@@ -10,7 +10,6 @@ from bpforms import __main__
 import bpforms
 import bpforms.core
 import capturer
-import importlib
 import mock
 import os
 import shutil
@@ -23,7 +22,6 @@ ala_inchi_ph_14 = 'InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/p-1/t2-/m0/
 
 class CliTestCase(unittest.TestCase):
     def setUp(self):
-        importlib.reload(bpforms.core)
         self.tempdir = tempfile.mkdtemp()
 
     def tearDown(self):
@@ -98,7 +96,13 @@ class CliTestCase(unittest.TestCase):
                 self.assertEqual(captured.stderr.get_text(), '')
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['get-properties', 'dna', 'ACGT', '--ph', '7.0']) as app:
+            base_seq = ''.join([
+                '[structure: {}]'.format(bpforms.core.dna_alphabet.A.get_inchi()),
+                '[structure: {}]'.format(bpforms.core.dna_alphabet.C.get_inchi()),
+                '[structure: {}]'.format(bpforms.core.dna_alphabet.G.get_inchi()),
+                '[structure: {}]'.format(bpforms.core.dna_alphabet.T.get_inchi()),
+            ])
+            with __main__.App(argv=['get-properties', 'dna', base_seq, '--ph', '7.0']) as app:
                 # run app
                 app.run()
 
@@ -117,21 +121,14 @@ class CliTestCase(unittest.TestCase):
 
     def test_protonate(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['protonate', 'dna', 'ACGT', '7.']) as app:
+            with __main__.App(argv=['protonate', 'dna', '[id: "ala" | structure: {0}][id: "ala" | structure: {0}]'.format(
+                    ala_inchi), '14.']) as app:
                 # run app
                 app.run()
 
                 # test that the CLI produced the correct output
-                self.assertEqual(captured.stdout.get_text(), 'ACGT')
-                self.assertEqual(captured.stderr.get_text(), '')
-
-        with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['protonate', 'dna', 'ACG[id: "ala" | structure: {}]T'.format(ala_inchi), '14.']) as app:
-                # run app
-                app.run()
-
-                # test that the CLI produced the correct output
-                self.assertEqual(captured.stdout.get_text(), 'ACG[id: "ala" | structure: {}]T'.format(ala_inchi_ph_14))
+                self.assertEqual(captured.stdout.get_text(), '[id: "ala" | structure: {0}][id: "ala" | structure: {0}]'.format(
+                    ala_inchi_ph_14))
                 self.assertEqual(captured.stderr.get_text(), '')
 
         with self.assertRaises(SystemExit):
