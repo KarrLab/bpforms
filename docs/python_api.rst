@@ -17,7 +17,7 @@ Creating biopolymer forms
 
 The following command can be run to a DNA form.::
 
-    dna_form = bpforms.DnaForm.from_str('ACG[
+    dna_form = bpforms.DnaForm.from_str('''ACG[
         id: "dI" | 
         structure: InChI=1S
             /C10H12N4O4
@@ -26,17 +26,22 @@ The following command can be run to a DNA form.::
             /t5-,6+,7+
             /m0
             /s1
-        ]AC')
+        ]AC'''.replace('\n', '').replace(' ', ''))
 
 
 Getting a setting residues
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 Individual residues and slices of residues can be get and set similar to lists.::
 
-    dna_form[0] ==> A
+    dna_form[0]
+        => <bpforms.core.Base at 0x7fb365341240>
+    
     dna_form[1] = bpforms.dna_alphabet.A
-    dna_form[1:3] ==> [C, G]
-    dna_form[1:3] = bpforms.dna_alphabet.from_str('TA')
+    
+    dna_form[1:3] 
+        => [<bpforms.core.Base at 0x7fb365341240>, <bpforms.core.Base at 0x7fb365330cf8>]
+    
+    dna_form[1:3] = bpforms.DnaForm.from_str('TA')
 
 
 Protonation
@@ -51,15 +56,28 @@ Calculation of physical properties
 The following command can be run to calculate the length, formula, molecular weight, and charge of a biopolymer form.::
 
     len(dna_form)
+        => 6
+    
     dna_form.get_formula()
+        => AttrDefault(<class 'float'>, False, {'C': 59.0, 'N': 24.0, 'O': 37.0, 'P': 5.0, 'H': 66.0})
+    
     dna_form.get_mol_wt()
+        => 1858.1624450000002
+    
     dna_form.get_charge()
+        => -7
 
 
 Determine if two biopolymers describe the same structure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The following command can be run to determine if two biopolymers describe the same structure.::
 
-    dna_form_1 = bpforms.DnaForm.from_str(...)
-    dna_form_2 = bpforms.DnaForm.from_str(...)
+    dna_form_1 = bpforms.DnaForm.from_str('ACGT')
+    dna_form_2 = bpforms.DnaForm.from_str('ACGT')
+    dna_form_3 = bpforms.DnaForm.from_str('GCTC')
+
     dna_form_1.is_equal(dna_form_2)
+        => True
+    
+    dna_form_1.is_equal(dna_form_3)
+        => False
