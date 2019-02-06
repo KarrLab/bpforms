@@ -20,4 +20,5 @@ The following are valuable resources for reconstructing DNA, RNA, and protein mo
     * `dbPTM <http://dbptm.mbc.nctu.edu.tw/>`_: Database of modified amino acids
     * `Protein Ontology <https://pir.georgetown.edu/pro/>`_: Database of modified proteins
     * `PSIMOD <https://bioportal.bioontology.org/ontologies/PSIMOD>`_: Ontology of modified amino acids
+    * `RESID <https://pir.georgetown.edu/resid/>`_: Database of modified amino acids
     * `UniMod <http://www.unimod.org/>`_: Database of modified amino acids
