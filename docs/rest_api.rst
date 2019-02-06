@@ -7,11 +7,15 @@ The REST JSON API enables researchers to programmatically validate and calculate
 
 The base URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/api/>`_. The REST API provides two endpoints.
 
-* ``/version``: Returns the version of the API.::
+* ``/``: Returns metadata about the API including a description, the version, and a list of endpoints.::
 
-    version: <string>
+    {
+        description: <string>,
+        endpoints: <array>,
+        version: <string>
+    }
 
-* ``/get-properties?base-seq={}``: If the form is valid, this returns the length, formula, mass, and charge of the form. If the form is invalid, this returns an error message.::
+* ``/get-properties/{alphabet: rna, dna, or  protein}/{base_seq: string}(/{ph: float})?``: If the form is valid, this, optionally, protonates the form to the specified pH and returns the length, formula, mass, and charge of the form. If the form is invalid, this returns an error message.::
 
     {
         alphabet: <string>,
@@ -19,25 +23,12 @@ The base URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/
         length: <integer>,
         formula: <associative array>,
         mol_wt: <float>,
-        charge: <integer>,
+        charge: <integer>
     }
 
     OR 
-
-    error: <string>
-    
-
-* ``/get-properties?base-seq={}&ph={}``: If the form is valid, this protonates the form to the specified pH and returns the length, formula, mass, and charge of the form. If the form is invalid, this returns an error message.::
 
     {
-        alphabet: <string>,
-        base_seq: <string>,
-        length: <integer>,
-        formula: <associative array>,
-        mol_wt: <float>,
-        charge: <integer>,
+        message: <string>,
+        details: <string>
     }
-
-    OR 
-
-    error: <string>
