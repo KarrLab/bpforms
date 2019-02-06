@@ -1,0 +1,196 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BpForms: unambiguous representation of modified DNA, RNA, and proteins</title>
+    <link rel="stylesheet" href="css/foundation-icons.css">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+  <body>
+    <div class="grid-container">
+      <div class="grid-x grid-padding-x">
+        <div class="large-12 cell">
+          <h1>BpForms: tools for modified DNA, RNA, and proteins</h1>
+        </div>
+      </div>
+      
+      <div class="grid-x grid-padding-x blue">
+        <div class="large-12 cell">
+            <h2><i>BpForms</i> calculator</h2>
+        </div>
+        <div class="large-6 cell">
+            <h3>Enter base biopolymer form</h3>
+            <form>
+            <label>Select alphabet
+                <select id="alphabet">
+                    <option value="dna" selected="selected">DNA</option>
+                    <option value="rna">RNA</option>
+                    <option value="protein">Protein</option>
+                </select>
+            </label>
+            
+            <label>Enter base sequence
+                <textarea 
+                    id="base_seq_in"
+                    placeholder="AC[id: m6A | structure: InChI=1S/C10H12N4O4/...]G">
+                </textarea>
+            </label>
+            
+            <label>Optionally, enter pH
+                <input type="number" id="ph"/>
+            </label>
+            
+            <input id="submit" class="button" value="Calculate"/>
+            </form>
+        </div>
+        <div class="large-6 cell">
+            <h3>Computed properties</h3>
+            <form>
+                <label>Base sequence
+                    <textarea id="base_seq_out" disabled></textarea>
+                </label>
+                <label>Length
+                    <input type="number" id="length" disabled/>
+                </label>
+                <label>Formula
+                    <input type="text" id="formula" disabled/>
+                </label>
+                <label>Molecular weight
+                    <input type="number" id="mol_wt" disabled/>
+                </label>
+                <label>Charge
+                    <input type="number" id="charge" disabled/>
+                </label>
+            </form>
+        </div>
+      </div>
+      
+      <div class="grid-x grid-padding-x orange">
+        <div class="large-12 cell">
+            <h2><i>BpForms</i> notation</h2>
+        </div>
+        
+        <div class="large-6 cell">
+          <h3>Overview</h3>
+          <i>BpForms</i> is a notation for representing biopolymer forms as FASTA sequences augmented with modified residues described by one or more attributes in square brackets. Multiple attributes are separated by "|".
+        </div>
+        <div class="large-6 cell">
+          <h3>Examples</h3>
+          <ul>
+          <li><tt>[id: "dI" | name: "deoxyinosine"]ACGC</tt>: represents deoxyinosine at the first position</li>
+          <li><tt>AC[id: "dI" | name: "deoxyinosine"]GC</tt>: represents deoxyinosine at the third position</li>
+          <li><tt>ACGC[id: "dI" | name: "deoxyinosine"]</tt>: represents deoxyinosine at the last position</li>
+          </ul>
+        </div>
+        
+        <div class="large-6 cell">
+          <h3>Describing the structures of modified bases</h3>
+          The <tt>structure</tt> attribute can describe the chemical structure of modified residues. This should be an InChI-encoded string. Each modified residue can have one structure.
+        </div>
+        <div class="large-6 cell">
+          <h3>Examples</h3>
+          <tt>[id: "dI" | structure: InChI=1S<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;/C10H12N4O4<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;/c15-2-6-5(16)1-7(18-6)14-4-13-8-9(14)11-3-12-10(8)17<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;/h3-7,15-16H,1-2H2,(H,11,12,17)<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;/t5-,6+,7+<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;/m0<br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;/s1<br/>
+        ]</tt>
+        </div>
+                    
+        <div class="large-6 cell">
+          <h3>Describing uncertainty about the identity and location of bases</h3>
+          <i>BpForms</i> can represent two types of uncertainty in the structures of biopolymer forms.
+          <ul>
+          <li>The <tt>delta-mass</tt> <tt>delta-charge</tt> attributes can describe uncertainty in the chemical identities of modified residues.</li>
+          <li>The <tt>position</tt> attribute can describe uncertainty in the positions of modified residues.</i>
+          </ul>
+        </div>
+        <div class="large-6 cell">
+          <h3>Examples</h3>
+          <ul>
+          <li><tt>[id: "dAMP" | delta-mass: 1 | delta-charge: 1]</tt>: indicates that the presence of an additional hydrogen atom whose exact location is not known.</li>
+          <li><tt>[id: "dI" | position: 2-3]</tt>: indicates that deoxyinosine may occur anywhere between the second and third position.</li>
+          </ul>
+        </div>
+      
+      
+        <div class="large-6 cell">
+          <h3>Describing metadata about modified bases</h3>
+          <i>BpForms</i> can represent several types of metadata about modified residues.
+          <ul>          
+            <li>The <tt>id</tt> and <tt>name</tt> attributes can be used to provide human-readable labels for modified residues. Only one id and one name is allowed per residue.</lI>
+            <li>The <tt>synonym</tt> attribute can be used to provide additional human-readable labels. Each residue can have multiple synonyms.</li>
+            <li>The <tt>identifier</tt> attribute can be used to provide references to entries in external databases. Each residue can have multiple identifiers. The namespaces and ids of identifers must be separated by "/".</li>
+            <li>The <tt>comments</tt> attribute can be used to describe additional information about each residue. Each residue can only have one comment.</li>
+          </ul>
+        </div>
+        <div class="large-6 cell">
+          <h3>Examples</h3>
+          <ul>
+          <li><tt>[id: "dI" | name: "deoxyinosine"]</tt></li>
+          <li><tt>[id: "dI" | synonym: "deoxyinosine" | synonym: "2'-deoxyinosine"]</tt></li>
+          <li><tt>[id: "dI" | identifier: chebi/CHEBI:28997 | identifier: pubchem.compound/65058]</tt></li>
+          <li><tt>[id: "dI" | comments: "A purine 2'-deoxyribonucleoside that is inosine ..."]</tt></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="grid-x grid-padding-x green">
+        <div class="large-12 cell">
+          <h2><i>BpForm</i> interfaces</h2>
+        </div>
+        <div class="large-3 cell">
+          <h3>Python package</h3>
+          The <i>BpForms</i> Python is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-3 cell">
+          <h3>Command line interface</h3>
+          The <i>BpForms</i> command line interface is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-3 cell">
+          <h3>JSON REST API</h3>
+          The <i>BpForms</i> Python is available at <a href="https://bpforms.org/api">https://bpforms.org/api</a>.
+        </div>
+        <div class="large-3 cell">
+          <h3>Source code</h3>
+          <i>BpForms</i> is available open-source from GitHub <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a>.
+        </div>
+        <div class="large-3 cell">
+          <h3>Documentation</h3>
+          Please see <i>BpForms</i> documentation <a href="https://docs.karrlab.org/bpforms"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-3 cell">
+          <h3>License</h3>
+          <i>BpForms</i> is released under the MIT license <a href="https://github.com/KarrLab/bpforms/blob/master/LICENSE"><i class="fi-link"></i></a>.
+        </div>
+      </div>
+      
+      <div class="grid-x grid-padding-x purple">       
+        <div class="large-12 cell">
+          <h2>About <i>BpForms</i></h2>
+        </div>
+        <div class="large-4 cell">
+          <h3>Team</h3>
+          <i>BpForms</i> was developed by Jonathan Karr <a href="https://www.karrlab.org/"><i class="fi-link"></i></a>, Yassmine Chebaro <a href="https://www.linkedin.com/in/yassmine-chebaro-6bb8a05/"><i class="social-linkedin"></i></a>, and Paul Lang <a href="http://www.dtc.ox.ac.uk/people/17/langp/"><i class="fi-link"></i></a> in the Karr Lab <a href="https://www.karrlab.org"><i class="fi-link"></i></a> at the Icahn School of Medicine at Mount Sinai in New York, USA.
+        </div>
+        <div class="large-4 cell">
+          <h3>Acknowledgements</h3>
+          <i>BpForms</i> was supported by a National Institute of Health P41 award [P41 EB023912 <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9460251"><i class="fi-link"></i></a>], a National Institute of Health MIRA R35 award [ <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9509480"><i class="fi-link"></i></a>] and a National Science Foundation INSPIRE award [1649014 <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649014"><i class="fi-link"></i></a>].
+        </div>
+        <div class="large-4 cell">
+          <h3>Questions/comments</h3>
+          Please contact Jonathan Karr <a href="mailto:karr@mssm.edu"><i class="fi-mail"></i></a> with any questions or comments.
+        </div>
+      </div>
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

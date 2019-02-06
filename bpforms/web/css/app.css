@@ -1,0 +1,57 @@
+.grid-container {
+    padding-bottom: 1rem;
+}
+
+h2, .h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-top: 4rem;
+    margin-bottom: 0.2rem;
+    padding: 0.2rem;        
+    text-align: center;
+}
+h3, .h3 {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-top: 1.0rem;
+    margin-bottom: 0.3em;
+    padding: 0.2rem;
+    text-align: center;
+}
+
+.blue h2{
+    background: #3bafda;
+}
+.blue h3{
+    background: #afdef0;
+}
+.green h2{
+    background: #2ad7b0;
+}
+.green h3{
+    background: #bff3e7;
+}
+.purple h2{
+    background: #da3baf;
+}
+.purple h3{
+    background: #f0afde;
+}
+.orange h2{
+    background: #f6bb42;
+}
+.orange h3{
+    background: #fadda0;
+}
+p {
+    color: #747474;
+}
+form {
+    text-align: left;
+}
+label {
+    font-weight: bold;
+}
+textarea {
+    height: 100px;
+}
