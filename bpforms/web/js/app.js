@@ -4,18 +4,21 @@ $('#submit').click(function (evt) {
     alphabet = $("#alphabet").val()
     base_seq = $("#base_seq_in").val().trim()
     ph = $("#ph").val()
-    
+
+    if (base_seq == null || base_seq == '') {
+        return;
+    }
+
     url = '/api/get-properties/' + alphabet + '/' + base_seq
     if (ph != null && ph != "") {
          url += '/' + ph
     }
-    
+
     $.ajax({
       url: url,
       success: set_properties
     })
     .fail(display_error);
-
 });
 
 set_properties = function(data, status, jqXHR){
@@ -23,7 +26,7 @@ set_properties = function(data, status, jqXHR){
     for (el in data['formula']) {
         formula += el + data['formula'][el].toString()
     }
-    
+
     $("#base_seq_out").val(data['base_seq'])
     $("#length").val(data['length'])
     $("#formula").val(formula)
