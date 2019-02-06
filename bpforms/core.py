@@ -587,8 +587,7 @@ class Base(object):
 
         return dict
 
-    @classmethod
-    def from_dict(cls, dict):
+    def from_dict(self, dict):
         """ Get a dictionary representation of the base
 
         Args:
@@ -597,27 +596,36 @@ class Base(object):
         Returns:
             :obj:`Base`: base
         """
-        obj = cls()
+        self.id = None
+        self.name = None
+        self.synonyms.clear()
+        self.identifiers.clear()
+        self.structure = None
+        self.delta_mass = None
+        self.delta_charge = None
+        self.start_position = None
+        self.end_position = None
+        self.comments = None
 
         attrs = ['id', 'name', 'delta_mass', 'delta_charge', 'start_position', 'end_position', 'comments']
         for attr in attrs:
             val = dict.get(attr, None)
             if val is not None:
-                setattr(obj, attr, val)
+                setattr(self, attr, val)
 
         synonyms = dict.get('synonyms', [])
         if synonyms:
-            obj.synonyms = SynonymSet(synonyms)
+            self.synonyms = SynonymSet(synonyms)
 
         identifiers = dict.get('identifiers', [])
         if identifiers:
-            obj.identifiers = IdentifierSet([Identifier(i['ns'], i['id']) for i in identifiers])
+            self.identifiers = IdentifierSet([Identifier(i['ns'], i['id']) for i in identifiers])
 
         structure = dict.get('structure', None)
         if structure:
-            obj.structure = structure
+            self.structure = structure
 
-        return obj
+        return self
 
     def __str__(self):
         """ Get a string representation of the base
@@ -824,7 +832,7 @@ class Alphabet(attrdict.AttrDict):
         """
         self.clear()
         for chars, base in dict.items():
-            self[chars] = Base.from_dict(base)
+            self[chars] = Base().from_dict(base)
         return self
 
     def to_yaml(self, path):
@@ -1160,8 +1168,7 @@ class BpForm(object):
             %import common.INT
             ''')
 
-    @classmethod
-    def from_str(cls, str):
+    def from_str(self, str):
         """ Create biopolymer form its string representation
 
         Args:
@@ -1171,17 +1178,19 @@ class BpForm(object):
             :obj:`BpForm`: biopolymer form
         """
         class ParseTreeTransformer(lark.Transformer):
-            def __init__(self, bp_form_cls):
+            def __init__(self, bp_form):
                 super(ParseTreeTransformer, self).__init__()
-                self.bp_form_cls = bp_form_cls
+                self.bp_form = bp_form
 
             @lark.v_args(inline=True)
             def seq(self, *base_seq):
-                return self.bp_form_cls(base_seq=base_seq)
+                self.bp_form.base_seq.clear()
+                self.bp_form.base_seq = base_seq
+                return self.bp_form
 
             @lark.v_args(inline=True)
             def alphabet_base(self, chars):
-                base = self.bp_form_cls.DEFAULT_ALPHABET.get(chars, None)
+                base = self.bp_form.DEFAULT_ALPHABET.get(chars, None)
                 if base is None:
                     raise ValueError('"{}" not in alphabet'.format(chars))
                 return base
@@ -1250,6 +1259,6 @@ class BpForm(object):
             def comments(self, *args):
                 return ('comments', args[-1].value[1:-1])
 
-        tree = cls._parser.parse(str)
-        parse_tree_transformer = ParseTreeTransformer(cls)
+        tree = self._parser.parse(str)
+        parse_tree_transformer = ParseTreeTransformer(self)
         return parse_tree_transformer.transform(tree)

@@ -44,7 +44,7 @@ class ValidateController(cement.Controller):
         args = self.app.pargs
         type = bpforms.util.get_form(args.type)
         try:
-            form = type.from_str(args.structure)
+            form = type().from_str(args.structure)
             print('Form is valid')
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
@@ -69,7 +69,7 @@ class GetPropertiesController(cement.Controller):
         args = self.app.pargs
         type = bpforms.util.get_form(args.type)
         try:
-            form = type.from_str(args.structure)
+            form = type().from_str(args.structure)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
         if args.ph is not None:
@@ -99,7 +99,7 @@ class ProtonateController(cement.Controller):
         args = self.app.pargs
         type = bpforms.util.get_form(args.type)
         try:
-            form = type.from_str(args.structure)
+            form = type().from_str(args.structure)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
         form.protonate(args.ph)

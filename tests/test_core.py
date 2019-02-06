@@ -741,20 +741,20 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(str(bp_form), '{}{}{}{}'.format('A', 'C', '[id: "{}" | structure: {}]'.format('G', dGMP_inchi), 'A'))
 
     def test_from_str(self):
-        self.assertTrue(dna.DnaForm.from_str('AAA').is_equal(dna.DnaForm([
+        self.assertTrue(dna.DnaForm().from_str('AAA').is_equal(dna.DnaForm([
             dna.dna_alphabet.A, dna.dna_alphabet.A, dna.dna_alphabet.A,
         ])))
 
-        self.assertTrue(dna.DnaForm.from_str('ACTG').is_equal(dna.DnaForm([
+        self.assertTrue(dna.DnaForm().from_str('ACTG').is_equal(dna.DnaForm([
             dna.dna_alphabet.A, dna.dna_alphabet.C, dna.dna_alphabet.T, dna.dna_alphabet.G,
         ])))
 
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'not in alphabet'):
-            self.assertTrue(dna.DnaForm.from_str('UAA').is_equal(dna.DnaForm([
+            self.assertTrue(dna.DnaForm().from_str('UAA').is_equal(dna.DnaForm([
                 dna.dna_alphabet.A, dna.dna_alphabet.A, dna.dna_alphabet.A,
             ])))
 
-        self.assertTrue(dna.DnaForm.from_str(
+        self.assertTrue(dna.DnaForm().from_str(
             'AA[id: "dI"'
             + ' | name: "2\'-deoxyinosine"'
             + ' | synonym: "2\'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"'
@@ -782,7 +782,7 @@ class BpFormTestCase(unittest.TestCase):
                 dna.dna_alphabet.A,
             ])))
 
-        self.assertTrue(dna.DnaForm.from_str(
+        self.assertTrue(dna.DnaForm().from_str(
             'AA[id: "dI"'
             ' | position: 3-]A').is_equal(dna.DnaForm([
                 dna.dna_alphabet.A,
@@ -795,7 +795,7 @@ class BpFormTestCase(unittest.TestCase):
                 dna.dna_alphabet.A,
             ])))
 
-        self.assertTrue(dna.DnaForm.from_str(
+        self.assertTrue(dna.DnaForm().from_str(
             'AA[id: "dI"'
             ' | position: -5]A').is_equal(dna.DnaForm([
                 dna.dna_alphabet.A,
@@ -809,7 +809,7 @@ class BpFormTestCase(unittest.TestCase):
             ])))
 
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'cannot be repeated'):
-            dna.DnaForm.from_str(
+            dna.DnaForm().from_str(
                 'AA[id: "dI"'
                 ' | name: "2\'-deoxyinosine"'
                 ' | name: "2\'-deoxyinosine"]A')

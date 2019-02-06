@@ -104,7 +104,7 @@ def get_properties(alphabet, base_seq, ph):
         raise ApiException('Invalid alphabet "{}"'.format(alphabet))
 
     try:
-        form = form_cls.from_str(base_seq)
+        form = form_cls().from_str(base_seq)
     except Exception as error:
         raise ApiException('Unable to parse base sequence', details=str(error))
 
