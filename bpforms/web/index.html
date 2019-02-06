@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/foundation-icons.css">
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   </head>
   <body>
     <div class="grid-container">
@@ -17,12 +18,19 @@
         </div>
       </div>
       
+      <div class="grid-x grid-padding-x blue">       
+        <div class="large-12 cell">
+          <p><i>BpForms</i> is a toolkit for unambiguously representing the primary sequence of forms of biopolymers. By concretely representing the primary sequence of biopolymers, <i>BpForms</i> aims to facilitate concrete discussion about DNA modification, post-transcriptional processing, and post-translational processing; facilitate the determination of the structures of biopolymer forms; facilitate the integration of data about DNA modification, post-transcriptional processing, and post-translational processing; and enable whole-cell models <a href="https://www.wholecell.org"><i class="fi-link"></i></a> that represent DNA modification, post-transcriptional processing, and post-translational processing and the functions of modified DNA, RNA, and proteins.</p>
+          <p><i>BpForms</i> includes a notation for describing biopolymer forms, as well as this website, a JSON REST API, a command line interface, and a Python API for calculating properties of biopolymer forms. These tools are available open-source under the MIT license.</p>
+        </div>
+     </div>      
+      
       <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
             <h2><i>BpForms</i> calculator</h2>
         </div>
         <div class="large-6 cell">
-            <h3>Enter base biopolymer form</h3>
+            <h3>Enter a biopolymer form</h3>
             <form>
             <label>Select alphabet
                 <select id="alphabet">
@@ -39,7 +47,7 @@
                 </textarea>
             </label>
             
-            <label>Optionally, enter pH
+            <label>Optionally, enter a pH to correct the protonation
                 <input type="number" id="ph"/>
             </label>
             
@@ -47,22 +55,22 @@
             </form>
         </div>
         <div class="large-6 cell">
-            <h3>Computed properties</h3>
-            <form>
-                <label>Base sequence
-                    <textarea id="base_seq_out" disabled></textarea>
+            <h3>Computed properties of the biopolymer form</h3>
+            <form class="out">
+                <label>Base sequence (optionally protonated)
+                    <textarea id="base_seq_out"></textarea>
                 </label>
                 <label>Length
-                    <input type="number" id="length" disabled/>
+                    <input type="number" id="length"/>
                 </label>
-                <label>Formula
-                    <input type="text" id="formula" disabled/>
+                <label>Chemical formula
+                    <input type="text" id="formula"/>
                 </label>
                 <label>Molecular weight
-                    <input type="number" id="mol_wt" disabled/>
+                    <input type="number" id="mol_wt"/>
                 </label>
                 <label>Charge
-                    <input type="number" id="charge" disabled/>
+                    <input type="number" id="charge"/>
                 </label>
             </form>
         </div>
@@ -74,8 +82,8 @@
         </div>
         
         <div class="large-6 cell">
-          <h3>Overview</h3>
-          <i>BpForms</i> is a notation for representing biopolymer forms as FASTA sequences augmented with modified residues described by one or more attributes in square brackets. Multiple attributes are separated by "|".
+          <h3>Overview</h3>         
+          The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with non-canonical bases described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.
         </div>
         <div class="large-6 cell">
           <h3>Examples</h3>
@@ -87,8 +95,8 @@
         </div>
         
         <div class="large-6 cell">
-          <h3>Describing the structures of modified bases</h3>
-          The <tt>structure</tt> attribute can describe the chemical structure of modified residues. This should be an InChI-encoded string. Each modified residue can have one structure.
+          <h3>The structures of bases</h3>
+          The <tt>structure</tt> attribute describes the chemical structure of the modified base. This attribute is an InChI-encoded string. Each modified base can only have one structure.
         </div>
         <div class="large-6 cell">
           <h3>Examples</h3>
@@ -103,11 +111,11 @@
         </div>
                     
         <div class="large-6 cell">
-          <h3>Describing uncertainty about the identity and location of bases</h3>
-          <i>BpForms</i> can represent two types of uncertainty in the structures of biopolymer forms.
+          <h3>Uncertainty about the primary sequence</h3>
+          <i>BpForms</i> can represent two types of uncertainty in the primary sequences of biopolymer forms.
           <ul>
-          <li>The <tt>delta-mass</tt> <tt>delta-charge</tt> attributes can describe uncertainty in the chemical identities of modified residues.</li>
-          <li>The <tt>position</tt> attribute can describe uncertainty in the positions of modified residues.</i>
+          <li>The <tt>delta-mass</tt> <tt>delta-charge</tt> attributes describe uncertainty in the chemical identity of the base.</li>
+          <li>The <tt>position</tt> attribute describes uncertainty in the position of the modified base within the sequence.</i>
           </ul>
         </div>
         <div class="large-6 cell">
@@ -120,13 +128,13 @@
       
       
         <div class="large-6 cell">
-          <h3>Describing metadata about modified bases</h3>
-          <i>BpForms</i> can represent several types of metadata about modified residues.
+          <h3>Metadata about bases</h3>
+          <i>BpForms</i> can represent several types of metadata about bases.
           <ul>          
-            <li>The <tt>id</tt> and <tt>name</tt> attributes can be used to provide human-readable labels for modified residues. Only one id and one name is allowed per residue.</lI>
-            <li>The <tt>synonym</tt> attribute can be used to provide additional human-readable labels. Each residue can have multiple synonyms.</li>
-            <li>The <tt>identifier</tt> attribute can be used to provide references to entries in external databases. Each residue can have multiple identifiers. The namespaces and ids of identifers must be separated by "/".</li>
-            <li>The <tt>comments</tt> attribute can be used to describe additional information about each residue. Each residue can only have one comment.</li>
+            <li>The <tt>id</tt> and <tt>name</tt> attributes are human-readable labels for bases. Only one id and one name is allowed per base.</li>
+            <li>The <tt>synonym</tt> attribute is an additional human-readable label. Bases can have multiple synonyms.</li>
+            <li>The <tt>identifier</tt> attribute indicates entries in databases and ontologies which are equivalent to the base. Bases can have multiple identifiers. The namespace and id of each identifer must be separated by a "/".</li>
+            <li>The <tt>comments</tt> attribute describes additional information about the base. Bases can only have one comment.</li>
           </ul>
         </div>
         <div class="large-6 cell">
@@ -140,13 +148,45 @@
         </div>
       </div>
       
+      <div class="grid-x grid-padding-x red">
+        <div class="large-12 cell">
+          <h2>Resources for reconstructing biopolymer forms</h2>          
+        </div>
+        <div class="large-4 cell">
+          <h3>Resources for DNA forms</h3>
+          <ul>
+          <li><i>DNAMod</i> <a href="https://dnamod.hoffmanlab.org/"><i class="fi-link"></i></a>: Database of non-canonical dNMPs</li>
+          <li><i>MethDB</i> <a href="http://www.methdb.net/"><i class="fi-link"></i></a>: Database of non-canonical DNA</li>
+          <li><i>MethSMRT</i> <a href="http://sysbio.gzzoc.com/methsmrt/"><i class="fi-link"></i></a>: Database of non-canonical DNA</li>
+          </ul>
+        </div>
+        <div class="large-4 cell">
+          <h3>Resources for RNA forms</h3>
+          <ul>
+          <li><i>MODOMICS</i> <a href="http://modomics.genesilico.pl/modifications/"><i class="fi-link"></i></a>: Database of non-canonical NMPs</li>
+          <li><i>RMBase</i> <a href="http://rna.sysu.edu.cn/rmbase/"><i class="fi-link"></i></a>: Database of modified RNA</li>
+          <li><i>RNA Modification Database</i> <a href="https://mods.rna.albany.edu/"><i class="fi-link"></i></a>: Database of modified RNA</li>
+          </ul>
+        </div>
+        <div class="large-4 cell">
+          <h3>Resources for protein forms</h3>
+          <ul>
+          <li><i>dbPTM</i> <a href="http://dbptm.mbc.nctu.edu.tw/"><i class="fi-link"></i></a>: Database of non-canonical amino acids</li>
+          <li><i>ProForma</i> <a href="https://www.topdownproteomics.org/resources/proforma/"><i class="fi-link"></i></a>: Notation for protein forms.  Note, this notation not unambiguous. This limits its abiltiy to facilitate data integration and the calculation of properties of protein forms.</li>
+          <li><i>Protein Ontology</i> <a href="https://pir.georgetown.edu/pro/"><i class="fi-link"></i></a>: Database of modified proteins</li>
+          <li><i>PSIMOD</i> <a href="https://bioportal.bioontology.org/ontologies/PSIMOD"><i class="fi-link"></i></a>: Ontology of non-canonical amino acids</li>
+          <li><i>UniMod</i> <a href="http://www.unimod.org/"><i class="fi-link"></i></a>: Database of non-canonical amino acids</li>
+          </ul>
+        </div>  
+      </div>
+      
       <div class="grid-x grid-padding-x green">
         <div class="large-12 cell">
           <h2><i>BpForm</i> interfaces</h2>
         </div>
         <div class="large-3 cell">
           <h3>Python package</h3>
-          The <i>BpForms</i> Python is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
+          The <i>BpForms</i> Python package is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
         </div>
         <div class="large-3 cell">
           <h3>Command line interface</h3>
@@ -154,7 +194,7 @@
         </div>
         <div class="large-3 cell">
           <h3>JSON REST API</h3>
-          The <i>BpForms</i> Python is available at <a href="https://bpforms.org/api">https://bpforms.org/api</a>.
+          The <i>BpForms</i> JSON REST API is available at <a href="https://bpforms.org/api">https://bpforms.org/api</a>.
         </div>
         <div class="large-3 cell">
           <h3>Source code</h3>
@@ -176,11 +216,11 @@
         </div>
         <div class="large-4 cell">
           <h3>Team</h3>
-          <i>BpForms</i> was developed by Jonathan Karr <a href="https://www.karrlab.org/"><i class="fi-link"></i></a>, Yassmine Chebaro <a href="https://www.linkedin.com/in/yassmine-chebaro-6bb8a05/"><i class="social-linkedin"></i></a>, and Paul Lang <a href="http://www.dtc.ox.ac.uk/people/17/langp/"><i class="fi-link"></i></a> in the Karr Lab <a href="https://www.karrlab.org"><i class="fi-link"></i></a> at the Icahn School of Medicine at Mount Sinai in New York, USA.
+          <i>BpForms</i> was developed by Jonathan Karr <a href="https://www.karrlab.org/"><i class="fi-link"></i></a> <a href="https://www.linkedin.com/in/jonrkarr/"><i class="fi-social-linkedin"></i></a>, Yassmine Chebaro <a href="https://www.linkedin.com/in/yassmine-chebaro-6bb8a05/"><i class="fi-social-linkedin"></i></a>, and Paul Lang <a href="http://www.dtc.ox.ac.uk/people/17/langp/"><i class="fi-link"></i></a> in the Karr Lab <a href="https://www.karrlab.org"><i class="fi-link"></i></a> at the Icahn School of Medicine at Mount Sinai <a href="https://www.mssm.edu/"><i class="fi-link"></i></a> in New York, USA.
         </div>
         <div class="large-4 cell">
           <h3>Acknowledgements</h3>
-          <i>BpForms</i> was supported by a National Institute of Health P41 award [P41 EB023912 <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9460251"><i class="fi-link"></i></a>], a National Institute of Health MIRA R35 award [ <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9509480"><i class="fi-link"></i></a>] and a National Science Foundation INSPIRE award [1649014 <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649014"><i class="fi-link"></i></a>].
+          <i>BpForms</i> was supported by a National Institute of Health P41 award <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9460251"><i class="fi-link"></i></a>, a National Institute of Health MIRA R35 award <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9509480"><i class="fi-link"></i></a>, and a National Science Foundation INSPIRE award <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649014"><i class="fi-link"></i></a>.
         </div>
         <div class="large-4 cell">
           <h3>Questions/comments</h3>

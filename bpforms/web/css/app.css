@@ -1,7 +1,16 @@
+h1, h2, h3, div, p { font-family: 'Raleway', sans-serif; }
+tt { font-family: 'Courier New', 'Courier'; }
+        
 .grid-container {
-    padding-bottom: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
 
+h1, .h1 {
+    color: #3bafda;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
 h2, .h2 {
     color: #fff;
     font-size: 1.5rem;
@@ -9,49 +18,31 @@ h2, .h2 {
     margin-bottom: 0.2rem;
     padding: 0.2rem;        
     text-align: center;
-}
-h3, .h3 {
-    color: #fff;
-    font-size: 1.25rem;
-    margin-top: 1.0rem;
-    margin-bottom: 0.3em;
-    padding: 0.2rem;
-    text-align: center;
-}
-
-.blue h2{
-    background: #3bafda;
-}
-.blue h3{
-    background: #afdef0;
-}
-.green h2{
-    background: #2ad7b0;
-}
-.green h3{
-    background: #bff3e7;
-}
-.purple h2{
-    background: #da3baf;
-}
-.purple h3{
-    background: #f0afde;
-}
-.orange h2{
-    background: #f6bb42;
-}
-.orange h3{
-    background: #fadda0;
-}
-p {
-    color: #747474;
-}
-form {
-    text-align: left;
-}
-label {
     font-weight: bold;
 }
-textarea {
-    height: 100px;
+h3, .h3 {
+    font-size: 1.25rem;
+    margin-top: 1.0rem;
+    margin-bottom: 1.0em;
+    padding: 0.2rem;
+    text-align: center;
+    font-weight: bold;
 }
+
+.blue h2{ background: #3bafda;}
+.blue h3{ color: #3bafda; border-bottom: 2px solid #3bafda;}
+.green h2{ background: #2ad7b0;}
+.green h3{ color: #2ad7b0; border-bottom: 2px solid #2ad7b0; }
+.purple h2{ background: #da3baf; }
+.purple h3{ color: #da3baf; border-bottom: 2px solid #da3baf; }
+.orange h2{ background: #f6bb42; }
+.orange h3{ color: #f6bb42; border-bottom: 2px solid #f6bb42; }
+.red h2 { background: #fe174b; }
+.red h3 { color: #fe174b; border-bottom: 2px solid #fe174b; }
+
+p, div, label { color: #333; }
+
+form { text-align: left; }
+label { font-weight: bold; }
+textarea { height: 100px; }
+.out input, .out textarea { background: #eee; }
