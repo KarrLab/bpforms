@@ -17,14 +17,14 @@
           <h1>BpForms: tools for modified DNA, RNA, and proteins</h1>
         </div>
       </div>
-      
-      <div class="grid-x grid-padding-x blue">       
+
+      <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
           <p><i>BpForms</i> is a toolkit for unambiguously representing the primary sequence of forms of biopolymers. By concretely representing the primary sequence of biopolymers, <i>BpForms</i> aims to facilitate concrete discussion about DNA modification, post-transcriptional processing, and post-translational processing; facilitate the determination of the structures of biopolymer forms; facilitate the integration of data about DNA modification, post-transcriptional processing, and post-translational processing; and enable whole-cell models <a href="https://www.wholecell.org"><i class="fi-link"></i></a> that represent DNA modification, post-transcriptional processing, and post-translational processing and the functions of modified DNA, RNA, and proteins.</p>
           <p><i>BpForms</i> includes a notation for describing biopolymer forms, as well as this website, a JSON REST API, a command line interface, and a Python API for calculating properties of biopolymer forms. These tools are available open-source under the MIT license.</p>
         </div>
-     </div>      
-      
+     </div>
+
       <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
             <h2><i>BpForms</i> calculator</h2>
@@ -39,18 +39,18 @@
                     <option value="protein">Protein</option>
                 </select>
             </label>
-            
+
             <label>Enter base sequence
-                <textarea 
+                <textarea
                     id="base_seq_in"
                     placeholder="AC[id: m6A | structure: InChI=1S/C10H12N4O4/...]G">
                 </textarea>
             </label>
-            
+
             <label>Optionally, enter a pH to correct the protonation
                 <input type="number" id="ph"/>
             </label>
-            
+
             <input id="submit" class="button" value="Calculate"/>
             </form>
         </div>
@@ -75,14 +75,14 @@
             </form>
         </div>
       </div>
-      
+
       <div class="grid-x grid-padding-x orange">
         <div class="large-12 cell">
             <h2><i>BpForms</i> notation</h2>
         </div>
-        
+
         <div class="large-6 cell">
-          <h3>Overview</h3>         
+          <h3>Overview</h3>
           The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with non-canonical bases described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.
         </div>
         <div class="large-6 cell">
@@ -93,7 +93,7 @@
           <li><tt>ACGC[id: "dI" | name: "deoxyinosine"]</tt>: represents deoxyinosine at the last position</li>
           </ul>
         </div>
-        
+
         <div class="large-6 cell">
           <h3>The structures of bases</h3>
           The <tt>structure</tt> attribute describes the chemical structure of the modified base. This attribute is an InChI-encoded string. Each modified base can only have one structure.
@@ -109,7 +109,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;/s1<br/>
         ]</tt>
         </div>
-                    
+
         <div class="large-6 cell">
           <h3>Uncertainty about the primary sequence</h3>
           <i>BpForms</i> can represent two types of uncertainty in the primary sequences of biopolymer forms.
@@ -125,12 +125,12 @@
           <li><tt>[id: "dI" | position: 2-3]</tt>: indicates that deoxyinosine may occur anywhere between the second and third position.</li>
           </ul>
         </div>
-      
-      
+
+
         <div class="large-6 cell">
           <h3>Metadata about bases</h3>
           <i>BpForms</i> can represent several types of metadata about bases.
-          <ul>          
+          <ul>
             <li>The <tt>id</tt> and <tt>name</tt> attributes are human-readable labels for bases. Only one id and one name is allowed per base.</li>
             <li>The <tt>synonym</tt> attribute is an additional human-readable label. Bases can have multiple synonyms.</li>
             <li>The <tt>identifier</tt> attribute indicates entries in databases and ontologies which are equivalent to the base. Bases can have multiple identifiers. The namespace and id of each identifer must be separated by a "/".</li>
@@ -147,10 +147,10 @@
           </ul>
         </div>
       </div>
-      
+
       <div class="grid-x grid-padding-x red">
         <div class="large-12 cell">
-          <h2>Resources for reconstructing biopolymer forms</h2>          
+          <h2>Resources for reconstructing biopolymer forms</h2>
         </div>
         <div class="large-4 cell">
           <h3>Resources for DNA forms</h3>
@@ -178,9 +178,9 @@
           <li><i>RESID</i> <a href="https://pir.georgetown.edu/resid/"><i class="fi-link"></i></a>: Database of non-canonical amino acids</li>
           <li><i>UniMod</i> <a href="http://www.unimod.org/"><i class="fi-link"></i></a>: Database of non-canonical amino acids</li>
           </ul>
-        </div>  
+        </div>
       </div>
-      
+
       <div class="grid-x grid-padding-x green">
         <div class="large-12 cell">
           <h2><i>BpForm</i> interfaces</h2>
@@ -210,8 +210,8 @@
           <i>BpForms</i> is released under the MIT license <a href="https://github.com/KarrLab/bpforms/blob/master/LICENSE"><i class="fi-link"></i></a>.
         </div>
       </div>
-      
-      <div class="grid-x grid-padding-x purple">       
+
+      <div class="grid-x grid-padding-x purple">
         <div class="large-12 cell">
           <h2>About <i>BpForms</i></h2>
         </div>
