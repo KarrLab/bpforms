@@ -13,3 +13,6 @@ include requirements.optional.txt
 
 # alphabets
 recursive-include bpforms *.yml
+
+# website
+graft bpforms/web

@@ -13,6 +13,7 @@ package_data = {
     name: [
         'VERSION',
         '*.yml', # alphabets
+        'web', # website
     ],
 }
 
