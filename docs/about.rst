@@ -17,7 +17,7 @@ Development team
 This package was developed by the `Karr Lab <https://www.karrlab.org/>`_ at the Icahn School of Medicine at Mount Sinai in New York, USA.
 
 * `Jonathan Karr <https://www.karrlab.org/>`_
-* `Yassmine Chebbaro <https://www.linkedin.com/in/yassmine-chebaro-6bb8a05/>`_
+* `Yassmine Chebaro <https://www.linkedin.com/in/yassmine-chebaro-6bb8a05/>`_
 * `Paul Lang <http://www.dtc.ox.ac.uk/people/17/langp/>`_
 
 ----------------------
