@@ -6,6 +6,7 @@
 :License: MIT
 """
 
+from ruamel import yaml
 from wc_utils.util.chem import EmpiricalFormula
 import capturer
 with capturer.CaptureOutput(merged=False, relay=False):
@@ -561,6 +562,63 @@ class Base(object):
             return self.structure.GetTotalCharge() + (self.delta_charge or 0)
         return None
 
+    def to_dict(self):
+        """ Get a dictionary representation of the base
+
+        Returns:
+            :obj:`dict`: dictionary representation of the base
+        """
+        dict = {}
+
+        attrs = ['id', 'name', 'delta_mass', 'delta_charge', 'start_position', 'end_position', 'comments']
+        for attr in attrs:
+            val = getattr(self, attr)
+            if val is not None:
+                dict[attr] = val
+
+        if self.synonyms:
+            dict['synonyms'] = list(self.synonyms)
+
+        if self.identifiers:
+            dict['identifiers'] = [{'ns': i.ns, 'id': i.id} for i in self.identifiers]
+
+        if self.structure:
+            dict['structure'] = self.get_inchi()
+
+        return dict
+
+    @classmethod
+    def from_dict(cls, dict):
+        """ Get a dictionary representation of the base
+
+        Args:
+            dict (:obj:`dict`): dictionary representation of the base
+
+        Returns:
+            :obj:`Base`: base
+        """
+        obj = cls()
+
+        attrs = ['id', 'name', 'delta_mass', 'delta_charge', 'start_position', 'end_position', 'comments']
+        for attr in attrs:
+            val = dict.get(attr, None)
+            if val is not None:
+                setattr(obj, attr, val)
+
+        synonyms = dict.get('synonyms', [])
+        if synonyms:
+            obj.synonyms = SynonymSet(synonyms)
+
+        identifiers = dict.get('identifiers', [])
+        if identifiers:
+            obj.identifiers = IdentifierSet([Identifier(i['ns'], i['id']) for i in identifiers])
+
+        structure = dict.get('structure', None)
+        if structure:
+            obj.structure = structure
+
+        return obj
+
     def __str__(self):
         """ Get a string representation of the base
 
@@ -743,6 +801,57 @@ class Alphabet(attrdict.AttrDict):
             if not self_base.is_equal(other.get(chars, None)):
                 return False
         return True
+
+    def to_dict(self):
+        """ Get dictionary representation of alphabet
+
+        Returns:
+            :obj:`dict`: dictionary representation of alphabet
+        """
+        dict = {}
+        for chars, base in self.items():
+            dict[chars] = base.to_dict()
+        return dict
+
+    @classmethod
+    def from_dict(cls, dict):
+        """ Create alphabet from a dictionary representation
+
+        Args:
+            dict (:obj:`dict`): dictionary representation of alphabet
+
+        Returns:
+            :obj:`Alphabet`: alphabet
+        """
+        obj = cls()
+        for chars, base in dict.items():
+            obj[chars] = Base.from_dict(base)
+        return obj
+
+    def to_yaml(self, path):
+        """ Save alphabet to YAML file
+
+        Args:
+            path (:obj:`str`): path to save alphabet in YAML format
+        """
+        yaml_writer = yaml.YAML()
+        yaml_writer.default_flow_style = False
+        with open(path, 'w') as file:
+            yaml_writer.dump(self.to_dict(), file)
+
+    @classmethod
+    def from_yaml(cls, path):
+        """ Read alphabet from YAML file
+
+        Args:
+            path (:obj:`str`): path to YAML file which defines alphabet
+
+        Returns:
+            :obj:`Alphabet`: alphabet read from YAML file
+        """
+        yaml_reader = yaml.YAML()
+        with open(path, 'r') as file:
+            return cls.from_dict(yaml_reader.load(file))
 
 
 class BpForm(object):

@@ -6,5 +6,6 @@ cement >= 3.0.0
 lark_parser >= 0.6.6
 mock
 openbabel
+ruamel.yaml >= 0.15
 setuptools
 git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils-0.0.1a5

@@ -14,6 +14,9 @@ import copy
 import lark.exceptions
 import mock
 import openbabel
+import os
+import shutil
+import tempfile
 import unittest
 
 dAMP_inchi = dna.dna_alphabet.A.get_inchi()
@@ -813,6 +816,12 @@ class BpFormTestCase(unittest.TestCase):
 
 
 class AlphabetTestCase(unittest.TestCase):
+    def setUp(self):
+        self.dir_path = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.dir_path)
+
     def test_getitem(self):
         self.assertEqual(dna.dna_alphabet.A.get_inchi(), dAMP_inchi)
 
@@ -836,3 +845,15 @@ class AlphabetTestCase(unittest.TestCase):
             'T': dna.dna_alphabet.T,
         })
         self.assertTrue(dna_alphabet.is_equal(dna.dna_alphabet))
+
+    def test_to_from_yaml(self):
+        dna_alphabet = core.Alphabet({
+            'A': dna.dna_alphabet.A,
+            'C': dna.dna_alphabet.C,
+            'G': dna.dna_alphabet.G,
+            'T': dna.dna_alphabet.T,
+        })
+        path = os.path.join(self.dir_path, 'alphabet.yml')
+        dna_alphabet.to_yaml(path)
+        dna_alphabet_2 = core.Alphabet.from_yaml(path)
+        self.assertTrue(dna_alphabet_2.is_equal(dna_alphabet))

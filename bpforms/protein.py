@@ -8,9 +8,10 @@
 
 from .core import Alphabet, Base, BpForm, Identifier
 from wc_utils.util.chem import EmpiricalFormula
+import pkg_resources
 
-protein_alphabet = Alphabet([
-])
+filename = pkg_resources.resource_filename('bpforms', 'protein.yml')
+protein_alphabet = Alphabet.from_yaml(filename)
 # :obj:`Alphabet`: Alphabet for protein amino acids
 
 
