@@ -9,6 +9,8 @@
 from bpforms import __main__
 import bpforms
 import bpforms.alphabet.dna
+import bpforms.alphabet.rna
+import bpforms.alphabet.protein
 import capturer
 import mock
 import os
@@ -135,3 +137,33 @@ class CliTestCase(unittest.TestCase):
             with __main__.App(argv=['protonate', 'dna', 'ACGT[', '7.']) as app:
                 # run app
                 app.run()
+
+
+class BuildAlphabetsCliTestCase(unittest.TestCase):
+    def setUp(self):
+        os.rename(bpforms.alphabet.dna.filename, bpforms.alphabet.dna.filename + '.save')
+        os.rename(bpforms.alphabet.rna.filename, bpforms.alphabet.rna.filename + '.save')
+        os.rename(bpforms.alphabet.protein.filename, bpforms.alphabet.protein.filename + '.save')
+
+    def tearDown(self):
+        os.rename(bpforms.alphabet.dna.filename + '.save', bpforms.alphabet.dna.filename)
+        os.rename(bpforms.alphabet.rna.filename + '.save', bpforms.alphabet.rna.filename)
+        os.rename(bpforms.alphabet.protein.filename + '.save', bpforms.alphabet.protein.filename)
+
+    def test_build_alphabets(self):
+        self.assertFalse(os.path.isfile(bpforms.alphabet.dna.filename))
+        self.assertFalse(os.path.isfile(bpforms.alphabet.rna.filename))
+        self.assertFalse(os.path.isfile(bpforms.alphabet.protein.filename))
+
+        with capturer.CaptureOutput(merged=False, relay=False) as captured:
+            with __main__.App(argv=['build-alphabets']) as app:
+                # run app
+                app.run()
+
+                # test that the CLI produced the correct output
+                self.assertEqual(captured.stdout.get_text(), 'Alphabets successfully built')
+                self.assertEqual(captured.stderr.get_text(), '')
+
+        self.assertTrue(os.path.isfile(bpforms.alphabet.dna.filename))
+        self.assertTrue(os.path.isfile(bpforms.alphabet.rna.filename))
+        self.assertTrue(os.path.isfile(bpforms.alphabet.protein.filename))

@@ -6,9 +6,9 @@
 :License: MIT
 """
 
-from .alphabet.dna import DnaForm
-from .alphabet.rna import RnaForm
-from .alphabet.protein import ProteinForm
+from .alphabet import dna
+from .alphabet import rna
+from .alphabet import protein
 
 
 def get_form(alphabet):
@@ -21,10 +21,17 @@ def get_form(alphabet):
         :obj:`type`: subclass of BpForm
     """
     if alphabet == 'dna':
-        return DnaForm
+        return dna.DnaForm
     if alphabet == 'rna':
-        return RnaForm
+        return rna.RnaForm
     if alphabet == 'protein':
-        return ProteinForm
+        return protein.ProteinForm
 
     raise ValueError('Alphabet "{}" must be "dna", "rna", or "protein"'.format(alphabet))
+
+
+def build_alphabets():
+    """ Build DNA, RNA, and protein alphabets """
+    dna.DnaAlphabetBuilder().run()
+    rna.RnaAlphabetBuilder().run()
+    protein.ProteinAlphabetBuilder().run()

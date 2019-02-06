@@ -106,6 +106,23 @@ class ProtonateController(cement.Controller):
         print(str(form))
 
 
+class BuildAlphabetsController(cement.Controller):
+    """ Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, and RESID """
+
+    class Meta:
+        label = 'build-alphabets'
+        description = 'Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, and RESID'
+        stacked_on = 'base'
+        stacked_type = 'nested'
+        arguments = [
+        ]
+
+    @cement.ex(hide=True)
+    def _default(self):
+        bpforms.util.build_alphabets()
+        print('Alphabets successfully built')
+
+
 class App(cement.App):
     """ Command line application """
     class Meta:
@@ -116,6 +133,7 @@ class App(cement.App):
             ValidateController,
             GetPropertiesController,
             ProtonateController,
+            BuildAlphabetsController,
         ]
 
 

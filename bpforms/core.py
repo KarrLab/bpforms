@@ -11,6 +11,7 @@ from wc_utils.util.chem import EmpiricalFormula
 import capturer
 with capturer.CaptureOutput(merged=False, relay=False):
     from cdk_pywrapper import cdk_pywrapper
+import abc
 import attrdict
 import lark
 import openbabel
@@ -859,6 +860,42 @@ class Alphabet(attrdict.AttrDict):
         with open(path, 'r') as file:
             self.from_dict(yaml_reader.load(file))
         return self
+
+
+class AlphabetBuilder(abc.ABC):
+    """ Builder for alphabets """
+
+    def run(self, path=None):
+        """ Build alphabet and, optionally, save to YAML file
+
+        Args:
+            path (:obj:`str`, optional): path to save alphabet
+
+        Returns:
+            :obj:`Alphabet`: alphabet
+        """
+        alphabet = self.build()
+        if path:
+            self.save(alphabet, path)
+        return alphabet
+
+    @abc.abstractmethod
+    def build(self):
+        """ Build alphabet 
+
+        Returns:
+            :obj:`Alphabet`: alphabet
+        """
+        pass  # pragma: no cover
+
+    def save(self, alphabet, path):
+        """ Save alphabet to YAML file
+
+        Args:
+            alphabet (:obj:`Alphabet`): alphabet
+            path (:obj:`str`): path to save alphabet
+        """
+        alphabet.to_yaml(path)
 
 
 class BpForm(object):
