@@ -25,7 +25,7 @@ class FlaskApi(flask_api.FlaskAPI):
         """ Handle API exception
 
         Args:
-            exception (:obj:`Exception`): exception
+            exception (:obj:`flask_api.exceptions.APIException`): exception
 
         Returns:
             :obj:`flask_api.response.APIResponse`: response
@@ -33,7 +33,7 @@ class FlaskApi(flask_api.FlaskAPI):
         if hasattr(exception, 'to_dict'):
             content = exception.to_dict()
         else:
-            content = exception.detail
+            content = {'message': exception.detail}
         return flask_api.response.APIResponse(content, status=exception.status_code)
 
 
