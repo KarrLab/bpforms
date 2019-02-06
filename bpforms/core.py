@@ -813,8 +813,7 @@ class Alphabet(attrdict.AttrDict):
             dict[chars] = base.to_dict()
         return dict
 
-    @classmethod
-    def from_dict(cls, dict):
+    def from_dict(self, dict):
         """ Create alphabet from a dictionary representation
 
         Args:
@@ -823,10 +822,10 @@ class Alphabet(attrdict.AttrDict):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        obj = cls()
+        self.clear()
         for chars, base in dict.items():
-            obj[chars] = Base.from_dict(base)
-        return obj
+            self[chars] = Base.from_dict(base)
+        return self
 
     def to_yaml(self, path):
         """ Save alphabet to YAML file
@@ -839,19 +838,19 @@ class Alphabet(attrdict.AttrDict):
         with open(path, 'w') as file:
             yaml_writer.dump(self.to_dict(), file)
 
-    @classmethod
-    def from_yaml(cls, path):
+    def from_yaml(self, path):
         """ Read alphabet from YAML file
 
         Args:
             path (:obj:`str`): path to YAML file which defines alphabet
 
         Returns:
-            :obj:`Alphabet`: alphabet read from YAML file
+            :obj:`Alphabet`: alphabet
         """
         yaml_reader = yaml.YAML()
         with open(path, 'r') as file:
-            return cls.from_dict(yaml_reader.load(file))
+            self.from_dict(yaml_reader.load(file))
+        return self
 
 
 class BpForm(object):

@@ -1,4 +1,4 @@
-""" Test of bpforms.dna
+""" Test of bpforms.alphabet.dna
 
 :Author: Jonathan Karr <karr@mssm.edu>
 :Date: 2019-02-05
@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms import dna
+from bpforms.alphabet import dna
 from wc_utils.util.chem import EmpiricalFormula
 import unittest
 

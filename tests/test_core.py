@@ -7,8 +7,8 @@
 """
 
 from bpforms import core
-from bpforms import dna
-from bpforms import rna
+from bpforms.alphabet import dna
+from bpforms.alphabet import rna
 from wc_utils.util.chem import EmpiricalFormula
 import copy
 import lark.exceptions
@@ -855,5 +855,5 @@ class AlphabetTestCase(unittest.TestCase):
         })
         path = os.path.join(self.dir_path, 'alphabet.yml')
         dna_alphabet.to_yaml(path)
-        dna_alphabet_2 = core.Alphabet.from_yaml(path)
+        dna_alphabet_2 = core.Alphabet().from_yaml(path)
         self.assertTrue(dna_alphabet_2.is_equal(dna_alphabet))

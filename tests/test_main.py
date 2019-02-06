@@ -8,7 +8,7 @@
 
 from bpforms import __main__
 import bpforms
-import bpforms.dna
+import bpforms.alphabet.dna
 import capturer
 import mock
 import os
@@ -97,10 +97,10 @@ class CliTestCase(unittest.TestCase):
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             base_seq = ''.join([
-                '[structure: {}]'.format(bpforms.dna.dna_alphabet.A.get_inchi()),
-                '[structure: {}]'.format(bpforms.dna.dna_alphabet.C.get_inchi()),
-                '[structure: {}]'.format(bpforms.dna.dna_alphabet.G.get_inchi()),
-                '[structure: {}]'.format(bpforms.dna.dna_alphabet.T.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.A.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.C.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.G.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.T.get_inchi()),
             ])
             with __main__.App(argv=['get-properties', 'dna', base_seq, '--ph', '7.0']) as app:
                 # run app

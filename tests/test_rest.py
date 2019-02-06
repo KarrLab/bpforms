@@ -7,6 +7,7 @@
 """
 
 from bpforms import rest
+from bpforms.alphabet import dna
 from wc_utils.util.chem import EmpiricalFormula
 import bpforms
 import flask_api.exceptions
@@ -15,6 +16,9 @@ import unittest
 
 
 class RestTestCase(unittest.TestCase):
+    def tearDown(self):
+        dna.dna_alphabet.from_yaml(dna.filename)
+
     def test_ApiException_handle_api_exception(self):
         client = rest.app.test_client()
 

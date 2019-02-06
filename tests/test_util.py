@@ -6,9 +6,9 @@
 :License: MIT
 """
 
-from bpforms import dna
-from bpforms import rna
-from bpforms import protein
+from bpforms.alphabet import dna
+from bpforms.alphabet import rna
+from bpforms.alphabet import protein
 from bpforms import util
 import unittest
 

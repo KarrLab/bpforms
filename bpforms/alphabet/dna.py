@@ -6,12 +6,13 @@
 :License: MIT
 """
 
-from .core import Alphabet, Base, BpForm, Identifier
+from bpforms.core import Alphabet, Base, BpForm, Identifier
 from wc_utils.util.chem import EmpiricalFormula
+import os.path
 import pkg_resources
 
-filename = pkg_resources.resource_filename('bpforms', 'dna.yml')
-dna_alphabet = Alphabet.from_yaml(filename)
+filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.yml'))
+dna_alphabet = Alphabet().from_yaml(filename)
 # :obj:`Alphabet`: Alphabet for DNA nucleotides
 
 

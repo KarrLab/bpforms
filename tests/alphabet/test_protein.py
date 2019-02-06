@@ -1,4 +1,4 @@
-""" Test of bpforms.protein
+""" Test of bpforms.alphabet.protein
 
 :Author: Jonathan Karr <karr@mssm.edu>
 :Date: 2019-02-05
@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms import protein
+from bpforms.alphabet import protein
 from wc_utils.util.chem import EmpiricalFormula
 import unittest
 

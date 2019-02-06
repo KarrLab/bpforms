@@ -6,9 +6,9 @@
 :License: MIT
 """
 
-from .dna import DnaForm
-from .rna import RnaForm
-from .protein import ProteinForm
+from .alphabet.dna import DnaForm
+from .alphabet.rna import RnaForm
+from .alphabet.protein import ProteinForm
 
 
 def get_form(alphabet):
