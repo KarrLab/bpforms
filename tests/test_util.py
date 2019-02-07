@@ -25,6 +25,13 @@ class UtilTestCase(unittest.TestCase):
         os.rename(rna.filename + '.save', rna.filename)
         os.rename(protein.filename + '.save', protein.filename)
 
+    def test_get_alphabet(self):
+        self.assertEqual(util.get_alphabet('dna'), dna.dna_alphabet)
+        self.assertEqual(util.get_alphabet('rna'), rna.rna_alphabet)
+        self.assertEqual(util.get_alphabet('protein'), protein.protein_alphabet)
+        with self.assertRaises(ValueError):
+            util.get_alphabet('lipid')
+
     def test_get_form(self):
         self.assertEqual(util.get_form('dna'), dna.DnaForm)
         self.assertEqual(util.get_form('rna'), rna.RnaForm)

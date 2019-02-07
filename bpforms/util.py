@@ -11,6 +11,25 @@ from .alphabet import rna
 from .alphabet import protein
 
 
+def get_alphabet(alphabet):
+    """ Get a subclass of BpFrom
+
+    Args:
+        alphabet (:obj:`str`): alphabet
+
+    Returns:
+        :obj:`type`: subclass of BpForm
+    """
+    if alphabet == 'dna':
+        return dna.dna_alphabet
+    if alphabet == 'rna':
+        return rna.rna_alphabet
+    if alphabet == 'protein':
+        return protein.protein_alphabet
+
+    raise ValueError('Alphabet "{}" must be "dna", "rna", or "protein"'.format(alphabet))
+
+
 def get_form(alphabet):
     """ Get a subclass of BpFrom
 
