@@ -821,10 +821,17 @@ class AlphabetTestCase(unittest.TestCase):
     def test_getitem(self):
         self.assertEqual(dna.dna_alphabet.A.get_inchi(), dAMP_inchi)
 
+    def test_setitem(self):
+        alphabet = core.Alphabet()
+        alphabet['A'] = core.Base(structure=dAMP_inchi)
+        alphabet['aA'] = core.Base(structure=dAMP_inchi)
+        with self.assertRaises(ValueError):
+            alphabet['Aa'] = core.Base(structure=dAMP_inchi)
+
     def test_protonate(self):
         alphabet = core.Alphabet({
             'A': core.Base(structure=dAMP_inchi),
-            'A': core.Base(structure=dCMP_inchi),
+            'C': core.Base(structure=dCMP_inchi),
         })
         alphabet.protonate(7.)
 
