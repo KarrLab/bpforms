@@ -33,10 +33,7 @@
             <h3>Enter a biopolymer form</h3>
             <form>
             <label>Select alphabet
-                <select id="alphabet">
-                    <option value="dna" selected="selected">DNA</option>
-                    <option value="rna">RNA</option>
-                    <option value="protein">Protein</option>
+                <select id="alphabet">                    
                 </select>
             </label>
 
@@ -83,11 +80,8 @@
         <div class="large-6 cell">
           <h3>Overview</h3>
           <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined bases delimited by parentheses and (b) user-defined bases described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
-          <p style="margin-bottom: 0px;"><i>BpForms</i> has three pre-built alphabets.</p>
-          <ul>
-          <li><a href="alphabet.html#dna"><i>DNA</i></a>: The DNA alphabet includes the four canonical bases, plus the modified bases in DNAmod <a href="https://dnamod.hoffmanlab.org"><i class="fi-link"></i></a>.</li>
-          <li><i>RNA</i>: The RNA alphabet includes the four canonical bases, plus the modified bases in MODOMICS <a href="http://modomics.genesilico.pl/modifications"><i class="fi-link"></i></a>.</li>
-          <li><i>Protein</i>: The protein alphabet includes the 20 canonical bases, plus the modified bases in RESID <a href="https://pir.georgetown.edu/resid"><i class="fi-link">.</i></a></li>
+          <p style="margin-bottom: 0px;"><i>BpForms</i> has several pre-built alphabets.</p>
+          <ul id="alphabet_descriptions">          
           </ul>
         </div>
         <div class="large-6 cell">
