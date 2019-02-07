@@ -39,6 +39,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # initialize alphabet
         alphabet = Alphabet()
 
+        # load canonical bases
+        alphabet.from_yaml(pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.canonical.yml')))
+
         # create bases
         alphabet.A = Base(
             id='ALA',
@@ -60,13 +63,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
 class ProteinForm(BpForm):
     """ Protein form """
-    DEFAULT_ALPHABET = protein_alphabet
-    DEFAULT_BOND_FORMULA = EmpiricalFormula('H2O') * -1
-    DEFAULT_BOND_CHARGE = 0
 
     def __init__(self, base_seq=None):
         """
         Args:
             base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
         """
-        super(ProteinForm, self).__init__(base_seq=base_seq)
+        super(ProteinForm, self).__init__(base_seq=base_seq, alphabet=protein_alphabet,
+                                          bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)

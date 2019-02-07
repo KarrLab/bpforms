@@ -804,6 +804,31 @@ class BpFormTestCase(unittest.TestCase):
                 dna.dna_alphabet.A,
             ])))
 
+        alphabet = core.Alphabet()
+        alphabet['aA'] = core.Base()
+        alphabet['Aa'] = core.Base()
+        alphabet['A'] = core.Base()
+        alphabet['AA'] = core.Base()
+        self.assertTrue(core.BpForm(alphabet=alphabet).from_str(
+            'AAA(AA)AA(aA)(Aa)AA').is_equal(core.BpForm([
+                alphabet['A'], alphabet['A'], alphabet['A'],
+                alphabet['AA'],
+                alphabet['A'], alphabet['A'],
+                alphabet['aA'],
+                alphabet['Aa'],
+                alphabet['A'], alphabet['A'],
+            ], alphabet=alphabet)))
+
+        alphabet = core.Alphabet()
+        alphabet['aA'] = core.Base()
+        alphabet['Aa'] = core.Base()
+        alphabet['A'] = core.Base()
+        alphabet['AA'] = core.Base()
+        with self.assertRaises(lark.exceptions.UnexpectedCharacters):
+            core.BpForm(alphabet=alphabet).from_str('AAA( AA)AA(aA)(Aa)AA')
+        with self.assertRaises(lark.exceptions.UnexpectedCharacters):
+            core.BpForm(alphabet=alphabet).from_str('AAA (AA)AA(aA)(Aa)AA')
+
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'cannot be repeated'):
             dna.DnaForm().from_str(
                 'AA[id: "dI"'
@@ -825,8 +850,11 @@ class AlphabetTestCase(unittest.TestCase):
         alphabet = core.Alphabet()
         alphabet['A'] = core.Base(structure=dAMP_inchi)
         alphabet['aA'] = core.Base(structure=dAMP_inchi)
+        alphabet['Aa'] = core.Base(structure=dAMP_inchi)
         with self.assertRaises(ValueError):
-            alphabet['Aa'] = core.Base(structure=dAMP_inchi)
+            alphabet['aa'] = core.Base(structure=dAMP_inchi)
+        with self.assertRaises(ValueError):
+            alphabet['A '] = core.Base(structure=dAMP_inchi)
 
     def test_protonate(self):
         alphabet = core.Alphabet({
@@ -848,6 +876,20 @@ class AlphabetTestCase(unittest.TestCase):
             'T': dna.dna_alphabet.T,
         })
         self.assertTrue(dna_alphabet.is_equal(dna.dna_alphabet))
+
+        dna_alphabet_1 = core.Alphabet({
+            'A': dna.dna_alphabet.A,
+            'C': dna.dna_alphabet.C,
+            'G': dna.dna_alphabet.G,
+            'T': dna.dna_alphabet.T,
+        })
+        dna_alphabet_2 = core.Alphabet({
+            'C': dna.dna_alphabet.A,
+            'A': dna.dna_alphabet.C,
+            'G': dna.dna_alphabet.G,
+            'T': dna.dna_alphabet.T,
+        })
+        self.assertFalse(dna_alphabet_1.is_equal(dna_alphabet_2))
 
     def test_to_from_yaml(self):
         dna_alphabet = core.Alphabet({

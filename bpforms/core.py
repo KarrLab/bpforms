@@ -511,6 +511,7 @@ class Base(object):
         """
         if self.structure:
             conversion = openbabel.OBConversion()
+
             assert conversion.SetOutFormat('smi'), 'Unable to set format to smiles'
             compound = cdk_pywrapper.Compound(compound_string=conversion.WriteString(self.structure).strip(), identifier_type='smiles')
             return compound.get_inchi()
@@ -789,8 +790,8 @@ class Alphabet(attrdict.AttrDict):
             chars (:obj:`str`): characters for base
             base (:obj:`Base`): base
         """
-        if not re.match('^[a-z0-9_]*[A-Z]$', chars):
-            raise ValueError('`chars` must be composed of letters, numbers, and underscores and end in an upper case letter')
+        if not re.match('^[^\(\) ]*[A-Z][^\(\) ]*$', chars):
+            raise ValueError('`chars` must be composed of letters, numbers, and underscores and include at least one upper case letter')
         super(Alphabet, self).__setitem__(chars, base)
 
     def protonate(self, ph):
@@ -918,17 +919,10 @@ class BpForm(object):
         bond_formula (:obj:`EmpiricalFormula`): empirical formula for bonds between bases
         bond_charge (:obj:`int`): charge of bonds between bases
 
-        DEFAULT_ALPHABET (:obj:`Alphabet`): default base alphabet
-        DEFAULT_BOND_FORMULA (:obj:`EmpiricalFormula`): default empirical formula for bonds between bases
-        DEFAULT_BOND_CHARGE (:obj:`int`): default charge of bonds between bases
-
         _parser (:obj:`lark.Lark`): parser
     """
-    DEFAULT_ALPHABET = None
-    DEFAULT_BOND_FORMULA = None
-    DEFAULT_BOND_CHARGE = None
 
-    def __init__(self, base_seq=None, alphabet=None, bond_formula=None, bond_charge=None):
+    def __init__(self, base_seq=None, alphabet=None, bond_formula=None, bond_charge=0):
         """
         Args:
             base_seq (:obj:`BaseSequence`, optional): bases of the biopolymer
@@ -937,11 +931,9 @@ class BpForm(object):
             bond_charge (:obj:`int`, optional): charge of bonds between bases
         """
         if alphabet is None:
-            alphabet = self.DEFAULT_ALPHABET or Alphabet()
+            alphabet = Alphabet()
         if bond_formula is None:
-            bond_formula = self.DEFAULT_BOND_FORMULA or EmpiricalFormula()
-        if bond_charge is None:
-            bond_charge = self.DEFAULT_BOND_CHARGE or 0
+            bond_formula = EmpiricalFormula()
 
         self.base_seq = base_seq or BaseSequence()
         self.alphabet = alphabet
@@ -1189,7 +1181,7 @@ class BpForm(object):
 
             seq: base+
             ?base: alphabet_base | inline_base
-            alphabet_base: CHARS
+            alphabet_base: CHAR | DELIMITED_CHARS
             inline_base: "[" WS* inline_base_attr (ATTR_SEP inline_base_attr)* WS* "]"
             ?inline_base_attr: id | name | synonym | identifier | structure | delta_mass | delta_charge | position | comments
             ?id: "id" FIELD_SEP ESCAPED_STRING
@@ -1206,7 +1198,8 @@ class BpForm(object):
             ATTR_SEP: WS* "|" WS*
             FIELD_SEP: WS* ":" WS*
             IDENTIFIER_SEP: WS* "/" WS*
-            CHARS: /[a-z0-9_]*[A-Z]/
+            CHAR: /[A-Z]/
+            DELIMITED_CHARS: "(" /[^\(\) ]*[A-Z][^\(\) ]*/ ")"
             INCHI: /InChI=1S\/[A-Za-z0-9\(\)\-\+,\/]+/
             DALTON: /[\-\+]?[0-9]+(\.[0-9]*)?/
             CHARGE: /[\-\+]?[0-9]+/
@@ -1239,7 +1232,9 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def alphabet_base(self, chars):
-                base = self.bp_form.DEFAULT_ALPHABET.get(chars, None)
+                if chars[0] == '(' and chars[-1] == ')':
+                    chars = chars[1:-1]
+                base = self.bp_form.alphabet.get(chars, None)
                 if base is None:
                     raise ValueError('"{}" not in alphabet'.format(chars))
                 return base

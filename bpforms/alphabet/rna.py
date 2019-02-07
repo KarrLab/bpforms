@@ -8,8 +8,15 @@
 
 from bpforms.core import Alphabet, AlphabetBuilder, Base, BpForm, Identifier, IdentifierSet, SynonymSet
 from wc_utils.util.chem import EmpiricalFormula
+import bs4
+import csv
+import io
+import openbabel
 import os.path
 import pkg_resources
+import requests
+import requests_cache
+import warnings
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna.yml'))
 rna_alphabet = Alphabet().from_yaml(filename)
@@ -18,6 +25,10 @@ rna_alphabet = Alphabet().from_yaml(filename)
 
 class RnaAlphabetBuilder(AlphabetBuilder):
     """ Build RNA alphabet from MODOMICS """
+
+    INDEX_ENDPOINT = 'http://modomics.genesilico.pl/modifications/?base=all&type=all&display_ascii=Display+as+ASCII'
+    ENTRY_ENDPOINT = 'http://modomics.genesilico.pl/modifications/{}/'
+    MAX_RETRIES = 5
 
     def run(self, path=filename):
         """ Build alphabet and, optionally, save to YAML file
@@ -39,32 +50,102 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         # initialize alphabet
         alphabet = Alphabet()
 
-        # create bases
-        alphabet.A = Base(
-            id='AMP',
-            name="2'-adenosine 5'-monophosphate(2−)",
-            identifiers=IdentifierSet([
-                Identifier('pubchem.compound', '15938965'),
-                Identifier('metacyc.compound', 'AMP'),
-                Identifier('chebi', 'CHEBI:456215'),
-            ]),
-            structure=('InChI=1S/C10H14N5O7P/c11-8-5-9(13-2-12-8)15(3-14-5)10-7(17)6(16)4(22-10)1-21-23(18,19)20'
-                       '/h2-4,6-7,10,16-17H,1H2,(H2,11,12,13)(H2,18,19,20)/p-2/t4-,6-,7-,10-/m1/s1')
-        )
+        # create canonical bases
+        alphabet.from_yaml(pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna.canonical.yml')))
+
+        # create requests session
+        cache_name = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna'))
+        session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
+        session.mount('http://', requests.adapters.HTTPAdapter(max_retries=self.MAX_RETRIES))
+
+        # get index of modifications
+        response = session.get(self.INDEX_ENDPOINT)
+        response.raise_for_status()
+
+        # get individual modifications and create bases
+        reader = csv.DictReader(io.StringIO(response.text), delimiter='\t', quoting=csv.QUOTE_NONE)
+        for mod in reader:
+            if ' (base)' in mod['new_nomenclature']:
+                continue
+
+            id = mod['short_name']
+
+            chars = mod['new_nomenclature']
+            if not chars:
+                chars = id
+
+            synonyms = SynonymSet()
+            if mod['rnamods_abbrev']:
+                synonyms.add(mod['rnamods_abbrev'])
+
+            identifiers = IdentifierSet()
+            if mod['short_name']:
+                identifiers.add(Identifier('modomics.short_name', mod['short_name']))
+            if mod['new_nomenclature']:
+                identifiers.add(Identifier('modomics.new_nomenclature', mod['new_nomenclature']))
+
+            structure = self.get_modification_structure(id, session)
+
+            if chars in alphabet:
+                warnings.warn('Ignoring canonical base {}'.format(chars), UserWarning)
+                continue
+
+            alphabet[chars] = Base(
+                id=chars,
+                name=mod['name'],
+                synonyms=synonyms,
+                identifiers=identifiers,
+                structure=structure,
+                comments="Modification of {}.".format(mod['originating_base'])
+            )
 
         # return alphabet
         return alphabet
 
+    def get_modification_structure(self, id, session):
+        """ Get the structure of a modified NMP in the MODOMICS database
+
+        Args:
+            id (:obj:`str`): id of modification in MODOMICS database
+
+        Returns:
+            :obj:`openbabel.OBMol`: structure
+        """
+        response = session.get(self.ENTRY_ENDPOINT.format(id))
+        response.raise_for_status()
+
+        doc = bs4.BeautifulSoup(response.text, 'html.parser')
+
+        table = doc.find(id='modification_details')
+        if table is None:
+            return None
+
+        tbody = table.find('tbody')
+        tr = tbody.find_all('tr')[-1]
+        tds = tr.find_all('td')
+        assert tds[0].text.startswith('SMILES'), "Wrong cell retrieved to parse structure"
+
+        td = tds[1]
+        smiles = td.text
+        if not smiles:
+            return None
+
+        mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        assert conv.SetInFormat('smi')
+        if not conv.ReadString(mol, smiles):
+            return None
+
+        return mol
+
 
 class RnaForm(BpForm):
     """ RNA form """
-    DEFAULT_ALPHABET = rna_alphabet
-    DEFAULT_BOND_FORMULA = EmpiricalFormula('H') * -1
-    DEFAULT_BOND_CHARGE = 1
 
     def __init__(self, base_seq=None):
         """
         Args:
             base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
         """
-        super(RnaForm, self).__init__(base_seq=base_seq)
+        super(RnaForm, self).__init__(base_seq=base_seq, alphabet=rna_alphabet,
+                                      bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)

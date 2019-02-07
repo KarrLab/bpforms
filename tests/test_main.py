@@ -161,7 +161,7 @@ class BuildAlphabetsCliTestCase(unittest.TestCase):
                 app.run()
 
                 # test that the CLI produced the correct output
-                self.assertEqual(captured.stdout.get_text(), 'Alphabets successfully built')
+                self.assertIn('Alphabets successfully built', captured.stdout.get_text())
                 self.assertEqual(captured.stderr.get_text(), '')
 
         self.assertTrue(os.path.isfile(bpforms.alphabet.dna.filename))

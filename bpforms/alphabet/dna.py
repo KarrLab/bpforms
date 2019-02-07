@@ -39,6 +39,9 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         # initialize alphabet
         alphabet = Alphabet()
 
+        # load canonical bases
+        alphabet.from_yaml(pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.canonical.yml')))
+
         # create bases
         alphabet.A = Base(
             id='dAMP',
@@ -62,13 +65,11 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
 class DnaForm(BpForm):
     """ DNA form """
-    DEFAULT_ALPHABET = dna_alphabet
-    DEFAULT_BOND_FORMULA = EmpiricalFormula('H') * -1
-    DEFAULT_BOND_CHARGE = 1
 
     def __init__(self, base_seq=None):
         """
         Args:
             base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
         """
-        super(DnaForm, self).__init__(base_seq=base_seq)
+        super(DnaForm, self).__init__(base_seq=base_seq, alphabet=dna_alphabet,
+                                      bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
