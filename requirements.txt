@@ -10,4 +10,4 @@ requests
 requests_cache
 ruamel.yaml >= 0.15
 setuptools
-git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils-0.0.1a5
+git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils-0.0.3

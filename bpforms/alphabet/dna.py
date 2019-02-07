@@ -15,6 +15,10 @@ filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', '
 dna_alphabet = Alphabet().from_yaml(filename)
 # :obj:`Alphabet`: Alphabet for DNA nucleotides
 
+canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.canonical.yml'))
+canonical_dna_alphabet = Alphabet().from_yaml(canonical_filename)
+# :obj:`Alphabet`: Alphabet for canonical DNA nucleotides
+
 
 class DnaAlphabetBuilder(AlphabetBuilder):
     """ Build DNA alphabet from DNAmod """
@@ -40,10 +44,10 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         alphabet = Alphabet()
 
         # load canonical bases
-        alphabet.from_yaml(pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.canonical.yml')))
+        alphabet.from_yaml(canonical_filename)
 
         # create bases
-        alphabet.A = Base(
+        alphabet.bases.A = Base(
             id='dAMP',
             name="2'-deoxyadenosine 5'-monophosphate(2−)",
             synonyms=SynonymSet([
@@ -73,3 +77,15 @@ class DnaForm(BpForm):
         """
         super(DnaForm, self).__init__(base_seq=base_seq, alphabet=dna_alphabet,
                                       bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+
+
+class CanonicalDnaForm(BpForm):
+    """ Canonical DNA form """
+
+    def __init__(self, base_seq=None):
+        """
+        Args:
+            base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
+        """
+        super(CanonicalDnaForm, self).__init__(base_seq=base_seq, alphabet=canonical_dna_alphabet,
+                                               bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)

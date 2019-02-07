@@ -22,6 +22,10 @@ filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', '
 rna_alphabet = Alphabet().from_yaml(filename)
 # :obj:`Alphabet`: Alphabet for RNA nucleotides
 
+canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna.canonical.yml'))
+canonical_rna_alphabet = Alphabet().from_yaml(canonical_filename)
+# :obj:`Alphabet`: Alphabet for canonical RNA nucleotides
+
 
 class RnaAlphabetBuilder(AlphabetBuilder):
     """ Build RNA alphabet from MODOMICS """
@@ -51,7 +55,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         alphabet = Alphabet()
 
         # create canonical bases
-        alphabet.from_yaml(pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna.canonical.yml')))
+        alphabet.from_yaml(canonical_filename)
 
         # create requests session
         cache_name = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna'))
@@ -86,11 +90,11 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
             structure = self.get_modification_structure(id, session)
 
-            if chars in alphabet:
+            if chars in alphabet.bases:
                 warnings.warn('Ignoring canonical base {}'.format(chars), UserWarning)
                 continue
 
-            alphabet[chars] = Base(
+            alphabet.bases[chars] = Base(
                 id=chars,
                 name=mod['name'],
                 synonyms=synonyms,
@@ -149,3 +153,15 @@ class RnaForm(BpForm):
         """
         super(RnaForm, self).__init__(base_seq=base_seq, alphabet=rna_alphabet,
                                       bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+
+
+class CanonicalRnaForm(BpForm):
+    """ Canonical RNA form """
+
+    def __init__(self, base_seq=None):
+        """
+        Args:
+            base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
+        """
+        super(CanonicalRnaForm, self).__init__(base_seq=base_seq, alphabet=canonical_rna_alphabet,
+                                               bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)

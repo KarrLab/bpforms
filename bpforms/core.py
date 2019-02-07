@@ -9,8 +9,8 @@
 from ruamel import yaml
 from wc_utils.util.chem import EmpiricalFormula
 import capturer
-with capturer.CaptureOutput(merged=False, relay=False):
-    from cdk_pywrapper import cdk_pywrapper
+#with capturer.CaptureOutput(merged=False, relay=False):
+from cdk_pywrapper import cdk_pywrapper
 import abc
 import attrdict
 import lark
@@ -780,8 +780,8 @@ class BaseSequence(list):
         return True
 
 
-class Alphabet(attrdict.AttrDict):
-    """ Alphabet for bases """
+class BaseDict(attrdict.AttrDict):
+    """ Dictionary for bases """
 
     def __setitem__(self, chars, base):
         """ Set base with chars
@@ -792,7 +792,56 @@ class Alphabet(attrdict.AttrDict):
         """
         if not re.match('^[^\(\) ]*[A-Z][^\(\) ]*$', chars):
             raise ValueError('`chars` must be composed of letters, numbers, and underscores and include at least one upper case letter')
-        super(Alphabet, self).__setitem__(chars, base)
+        super(BaseDict, self).__setitem__(chars, base)
+
+
+class Alphabet(object):
+    """ Alphabet for bases 
+
+    Attributes:
+        id (:obj:`str`): id
+        name (:obj:`str`): name
+        description (:obj:`str`): description
+        bases (:obj:`dict`): bases
+    """
+
+    def __init__(self, id=None, name=None, description=None, bases=None):
+        """
+        Args:
+            id (:obj:`str`, optional): id
+            name (:obj:`str`, optional): name
+            description (:obj:`str`, optional): description
+            bases (:obj:`dict`, optional): bases
+        """
+        self.id = id
+        self.name = name
+        self.description = description
+        self.bases = bases or BaseDict()
+
+    @property
+    def bases(self):
+        """ Get the bases
+
+        Returns:
+            :obj:`BaseDict`: bases
+        """
+        return self._bases
+
+    @bases.setter
+    def bases(self, value):
+        """ Set the bases
+
+        Args:
+            value (:obj:`BaseDict`): bases
+
+        Raises:
+            :obj:`ValueError`: if `bases` is not an instance of `BaseDict`
+        """
+        if value is None:
+            raise ValueError('`bases` must be an instance of `BaseDict`')
+        if not isinstance(value, BaseDict):
+            value = BaseDict(value)
+        self._bases = value
 
     def protonate(self, ph):
         """ Protonate bases
@@ -800,7 +849,7 @@ class Alphabet(attrdict.AttrDict):
         Args:
             ph (:obj:`float`): pH
         """
-        for base in self.values():
+        for base in self.bases.values():
             base.protonate(ph)
 
     def is_equal(self, other):
@@ -816,10 +865,13 @@ class Alphabet(attrdict.AttrDict):
             return True
         if self.__class__ != other.__class__:
             return False
-        if len(self) != len(other):
+        for attr in ['id', 'name', 'description']:
+            if getattr(self, attr) != getattr(other, attr):
+                return False
+        if len(self.bases) != len(other.bases):
             return False
-        for chars, self_base in self.items():
-            if not self_base.is_equal(other.get(chars, None)):
+        for chars, self_base in self.bases.items():
+            if not self_base.is_equal(other.bases.get(chars, None)):
                 return False
         return True
 
@@ -830,8 +882,16 @@ class Alphabet(attrdict.AttrDict):
             :obj:`dict`: dictionary representation of alphabet
         """
         dict = {}
-        for chars, base in self.items():
-            dict[chars] = base.to_dict()
+
+        for attr in ['id', 'name', 'description']:
+            val = getattr(self, attr)
+            if val:
+                dict[attr] = val
+
+        dict['bases'] = {}
+        for chars, base in self.bases.items():
+            dict['bases'][chars] = base.to_dict()
+
         return dict
 
     def from_dict(self, dict):
@@ -843,9 +903,14 @@ class Alphabet(attrdict.AttrDict):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        self.clear()
-        for chars, base in dict.items():
-            self[chars] = Base().from_dict(base)
+        for attr in ['id', 'name', 'description']:
+            val = dict.get(attr, None)
+            setattr(self, attr, val)
+
+        self.bases.clear()
+        for chars, base in dict['bases'].items():
+            self.bases[chars] = Base().from_dict(base)
+
         return self
 
     def to_yaml(self, path):
@@ -1166,7 +1231,7 @@ class BpForm(object):
         Returns:
             :obj:`str`: string representation of the biopolymer form
         """
-        alphabet_bases = {base: chars for chars, base in self.alphabet.items()}
+        alphabet_bases = {base: chars for chars, base in self.alphabet.bases.items()}
         val = ''
         for base in self.base_seq:
             chars = alphabet_bases.get(base, None)
@@ -1237,7 +1302,7 @@ class BpForm(object):
             def alphabet_base(self, chars):
                 if chars[0] == '(' and chars[-1] == ')':
                     chars = chars[1:-1]
-                base = self.bp_form.alphabet.get(chars, None)
+                base = self.bp_form.alphabet.bases.get(chars, None)
                 if base is None:
                     raise ValueError('"{}" not in alphabet'.format(chars))
                 return base

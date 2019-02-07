@@ -6,28 +6,42 @@
 :License: MIT
 """
 
+from . import core
 from .alphabet import dna
 from .alphabet import rna
 from .alphabet import protein
 
 
+def get_alphabets():
+    """ Get a list of available alphabets 
+
+    Returns:
+        :obj:`dict`: dictionary which maps the ids of alphabets to alphabets
+    """
+    alphabets = [
+        dna.dna_alphabet,
+        dna.canonical_dna_alphabet,
+        rna.rna_alphabet,
+        rna.canonical_rna_alphabet,
+        protein.protein_alphabet,
+        protein.canonical_protein_alphabet,
+    ]
+    return {alphabet.id: alphabet for alphabet in alphabets}
+
+
 def get_alphabet(alphabet):
-    """ Get a subclass of BpFrom
+    """ Get an alphabet
 
     Args:
         alphabet (:obj:`str`): alphabet
 
     Returns:
-        :obj:`type`: subclass of BpForm
+        :obj:`core.Alphabet`: alphabet
     """
-    if alphabet == 'dna':
-        return dna.dna_alphabet
-    if alphabet == 'rna':
-        return rna.rna_alphabet
-    if alphabet == 'protein':
-        return protein.protein_alphabet
-
-    raise ValueError('Alphabet "{}" must be "dna", "rna", or "protein"'.format(alphabet))
+    alphabet_obj = get_alphabets().get(alphabet, None)
+    if alphabet_obj is None:
+        raise ValueError('Unknown alphabet "{}"'.format(alphabet))
+    return alphabet_obj
 
 
 def get_form(alphabet):
@@ -41,10 +55,18 @@ def get_form(alphabet):
     """
     if alphabet == 'dna':
         return dna.DnaForm
+    if alphabet == 'canonical_dna':
+        return dna.CanonicalDnaForm
+    
     if alphabet == 'rna':
         return rna.RnaForm
+    if alphabet == 'canonical_rna':
+        return rna.CanonicalRnaForm
+    
     if alphabet == 'protein':
         return protein.ProteinForm
+    if alphabet == 'canonical_protein':
+        return protein.CanonicalProteinForm
 
     raise ValueError('Alphabet "{}" must be "dna", "rna", or "protein"'.format(alphabet))
 

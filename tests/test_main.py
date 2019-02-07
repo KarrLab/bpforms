@@ -99,10 +99,10 @@ class CliTestCase(unittest.TestCase):
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             base_seq = ''.join([
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.A.get_inchi()),
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.C.get_inchi()),
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.G.get_inchi()),
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.T.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.bases.A.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.bases.C.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.bases.G.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.bases.T.get_inchi()),
             ])
             with __main__.App(argv=['get-properties', 'dna', base_seq, '--ph', '7.0']) as app:
                 # run app

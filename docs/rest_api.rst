@@ -17,7 +17,14 @@ The base URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/
 
 * ``/alphabet``: Returns a list of available alphabets.::
 
-    ['dna', 'rna', 'protein']
+    [
+        {
+            'id': 'dna', 
+            'name': 'DNA',
+            'description': '...'
+        },
+        ...
+    ]
 
 * ``/alphabet/{alphabet: string}``: Returns an associative array of bases in the alphabet and their properties.::
 

@@ -25,7 +25,12 @@ class UtilTestCase(unittest.TestCase):
         os.rename(rna.filename + '.save', rna.filename)
         os.rename(protein.filename + '.save', protein.filename)
 
+    def test_get_alphabets(self):
+        print(util.get_alphabets()['dna'].id)
+        self.assertEqual(util.get_alphabets()['dna'], dna.dna_alphabet)
+
     def test_get_alphabet(self):
+        print(util.get_alphabet('dna').is_equal(dna.dna_alphabet))
         self.assertEqual(util.get_alphabet('dna'), dna.dna_alphabet)
         self.assertEqual(util.get_alphabet('rna'), rna.rna_alphabet)
         self.assertEqual(util.get_alphabet('protein'), protein.protein_alphabet)
@@ -36,6 +41,9 @@ class UtilTestCase(unittest.TestCase):
         self.assertEqual(util.get_form('dna'), dna.DnaForm)
         self.assertEqual(util.get_form('rna'), rna.RnaForm)
         self.assertEqual(util.get_form('protein'), protein.ProteinForm)
+        self.assertEqual(util.get_form('canonical_dna'), dna.CanonicalDnaForm)
+        self.assertEqual(util.get_form('canonical_rna'), rna.CanonicalRnaForm)
+        self.assertEqual(util.get_form('canonical_protein'), protein.CanonicalProteinForm)
         with self.assertRaises(ValueError):
             util.get_form('lipid')
 

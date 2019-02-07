@@ -96,11 +96,13 @@ class RestTestCase(unittest.TestCase):
 
     def test_get_alphabets(self):
         client = rest.app.test_client()
-        rv = client.get('/api/alphabet')
+        rv = client.get('/api/alphabet/')
         self.assertEqual(rv.status_code, 200)
-        self.assertEqual(set(rv.get_json()), set(['dna', 'rna', 'protein']))
+        alphabets = rv.get_json()
+        self.assertEqual(alphabets['dna']['name'], 'DNA')
+        self.assertEqual(alphabets['canonical_dna']['name'], 'Canonical DNA')
 
-    def test_get_alphabets(self):
+    def test_get_alphabet(self):
         client = rest.app.test_client()
 
         rv = client.get('/api/alphabet/dna/')

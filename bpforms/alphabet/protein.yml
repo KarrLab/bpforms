@@ -1,135 +1,139 @@
-F:
-  id: Phe
-  name: L-phenylalanine
-  synonyms:
-  - (S)-2-Amino-3-phenylpropionic acid  
-  - (S)-alpha-Amino-beta-phenylpropionic acid
-  - 3-phenyl-L-alanine  
-  - β-phenyl-L-alanine  
-  identifiers:
-  - ns: chebi
-    id: CHEBI:17295
-  - ns: metacyc.compound
-    id: PHE
-  - ns: pubchem.compound
-    id: '22848660'
-  structure: InChI=1S/C9H11NO2/c10-8(9(11)12)6-7-4-2-1-3-5-7/h1-5,8H,6,10H2,(H,11,12)/t8-/m0/s1
-P:
-  id: Pro
-  name: L-proline
-  synonyms:
-  - L-pyrrolidine-2-carboxylic acid
-  - L-alpha-pyrrolidinecarboxylic acid
-  - L-(-)-proline
-  - 2-Pyrrolidinecarboxylic acid
-  - (S)-pyrrolidine-2-carboxylic acid
-  - (S)-2-pyrrolidinecarboxylic acid
-  - (S)-2-carboxypyrrolidine
-  - (2S)-pyrrolidine-2-carboxylic acid
-  - (-)-proline
-  - (-)-2-pyrrolidinecarboxylic acid
-  - (-)-(S)-proline
-  identifiers:
-  - ns: chebi
-    id: CHEBI:17203
-  - ns: metacyc.compound
-    id: PRO
-  - ns: pubchem.compound
-    id: '145742'
-  structure: InChI=1S/C5H9NO2/c7-5(8)4-2-1-3-6-4/h4,6H,1-3H2,(H,7,8)/t4-/m0/s1
-S:
-  id: Ser
-  name: L-serine
-  synonyms:
-  - L-3-Hydroxy-alanine
-  - L-3-Hydroxy-2-aminopropionic acid
-  - L-2-Amino-3-hydroxypropionic acid
-  - L-(-)-serine; beta-Hydroxyalanine
-  - beta-Hydroxy-L-alanine
-  - (S)-serine
-  - (S)-alpha-Amino-beta-hydroxypropionic acid
-  - (S)-2-amino-3-hydroxypropanoic acid
-  - (S)-(-)-serine
-  - (2S)-2-amino-3-hydroxypropanoic acid 
-  identifiers:
-  - ns: chebi
-    id: CHEBI:17115
-  - ns: metacyc.compound
-    id: SER
-  - ns: pubchem.compound
-    id: '5951'
-  structure: InChI=1S/C3H7NO3/c4-2(1-5)3(6)7/h2,5H,1,4H2,(H,6,7)/t2-/m0/s1
-T:
-  id: Thr
-  name: L-threonine
-  synonyms:
-  - L-alpha-amino-beta-hydroxybutyric acid
-  - L-2-Amino-3-hydroxybutyric acid
-  - L-(-)-Threonine
-  - 2-Amino-3-hydroxybutyric acid
-  - (2S,3R)-2-amino-3-hydroxybutanoic acid
-  - (2S,3R)-(-)-Threonine
-  - (2S)-threonine
-  identifiers:
-  - ns: chebi
-    id: CHEBI:16857
-  - ns: metacyc.compound
-    id: THR
-  - ns: pubchem.compound
-    id: '6288'
-  structure: InChI=1S/C4H9NO3/c1-2(6)3(5)4(7)8/h2-3,6H,5H2,1H3,(H,7,8)/t2-,3+/m1/s1
-W:
-  id: Trp
-  name: L-tryptophan
-  synonyms:
-  - (2S)-2-amino-3-(1H-indol-3-yl)propanoic acid  
-  - (S)-α-amino-1H-indole-3-propanoic acid  
-  - (S)-alpha-Amino-beta-(3-indolyl)-propionic acid 
-  - (S)-tryptophan  
-  - L-(−)-tryptophan  
-  - L-β-3-indolylalanine
-  identifiers:
-  - ns: chebi
-    id: CHEBI:16828
-  - ns: metacyc.compound
-    id: TRP
-  - ns: pubchem.compound
-    id: '6305'
-  structure: InChI=1S/C11H12N2O2/c12-9(11(14)15)5-7-6-13-10-4-2-1-3-8(7)10/h1-4,6,9,13H,5,12H2,(H,14,15)/t9-/m0/s1
-Y:
-  id: Tyr
-  name: L-tyrosine
-  synonyms:
-  - 4-hydroxy-L-phenylalanine
-  - (S)-Tyrosine
-  - (S)-alpha-amino-4-hydroxybenzenepropanoic acid
-  - (S)-3-(p-Hydroxyphenyl)alanine
-  - (S)-2-Amino-3-(p-hydroxyphenyl)propionic acid
-  - (S)-(-)-Tyrosine
-  - (2S)-2-amino-3-(4-hydroxyphenyl)propanoic acid
-  - (-)-alpha-amino-p-hydroxyhydrocinnamic acid
-  identifiers:
-  - ns: chebi
-    id: CHEBI:17895
-  - ns: metacyc.compound
-    id: TYR
-  - ns: pubchem.compound
-    id: '6057'
-  structure: InChI=1S/C9H11NO3/c10-8(9(12)13)5-6-1-3-7(11)4-2-6/h1-4,8,11H,5,10H2,(H,12,13)/t8-/m0/s1
-V:
-  id: Val
-  name: L-valine
-  synonyms:
-  - L-alpha-Amino-beta-methylbutyric acid
-  - L-(+)-alpha-Aminoisovaleric acid
-  - 2-Amino-3-methylbutyric acid
-  - (S)-valine
-  - (2S)-2-amino-3-methylbutanoic acid
-  identifiers:
-  - ns: chebi
-    id: CHEBI:16414
-  - ns: metacyc.compound
-    id: VAL
-  - ns: pubchem.compound
-    id: '6287'
-  structure: InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1
+id: protein
+name: Protein
+description: The 20 canonical bases, plus the modified bases in <a href="https://pir.georgetown.edu/resid">RESID</a>
+bases:
+  F:
+    id: Phe
+    name: L-phenylalanine
+    synonyms:
+    - (S)-2-Amino-3-phenylpropionic acid  
+    - (S)-alpha-Amino-beta-phenylpropionic acid
+    - 3-phenyl-L-alanine  
+    - β-phenyl-L-alanine  
+    identifiers:
+    - ns: chebi
+      id: CHEBI:17295
+    - ns: metacyc.compound
+      id: PHE
+    - ns: pubchem.compound
+      id: '22848660'
+    structure: InChI=1S/C9H11NO2/c10-8(9(11)12)6-7-4-2-1-3-5-7/h1-5,8H,6,10H2,(H,11,12)/t8-/m0/s1
+  P:
+    id: Pro
+    name: L-proline
+    synonyms:
+    - L-pyrrolidine-2-carboxylic acid
+    - L-alpha-pyrrolidinecarboxylic acid
+    - L-(-)-proline
+    - 2-Pyrrolidinecarboxylic acid
+    - (S)-pyrrolidine-2-carboxylic acid
+    - (S)-2-pyrrolidinecarboxylic acid
+    - (S)-2-carboxypyrrolidine
+    - (2S)-pyrrolidine-2-carboxylic acid
+    - (-)-proline
+    - (-)-2-pyrrolidinecarboxylic acid
+    - (-)-(S)-proline
+    identifiers:
+    - ns: chebi
+      id: CHEBI:17203
+    - ns: metacyc.compound
+      id: PRO
+    - ns: pubchem.compound
+      id: '145742'
+    structure: InChI=1S/C5H9NO2/c7-5(8)4-2-1-3-6-4/h4,6H,1-3H2,(H,7,8)/t4-/m0/s1
+  S:
+    id: Ser
+    name: L-serine
+    synonyms:
+    - L-3-Hydroxy-alanine
+    - L-3-Hydroxy-2-aminopropionic acid
+    - L-2-Amino-3-hydroxypropionic acid
+    - L-(-)-serine; beta-Hydroxyalanine
+    - beta-Hydroxy-L-alanine
+    - (S)-serine
+    - (S)-alpha-Amino-beta-hydroxypropionic acid
+    - (S)-2-amino-3-hydroxypropanoic acid
+    - (S)-(-)-serine
+    - (2S)-2-amino-3-hydroxypropanoic acid 
+    identifiers:
+    - ns: chebi
+      id: CHEBI:17115
+    - ns: metacyc.compound
+      id: SER
+    - ns: pubchem.compound
+      id: '5951'
+    structure: InChI=1S/C3H7NO3/c4-2(1-5)3(6)7/h2,5H,1,4H2,(H,6,7)/t2-/m0/s1
+  T:
+    id: Thr
+    name: L-threonine
+    synonyms:
+    - L-alpha-amino-beta-hydroxybutyric acid
+    - L-2-Amino-3-hydroxybutyric acid
+    - L-(-)-Threonine
+    - 2-Amino-3-hydroxybutyric acid
+    - (2S,3R)-2-amino-3-hydroxybutanoic acid
+    - (2S,3R)-(-)-Threonine
+    - (2S)-threonine
+    identifiers:
+    - ns: chebi
+      id: CHEBI:16857
+    - ns: metacyc.compound
+      id: THR
+    - ns: pubchem.compound
+      id: '6288'
+    structure: InChI=1S/C4H9NO3/c1-2(6)3(5)4(7)8/h2-3,6H,5H2,1H3,(H,7,8)/t2-,3+/m1/s1
+  W:
+    id: Trp
+    name: L-tryptophan
+    synonyms:
+    - (2S)-2-amino-3-(1H-indol-3-yl)propanoic acid  
+    - (S)-α-amino-1H-indole-3-propanoic acid  
+    - (S)-alpha-Amino-beta-(3-indolyl)-propionic acid 
+    - (S)-tryptophan  
+    - L-(−)-tryptophan  
+    - L-β-3-indolylalanine
+    identifiers:
+    - ns: chebi
+      id: CHEBI:16828
+    - ns: metacyc.compound
+      id: TRP
+    - ns: pubchem.compound
+      id: '6305'
+    structure: InChI=1S/C11H12N2O2/c12-9(11(14)15)5-7-6-13-10-4-2-1-3-8(7)10/h1-4,6,9,13H,5,12H2,(H,14,15)/t9-/m0/s1
+  Y:
+    id: Tyr
+    name: L-tyrosine
+    synonyms:
+    - 4-hydroxy-L-phenylalanine
+    - (S)-Tyrosine
+    - (S)-alpha-amino-4-hydroxybenzenepropanoic acid
+    - (S)-3-(p-Hydroxyphenyl)alanine
+    - (S)-2-Amino-3-(p-hydroxyphenyl)propionic acid
+    - (S)-(-)-Tyrosine
+    - (2S)-2-amino-3-(4-hydroxyphenyl)propanoic acid
+    - (-)-alpha-amino-p-hydroxyhydrocinnamic acid
+    identifiers:
+    - ns: chebi
+      id: CHEBI:17895
+    - ns: metacyc.compound
+      id: TYR
+    - ns: pubchem.compound
+      id: '6057'
+    structure: InChI=1S/C9H11NO3/c10-8(9(12)13)5-6-1-3-7(11)4-2-6/h1-4,8,11H,5,10H2,(H,12,13)/t8-/m0/s1
+  V:
+    id: Val
+    name: L-valine
+    synonyms:
+    - L-alpha-Amino-beta-methylbutyric acid
+    - L-(+)-alpha-Aminoisovaleric acid
+    - 2-Amino-3-methylbutyric acid
+    - (S)-valine
+    - (2S)-2-amino-3-methylbutanoic acid
+    identifiers:
+    - ns: chebi
+      id: CHEBI:16414
+    - ns: metacyc.compound
+      id: VAL
+    - ns: pubchem.compound
+      id: '6287'
+    structure: InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1

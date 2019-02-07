@@ -22,16 +22,17 @@ class RnaTestCase(unittest.TestCase):
         shutil.rmtree(self.dirname)
 
     def test_rna_alphabet(self):
-        self.assertEqual(rna.rna_alphabet.A.get_formula(), EmpiricalFormula('C10H12N5O7P'))
-        self.assertEqual(rna.rna_alphabet.C.get_formula(), EmpiricalFormula('C9H12N3O8P'))
-        self.assertEqual(rna.rna_alphabet.G.get_formula(), EmpiricalFormula('C10H12N5O8P'))
-        self.assertEqual(rna.rna_alphabet.U.get_formula(), EmpiricalFormula('C9H11N2O9P'))
+        self.assertEqual(rna.rna_alphabet.bases.A.get_formula(), EmpiricalFormula('C10H12N5O7P'))
+        self.assertEqual(rna.rna_alphabet.bases.C.get_formula(), EmpiricalFormula('C9H12N3O8P'))
+        self.assertEqual(rna.rna_alphabet.bases.G.get_formula(), EmpiricalFormula('C10H12N5O8P'))
+        self.assertEqual(rna.rna_alphabet.bases.U.get_formula(), EmpiricalFormula('C9H11N2O9P'))
 
     def test_RnaForm_init(self):
         rna.RnaForm()
+        rna.CanonicalRnaForm()
 
     def test_RnaAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
         alphabet = rna.RnaAlphabetBuilder().run(path=path)
-        self.assertEqual(alphabet.A.get_formula(), EmpiricalFormula('C10H12N5O7P'))
+        self.assertEqual(alphabet.bases.A.get_formula(), EmpiricalFormula('C10H12N5O7P'))
         self.assertTrue(os.path.isfile(path))

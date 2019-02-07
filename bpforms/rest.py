@@ -128,7 +128,14 @@ def get_bpform_properties(alphabet, base_seq, ph):
 
 @app.route("/api/alphabet/")
 def get_alphabets():
-    return ['dna', 'rna', 'protein']
+    rv = {}
+    for id, alphabet in bpforms.util.get_alphabets().items():
+        rv[id] = {
+            'id': alphabet.id,
+            'name': alphabet.name,
+            'description': alphabet.description,
+        }
+    return rv
 
 
 @app.route("/api/alphabet/<string:alphabet>/")

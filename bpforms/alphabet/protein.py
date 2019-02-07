@@ -15,6 +15,10 @@ filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', '
 protein_alphabet = Alphabet().from_yaml(filename)
 # :obj:`Alphabet`: Alphabet for protein amino acids
 
+canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.canonical.yml'))
+canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
+# :obj:`Alphabet`: Alphabet for canonical protein amino acids
+
 
 class ProteinAlphabetBuilder(AlphabetBuilder):
     """ Build protein alphabet from RESID """
@@ -40,10 +44,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         alphabet = Alphabet()
 
         # load canonical bases
-        alphabet.from_yaml(pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.canonical.yml')))
+        alphabet.from_yaml(canonical_filename)
 
         # create bases
-        alphabet.A = Base(
+        alphabet.bases.A = Base(
             id='ALA',
             name="alanine",
             synonyms=SynonymSet([
@@ -71,3 +75,15 @@ class ProteinForm(BpForm):
         """
         super(ProteinForm, self).__init__(base_seq=base_seq, alphabet=protein_alphabet,
                                           bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
+
+
+class CanonicalProteinForm(BpForm):
+    """ Canonical protein form """
+
+    def __init__(self, base_seq=None):
+        """
+        Args:
+            base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
+        """
+        super(CanonicalProteinForm, self).__init__(base_seq=base_seq, alphabet=canonical_protein_alphabet,
+                                                   bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)

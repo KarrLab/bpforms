@@ -36,7 +36,7 @@ Individual residues and slices of residues can be get and set similar to lists.:
     dna_form[0]
         => <bpforms.core.Base at 0x7fb365341240>
     
-    dna_form[1] = bpforms.dna_alphabet.A
+    dna_form[1] = bpforms.dna_alphabet.bases.A
     
     dna_form[1:3] 
         => [<bpforms.core.Base at 0x7fb365341240>, <bpforms.core.Base at 0x7fb365330cf8>]
