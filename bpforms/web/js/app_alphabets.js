@@ -1,12 +1,19 @@
 $(document).foundation()
 
+jQuery.fn.extend({
+ scrollToMe: function () {
+   var x = jQuery(this).offset().top - 100;
+   jQuery('html,body').animate({scrollTop: x}, 400);
+}});
+
 set_alphabets = function(data, status, jqXHR) {
     var html = ''
     for (alphabet_id in data) {
         alphabet = data[alphabet_id]
-        html += '<div class="grid-x grid-padding-x blue" name="' + alphabet['id'] + '">'
+        html += '<name="' + alphabet['id'] + '"></a>'
+        html += '<div class="grid-x grid-padding-x blue" id="' + alphabet['id'] + '">'
         html += '  <div class="large-12 cell">'
-        html += '    <h2>' + alphabet['name'] + ': ' + alphabet['id'] + '</h2>'
+        html += '    <h2>' + alphabet['id'] + ': ' + alphabet['name'] + '</h2>'
         html += '    <p>' + alphabet['description'] + '</p>'
         html += '    <table class="alphabet">'
         html += '      <thead>'
@@ -33,6 +40,8 @@ set_alphabets = function(data, status, jqXHR) {
     }
     
     $("#alphabets_container").html(html)
+    hash = document.URL.substr(document.URL.indexOf('#')+1) 
+    $("#" + hash).scrollToMe();
 }
 
 get_alphabets_error = function( jqXHR, textStatus, errorThrown ) {
@@ -87,6 +96,9 @@ set_alphabet = function(data, status, jqXHR) {
     }
     
     $("#alphabet_" + data['id']).html(html)
+    
+    hash = document.URL.substr(document.URL.indexOf('#')+1) 
+    $("#" + hash).scrollToMe();
 }
 
 get_alphabet_error = function( jqXHR, textStatus, errorThrown ) {
