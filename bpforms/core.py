@@ -1171,7 +1171,10 @@ class BpForm(object):
         for base in self.base_seq:
             chars = alphabet_bases.get(base, None)
             if chars:
-                val += chars
+                if len(chars) == 1:
+                    val += chars
+                else:
+                    val += '(' + chars + ')'
             else:
                 val += str(base)
         return val

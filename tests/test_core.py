@@ -819,6 +819,10 @@ class BpFormTestCase(unittest.TestCase):
                 alphabet['A'], alphabet['A'],
             ], alphabet=alphabet)))
 
+        as_str = 'AAA(AA)AA(aA)(Aa)AA'
+        form = core.BpForm(alphabet=alphabet).from_str(as_str)
+        self.assertEqual(str(form), as_str)
+
         alphabet = core.Alphabet()
         alphabet['aA'] = core.Base()
         alphabet['Aa'] = core.Base()
