@@ -43,7 +43,7 @@
             <label>Enter base sequence
                 <textarea
                     id="base_seq_in"
-                    placeholder="AC[id: m6A | structure: InChI=1S/C10H12N4O4/...]G"></textarea>
+                    placeholder="AC(m2A)CC[id: m6A | structure: InChI=1S/C10H12N4O4/...]G"></textarea>
             </label>
 
             <label>Optionally, enter a pH to correct the protonation
@@ -82,14 +82,20 @@
 
         <div class="large-6 cell">
           <h3>Overview</h3>
-          The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with non-canonical bases described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.
+          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined bases delimited by parentheses and (b) user-defined bases described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
+          <p style="margin-bottom: 0px;"><i>BpForms</i> has three pre-built alphabets.</p>
+          <ul>
+          <li><i>DNA</i>: The DNA alphabet includes the four canonical bases, plus the modified bases in DNAmod <a href="https://dnamod.hoffmanlab.org"><i class="fi-link"></i></a>.</li>
+          <li><i>RNA</i>: The RNA alphabet includes the four canonical bases, plus the modified bases in MODOMICS <a href="http://modomics.genesilico.pl/modifications"><i class="fi-link"></i></a>.</li>
+          <li><i>Protein</i>: The protein alphabet includes the 20 canonical bases, plus the modified bases in RESID <a href="https://pir.georgetown.edu/resid"><i class="fi-link">.</i></a></li>
+          </ul>
         </div>
         <div class="large-6 cell">
           <h3>Examples</h3>
           <ul>
           <li><tt>[id: "dI" | name: "deoxyinosine"]ACGC</tt>: represents deoxyinosine at the first position</li>
           <li><tt>AC[id: "dI" | name: "deoxyinosine"]GC</tt>: represents deoxyinosine at the third position</li>
-          <li><tt>ACGC[id: "dI" | name: "deoxyinosine"]</tt>: represents deoxyinosine at the last position</li>
+          <li><tt>AC(m2G)C[id: "dI" | name: "deoxyinosine"]</tt>: represents guanosine methylation and the second position and deoxyinosine at the last position</li>
           </ul>
         </div>
 

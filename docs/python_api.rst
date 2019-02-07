@@ -17,7 +17,7 @@ Creating biopolymer forms
 
 The following command can be run to a DNA form.::
 
-    dna_form = bpforms.DnaForm.from_str('''ACG[
+    dna_form = bpforms.DnaForm().from_str('''ACG[
         id: "dI" | 
         structure: InChI=1S
             /C10H12N4O4
@@ -41,7 +41,7 @@ Individual residues and slices of residues can be get and set similar to lists.:
     dna_form[1:3] 
         => [<bpforms.core.Base at 0x7fb365341240>, <bpforms.core.Base at 0x7fb365330cf8>]
     
-    dna_form[1:3] = bpforms.DnaForm.from_str('TA')
+    dna_form[1:3] = bpforms.DnaForm().from_str('TA')
 
 
 Protonation
@@ -72,9 +72,9 @@ Determine if two biopolymers describe the same structure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The following command can be run to determine if two biopolymers describe the same structure.::
 
-    dna_form_1 = bpforms.DnaForm.from_str('ACGT')
-    dna_form_2 = bpforms.DnaForm.from_str('ACGT')
-    dna_form_3 = bpforms.DnaForm.from_str('GCTC')
+    dna_form_1 = bpforms.DnaForm().from_str('ACGT')
+    dna_form_2 = bpforms.DnaForm().from_str('ACGT')
+    dna_form_3 = bpforms.DnaForm().from_str('GCTC')
 
     dna_form_1.is_equal(dna_form_2)
         => True

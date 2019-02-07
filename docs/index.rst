@@ -45,6 +45,7 @@ Contents
 
    installation.rst
    tutorial.rst
+   alphabets.rst
    resources.rst
    API documentation <source/modules.rst>
    about.rst
