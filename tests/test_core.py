@@ -50,8 +50,6 @@ class IdentifierTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             id.ns = ''
         with self.assertRaises(ValueError):
-            id.ns = '"pubchem"'
-        with self.assertRaises(ValueError):
             id.ns = 0
         with self.assertRaises(ValueError):
             id.ns = None
@@ -61,8 +59,6 @@ class IdentifierTestCase(unittest.TestCase):
             id.id = 0
         with self.assertRaises(ValueError):
             id.id = None
-        with self.assertRaises(ValueError):
-            id.id = '"22848660"'
         self.assertEqual(id.ns, 'pubchem.compound')
         self.assertEqual(id.id, '22848660')
 
@@ -414,8 +410,8 @@ class BaseTestCase(unittest.TestCase):
         self.assertIn(' | synonym: "dAMP"', str(base))
 
         base.identifiers = set([core.Identifier('chebi', 'CHEBI:58245'), core.Identifier('biocyc.compound', 'DAMP')])
-        self.assertIn(' | identifier: chebi/CHEBI:58245', str(base))
-        self.assertIn(' | identifier: biocyc.compound/DAMP', str(base))
+        self.assertIn(' | identifier: "chebi" / "CHEBI:58245"', str(base))
+        self.assertIn(' | identifier: "biocyc.compound" / "DAMP"', str(base))
 
         base.structure = dAMP_inchi
         self.assertIn(' | structure: {}]'.format(dAMP_inchi), str(base))
@@ -758,7 +754,7 @@ class BpFormTestCase(unittest.TestCase):
             'AA[id: "dI"'
             + ' | name: "2\'-deoxyinosine"'
             + ' | synonym: "2\'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"'
-            + ' | identifier: chebi/CHEBI:28997'
+            + ' | identifier: "chebi" / "CHEBI:28997"'
             + ' | structure: ' + dIMP_inchi
             + ' | delta-mass: -2.5'
             + ' | delta-charge: 3'

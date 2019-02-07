@@ -52,10 +52,10 @@ class Identifier(object):
             value (:obj:`str`): namespace
 
         Raises:
-            :obj:`ValueError`: if the namespace is not a series of letters, numbers, dashes, underscores, and periods
+            :obj:`ValueError`: if the namespace is empty
         """
-        if not isinstance(value, str) or not re.match(r'^[A-Za-z0-9_\.\-]+$', value):
-            raise ValueError('`ns` must be a series of letters, numbers, dashes, underscores, and periods')
+        if not value:
+            raise ValueError('`ns` cannot be empty')
         self._ns = value
 
     @property
@@ -75,10 +75,10 @@ class Identifier(object):
             value (:obj:`str`): id
 
         Raises:
-            :obj:`ValueError`: if the id is not a series of letters, numbers, dashes, underscores, periods, and colons
+            :obj:`ValueError`: if the id is empty
         """
-        if not isinstance(value, str) or not re.match(r'^[A-Za-z0-9_\.\-:]+$', value):
-            raise ValueError('`id` must be a series of letters, numbers, dashes, underscores, periods, and colons')
+        if not value:
+            raise ValueError('`id` cannot be empty')
         self._id = value
 
     def __eq__(self, other):
@@ -642,7 +642,7 @@ class Base(object):
         for synonym in self.synonyms:
             els.append('synonym: "' + synonym.replace('"', '\\"') + '"')
         for identifier in self.identifiers:
-            els.append('identifier: ' + identifier.ns + '/' + identifier.id)
+            els.append('identifier: "' + identifier.ns + '" / "' + identifier.id + '"')
         if self.structure:
             els.append('structure: ' + self.get_inchi())
         if self.delta_mass is not None:
@@ -781,6 +781,17 @@ class BaseSequence(list):
 
 class Alphabet(attrdict.AttrDict):
     """ Alphabet for bases """
+
+    def __setitem__(self, chars, base):
+        """ Set base with chars
+
+        Args:
+            chars (:obj:`str`): characters for base
+            base (:obj:`Base`): base
+        """
+        if not re.match('^[a-z0-9_]*[A-Z]$', chars):
+            raise ValueError('`chars` must be composed of letters, numbers, and underscores and end in an upper case letter')
+        super(Alphabet, self).__setitem__(chars, base)
 
     def protonate(self, ph):
         """ Protonate bases
@@ -1023,7 +1034,7 @@ class BpForm(object):
             value (:obj:`str`): bond charge
 
         Raises:
-            :obj:`ValueError`: if the bond charge is not a series of letters, numbers, dashes, underscores, and periods
+            :obj:`ValueError`: if the bond charge is not an integer
         """
         if not isinstance(value, (int, float)) or value != int(value):
             raise ValueError('`bond_charge` must be an integer')
@@ -1184,9 +1195,9 @@ class BpForm(object):
             ?id: "id" FIELD_SEP ESCAPED_STRING
             ?name: "name" FIELD_SEP ESCAPED_STRING
             ?synonym: "synonym" FIELD_SEP ESCAPED_STRING
-            ?identifier: "identifier" FIELD_SEP identifier_ns "/" identifier_id
-            ?identifier_ns: /[A-Za-z0-9_\.\-]+/
-            ?identifier_id: /[A-Za-z0-9_\.\-:]+/
+            ?identifier: "identifier" FIELD_SEP identifier_ns IDENTIFIER_SEP identifier_id
+            ?identifier_ns: ESCAPED_STRING
+            ?identifier_id: ESCAPED_STRING
             ?structure: "structure" FIELD_SEP INCHI
             ?delta_mass: "delta-mass" FIELD_SEP DALTON
             ?delta_charge: "delta-charge" FIELD_SEP CHARGE
@@ -1194,7 +1205,8 @@ class BpForm(object):
             ?comments: "comments" FIELD_SEP ESCAPED_STRING
             ATTR_SEP: WS* "|" WS*
             FIELD_SEP: WS* ":" WS*
-            CHARS: /[A-Z][a-z0-9_]*/
+            IDENTIFIER_SEP: WS* "/" WS*
+            CHARS: /[a-z0-9_]*[A-Z]/
             INCHI: /InChI=1S\/[A-Za-z0-9\(\)\-\+,\/]+/
             DALTON: /[\-\+]?[0-9]+(\.[0-9]*)?/
             CHARGE: /[\-\+]?[0-9]+/
@@ -1266,7 +1278,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def identifier(self, *args):
-                return ('identifiers', Identifier(args[-2].value, args[-1].value))
+                return ('identifiers', Identifier(args[-3].value[1:-1], args[-1].value[1:-1]))
 
             @lark.v_args(inline=True)
             def structure(self, *args):
