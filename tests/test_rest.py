@@ -6,6 +6,7 @@
 :License: MIT
 """
 
+from bpforms import core
 from bpforms import rest
 from bpforms.alphabet import dna
 from wc_utils.util.chem import EmpiricalFormula
@@ -60,9 +61,9 @@ class RestTestCase(unittest.TestCase):
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json()['version'], bpforms.__version__)
 
-    def test_get_properties(self):
+    def test_get_bpform_properties(self):
         client = rest.app.test_client()
-        rv = client.get('/api/get-properties/dna/ACGT/')
+        rv = client.get('/api/bpform/properties/dna/ACGT/')
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json(), {
             'alphabet': 'dna',
@@ -73,22 +74,39 @@ class RestTestCase(unittest.TestCase):
             'charge': -5,
         })
 
-    def test_get_properties_with_ph(self):
+    def test_get_bpform_properties_with_ph(self):
         client = rest.app.test_client()
-        rv = client.get('/api/get-properties/dna/ACGT/7./')
+        rv = client.get('/api/bpform/properties/dna/ACGT/7./')
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json()['alphabet'], 'dna')
         self.assertEqual(rv.get_json()['base_seq'], 'ACGT')
         self.assertEqual(rv.get_json()['length'], 4)
 
-    def test_get_properties_errors(self):
+    def test_get_bpform_properties_errors(self):
         client = rest.app.test_client()
 
-        rv = client.get('/api/get-properties/lipid/ACGT/7./')
+        rv = client.get('/api/bpform/properties/lipid/ACGT/7./')
         self.assertEqual(rv.status_code, 400)
 
-        rv = client.get('/api/get-properties/dna/ACG[T/7./')
+        rv = client.get('/api/bpform/properties/dna/ACG[T/7./')
         self.assertEqual(rv.status_code, 400)
 
-        rv = client.get('/api/get-properties/dna/ACGT/a/')
+        rv = client.get('/api/bpform/properties/dna/ACGT/a/')
+        self.assertEqual(rv.status_code, 400)
+
+    def test_get_alphabets(self):
+        client = rest.app.test_client()
+        rv = client.get('/api/alphabet')
+        self.assertEqual(rv.status_code, 200)
+        self.assertEqual(set(rv.get_json()), set(['dna', 'rna', 'protein']))
+
+    def test_get_alphabets(self):
+        client = rest.app.test_client()
+
+        rv = client.get('/api/alphabet/dna/')
+        self.assertEqual(rv.status_code, 200)
+        alphabet = core.Alphabet().from_dict(rv.get_json())
+        self.assertTrue(dna.dna_alphabet.is_equal(alphabet))
+
+        rv = client.get('/api/alphabet/lipid/')
         self.assertEqual(rv.status_code, 400)

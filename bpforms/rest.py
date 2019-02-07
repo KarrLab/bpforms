@@ -85,7 +85,9 @@ def default():
                         'and calculating their lengths, formulae, molecular weights, and charges.'),
         'endpoints': [
             {
-                '/api/get-properties/{alphabet: dna|rna|protein}/{base sequence: string}(/{pH: float})?':
+                '/api/alphabet': 'Get a list of available alphabets',
+                '/api/alphabet/{alphabet: string}': 'Get the bases in an alphabet',
+                '/api/bpform/properties/{alphabet: string}/{base sequence: string}(/{pH: float})?':
                 ('Optionally protonates the biopolymer and then calculates the length, formula, molecular weight, '
                  'and charge of the biopolymer form specified by the alphabet (dna, rna, or protein) and base '
                  'sequence, and returns these properties as an associative array.',),
@@ -95,9 +97,9 @@ def default():
     }
 
 
-@app.route("/api/get-properties/<string:alphabet>/<string:base_seq>/", defaults={'ph': None})
-@app.route("/api/get-properties/<string:alphabet>/<string:base_seq>/<string:ph>/")
-def get_properties(alphabet, base_seq, ph):
+@app.route("/api/bpform/properties/<string:alphabet>/<string:base_seq>/", defaults={'ph': None})
+@app.route("/api/bpform/properties/<string:alphabet>/<string:base_seq>/<string:ph>/")
+def get_bpform_properties(alphabet, base_seq, ph):
     try:
         form_cls = bpforms.util.get_form(alphabet)
     except ValueError as error:
@@ -122,3 +124,18 @@ def get_properties(alphabet, base_seq, ph):
         'mol_wt': form.get_mol_wt(),
         'charge': form.get_charge(),
     }
+
+
+@app.route("/api/alphabet/")
+def get_alphabets():
+    return ['dna', 'rna', 'protein']
+
+
+@app.route("/api/alphabet/<string:alphabet>/")
+def get_alphabet(alphabet):
+    try:
+        alphabet_obj = bpforms.util.get_alphabet(alphabet)
+    except ValueError as error:
+        raise ApiException('Invalid alphabet "{}"'.format(alphabet))
+
+    return alphabet_obj.to_dict()

@@ -15,7 +15,22 @@ The base URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/
         version: <string>
     }
 
-* ``/get-properties/{alphabet: rna, dna, or  protein}/{base_seq: string}(/{ph: float})?``: If the form is valid, this, optionally, protonates the form to the specified pH and returns the length, formula, mass, and charge of the form. If the form is invalid, this returns an error message.::
+* ``/alphabet``: Returns a list of available alphabets.::
+
+    ['dna', 'rna', 'protein']
+
+* ``/alphabet/{alphabet: string}``: Returns an associative array of bases in the alphabet and their properties.::
+
+    {
+        A: {
+            id: 'dAMP',
+            structure: 'InChI=1s/...',
+            ...
+        },
+        ...
+    }
+
+* ``/bpform/properties/{alphabet: rna, dna, or  protein}/{base_seq: string}(/{ph: float})?``: If the form is valid, this, optionally, protonates the form to the specified pH and returns the length, formula, mass, and charge of the form. If the form is invalid, this returns an error message.::
 
     {
         alphabet: <string>,
