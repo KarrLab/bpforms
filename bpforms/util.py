@@ -19,11 +19,11 @@ def get_alphabets():
         :obj:`dict`: dictionary which maps the ids of alphabets to alphabets
     """
     alphabets = [
-        dna.dna_alphabet,
-        dna.canonical_dna_alphabet,
-        rna.rna_alphabet,
-        rna.canonical_rna_alphabet,
+        dna.dna_alphabet,        
+        rna.rna_alphabet,        
         protein.protein_alphabet,
+        dna.canonical_dna_alphabet,
+        rna.canonical_rna_alphabet,
         protein.canonical_protein_alphabet,
     ]
     return {alphabet.id: alphabet for alphabet in alphabets}
