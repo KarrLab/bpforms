@@ -111,9 +111,9 @@ class CliTestCase(unittest.TestCase):
                 # test that the CLI produced the correct output
                 text = captured.stdout.get_text()
                 self.assertIn('Length: 4', text)
-                self.assertIn('Formula: C39H43N15O28P4', text)
-                self.assertIn('Molecular weight: 1293.745047992', text)
-                self.assertIn('Charge: -8', text)
+                self.assertIn('Formula: C39H46N15O28P4', text)
+                self.assertIn('Molecular weight: 1296.769047992', text)
+                self.assertIn('Charge: -5', text)
 
         with self.assertRaises(SystemExit):
             with __main__.App(argv=['get-properties', 'dna', 'ACGT[']) as app:

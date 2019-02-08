@@ -7,12 +7,14 @@
 """
 
 from ruamel import yaml
-from wc_utils.util.chem import EmpiricalFormula
+from wc_utils.util.chem import EmpiricalFormula, get_major_protonation_state
 import abc
 import attrdict
 import lark
 import openbabel
 import re
+import subprocess
+import time
 
 
 class Identifier(object):
@@ -498,7 +500,7 @@ class Base(object):
             ph (:obj:`float`): pH
         """
         if self.structure:
-            self.structure.CorrectForPH(ph)
+            self.structure = get_major_protonation_state(self.get_inchi(), ph=ph)
 
     def get_inchi(self):
         """ Get InChI representration of structure
@@ -851,8 +853,16 @@ class Alphabet(object):
         Args:
             ph (:obj:`float`): pH
         """
-        for base in self.bases.values():
-            base.protonate(ph)
+        bases = list(filter(lambda base: base.structure is not None, self.bases.values()))
+
+        inchis = []
+        for base in bases:
+            inchis.append(base.get_inchi())
+
+        new_inchis = get_major_protonation_state(inchis, ph=ph)
+
+        for base, new_inchi in zip(bases, new_inchis):
+            base.structure = new_inchi
 
     def is_equal(self, other):
         """ Determine two alphabets are semantically equal
@@ -1191,8 +1201,16 @@ class BpForm(object):
         Args:
             ph (:obj:`float`): pH
         """
-        for base in set(self.base_seq):
-            base.protonate(ph)
+        bases = list(filter(lambda base: base.structure is not None, set(self.base_seq)))
+
+        inchis = []
+        for base in bases:
+            inchis.append(base.get_inchi())
+
+        new_inchis = get_major_protonation_state(inchis, ph=ph)
+
+        for base, new_inchi in zip(bases, new_inchis):
+            base.structure = new_inchi
 
     def get_formula(self):
         """ Get the chemical formula
