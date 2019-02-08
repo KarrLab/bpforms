@@ -1,8 +1,5 @@
 attrdict
 beautifulsoup4
-capturer
-py4j # must be installed before cdk_pywrapper
-git+https://github.com/sebotic/cdk_pywrapper.git#egg=cdk_pywrapper-0.0.1
 cement >= 3.0.0
 lark_parser >= 0.6.6
 openbabel

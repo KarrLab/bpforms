@@ -8,9 +8,6 @@
 
 from ruamel import yaml
 from wc_utils.util.chem import EmpiricalFormula
-import capturer
-#with capturer.CaptureOutput(merged=False, relay=False):
-from cdk_pywrapper import cdk_pywrapper
 import abc
 import attrdict
 import lark
@@ -358,7 +355,7 @@ class Base(object):
         if value and not isinstance(value, openbabel.OBMol):
             ob_mol = openbabel.OBMol()
             conversion = openbabel.OBConversion()
-            assert conversion.SetInFormat('inchi'), 'Unable to set format to inchi'
+            assert conversion.SetInFormat('inchi'), 'Unable to set format to InChI'
             if not conversion.ReadString(ob_mol, value):
                 raise ValueError('`structure` must be an OpenBabel molecule, InChI-encoded structure, or None')
             value = ob_mol
@@ -511,10 +508,15 @@ class Base(object):
         """
         if self.structure:
             conversion = openbabel.OBConversion()
-
-            assert conversion.SetOutFormat('smi'), 'Unable to set format to smiles'
-            compound = cdk_pywrapper.Compound(compound_string=conversion.WriteString(self.structure).strip(), identifier_type='smiles')
-            return compound.get_inchi()
+            assert conversion.SetOutFormat('inchi'), 'Unable to set format to InChI'
+            conversion.SetOptions('r', conversion.OUTOPTIONS)
+            conversion.SetOptions('F', conversion.OUTOPTIONS)
+            inchi = conversion.WriteString(self.structure).strip()
+            inchi = inchi.replace('InChI=1/', 'InChI=1S/')
+            i_fixed_h = inchi.find('/f')
+            if i_fixed_h >= 0:
+                inchi = inchi[0:i_fixed_h]
+            return inchi
         else:
             return None
 

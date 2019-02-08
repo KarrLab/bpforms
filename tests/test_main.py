@@ -114,7 +114,6 @@ class CliTestCase(unittest.TestCase):
                 self.assertIn('Formula: C39H43N15O28P4', text)
                 self.assertIn('Molecular weight: 1293.745047992', text)
                 self.assertIn('Charge: -8', text)
-                self.assertEqual(captured.stderr.get_text(), '')
 
         with self.assertRaises(SystemExit):
             with __main__.App(argv=['get-properties', 'dna', 'ACGT[']) as app:
@@ -131,7 +130,6 @@ class CliTestCase(unittest.TestCase):
                 # test that the CLI produced the correct output
                 self.assertEqual(captured.stdout.get_text(), '[id: "ala" | structure: {0}][id: "ala" | structure: {0}]'.format(
                     ala_inchi_ph_14))
-                self.assertEqual(captured.stderr.get_text(), '')
 
         with self.assertRaises(SystemExit):
             with __main__.App(argv=['protonate', 'dna', 'ACGT[', '7.']) as app:
@@ -162,7 +160,6 @@ class BuildAlphabetsCliTestCase(unittest.TestCase):
 
                 # test that the CLI produced the correct output
                 self.assertIn('Alphabets successfully built', captured.stdout.get_text())
-                self.assertEqual(captured.stderr.get_text(), '')
 
         self.assertTrue(os.path.isfile(bpforms.alphabet.dna.filename))
         self.assertTrue(os.path.isfile(bpforms.alphabet.rna.filename))
