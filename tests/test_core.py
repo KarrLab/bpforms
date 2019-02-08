@@ -809,14 +809,16 @@ class BpFormTestCase(unittest.TestCase):
         alphabet.bases['Aa'] = core.Base()
         alphabet.bases['A'] = core.Base()
         alphabet.bases['AA'] = core.Base()
+        alphabet.bases['*'] = core.Base()
         self.assertTrue(core.BpForm(alphabet=alphabet).from_str(
-            'AAA(AA)AA(aA)(Aa)AA').is_equal(core.BpForm([
+            'AAA(AA)AA(aA)(Aa)AA*').is_equal(core.BpForm([
                 alphabet.bases['A'], alphabet.bases['A'], alphabet.bases['A'],
                 alphabet.bases['AA'],
                 alphabet.bases['A'], alphabet.bases['A'],
                 alphabet.bases['aA'],
                 alphabet.bases['Aa'],
                 alphabet.bases['A'], alphabet.bases['A'],
+                alphabet.bases['*'],
             ], alphabet=alphabet)))
 
         as_str = 'AAA(AA)AA(aA)(Aa)AA'
@@ -862,8 +864,9 @@ class AlphabetTestCase(unittest.TestCase):
         alphabet.bases['A'] = core.Base(structure=dAMP_inchi)
         alphabet.bases['aA'] = core.Base(structure=dAMP_inchi)
         alphabet.bases['Aa'] = core.Base(structure=dAMP_inchi)
+        alphabet.bases['*'] = core.Base(structure=dAMP_inchi)
         with self.assertRaises(ValueError):
-            alphabet.bases['aa'] = core.Base(structure=dAMP_inchi)
+            alphabet.bases['(aa'] = core.Base(structure=dAMP_inchi)
         with self.assertRaises(ValueError):
             alphabet.bases['A '] = core.Base(structure=dAMP_inchi)
 

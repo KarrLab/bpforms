@@ -794,8 +794,8 @@ class BaseDict(attrdict.AttrDict):
             chars (:obj:`str`): characters for base
             base (:obj:`Base`): base
         """
-        if not re.match('^[^\(\) ]*[A-Z][^\(\) ]*$', chars):
-            raise ValueError('`chars` must be composed of letters, numbers, and underscores and include at least one upper case letter')
+        if not re.match('^[^\(\)\[\]\{\} ]+$', chars):
+            raise ValueError('`chars` must be at least character, excluding parentheses, square brackets, curly brackets, and spaces')
         super(BaseDict, self).__setitem__(chars, base)
 
 
@@ -1286,8 +1286,8 @@ class BpForm(object):
             ATTR_SEP: WS* "|" WS*
             FIELD_SEP: WS* ":" WS*
             IDENTIFIER_SEP: WS* "/" WS*
-            CHAR: /[A-Z]/
-            DELIMITED_CHARS: "(" /[^\(\) ]*[A-Z][^\(\) ]*/ ")"
+            CHAR: /[^\(\)\[\]\{\} ]/
+            DELIMITED_CHARS: "(" /[^\(\)\[\]\{\} ]+/ ")"
             INCHI: /InChI=1S\/[A-Za-z0-9\(\)\-\+,\/]+/
             DALTON: /[\-\+]?[0-9]+(\.[0-9]*)?/
             CHARGE: /[\-\+]?[0-9]+/
