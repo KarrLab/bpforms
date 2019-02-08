@@ -117,6 +117,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         Returns:
             :obj:`openbabel.OBMol`: structure
+            :obj: `list of :obj:`str`: list of synonyms
+            :obj:`int`: ChEBI id 
         """
 
         # get InChI from pdb structure
@@ -130,16 +132,13 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         page = requests.get('https://pir.georgetown.edu/cgi-bin/resid?id='+id)
         soup = BeautifulSoup(page.text, features="lxml")
 
-        # get synonyms
         element = soup.select('p.annot')
         names = element[0].get_text()
         cross_references = element[1].get_text()
-        # synonyms = SynonymSet()
-        # check if alternate names class exists
+
+        # get synonyms
         if 'Alternate names' in names:
-            # extract alternate names
             l = re.split("[:;]",names.strip())[1:]
-            # remove '\n'
             synonyms = list(map(lambda x:x.strip(),l))
 
         # get ChEBI id
@@ -148,7 +147,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             l2 = list(map(lambda x:x.strip(),l))
             if 'ChEBI' in l2:
                 i_chebi = l2[l2.index('ChEBI')+1]
-                return synonyms, i_chebi
+                return mol, synonyms, i_chebi
 
 
 class ProteinForm(BpForm):
@@ -174,10 +173,3 @@ class CanonicalProteinForm(BpForm):
         super(CanonicalProteinForm, self).__init__(base_seq=base_seq, alphabet=canonical_protein_alphabet,
                                                    bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
 
-def main():
-    testing = ProteinAlphabetBuilder()
-    testing.build()
-    # print(type(testing))
-
-if __name__ == '__main__':
-    main()
