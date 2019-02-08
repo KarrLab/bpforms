@@ -75,13 +75,19 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         with zipfile.ZipFile(os.path.join(tmp_folder,'models.zip'),'r') as z:
             z.extractall(tmp_folder)
 
+        # extract name of the molecule from pdb file
         for file in glob.iglob(tmp_folder+'/*PDB'):
             with open(file, 'r') as f:
-                lines = f.readlines()
-                for line in lines:
-                    if re.match(r"^COMPND",line) is not None :
-                        name = str.split(line)[1]
-
+                names = []
+                for line in f:
+                    if re.match(r"^COMPND    ",line):
+                        part1 = str.split(line)[1]
+                        names.append(part1)
+                    # check if name is on two lines (when too long)
+                    if re.match(r"^COMPND   1",line):
+                        part2 = str.split(line)[2]
+                        names.append(part2)
+                name = ''.join(names)
                 id = re.split("[/.]",file)[3]
                 # structure = self.get_modification_structure(file, id)
 
