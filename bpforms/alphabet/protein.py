@@ -19,6 +19,7 @@ import glob
 import pkg_resources
 import openbabel
 import re
+import warnings
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.yml'))
 protein_alphabet = Alphabet().from_yaml(filename)
@@ -54,6 +55,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # load canonical bases
         alphabet.from_yaml(canonical_filename)
 
+        # get amino acid names from canonical list
+        aa_names = []
+        for base in alphabet.bases.keys():
+            aa_names.append(alphabet.bases[base].name)
+
         # create tmp directory
         tmp_folder = tempfile.mkdtemp()
 
@@ -75,41 +81,69 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         with zipfile.ZipFile(os.path.join(tmp_folder,'models.zip'),'r') as z:
             z.extractall(tmp_folder)
 
+         # extract name of the molecule from pdb file
         for file in glob.iglob(tmp_folder+'/*PDB'):
             with open(file, 'r') as f:
-                lines = f.readlines()
-                for line in lines:
-                    if re.match(r"^COMPND",line) is not None :
-                        name = str.split(line)[1]
-
+                names = []
+                for line in f:
+                    if re.match(r"^COMPND    ",line):
+                        part1 = str.split(line)[1]
+                        names.append(part1)
+                        
+                    # check if name is on two lines (when too long)
+                    if re.match(r"^COMPND   1",line):
+                        part2 = str.split(line)[2]
+                        names.append(part2)
+                name = ''.join(names)
                 id = re.split("[/.]",file)[3]
-                # structure = self.get_modification_structure(file, id)
+                structure = self.get_modification_structure(file)
 
-            # problem for now check later
-            # if name in alphabet:
-                # warnings.warn('Ignoring canonical base {}'.format(name), UserWarning)
-                # continue
+                chebi_syn = self.get_modification_chebi_synonyms(id)
+                # synonyms = SynonymSet()
+                identifiers = IdentifierSet()
+
+                if chebi_syn is not None:
+                    if chebi_syn[1]:
+                        synonym = chebi_syn[1] 
+
+                    if chebi_syn[0] != 0:
+                        chebi = chebi_syn[0]
+                        identifiers.add(Identifier('chebi', 'CHEBI:'+str(chebi)))
+
+            if name in aa_names:
+                warnings.warn('Ignoring canonical base {}'.format(name), UserWarning)
+                continue
+
+            alphabet.bases[id] = Base(
+                id=id,
+                name=name,
+                # synonyms=synonyms,
+                identifiers=identifiers,
+                structure=structure,
+                # comments="Modification of {}.".format(mod['originating_base'])
+            )
 
         # remove tmp folder
         shutil.rmtree(tmp_folder)
 
-        alphabet.bases.A = Base(
-            id='ALA',
-            name="alanine",
-            synonyms=SynonymSet([
-                'L-alpha-alanine',
-            ]),
-            identifiers=IdentifierSet([
-                Identifier('pubchem.compound', '7311724'),
-                Identifier('metacyc.compound', 'L-ALPHA-ALANINE'),
-                Identifier('chebi', 'CHEBI:57972'),
-            ]),
-            structure='InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1',
-        )
+
+            # alphabet.bases.A = Base(
+            #     id='ALA',
+            #     name="alanine",
+            #     synonyms=SynonymSet([
+            #         'L-alpha-alanine',
+            #     ]),
+            #     identifiers=IdentifierSet([
+            #         Identifier('pubchem.compound', '7311724'),
+            #         Identifier('metacyc.compound', 'L-ALPHA-ALANINE'),
+            #         Identifier('chebi', 'CHEBI:57972'),
+            #     ]),
+            #     structure='InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1',
+            # )
 
         return alphabet
 
-    def get_modification_structure(self, input_pdb, id):
+    def get_modification_structure(self, input_pdb):
         """ Get the structure of a modified AA from pdb structure
 
         Args:
@@ -117,18 +151,29 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         Returns:
             :obj:`openbabel.OBMol`: structure
-            :obj: `list of :obj:`str`: list of synonyms
-            :obj:`int`: ChEBI id 
         """
 
         # get InChI from pdb structure
         mol = openbabel.OBMol()
         conv = openbabel.OBConversion()
         handler = openbabel.OBMessageHandler()
-        handler.SetOutputLevel(0)
+        handler.SetOutputLevel(2)
         conv.ReadFile(mol, input_pdb)
+        conv.SetOutFormat('inchi')
 
-        # get additional info from page of each modified amino acid
+        return mol
+
+    def get_modification_chebi_synonyms(self, id):
+        """ Get the chebi ID and synonyms of a modified AA from pdb structure
+
+        Args:
+            input_pdb (:obj:`str`): id of RESID entry
+
+        Returns:
+            :obj: `list of :obj:`str`: list of synonyms
+            :obj:`int`: ChEBI id 
+        """
+
         page = requests.get('https://pir.georgetown.edu/cgi-bin/resid?id='+id)
         soup = BeautifulSoup(page.text, features="lxml")
 
@@ -142,12 +187,15 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             synonyms = list(map(lambda x:x.strip(),l))
 
         # get ChEBI id
+        i_chebi = 0
         if 'Cross-references' in cross_references:
             l = re.split("[:;]",cross_references.strip())[1:]
             l2 = list(map(lambda x:x.strip(),l))
             if 'ChEBI' in l2:
-                i_chebi = l2[l2.index('ChEBI')+1]
-                return mol, synonyms, i_chebi
+                i_chebi = int(l2[l2.index('ChEBI')+1])
+            else:
+                i_chebi = 0
+            return i_chebi, synonyms
 
 
 class ProteinForm(BpForm):

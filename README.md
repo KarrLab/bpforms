@@ -43,8 +43,9 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
 * BpForms has a concrete grammar. This enables error checking, as well the calculation of formulae, masses, and charges which is essential for modeling.
 
 ## Installation
-1. Install dependencies
+1. Install the third-party dependencies listed below. Detailed installation instructions are available in [An Introduction to Whole-Cell Modeling](http://docs.karrlab.org/intro_to_wc_modeling/master/0.0.1/installation.html).
         
+    * [ChemAxon Marvin](https://chemaxon.com/products/marvin)
     * [Open Babel](http://openbabel.org)
     * [Pip](https://pip.pypa.io) >= 18.0
     * [Python](https://www.python.org) >= 3.6
