@@ -46,7 +46,6 @@ class DnaAlphabetBuilder(AlphabetBuilder):
     def load_session(self):
         """ loads an SQLAlchemy session """
         metadata = declBase.metadata
-        print(32)
         Session = sessionmaker(bind=engine)
         session = Session()
         return session
@@ -88,8 +87,6 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                     chars = 'dNMP'
                 else:
                     chars = row.Abbreviation
-                print('The chars is {}'.format(chars))
-                print(type(chars))
                 idx = 0
                 tmp = chars
                 while chars in alphabet.bases:
@@ -107,11 +104,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
             listOfNames = item.othernames[1:-1].split(', ')
             if listOfNames != ['']:
-                print(type(listOfNames))
-                print(102)
                 for otherName in listOfNames:
-                    print(otherName[1:-1])
-                    print(106)
                     synonyms.add(otherName[1:-1])
 
             identifiers = IdentifierSet()
@@ -119,7 +112,6 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 identifiers.add(Identifier('ChEBI ID', item.nameid))
 
             structure = item.inchi.strip('[]')
-            print(structure)
 
             if chars in alphabet.bases:
                 warnings.warn('Ignoring canonical base {}'.format(chars), UserWarning)
