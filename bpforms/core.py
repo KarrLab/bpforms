@@ -792,8 +792,8 @@ class BaseDict(attrdict.AttrDict):
             chars (:obj:`str`): characters for base
             base (:obj:`Base`): base
         """
-        if not re.match('^[^\(\) ]*[A-Z][^\(\) ]*$', chars):
-            raise ValueError('`chars` must be composed of letters, numbers, and underscores and include at least one upper case letter')
+        # if not re.match('^[^\(\) ]*[A-Z][^\(\) ]*$', chars):
+        #     raise ValueError('`chars` must be composed of letters, numbers, and underscores and include at least one upper case letter')
         super(BaseDict, self).__setitem__(chars, base)
 
 
@@ -954,8 +954,10 @@ class AlphabetBuilder(abc.ABC):
             :obj:`Alphabet`: alphabet
         """
         alphabet = self.build()
+        print("running AlphabetBuilder.run({})".format(path))
         if path:
             self.save(alphabet, path)
+            print('saved alphabet to yaml')
         return alphabet
 
     @abc.abstractmethod
