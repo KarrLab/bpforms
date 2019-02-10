@@ -12,6 +12,7 @@ dirname = os.path.dirname(__file__)
 package_data = {
     name: [
         'VERSION',
+        'grammar.lark',
         '*.yml', # alphabets
         'web', # website
     ],

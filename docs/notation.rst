@@ -86,41 +86,10 @@ Syntax
 Grammar
 ^^^^^^^
 
-The following is the definition of the `BpForms` grammar.::
+The following is the definition of the `BpForms` grammar.
 
-    ?start: seq
-    seq: base+
-    ?base: alphabet_base | inline_base
-    alphabet_base: CHAR | DELIMITED_CHARS
-    inline_base: "[" WS* inline_base_attr (ATTR_SEP inline_base_attr)* WS* "]"
-    ?inline_base_attr: id | name | synonym | identifier | structure | delta_mass | delta_charge | position | comments
-    ?id: "id" FIELD_SEP ESCAPED_STRING
-    ?name: "name" FIELD_SEP ESCAPED_STRING
-    ?synonym: "synonym" FIELD_SEP ESCAPED_STRING
-    ?identifier: "identifier" FIELD_SEP identifier_ns IDENTIFIER_SEP identifier_id
-    ?identifier_ns: ESCAPED_STRING
-    ?identifier_id: ESCAPED_STRING
-    ?structure: "structure" FIELD_SEP INCHI
-    ?delta_mass: "delta-mass" FIELD_SEP DALTON
-    ?delta_charge: "delta-charge" FIELD_SEP CHARGE
-    ?position: "position" FIELD_SEP START_POSITION? "-" END_POSITION?
-    ?comments: "comments" FIELD_SEP ESCAPED_STRING
-    ATTR_SEP: WS* "|" WS*
-    FIELD_SEP: WS* ":" WS*
-    IDENTIFIER_SEP: WS* "/" WS*
-    CHAR: /[A-Z]/
-    DELIMITED_CHARS: "(" /[^\(\) ]*[A-Z][^\(\) ]*/ ")"
-    INCHI: /InChI=1S\/[A-Za-z0-9\(\)\-\+,\/]+/
-    DALTON: /[\-\+]?[0-9]+(\.[0-9]*)?/
-    CHARGE: /[\-\+]?[0-9]+/
-    START_POSITION: INT
-    END_POSITION: INT
-    WS: /[ \t\f\r\n]/+
-    ESCAPED_STRING : "\"" _STRING_ESC_INNER "\""
-    _STRING_ESC_INNER: _STRING_INNER /(?<!\\)(\\\\)*?/
-    _STRING_INNER: /.*?/
-    INT: DIGIT+
-    DIGIT: "0".."9"
+.. literalinclude:: ../bpforms/grammar.lark
+    :language: text
 
 
 Examples
