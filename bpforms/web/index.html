@@ -40,7 +40,7 @@
             <label>Enter base sequence
                 <textarea
                     id="base_seq_in"
-                    placeholder="AC(m2A)CC[id: m6A | structure: InChI=1S/C10H12N4O4/...]G"></textarea>
+                    placeholder="AC{m2A}CC[id: m6A | structure: InChI=1S/C10H12N4O4/...]G"></textarea>
             </label>
 
             <label>Optionally, enter a pH to correct the protonation
@@ -79,7 +79,7 @@
 
         <div class="large-6 cell">
           <h3>Overview</h3>
-          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined bases delimited by parentheses and (b) user-defined bases described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
+          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined bases delimited by curly brackets and (b) user-defined bases described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
           <p style="margin-bottom: 0px;"><i>BpForms</i> has several pre-built alphabets.</p>
           <ul id="alphabet_descriptions">          
           </ul>
@@ -89,7 +89,7 @@
           <ul>
           <li><tt>[id: "dI" | name: "deoxyinosine"]ACGC</tt>: represents deoxyinosine at the first position</li>
           <li><tt>AC[id: "dI" | name: "deoxyinosine"]GC</tt>: represents deoxyinosine at the third position</li>
-          <li><tt>AC(m2G)C[id: "dI" | name: "deoxyinosine"]</tt>: represents guanosine methylation and the second position and deoxyinosine at the last position</li>
+          <li><tt>AC{m2G}C[id: "dI" | name: "deoxyinosine"]</tt>: represents guanosine methylation and the second position and deoxyinosine at the last position</li>
           </ul>
         </div>
 

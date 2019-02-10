@@ -26,6 +26,7 @@ class UtilTestCase(unittest.TestCase):
         os.rename(protein.filename + '.save', protein.filename)
 
     def test_get_alphabets(self):
+        print(util.get_alphabets())
         print(util.get_alphabets()['dna'].id)
         self.assertEqual(util.get_alphabets()['dna'], dna.dna_alphabet)
 
@@ -52,7 +53,7 @@ class UtilTestCase(unittest.TestCase):
         self.assertFalse(os.path.isfile(rna.filename))
         self.assertFalse(os.path.isfile(protein.filename))
 
-        util.build_alphabets()
+        util.build_alphabets(_max_bases=3)
 
         self.assertTrue(os.path.isfile(dna.filename))
         self.assertTrue(os.path.isfile(rna.filename))

@@ -21,16 +21,25 @@ class ProteinTestCase(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.dirname)
 
-    @unittest.skip('Todo')
     def test_protein_alphabet(self):
-        pass
+        self.assertEqual(protein.protein_alphabet.bases.F.get_formula(), EmpiricalFormula('C9N1O2H11'))
+        self.assertEqual(protein.canonical_protein_alphabet.bases.F.get_formula(), EmpiricalFormula('C9N1O2H11'))
 
     def test_ProteinForm_init(self):
         protein.ProteinForm()
         protein.CanonicalProteinForm()
 
+    def test_ProteinForm_properties(self):
+        bases = protein.canonical_protein_alphabet.bases
+        form = protein.CanonicalProteinForm().from_str('AAA')
+        self.assertEqual(form.get_formula(), EmpiricalFormula('H2O') * -2
+                         + bases.A.get_formula()
+                         + bases.A.get_formula()
+                         + bases.A.get_formula())
+        self.assertEqual(form.get_charge(), 3 * bases.A.get_charge())
+
     def test_ProteinAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
-        alphabet = protein.ProteinAlphabetBuilder().run(path=path)        
-        self.assertEqual(alphabet.bases.A.get_formula(), EmpiricalFormula('C3H7NO2'))
+        alphabet = protein.ProteinAlphabetBuilder().run(path=path)
+        self.assertEqual(alphabet.bases.F.get_formula(), EmpiricalFormula('C9N1O2H11'))
         self.assertTrue(os.path.isfile(path))

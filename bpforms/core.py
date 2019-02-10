@@ -794,8 +794,9 @@ class BaseDict(attrdict.AttrDict):
             chars (:obj:`str`): characters for base
             base (:obj:`Base`): base
         """
-        if not re.match('^[^\(\)\[\]\{\} ]+$', chars):
-            raise ValueError('`chars` must be at least character, excluding parentheses, square brackets, curly brackets, and spaces')
+        if not re.match(r'^[^\[\]\{\}]+$', chars):
+            raise ValueError(f'`chars` "{chars}" must be at least one character, excluding '
+                             'square brackets and curly brackets')
         super(BaseDict, self).__setitem__(chars, base)
 
 
@@ -952,7 +953,18 @@ class Alphabet(object):
 
 
 class AlphabetBuilder(abc.ABC):
-    """ Builder for alphabets """
+    """ Builder for alphabets 
+
+    Attributes:
+        _max_bases (:obj:`float`): maximum number of bases to build; used to limit length of tests
+    """
+
+    def __init__(self, _max_bases=float('inf')):
+        """
+        Args:
+            _max_bases (:obj:`float`, optional): maximum number of bases to build; used to limit length of tests
+        """
+        self._max_bases = _max_bases
 
     def run(self, path=None):
         """ Build alphabet and, optionally, save to YAML file
@@ -1261,7 +1273,7 @@ class BpForm(object):
                 if len(chars) == 1:
                     val += chars
                 else:
-                    val += '(' + chars + ')'
+                    val += '{' + chars + '}'
             else:
                 val += str(base)
         return val
@@ -1288,8 +1300,8 @@ class BpForm(object):
             ATTR_SEP: WS* "|" WS*
             FIELD_SEP: WS* ":" WS*
             IDENTIFIER_SEP: WS* "/" WS*
-            CHAR: /[^\(\)\[\]\{\} ]/
-            DELIMITED_CHARS: "(" /[^\(\)\[\]\{\} ]+/ ")"
+            CHAR: /[^\[\]\{\}]/
+            DELIMITED_CHARS: "{" /[^\[\]\{\}]+/ "}"
             INCHI: /InChI=1S\/[A-Za-z0-9\(\)\-\+,\/]+/
             DALTON: /[\-\+]?[0-9]+(\.[0-9]*)?/
             CHARGE: /[\-\+]?[0-9]+/
@@ -1322,7 +1334,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def alphabet_base(self, chars):
-                if chars[0] == '(' and chars[-1] == ')':
+                if chars[0] == '{' and chars[-1] == '}':
                     chars = chars[1:-1]
                 base = self.bp_form.alphabet.bases.get(chars, None)
                 if base is None:

@@ -1,6 +1,6 @@
-id: canonical_dna
-name: Canonical DNA
-description: The four canonical bases
+id: dna
+name: DNA
+description: The four canonical bases, plus the modified bases in <a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>
 bases:
   A:
     id: dAMP

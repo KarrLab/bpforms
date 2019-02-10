@@ -30,7 +30,8 @@ canonical_rna_alphabet = Alphabet().from_yaml(canonical_filename)
 class RnaAlphabetBuilder(AlphabetBuilder):
     """ Build RNA alphabet from MODOMICS """
 
-    INDEX_ENDPOINT = 'http://modomics.genesilico.pl/modifications/?base=all&type=all&display_ascii=Display+as+ASCII'
+    INDEX_ENDPOINT = 'http://modomics.genesilico.pl/modifications/'
+    INDEX_ASCII_ENDPOINT = 'http://modomics.genesilico.pl/modifications/?base=all&type=all&display_ascii=Display+as+ASCII'
     ENTRY_ENDPOINT = 'http://modomics.genesilico.pl/modifications/{}/'
     MAX_RETRIES = 5
 
@@ -56,37 +57,67 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         # create canonical bases
         alphabet.from_yaml(canonical_filename)
+        alphabet.id = 'rna'
+        alphabet.name = 'RNA'
+        alphabet.description = ('The four canonical bases, plus the modified bases in '
+                                '<a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>')
 
         # create requests session
         cache_name = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna'))
         session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
         session.mount('http://', requests.adapters.HTTPAdapter(max_retries=self.MAX_RETRIES))
 
+        # get originating bases
+        ascii_response = session.get(self.INDEX_ASCII_ENDPOINT)
+        ascii_response.raise_for_status()
+        stream = io.StringIO(ascii_response.text)
+        stream.readline()
+        reader = csv.reader(stream, delimiter='\t', quoting=csv.QUOTE_NONE)
+        orig_bases = {}
+        for base in reader:
+            for i in range(1, 4):
+                short_name = base[i]
+                if short_name:
+                    break
+            orig_bases[short_name] = base[i + 2]
+
         # get index of modifications
         response = session.get(self.INDEX_ENDPOINT)
         response.raise_for_status()
 
         # get individual modifications and create bases
-        reader = csv.DictReader(io.StringIO(response.text), delimiter='\t', quoting=csv.QUOTE_NONE)
-        for mod in reader:
-            if ' (base)' in mod['new_nomenclature']:
+        doc = bs4.BeautifulSoup(response.text, 'html.parser')
+        table = doc.find('table', {'class': 'datagrid'})
+        tbody = table.find('tbody')
+        mods = tbody.find_all('tr')
+        for i_mod, mod in enumerate(mods):
+            if i_mod >= self._max_bases:
+                break
+
+            cells = mod.find_all('td')
+            new_nomenclature = cells[0].text
+            name = cells[1].text
+            short_name = cells[2].text
+            abbrev = cells[3].text
+
+            if ' (base)' in new_nomenclature:
                 continue
 
-            id = mod['short_name']
+            id = short_name
 
-            chars = mod['new_nomenclature']
+            chars = new_nomenclature
             if not chars:
                 chars = id
 
             synonyms = SynonymSet()
-            if mod['rnamods_abbrev']:
-                synonyms.add(mod['rnamods_abbrev'])
+            if abbrev:
+                synonyms.add(abbrev)
 
             identifiers = IdentifierSet()
-            if mod['short_name']:
-                identifiers.add(Identifier('modomics.short_name', mod['short_name']))
-            if mod['new_nomenclature']:
-                identifiers.add(Identifier('modomics.new_nomenclature', mod['new_nomenclature']))
+            if short_name:
+                identifiers.add(Identifier('modomics.short_name', short_name))
+            if new_nomenclature:
+                identifiers.add(Identifier('modomics.new_nomenclature', new_nomenclature))
 
             structure = self.get_modification_structure(id, session)
 
@@ -96,11 +127,11 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
             alphabet.bases[chars] = Base(
                 id=chars,
-                name=mod['name'],
+                name=name,
                 synonyms=synonyms,
                 identifiers=identifiers,
                 structure=structure,
-                comments="Modification of {}.".format(mod['originating_base'])
+                comments="Modification of {}.".format(orig_bases[short_name])
             )
 
         # return alphabet
@@ -121,9 +152,6 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         doc = bs4.BeautifulSoup(response.text, 'html.parser')
 
         table = doc.find(id='modification_details')
-        if table is None:
-            return None
-
         tbody = table.find('tbody')
         tr = tbody.find_all('tr')[-1]
         tds = tr.find_all('td')
@@ -152,7 +180,7 @@ class RnaForm(BpForm):
             base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
         """
         super(RnaForm, self).__init__(base_seq=base_seq, alphabet=rna_alphabet,
-                                      bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+                                      bond_formula=EmpiricalFormula('OH') * -1, bond_charge=1)
 
 
 class CanonicalRnaForm(BpForm):
@@ -164,4 +192,4 @@ class CanonicalRnaForm(BpForm):
             base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
         """
         super(CanonicalRnaForm, self).__init__(base_seq=base_seq, alphabet=canonical_rna_alphabet,
-                                               bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+                                               bond_formula=EmpiricalFormula('OH') * -1, bond_charge=1)

@@ -19,8 +19,8 @@ def get_alphabets():
         :obj:`dict`: dictionary which maps the ids of alphabets to alphabets
     """
     alphabets = [
-        dna.dna_alphabet,        
-        rna.rna_alphabet,        
+        dna.dna_alphabet,
+        rna.rna_alphabet,
         protein.protein_alphabet,
         dna.canonical_dna_alphabet,
         rna.canonical_rna_alphabet,
@@ -57,12 +57,12 @@ def get_form(alphabet):
         return dna.DnaForm
     if alphabet == 'canonical_dna':
         return dna.CanonicalDnaForm
-    
+
     if alphabet == 'rna':
         return rna.RnaForm
     if alphabet == 'canonical_rna':
         return rna.CanonicalRnaForm
-    
+
     if alphabet == 'protein':
         return protein.ProteinForm
     if alphabet == 'canonical_protein':
@@ -71,8 +71,12 @@ def get_form(alphabet):
     raise ValueError('Alphabet "{}" must be "dna", "rna", or "protein"'.format(alphabet))
 
 
-def build_alphabets():
-    """ Build DNA, RNA, and protein alphabets """
-    dna.DnaAlphabetBuilder().run()
-    rna.RnaAlphabetBuilder().run()
-    protein.ProteinAlphabetBuilder().run()
+def build_alphabets(_max_bases=float('inf')):
+    """ Build DNA, RNA, and protein alphabets
+
+    Args
+        _max_bases (:obj:`float`, optional): maximum number of bases to build; used for testing
+    """
+    dna.DnaAlphabetBuilder(_max_bases=_max_bases).run()
+    rna.RnaAlphabetBuilder(_max_bases=_max_bases).run()
+    protein.ProteinAlphabetBuilder(_max_bases=_max_bases).run()
