@@ -52,14 +52,14 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
 
 2. Install this package 
 
-    * Install the latest release from PyPI
+    * Install the latest release from PyPI. For most environments, the ``--process-dependency-links`` option is needed to install some of the dependencies from GitHub.
       ```
-      pip install bpforms
+      pip install --process-dependency-links bpforms
       ```
 
-    * Install the latest revision from GitHub
+    * Install the latest revision from GitHub. For most environments, the ``--process-dependency-links`` option is needed to install some of the dependencies from GitHub.
       ```
-      pip install git+git://github.com/KarrLab/bpforms#egg=bpforms
+      pip install --process-dependency-links git+git://github.com/KarrLab/bpforms#egg=bpforms
       ```
 
 ## Examples, tutorial, and documentation
