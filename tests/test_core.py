@@ -369,11 +369,12 @@ class BaseTestCase(unittest.TestCase):
         self.assertEqual(base.get_inchi(), dAMP_inchi)
 
     def test_get_formula(self):
-        base = core.Base()
-        self.assertEqual(base.get_formula(), None)
-
         base = core.Base(structure=dAMP_inchi)
         self.assertEqual(base.get_formula(), EmpiricalFormula('C10H12N5O6P'))
+
+        with self.assertRaises(ValueError):
+            base = core.Base()
+            base.get_formula()
 
     def test_get_mol_wt(self):
         base = core.Base()
@@ -386,15 +387,16 @@ class BaseTestCase(unittest.TestCase):
         self.assertEqual(base.get_mol_wt(), 330.208761998)
 
     def test_get_charge(self):
-        base = core.Base()
-        self.assertEqual(base.get_charge(), None)
-
         base = core.Base(structure=dAMP_inchi)
         self.assertEqual(base.get_charge(), -2)
 
         base = core.Base(structure=dAMP_inchi)
         base.delta_charge = 1
         self.assertEqual(base.get_charge(), -1)
+
+        with self.assertRaises(ValueError):
+            base = core.Base()
+            base.get_charge()
 
     def test_str(self):
         base = core.Base()

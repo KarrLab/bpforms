@@ -529,25 +529,25 @@ class Base(object):
         Returns:
             :obj:`EmpiricalFormula`: chemical formula
         """
-        if self.structure:
-            el_table = openbabel.OBElementTable()
-            formula = {}
-            mass = 0
-            for i_atom in range(self.structure.NumAtoms()):
-                atom = self.structure.GetAtom(i_atom + 1)
-                el = el_table.GetSymbol(atom.GetAtomicNum())
-                if el in formula:
-                    formula[el] += 1
-                else:
-                    formula[el] = 1
-                mass += el_table.GetMass(atom.GetAtomicNum())
-            formula = EmpiricalFormula(formula)
+        if not self.structure:
+            raise ValueError('A structure must be defined to calculate the formula')
 
-            # calc hydrogens because OpenBabel doesn't output this
-            formula['H'] = round((self.structure.GetMolWt() - mass) / el_table.GetMass(1))
-            return formula
-        else:
-            return None
+        el_table = openbabel.OBElementTable()
+        formula = {}
+        mass = 0
+        for i_atom in range(self.structure.NumAtoms()):
+            atom = self.structure.GetAtom(i_atom + 1)
+            el = el_table.GetSymbol(atom.GetAtomicNum())
+            if el in formula:
+                formula[el] += 1
+            else:
+                formula[el] = 1
+            mass += el_table.GetMass(atom.GetAtomicNum())
+        formula = EmpiricalFormula(formula)
+
+        # calc hydrogens because OpenBabel doesn't output this
+        formula['H'] = round((self.structure.GetMolWt() - mass) / el_table.GetMass(1))
+        return formula
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -565,9 +565,9 @@ class Base(object):
         Returns:
             :obj:`int`: charge
         """
-        if self.structure:
-            return self.structure.GetTotalCharge() + (self.delta_charge or 0)
-        return None
+        if not self.structure:
+            raise ValueError('A structure must be defined to calculate the charge')
+        return self.structure.GetTotalCharge() + (self.delta_charge or 0)
 
     def to_dict(self):
         """ Get a dictionary representation of the base
