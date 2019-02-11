@@ -57,8 +57,8 @@ class Bpform(flask_restplus.Resource):
     """ Calculate properties of a biopolymer form """
 
     def get(self, alphabet, base_seq, ph):
-        """ Get the properties of a biopolymer form
-
+        """ Get the properties of a biopolymer form """
+        """
         Args:
             alphabet (:obj:`str`) id of the alphabet of the biopolymer form
             base_seq (:obj:`str`): sequence of bases of the biopolymer form
@@ -103,8 +103,8 @@ class AlphabetsResource(flask_restplus.Resource):
     """ Get list of alphabets """
 
     def get(self):
-        """ Get a list of available alphabets
-
+        """ Get a list of available alphabets """
+        """
         Returns:
             :obj:`dict`: dictionary that maps that ids of available alphabets to dictionaries with
                 properties of the alphabets
@@ -127,8 +127,8 @@ class AlpabetResource(flask_restplus.Resource):
     """ Get alphabets """
 
     def get(self, id):
-        """ Get an alphabet
-
+        """ Get an alphabet """
+        """
         Returns:
             :obj:`dict`: dictionary representation of an alphabet
         """
