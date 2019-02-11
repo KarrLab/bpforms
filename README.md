@@ -39,7 +39,7 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
 * BpForms separates the representation of modified biopolymers from the chemical processes which generate them. 
 * BpForms clarifies the representation of multiply modified monomers. This is necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
 * BpForms can be customized to represent any modification and, therefore, is not limited to previously enumerated modifications. This is also necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
-* BpForms supports two additional types of uncertainty in the structures of biopolyers: uncertainty in the position of a modified nucleotide/amino acid within the polymer sequence, and uncertainty in the chemical identity of modified nucleotide/amino acid as deviation from its expected mass or charge.
+* BpForms supports two additional types of uncertainty in the structures of biopolymers: uncertainty in the position of a modified nucleotide/amino acid within the polymer sequence, and uncertainty in the chemical identity of modified nucleotide/amino acid as deviation from its expected mass or charge.
 * BpForms has a concrete grammar. This enables error checking, as well the calculation of chemical formulae, masses, and charges, which is essential for modeling.
 
 ## Installation
