@@ -54,7 +54,7 @@ $('#submit').click(function (evt) {
         return;
     }
 
-    url = '/api/bpform/properties/' + alphabet + '/' + base_seq
+    url = '/api/bpform/' + alphabet + '/' + base_seq
     if (ph != null && ph != "") {
          url += '/' + ph
     }

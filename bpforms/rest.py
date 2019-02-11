@@ -8,141 +8,133 @@
 
 import bpforms
 import bpforms.util
-import flask_api
-import flask_api.exceptions
-import flask_api.response
+import flask
+import flask_restplus
+import flask_restplus.errors
+import flask_restplus.fields
+
+app = flask.Flask(__name__)
 
 
-class FlaskApi(flask_api.FlaskAPI):
-    def __init__(self, name):
-        """
-        Args:
-            name (:obj:`str`): name
-        """
-        super(FlaskApi, self).__init__(name)
+class PrefixMiddleware(object):
+    def __init__(self, app, prefix=''):
+        self.app = app
+        self.prefix = prefix
 
-    def handle_api_exception(self, exception):
-        """ Handle API exception
-
-        Args:
-            exception (:obj:`flask_api.exceptions.APIException`): exception
-
-        Returns:
-            :obj:`flask_api.response.APIResponse`: response
-        """
-        if hasattr(exception, 'to_dict'):
-            content = exception.to_dict()
+    def __call__(self, environ, start_response):
+        if environ['PATH_INFO'].startswith(self.prefix):
+            environ['PATH_INFO'] = environ['PATH_INFO'][len(self.prefix):]
+            environ['SCRIPT_NAME'] = self.prefix
+            return self.app(environ, start_response)
         else:
-            content = {'message': exception.detail}
-        return flask_api.response.APIResponse(content, status=exception.status_code)
+            start_response('404', [('Content-Type', 'text/plain')])
+            return ["This url does not belong to the app.".encode()]
 
 
-class ApiException(flask_api.exceptions.APIException):
-    """ API exception to raise HTTP response with 400 error code
+app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/api')
 
-    Attributes:
-        message (:obj:`str`): summary of the exception
-        details (:obj:`dict`): details of the exception
-    """
-    status_code = 400
-    detail = ''
+api = flask_restplus.Api(app,
+                         title='Bpforms JSON REST API',
+                         description='JSON REST API for calculating properties of biopolymer forms',
+                         contact='karr@mssm.edu',
+                         version=bpforms.__version__,
+                         license='MIT',
+                         license_url='https://github.com/KarrLab/bpforms/blob/master/LICENSE',
+                         doc='/')
 
-    def __init__(self, message, **details):
-        """
+bpform_ns = flask_restplus.Namespace('bpform', description='Calculate properties of biopolymer forms')
+api.add_namespace(bpform_ns)
+
+
+@bpform_ns.route("/<string:alphabet>/<string:base_seq>/", defaults={'ph': None})
+@bpform_ns.route("/<string:alphabet>/<string:base_seq>/<string:ph>/")
+@bpform_ns.doc(params={
+    'alphabet': 'String: Id of the alphabet of the biopolymer form (e.g. "dna", "rna", or "protein")',
+    'base_seq': 'String: Sequence of bases of the biopolymer form',
+    'ph': 'Float, optional: pH at which to calculate the major protonation form of each base',
+})
+class Bpform(flask_restplus.Resource):
+    """ Calculate properties of a biopolymer form """
+
+    def get(self, alphabet, base_seq, ph):
+        """ Get the properties of a biopolymer form
+
         Args:
-            message (:obj:`str`): summary of the exception
-            details (:obj:`dict`, optional): details of the exception
-        """
-        self.message = message
-        self.details = details
-
-    def to_dict(self):
-        """ Generate a dictionary representation of the exception
+            alphabet (:obj:`str`) id of the alphabet of the biopolymer form
+            base_seq (:obj:`str`): sequence of bases of the biopolymer form
+            ph (:obj:`float`): pH
 
         Returns:
-            :obj:`dict`: dictionary representation of the exception
+            :obj:`dict`
         """
-        rv = dict(self.details)
-        rv['message'] = self.message
+        try:
+            form_cls = bpforms.util.get_form(alphabet)
+        except ValueError as error:
+            flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(alphabet))
+
+        try:
+            form = form_cls().from_str(base_seq)
+        except Exception as error:
+            flask_restplus.abort(400, 'Unable to parse base sequence', details=str(error))
+
+        if ph is not None:
+            try:
+                ph = float(ph)
+            except Exception:
+                flask_restplus.abort(400, 'pH must be a float')
+            form.protonate(ph)
+        return {
+            'alphabet': alphabet,
+            'base_seq': str(form),
+            'length': len(form),
+            'formula': dict(form.get_formula()),
+            'mol_wt': form.get_mol_wt(),
+            'charge': form.get_charge(),
+        }
+
+
+alphabet_ns = flask_restplus.Namespace('alphabet', description='List alphabets and get their details')
+api.add_namespace(alphabet_ns)
+
+
+@alphabet_ns.route("/")
+@alphabet_ns.doc(params={})
+class AlphabetsResource(flask_restplus.Resource):
+    """ Get list of alphabets """
+
+    def get(self):
+        """ Get a list of available alphabets
+
+        Returns:
+            :obj:`dict`: dictionary that maps that ids of available alphabets to dictionaries with
+                properties of the alphabets
+        """
+        rv = {}
+        for id, alphabet in bpforms.util.get_alphabets().items():
+            rv[id] = {
+                'id': alphabet.id,
+                'name': alphabet.name,
+                'description': alphabet.description,
+            }
         return rv
 
-    def __str__(self):
-        """ Generate a string representation of the exception
+
+@alphabet_ns.route("/<string:id>/")
+@alphabet_ns.doc(params={
+    'id': 'Id of the alphabet of the biopolymer form (e.g. "dna", "rna", or "protein")',
+})
+class AlpabetResource(flask_restplus.Resource):
+    """ Get alphabets """
+
+    def get(self, id):
+        """ Get an alphabet
 
         Returns:
-            :obj:`str`: summary of the exception
+            :obj:`dict`: dictionary representation of an alphabet
         """
-        return self.message
-
-
-app = FlaskApi(__name__)
-
-
-@app.route("/api/")
-def default():
-    return {
-        'description': ('The BpForms JSON REST API is a REST API for validating biopolymer forms '
-                        'and calculating their lengths, formulae, molecular weights, and charges.'),
-        'endpoints': [
-            {
-                '/api/alphabet': 'Get a list of available alphabets',
-                '/api/alphabet/{alphabet: string}': 'Get the bases in an alphabet',
-                '/api/bpform/properties/{alphabet: string}/{base sequence: string}(/{pH: float})?':
-                ('Optionally protonates the biopolymer and then calculates the length, formula, molecular weight, '
-                 'and charge of the biopolymer form specified by the alphabet (dna, rna, or protein) and base '
-                 'sequence, and returns these properties as an associative array.',),
-            },
-        ],
-        'version': bpforms.__version__,
-    }
-
-
-@app.route("/api/bpform/properties/<string:alphabet>/<string:base_seq>/", defaults={'ph': None})
-@app.route("/api/bpform/properties/<string:alphabet>/<string:base_seq>/<string:ph>/")
-def get_bpform_properties(alphabet, base_seq, ph):
-    try:
-        form_cls = bpforms.util.get_form(alphabet)
-    except ValueError as error:
-        raise ApiException('Invalid alphabet "{}"'.format(alphabet))
-
-    try:
-        form = form_cls().from_str(base_seq)
-    except Exception as error:
-        raise ApiException('Unable to parse base sequence', details=str(error))
-
-    if ph is not None:
         try:
-            ph = float(ph)
-        except Exception:
-            raise ApiException('pH must be a float')
-        form.protonate(ph)
-    return {
-        'alphabet': alphabet,
-        'base_seq': str(form),
-        'length': len(form),
-        'formula': dict(form.get_formula()),
-        'mol_wt': form.get_mol_wt(),
-        'charge': form.get_charge(),
-    }
+            alphabet_obj = bpforms.util.get_alphabet(id)
+        except ValueError as error:
+            flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(id))
 
-
-@app.route("/api/alphabet/")
-def get_alphabets():
-    rv = {}
-    for id, alphabet in bpforms.util.get_alphabets().items():
-        rv[id] = {
-            'id': alphabet.id,
-            'name': alphabet.name,
-            'description': alphabet.description,
-        }
-    return rv
-
-
-@app.route("/api/alphabet/<string:alphabet>/")
-def get_alphabet(alphabet):
-    try:
-        alphabet_obj = bpforms.util.get_alphabet(alphabet)
-    except ValueError as error:
-        raise ApiException('Invalid alphabet "{}"'.format(alphabet))
-
-    return alphabet_obj.to_dict()
+        return alphabet_obj.to_dict()
