@@ -8,7 +8,7 @@ The following tutorial illustrates how to use the `BpForms` Python API. An `inte
 Importing `BpForms`
 ^^^^^^^^^^^^^^^^^^^
 
-First, run this command to import ``BpForms``.::
+First, run this command to import `BpForms`.::
 
     import bpforms
 
@@ -30,8 +30,9 @@ Second, use the `BpForms` notation and the `BpForm.from_str` method to create an
         ]AC'''.replace('\n', '').replace(' ', ''))
 
 
-Getting a setting bases
+Getting and setting residues
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Third, individual bases and slices of bases can be get and set similar to lists.::
 
     dna_form[0]
@@ -47,6 +48,7 @@ Third, individual bases and slices of bases can be get and set similar to lists.
 
 Protonation
 ^^^^^^^^^^^
+
 Fourth, calculate the major protation state of each base in the biopolymer form.::
 
     dna_form.protonate(8.)
@@ -54,6 +56,7 @@ Fourth, calculate the major protation state of each base in the biopolymer form.
 
 Calculation of physical properties
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Fifth, use these commands to calculate the length, formula, molecular weight, and charge of the biopolymer form.::
 
     len(dna_form)
@@ -71,7 +74,8 @@ Fifth, use these commands to calculate the length, formula, molecular weight, an
 
 Determine if two biopolymers describe the same structure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Six, use the following command to determine if two instances of `BpForm` describe the same biopolymer.::
+
+Sixth, use the following command to determine if two instances of `BpForm` describe the same biopolymer.::
 
     dna_form_1 = bpforms.DnaForm().from_str('ACGT')
     dna_form_2 = bpforms.DnaForm().from_str('ACGT')

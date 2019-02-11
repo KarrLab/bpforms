@@ -18,7 +18,7 @@ The base URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/
         ...
     ]
 
-* ``/alphabet/{alphabet: string}``: Returns an associative array of bases in the alphabet and their properties.::
+* ``/alphabet/{alphabet: string}`` returns an associative array of bases in the alphabet and their properties::
 
     {
         A: {
@@ -29,7 +29,7 @@ The base URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/
         ...
     }
 
-* ``/bpform/{alphabet: rna, dna, or  protein}/{base_seq: string}(/{ph: float})?``: If the form is valid, this, optionally, protonates the form to the specified pH and returns the length, formula, mass, and charge of the form. If the form is invalid, this returns an error message.::
+* ``/bpform/{alphabet: rna, dna, or  protein}/{base_seq: string}(/{ph: float})?``: optionally, protonates the biopolymer form to the specified pH and returns its length, chemical formula, mass and charge. If the form is invalid, this returns an error message.::
 
     {
         alphabet: <string>,

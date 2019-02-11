@@ -3,17 +3,26 @@
 `BpForms` notation
 ------------------
 
-The `BpForms` notation represents biopolymer forms as FASTA sequences with (a) bases denoted by multiple characters delimited by curly brackets and (b) modified bases described by multiple attributes separated by "|" inside square brackets. The locations of modified bases are encoded by their positions within the sequence.
+The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical bases using (a) a syntax similar to FASTA and (b) extended alphabets for DNA, RNA, and proteins based on DNAmod, MODOMICS, and RESID. This enables `BpForms` to calculate the formula, molecular, weight, and charge of biopolymer forms.
 
-    * ``[id: "dI" | name: "deoxyinosine"]ACGC``: represents deoxyinosine at the first position
-    * ``AC[id: "dI" | name: "deoxyinosine"]GC``: represents deoxyinosine at the third position
-    * ``ACGC{m6A}``: represents methyl-6-adenosine at the last position
+* Canonical bases are indicated by their single upper case character codes.
+* Non-canonical bases defined in the alphabets that have single-character codes are indicated by these codes.
+* Non-canonical bases defined in the alphabets that have multiple-character codes are indicated by these codes delimited by curly brackets.
+* Non-canonical bases that are not defined in the alphabet can be defined "inline" with multiple attributes separated by vertical pipes ("|") enclosed inside square brackets. The structures of these bases are defined in InChI format using the ``structure`` attribute. Additional attributes can provide metadata about bases such as their ids and names.
+
+`BpForms` contains three pre-built canonical DNA, RNA and protein alphabets and three extended DNA, RNA, and protein alphabets based on DNAmod, MODOMICS, and RESID. Users can also create additional custom alphabets.
+
+Examples:
+
+* ``[id: "dI" | name: "deoxyinosine"]ACGC``: represents deoxyinosine at the first position
+* ``AC[id: "dI" | name: "deoxyinosine"]GC``: represents deoxyinosine at the third position
+* ``ACGC{m6A}``: represents methyl-6-adenosine at the last position
 
 
 Structure
 ^^^^^^^^^
 
-The ``structure`` attribute can describe the chemical structure of modified bases. This should be an InChI-encoded string. Each modified base can have one structure.::
+The ``structure`` attribute describes the chemical structure of the base as an InChI-encoded string. We recommend that each base have a structure. This attribute must be defined to calculate the formula, molecular weight, and charge of the biopolymer.::
 
     [id: "dI" |
         structure: InChI=1S
@@ -31,8 +40,8 @@ Uncertainty
 
 `BpForms` can also represent two types of uncertainty in the structures of biopolymer forms.
 
-* The ``delta-mass`` ``delta-charge`` attributes can describe uncertainty in the chemical identities of modified bases. For example, ``[id: "dAMP" | delta-mass: 1 | delta-charge: 1]`` indicates that the presence of an additional hydrogen atom whose exact location is not known.
-* The ``position`` attribute can describe uncertainty in the positions of modified bases. For example, ``[id: "5mC" | position: 2-3]`` indicates that 5mC may occur anywhere between the second and third position.
+* The ``delta-mass`` and ``delta-charge`` attributes can describe uncertainty in the chemical identities of bases. For example, ``[id: "dAMP" | delta-mass: 1 | delta-charge: 1]`` indicates the presence of an additional proton exact location is not known.
+* The ``position`` attribute can describe uncertainty in the position of a base. For example, ``[id: "5mC" | position: 2-3]`` indicates that 5mC may occur anywhere between the second and third position.
 
 
 Metadata
@@ -40,20 +49,20 @@ Metadata
 
 `BpForms` can also represent several types of metadata:
 
-* The ``id`` and ``name`` attributes can be used to provide human-readable labels for modified bases. Only one id and one name is allowed per base::
+* The ``id`` and ``name`` attributes provide human-readable labels for bases. Only one id and one name is allowed per base.::
 
     [id: "dI"
         | name: "deoxyinosine"
         ]
 
-* The ``synonym`` attribute can be used to provide additional human-readable labels. Each base can have multiple synonyms.::
+* The ``synonym`` attribute provides additional human-readable labels. Each base can have multiple synonyms.::
 
     [id: "dI"
         | synonym: "2'-deoxyinosine"
         | synonym: "2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"
         ]
 
-* The ``identifier`` attribute can be used to provide references to entries in external databases. Each base can have multiple identifiers. The namespaces and ids of identifers must be separated by "/".::
+* The ``identifier`` attribute describes references to entries in external databases. Each base can have multiple identifiers. The namespaces and ids of identifers must be separated by "/".::
 
     [id: "dI"
         | identifier: "biocyc.compound" / "DEOXYINOSINE"
@@ -61,7 +70,7 @@ Metadata
         | identifier: "pubchem.compound" / "65058"
         ]
 
-* The ``comments`` attribute can be used to describe additional information about each base. Each base can only have one comment.::
+* The ``comments`` attribute describes additional information about each base. Each base can only have one comment.::
 
     [id: "dI"
         | comments: "A purine 2'-deoxyribonucleoside that is inosine in which the
@@ -72,15 +81,17 @@ Metadata
 Syntax
 ^^^^^^
 
-* Bases in the alphabet that are denoted by multiple characters are enclosed in curly brackets ("{" and "}")
-* Modified bases are described by square brackets ("[" and "]")
-* The position of the square brackets describes their location within the sequence
-* Attributes of modified bases are separated by vertical pipes ("|")
-* Attributes and their values are separated by colons (":")
-* White spaces are ignored around the attribute and field separators
-* All of the attributes can optional. However, the structure attribute is necessary to compute the formula, molecular weight, and charge.
-* String-valued attribute values (id, name, synonym, comments) must be enclosed in quotes ('"')
-* The namespaces and ids of identifers must be separated by "/".
+* Bases that are in the alphabet are indicated by a single character or multiple characters delimiated by curly brackets.
+* Bases that are not in the alphabet are defined "inline" with one or more attributes separated by verticle pipes ("|") inside square brackets.
+
+  * All of the attributes can optional. However, the `structure` attribute is required to compute the formula, molecular weight, and charge of the biopolymer..
+  * Attributes are separated by vertical pipes ("|").
+  * Attributes and their values are separated by colons (":").
+  * White spaces are ignored.
+  * The values of the `id`, `name`, `synonym`, and `comments` attributes must be enclosed in quotes ('"').
+  * The namespace and id of each identifer must be separated by "/".
+
+* The positions of the bases in the string indicates in their location in the sequence.
 
 
 Grammar

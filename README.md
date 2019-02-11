@@ -22,15 +22,15 @@ BpForms is a set of tools for unambiguously representing the structures of modif
           /s1
           ]T
   ```
-* This concrete representation of modified biopolymers enables the BpForms software tools to calculate the formulae, molecular weights, and charges of biopolymers, as well as automatically protonate biopolymers for specific pHs.
+* This concrete representation of modified biopolymers enables the BpForms software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as to automatically protonate biopolymers for specific pHs.
 
 BpForms emcompasses five tools:
 
 * [Notation for describing biopolymers](https://docs.karrlab.org/bpforms/)
 * Web-based graphical interface: [https://bpforms.org](https://bpforms.org)
-* [REST JSON API](https://docs.karrlab.org/bpforms/)
-* [Command line interface](https://docs.karrlab.org/bpforms/)
-* [Python API](https://docs.karrlab.org/bpforms/)
+* [REST JSON API](https://docs.karrlab.org/bpforms/master/0.0.1/rest_api.html#rest-api)
+* [Command line interface](https://docs.karrlab.org/bpforms/master/0.0.1/cli.html)
+* [Python API](https://docs.karrlab.org/bpforms/master/0.0.1/python_api.html)
 
 BpForms was motivated by the need to concretely represent the biochemistry of DNA modification, DNA repair, post-transcriptional processing, and post-translational processing in [whole-cell computational models](https://www.wholecell.org). In addition, BpForms are a valuable tool for experimental proteomics. In particular, we developed BpForms because there were no notations, schemas, data models, or file formats for concretely representing modified forms of biopolymers, despite the existence of several databases and ontologies of DNA, RNA, and protein modifications and the [ProForma Proteoform Notation](https://www.topdownproteomics.org/resources/proforma/).
 
@@ -38,9 +38,9 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
  
 * BpForms separates the representation of modified biopolymers from the chemical processes which generate them. 
 * BpForms clarifies the representation of multiply modified monomers. This is necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
-* BpForms can represent any modification and, therefore, is not limited to previously enumerated modifications. This is also necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
-* BpForms supports two additional types of uncertainty in the structures of biopolyers: uncertainty in the positions of modifications and uncertainty in the charges of modifications.
-* BpForms has a concrete grammar. This enables error checking, as well the calculation of formulae, masses, and charges which is essential for modeling.
+* BpForms can be customized to represent any modification and, therefore, is not limited to previously enumerated modifications. This is also necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
+* BpForms supports two additional types of uncertainty in the structures of biopolyers: uncertainty in the position of a modified nucleotide/amino acid within the polymer sequence, and uncertainty in the chemical identity of modified nucleotide/amino acid as deviation from its expected mass or charge.
+* BpForms has a concrete grammar. This enables error checking, as well the calculation of chemical formulae, masses, and charges, which is essential for modeling.
 
 ## Installation
 1. Install the third-party dependencies listed below. Detailed installation instructions are available in [An Introduction to Whole-Cell Modeling](http://docs.karrlab.org/intro_to_wc_modeling/master/0.0.1/installation.html).

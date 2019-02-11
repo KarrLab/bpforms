@@ -16,7 +16,7 @@
             /s1
         ]T
 
-* This concrete representation of modified biopolymers enables the `BpForms` software tools to calculate the formulae, molecular weights, and charges of biopolymers, as well as automatically protonate biopolymers for specific pHs.
+* This concrete representation of modified biopolymers enables the `BpForms` software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as automatically protonate biopolymers for specific pHs.
 
 `BpForms` emcompasses five tools:
 
@@ -32,9 +32,9 @@ The `BpForms` syntax was inspired by the ProForma Proteoform Notation. `BpForms`
  
 * `BpForms` separates the representation of modified biopolymers from the chemical processes which generate them. 
 * `BpForms` clarifies the representation of multiply modified monomers. This is necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
-* `BpForms` can represent any modification and, therefore, is not limited to previously enumerated modifications. This is also necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
-* `BpForms` supports two additional types of uncertainty in the structures of biopolyers: uncertainty in the positions of modifications and uncertainty in the charges of modifications.
-* `BpForms` has a concrete grammar. This enables error checking, as well the calculation of formulae, masses, and charges which is essential for modeling.
+* `BpForms` can be customized to represent any modification and, therefore, is not limited to previously enumerated modifications. This is also necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
+* `BpForms` supports two additional types of uncertainty in the structures of biopolyers: uncertainty in the position of a modified nucleotide/amino acid and uncertainty in its charge.
+* `BpForms` has a concrete grammar. This enables error checking, as well the calculation of chemical formulae, masses, and charges which is essential for modeling.
 
 Contents
 --------
