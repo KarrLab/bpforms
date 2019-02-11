@@ -27,7 +27,7 @@ canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('al
 canonical_dna_alphabet = Alphabet().from_yaml(canonical_filename)
 # :obj:`Alphabet`: Alphabet for canonical DNA nucleotides
 
-engine = sqlalchemy.create_engine('sqlite:///' + dna_mod_filename, echo=True)
+engine = sqlalchemy.create_engine('sqlite:///' + dna_mod_filename)
 DeclarativeBase = declarative_base(engine)
 
 
@@ -113,7 +113,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
             identifiers = IdentifierSet()
             if item.nameid:
-                identifiers.add(Identifier('ChEBI ID', item.nameid))
+                identifiers.add(Identifier('chebi', item.nameid))
 
             structure = item.inchi.strip('[]')
 
