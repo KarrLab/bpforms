@@ -19,3 +19,6 @@ recursive-include bpforms *.yml
 
 # website
 graft bpforms/web
+
+# examples
+graft examples
