@@ -98,12 +98,12 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 names = []
                 for line in f:
                     if re.match(r"^COMPND    ", line):
-                        part1 = str.split(line)[1]
+                        part1 = str(line[10:].strip())
                         names.append(part1)
 
                     # check if name is on two lines (when too long)
                     if re.match(r"^COMPND   1", line):
-                        part2 = str.split(line)[2]
+                        part2 = str(line[10:].strip())
                         names.append(part2)
                 name = ''.join(names)
                 id = re.split("[/.]", file)[3]
