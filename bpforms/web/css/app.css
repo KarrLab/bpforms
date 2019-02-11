@@ -48,7 +48,7 @@ textarea { height: 100px; }
 .out input, .out textarea { background: #eee; }
 
 .alphabet thead th, .alphabet tbody td { padding: 0rem 0.25rem 0rem 0.25rem; }
-.alphabet td { font-size: 0.75rem; }
+.alphabet td { font-size: 0.75rem; overflow: hidden; }
 .alphabet .chars { width: 60px; max-width: 60px; }
 .alphabet .id { width: 150px; max-width: 150px; }
 .alphabet .name { width: 150px; max-width: 150px; }
