@@ -3,11 +3,12 @@
 Python API
 ----------
 
+The following tutorial illustrates how to use the `BpForms` Python API. An `interactive version of this tutorial <http://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb>`_ is also available in the `whole-cell modeling sandox.
 
 Importing `BpForms`
 ^^^^^^^^^^^^^^^^^^^
 
-The following command should be run to import ``BpForms``::
+First, run this command to import `BpForms`.::
 
     import bpforms
 
@@ -15,7 +16,7 @@ The following command should be run to import ``BpForms``::
 Creating biopolymer forms
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following command can be run to create a DNA form::
+Second, use the `BpForms` notation and the `BpForm.from_str` method to create an instance of `BpForm` that represents a form of a biopolymer.::
 
     dna_form = bpforms.DnaForm().from_str('''ACG[
         id: "dI" | 
@@ -31,7 +32,8 @@ The following command can be run to create a DNA form::
 
 Getting and setting residues
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-Individual residues and slices of residues can be get and set similar to lists::
+
+Third, individual bases and slices of bases can be get and set similar to lists.::
 
     dna_form[0]
         => <bpforms.core.Base at 0x7fb365341240>
@@ -46,14 +48,16 @@ Individual residues and slices of residues can be get and set similar to lists::
 
 Protonation
 ^^^^^^^^^^^
-The following command can be run to calculate the major protation state of each residue in a biopolymer form::
+
+Fourth, calculate the major protation state of each base in the biopolymer form.::
 
     dna_form.protonate(8.)
 
 
 Calculation of physical properties
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The following command can be run to calculate the length, chemical formula, molecular weight, and charge of a biopolymer form::
+
+Fifth, use these commands to calculate the length, formula, molecular weight, and charge of the biopolymer form.::
 
     len(dna_form)
         => 6
@@ -70,7 +74,8 @@ The following command can be run to calculate the length, chemical formula, mole
 
 Determine if two biopolymers describe the same structure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The following command can be run to determine if two biopolymers describe the same structure::
+
+Sixth, use the following command to determine if two instances of `BpForm` describe the same biopolymer.::
 
     dna_form_1 = bpforms.DnaForm().from_str('ACGT')
     dna_form_2 = bpforms.DnaForm().from_str('ACGT')

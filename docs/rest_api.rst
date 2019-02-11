@@ -7,15 +7,7 @@ The REST JSON API enables researchers to programmatically validate and calculate
 
 The base URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/api/>`_. The REST API provides two endpoints.
 
-* ``/`` returns metadata about the API including a description, the version, and a list of endpoints::
-
-    {
-        description: <string>,
-        endpoints: <array>,
-        version: <string>
-    }
-
-* ``/alphabet`` returns a list of available alphabets::
+* ``/alphabet``: Returns a list of available alphabets.::
 
     [
         {
@@ -37,7 +29,7 @@ The base URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/
         ...
     }
 
-* ``/bpform/properties/{alphabet: rna, dna, or  protein}/{base_seq: string}(/{ph: float})?`` optionally, protonates the biopolymer form to the specified pH and returns its length, chemical formula, mass and charge. If the form is invalid, this returns an error message::
+* ``/bpform/{alphabet: rna, dna, or  protein}/{base_seq: string}(/{ph: float})?``: optionally, protonates the biopolymer form to the specified pH and returns its length, chemical formula, mass and charge. If the form is invalid, this returns an error message.::
 
     {
         alphabet: <string>,

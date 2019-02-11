@@ -19,9 +19,9 @@ import shutil
 import tempfile
 import unittest
 
-dAMP_inchi = dna.dna_alphabet.bases.A.get_inchi()
-dCMP_inchi = dna.dna_alphabet.bases.C.get_inchi()
-dGMP_inchi = dna.dna_alphabet.bases.G.get_inchi()
+dAMP_inchi = dna.canonical_dna_alphabet.bases.A.get_inchi()
+dCMP_inchi = dna.canonical_dna_alphabet.bases.C.get_inchi()
+dGMP_inchi = dna.canonical_dna_alphabet.bases.G.get_inchi()
 dIMP_inchi = 'InChI=1S/C10H12N4O4/c15-2-6-5(16)1-7(18-6)14-4-13-8-9(14)11-3-12-10(8)17/h3-7,15-16H,1-2H2,(H,11,12,17)/t5-,6+,7+/m0/s1'
 
 
@@ -543,7 +543,7 @@ class BpFormTestCase(unittest.TestCase):
     def test_set_alphabet(self):
         bp_form = core.BpForm()
 
-        bp_form.alphabet = dna.dna_alphabet
+        bp_form.alphabet = dna.canonical_dna_alphabet
         self.assertEqual(len(bp_form.alphabet.bases), 4)
 
         with self.assertRaises(ValueError):
@@ -589,7 +589,7 @@ class BpFormTestCase(unittest.TestCase):
         bp_form_1 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]))
         bp_form_2 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]))
         bp_form_3 = None
-        bp_form_4 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), alphabet=dna.dna_alphabet)
+        bp_form_4 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), alphabet=dna.canonical_dna_alphabet)
         bp_form_5 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), bond_charge=-1)
         bp_form_6 = core.BpForm(base_seq=core.BaseSequence(
             [core.Base(id='A'), core.Base(id='B')]), bond_formula=EmpiricalFormula('H'))
@@ -738,16 +738,18 @@ class BpFormTestCase(unittest.TestCase):
 
     def test_from_str(self):
         self.assertTrue(dna.DnaForm().from_str('AAA').is_equal(dna.DnaForm([
-            dna.dna_alphabet.bases.A, dna.dna_alphabet.bases.A, dna.dna_alphabet.bases.A,
+            dna.canonical_dna_alphabet.bases.A, dna.canonical_dna_alphabet.bases.A, dna.canonical_dna_alphabet.bases.A,
         ])))
 
         self.assertTrue(dna.DnaForm().from_str('ACTG').is_equal(dna.DnaForm([
-            dna.dna_alphabet.bases.A, dna.dna_alphabet.bases.C, dna.dna_alphabet.bases.T, dna.dna_alphabet.bases.G,
+            dna.canonical_dna_alphabet.bases.A, dna.canonical_dna_alphabet.bases.C,
+            dna.canonical_dna_alphabet.bases.T, dna.canonical_dna_alphabet.bases.G,
         ])))
 
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'not in alphabet'):
             self.assertTrue(dna.DnaForm().from_str('UAA').is_equal(dna.DnaForm([
-                dna.dna_alphabet.bases.A, dna.dna_alphabet.bases.A, dna.dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A, dna.canonical_dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
             ])))
 
         self.assertTrue(dna.DnaForm().from_str(
@@ -760,8 +762,8 @@ class BpFormTestCase(unittest.TestCase):
             + ' | delta-charge: 3'
             + ' | position: 3-5'
             + ' | comments: "A purine 2\'-deoxyribonucleoside that is inosine ..."]A').is_equal(dna.DnaForm([
-                dna.dna_alphabet.bases.A,
-                dna.dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
                 core.Base(
                     id='dI',
                     name="2'-deoxyinosine",
@@ -775,33 +777,33 @@ class BpFormTestCase(unittest.TestCase):
                     end_position=5,
                     comments="A purine 2'-deoxyribonucleoside that is inosine ...",
                 ),
-                dna.dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
             ])))
 
         self.assertTrue(dna.DnaForm().from_str(
             'AA[id: "dI"'
             ' | position: 3-]A').is_equal(dna.DnaForm([
-                dna.dna_alphabet.bases.A,
-                dna.dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
                 core.Base(
                     id='dI',
                     start_position=3,
                     end_position=None,
                 ),
-                dna.dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
             ])))
 
         self.assertTrue(dna.DnaForm().from_str(
             'AA[id: "dI"'
             ' | position: -5]A').is_equal(dna.DnaForm([
-                dna.dna_alphabet.bases.A,
-                dna.dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
                 core.Base(
                     id='dI',
                     start_position=None,
                     end_position=5,
                 ),
-                dna.dna_alphabet.bases.A,
+                dna.canonical_dna_alphabet.bases.A,
             ])))
 
         alphabet = core.Alphabet()
@@ -810,8 +812,10 @@ class BpFormTestCase(unittest.TestCase):
         alphabet.bases['A'] = core.Base()
         alphabet.bases['AA'] = core.Base()
         alphabet.bases['*'] = core.Base()
+        alphabet.bases[' '] = core.Base()
+        alphabet.bases[' A'] = core.Base()
         self.assertTrue(core.BpForm(alphabet=alphabet).from_str(
-            'AAA(AA)AA(aA)(Aa)AA*').is_equal(core.BpForm([
+            'AAA{AA}AA{aA}{Aa}AA* { A}').is_equal(core.BpForm([
                 alphabet.bases['A'], alphabet.bases['A'], alphabet.bases['A'],
                 alphabet.bases['AA'],
                 alphabet.bases['A'], alphabet.bases['A'],
@@ -819,9 +823,11 @@ class BpFormTestCase(unittest.TestCase):
                 alphabet.bases['Aa'],
                 alphabet.bases['A'], alphabet.bases['A'],
                 alphabet.bases['*'],
+                alphabet.bases[' '],
+                alphabet.bases[' A'],
             ], alphabet=alphabet)))
 
-        as_str = 'AAA(AA)AA(aA)(Aa)AA'
+        as_str = 'AAA{AA}AA{aA}{Aa}AA'
         form = core.BpForm(alphabet=alphabet).from_str(as_str)
         self.assertEqual(str(form), as_str)
 
@@ -830,10 +836,10 @@ class BpFormTestCase(unittest.TestCase):
         alphabet.bases['Aa'] = core.Base()
         alphabet.bases['A'] = core.Base()
         alphabet.bases['AA'] = core.Base()
+        with self.assertRaises(lark.exceptions.VisitError):
+            core.BpForm(alphabet=alphabet).from_str('AAA{(AA}AA{aA}{Aa}AA')
         with self.assertRaises(lark.exceptions.UnexpectedCharacters):
-            core.BpForm(alphabet=alphabet).from_str('AAA( AA)AA(aA)(Aa)AA')
-        with self.assertRaises(lark.exceptions.UnexpectedCharacters):
-            core.BpForm(alphabet=alphabet).from_str('AAA (AA)AA(aA)(Aa)AA')
+            core.BpForm(alphabet=alphabet).from_str('AAA{AA}AA{aA}{[Aa}AA')
 
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'cannot be repeated'):
             dna.DnaForm().from_str(
@@ -857,7 +863,7 @@ class AlphabetTestCase(unittest.TestCase):
             alphabet.bases = None
 
     def test_getitem(self):
-        self.assertEqual(dna.dna_alphabet.bases.A.get_inchi(), dAMP_inchi)
+        self.assertEqual(dna.canonical_dna_alphabet.bases.A.get_inchi(), dAMP_inchi)
 
     def test_setitem(self):
         alphabet = core.Alphabet()
@@ -866,9 +872,9 @@ class AlphabetTestCase(unittest.TestCase):
         alphabet.bases['Aa'] = core.Base(structure=dAMP_inchi)
         alphabet.bases['*'] = core.Base(structure=dAMP_inchi)
         with self.assertRaises(ValueError):
-            alphabet.bases['(aa'] = core.Base(structure=dAMP_inchi)
+            alphabet.bases['{aa'] = core.Base(structure=dAMP_inchi)
         with self.assertRaises(ValueError):
-            alphabet.bases['A '] = core.Base(structure=dAMP_inchi)
+            alphabet.bases['A]'] = core.Base(structure=dAMP_inchi)
 
     def test_protonate(self):
         alphabet = core.Alphabet(bases={
@@ -878,58 +884,67 @@ class AlphabetTestCase(unittest.TestCase):
         alphabet.protonate(7.)
 
     def test_is_equal(self):
-        self.assertTrue(dna.dna_alphabet.is_equal(dna.dna_alphabet))
-        self.assertFalse(dna.dna_alphabet.is_equal(rna.rna_alphabet))
-        self.assertFalse(dna.dna_alphabet.is_equal(None))
-        self.assertFalse(dna.dna_alphabet.is_equal(core.Alphabet()))
+        self.assertTrue(dna.canonical_dna_alphabet.is_equal(dna.canonical_dna_alphabet))
+        self.assertFalse(dna.canonical_dna_alphabet.is_equal(rna.rna_alphabet))
+        self.assertFalse(dna.canonical_dna_alphabet.is_equal(None))
+        self.assertFalse(dna.canonical_dna_alphabet.is_equal(core.Alphabet()))
 
-        dna_alphabet = core.Alphabet(id=dna.dna_alphabet.id,
-                                     name=dna.dna_alphabet.name,
-                                     description=dna.dna_alphabet.description,
-                                     bases={
-                                         'A': dna.dna_alphabet.bases.A,
-                                         'C': dna.dna_alphabet.bases.C,
-                                         'G': dna.dna_alphabet.bases.G,
-                                         'T': dna.dna_alphabet.bases.T,
-                                     })
-        self.assertTrue(dna_alphabet.is_equal(dna.dna_alphabet))
-
-        dna_alphabet_1 = core.Alphabet(id=dna.dna_alphabet.id,
-                                       name=dna.dna_alphabet.name,
-                                       description=dna.dna_alphabet.description,
+        dna_alphabet_1 = core.Alphabet(id=dna.canonical_dna_alphabet.id,
+                                       name=dna.canonical_dna_alphabet.name,
+                                       description=dna.canonical_dna_alphabet.description,
                                        bases={
-                                           'A': dna.dna_alphabet.bases.A,
-                                           'C': dna.dna_alphabet.bases.C,
-                                           'G': dna.dna_alphabet.bases.G,
-                                           'T': dna.dna_alphabet.bases.T,
+                                           'A': dna.canonical_dna_alphabet.bases.A,
+                                           'C': dna.canonical_dna_alphabet.bases.C,
+                                           'G': dna.canonical_dna_alphabet.bases.G,
+                                           'T': dna.canonical_dna_alphabet.bases.T,
                                        })
-        dna_alphabet_2 = core.Alphabet(id=dna.dna_alphabet.id,
-                                       name=dna.dna_alphabet.name,
-                                       description=dna.dna_alphabet.description,
+        dna_alphabet_2 = core.Alphabet(id=dna.canonical_dna_alphabet.id,
+                                       name=dna.canonical_dna_alphabet.name,
+                                       description=dna.canonical_dna_alphabet.description,
                                        bases={
-                                           'A': dna.dna_alphabet.bases.A,
-                                           'C': dna.dna_alphabet.bases.C,
-                                           'G': dna.dna_alphabet.bases.G,
+                                           'A': dna.canonical_dna_alphabet.bases.A,
+                                           'C': dna.canonical_dna_alphabet.bases.C,
+                                           'G': dna.canonical_dna_alphabet.bases.G,
+                                           'T': dna.canonical_dna_alphabet.bases.T,
+                                       })
+        self.assertTrue(dna_alphabet_1.is_equal(dna_alphabet_2))
+
+        dna_alphabet_1 = core.Alphabet(id=dna.canonical_dna_alphabet.id,
+                                       name=dna.canonical_dna_alphabet.name,
+                                       description=dna.canonical_dna_alphabet.description,
+                                       bases={
+                                           'A': dna.canonical_dna_alphabet.bases.A,
+                                           'C': dna.canonical_dna_alphabet.bases.C,
+                                           'G': dna.canonical_dna_alphabet.bases.G,
+                                           'T': dna.canonical_dna_alphabet.bases.T,
+                                       })
+        dna_alphabet_2 = core.Alphabet(id=dna.canonical_dna_alphabet.id,
+                                       name=dna.canonical_dna_alphabet.name,
+                                       description=dna.canonical_dna_alphabet.description,
+                                       bases={
+                                           'A': dna.canonical_dna_alphabet.bases.A,
+                                           'C': dna.canonical_dna_alphabet.bases.C,
+                                           'G': dna.canonical_dna_alphabet.bases.G,
                                        })
         self.assertFalse(dna_alphabet_1.is_equal(dna_alphabet_2))
 
-        dna_alphabet_1 = core.Alphabet(id=dna.dna_alphabet.id,
-                                       name=dna.dna_alphabet.name,
-                                       description=dna.dna_alphabet.description,
+        dna_alphabet_1 = core.Alphabet(id=dna.canonical_dna_alphabet.id,
+                                       name=dna.canonical_dna_alphabet.name,
+                                       description=dna.canonical_dna_alphabet.description,
                                        bases={
-                                           'A': dna.dna_alphabet.bases.A,
-                                           'C': dna.dna_alphabet.bases.C,
-                                           'G': dna.dna_alphabet.bases.G,
-                                           'T': dna.dna_alphabet.bases.T,
+                                           'A': dna.canonical_dna_alphabet.bases.A,
+                                           'C': dna.canonical_dna_alphabet.bases.C,
+                                           'G': dna.canonical_dna_alphabet.bases.G,
+                                           'T': dna.canonical_dna_alphabet.bases.T,
                                        })
-        dna_alphabet_2 = core.Alphabet(id=dna.dna_alphabet.id,
-                                       name=dna.dna_alphabet.name,
-                                       description=dna.dna_alphabet.description,
+        dna_alphabet_2 = core.Alphabet(id=dna.canonical_dna_alphabet.id,
+                                       name=dna.canonical_dna_alphabet.name,
+                                       description=dna.canonical_dna_alphabet.description,
                                        bases={
-                                           'C': dna.dna_alphabet.bases.A,
-                                           'A': dna.dna_alphabet.bases.C,
-                                           'G': dna.dna_alphabet.bases.G,
-                                           'T': dna.dna_alphabet.bases.T,
+                                           'C': dna.canonical_dna_alphabet.bases.A,
+                                           'A': dna.canonical_dna_alphabet.bases.C,
+                                           'G': dna.canonical_dna_alphabet.bases.G,
+                                           'T': dna.canonical_dna_alphabet.bases.T,
                                        })
         self.assertFalse(dna_alphabet_1.is_equal(dna_alphabet_2))
 
@@ -938,10 +953,10 @@ class AlphabetTestCase(unittest.TestCase):
                                      name='Test',
                                      description='Test description',
                                      bases={
-                                         'A': dna.dna_alphabet.bases.A,
-                                         'C': dna.dna_alphabet.bases.C,
-                                         'G': dna.dna_alphabet.bases.G,
-                                         'T': dna.dna_alphabet.bases.T,
+                                         'A': dna.canonical_dna_alphabet.bases.A,
+                                         'C': dna.canonical_dna_alphabet.bases.C,
+                                         'G': dna.canonical_dna_alphabet.bases.G,
+                                         'T': dna.canonical_dna_alphabet.bases.T,
                                      })
         path = os.path.join(self.dir_path, 'alphabet.yml')
         dna_alphabet.to_yaml(path)

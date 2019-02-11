@@ -11,8 +11,14 @@ include LICENSE
 include requirements.txt
 include requirements.optional.txt
 
+# grammar
+include bpforms/grammar.lark
+
 # alphabets
 recursive-include bpforms *.yml
 
 # website
 graft bpforms/web
+
+# examples
+graft examples

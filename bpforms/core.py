@@ -12,6 +12,7 @@ import abc
 import attrdict
 import lark
 import openbabel
+import pkg_resources
 import re
 import subprocess
 import time
@@ -794,8 +795,9 @@ class BaseDict(attrdict.AttrDict):
             chars (:obj:`str`): characters for base
             base (:obj:`Base`): base
         """
-        if not re.match('^[^\(\)\[\]\{\} ]+$', chars):
-            raise ValueError('`chars` must be at least character, excluding parentheses, square brackets, curly brackets, and spaces')
+        if not re.match(r'^[^\[\]\{\}]+$', chars):
+            raise ValueError(f'`chars` "{chars}" must be at least one character, excluding '
+                             'square brackets and curly brackets')
         super(BaseDict, self).__setitem__(chars, base)
 
 
@@ -952,7 +954,18 @@ class Alphabet(object):
 
 
 class AlphabetBuilder(abc.ABC):
-    """ Builder for alphabets """
+    """ Builder for alphabets 
+
+    Attributes:
+        _max_bases (:obj:`float`): maximum number of bases to build; used to limit length of tests
+    """
+
+    def __init__(self, _max_bases=float('inf')):
+        """
+        Args:
+            _max_bases (:obj:`float`, optional): maximum number of bases to build; used to limit length of tests
+        """
+        self._max_bases = _max_bases
 
     def run(self, path=None):
         """ Build alphabet and, optionally, save to YAML file
@@ -1261,44 +1274,14 @@ class BpForm(object):
                 if len(chars) == 1:
                     val += chars
                 else:
-                    val += '(' + chars + ')'
+                    val += '{' + chars + '}'
             else:
                 val += str(base)
         return val
 
-    _parser = lark.Lark(
-        ''' ?start: seq
-
-            seq: base+
-            ?base: alphabet_base | inline_base
-            alphabet_base: CHAR | DELIMITED_CHARS
-            inline_base: "[" WS* inline_base_attr (ATTR_SEP inline_base_attr)* WS* "]"
-            ?inline_base_attr: id | name | synonym | identifier | structure | delta_mass | delta_charge | position | comments
-            ?id: "id" FIELD_SEP ESCAPED_STRING
-            ?name: "name" FIELD_SEP ESCAPED_STRING
-            ?synonym: "synonym" FIELD_SEP ESCAPED_STRING
-            ?identifier: "identifier" FIELD_SEP identifier_ns IDENTIFIER_SEP identifier_id
-            ?identifier_ns: ESCAPED_STRING
-            ?identifier_id: ESCAPED_STRING
-            ?structure: "structure" FIELD_SEP INCHI
-            ?delta_mass: "delta-mass" FIELD_SEP DALTON
-            ?delta_charge: "delta-charge" FIELD_SEP CHARGE
-            ?position: "position" FIELD_SEP START_POSITION? "-" END_POSITION?
-            ?comments: "comments" FIELD_SEP ESCAPED_STRING
-            ATTR_SEP: WS* "|" WS*
-            FIELD_SEP: WS* ":" WS*
-            IDENTIFIER_SEP: WS* "/" WS*
-            CHAR: /[^\(\)\[\]\{\} ]/
-            DELIMITED_CHARS: "(" /[^\(\)\[\]\{\} ]+/ ")"
-            INCHI: /InChI=1S\/[A-Za-z0-9\(\)\-\+,\/]+/
-            DALTON: /[\-\+]?[0-9]+(\.[0-9]*)?/
-            CHARGE: /[\-\+]?[0-9]+/
-            START_POSITION: INT
-            END_POSITION: INT
-            %import common.WS
-            %import common.ESCAPED_STRING
-            %import common.INT
-            ''')
+    _grammar_filename = pkg_resources.resource_filename('bpforms', 'grammar.lark')
+    with open(_grammar_filename, 'r') as file:
+        _parser = lark.Lark(file.read())
 
     def from_str(self, str):
         """ Create biopolymer form its string representation
@@ -1322,7 +1305,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def alphabet_base(self, chars):
-                if chars[0] == '(' and chars[-1] == ')':
+                if chars[0] == '{' and chars[-1] == '}':
                     chars = chars[1:-1]
                 base = self.bp_form.alphabet.bases.get(chars, None)
                 if base is None:

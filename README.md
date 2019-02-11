@@ -10,7 +10,7 @@
 
 BpForms is a set of tools for unambiguously representing the structures of modified forms of biopolymers such as DNA, RNA, and protein. 
 
-* The BpForms notation can unambiguously represent the structure of modified forms of biopolymers. For example, the following represents a modified DNA molecule that contains a deoxyinosine residue at the fourth position.
+* The BpForms notation can unambiguously represent the structure of modified forms of biopolymers. For example, the following represents a modified DNA molecule that contains a deoxyinosine base at the fourth position.
   ```
   ACG[id: "dI" 
        | structure: InChI=1S
@@ -63,7 +63,7 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
       ```
 
 ## Examples, tutorial, and documentation
-Please see the [documentation](https://docs.karrlab.org/bpforms).
+Please see the [documentation](https://docs.karrlab.org/bpforms). An [interactive tutorial](http://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb) is also available in the whole-cell modeling sandox.
 
 ## License
 The package is released under the [MIT license](LICENSE).

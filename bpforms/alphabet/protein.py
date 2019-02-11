@@ -11,6 +11,7 @@ from wc_utils.util.chem import EmpiricalFormula
 from ftplib import FTP
 from bs4 import BeautifulSoup
 import requests
+import requests_cache
 import tempfile
 import zipfile
 import shutil
@@ -29,8 +30,11 @@ canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('al
 canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
 # :obj:`Alphabet`: Alphabet for canonical protein amino acids
 
+
 class ProteinAlphabetBuilder(AlphabetBuilder):
     """ Build protein alphabet from RESID """
+
+    MAX_RETRIES = 5
 
     def run(self, path=filename):
         """ Build alphabet and, optionally, save to YAML file
@@ -54,6 +58,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         # load canonical bases
         alphabet.from_yaml(canonical_filename)
+        alphabet.id = 'protein'
+        alphabet.name = 'Protein'
+        alphabet.description = (' The 20 canonical bases, plus the modified bases in '
+                                '<a href="https://pir.georgetown.edu/resid">RESID</a>')
 
         # get amino acid names from canonical list
         aa_names = []
@@ -67,44 +75,47 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         ftp = FTP('ftp.ebi.ac.uk')
         ftp.login()
         ftp.cwd('pub/databases/RESID/')
-        filenames = ftp.nlst()
 
-        for filename in filenames:
-            local_filename = os.path.join(tmp_folder, filename)
-            with open(local_filename, 'wb') as file:
-               ftp.retrbinary('RETR %s' %filename, file.write)
+        local_filename = os.path.join(tmp_folder, 'models.zip')
+        with open(local_filename, 'wb') as file:
+            ftp.retrbinary('RETR %s' % 'models.zip', file.write)
 
         # quit ftp
         ftp.quit()
-        
+
         # extract pdbs from models.zip into tmp folder
-        with zipfile.ZipFile(os.path.join(tmp_folder,'models.zip'),'r') as z:
+        with zipfile.ZipFile(os.path.join(tmp_folder, 'models.zip'), 'r') as z:
             z.extractall(tmp_folder)
 
-         # extract name of the molecule from pdb file
+        # create session to get metadata
+        cache_name = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein'))
+        session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
+        session.mount('http://', requests.adapters.HTTPAdapter(max_retries=self.MAX_RETRIES))
+
+        # extract name of the molecule from pdb file
         for file in glob.iglob(tmp_folder+'/*PDB'):
             with open(file, 'r') as f:
                 names = []
                 for line in f:
-                    if re.match(r"^COMPND    ",line):
+                    if re.match(r"^COMPND    ", line):
                         part1 = str.split(line)[1]
                         names.append(part1)
-                        
+
                     # check if name is on two lines (when too long)
-                    if re.match(r"^COMPND   1",line):
+                    if re.match(r"^COMPND   1", line):
                         part2 = str.split(line)[2]
                         names.append(part2)
                 name = ''.join(names)
-                id = re.split("[/.]",file)[3]
+                id = re.split("[/.]", file)[3]
                 structure = self.get_modification_structure(file)
 
-                chebi_syn = self.get_modification_chebi_synonyms(id)
+                chebi_syn = self.get_modification_chebi_synonyms(id, session)
                 # synonyms = SynonymSet()
                 identifiers = IdentifierSet()
 
                 if chebi_syn is not None:
                     if chebi_syn[1]:
-                        synonym = chebi_syn[1] 
+                        synonym = chebi_syn[1]
 
                     if chebi_syn[0] != 0:
                         chebi = chebi_syn[0]
@@ -126,20 +137,19 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # remove tmp folder
         shutil.rmtree(tmp_folder)
 
-
-            # alphabet.bases.A = Base(
-            #     id='ALA',
-            #     name="alanine",
-            #     synonyms=SynonymSet([
-            #         'L-alpha-alanine',
-            #     ]),
-            #     identifiers=IdentifierSet([
-            #         Identifier('pubchem.compound', '7311724'),
-            #         Identifier('metacyc.compound', 'L-ALPHA-ALANINE'),
-            #         Identifier('chebi', 'CHEBI:57972'),
-            #     ]),
-            #     structure='InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1',
-            # )
+        # alphabet.bases.A = Base(
+        #     id='ALA',
+        #     name="alanine",
+        #     synonyms=SynonymSet([
+        #         'L-alpha-alanine',
+        #     ]),
+        #     identifiers=IdentifierSet([
+        #         Identifier('pubchem.compound', '7311724'),
+        #         Identifier('metacyc.compound', 'L-ALPHA-ALANINE'),
+        #         Identifier('chebi', 'CHEBI:57972'),
+        #     ]),
+        #     structure='InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1',
+        # )
 
         return alphabet
 
@@ -163,7 +173,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return mol
 
-    def get_modification_chebi_synonyms(self, id):
+    def get_modification_chebi_synonyms(self, id, session):
         """ Get the chebi ID and synonyms of a modified AA from pdb structure
 
         Args:
@@ -174,7 +184,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             :obj:`int`: ChEBI id 
         """
 
-        page = requests.get('https://pir.georgetown.edu/cgi-bin/resid?id='+id)
+        page = session.get('https://pir.georgetown.edu/cgi-bin/resid?id='+id)
         soup = BeautifulSoup(page.text, features="lxml")
 
         element = soup.select('p.annot')
@@ -183,14 +193,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         # get synonyms
         if 'Alternate names' in names:
-            l = re.split("[:;]",names.strip())[1:]
-            synonyms = list(map(lambda x:x.strip(),l))
+            l = re.split("[:;]", names.strip())[1:]
+            synonyms = list(map(lambda x: x.strip(), l))
 
         # get ChEBI id
         i_chebi = 0
         if 'Cross-references' in cross_references:
-            l = re.split("[:;]",cross_references.strip())[1:]
-            l2 = list(map(lambda x:x.strip(),l))
+            l = re.split("[:;]", cross_references.strip())[1:]
+            l2 = list(map(lambda x: x.strip(), l))
             if 'ChEBI' in l2:
                 i_chebi = int(l2[l2.index('ChEBI')+1])
             else:
@@ -220,4 +230,3 @@ class CanonicalProteinForm(BpForm):
         """
         super(CanonicalProteinForm, self).__init__(base_seq=base_seq, alphabet=canonical_protein_alphabet,
                                                    bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
-

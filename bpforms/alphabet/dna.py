@@ -7,16 +7,17 @@
 """
 
 from bpforms.core import Alphabet, AlphabetBuilder, Base, BpForm, Identifier, IdentifierSet, SynonymSet
-from wc_utils.util.chem import EmpiricalFormula
-import os
-import pkg_resources
-import warnings
-import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from wc_utils.util.chem import EmpiricalFormula
+import math
+import os
+import pkg_resources
+import sqlalchemy
+import warnings
 
 
-dbFileName = 'DNAmod.sqlite'
+dna_mod_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'DNAmod.sqlite'))
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.yml'))
 dna_alphabet = Alphabet().from_yaml(filename)
@@ -26,18 +27,19 @@ canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('al
 canonical_dna_alphabet = Alphabet().from_yaml(canonical_filename)
 # :obj:`Alphabet`: Alphabet for canonical DNA nucleotides
 
-engine = sqlalchemy.create_engine('sqlite:///'+dbFileName, echo=True)
-declBase = declarative_base(engine)
+engine = sqlalchemy.create_engine('sqlite:///' + dna_mod_filename)
+DeclarativeBase = declarative_base(engine)
+
 
 class DnaAlphabetBuilder(AlphabetBuilder):
     """ Build DNA alphabet from MODOMICS """
 
-    class Names(declBase):
+    class Names(DeclarativeBase):
         """"""
         __tablename__ = 'names'
         __table_args__ = {'autoload': True}
 
-    class Expanded_Alphabet(declBase):
+    class ExpandedAlphabet(DeclarativeBase):
         """"""
         __tablename__ = 'expanded_alphabet'
         __table_args__ = {'autoload': True}
@@ -45,7 +47,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
     def load_session(self):
         """ loads an SQLAlchemy session """
-        metadata = declBase.metadata
+        metadata = DeclarativeBase.metadata
         Session = sessionmaker(bind=engine)
         session = Session()
         return session
@@ -61,9 +63,6 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         """
         return super(DnaAlphabetBuilder, self).run(path)
 
-    def __str__(self):
-        return str(self)
-
     def build(self):
         """ Build alphabet
 
@@ -75,14 +74,20 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
         # create canonical bases
         alphabet.from_yaml(canonical_filename)
+        alphabet.id = 'dna'
+        alphabet.name = 'DNA'
+        alphabet.description = ('The four canonical bases, plus the modified bases in '
+                                '<a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>')
 
         # get individual modifications and create bases
         session = self.load_session()
-        with_inchi = session.query(self.Names).filter(self.Names.inchi != '[]').all()
-        
-        for item in with_inchi:
+        with_inchi = session.query(self.Names).filter(self.Names.inchi != '[]')
+        if not math.isinf(self._max_bases):
+            with_inchi = with_inchi.limit(self._max_bases)
+
+        for item in with_inchi.all():
             if item.nameid:
-                row = session.query(self.Expanded_Alphabet).filter(self.Expanded_Alphabet.nameid == item.nameid).first()
+                row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
                 if row is None:
                     chars = 'dNMP'
                 else:
@@ -92,7 +97,6 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 while chars in alphabet.bases:
                     idx += 1
                     chars = tmp+'_'+str(idx)
-
 
             id = item.chebiname
 
@@ -109,13 +113,9 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
             identifiers = IdentifierSet()
             if item.nameid:
-                identifiers.add(Identifier('ChEBI ID', item.nameid))
+                identifiers.add(Identifier('chebi', item.nameid))
 
             structure = item.inchi.strip('[]')
-
-            if chars in alphabet.bases:
-                warnings.warn('Ignoring canonical base {}'.format(chars), UserWarning)
-                continue
 
             alphabet.bases[chars] = Base(
                 id=id,
@@ -137,8 +137,8 @@ class DnaForm(BpForm):
         Args:
             base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
         """
-        super(DnaForm, self).__init__(base_seq=base_seq, alphabet=dna_alphabet, 
-                                      bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0) # I need to check with Jonathan if this change is OK!
+        super(DnaForm, self).__init__(base_seq=base_seq, alphabet=dna_alphabet,
+                                      bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
 
 
 class CanonicalDnaForm(BpForm):
@@ -150,11 +150,4 @@ class CanonicalDnaForm(BpForm):
             base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
         """
         super(CanonicalDnaForm, self).__init__(base_seq=base_seq, alphabet=canonical_dna_alphabet,
-                                               bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=O)
-
-
-
-
-if __name__ == "__main__":
-    builder = DnaAlphabetBuilder()
-    builder.run()
+                                               bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
