@@ -97,7 +97,7 @@ Syntax
 Grammar
 ^^^^^^^
 
-The following is the definition of the `BpForms` grammar.
+The following is the definition of the `BpForms` grammar. The grammar is defined in `Lark syntax <https://lark-parser.readthedocs.io/en/latest/grammar/>`_ which is based on `EBNF syntax <https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form>`_.
 
 .. literalinclude:: ../bpforms/grammar.lark
     :language: text
