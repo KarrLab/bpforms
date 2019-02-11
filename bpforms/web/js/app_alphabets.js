@@ -40,8 +40,8 @@ set_alphabets = function(data, status, jqXHR) {
     }
     
     $("#alphabets_container").html(html)
-    hash = document.URL.substr(document.URL.indexOf('#')+1) 
-    $("#" + hash).scrollToMe();
+    
+    scroll_to_hash()
 }
 
 get_alphabets_error = function( jqXHR, textStatus, errorThrown ) {
@@ -97,8 +97,7 @@ set_alphabet = function(data, status, jqXHR) {
     
     $("#alphabet_" + data['id']).html(html)
     
-    hash = document.URL.substr(document.URL.indexOf('#')+1) 
-    $("#" + hash).scrollToMe();
+    scroll_to_hash()
 }
 
 get_alphabet_error = function( jqXHR, textStatus, errorThrown ) {
@@ -110,3 +109,11 @@ get_alphabet_error = function( jqXHR, textStatus, errorThrown ) {
   success: set_alphabets
 })
 .fail(get_alphabets_error);
+
+scroll_to_hash = function() {
+    i_hash = document.URL.indexOf('#')
+    if (i_hash >= 0) {
+        hash = document.URL.substr(i_hash + 1)
+        $("#" + hash).scrollToMe();
+    }
+}
