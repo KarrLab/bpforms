@@ -110,16 +110,23 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 structure = self.get_modification_structure(file)
 
                 chebi_syn = self.get_modification_chebi_synonyms(id, session)
-                # synonyms = SynonymSet()
+
+                synonyms = SynonymSet()
                 identifiers = IdentifierSet()
 
                 if chebi_syn is not None:
-                    if chebi_syn[1]:
-                        synonym = chebi_syn[1]
+                    if chebi_syn[2][1:-1]:
+                        synonym = chebi_syn[2]
+                        for elm in synonym:                     
+                            synonyms.add(elm)
 
                     if chebi_syn[0] != 0:
                         chebi = chebi_syn[0]
                         identifiers.add(Identifier('chebi', 'CHEBI:'+str(chebi)))
+
+                    if chebi_syn[1] != 0:
+                        identifiers.add(Identifier('PDBHET', chebi_syn[1]))
+
 
             if name in aa_names:
                 warnings.warn('Ignoring canonical base {}'.format(name), UserWarning)
@@ -128,7 +135,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             alphabet.bases[id] = Base(
                 id=id,
                 name=name,
-                # synonyms=synonyms,
+                synonyms=synonyms,
                 identifiers=identifiers,
                 structure=structure,
                 # comments="Modification of {}.".format(mod['originating_base'])
@@ -137,19 +144,6 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # remove tmp folder
         shutil.rmtree(tmp_folder)
 
-        # alphabet.bases.A = Base(
-        #     id='ALA',
-        #     name="alanine",
-        #     synonyms=SynonymSet([
-        #         'L-alpha-alanine',
-        #     ]),
-        #     identifiers=IdentifierSet([
-        #         Identifier('pubchem.compound', '7311724'),
-        #         Identifier('metacyc.compound', 'L-ALPHA-ALANINE'),
-        #         Identifier('chebi', 'CHEBI:57972'),
-        #     ]),
-        #     structure='InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1',
-        # )
 
         return alphabet
 
@@ -181,7 +175,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         Returns:
             :obj: `list of :obj:`str`: list of synonyms
-            :obj:`int`: ChEBI id 
+            :obj: `int`: ChEBI id 
+            :obj: `str`: PDB HETATM name
         """
 
         page = session.get('https://pir.georgetown.edu/cgi-bin/resid?id='+id)
@@ -196,8 +191,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             l = re.split("[:;]", names.strip())[1:]
             synonyms = list(map(lambda x: x.strip(), l))
 
-        # get ChEBI id
+        # get ChEBI id and HETATM name
         i_chebi = 0
+        pdbhet = 0
         if 'Cross-references' in cross_references:
             l = re.split("[:;]", cross_references.strip())[1:]
             l2 = list(map(lambda x: x.strip(), l))
@@ -205,7 +201,13 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 i_chebi = int(l2[l2.index('ChEBI')+1])
             else:
                 i_chebi = 0
-            return i_chebi, synonyms
+
+            if 'PDBHET' in l2:
+                pdbhet = l2[l2.index('PDBHET')+1]
+            else:
+                pdbhet = 0
+
+            return i_chebi, pdbhet, synonyms
 
 
 class ProteinForm(BpForm):
