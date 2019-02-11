@@ -56,9 +56,9 @@ Metadata
 * The ``identifier`` attribute can be used to provide references to entries in external databases. Each residue can have multiple identifiers. The namespaces and ids of identifers must be separated by "/".::
 
     [id: "dI"
-        | identifier: biocyc.compound/DEOXYINOSINE
-        | identifier: chebi/CHEBI:28997
-        | identifier: pubchem.compound/65058
+        | identifier: "biocyc.compound" / "DEOXYINOSINE"
+        | identifier: "chebi" / "CHEBI:28997"
+        | identifier: "pubchem.compound" / "65058"
         ]
 
 * The ``comments`` attribute can be used to describe additional information about each residue. Each residue can only have one comment.::
