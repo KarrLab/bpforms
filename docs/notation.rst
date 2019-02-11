@@ -32,7 +32,7 @@ Uncertainty
 `BpForms` can also represent two types of uncertainty in the structures of biopolymer forms.
 
 * The ``delta-mass`` ``delta-charge`` attributes can describe uncertainty in the chemical identities of modified bases. For example, ``[id: "dAMP" | delta-mass: 1 | delta-charge: 1]`` indicates that the presence of an additional hydrogen atom whose exact location is not known.
-* The ``position`` attribute can describe uncertainty in the positions of modified bases. For example, ``[id: "dI" | position: 2-3]`` indicates that deoxyinosine may occur anywhere between the second and third position.
+* The ``position`` attribute can describe uncertainty in the positions of modified bases. For example, ``[id: "5mC" | position: 2-3]`` indicates that 5mC may occur anywhere between the second and third position.
 
 
 Metadata
