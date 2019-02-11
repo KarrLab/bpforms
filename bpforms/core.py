@@ -666,7 +666,7 @@ class Base(object):
         """ Check if two bases are semantically equal
 
         Args:
-            other (:obj:`Base'): another base
+            other (:obj:`Base`): another base
 
         Returns:
             :obj:`bool`: :obj:`True`, if the objects have the same structure
@@ -1128,7 +1128,7 @@ class BpForm(object):
         """ Check if two biopolymer forms are semantically equal
 
         Args:
-            other (:obj:`BpForm'): another biopolymer form
+            other (:obj:`BpForm`): another biopolymer form
 
         Returns:
             :obj:`bool`: :obj:`True`, if the objects have the same structure

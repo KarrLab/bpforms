@@ -3,7 +3,7 @@
 Python API
 ----------
 
-The following tutorial illustrates how to use the `BpForms` Python API. An `interactive version of this tutorial <http://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb>`_ is also available in the `whole-cell modeling sandox.
+The following tutorial illustrates how to use the `BpForms` Python API. An `interactive version of this tutorial <http://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb>`_ is also available in the whole-cell modeling sandox.
 
 Importing `BpForms`
 ^^^^^^^^^^^^^^^^^^^
@@ -30,8 +30,8 @@ Second, use the `BpForms` notation and the `BpForm.from_str` method to create an
         ]AC'''.replace('\n', '').replace(' ', ''))
 
 
-Getting and setting residues
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Getting and setting bases
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Third, individual bases and slices of bases can be get and set similar to lists.::
 
