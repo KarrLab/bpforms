@@ -1,6 +1,6 @@
-id: canonical_protein
-name: Canonical protein
-description: The 20 canonical bases
+id: protein
+name: Protein
+description: The 20 canonical bases, plus the modified bases in <a href="https://pir.georgetown.edu/resid">RESID</a>
 bases:
   A:
     id: Ala

@@ -60,7 +60,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'protein'
         alphabet.name = 'Protein'
-        alphabet.description = (' The 20 canonical bases, plus the modified bases in '
+        alphabet.description = ('The 20 canonical bases, plus the modified bases in '
                                 '<a href="https://pir.georgetown.edu/resid">RESID</a>')
 
         # get amino acid names from canonical list
