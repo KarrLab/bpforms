@@ -30,9 +30,9 @@ Second, use the `BpForms` notation and the `BpForm.from_str` method to create an
         ]AC'''.replace('\n', '').replace(' ', ''))
 
 
-Getting a setting residues
+Getting a setting bases
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-Third, individual residues and slices of residues can be get and set similar to lists.::
+Third, individual bases and slices of bases can be get and set similar to lists.::
 
     dna_form[0]
         => <bpforms.core.Base at 0x7fb365341240>
@@ -47,7 +47,7 @@ Third, individual residues and slices of residues can be get and set similar to 
 
 Protonation
 ^^^^^^^^^^^
-Fourth, calculate the major protation state of each residue in the biopolymer form.::
+Fourth, calculate the major protation state of each base in the biopolymer form.::
 
     dna_form.protonate(8.)
 

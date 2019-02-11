@@ -3,7 +3,7 @@
 `BpForms` notation
 ------------------
 
-The `BpForms` notation represents biopolymer forms as FASTA sequences with (a) bases denoted by multiple characters delimited by curly brackets and (b) modified residues described by multiple attributes separated by "|" inside square brackets. The locations of modified residues are encoded by their positions within the sequence.
+The `BpForms` notation represents biopolymer forms as FASTA sequences with (a) bases denoted by multiple characters delimited by curly brackets and (b) modified bases described by multiple attributes separated by "|" inside square brackets. The locations of modified bases are encoded by their positions within the sequence.
 
     * ``[id: "dI" | name: "deoxyinosine"]ACGC``: represents deoxyinosine at the first position
     * ``AC[id: "dI" | name: "deoxyinosine"]GC``: represents deoxyinosine at the third position
@@ -13,7 +13,7 @@ The `BpForms` notation represents biopolymer forms as FASTA sequences with (a) b
 Structure
 ^^^^^^^^^
 
-The ``structure`` attribute can describe the chemical structure of modified residues. This should be an InChI-encoded string. Each modified residue can have one structure.::
+The ``structure`` attribute can describe the chemical structure of modified bases. This should be an InChI-encoded string. Each modified base can have one structure.::
 
     [id: "dI" |
         structure: InChI=1S
@@ -31,8 +31,8 @@ Uncertainty
 
 `BpForms` can also represent two types of uncertainty in the structures of biopolymer forms.
 
-* The ``delta-mass`` ``delta-charge`` attributes can describe uncertainty in the chemical identities of modified residues. For example, ``[id: "dAMP" | delta-mass: 1 | delta-charge: 1]`` indicates that the presence of an additional hydrogen atom whose exact location is not known.
-* The ``position`` attribute can describe uncertainty in the positions of modified residues. For example, ``[id: "dI" | position: 2-3]`` indicates that deoxyinosine may occur anywhere between the second and third position.
+* The ``delta-mass`` ``delta-charge`` attributes can describe uncertainty in the chemical identities of modified bases. For example, ``[id: "dAMP" | delta-mass: 1 | delta-charge: 1]`` indicates that the presence of an additional hydrogen atom whose exact location is not known.
+* The ``position`` attribute can describe uncertainty in the positions of modified bases. For example, ``[id: "dI" | position: 2-3]`` indicates that deoxyinosine may occur anywhere between the second and third position.
 
 
 Metadata
@@ -40,20 +40,20 @@ Metadata
 
 `BpForms` can also represent several types of metadata:
 
-* The ``id`` and ``name`` attributes can be used to provide human-readable labels for modified residues. Only one id and one name is allowed per residue::
+* The ``id`` and ``name`` attributes can be used to provide human-readable labels for modified bases. Only one id and one name is allowed per base::
 
     [id: "dI"
         | name: "deoxyinosine"
         ]
 
-* The ``synonym`` attribute can be used to provide additional human-readable labels. Each residue can have multiple synonyms.::
+* The ``synonym`` attribute can be used to provide additional human-readable labels. Each base can have multiple synonyms.::
 
     [id: "dI"
         | synonym: "2'-deoxyinosine"
         | synonym: "2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"
         ]
 
-* The ``identifier`` attribute can be used to provide references to entries in external databases. Each residue can have multiple identifiers. The namespaces and ids of identifers must be separated by "/".::
+* The ``identifier`` attribute can be used to provide references to entries in external databases. Each base can have multiple identifiers. The namespaces and ids of identifers must be separated by "/".::
 
     [id: "dI"
         | identifier: "biocyc.compound" / "DEOXYINOSINE"
@@ -61,7 +61,7 @@ Metadata
         | identifier: "pubchem.compound" / "65058"
         ]
 
-* The ``comments`` attribute can be used to describe additional information about each residue. Each residue can only have one comment.::
+* The ``comments`` attribute can be used to describe additional information about each base. Each base can only have one comment.::
 
     [id: "dI"
         | comments: "A purine 2'-deoxyribonucleoside that is inosine in which the
@@ -73,9 +73,9 @@ Syntax
 ^^^^^^
 
 * Bases in the alphabet that are denoted by multiple characters are enclosed in curly brackets ("{" and "}")
-* Modified residues are described by square brackets ("[" and "]")
+* Modified bases are described by square brackets ("[" and "]")
 * The position of the square brackets describes their location within the sequence
-* Attributes of modified residues are separated by vertical pipes ("|")
+* Attributes of modified bases are separated by vertical pipes ("|")
 * Attributes and their values are separated by colons (":")
 * White spaces are ignored around the attribute and field separators
 * All of the attributes can optional. However, the structure attribute is necessary to compute the formula, molecular weight, and charge.

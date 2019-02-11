@@ -17,10 +17,10 @@ The command line interface provides four functions to easily manipulate BpForms.
     bpforms validate rna rna-ase-seq
     bpforms validate protein protein-base-seq
 
-* **Protation of biopolymer forms.**. The following command can be used to calculate the major protonation state of each residue in a biopolymer form. This command will print the sequence of the major protonation states.  Note, this function requires a structure for each modified residue.::
+* **Protation of biopolymer forms.**. The following command can be used to calculate the major protonation state of each base in a biopolymer form. This command will print the sequence of the major protonation states.  Note, this function requires a structure for each modified base.::
 
     bpforms protonate alphabet base-seq ph
 
-* **Calculation of the physical properties of biopolymer forms.** The following command can be used to calculate the length, formula, mass, and charge of a bipolymer form. The optional ``ph`` argument can be used to protonate the biopolymer to a specific pH. Note, this function requires a structure for each modified residue.::
+* **Calculation of the physical properties of biopolymer forms.** The following command can be used to calculate the length, formula, mass, and charge of a bipolymer form. The optional ``ph`` argument can be used to protonate the biopolymer to a specific pH. Note, this function requires a structure for each modified base.::
 
     bpforms get-properties alphabet base-seq [--ph ph]
