@@ -7,7 +7,7 @@ Python API
 Importing `BpForms`
 ^^^^^^^^^^^^^^^^^^^
 
-The following command should be run to import ``BpForms``.::
+The following command should be run to import ``BpForms``::
 
     import bpforms
 
@@ -15,7 +15,7 @@ The following command should be run to import ``BpForms``.::
 Creating biopolymer forms
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following command can be run to a DNA form.::
+The following command can be run to create a DNA form::
 
     dna_form = bpforms.DnaForm().from_str('''ACG[
         id: "dI" | 
@@ -29,9 +29,9 @@ The following command can be run to a DNA form.::
         ]AC'''.replace('\n', '').replace(' ', ''))
 
 
-Getting a setting residues
+Getting and setting residues
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-Individual residues and slices of residues can be get and set similar to lists.::
+Individual residues and slices of residues can be get and set similar to lists::
 
     dna_form[0]
         => <bpforms.core.Base at 0x7fb365341240>
@@ -46,14 +46,14 @@ Individual residues and slices of residues can be get and set similar to lists.:
 
 Protonation
 ^^^^^^^^^^^
-The following command can be run to calculate the major protation state of each residue in a biopolymer form.::
+The following command can be run to calculate the major protation state of each residue in a biopolymer form::
 
     dna_form.protonate(8.)
 
 
 Calculation of physical properties
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The following command can be run to calculate the length, formula, molecular weight, and charge of a biopolymer form.::
+The following command can be run to calculate the length, chemical formula, molecular weight, and charge of a biopolymer form::
 
     len(dna_form)
         => 6
@@ -70,7 +70,7 @@ The following command can be run to calculate the length, formula, molecular wei
 
 Determine if two biopolymers describe the same structure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The following command can be run to determine if two biopolymers describe the same structure.::
+The following command can be run to determine if two biopolymers describe the same structure::
 
     dna_form_1 = bpforms.DnaForm().from_str('ACGT')
     dna_form_2 = bpforms.DnaForm().from_str('ACGT')
