@@ -45,21 +45,32 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
 ## Installation
 1. Install the third-party dependencies listed below. Detailed installation instructions are available in [An Introduction to Whole-Cell Modeling](http://docs.karrlab.org/intro_to_wc_modeling/master/0.0.1/installation.html).
         
-    * [ChemAxon Marvin](https://chemaxon.com/products/marvin)
+    * [ChemAxon Marvin](https://chemaxon.com/products/marvin): optional to calculate major protonation states
+      * [Java](https://www.java.com) >= 1.8
     * [Open Babel](http://openbabel.org)
     * [Pip](https://pip.pypa.io) >= 18.0
     * [Python](https://www.python.org) >= 3.6
 
-2. Install this package 
+2. To use Marvin to calculate major protonation states, set ``JAVA_HOME`` to the path to your Java virtual machine (JVM)
+   ```
+   export JAVA_HOME=/usr/lib/jvm/default-java
+   ```
+
+3. To use Marvin to calculate major protonation states, add Marvin to the Java class path
+   ```
+   export CLASSPATH=$CLASSPATH:/opt/chemaxon/marvinsuite/lib/MarvinBeans.jar
+   ```
+
+4. Install this package 
 
     * Install the latest release from PyPI. For most environments, the ``--process-dependency-links`` option is needed to install some of the dependencies from GitHub.
       ```
-      pip install --process-dependency-links bpforms
+      pip install --process-dependency-links bpforms[all]
       ```
 
     * Install the latest revision from GitHub. For most environments, the ``--process-dependency-links`` option is needed to install some of the dependencies from GitHub.
       ```
-      pip install --process-dependency-links git+git://github.com/KarrLab/bpforms#egg=bpforms
+      pip install --process-dependency-links git+git://github.com/KarrLab/bpforms#egg=bpforms[all]
       ```
 
 ## Examples, tutorial, and documentation
