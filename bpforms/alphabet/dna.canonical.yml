@@ -1,7 +1,7 @@
 id: canonical_dna
-name: Canonical DNA
-description: The four canonical bases
-bases:
+name: Canonical DNA nucleobases
+description: The four canonical DNA nucleobases
+monomers:
   A:
     id: dAMP
     name: 2'-deoxyadenosine 5'-monophosphate(2−)

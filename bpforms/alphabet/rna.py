@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms.core import Alphabet, AlphabetBuilder, Base, BpForm, Identifier, IdentifierSet, SynonymSet
+from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm, Identifier, IdentifierSet, SynonymSet
 from wc_utils.util.chem import EmpiricalFormula
 import bs4
 import csv
@@ -55,11 +55,11 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         # initialize alphabet
         alphabet = Alphabet()
 
-        # create canonical bases
+        # create canonical monomers
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'rna'
-        alphabet.name = 'RNA'
-        alphabet.description = ('The four canonical bases, plus the modified bases in '
+        alphabet.name = 'MODOMICS RNA nucleotides'
+        alphabet.description = ('The four canonical RNA nucleotides, plus the modified RNA nucleotides in '
                                 '<a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>')
 
         # create requests session
@@ -67,31 +67,31 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
         session.mount('http://', requests.adapters.HTTPAdapter(max_retries=self.MAX_RETRIES))
 
-        # get originating bases
+        # get originating monomers
         ascii_response = session.get(self.INDEX_ASCII_ENDPOINT)
         ascii_response.raise_for_status()
         stream = io.StringIO(ascii_response.text)
         stream.readline()
         reader = csv.reader(stream, delimiter='\t', quoting=csv.QUOTE_NONE)
-        orig_bases = {}
-        for base in reader:
+        orig_monomers = {}
+        for monomer in reader:
             for i in range(1, 4):
-                short_name = base[i]
+                short_name = monomer[i]
                 if short_name:
                     break
-            orig_bases[short_name] = base[i + 2]
+            orig_monomers[short_name] = monomer[i + 2]
 
         # get index of modifications
         response = session.get(self.INDEX_ENDPOINT)
         response.raise_for_status()
 
-        # get individual modifications and create bases
+        # get individual modifications and create monomers
         doc = bs4.BeautifulSoup(response.text, 'html.parser')
         table = doc.find('table', {'class': 'datagrid'})
         tbody = table.find('tbody')
         mods = tbody.find_all('tr')
         for i_mod, mod in enumerate(mods):
-            if i_mod >= self._max_bases:
+            if i_mod >= self._max_monomers:
                 break
 
             cells = mod.find_all('td')
@@ -121,17 +121,17 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
             structure = self.get_modification_structure(id, session)
 
-            if chars in alphabet.bases:
-                warnings.warn('Ignoring canonical base {}'.format(chars), UserWarning)
+            if chars in alphabet.monomers:
+                warnings.warn('Ignoring canonical monomer {}'.format(chars), UserWarning)
                 continue
 
-            alphabet.bases[chars] = Base(
+            alphabet.monomers[chars] = Monomer(
                 id=chars,
                 name=name,
                 synonyms=synonyms,
                 identifiers=identifiers,
                 structure=structure,
-                comments="Modification of {}.".format(orig_bases[short_name])
+                comments="Modification of {}.".format(orig_monomers[short_name])
             )
 
         # return alphabet
@@ -174,22 +174,22 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 class RnaForm(BpForm):
     """ RNA form """
 
-    def __init__(self, base_seq=None):
+    def __init__(self, monomer_seq=None):
         """
         Args:
-            base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
+            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
-        super(RnaForm, self).__init__(base_seq=base_seq, alphabet=rna_alphabet,
+        super(RnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=rna_alphabet,
                                       bond_formula=EmpiricalFormula('OH') * -1, bond_charge=1)
 
 
 class CanonicalRnaForm(BpForm):
     """ Canonical RNA form """
 
-    def __init__(self, base_seq=None):
+    def __init__(self, monomer_seq=None):
         """
         Args:
-            base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
+            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
-        super(CanonicalRnaForm, self).__init__(base_seq=base_seq, alphabet=canonical_rna_alphabet,
+        super(CanonicalRnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_rna_alphabet,
                                                bond_formula=EmpiricalFormula('OH') * -1, bond_charge=1)

@@ -53,7 +53,7 @@ class UtilTestCase(unittest.TestCase):
         self.assertFalse(os.path.isfile(rna.filename))
         self.assertFalse(os.path.isfile(protein.filename))
 
-        util.build_alphabets(_max_bases=3)
+        util.build_alphabets(_max_monomers=3)
 
         self.assertTrue(os.path.isfile(dna.filename))
         self.assertTrue(os.path.isfile(rna.filename))

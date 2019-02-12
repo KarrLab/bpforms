@@ -198,8 +198,8 @@ class SynonymSet(set):
         super(SynonymSet, self).symmetric_difference_update(other)
 
 
-class Base(object):
-    """ A base in a biopolymer
+class Monomer(object):
+    """ A monomer in a biopolymer
 
     Attributes:
         id (:obj:`str`): id
@@ -209,8 +209,8 @@ class Base(object):
         structure (:obj:`openbabel.OBMol`): chemical structure
         delta_mass (:obj:`float`): additional mass (Dalton) relative to structure
         delta_charge (:obj:`int`): additional charge relative to structure
-        start_position (:obj:`tuple`): uncertainty in location of base
-        end_position (:obj:`tuple`): uncertainty in location of base
+        start_position (:obj:`tuple`): uncertainty in the location of the monomer
+        end_position (:obj:`tuple`): uncertainty in the location of the monomer
         comments (:obj:`str`): comments
     """
 
@@ -225,8 +225,8 @@ class Base(object):
             structure (:obj:`openbabel.OBMol` or :obj:`str`, optional): chemical structure
             delta_mass (:obj:`float`, optional): additional mass (Dalton) relative to structure
             delta_charge (:obj:`float`, optional): additional charge relative to structure
-            start_position (:obj:`int`, optional): uncertainty in location of base
-            end_position (:obj:`int`, optional): uncertainty in location of base
+            start_position (:obj:`int`, optional): uncertainty in the location of the monomer
+            end_position (:obj:`int`, optional): uncertainty in the location of the monomer
             comments (:obj:`str`, optional): comments
         """
         self.id = id
@@ -570,10 +570,10 @@ class Base(object):
         return self.structure.GetTotalCharge() + (self.delta_charge or 0)
 
     def to_dict(self):
-        """ Get a dictionary representation of the base
+        """ Get a dictionary representation of the monomer
 
         Returns:
-            :obj:`dict`: dictionary representation of the base
+            :obj:`dict`: dictionary representation of the monomer
         """
         dict = {}
 
@@ -595,13 +595,13 @@ class Base(object):
         return dict
 
     def from_dict(self, dict):
-        """ Get a dictionary representation of the base
+        """ Get a dictionary representation of the monomer
 
         Args:
-            dict (:obj:`dict`): dictionary representation of the base
+            dict (:obj:`dict`): dictionary representation of the monomer
 
         Returns:
-            :obj:`Base`: base
+            :obj:`Monomer`: monomer
         """
         self.id = None
         self.name = None
@@ -635,10 +635,10 @@ class Base(object):
         return self
 
     def __str__(self):
-        """ Get a string representation of the base
+        """ Get a string representation of the monomer
 
         Returns:
-            :obj:`str`: string representation of the base
+            :obj:`str`: string representation of the monomer
         """
         els = []
         if self.id:
@@ -663,10 +663,10 @@ class Base(object):
         return '[' + ' | '.join(els) + ']'
 
     def is_equal(self, other):
-        """ Check if two bases are semantically equal
+        """ Check if two monomers are semantically equal
 
         Args:
-            other (:obj:`Base`): another base
+            other (:obj:`Monomer`): another monomer
 
         Returns:
             :obj:`bool`: :obj:`True`, if the objects have the same structure
@@ -689,182 +689,182 @@ class Base(object):
         return True
 
 
-class BaseSequence(list):
-    """ Sequence of bases """
+class MonomerSequence(list):
+    """ Sequence of monomers """
 
-    def __init__(self, bases=None):
+    def __init__(self, monomers=None):
         """
         Args:
-            bases (:obj:iterable of :obj:`Base`): iterable of bases
+            monomers (:obj:iterable of :obj:`Monomer`): iterable of monomers
         """
-        super(BaseSequence, self).__init__()
-        if bases is not None:
-            for base in bases:
-                self.append(base)
+        super(MonomerSequence, self).__init__()
+        if monomers is not None:
+            for monomer in monomers:
+                self.append(monomer)
 
-    def append(self, base):
-        """ Add a base
+    def append(self, monomer):
+        """ Add a monomer
 
         Args:
-            base (:obj:`Base`): base
+            monomer (:obj:`Monomer`): monomer
 
         Raises:
-            :obj:`ValueError`: if the `base` is not an instance of `Base`
+            :obj:`ValueError`: if the `monomer` is not an instance of `Monomer`
         """
-        if not isinstance(base, Base):
-            raise ValueError('`base` must be an instance of `Base`')
-        super(BaseSequence, self).append(base)
+        if not isinstance(monomer, Monomer):
+            raise ValueError('`monomer` must be an instance of `Monomer`')
+        super(MonomerSequence, self).append(monomer)
 
-    def extend(self, bases):
-        """ Add a list of bases
+    def extend(self, monomers):
+        """ Add a list of monomers
 
         Args:
-            bases (iterable of :obj:`Base`): iterable of bases
+            monomers (iterable of :obj:`Monomer`): iterable of monomers
         """
-        for base in bases:
-            self.append(base)
+        for monomer in monomers:
+            self.append(monomer)
 
-    def insert(self, i, base):
-        """ Insert a base at a position
+    def insert(self, i, monomer):
+        """ Insert a monomer at a position
 
         Args:
-            i (:obj:`int`): position to insert base
-            base (:obj:`Base`): base
+            i (:obj:`int`): position to insert monomer
+            monomer (:obj:`Monomer`): monomer
         """
-        if not isinstance(base, Base):
-            raise ValueError('`base` must be an instance of `Base`')
-        super(BaseSequence, self).insert(i, base)
+        if not isinstance(monomer, Monomer):
+            raise ValueError('`monomer` must be an instance of `Monomer`')
+        super(MonomerSequence, self).insert(i, monomer)
 
-    def __setitem__(self, slice, base):
-        """ Set base(s) at slice
+    def __setitem__(self, slice, monomer):
+        """ Set monomer(s) at slice
 
         Args:
-            slice (:obj:`int` or :obj:`slice`): position(s) to set base
-            base (:obj:`Base` or :obj:`list` of :obj:`Base`): base or bases
+            slice (:obj:`int` or :obj:`slice`): position(s) to set monomer
+            monomer (:obj:`Monomer` or :obj:`list` of :obj:`Monomer`): monomer or monomers
         """
         if isinstance(slice, int):
-            if not isinstance(base, Base):
-                raise ValueError('`base` must be a `Base`')
+            if not isinstance(monomer, Monomer):
+                raise ValueError('`monomer` must be a `Monomer`')
         else:
-            for b in base:
-                if not isinstance(b, Base):
-                    raise ValueError('`base` must be an iterable of `Base`')
+            for b in monomer:
+                if not isinstance(b, Monomer):
+                    raise ValueError('`monomer` must be an iterable of `Monomer`')
 
-        super(BaseSequence, self).__setitem__(slice, base)
+        super(MonomerSequence, self).__setitem__(slice, monomer)
 
-    def get_base_counts(self):
-        """ Get the frequency of each base within the sequence
+    def get_monomer_counts(self):
+        """ Get the frequency of each monomer within the sequence
 
         Returns:
-            :obj:`dict`: dictionary that maps bases to their counts
+            :obj:`dict`: dictionary that maps monomers to their counts
         """
         counts = {}
-        for base in self:
-            if base in counts:
-                counts[base] += 1
+        for monomer in self:
+            if monomer in counts:
+                counts[monomer] += 1
             else:
-                counts[base] = 1
+                counts[monomer] = 1
         return counts
 
     def is_equal(self, other):
-        """ Determine if two base sequences are semantically equal
+        """ Determine if two monomer sequences are semantically equal
 
         Args:
-            other (:obj:`BaseSequence`): other base sequence
+            other (:obj:`MonomerSequence`): other monomer sequence
 
         Returns:
-            :obj:`bool`: True, of the base sequences are semantically equal
+            :obj:`bool`: True, of the monomer sequences are semantically equal
         """
         if self is other:
             return True
         if self.__class__ != other.__class__ or len(self) != len(other):
             return False
-        for self_base, other_base in zip(self, other):
-            if not self_base.is_equal(other_base):
+        for self_monomer, other_monomer in zip(self, other):
+            if not self_monomer.is_equal(other_monomer):
                 return False
         return True
 
 
-class BaseDict(attrdict.AttrDict):
-    """ Dictionary for bases """
+class MonomerDict(attrdict.AttrDict):
+    """ Dictionary for monomers """
 
-    def __setitem__(self, chars, base):
-        """ Set base with chars
+    def __setitem__(self, chars, monomer):
+        """ Set monomer with chars
 
         Args:
-            chars (:obj:`str`): characters for base
-            base (:obj:`Base`): base
+            chars (:obj:`str`): characters for monomer
+            monomer (:obj:`Monomer`): monomer
         """
         if not re.match(r'^[^\[\]\{\}]+$', chars):
             raise ValueError(f'`chars` "{chars}" must be at least one character, excluding '
                              'square brackets and curly brackets')
-        super(BaseDict, self).__setitem__(chars, base)
+        super(MonomerDict, self).__setitem__(chars, monomer)
 
 
 class Alphabet(object):
-    """ Alphabet for bases 
+    """ Alphabet for monomers 
 
     Attributes:
         id (:obj:`str`): id
         name (:obj:`str`): name
         description (:obj:`str`): description
-        bases (:obj:`dict`): bases
+        monomers (:obj:`dict`): monomers
     """
 
-    def __init__(self, id=None, name=None, description=None, bases=None):
+    def __init__(self, id=None, name=None, description=None, monomers=None):
         """
         Args:
             id (:obj:`str`, optional): id
             name (:obj:`str`, optional): name
             description (:obj:`str`, optional): description
-            bases (:obj:`dict`, optional): bases
+            monomers (:obj:`dict`, optional): monomers
         """
         self.id = id
         self.name = name
         self.description = description
-        self.bases = bases or BaseDict()
+        self.monomers = monomers or MonomerDict()
 
     @property
-    def bases(self):
-        """ Get the bases
+    def monomers(self):
+        """ Get the monomers
 
         Returns:
-            :obj:`BaseDict`: bases
+            :obj:`MonomerDict`: monomers
         """
-        return self._bases
+        return self._monomers
 
-    @bases.setter
-    def bases(self, value):
-        """ Set the bases
+    @monomers.setter
+    def monomers(self, value):
+        """ Set the monomers
 
         Args:
-            value (:obj:`BaseDict`): bases
+            value (:obj:`MonomerDict`): monomers
 
         Raises:
-            :obj:`ValueError`: if `bases` is not an instance of `BaseDict`
+            :obj:`ValueError`: if `monomers` is not an instance of `MonomerDict`
         """
         if value is None:
-            raise ValueError('`bases` must be an instance of `BaseDict`')
-        if not isinstance(value, BaseDict):
-            value = BaseDict(value)
-        self._bases = value
+            raise ValueError('`monomers` must be an instance of `MonomerDict`')
+        if not isinstance(value, MonomerDict):
+            value = MonomerDict(value)
+        self._monomers = value
 
     def protonate(self, ph):
-        """ Protonate bases
+        """ Protonate monomers
 
         Args:
             ph (:obj:`float`): pH
         """
-        bases = list(filter(lambda base: base.structure is not None, self.bases.values()))
+        monomers = list(filter(lambda monomer: monomer.structure is not None, self.monomers.values()))
 
         inchis = []
-        for base in bases:
-            inchis.append(base.get_inchi())
+        for monomer in monomers:
+            inchis.append(monomer.get_inchi())
 
         new_inchis = Protonator.run(inchis, ph=ph)
 
-        for base, new_inchi in zip(bases, new_inchis):
-            base.structure = new_inchi
+        for monomer, new_inchi in zip(monomers, new_inchis):
+            monomer.structure = new_inchi
 
     def is_equal(self, other):
         """ Determine two alphabets are semantically equal
@@ -882,10 +882,10 @@ class Alphabet(object):
         for attr in ['id', 'name', 'description']:
             if getattr(self, attr) != getattr(other, attr):
                 return False
-        if len(self.bases) != len(other.bases):
+        if len(self.monomers) != len(other.monomers):
             return False
-        for chars, self_base in self.bases.items():
-            if not self_base.is_equal(other.bases.get(chars, None)):
+        for chars, self_monomer in self.monomers.items():
+            if not self_monomer.is_equal(other.monomers.get(chars, None)):
                 return False
         return True
 
@@ -902,9 +902,9 @@ class Alphabet(object):
             if val:
                 dict[attr] = val
 
-        dict['bases'] = {}
-        for chars, base in self.bases.items():
-            dict['bases'][chars] = base.to_dict()
+        dict['monomers'] = {}
+        for chars, monomer in self.monomers.items():
+            dict['monomers'][chars] = monomer.to_dict()
 
         return dict
 
@@ -921,9 +921,9 @@ class Alphabet(object):
             val = dict.get(attr, None)
             setattr(self, attr, val)
 
-        self.bases.clear()
-        for chars, base in dict['bases'].items():
-            self.bases[chars] = Base().from_dict(base)
+        self.monomers.clear()
+        for chars, monomer in dict['monomers'].items():
+            self.monomers[chars] = Monomer().from_dict(monomer)
 
         return self
 
@@ -957,15 +957,15 @@ class AlphabetBuilder(abc.ABC):
     """ Builder for alphabets 
 
     Attributes:
-        _max_bases (:obj:`float`): maximum number of bases to build; used to limit length of tests
+        _max_monomers (:obj:`float`): maximum number of monomers to build; used to limit length of tests
     """
 
-    def __init__(self, _max_bases=float('inf')):
+    def __init__(self, _max_monomers=float('inf')):
         """
         Args:
-            _max_bases (:obj:`float`, optional): maximum number of bases to build; used to limit length of tests
+            _max_monomers (:obj:`float`, optional): maximum number of monomers to build; used to limit length of tests
         """
-        self._max_bases = _max_bases
+        self._max_monomers = _max_monomers
 
     def run(self, path=None):
         """ Build alphabet and, optionally, save to YAML file
@@ -1006,56 +1006,64 @@ class BpForm(object):
     """ Biopolymer form
 
     Attributes:
-        base_seq (:obj:`BaseSequence`): bases of the biopolymer
-        alphabet (:obj:`Alphabet`): base alphabet
-        bond_formula (:obj:`EmpiricalFormula`): empirical formula for bonds between bases
-        bond_charge (:obj:`int`): charge of bonds between bases
+        monomer_seq (:obj:`MonomerSequence`): monomers of the biopolymer
+        alphabet (:obj:`Alphabet`): monomer alphabet
+        backbone_formula (:obj:`EmpiricalFormula`): empirical formula for backbone that connects monomers
+        backbone_charge (:obj:`int`): charge for backbone that connects monomers
+        bond_formula (:obj:`EmpiricalFormula`): empirical formula for bonds between monomers
+        bond_charge (:obj:`int`): charge of bonds between monomers
 
         _parser (:obj:`lark.Lark`): parser
     """
 
-    def __init__(self, base_seq=None, alphabet=None, bond_formula=None, bond_charge=0):
+    def __init__(self, monomer_seq=None, alphabet=None, backbone_formula=None, backbone_charge=0, bond_formula=None, bond_charge=0):
         """
         Args:
-            base_seq (:obj:`BaseSequence`, optional): bases of the biopolymer
-            alphabet (:obj:`Alphabet`, optional): base alphabet
-            bond_formula (:obj:`EmpiricalFormula`, optional): empirical formula for bonds between bases
-            bond_charge (:obj:`int`, optional): charge of bonds between bases
+            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the biopolymer
+            alphabet (:obj:`Alphabet`, optional): monomer alphabet
+            backbone_formula (:obj:`EmpiricalFormula`, optional): empirical formula for backbone that connects monomers
+            backbone_charge (:obj:`int`, optional): charge for backbone that connects monomers
+            bond_formula (:obj:`EmpiricalFormula`, optional): empirical formula for bonds between monomers
+            bond_charge (:obj:`int`, optional): charge of bonds between monomers
         """
         if alphabet is None:
             alphabet = Alphabet()
+        if backbone_formula is None:
+            backbone_formula = EmpiricalFormula()
         if bond_formula is None:
             bond_formula = EmpiricalFormula()
 
-        self.base_seq = base_seq or BaseSequence()
+        self.monomer_seq = monomer_seq or MonomerSequence()
         self.alphabet = alphabet
+        self.backbone_formula = backbone_formula
+        self.backbone_charge = backbone_charge
         self.bond_formula = bond_formula
         self.bond_charge = bond_charge
 
     @property
-    def base_seq(self):
-        """ Get the base sequence
+    def monomer_seq(self):
+        """ Get the monomer sequence
 
         Returns:
-            :obj:`BaseSequence`: base sequence
+            :obj:`MonomerSequence`: monomer sequence
         """
-        return self._base_seq
+        return self._monomer_seq
 
-    @base_seq.setter
-    def base_seq(self, value):
-        """ Set the base sequence
+    @monomer_seq.setter
+    def monomer_seq(self, value):
+        """ Set the monomer sequence
 
         Args:
-            value (:obj:`BaseSequence`): base sequence
+            value (:obj:`MonomerSequence`): monomer sequence
 
         Raises:
-            :obj:`ValueError`: if `base_seq` is not an instance of `BaseSequence`
+            :obj:`ValueError`: if `monomer_seq` is not an instance of `MonomerSequence`
         """
         if value is None:
-            raise ValueError('`base_seq` must be an instance of `BaseSequence`')
-        if not isinstance(value, BaseSequence):
-            value = BaseSequence(value)
-        self._base_seq = value
+            raise ValueError('`monomer_seq` must be an instance of `MonomerSequence`')
+        if not isinstance(value, MonomerSequence):
+            value = MonomerSequence(value)
+        self._monomer_seq = value
 
     @property
     def alphabet(self):
@@ -1068,7 +1076,7 @@ class BpForm(object):
 
     @alphabet.setter
     def alphabet(self, value):
-        """ Set the base sequence
+        """ Set the monomer sequence
 
         Args:
             value (:obj:`Alphabet`): alphabet
@@ -1079,6 +1087,50 @@ class BpForm(object):
         if not isinstance(value, Alphabet):
             raise ValueError('`alphabet` must be an instance of `Alphabet`')
         self._alphabet = value
+
+    @property
+    def backbone_formula(self):
+        """ Get the formula of the backbones
+
+        Returns:
+            :obj:`EmpiricalFormula`: formula of the backbones
+        """
+        return self._backbone_formula
+
+    @backbone_formula.setter
+    def backbone_formula(self, value):
+        """ Set the formula of the backbones
+
+        Args:
+            value (:obj:`EmpiricalFormula` or :obj:`str`): formula of the backbones
+        """
+        if not isinstance(value, EmpiricalFormula):
+            value = EmpiricalFormula(value)
+        self._backbone_mol_wt = value.get_molecular_weight()
+        self._backbone_formula = value
+
+    @property
+    def backbone_charge(self):
+        """ Get the backbone charge
+
+        Returns:
+            :obj:`str`: backbone charge
+        """
+        return self._backbone_charge
+
+    @backbone_charge.setter
+    def backbone_charge(self, value):
+        """ Set the backbone charge
+
+        Args:
+            value (:obj:`str`): backbone charge
+
+        Raises:
+            :obj:`ValueError`: if the backbone charge is not an integer
+        """
+        if not isinstance(value, (int, float)) or value != int(value):
+            raise ValueError('`backbone_charge` must be an integer')
+        self._backbone_charge = int(value)
 
     @property
     def bond_formula(self):
@@ -1134,65 +1186,67 @@ class BpForm(object):
             :obj:`bool`: :obj:`True`, if the objects have the same structure
         """
         return self is other or (self.__class__ == other.__class__
-                                 and self.base_seq.is_equal(other.base_seq)
+                                 and self.monomer_seq.is_equal(other.monomer_seq)
                                  and self.alphabet.is_equal(other.alphabet)
+                                 and self.backbone_formula == other.backbone_formula
+                                 and self.backbone_charge == other.backbone_charge
                                  and self.bond_formula == other.bond_formula
                                  and self.bond_charge == other.bond_charge)
 
     def __getitem__(self, slice):
-        """ Get base(s) at slice
+        """ Get monomer(s) at slice
 
         Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
 
         Returns:
-            :obj:`Base` or :obj:`Bases`: base or bases
+            :obj:`Monomer` or :obj:`Monomers`: monomer or monomers
         """
-        return self.base_seq.__getitem__(slice)
+        return self.monomer_seq.__getitem__(slice)
 
-    def __setitem__(self, slice, base):
-        """ Set base(s) at slice
+    def __setitem__(self, slice, monomer):
+        """ Set monomer(s) at slice
 
         Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
-            base (:obj:`Base` or :obj:`Bases`): base or bases
+            monomer (:obj:`Monomer` or :obj:`Monomers`): monomer or monomers
         """
-        self.base_seq.__setitem__(slice, base)
+        self.monomer_seq.__setitem__(slice, monomer)
 
     def __delitem__(self, slice):
-        """ Delete base(s) at slice
+        """ Delete monomer(s) at slice
 
         Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
         """
-        self.base_seq.__delitem__(slice)
+        self.monomer_seq.__delitem__(slice)
 
     def __iter__(self):
-        """ Get iterator over base sequence
+        """ Get iterator over monomer sequence
 
         Returns:
-            :obj:`iterator` of :obj:`Base`: iterator of bases
+            :obj:`iterator` of :obj:`Monomer`: iterator of monomers
         """
-        return self.base_seq.__iter__()
+        return self.monomer_seq.__iter__()
 
     def __reversed__(self):
-        """ Get reverse iterator over base sequence
+        """ Get reverse iterator over monomer sequence
 
         Returns:
-            :obj:`iterator` of :obj:`Base`: iterator of bases
+            :obj:`iterator` of :obj:`Monomer`: iterator of monomers
         """
-        return self.base_seq.__reversed__()
+        return self.monomer_seq.__reversed__()
 
-    def __contains__(self, base):
-        """ Determine if a base is in the form
+    def __contains__(self, monomer):
+        """ Determine if a monomer is in the form
 
         Args:
-            base (:obj:`Base`): base
+            monomer (:obj:`Monomer`): monomer
 
         Returns:
-            :obj:`bool`: true if the base is in the sequence
+            :obj:`bool`: true if the monomer is in the sequence
         """
-        return self.base_seq.__contains__(base)
+        return self.monomer_seq.__contains__(monomer)
 
     def __len__(self):
         """ Get the length of the sequence of the form
@@ -1200,15 +1254,15 @@ class BpForm(object):
         Returns:
             :obj:`int`: length
         """
-        return len(self.base_seq)
+        return len(self.monomer_seq)
 
-    def get_base_counts(self):
-        """ Get the frequency of each base within the biopolymer
+    def get_monomer_counts(self):
+        """ Get the frequency of each monomer within the biopolymer
 
         Returns:
-            :obj:`dict`: dictionary that maps bases to their counts
+            :obj:`dict`: dictionary that maps monomers to their counts
         """
-        return self.base_seq.get_base_counts()
+        return self.monomer_seq.get_monomer_counts()
 
     def protonate(self, ph):
         """ Update to the major protonation state of each modification at the pH
@@ -1216,16 +1270,16 @@ class BpForm(object):
         Args:
             ph (:obj:`float`): pH
         """
-        bases = list(filter(lambda base: base.structure is not None, set(self.base_seq)))
+        monomers = list(filter(lambda monomer: monomer.structure is not None, set(self.monomer_seq)))
 
         inchis = []
-        for base in bases:
-            inchis.append(base.get_inchi())
+        for monomer in monomers:
+            inchis.append(monomer.get_inchi())
 
         new_inchis = Protonator.run(inchis, ph=ph)
 
-        for base, new_inchi in zip(bases, new_inchis):
-            base.structure = new_inchi
+        for monomer, new_inchi in zip(monomers, new_inchis):
+            monomer.structure = new_inchi
 
     def get_formula(self):
         """ Get the chemical formula
@@ -1234,9 +1288,9 @@ class BpForm(object):
             :obj:`EmpiricalFormula`: chemical formula
         """
         formula = EmpiricalFormula()
-        for base, count in self.get_base_counts().items():
-            formula += base.get_formula() * count
-        return formula + self.bond_formula * (len(self) - 1)
+        for monomer, count in self.get_monomer_counts().items():
+            formula += monomer.get_formula() * count
+        return formula + self.backbone_formula * len(self) + self.bond_formula * (len(self) - 1)
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -1245,9 +1299,9 @@ class BpForm(object):
             :obj:`float`: molecular weight
         """
         mol_wt = 0.
-        for base, count in self.get_base_counts().items():
-            mol_wt += base.get_mol_wt() * count
-        return mol_wt + self._bond_mol_wt * (len(self) - 1)
+        for monomer, count in self.get_monomer_counts().items():
+            mol_wt += monomer.get_mol_wt() * count
+        return mol_wt + self._backbone_mol_wt * len(self) + self._bond_mol_wt * (len(self) - 1)
 
     def get_charge(self):
         """ Get the charge
@@ -1256,9 +1310,9 @@ class BpForm(object):
             :obj:`int`: charge
         """
         charge = 0
-        for base, count in self.get_base_counts().items():
-            charge += base.get_charge() * count
-        return charge + self.bond_charge * (len(self) - 1)
+        for monomer, count in self.get_monomer_counts().items():
+            charge += monomer.get_charge() * count
+        return charge + self.backbone_charge * len(self) + self.bond_charge * (len(self) - 1)
 
     def __str__(self):
         """ Get a string representation of the biopolymer form
@@ -1266,17 +1320,17 @@ class BpForm(object):
         Returns:
             :obj:`str`: string representation of the biopolymer form
         """
-        alphabet_bases = {base: chars for chars, base in self.alphabet.bases.items()}
+        alphabet_monomers = {monomer: chars for chars, monomer in self.alphabet.monomers.items()}
         val = ''
-        for base in self.base_seq:
-            chars = alphabet_bases.get(base, None)
+        for monomer in self.monomer_seq:
+            chars = alphabet_monomers.get(monomer, None)
             if chars:
                 if len(chars) == 1:
                     val += chars
                 else:
                     val += '{' + chars + '}'
             else:
-                val += str(base)
+                val += str(monomer)
         return val
 
     _grammar_filename = pkg_resources.resource_filename('bpforms', 'grammar.lark')
@@ -1298,22 +1352,22 @@ class BpForm(object):
                 self.bp_form = bp_form
 
             @lark.v_args(inline=True)
-            def seq(self, *base_seq):
-                self.bp_form.base_seq.clear()
-                self.bp_form.base_seq = base_seq
+            def seq(self, *monomer_seq):
+                self.bp_form.monomer_seq.clear()
+                self.bp_form.monomer_seq = monomer_seq
                 return self.bp_form
 
             @lark.v_args(inline=True)
-            def alphabet_base(self, chars):
+            def alphabet_monomer(self, chars):
                 if chars[0] == '{' and chars[-1] == '}':
                     chars = chars[1:-1]
-                base = self.bp_form.alphabet.bases.get(chars, None)
-                if base is None:
+                monomer = self.bp_form.alphabet.monomers.get(chars, None)
+                if monomer is None:
                     raise ValueError('"{}" not in alphabet'.format(chars))
-                return base
+                return monomer
 
             @lark.v_args(inline=True)
-            def inline_base(self, *args):
+            def inline_monomer(self, *args):
                 kwargs = {
                     'synonyms': SynonymSet(),
                     'identifiers': IdentifierSet(),
@@ -1330,7 +1384,7 @@ class BpForm(object):
                                 kwargs[arg_name] = arg_val
                         elif arg_name in ['synonyms', 'identifiers']:
                             kwargs[arg_name].add(arg_val)
-                return Base(**kwargs)
+                return Monomer(**kwargs)
 
             @lark.v_args(inline=True)
             def id(self, *args):

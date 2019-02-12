@@ -28,7 +28,7 @@ class RestTestCase(unittest.TestCase):
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json(), {
             'alphabet': 'dna',
-            'base_seq': 'ACGT',
+            'monomer_seq': 'ACGT',
             'length': 4,
             'formula': dict(EmpiricalFormula('C39H46N15O28P4')),
             'mol_wt': 1296.769047992,
@@ -40,7 +40,7 @@ class RestTestCase(unittest.TestCase):
         rv = client.get('/api/bpform/dna/ACGT/7./')
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json()['alphabet'], 'dna')
-        self.assertEqual(rv.get_json()['base_seq'], 'ACGT')
+        self.assertEqual(rv.get_json()['monomer_seq'], 'ACGT')
         self.assertEqual(rv.get_json()['length'], 4)
 
     def test_get_bpform_properties_errors(self):
@@ -60,8 +60,8 @@ class RestTestCase(unittest.TestCase):
         rv = client.get('/api/alphabet/')
         self.assertEqual(rv.status_code, 200)
         alphabets = rv.get_json()
-        self.assertEqual(alphabets['dna']['name'], 'DNA')
-        self.assertEqual(alphabets['canonical_dna']['name'], 'Canonical DNA')
+        self.assertEqual(alphabets['dna']['name'], 'DNAmod DNA nucleobases')
+        self.assertEqual(alphabets['canonical_dna']['name'], 'Canonical DNA nucleobases')
 
     def test_get_alphabet(self):
         client = rest.app.test_client()

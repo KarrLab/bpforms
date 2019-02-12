@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms.core import Alphabet, AlphabetBuilder, Base, BpForm, Identifier, IdentifierSet, SynonymSet
+from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm, Identifier, IdentifierSet, SynonymSet
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from wc_utils.util.chem import EmpiricalFormula
@@ -72,18 +72,18 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         # initialize alphabet
         alphabet = Alphabet()
 
-        # create canonical bases
+        # create canonical monomers
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'dna'
-        alphabet.name = 'DNA'
-        alphabet.description = ('The four canonical bases, plus the modified bases in '
+        alphabet.name = 'DNAmod DNA nucleobases'
+        alphabet.description = ('The four canonical DNA nucleobases, plus the modified DNA nucleobases in '
                                 '<a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>')
 
-        # get individual modifications and create bases
+        # get individual modifications and create monomers
         session = self.load_session()
         with_inchi = session.query(self.Names).filter(self.Names.inchi != '[]')
-        if not math.isinf(self._max_bases):
-            with_inchi = with_inchi.limit(self._max_bases)
+        if not math.isinf(self._max_monomers):
+            with_inchi = with_inchi.limit(self._max_monomers)
 
         for item in with_inchi.all():
             if item.nameid:
@@ -94,7 +94,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                     chars = row.Abbreviation
                 idx = 0
                 tmp = chars
-                while chars in alphabet.bases:
+                while chars in alphabet.monomers:
                     idx += 1
                     chars = tmp+'_'+str(idx)
 
@@ -117,7 +117,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
             structure = item.inchi.strip('[]')
 
-            alphabet.bases[chars] = Base(
+            alphabet.monomers[chars] = Monomer(
                 id=id,
                 name=name,
                 synonyms=synonyms,
@@ -132,22 +132,22 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 class DnaForm(BpForm):
     """ DNA form """
 
-    def __init__(self, base_seq=None):
+    def __init__(self, monomer_seq=None):
         """
         Args:
-            base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
+            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
-        super(DnaForm, self).__init__(base_seq=base_seq, alphabet=dna_alphabet,
+        super(DnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=dna_alphabet,
                                       bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
 
 
 class CanonicalDnaForm(BpForm):
     """ Canonical DNA form """
 
-    def __init__(self, base_seq=None):
+    def __init__(self, monomer_seq=None):
         """
         Args:
-            base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
+            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
-        super(CanonicalDnaForm, self).__init__(base_seq=base_seq, alphabet=canonical_dna_alphabet,
+        super(CanonicalDnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
                                                bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)

@@ -37,9 +37,9 @@
                 </select>
             </label>
 
-            <label>Enter base sequence
+            <label>Enter monomer sequence
                 <textarea
-                    id="base_seq_in"
+                    id="monomer_seq_in"
                     placeholder="AC{m2A}CC[id: m6A | structure: InChI=1S/C10H12N4O4/...]G"></textarea>
             </label>
 
@@ -53,8 +53,8 @@
         <div class="large-6 cell">
             <h3>Computed properties of the biopolymer form</h3>
             <form class="out">
-                <label>Base sequence (optionally protonated)
-                    <textarea id="base_seq_out"></textarea>
+                <label>Monomer sequence (optionally protonated)
+                    <textarea id="monomer_seq_out"></textarea>
                 </label>
                 <label>Length
                     <input type="number" id="length"/>
@@ -79,7 +79,7 @@
 
         <div class="large-6 cell">
           <h3>Overview</h3>
-          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined bases delimited by curly brackets and (b) user-defined bases described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
+          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined monomers delimited by curly brackets and (b) user-defined monomers described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
           <p style="margin-bottom: 0px;"><i>BpForms</i> has several pre-built alphabets.</p>
           <ul id="alphabet_descriptions">          
           </ul>
@@ -94,8 +94,8 @@
         </div>
 
         <div class="large-6 cell">
-          <h3>The structures of bases</h3>
-          The <tt>structure</tt> attribute describes the chemical structure of the modified base. This attribute is an InChI-encoded string. Each modified base can only have one structure.
+          <h3>The structures of monomers</h3>
+          The <tt>structure</tt> attribute describes the chemical structure of the inline monomer. This attribute is an InChI-encoded string. Each monomer can only have one structure.
         </div>
         <div class="large-6 cell">
           <h3>Examples</h3>
@@ -113,8 +113,8 @@
           <h3>Uncertainty about the primary sequence</h3>
           <i>BpForms</i> can represent two types of uncertainty in the primary sequences of biopolymer forms.
           <ul>
-          <li>The <tt>delta-mass</tt> <tt>delta-charge</tt> attributes describe uncertainty in the chemical identity of the base.</li>
-          <li>The <tt>position</tt> attribute describes uncertainty in the position of the modified base within the sequence.</i>
+          <li>The <tt>delta-mass</tt> <tt>delta-charge</tt> attributes describe uncertainty in the chemical identity of the monomer.</li>
+          <li>The <tt>position</tt> attribute describes uncertainty in the position of the monomer within the sequence.</i>
           </ul>
         </div>
         <div class="large-6 cell">
@@ -127,13 +127,13 @@
 
 
         <div class="large-6 cell">
-          <h3>Metadata about bases</h3>
-          <i>BpForms</i> can represent several types of metadata about bases.
+          <h3>Metadata about monomers</h3>
+          <i>BpForms</i> can represent several types of metadata about monomers.
           <ul>
-            <li>The <tt>id</tt> and <tt>name</tt> attributes are human-readable labels for bases. Only one id and one name is allowed per base.</li>
-            <li>The <tt>synonym</tt> attribute is an additional human-readable label. Bases can have multiple synonyms.</li>
-            <li>The <tt>identifier</tt> attribute indicates entries in databases and ontologies which are equivalent to the base. Bases can have multiple identifiers. The namespace and id of each identifer must be separated by a "/".</li>
-            <li>The <tt>comments</tt> attribute describes additional information about the base. Bases can only have one comment.</li>
+            <li>The <tt>id</tt> and <tt>name</tt> attributes are human-readable labels for monomers. Only one id and one name is allowed per monomer.</li>
+            <li>The <tt>synonym</tt> attribute is an additional human-readable label. Monomers can have multiple synonyms.</li>
+            <li>The <tt>identifier</tt> attribute indicates entries in databases and ontologies which are equivalent to the monomer. Monomers can have multiple identifiers. The namespace and id of each identifer must be separated by a "/".</li>
+            <li>The <tt>comments</tt> attribute describes additional information about the monomer. Monomers can only have one comment.</li>
           </ul>
         </div>
         <div class="large-6 cell">
@@ -154,7 +154,7 @@
         <div class="large-4 cell">
           <h3>Resources for DNA forms</h3>
           <ul>
-          <li><i>DNAMod</i> <a href="https://dnamod.hoffmanlab.org/"><i class="fi-link"></i></a>: Database of non-canonical dNMPs</li>
+          <li><i>DNAMod</i> <a href="https://dnamod.hoffmanlab.org/"><i class="fi-link"></i></a>: Database of non-canonical DNA nucleobases</li>
           <li><i>MethDB</i> <a href="http://www.methdb.net/"><i class="fi-link"></i></a>: Database of non-canonical DNA</li>
           <li><i>MethSMRT</i> <a href="http://sysbio.gzzoc.com/methsmrt/"><i class="fi-link"></i></a>: Database of non-canonical DNA</li>
           </ul>
@@ -162,7 +162,7 @@
         <div class="large-4 cell">
           <h3>Resources for RNA forms</h3>
           <ul>
-          <li><i>MODOMICS</i> <a href="http://modomics.genesilico.pl/modifications/"><i class="fi-link"></i></a>: Database of non-canonical NMPs</li>
+          <li><i>MODOMICS</i> <a href="http://modomics.genesilico.pl/modifications/"><i class="fi-link"></i></a>: Database of non-canonical RNA nucleotides</li>
           <li><i>RMBase</i> <a href="http://rna.sysu.edu.cn/rmbase/"><i class="fi-link"></i></a>: Database of modified RNA</li>
           <li><i>RNA Modification Database</i> <a href="https://mods.rna.albany.edu/"><i class="fi-link"></i></a>: Database of modified RNA</li>
           </ul>

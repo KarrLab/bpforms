@@ -24,14 +24,14 @@ set_properties = function(data, status, jqXHR){
         formula += el + data['formula'][el].toString()
     }
 
-    $("#base_seq_out").val(data['base_seq'])
+    $("#monomer_seq_out").val(data['monomer_seq'])
     $("#length").val(data['length'])
     $("#formula").val(formula)
     $("#mol_wt").val(data['mol_wt'])
     $("#charge").val(data['charge'])
-    $("#base_seq_out").css('border-color', '#cacaca');
-    $("#base_seq_out").css('border-width', '1px');
-    $("#base_seq_out").css('background-color', '#e6e6e6');
+    $("#monomer_seq_out").css('border-color', '#cacaca');
+    $("#monomer_seq_out").css('border-width', '1px');
+    $("#monomer_seq_out").css('background-color', '#e6e6e6');
 }
 
 display_error = function( jqXHR, textStatus, errorThrown ) {
@@ -39,22 +39,22 @@ display_error = function( jqXHR, textStatus, errorThrown ) {
     if ('details' in jqXHR['responseJSON']) {
         error += '\n\n' + jqXHR['responseJSON']['details']
     }
-    $("#base_seq_out").val(error)
-    $("#base_seq_out").css('border-color', '#ff0000');
-    $("#base_seq_out").css('border-width', '2px');
-    $("#base_seq_out").css('background-color', '#ffebeb');
+    $("#monomer_seq_out").val(error)
+    $("#monomer_seq_out").css('border-color', '#ff0000');
+    $("#monomer_seq_out").css('border-width', '2px');
+    $("#monomer_seq_out").css('background-color', '#ffebeb');
 }
 
 $('#submit').click(function (evt) {
     alphabet = $("#alphabet").val()
-    base_seq = $("#base_seq_in").val().trim()
+    monomer_seq = $("#monomer_seq_in").val().trim()
     ph = $("#ph").val()
 
-    if (base_seq == null || base_seq == '') {
+    if (monomer_seq == null || monomer_seq == '') {
         return;
     }
 
-    url = '/api/bpform/' + alphabet + '/' + base_seq
+    url = '/api/bpform/' + alphabet + '/' + monomer_seq
     if (ph != null && ph != "") {
          url += '/' + ph
     }

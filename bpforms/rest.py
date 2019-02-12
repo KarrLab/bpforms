@@ -46,33 +46,33 @@ bpform_ns = flask_restplus.Namespace('bpform', description='Calculate properties
 api.add_namespace(bpform_ns)
 
 
-@bpform_ns.route("/<string:alphabet>/<string:base_seq>/")
+@bpform_ns.route("/<string:alphabet>/<string:monomer_seq>/")
 @bpform_ns.doc(params={
     'alphabet': 'String: Id of the alphabet of the biopolymer form (e.g. "dna", "rna", or "protein")',
-    'base_seq': 'String: Sequence of bases of the biopolymer form',
+    'monomer_seq': 'String: Sequence of monomers of the biopolymer form',
 })
 class Bpform(flask_restplus.Resource):
     """ Calculate properties of a biopolymer form """
 
-    def get(self, alphabet, base_seq):
+    def get(self, alphabet, monomer_seq):
         """ Get the properties of a biopolymer form """
         """
         Args:
             alphabet (:obj:`str`) id of the alphabet of the biopolymer form
-            base_seq (:obj:`str`): sequence of bases of the biopolymer form
+            monomer_seq (:obj:`str`): sequence of monomers of the biopolymer form
             ph (:obj:`float`): pH
 
         Returns:
             :obj:`dict`
         """
-        return self.get_properties(alphabet, base_seq)
+        return self.get_properties(alphabet, monomer_seq)
 
     @staticmethod
-    def get_properties(alphabet, base_seq, ph=None):
+    def get_properties(alphabet, monomer_seq, ph=None):
         """
         Args:
             alphabet (:obj:`str`) id of the alphabet of the biopolymer form
-            base_seq (:obj:`str`): sequence of bases of the biopolymer form
+            monomer_seq (:obj:`str`): sequence of monomers of the biopolymer form
             ph (:obj:`float`): pH
 
         Returns:
@@ -84,9 +84,9 @@ class Bpform(flask_restplus.Resource):
             flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(alphabet))
 
         try:
-            form = form_cls().from_str(base_seq)
+            form = form_cls().from_str(monomer_seq)
         except Exception as error:
-            flask_restplus.abort(400, 'Unable to parse base sequence', details=str(error))
+            flask_restplus.abort(400, 'Unable to parse monomer sequence', details=str(error))
 
         if ph is not None:
             try:
@@ -96,7 +96,7 @@ class Bpform(flask_restplus.Resource):
             form.protonate(ph)
         return {
             'alphabet': alphabet,
-            'base_seq': str(form),
+            'monomer_seq': str(form),
             'length': len(form),
             'formula': dict(form.get_formula()),
             'mol_wt': form.get_mol_wt(),
@@ -104,27 +104,27 @@ class Bpform(flask_restplus.Resource):
         }
 
 
-@bpform_ns.route("/<string:alphabet>/<string:base_seq>/<string:ph>/")
+@bpform_ns.route("/<string:alphabet>/<string:monomer_seq>/<string:ph>/")
 @bpform_ns.doc(params={
     'alphabet': 'String: Id of the alphabet of the biopolymer form (e.g. "dna", "rna", or "protein")',
-    'base_seq': 'String: Sequence of bases of the biopolymer form',
-    'ph': 'Float, optional: pH at which to calculate the major protonation form of each base',
+    'monomer_seq': 'String: Sequence of monomers of the biopolymer form',
+    'ph': 'Float, optional: pH at which to calculate the major protonation form of each monomer',
 })
 class ProtonatedBpform(flask_restplus.Resource):
     """ Protonate a biopolymer form and calculate its properties """
 
-    def get(self, alphabet, base_seq, ph):
+    def get(self, alphabet, monomer_seq, ph):
         """ Protonate a biopolymer form and calculate its properties """
         """
         Args:
             alphabet (:obj:`str`) id of the alphabet of the biopolymer form
-            base_seq (:obj:`str`): sequence of bases of the biopolymer form
+            monomer_seq (:obj:`str`): sequence of monomers of the biopolymer form
             ph (:obj:`float`): pH
 
         Returns:
             :obj:`dict`
         """
-        return Bpform.get_properties(alphabet, base_seq, ph=ph)
+        return Bpform.get_properties(alphabet, monomer_seq, ph=ph)
 
 
 alphabet_ns = flask_restplus.Namespace('alphabet', description='List alphabets and get their details')

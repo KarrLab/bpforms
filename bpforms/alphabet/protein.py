@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms.core import Alphabet, AlphabetBuilder, Base, BpForm, Identifier, IdentifierSet, SynonymSet
+from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm, Identifier, IdentifierSet, SynonymSet
 from wc_utils.util.chem import EmpiricalFormula
 from ftplib import FTP
 from bs4 import BeautifulSoup
@@ -56,17 +56,17 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # initialize alphabet
         alphabet = Alphabet()
 
-        # load canonical bases
+        # load canonical monomers
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'protein'
-        alphabet.name = 'Protein'
-        alphabet.description = ('The 20 canonical bases, plus the modified bases in '
+        alphabet.name = 'RESID protein amino acids'
+        alphabet.description = ('The 20 canonical amino acids, plus the modified amino acids in '
                                 '<a href="https://pir.georgetown.edu/resid">RESID</a>')
 
         # get amino acid names from canonical list
         aa_names = []
-        for base in alphabet.bases.keys():
-            aa_names.append(alphabet.bases[base].name)
+        for monomer in alphabet.monomers.keys():
+            aa_names.append(alphabet.monomers[monomer].name)
 
         # create tmp directory
         tmp_folder = tempfile.mkdtemp()
@@ -117,7 +117,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 if chebi_syn is not None:
                     if chebi_syn[2][1:-1]:
                         synonym = chebi_syn[2]
-                        for elm in synonym:                     
+                        for elm in synonym:
                             synonyms.add(elm)
 
                     if chebi_syn[0] != 0:
@@ -127,23 +127,20 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     if chebi_syn[1] != 0:
                         identifiers.add(Identifier('PDBHET', chebi_syn[1]))
 
-
             if name in aa_names:
-                warnings.warn('Ignoring canonical base {}'.format(name), UserWarning)
+                warnings.warn('Ignoring canonical monomer {}'.format(name), UserWarning)
                 continue
 
-            alphabet.bases[id] = Base(
+            alphabet.monomers[id] = Monomer(
                 id=id,
                 name=name,
                 synonyms=synonyms,
                 identifiers=identifiers,
                 structure=structure,
-                # comments="Modification of {}.".format(mod['originating_base'])
             )
 
         # remove tmp folder
         shutil.rmtree(tmp_folder)
-
 
         return alphabet
 
@@ -213,22 +210,22 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 class ProteinForm(BpForm):
     """ Protein form """
 
-    def __init__(self, base_seq=None):
+    def __init__(self, monomer_seq=None):
         """
         Args:
-            base_seq (:obj:`BaseSequence`, optional): bases of the protein form
+            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
-        super(ProteinForm, self).__init__(base_seq=base_seq, alphabet=protein_alphabet,
+        super(ProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=protein_alphabet,
                                           bond_formula=EmpiricalFormula('H2') * -1, bond_charge=0)
 
 
 class CanonicalProteinForm(BpForm):
     """ Canonical protein form """
 
-    def __init__(self, base_seq=None):
+    def __init__(self, monomer_seq=None):
         """
         Args:
-            base_seq (:obj:`BaseSequence`, optional): bases of the protein form
+            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
-        super(CanonicalProteinForm, self).__init__(base_seq=base_seq, alphabet=canonical_protein_alphabet,
+        super(CanonicalProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
                                                    bond_formula=EmpiricalFormula('H2') * -1, bond_charge=0)

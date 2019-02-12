@@ -1,9 +1,9 @@
 ?start: seq
-seq: base+
-?base: alphabet_base | inline_base
-alphabet_base: CHAR | DELIMITED_CHARS
-inline_base: "[" WS* inline_base_attr (ATTR_SEP inline_base_attr)* WS* "]"
-?inline_base_attr: id | name | synonym | identifier | structure | delta_mass | delta_charge | position | comments
+seq: monomer+
+?monomer: alphabet_monomer | inline_monomer
+alphabet_monomer: CHAR | DELIMITED_CHARS
+inline_monomer: "[" WS* inline_monomer_attr (ATTR_SEP inline_monomer_attr)* WS* "]"
+?inline_monomer_attr: id | name | synonym | identifier | structure | delta_mass | delta_charge | position | comments
 ?id: "id" FIELD_SEP ESCAPED_STRING
 ?name: "name" FIELD_SEP ESCAPED_STRING
 ?synonym: "synonym" FIELD_SEP ESCAPED_STRING
