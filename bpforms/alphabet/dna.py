@@ -75,7 +75,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         # create canonical monomers
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'dna'
-        alphabet.name = 'DNA'
+        alphabet.name = 'DNAmod DNA nucleobases'
         alphabet.description = ('The four canonical DNA nucleobases, plus the modified DNA nucleobases in '
                                 '<a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>')
 

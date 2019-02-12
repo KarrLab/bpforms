@@ -1,5 +1,5 @@
 id: rna
-name: RNA
+name: MODOMICS RNA nucleotides
 description: The four canonical RNA nucleotides, plus the modified RNA nucleotides in <a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>
 monomers:
   A:

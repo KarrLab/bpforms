@@ -1,5 +1,5 @@
 id: canonical_rna
-name: Canonical RNA
+name: Canonical RNA nucleotides
 description: The four canonical RNA nucleotides
 monomers:
   A:

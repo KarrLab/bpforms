@@ -59,7 +59,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # load canonical monomers
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'protein'
-        alphabet.name = 'Protein'
+        alphabet.name = 'RESID protein amino acids'
         alphabet.description = ('The 20 canonical amino acids, plus the modified amino acids in '
                                 '<a href="https://pir.georgetown.edu/resid">RESID</a>')
 

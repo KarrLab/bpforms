@@ -1,5 +1,5 @@
 id: canonical_protein
-name: Canonical protein
+name: Canonical protein amino acids
 description: The 20 canonical amino acids
 monomers:
   A:

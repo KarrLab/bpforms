@@ -1,5 +1,5 @@
 id: protein
-name: Protein
+name: RESID protein amino acids
 description: The 20 canonical amino acids, plus the modified amino acids in <a href="https://pir.georgetown.edu/resid">RESID</a>
 monomers:
   A:

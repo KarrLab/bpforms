@@ -1,5 +1,5 @@
 id: canonical_dna
-name: Canonical DNA
+name: Canonical DNA nucleobases
 description: The four canonical DNA nucleobases
 monomers:
   A:

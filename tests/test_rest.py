@@ -60,8 +60,8 @@ class RestTestCase(unittest.TestCase):
         rv = client.get('/api/alphabet/')
         self.assertEqual(rv.status_code, 200)
         alphabets = rv.get_json()
-        self.assertEqual(alphabets['dna']['name'], 'DNA')
-        self.assertEqual(alphabets['canonical_dna']['name'], 'Canonical DNA')
+        self.assertEqual(alphabets['dna']['name'], 'DNAmod DNA nucleobases')
+        self.assertEqual(alphabets['canonical_dna']['name'], 'Canonical DNA nucleobases')
 
     def test_get_alphabet(self):
         client = rest.app.test_client()

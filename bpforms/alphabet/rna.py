@@ -58,7 +58,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         # create canonical monomers
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'rna'
-        alphabet.name = 'RNA'
+        alphabet.name = 'MODOMICS RNA nucleotides'
         alphabet.description = ('The four canonical RNA nucleotides, plus the modified RNA nucleotides in '
                                 '<a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>')
 

@@ -1,5 +1,5 @@
 id: dna
-name: DNA
+name: DNAmod DNA nucleobases
 description: The four canonical DNA nucleobases, plus the modified DNA nucleobases in <a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>
 monomers:
   A:
