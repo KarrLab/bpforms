@@ -32,7 +32,7 @@ class ProteinTestCase(unittest.TestCase):
     def test_ProteinForm_properties(self):
         bases = protein.canonical_protein_alphabet.bases
         form = protein.CanonicalProteinForm().from_str('AAA')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('H2O') * -2
+        self.assertEqual(form.get_formula(), EmpiricalFormula('H2') * -2
                          + bases.A.get_formula()
                          + bases.A.get_formula()
                          + bases.A.get_formula())
