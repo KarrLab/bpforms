@@ -553,6 +553,40 @@ class BpFormTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             bp_form.alphabet = 'A'
 
+    def test_set_backbone_formula(self):
+        bp_form = core.BpForm()
+
+        bp_form.backbone_formula = EmpiricalFormula('CHO')
+        self.assertEqual(bp_form.backbone_formula, EmpiricalFormula('CHO'))
+
+        bp_form.backbone_formula = 'CHO'
+        self.assertEqual(bp_form.backbone_formula, EmpiricalFormula('CHO'))
+
+        with self.assertRaises(ValueError):
+            bp_form.backbone_formula = '123'
+        with self.assertRaises(TypeError):
+            bp_form.backbone_formula = 123
+        with self.assertRaises(TypeError):
+            bp_form.backbone_formula = None
+
+    def test_set_backbone_charge(self):
+        bp_form = core.BpForm()
+
+        bp_form.backbone_charge = 1
+        self.assertEqual(bp_form.backbone_charge, 1)
+
+        bp_form.backbone_charge = 1.
+        self.assertEqual(bp_form.backbone_charge, 1)
+
+        bp_form.backbone_charge = -1
+        self.assertEqual(bp_form.backbone_charge, -1)
+
+        with self.assertRaises(ValueError):
+            bp_form.backbone_charge = 1.5
+
+        with self.assertRaises(ValueError):
+            bp_form.backbone_charge = None
+
     def test_set_bond_formula(self):
         bp_form = core.BpForm()
 
@@ -592,8 +626,11 @@ class BpFormTestCase(unittest.TestCase):
         bp_form_2 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]))
         bp_form_3 = None
         bp_form_4 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), alphabet=dna.canonical_dna_alphabet)
-        bp_form_5 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), bond_charge=-1)
+        bp_form_5 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), backbone_charge=-1)
         bp_form_6 = core.BpForm(base_seq=core.BaseSequence(
+            [core.Base(id='A'), core.Base(id='B')]), backbone_formula=EmpiricalFormula('H'))
+        bp_form_7 = core.BpForm(base_seq=core.BaseSequence([core.Base(id='A'), core.Base(id='B')]), bond_charge=-1)
+        bp_form_8 = core.BpForm(base_seq=core.BaseSequence(
             [core.Base(id='A'), core.Base(id='B')]), bond_formula=EmpiricalFormula('H'))
         self.assertTrue(bp_form_1.is_equal(bp_form_1))
         self.assertTrue(bp_form_1.is_equal(bp_form_2))
@@ -601,6 +638,8 @@ class BpFormTestCase(unittest.TestCase):
         self.assertFalse(bp_form_1.is_equal(bp_form_4))
         self.assertFalse(bp_form_1.is_equal(bp_form_5))
         self.assertFalse(bp_form_1.is_equal(bp_form_6))
+        self.assertFalse(bp_form_1.is_equal(bp_form_7))
+        self.assertFalse(bp_form_1.is_equal(bp_form_8))
 
     def test_getitem(self):
         base_1 = core.Base(id='A')

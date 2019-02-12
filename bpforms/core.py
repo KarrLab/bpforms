@@ -1008,27 +1008,35 @@ class BpForm(object):
     Attributes:
         base_seq (:obj:`BaseSequence`): bases of the biopolymer
         alphabet (:obj:`Alphabet`): base alphabet
+        backbone_formula (:obj:`EmpiricalFormula`): empirical formula for backbone that connects bases
+        backbone_charge (:obj:`int`): charge for backbone that connects bases
         bond_formula (:obj:`EmpiricalFormula`): empirical formula for bonds between bases
         bond_charge (:obj:`int`): charge of bonds between bases
 
         _parser (:obj:`lark.Lark`): parser
     """
 
-    def __init__(self, base_seq=None, alphabet=None, bond_formula=None, bond_charge=0):
+    def __init__(self, base_seq=None, alphabet=None, backbone_formula=None, backbone_charge=0, bond_formula=None, bond_charge=0):
         """
         Args:
             base_seq (:obj:`BaseSequence`, optional): bases of the biopolymer
             alphabet (:obj:`Alphabet`, optional): base alphabet
+            backbone_formula (:obj:`EmpiricalFormula`, optional): empirical formula for backbone that connects bases
+            backbone_charge (:obj:`int`, optional): charge for backbone that connects bases
             bond_formula (:obj:`EmpiricalFormula`, optional): empirical formula for bonds between bases
             bond_charge (:obj:`int`, optional): charge of bonds between bases
         """
         if alphabet is None:
             alphabet = Alphabet()
+        if backbone_formula is None:
+            backbone_formula = EmpiricalFormula()
         if bond_formula is None:
             bond_formula = EmpiricalFormula()
 
         self.base_seq = base_seq or BaseSequence()
         self.alphabet = alphabet
+        self.backbone_formula = backbone_formula
+        self.backbone_charge = backbone_charge
         self.bond_formula = bond_formula
         self.bond_charge = bond_charge
 
@@ -1079,6 +1087,50 @@ class BpForm(object):
         if not isinstance(value, Alphabet):
             raise ValueError('`alphabet` must be an instance of `Alphabet`')
         self._alphabet = value
+
+    @property
+    def backbone_formula(self):
+        """ Get the formula of the backbones
+
+        Returns:
+            :obj:`EmpiricalFormula`: formula of the backbones
+        """
+        return self._backbone_formula
+
+    @backbone_formula.setter
+    def backbone_formula(self, value):
+        """ Set the formula of the backbones
+
+        Args:
+            value (:obj:`EmpiricalFormula` or :obj:`str`): formula of the backbones
+        """
+        if not isinstance(value, EmpiricalFormula):
+            value = EmpiricalFormula(value)
+        self._backbone_mol_wt = value.get_molecular_weight()
+        self._backbone_formula = value
+
+    @property
+    def backbone_charge(self):
+        """ Get the backbone charge
+
+        Returns:
+            :obj:`str`: backbone charge
+        """
+        return self._backbone_charge
+
+    @backbone_charge.setter
+    def backbone_charge(self, value):
+        """ Set the backbone charge
+
+        Args:
+            value (:obj:`str`): backbone charge
+
+        Raises:
+            :obj:`ValueError`: if the backbone charge is not an integer
+        """
+        if not isinstance(value, (int, float)) or value != int(value):
+            raise ValueError('`backbone_charge` must be an integer')
+        self._backbone_charge = int(value)
 
     @property
     def bond_formula(self):
@@ -1136,6 +1188,8 @@ class BpForm(object):
         return self is other or (self.__class__ == other.__class__
                                  and self.base_seq.is_equal(other.base_seq)
                                  and self.alphabet.is_equal(other.alphabet)
+                                 and self.backbone_formula == other.backbone_formula
+                                 and self.backbone_charge == other.backbone_charge
                                  and self.bond_formula == other.bond_formula
                                  and self.bond_charge == other.bond_charge)
 
@@ -1236,7 +1290,7 @@ class BpForm(object):
         formula = EmpiricalFormula()
         for base, count in self.get_base_counts().items():
             formula += base.get_formula() * count
-        return formula + self.bond_formula * (len(self) - 1)
+        return formula + self.backbone_formula * len(self) + self.bond_formula * (len(self) - 1)
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -1247,7 +1301,7 @@ class BpForm(object):
         mol_wt = 0.
         for base, count in self.get_base_counts().items():
             mol_wt += base.get_mol_wt() * count
-        return mol_wt + self._bond_mol_wt * (len(self) - 1)
+        return mol_wt + self._backbone_mol_wt * len(self) + self._bond_mol_wt * (len(self) - 1)
 
     def get_charge(self):
         """ Get the charge
@@ -1258,7 +1312,7 @@ class BpForm(object):
         charge = 0
         for base, count in self.get_base_counts().items():
             charge += base.get_charge() * count
-        return charge + self.bond_charge * (len(self) - 1)
+        return charge + self.backbone_charge * len(self) + self.bond_charge * (len(self) - 1)
 
     def __str__(self):
         """ Get a string representation of the biopolymer form
