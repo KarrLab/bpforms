@@ -24,7 +24,7 @@ BpForms is a set of tools for unambiguously representing the structures of modif
   ```
 * This concrete representation of modified biopolymers enables the BpForms software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as to automatically protonate biopolymers for specific pHs.
 
-BpForms emcompasses five tools:
+BpForms encompasses five tools:
 
 * [Notation for describing biopolymers](https://docs.karrlab.org/bpforms/)
 * Web-based graphical interface: [https://bpforms.org](https://bpforms.org)
@@ -39,7 +39,7 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
 * BpForms separates the representation of modified biopolymers from the chemical processes which generate them. 
 * BpForms clarifies the representation of multiply modified monomers. This is necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
 * BpForms can be customized to represent any modification and, therefore, is not limited to previously enumerated modifications. This is also necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
-* BpForms supports two additional types of uncertainty in the structures of biopolyers: uncertainty in the position of a modified nucleotide/amino acid within the polymer sequence, and uncertainty in the chemical identity of modified nucleotide/amino acid as deviation from its expected mass or charge.
+* BpForms supports two additional types of uncertainty in the structures of biopolymers: uncertainty in the position of a modified nucleotide/amino acid within the polymer sequence, and uncertainty in the chemical identity of modified nucleotide/amino acid as deviation from its expected mass or charge.
 * BpForms has a concrete grammar. This enables error checking, as well the calculation of chemical formulae, masses, and charges, which is essential for modeling.
 
 ## Installation
@@ -63,7 +63,7 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
       ```
 
 ## Examples, tutorial, and documentation
-Please see the [documentation](https://docs.karrlab.org/bpforms). An [interactive tutorial](http://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb) is also available in the whole-cell modeling sandox.
+Please see the [documentation](https://docs.karrlab.org/bpforms). An [interactive tutorial](http://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb) is also available in the whole-cell modeling sandbox.
 
 ## License
 The package is released under the [MIT license](LICENSE).

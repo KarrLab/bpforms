@@ -109,7 +109,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 id = re.split("[/.]", file)[3]
                 structure = self.get_modification_structure(file)
 
-                chebi_syn = self.get_modification_chebi_synonyms(id, session)
+                chebi_syn = self.get_modification_identifiers_synonyms(id, session)
 
                 synonyms = SynonymSet()
                 identifiers = IdentifierSet()
@@ -167,7 +167,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return mol
 
-    def get_modification_chebi_synonyms(self, id, session):
+    def get_modification_identifiers_synonyms(self, id, session):
         """ Get the chebi ID and synonyms of a modified AA from pdb structure
 
         Args:
