@@ -4,7 +4,7 @@ set_alphabets = function(data, status, jqXHR) {
     for (alphabet_id in data) {
         alphabet = data[alphabet_id]
         $("#alphabet").append('<option value="' + alphabet['id'] + '">' + alphabet['name'] + '</option>')
-        $("#alphabet_descriptions").append('<li><a href="alphabets.html#' + alphabet['id'] + '"><i>' + alphabet['name'] + '</i></a>: ' + alphabet['description'] + '</li>')
+        $("#alphabet_descriptions").append('<li><a href="alphabet.html#' + alphabet['id'] + '"><i>' + alphabet['name'] + '</i></a>: ' + alphabet['description'] + '</li>')
     }
 }
 
