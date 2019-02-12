@@ -54,9 +54,21 @@ set_alphabet = function(data, status, jqXHR) {
         html += '<td class="identifiers"><div>' + identifiers + '</div></td>'
 
         structure = monomer['structure']
-        if (structure == null)
-            structure = ''
-        html += '<td class="structure"><div>' + structure + '</div></td>'
+        if (structure == null) {
+            img = ''
+        } else {
+            i_tautomer = structure.indexOf('/t')
+            if (i_tautomer >= 0) {
+                img_structure = structure.substring(0, i_tautomer)
+            } else {
+                img_structure = structure
+            }
+
+            // https://cactus.nci.nih.gov/blog/?tag=png
+            img = '<img src="https://cactus.nci.nih.gov/chemical/structure/' + encodeURI(img_structure) + '/image?format=png&bgcolor=transparent&antialiasing=0" class="context-menu-one" inchi="' + encodeURI(structure) + '"/>'
+
+        }
+        html += '<td class="structure"><div>' + img + '</div></td>'
 
         html += '</tr>'
     }
@@ -86,3 +98,40 @@ get_alphabet = function() {
 
 get_alphabet()
 window.onhashchange = get_alphabet
+
+// https://swisnl.github.io/jQuery-contextMenu
+$(function(){
+    $.contextMenu({
+        selector: '.context-menu-one',
+        items: {
+            key: {
+                name: "Copy as InChI",
+                callback: function(data, status, jqXHR) {
+                    inchi = $(status.$trigger[0]).attr('inchi')
+                    copyToClipboard(inchi)
+                }
+            }
+        },
+    });
+});
+
+// https://hackernoon.com/copying-text-to-clipboard-with-javascript-df4d4988697f
+const copyToClipboard = str => {
+  const el = document.createElement('textarea');  // Create a <textarea> element
+  el.value = str;                                 // Set its value to the string that you want copied
+  el.setAttribute('readonly', '');                // Make it readonly to be tamper-proof
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';                      // Move outside the screen to make it invisible
+  document.body.appendChild(el);                  // Append the <textarea> element to the HTML document
+  const selected =
+    document.getSelection().rangeCount > 0        // Check if there is any content selected previously
+      ? document.getSelection().getRangeAt(0)     // Store selection if found
+      : false;                                    // Mark as false to know no selection existed before
+  el.select();                                    // Select the <textarea> content
+  document.execCommand('copy');                   // Copy - only works as a result of a user action (e.g. click events)
+  document.body.removeChild(el);                  // Remove the <textarea> element
+  if (selected) {                                 // If a selection existed before copying
+    document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
+    document.getSelection().addRange(selected);   // Restore the original selection
+  }
+};
