@@ -24,7 +24,7 @@ BpForms is a set of tools for unambiguously representing the structures of modif
   ```
 * This concrete representation of modified biopolymers enables the BpForms software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as to automatically protonate biopolymers for specific pHs.
 
-BpForms emcompasses five tools:
+BpForms encompasses five tools:
 
 * [Notation for describing biopolymers](https://docs.karrlab.org/bpforms/)
 * Web-based graphical interface: [https://bpforms.org](https://bpforms.org)
