@@ -6,86 +6,94 @@ bases:
     id: Ala
     name: L-alanine
     synonyms:
-    - 3-phenyl-L-alanine
     - (S)-alpha-Amino-beta-phenylpropionic acid
     - β-phenyl-L-alanine
+    - 3-phenyl-L-alanine
     - (S)-2-Amino-3-phenylpropionic acid
     identifiers:
     - ns: chebi
       id: CHEBI:16977
-    - ns: metacyc.compound
-      id: ALA
     - ns: pubchem.compound
       id: '5950'
+    - ns: metacyc.compound
+      id: ALA
+    - ns: resid
+      id: RESID:AA0001
     structure: InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1
   R:
     id: Arg
     name: L-arginine
     synonyms:
-    - 3-phenyl-L-alanine
     - (S)-alpha-Amino-beta-phenylpropionic acid
     - β-phenyl-L-alanine
+    - 3-phenyl-L-alanine
     - (S)-2-Amino-3-phenylpropionic acid
     identifiers:
-    - ns: pubchem.compound
-      id: '6322'
     - ns: metacyc.compound
       id: ARG
+    - ns: pubchem.compound
+      id: '6322'
     - ns: chebi
       id: CHEBI:16467
+    - ns: resid
+      id: RESID:AA0002
     structure: InChI=1S/C6H14N4O2/c7-4(5(11)12)2-1-3-10-6(8)9/h4H,1-3,7H2,(H,11,12)(H4,8,9,10)/t4-/m0/s1
   N:
     id: Asn
     name: L-asparagine
     synonyms:
-    - (2S)-2,4-diamino-4-oxobutanoic acid
     - L-aspartic acid beta-amide
-    - (2S)-2-amino-3-carbamoylpropanoic acid
-    - L-Asparagin
     - alpha-aminosuccinamic acid
-    - L-Asparagine
+    - (2S)-2-amino-3-carbamoylpropanoic acid
     - L-2-aminosuccinamic acid
-    - N
+    - L-Asparagin
+    - (S)-Asparagine
+    - (2S)-2,4-diamino-4-oxobutanoic acid
     - 2-Aminosuccinamic acid
     - (S)-2-amino-3-carbamoylpropanoic acid
     - Aspartamic acid
-    - (S)-Asparagine
+    - N
+    - L-Asparagine
     identifiers:
-    - ns: chebi
-      id: CHEBI:17196
     - ns: pubchem.compound
       id: '6267'
+    - ns: chebi
+      id: CHEBI:17196
     - ns: metacyc.compound
       id: ASN
-    structure: InChI=1S/C4H8N2O3/c5-2(4(8)9)1-3(6)7/h2H,1,5H2,(H2,6,7)(H,8,9)/t2-/m0/s1
+    - ns: resid
+      id: RESID:AA0003
+   structure: InChI=1S/C4H8N2O3/c5-2(4(8)9)1-3(6)7/h2H,1,5H2,(H2,6,7)(H,8,9)/t2-/m0/s1
   D:
     id: Asp
     name: L-aspartic acid
     synonyms:
-    - (S)-2-aminosuccinic acid
-    - L-Asparaginsaeure
     - 2-Aminosuccinic acid
     - (S)-2-aminobutanedioic acid
+    - L-Asparaginsaeure
+    - (S)-2-aminosuccinic acid
     identifiers:
     - ns: metacyc.compound
       id: ASP
-    - ns: pubchem.compound
-      id: '5960'
     - ns: chebi
       id: CHEBI:17053
-    structure: InChI=1S/C4H7NO4/c5-2(4(8)9)1-3(6)7/h2H,1,5H2,(H,6,7)(H,8,9)/t2-/m0/s1
+    - ns: pubchem.compound
+      id: '5960'
+    - ns: resid
+      id: RESID:AA0004
+   structure: InChI=1S/C4H7NO4/c5-2(4(8)9)1-3(6)7/h2H,1,5H2,(H,6,7)(H,8,9)/t2-/m0/s1
   C:
     id: Cys
     name: L-cysteine
     synonyms:
-    - E 920
-    - L-Zystein
     - (2R)-2-amino-3-mercaptopropanoic acid
-    - E920
-    - (R)-2-amino-3-mercaptopropanoic acid
-    - (2R)-2-amino-3-sulfanylpropanoic acid
     - E-920
+    - L-Zystein
+    - (R)-2-amino-3-mercaptopropanoic acid
+    - E 920
+    - E920
     - L-2-Amino-3-mercaptopropionic acid
+    - (2R)-2-amino-3-sulfanylpropanoic acid
     identifiers:
     - ns: metacyc.compound
       id: CYS
@@ -93,69 +101,77 @@ bases:
       id: CHEBI:17561
     - ns: pubchem.compound
       id: '5862'
+    - ns: resid
+      id: RESID:AA0005
     structure: InChI=1S/C3H7NO2S/c4-2(1-7)3(5)6/h2,7H,1,4H2,(H,5,6)/t2-/m0/s1
   Q:
     id: Gln
     name: L-glutamine
     synonyms:
+    - L-2-aminoglutaramic acid
     - Levoglutamide
+    - (2S)-2-amino-4-carbamoylbutanoic acid
+    - L-2-Aminoglutaramic acid
+    - (2S)-2,5-diamino-5-oxopentanoic acid
+    - L-(+)-glutamine
+    - L-Glutaminsaeure-5-amid
+    - L-glutamic acid gamma-amide
     - Glutamic acid amide
     - Glutamic acid 5-amide
-    - (2S)-2-amino-4-carbamoylbutanoic acid
-    - L-2-aminoglutaramic acid
-    - L-2-Aminoglutaramic acid
-    - L-Glutaminsaeure-5-amid
-    - L-(+)-glutamine
-    - L-glutamic acid gamma-amide
     - (S)-2,5-diamino-5-oxopentanoic acid
-    - (2S)-2,5-diamino-5-oxopentanoic acid
     identifiers:
+    - ns: metacyc.compound
+      id: GLN
     - ns: chebi
       id: CHEBI:18050
     - ns: pubchem.compound
       id: '5961'
-    - ns: metacyc.compound
-      id: GLN
+    - ns: resid
+      id: RESID:AA0007
     structure: InChI=1S/C5H10N2O3/c6-3(5(9)10)1-2-4(7)8/h3H,1-2,6H2,(H2,7,8)(H,9,10)/t3-/m0/s1
   E:
     id: Glu
     name: L-glutamic acid
     synonyms:
-    - (S)-glutamic acid
     - Glutamate
-    - L-Glutaminsaeure
-    - L-Glutaminic acid
     - (S)-2-aminopentanedioic acid
+    - (S)-glutamic acid
+    - L-Glutaminic acid
+    - L-Glutaminsaeure
     identifiers:
     - ns: metacyc.compound
       id: GLU
-    - ns: pubchem.compound
-      id: '33032'
     - ns: chebi
       id: CHEBI:16015
+    - ns: pubchem.compound
+      id: '33032'
+    - ns: resid
+      id: RESID:AA0006
     structure: InChI=1S/C5H9NO4/c6-3(5(9)10)1-2-4(7)8/h3H,1-2,6H2,(H,7,8)(H,9,10)/t3-/m0/s1
   G:
     id: Gly
     name: Glycine
     synonyms:
-    - Aminoacetic acid
     - aminoethanoic acid
+    - Aminoacetic acid
     identifiers:
-    - ns: metacyc.compound
-      id: GLU
-    - ns: chebi
-      id: CHEBI:15428
     - ns: pubchem.compound
       id: '750'
+    - ns: chebi
+      id: CHEBI:15428
+    - ns: metacyc.compound
+      id: GLU
+    - ns: resid
+      id: RESID:AA0008
     structure: InChI=1S/C2H5NO2/c3-1-2(4)5/h1,3H2,(H,4,5)
   H:
     id: His
     name: L-histidine
     synonyms:
+    - (S)-4-(2-Amino-2-carboxyethyl)imidazole
     - L-(-)-histidine
     - (S)-alpha-amino-1H-Imidazole-4-propanoic acid
     - (S)-alpha-Amino-1H-imidazole-4-propionic acid
-    - (S)-4-(2-Amino-2-carboxyethyl)imidazole
     identifiers:
     - ns: chebi
       id: CHEBI:15971
@@ -163,99 +179,111 @@ bases:
       id: '33032'
     - ns: metacyc.compound
       id: HIS
+    - ns: resid
+      id: RESID:AA0009
     structure: InChI=1S/C6H9N3O2/c7-5(6(10)11)1-4-2-8-3-9-4/h2-3,5H,1,7H2,(H,8,9)(H,10,11)/t5-/m0/s1
   I:
     id: Ile
     name: L-isoleucine
     synonyms:
-    - (2S,3S)-2-amino-3-methylpentanoic acid
     - 2-Amino-3-methylvaleric acid
     - alpha-amino-beta-methylvaleric acid
+    - (2S,3S)-2-amino-3-methylpentanoic acid
     identifiers:
+    - ns: pubchem.compound
+      id: '6306'
     - ns: metacyc.compound
       id: ILE
     - ns: chebi
       id: CHEBI:17191
-    - ns: pubchem.compound
-      id: '6306'
-    structure: InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1
+    - ns: resid
+      id: RESID:AA0010
+   structure: InChI=1S/C6H13NO2/c1-3-4(2)5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t4-,5-/m0/s1
   L:
     id: Leu
     name: L-leucine
     synonyms:
     - (2S)-alpha-Leucine
+    - (2S)-alpha-2-Amino-4-methylvaleric acid
     - (S)-(+)-leucine
     - (2S)-2-amino-4-methylpentanoic acid
     - (S)-leucine
     - 2-Amino-4-methylvaleric acid
-    - (2S)-alpha-2-Amino-4-methylvaleric acid
     identifiers:
-    - ns: pubchem.compound
-      id: '6106'
-    - ns: chebi
-      id: CHEBI:15603
     - ns: metacyc.compound
       id: LEU
+    - ns: chebi
+      id: CHEBI:15603
+    - ns: pubchem.compound
+      id: '6106'
+    - ns: resid
+      id: RESID:AA0011
     structure: InChI=1S/C6H13NO2/c1-4(2)3-5(7)6(8)9/h4-5H,3,7H2,1-2H3,(H,8,9)/t5-/m0/s1
   K:
     id: Lys
     name: L-lysine
     identifiers:
-    - ns: pubchem.compound
-      id: '5962'
     - ns: metacyc.compound
       id: LEU
+    - ns: pubchem.compound
+      id: '5962'
     - ns: chebi
       id: CHEBI:18019
+    - ns: resid
+      id: RESID:AA0012
     structure: InChI=1S/C6H14N2O2/c7-4-2-1-3-5(8)6(9)10/h5H,1-4,7-8H2,(H,9,10)/t5-/m0/s1
   M:
     id: Met
     name: L-methionine
     synonyms:
-    - (S)-methionine
     - L-(-)-methionine
     - L-alpha-amino-gamma-methylmercaptobutyric acid
-    - (2S)-2-amino-4-(methylsulfanyl)butanoic acid
     - (S)-2-amino-4-(methylthio)butanoic acid
     - (S)-2-amino-4-(methylthio)butyric acid
+    - (S)-methionine
+    - (2S)-2-amino-4-(methylsulfanyl)butanoic acid
     identifiers:
+    - ns: chebi
+      id: CHEBI:16643
     - ns: metacyc.compound
       id: MET
     - ns: pubchem.compound
       id: '6137'
-    - ns: chebi
-      id: CHEBI:16643
+    - ns: resid
+      id: RESID:AA0013
     structure: InChI=1S/C5H11NO2S/c1-9-3-2-4(6)5(7)8/h4H,2-3,6H2,1H3,(H,7,8)/t4-/m0/s1
   F:
     id: Phe
     name: L-phenylalanine
     synonyms:
-    - 3-phenyl-L-alanine
     - (S)-alpha-Amino-beta-phenylpropionic acid
     - β-phenyl-L-alanine
+    - 3-phenyl-L-alanine
     - (S)-2-Amino-3-phenylpropionic acid
     identifiers:
     - ns: metacyc.compound
       id: PHE
-    - ns: pubchem.compound
-      id: '22848660'
     - ns: chebi
       id: CHEBI:17295
+    - ns: pubchem.compound
+      id: '22848660'
+    - ns: resid
+      id: RESID:AA0014
     structure: InChI=1S/C9H11NO2/c10-8(9(11)12)6-7-4-2-1-3-5-7/h1-5,8H,6,10H2,(H,11,12)/t8-/m0/s1
   P:
     id: Pro
     name: L-proline
     synonyms:
-    - 2-Pyrrolidinecarboxylic acid
     - L-pyrrolidine-2-carboxylic acid
     - L-(-)-proline
-    - (-)-(S)-proline
-    - (-)-proline
+    - (S)-2-pyrrolidinecarboxylic acid
     - (S)-pyrrolidine-2-carboxylic acid
     - (S)-2-carboxypyrrolidine
-    - (-)-2-pyrrolidinecarboxylic acid
+    - 2-Pyrrolidinecarboxylic acid
     - (2S)-pyrrolidine-2-carboxylic acid
-    - (S)-2-pyrrolidinecarboxylic acid
+    - (-)-proline
+    - (-)-2-pyrrolidinecarboxylic acid
+    - (-)-(S)-proline
     - L-alpha-pyrrolidinecarboxylic acid
     identifiers:
     - ns: chebi
@@ -264,95 +292,105 @@ bases:
       id: PRO
     - ns: pubchem.compound
       id: '145742'
+    - ns: resid
+      id: RESID:AA0015
     structure: InChI=1S/C5H9NO2/c7-5(8)4-2-1-3-6-4/h4,6H,1-3H2,(H,7,8)/t4-/m0/s1
   S:
     id: Ser
     name: L-serine
     synonyms:
-    - (S)-alpha-Amino-beta-hydroxypropionic acid
-    - L-3-Hydroxy-2-aminopropionic acid
-    - (S)-(-)-serine
-    - L-3-Hydroxy-alanine
     - L-(-)-serine; beta-Hydroxyalanine
-    - (S)-serine
-    - (S)-2-amino-3-hydroxypropanoic acid
     - (2S)-2-amino-3-hydroxypropanoic acid
-    - L-2-Amino-3-hydroxypropionic acid
     - beta-Hydroxy-L-alanine
+    - (S)-2-amino-3-hydroxypropanoic acid
+    - L-2-Amino-3-hydroxypropionic acid
+    - (S)-alpha-Amino-beta-hydroxypropionic acid
+    - (S)-serine
+    - (S)-(-)-serine
+    - L-3-Hydroxy-2-aminopropionic acid
+    - L-3-Hydroxy-alanine
     identifiers:
-    - ns: pubchem.compound
-      id: '5951'
     - ns: chebi
       id: CHEBI:17115
     - ns: metacyc.compound
       id: SER
-    structure: InChI=1S/C3H7NO3/c4-2(1-5)3(6)7/h2,5H,1,4H2,(H,6,7)/t2-/m0/s1
+    - ns: pubchem.compound
+      id: '5951'
+    - ns: resid
+      id: RESID:AA0016
+   structure: InChI=1S/C3H7NO3/c4-2(1-5)3(6)7/h2,5H,1,4H2,(H,6,7)/t2-/m0/s1
   T:
     id: Thr
     name: L-threonine
     synonyms:
+    - (2S,3R)-2-amino-3-hydroxybutanoic acid
+    - (2S)-threonine
+    - 2-Amino-3-hydroxybutyric acid
+    - L-(-)-Threonine
+    - L-alpha-amino-beta-hydroxybutyric acid
     - L-2-Amino-3-hydroxybutyric acid
     - (2S,3R)-(-)-Threonine
-    - (2S,3R)-2-amino-3-hydroxybutanoic acid
-    - L-(-)-Threonine
-    - (2S)-threonine
-    - L-alpha-amino-beta-hydroxybutyric acid
-    - 2-Amino-3-hydroxybutyric acid
     identifiers:
-    - ns: metacyc.compound
-      id: THR
     - ns: chebi
       id: CHEBI:16857
     - ns: pubchem.compound
       id: '6288'
+    - ns: metacyc.compound
+      id: THR
+    - ns: resid
+      id: RESID:AA0017
     structure: InChI=1S/C4H9NO3/c1-2(6)3(5)4(7)8/h2-3,6H,5H2,1H3,(H,7,8)/t2-,3+/m1/s1
   W:
     id: Trp
     name: L-tryptophan
     synonyms:
-    - L-β-3-indolylalanine
-    - (S)-alpha-Amino-beta-(3-indolyl)-propionic acid
     - (S)-α-amino-1H-indole-3-propanoic acid
+    - L-β-3-indolylalanine
     - (S)-tryptophan
+    - (S)-alpha-Amino-beta-(3-indolyl)-propionic acid
     - L-(−)-tryptophan
     - (2S)-2-amino-3-(1H-indol-3-yl)propanoic acid
     identifiers:
-    - ns: pubchem.compound
-      id: '6305'
     - ns: chebi
       id: CHEBI:16828
     - ns: metacyc.compound
       id: TRP
+    - ns: pubchem.compound
+      id: '6305'
+    - ns: resid
+      id: RESID:AA0018
     structure: InChI=1S/C11H12N2O2/c12-9(11(14)15)5-7-6-13-10-4-2-1-3-8(7)10/h1-4,6,9,13H,5,12H2,(H,14,15)/t9-/m0/s1
   Y:
     id: Tyr
     name: L-tyrosine
     synonyms:
-    - (S)-2-Amino-3-(p-hydroxyphenyl)propionic acid
-    - (S)-3-(p-Hydroxyphenyl)alanine
-    - (S)-Tyrosine
-    - (S)-(-)-Tyrosine
-    - (2S)-2-amino-3-(4-hydroxyphenyl)propanoic acid
-    - (-)-alpha-amino-p-hydroxyhydrocinnamic acid
     - 4-hydroxy-L-phenylalanine
+    - (S)-Tyrosine
+    - (S)-2-Amino-3-(p-hydroxyphenyl)propionic acid
+    - (S)-(-)-Tyrosine
+    - (-)-alpha-amino-p-hydroxyhydrocinnamic acid
+    - (2S)-2-amino-3-(4-hydroxyphenyl)propanoic acid
     - (S)-alpha-amino-4-hydroxybenzenepropanoic acid
+    - (S)-3-(p-Hydroxyphenyl)alanine
     identifiers:
+    - ns: pubchem.compound
+      id: '6057'
     - ns: chebi
       id: CHEBI:17895
     - ns: metacyc.compound
       id: TYR
-    - ns: pubchem.compound
-      id: '6057'
+    - ns: resid
+      id: RESID:AA0019
     structure: InChI=1S/C9H11NO3/c10-8(9(12)13)5-6-1-3-7(11)4-2-6/h1-4,8,11H,5,10H2,(H,12,13)/t8-/m0/s1
   V:
     id: Val
     name: L-valine
     synonyms:
+    - (S)-valine
     - L-alpha-Amino-beta-methylbutyric acid
+    - L-(+)-alpha-Aminoisovaleric acid
     - (2S)-2-amino-3-methylbutanoic acid
     - 2-Amino-3-methylbutyric acid
-    - (S)-valine
-    - L-(+)-alpha-Aminoisovaleric acid
     identifiers:
     - ns: metacyc.compound
       id: VAL
@@ -360,7 +398,9 @@ bases:
       id: CHEBI:16414
     - ns: pubchem.compound
       id: '6287'
-    structure: InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1
+    - ns: resid
+      id: RESID:AA0020
+   structure: InChI=1S/C5H11NO2/c1-3(2)4(6)5(7)8/h3-4H,6H2,1-2H3,(H,7,8)/t4-/m0/s1
   AA0568:
     id: AA0568
     name: N6-malonyl-L-lysine
@@ -380,14 +420,14 @@ bases:
     id: AA0379
     name: 2-imino-methionine 5-imidazolinone glycine
     synonyms:
-    - (2-[1-imino-3-(methylsulfanyl)propyl]-5-oxo-4,5-dihydro-imidazol-1-yl)acetic
-      acid
     - para-hydroxybenzylidene-imidazolidinone chromophore
+    - 2,N-didehydromethionyl-5-imidazolinone glycine
     - 2-[1-imino-3-(methylsulfanyl)propyl]-1-carboxymethyl-1-imidazolin-5-one
     - GFP-like chromoprotein asFP595 chromophore
-    - 2-imino-methionyl-5-imidazolinone glycine
-    - 2,N-didehydromethionyl-5-imidazolinone glycine
     - red fluorescent protein eqFP611 chromophore
+    - 2-imino-methionyl-5-imidazolinone glycine
+    - (2-[1-imino-3-(methylsulfanyl)propyl]-5-oxo-4,5-dihydro-imidazol-1-yl)acetic
+      acid
     identifiers:
     - ns: PDBHET
       id: NRQ
@@ -401,10 +441,10 @@ bases:
     name: L-2-aminobutanoic acid
     synonyms:
     - L-2-amino-n-butyric acid
-    - L-alpha-amino-n-butyric acid
     - L-butyrine
-    - L-2-aminobutyric acid
+    - L-alpha-amino-n-butyric acid
     - L-alpha-aminobutyric acid
+    - L-2-aminobutyric acid
     identifiers:
     - ns: PDBHET
       id: ABA
@@ -415,10 +455,10 @@ bases:
     id: AA0126
     name: N-(L-isoaspartyl)-glycine
     synonyms:
-    - N4-(carboxymethyl)-asparagine
     - N-beta-aspartylglycine
-    - isoaspartyl glycine
     - 2-amino-N4-(carboxymethyl)-butanediamic acid
+    - N4-(carboxymethyl)-asparagine
+    - isoaspartyl glycine
     identifiers:
     - ns: chebi
       id: CHEBI:21479
@@ -428,8 +468,8 @@ bases:
     name: L-alanine 5-imidazolinone glycine
     synonyms:
     - para-hydroxybenzylidene-imidazolidinone chromophore
-    - 4-methylidene-imidazole-5-one active site
     - 2-[1-aminoethyl]-1-carboxymethyl-1-imidazolin-5-one
+    - 4-methylidene-imidazole-5-one active site
     - alanyl-5-imidazolinone glycine
     identifiers:
     - ns: PDBHET
@@ -450,23 +490,23 @@ bases:
     id: AA0039
     name: O4'-phospho-L-tyrosine
     synonyms:
+    - 2-amino-3-(4-hydroxyphenyl)propanoic acid 4'-phosphate
     - O4-phosphotyrosine
     - 2-azanyl-3-(4-phosphonooxyphenyl)propanoic acid
-    - 2-amino-3-(4-hydroxyphenyl)propanoic acid 4'-phosphate
     - tyrosine phosphate
     identifiers:
-    - ns: PDBHET
-      id: PTR
     - ns: chebi
       id: CHEBI:61972
+    - ns: PDBHET
+      id: PTR
     structure: InChI=1S/C9H12NO5P/c10-8(6-11)5-7-1-3-9(4-2-7)15-16(12,13)14/h1-4,6,8H,5,10H2,(H2,12,13,14)/t8-/m0/s1
   AA0303:
     id: AA0303
     name: L-glutamimide
     synonyms:
+    - 3-amino-2,6-piperidinedione
     - 2-aminopentanimide
     - alpha-aminoglutarimide
-    - 3-amino-2,6-piperidinedione
     structure: InChI=1S/C5H8N2O2/c6-3-1-2-4(8)7-5(3)9/h3H,1-2,6H2,(H,7,8,9)/t3-/m0/s1
   AA0107:
     id: AA0107
@@ -490,10 +530,10 @@ bases:
     id: AA0556
     name: L-cysteine sulfonic acid
     synonyms:
-    - cysteic acid
-    - cysteine sulphonic acid
-    - 2-azanyl-3-sulfopropanoic acid
     - 2-amino-2-carboxyethanesulfonic acid
+    - 2-azanyl-3-sulfopropanoic acid
+    - cysteine sulphonic acid
+    - cysteic acid
     - 3-sulfoalanine
     identifiers:
     - ns: PDBHET
@@ -505,17 +545,17 @@ bases:
     id: AA0360
     name: N-(L-isoglutamyl)-glycine
     synonyms:
+    - isoglutamyl glycine
     - 2-amino-N5-(carboxymethyl)-pentanediamic acid
     - N-gamma-glutamylglycine
-    - isoglutamyl glycine
     structure: InChI=1S/C7H12N2O3/c8-6(5-11)1-2-7(12)9-3-4-10/h4-6H,1-3,8H2,(H,9,12)/t6-/m0/s1
   AA0459:
     id: AA0459
     name: 5'-(L-tyros-5'-yl)amino-L-tyrosine
     synonyms:
-    - bis(LTQ) linkage
-    - 5'-tyrosyl-5'-aminotyrosine
     - 5'-[(tyros-5'-yl)amino]tyrosine
+    - 5'-tyrosyl-5'-aminotyrosine
+    - bis(LTQ) linkage
     identifiers:
     - ns: PDBHET
       id: TY2
@@ -539,10 +579,10 @@ bases:
     id: AA0116
     name: N6-(4-amino-2-hydroxybutyl)-L-lysine
     synonyms:
-    - N6-(4-amino-2-hydroxybutyl)-L-lysine
     - (2S,9R)-hypusine
-    - (2S,9R)-2,11-diazanyl-9-hydroxy-7-azaundecanoic acid
     - 2-azanyl-6-[(4-azanyl-2-hydroxybutyl)azanyl]hexanoic acid
+    - N6-(4-amino-2-hydroxybutyl)-L-lysine
+    - (2S,9R)-2,11-diazanyl-9-hydroxy-7-azaundecanoic acid
     identifiers:
     - ns: chebi
       id: CHEBI:21858
@@ -555,14 +595,14 @@ bases:
     id: AA0036
     name: 3'-phospho-L-histidine
     synonyms:
+    - ND1-phosphonohistidine
+    - N(pi)-phosphohistidine
+    - N3-phosphonohistidine
     - pros-phosphohistidine
     - histidine-1-phosphate [misnomer]
     - 2-azanyl-3-(3-phosphono-3H-imidazol-4-yl)propanoic acid
     - histidine-N3'-phosphate
-    - N3-phosphonohistidine
-    - ND1-phosphonohistidine
     - histidine-N(delta)-phosphate
-    - N(pi)-phosphohistidine
     identifiers:
     - ns: PDBHET
       id: HIP
@@ -575,14 +615,14 @@ bases:
     id: AA0619
     name: N,N,N-trimethylglyine
     synonyms:
+    - N,N,N-trimethylglycine cation
+    - glycine betaine
     - N,N,N-trimethylglycinium
     - 2-trimethylammonioacetate
-    - N,N,N-trimethylglycine cation
-    - (trimethylammonio)ethanoic acid
-    - 1-carboxy-N,N,N-trimethylmethanazanium
     - carboxymethyl-trimethylazanium
+    - 1-carboxy-N,N,N-trimethylmethanazanium
+    - (trimethylammonio)ethanoic acid
     - betaine
-    - glycine betaine
     identifiers:
     - ns: chebi
       id: CHEBI:17750
@@ -591,10 +631,10 @@ bases:
     id: AA0056
     name: S-acetyl-L-cysteine
     synonyms:
-    - cysteine acetate thioester
     - S-acetylcysteine
     - 2-azanyl-3-(acetylsulfanyl)propanoic acid
     - 2-amino-3-(acetylthio)propanoic acid
+    - cysteine acetate thioester
     identifiers:
     - ns: PDBHET
       id: SCY
@@ -635,9 +675,9 @@ bases:
     id: AA0066
     name: N,N-dimethyl-L-proline
     synonyms:
-    - stachydrin
     - 1,1-dimethyl-L-prolinium
     - N,N-dimethyl-L-prolinium
+    - stachydrin
     identifiers:
     - ns: PDBHET
       id: PBE
@@ -659,11 +699,11 @@ bases:
     id: AA0151
     name: N4-(N-acetylamino)glucosyl-L-asparagine
     synonyms:
-    - N4-(2-acetamido-2-deoxy-beta-D-glucopyranosyl)-L-asparagine
-    - N4-(N-acetylglucosaminyl)asparagine
     - N4-(2-acetylamino-2-deoxy-beta-D-glucopyranosyl)-L-asparagine
-    - N4-asparagine-beta-N-acetylglucosaminide
     - N4-glycosylasparagine
+    - N4-asparagine-beta-N-acetylglucosaminide
+    - N4-(N-acetylglucosaminyl)asparagine
+    - N4-(2-acetamido-2-deoxy-beta-D-glucopyranosyl)-L-asparagine
     - N4-glycosyl-L-asparagine
     identifiers:
     - ns: PDBHET
@@ -701,10 +741,10 @@ bases:
     id: AA0086
     name: L-glutamine amide
     identifiers:
-    - ns: PDBHET
-      id: NH2
     - ns: chebi
       id: CHEBI:21309
+    - ns: PDBHET
+      id: NH2
     structure: InChI=1S/C5H11N3O2/c6-3(5(8)10)1-2-4(7)9/h3H,1-2,6H2,(H2,7,9)(H2,8,10)/t3-/m0/s1
   AA0576:
     id: AA0576
@@ -717,10 +757,10 @@ bases:
     id: AA0510
     name: 3',5'-diiodo-L-tyrosine
     synonyms:
-    - 3,5-diiodo-L-tyrosine
     - 3,5-diiodotyrosine
     - iodogorgoic acid
     - DIT
+    - 3,5-diiodo-L-tyrosine
     identifiers:
     - ns: chebi
       id: CHEBI:15768
@@ -743,9 +783,9 @@ bases:
     id: AA0339
     name: N-palmitoyl-glycine
     synonyms:
-    - N-(1-oxohexadecyl)glycine
-    - (hexadecanoylamino)acetic acid
     - (hexadecanamido)acetic acid
+    - (hexadecanoylamino)acetic acid
+    - N-(1-oxohexadecyl)glycine
     identifiers:
     - ns: PDBHET
       id: '140'
@@ -771,9 +811,9 @@ bases:
     id: AA0296
     name: O-(N-acetylglucosamine-1-phosphoryl)-L-serine
     synonyms:
-    - O3-L-serine 2-(acetylamino)-2-deoxy-D-glucopyranose 1-phosphodiester
     - O-beta(N-acetyl-glucosamine-alpha1-phosphate)serine
     - O3-(N-acetylglucosamine-1-phosphoryl)-L-serine
+    - O3-L-serine 2-(acetylamino)-2-deoxy-D-glucopyranose 1-phosphodiester
     structure: InChI=1S/C11H21N2O10P/c1-5(16)13-8-10(18)9(17)7(3-15)22-11(8)23-24(19,20)21-4-6(12)2-14/h2,6-11,15,17-18H,3-4,12H2,1H3,(H,13,16)(H,19,20)/t6-,7-,8-,9-,10-,11-/m1/s1
   AA0388:
     id: AA0388
@@ -783,11 +823,11 @@ bases:
     id: AA0325
     name: (phospho-5'-guanosine)-L-histidine
     synonyms:
-    - L-histidine 5'-guanosine phosphoramidester
     - L-histidine monoanhydride with 5'-guanylic acid
-    - tele-5'-guanylic-L-histidine
-    - N1'-guanylylated histidine
     - N(tau)-5'-guanylic-L-histidine
+    - N1'-guanylylated histidine
+    - tele-5'-guanylic-L-histidine
+    - L-histidine 5'-guanosine phosphoramidester
     identifiers:
     - ns: PDBHET
       id: 5GP
@@ -822,10 +862,10 @@ bases:
     id: AA0436
     name: 6-(S-L-cysteinyl)-8alpha-(-3'-L-histidino)-FAD
     synonyms:
-    - 6-(S-cysteinyl)-8alpha-(N(pi)-histidyl)-FAD
     - 6-(S-cysteinyl)-8alpha-(pros-histidyl)-FAD
-    - 6-(S-cysteinyl)-8alpha-(N(delta1)-histidyl)-FAD
+    - 6-(S-cysteinyl)-8alpha-(N(pi)-histidyl)-FAD
     - 6-(S-cysteinyl)-8alpha-(N3'-histidyl)-FAD
+    - 6-(S-cysteinyl)-8alpha-(N(delta1)-histidyl)-FAD
     identifiers:
     - ns: PDBHET
       id: FAD
@@ -862,9 +902,9 @@ bases:
     id: AA0402
     name: O-mannosyl-L-serine
     synonyms:
-    - O3-mannosylserine
     - O-glycosylserine
     - O-mannopyranosylserine
+    - O3-mannosylserine
     structure: InChI=1S/C9H17NO7/c10-4(1-11)3-16-9-8(15)7(14)6(13)5(2-12)17-9/h1,4-9,12-15H,2-3,10H2/t4-,5-,6-,7+,8+,9+/m1/s1
   AA0536:
     id: AA0536
@@ -874,11 +914,11 @@ bases:
     id: AA0037
     name: O-phospho-L-serine
     synonyms:
+    - 2-amino-3-hydroxypropanoic acid 3-phosphate
     - O-phosphonoserine
-    - serine phosphate ester
     - 2-azanyl-3-(phosphonooxy)propanoic acid
     - O3-phosphoserine
-    - 2-amino-3-hydroxypropanoic acid 3-phosphate
+    - serine phosphate ester
     identifiers:
     - ns: PDBHET
       id: SEP
@@ -889,22 +929,22 @@ bases:
     id: AA0332
     name: S-carbamoyl-L-cysteine
     synonyms:
-    - beta-carbamylthioalanine
+    - S-(aminocarbonyl)cysteine
+    - 2-amino-3-(aminocarbonyl)thiopropanoic acid
+    - 2-amino-3-(aminocarbonyl)sulfanylpropanoic acid
+    - S-carbamoylcysteine
     - S-carbamylcysteine
     - S-cysteinyl carbamate ester
+    - beta-carbamylthioalanine
     - alpha-amino-beta-carbamylthiopropionic acid
-    - S-(aminocarbonyl)cysteine
-    - S-carbamoylcysteine
-    - 2-amino-3-(aminocarbonyl)sulfanylpropanoic acid
-    - 2-amino-3-(aminocarbonyl)thiopropanoic acid
     structure: InChI=1S/C4H8N2O2S/c5-3(1-7)2-9-4(6)8/h1,3H,2,5H2,(H2,6,8)/t3-/m1/s1
   AA0106:
     id: AA0106
     name: S-palmitoyl-L-cysteine
     synonyms:
     - 2-amino-3-(hexadecanoylthio)propanoic acid
-    - cysteine palmitate thioester
     - cysteine hexadecanoate thioester
+    - cysteine palmitate thioester
     identifiers:
     - ns: PDBHET
       id: PLM
@@ -913,16 +953,16 @@ bases:
     id: AA0192
     name: D-allo-isoleucine
     synonyms:
-    - D-threo-isoleucine
-    - alpha-amino-beta-methylvaleric acid
     - 3-methyl-norvaline
-    - allo-D-isoleucine
     - 2-azanyl-3-methylpentanoic acid
+    - allo-D-isoleucine
+    - alpha-amino-beta-methylvaleric acid
+    - D-threo-isoleucine
     identifiers:
-    - ns: chebi
-      id: CHEBI:30007
     - ns: PDBHET
       id: DIL
+    - ns: chebi
+      id: CHEBI:30007
     structure: InChI=1S/C6H13NO/c1-3-5(2)6(7)4-8/h4-6H,3,7H2,1-2H3/t5-,6-/m0/s1
   AA0412:
     id: AA0412
@@ -932,12 +972,12 @@ bases:
     id: AA0277
     name: S-selenyl-L-cysteine
     synonyms:
-    - cysteine perselenide [misnomer]
-    - S-selenylcysteine
-    - 2-amino-3-hydroselenylthiopropanoic acid
-    - 2-amino-3-hydroselenosulfidopropanoic acid
-    - 2-amino-3-hydroselenylsulfidopropanoic acid
     - S-selanylcysteine
+    - 2-amino-3-hydroselenosulfidopropanoic acid
+    - 2-amino-3-hydroselenylthiopropanoic acid
+    - S-selenylcysteine
+    - 2-amino-3-hydroselenylsulfidopropanoic acid
+    - cysteine perselenide [misnomer]
     identifiers:
     - ns: PDBHET
       id: CSZ
@@ -986,10 +1026,10 @@ bases:
     id: AA0197
     name: D-leucine
     identifiers:
-    - ns: PDBHET
-      id: DLE
     - ns: chebi
       id: CHEBI:30005
+    - ns: PDBHET
+      id: DLE
     structure: InChI=1S/C6H13NO/c1-5(2)3-6(7)4-8/h4-6H,3,7H2,1-2H3/t6-/m1/s1
   AA0167:
     id: AA0167
@@ -999,10 +1039,10 @@ bases:
     id: AA0043
     name: N-acetyl-L-cysteine
     synonyms:
-    - 2-acetylamino-3-mercaptopropanoic acid
     - 2-acetylamino-3-sulfanylpropanoic acid
-    - N-acetylcysteine
+    - 2-acetylamino-3-mercaptopropanoic acid
     - 2-acetylazanyl-3-sulfanylpropanoic acid
+    - N-acetylcysteine
     identifiers:
     - ns: PDBHET
       id: ACE
@@ -1025,9 +1065,9 @@ bases:
     id: AA0146
     name: L-3',4'-dihydroxyphenylalanine
     synonyms:
-    - L-DOPA
-    - levodopa
     - L-3'-hydroxytyrosine
+    - levodopa
+    - L-DOPA
     identifiers:
     - ns: PDBHET
       id: DAH
@@ -1036,26 +1076,26 @@ bases:
     id: AA0578
     name: (2S,5S)-5-hydroxylysine
     synonyms:
-    - 2,6-diamino-2,3,4,6-tetradeoxyhexonic acid
-    - L-allo-delta-hydroxylysine
     - alpha,epsilon-diamino-delta-hydroxycaproic acid
+    - L-allo-delta-hydroxylysine
     - L-threo-delta-hydroxylysine
     - 2,6-bisazanyl-5-hydroxyhexanoic acid
+    - 2,6-diamino-2,3,4,6-tetradeoxyhexonic acid
     structure: InChI=1S/C6H14N2O2/c7-3-6(10)2-1-5(8)4-9/h4-6,10H,1-3,7-8H2/t5-,6-/m0/s1
   AA0181:
     id: AA0181
     name: dehydroalanine
     synonyms:
+    - 2-aminoacrylic acid
     - 2,3-didehydroalanine
+    - 4-methylidene-imidazole-5-one (MIO) active site
     - anhydroserine
     - Dha
-    - 4-methylidene-imidazole-5-one (MIO) active site
-    - 2-aminoacrylic acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:17123
     - ns: PDBHET
       id: DHA
+    - ns: chebi
+      id: CHEBI:17123
     structure: InChI=1S/C3H5NO/c1-3(4)2-5/h2H,1,4H2
   AA0600:
     id: AA0600
@@ -1099,12 +1139,12 @@ bases:
     id: AA0302
     name: L-aspartimide
     synonyms:
-    - L-asparaginimide
-    - L-3-aminosuccinimide [misnomer]
-    - L-2-aminosuccinimide
     - alpha-aminosuccinimide
     - ASI
+    - L-3-aminosuccinimide [misnomer]
     - 2-amino-butanimide
+    - L-2-aminosuccinimide
+    - L-asparaginimide
     identifiers:
     - ns: PDBHET
       id: SNN
@@ -1113,12 +1153,12 @@ bases:
     id: AA0435
     name: L-aspartic acid 4-methyl ester
     synonyms:
-    - 4-methyl L-2-aminosuccinic acid
-    - 2-aminobutanedioic acid 4-methyl ester
-    - aspartic acid 4-methyl ester
-    - aspartic acid beta-methyl ester
     - 4-methyl L-aspartate
+    - 4-methyl L-2-aminosuccinic acid
+    - aspartic acid 4-methyl ester
     - 4-methyl L-hydrogen aspartate
+    - aspartic acid beta-methyl ester
+    - 2-aminobutanedioic acid 4-methyl ester
     structure: InChI=1S/C5H9NO3/c1-9-5(8)2-4(6)3-7/h3-4H,2,6H2,1H3/t4-/m0/s1
   AA0169:
     id: AA0169
@@ -1140,12 +1180,12 @@ bases:
     name: L-cysteine methyl disulfide
     synonyms:
     - 2-amino-3-(methyldisulfanediyl)propanoic acid
-    - 2-amino-3-methyldisulfanylpropanoic acid
     - 2-amino-3-(methyldithio)propanoic acid
+    - S-methylthiocysteine
     - S-methylthio-L-cysteine
     - L-3-(methyldithio)alanine
+    - 2-amino-3-methyldisulfanylpropanoic acid
     - 2-azanyl-3-(methyldisulfanediyl)-propanoic acid
-    - S-methylthiocysteine
     identifiers:
     - ns: PDBHET
       id: SCH
@@ -1161,14 +1201,14 @@ bases:
     id: AA0511
     name: glycyl phospho-5'-adenosine
     synonyms:
-    - glycyl 5'-adenylate
-    - ([(2R,3S,4R,5R)-5-(6-aminopurin-9-yl)-3,4-dihydroxy-oxolan-2-yl]methoxy-hydroxy-phosphoryl)-2-aminoethanoate
     - glycyladenylate
-    - 5'-adenylic-glyinate
-    - glycine monoanhydride with 5'-adenylic acid
-    - glycyl adenosine-5'-phosphate
+    - ([(2R,3S,4R,5R)-5-(6-aminopurin-9-yl)-3,4-dihydroxy-oxolan-2-yl]methoxy-hydroxy-phosphoryl)-2-aminoethanoate
     - (2-aminoacetyl)oxy-([(2R,3R,4R,5R)-5-(6-aminopurin-9-yl)-3,4-dihydroxy-oxolan-2-yl]methoxy)phosphinic
       acid
+    - glycine monoanhydride with 5'-adenylic acid
+    - glycyl adenosine-5'-phosphate
+    - 5'-adenylic-glyinate
+    - glycyl 5'-adenylate
     identifiers:
     - ns: PDBHET
       id: AMP
@@ -1181,14 +1221,14 @@ bases:
     id: AA0068
     name: omega-N,omega-N-dimethyl-L-arginine
     synonyms:
-    - N5-[(dimethylamino)(imino)methyl]ornithine
-    - asymmetric dimethylarginine
     - NG,NG-dimethylarginine
+    - asymmetric dimethylarginine
+    - N5-[(dimethylamino)(imino)methyl]ornithine
     identifiers:
-    - ns: chebi
-      id: CHEBI:61896
     - ns: PDBHET
       id: DA2
+    - ns: chebi
+      id: CHEBI:61896
     structure: InChI=1S/C8H19N4O/c1-12(2)8(10)11-5-3-4-7(9)6-13/h6-7,11H,3-5,9-10H2,1-2H3/t7-/m0/s1
   AA0331:
     id: AA0331
@@ -1209,8 +1249,8 @@ bases:
     id: AA0543
     name: 2'-oxo-L-tryptophan
     synonyms:
-    - 2-azanyl-3-[(3S)-2-oxo-2,3-dihydro-1H-indol-3-yl]propanoic acid
     - 2-oxo-L-tryptophan
+    - 2-azanyl-3-[(3S)-2-oxo-2,3-dihydro-1H-indol-3-yl]propanoic acid
     - 2-oxotryptophan
     identifiers:
     - ns: PDBHET
@@ -1242,9 +1282,9 @@ bases:
     name: N2-(L-isoglutamyl)-L-lysine
     synonyms:
     - N2-(gamma-glutamyl)lysine
-    - 5-glutamyl N2-lysine
-    - gamma-glutamyl N2-lysine
     - alpha-(gamma-glutamyl)lysine
+    - gamma-glutamyl N2-lysine
+    - 5-glutamyl N2-lysine
     structure: InChI=1S/C11H21N3O4/c12-6-2-1-3-9(11(17)18)14-10(16)5-4-8(13)7-15/h7-9H,1-6,12-13H2,(H,14,16)(H,17,18)/t8-,9-/m0/s1
   AA0500:
     id: AA0500
@@ -1258,15 +1298,15 @@ bases:
     id: AA0537
     name: 3'-nitro-L-tyrosine
     synonyms:
-    - m-nitrotyrosine
-    - 3-nitro-L-tyrosine
     - meta-nitrotyrosine
+    - 3-nitro-L-tyrosine
     - 3-nitrotyrosine
+    - m-nitrotyrosine
     identifiers:
-    - ns: chebi
-      id: CHEBI:44454
     - ns: PDBHET
       id: NIY
+    - ns: chebi
+      id: CHEBI:44454
     structure: InChI=1S/C9H10N2O4/c10-7(5-12)3-6-1-2-9(13)8(4-6)11(14)15/h1-2,4-5,7,13H,3,10H2/t7-/m0/s1
   AA0394:
     id: AA0394
@@ -1281,9 +1321,9 @@ bases:
     name: 3'-iodo-L-tyrosine
     synonyms:
     - 4-hydroxy-3-iodo-phenylalanine
-    - 3-iodotyrosine
-    - MIT
     - 3-iodo-L-tyrosine
+    - MIT
+    - 3-iodotyrosine
     identifiers:
     - ns: chebi
       id: CHEBI:27847
@@ -1305,12 +1345,12 @@ bases:
     id: AA0321
     name: N6-(4-methyl-delta-1-pyrroline-5-carboxyl)-L-lysine
     synonyms:
-    - N6-(4-methyl-1,2-didehydropyrrolidine-5-carboxyl)-L-lysine
-    - N6-(4-methyl-delta-1-pyrroline-5-carboxyl)-L-lysine
-    - monomethylamine methyltransferase cofactor lysine adduct
     - N6-([(2R,3R)-3-methyl-3,4-dihydro-2H-pyrrol-2-yl]carbonyl)-L-lysine
+    - monomethylamine methyltransferase cofactor lysine adduct
     - 2-azanyl-6-[(2R,3R)-3-methyl-3,4-dihydro-2H-pyrrol-2-ylcarbonyl]azanylhexanoic
       acid
+    - N6-(4-methyl-delta-1-pyrroline-5-carboxyl)-L-lysine
+    - N6-(4-methyl-1,2-didehydropyrrolidine-5-carboxyl)-L-lysine
     identifiers:
     - ns: PDBHET
       id: BGX
@@ -1321,17 +1361,17 @@ bases:
     id: AA0112
     name: 3-methyl-L-lanthionine
     synonyms:
-    - (2S,3S,2'R)-2-amino-3-[(2-amino-2-carboxyethyl)thio]butanoic acid
-    - (2S,3S,6R)-3-methyllanthionine
-    - 3-methyl-D,L-lanthionine
     - (2S,3S,6R)-2,6-diamino-3-methyl-4-thiaheptanedioic acid
-    - (2S-[2R*,3R*(S*)])-2-amino-3-[(2-amino-2-carboxyethyl)thio]butanoic acid
     - cysteine-3-D-butyrine thioether
+    - (2S,3S,6R)-3-methyllanthionine
+    - (2S,3S,2'R)-2-amino-3-[(2-amino-2-carboxyethyl)thio]butanoic acid
+    - (2S-[2R*,3R*(S*)])-2-amino-3-[(2-amino-2-carboxyethyl)thio]butanoic acid
+    - 3-methyl-D,L-lanthionine
     identifiers:
-    - ns: chebi
-      id: CHEBI:20118
     - ns: PDBHET
       id: DBB
+    - ns: chebi
+      id: CHEBI:20118
     structure: InChI=1S/C7H14N2O2S/c1-5(7(9)3-11)12-4-6(8)2-10/h2-3,5-7H,4,8-9H2,1H3/t5-,6+,7-/m0/s1
   AA0353:
     id: AA0353
@@ -1341,10 +1381,10 @@ bases:
     id: AA0089
     name: L-histidine amide
     identifiers:
-    - ns: PDBHET
-      id: HIA
     - ns: chebi
       id: CHEBI:43042
+    - ns: PDBHET
+      id: HIA
     structure: InChI=1S/C6H10N4O/c7-5(6(8)11)1-4-2-9-3-10-4/h2-3,5H,1,7H2,(H2,8,11)(H,9,10)/t5-/m0/s1
   AA0310:
     id: AA0310
@@ -1368,15 +1408,15 @@ bases:
     id: AA0073
     name: 3'-methyl-L-histidine
     synonyms:
-    - N(delta)-methylhistidine
-    - pros-methylhistidine
     - 1-methylhistidine [misnomer]
     - N(pi)-methylhistidine
+    - pros-methylhistidine
+    - N(delta)-methylhistidine
     identifiers:
-    - ns: chebi
-      id: CHEBI:43903
     - ns: PDBHET
       id: MHS
+    - ns: chebi
+      id: CHEBI:43903
     structure: InChI=1S/C7H11N3O/c1-10-5-9-3-7(10)2-6(8)4-11/h3-6H,2,8H2,1H3/t6-/m0/s1
   AA0251:
     id: AA0251
@@ -1407,8 +1447,8 @@ bases:
     id: AA0008
     name: glycine
     synonyms:
-    - azanylethanoic acid
     - aminoacetic acid
+    - azanylethanoic acid
     - glycocoll
     identifiers:
     - ns: PDBHET
@@ -1420,12 +1460,12 @@ bases:
     id: AA0074
     name: N6,N6,N6-trimethyl-L-lysine
     synonyms:
-    - N6,N6,N6-trimethyllysin-N6-ium
-    - N6,N6,N6-trimethyllysine cation
     - N(zeta)-trimethyllysine
-    - 5-azanyl-5-carboxy-N,N,N-trimethylpentanazanium
-    - 2-amino-6-(trimethylammonio)hexanoic acid
+    - N6,N6,N6-trimethyllysine cation
+    - N6,N6,N6-trimethyllysin-N6-ium
     - epsilon-trimethyllysine
+    - 2-amino-6-(trimethylammonio)hexanoic acid
+    - 5-azanyl-5-carboxy-N,N,N-trimethylpentanazanium
     identifiers:
     - ns: chebi
       id: CHEBI:61961
@@ -1440,21 +1480,21 @@ bases:
     id: AA0025
     name: L-cystine
     synonyms:
-    - bis(alpha-aminopropionic acid)-beta-disulfide
-    - 3,3'-dithiodialanine
     - 3,3'-dithiobis(2-aminopropanoic acid)
     - 2-amino-3-(2-amino-2-carboxy-ethyl)disulfanyl-propanoic acid [misnomer]
-    - 3,3'-dithiobisalanine
     - bis(beta-amino-beta-carboxyethyl)disulfide
+    - bis(alpha-aminopropionic acid)-beta-disulfide
     - 3,3'-disulfane-1,2-diylbis(2-azanylpropanoic acid)
+    - beta,beta'-diamino-beta,beta'-dicarboxydiethyldisulfide
+    - 3,3'-dithiodialanine
+    - 3,3'-dithiobisalanine
     - beta,beta'-dithiodialanine
     - dicysteine
-    - beta,beta'-diamino-beta,beta'-dicarboxydiethyldisulfide
     identifiers:
-    - ns: PDBHET
-      id: CYS
     - ns: chebi
       id: CHEBI:50058
+    - ns: PDBHET
+      id: CYS
     structure: InChI=1S/C6H12N2O2S2/c7-5(1-9)3-11-12-4-6(8)2-10/h1-2,5-6H,3-4,7-8H2/t5-,6-/m1/s1
   AA0550:
     id: AA0550
@@ -1478,22 +1518,22 @@ bases:
     id: AA0283
     name: pyrroloquinoline quinone
     synonyms:
+    - 2,4,6-tricarboxylic-pyrrolo[2,3-5,6]quinoline 8,9-quinone
     - 2,7,9-tricarboxy-1H-pyrrolo(2,3-f)quinoline-4,5-dione
     - coenzyme PQQ
-    - 2,4,6-tricarboxylic-pyrrolo[2,3-5,6]quinoline 8,9-quinone
     - methoxatin
     identifiers:
-    - ns: chebi
-      id: CHEBI:18315
     - ns: PDBHET
       id: PQQ
+    - ns: chebi
+      id: CHEBI:18315
     structure: InChI=1S/C14H6N2O8/c17-10-4-2-6(14(23)24)15-8(4)7-3(12(19)20)1-5(13(21)22)16-9(7)11(10)18/h1-2,15H,(H,19,20)(H,21,22)(H,23,24)
   AA0363:
     id: AA0363
     name: N-carboxy-L-methionine
     synonyms:
-    - 2-carbamic-4-(methylsulfanyl)butanoic acid
     - N-carboxymethionine
+    - 2-carbamic-4-(methylsulfanyl)butanoic acid
     - 2-carbamic-4-(methylthio)butanoic acid
     identifiers:
     - ns: PDBHET
@@ -1529,10 +1569,10 @@ bases:
     id: AA0198
     name: D-tryptophan
     identifiers:
-    - ns: PDBHET
-      id: DTR
     - ns: chebi
       id: CHEBI:29955
+    - ns: PDBHET
+      id: DTR
     structure: InChI=1S/C11H12N2O/c12-9(7-14)5-8-6-13-11-4-2-1-3-10(8)11/h1-4,6-7,9,13H,5,12H2/t9-/m1/s1
   AA0589:
     id: AA0589
@@ -1543,9 +1583,9 @@ bases:
     name: 5-hydroxy-L-lysine
     synonyms:
     - 2,6-diamino-2,3,4,6-tetradeoxyhexonic acid
+    - L-erythro-delta-hydroxylysine
     - alpha,epsilon-diamino-delta-hydroxycaproic acid
     - 2,6-bisazanyl-5-hydroxyhexanoic acid
-    - L-erythro-delta-hydroxylysine
     identifiers:
     - ns: PDBHET
       id: LYZ
@@ -1556,23 +1596,23 @@ bases:
     id: AA0527
     name: N6-octanoyl-L-lysine
     synonyms:
-    - N6-(1-oxooctyl)-L-lysine
-    - epsilon-octanoyllysine
     - N(zeta)-octanoyllysine
+    - epsilon-octanoyllysine
+    - N6-(1-oxooctyl)-L-lysine
     structure: InChI=1S/C14H28N2O2/c1-2-3-4-5-6-10-14(18)16-11-8-7-9-13(15)12-17/h12-13H,2-11,15H2,1H3,(H,16,18)/t13-/m0/s1
   AA0055:
     id: AA0055
     name: N6-acetyl-L-lysine
     synonyms:
-    - 6-acetylazanyl-2-aminohexanoic acid
     - N(zeta)-acetyllysine
-    - 6-acetylamino-2-aminohexanoic acid
+    - 6-acetylazanyl-2-aminohexanoic acid
     - epsilon-acetyllysine
+    - 6-acetylamino-2-aminohexanoic acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:61930
     - ns: PDBHET
       id: ALY
+    - ns: chebi
+      id: CHEBI:61930
     structure: InChI=1S/C8H16N2O2/c1-7(12)10-5-3-2-4-8(9)6-11/h6,8H,2-5,9H2,1H3,(H,10,12)/t8-/m0/s1
   AA0567:
     id: AA0567
@@ -1582,13 +1622,13 @@ bases:
     id: AA0121
     name: L-allysine
     synonyms:
-    - 2-amino-adipic acid semialdahyde
-    - 6-oxonorleucine
-    - 2-aminoadipate 6-semialdehyde
-    - alpha-amino-adipic acid delta-semialdahyde
-    - AASA
-    - 2-amino-5-formylvaleric acid
     - 5-formyl-norvaline
+    - 2-aminoadipate 6-semialdehyde
+    - AASA
+    - 6-oxonorleucine
+    - 2-amino-5-formylvaleric acid
+    - 2-amino-adipic acid semialdahyde
+    - alpha-amino-adipic acid delta-semialdahyde
     identifiers:
     - ns: chebi
       id: CHEBI:17917
@@ -1601,28 +1641,28 @@ bases:
     id: AA0222
     name: omega-N-phospho-L-arginine
     synonyms:
-    - alpha-amino-delta-phosphonoguanidinovaleric acid
-    - N5-[imino(phosphonoamino)methyl]-L-ornithine
-    - phosphoarginine
-    - (2S)-2-amino-5-(N'-phosphonocarbamimidamido)pentanoic acid
     - N(omega)-phosphono-L-arginine
+    - phosphoarginine
+    - alpha-amino-delta-phosphonoguanidinovaleric acid
+    - (2S)-2-amino-5-(N'-phosphonocarbamimidamido)pentanoic acid
+    - N5-[imino(phosphonoamino)methyl]-L-ornithine
     - N(gamma)-phosphoarginine
     structure: InChI=1S/C6H15N4O4P/c7-5(4-11)2-1-3-9-6(8)10-15(12,13)14/h4-5H,1-3,7H2,(H5,8,9,10,12,13,14)/t5-/m0/s1
   AA0178:
     id: AA0178
     name: L-thyroxine
     synonyms:
-    - 3,3',5,5'-tetraiodo-L-thyronine
-    - 3,5,3',5'-tetraiodo-L-thyronine
     - 3',3'',5',5''-tetraiodo-L-thyronine
-    - T4
     - 4-(4-hydroxy-3,5-diiodophenoxy)-3,5-diiodo-L-phenylalanine
     - O-(4-hydroxy-3,5-diiodophenyl)-3,5-diiodo-L-tyrosine
+    - 3,5,3',5'-tetraiodo-L-thyronine
+    - T4
+    - 3,3',5,5'-tetraiodo-L-thyronine
     identifiers:
-    - ns: chebi
-      id: CHEBI:18332
     - ns: PDBHET
       id: T44
+    - ns: chebi
+      id: CHEBI:18332
     structure: InChI=1S/C15H11I4NO3/c16-10-4-9(5-11(17)14(10)22)23-15-12(18)2-7(3-13(15)19)1-8(20)6-21/h2-6,8,22H,1,20H2/t8-/m0/s1
   AA0528:
     id: AA0528
@@ -1636,11 +1676,11 @@ bases:
     id: AA0139
     name: tris-L-cysteinyl triiron tetrasulfide
     synonyms:
-    - mu3-sulfido tri-mu-sulfido tris-S-L-cysteinyl triiron
-    - tris-L-cysteinyl triiron tetrasulfide cubane form
     - tris-L-cysteinyl triiron tetrasulfide cuboid cluster
     - tris-L-cysteinyl triiron tetrasulfide C3 cluster
+    - mu3-sulfido tri-mu-sulfido tris-S-L-cysteinyl triiron
     - tris-L-cysteinyl triiron tetrasulfide trigonal cluster
+    - tris-L-cysteinyl triiron tetrasulfide cubane form
     identifiers:
     - ns: PDBHET
       id: F3S
@@ -1649,38 +1689,38 @@ bases:
     id: AA0051
     name: N-acetyl-L-serine
     synonyms:
-    - N-acetylserine
-    - 2-acetylamino-3-hydroxypropanoic acid
     - 2-acetylazanyl-3-hydroxypropanoic acid
+    - 2-acetylamino-3-hydroxypropanoic acid
+    - N-acetylserine
     identifiers:
-    - ns: PDBHET
-      id: ACE
     - ns: chebi
       id: CHEBI:45441
+    - ns: PDBHET
+      id: ACE
     structure: InChI=1S/C5H9NO3/c1-4(9)6-5(2-7)3-8/h2,5,8H,3H2,1H3,(H,6,9)/t5-/m1/s1
   AA0368:
     id: AA0368
     name: 3'-(L-tyros-O4'-yl)-L-tyrosine
     synonyms:
+    - isodityrosine
     - 2-amino-3-[4-(5-[(2S)-2-amino-2-carboxyethyl]-2-hydroxyphenoxy)phenyl]propanoic
       acid
     - O-(5-(2-amino-2-carboxyethyl)-2-hydroxyphenyl)-L-tyrosine
-    - isodityrosine
     structure: InChI=1S/C18H20N2O4/c19-14(10-21)7-12-1-4-16(5-2-12)24-18-9-13(3-6-17(18)23)8-15(20)11-22/h1-6,9-11,14-15,23H,7-8,19-20H2/t14-,15-/m0/s1
   AA0465:
     id: AA0465
     name: 1-amino-2-propanol
     synonyms:
-    - 2-hydroxypropylamine
-    - 1-methyl-2-aminoethanol
-    - 2-hydroxypropanamine
     - alpha-aminoisopropyl alcohol
+    - 1-methyl-2-aminoethanol
     - isopropanolamine
     - 1-amino-2-hydroxypropane
-    - 2-amino-1-methylethanol
-    - 2-hydroxy-1-propylamine
+    - 2-hydroxypropanamine
+    - 2-hydroxypropylamine
     - threamine
+    - 2-hydroxy-1-propylamine
     - decarboxylated threonine
+    - 2-amino-1-methylethanol
     identifiers:
     - ns: chebi
       id: CHEBI:15675
@@ -1705,10 +1745,10 @@ bases:
     id: AA0062
     name: N,N,N-trimethyl-L-alanine
     synonyms:
-    - (1S)-1-carboxy-N,N,N-trimethylethanazanium
-    - N,N,N-trimethylalanine cation
     - N,N,N-trimethylalaninium
     - (2S)-2-(trimethylammonio)propanoic acid
+    - (1S)-1-carboxy-N,N,N-trimethylethanazanium
+    - N,N,N-trimethylalanine cation
     structure: InChI=1S/C6H14NO/c1-6(5-8)7(2,3)4/h5-6H,1-4H3/t6-/m0/s1
   AA0580:
     id: AA0580
@@ -1718,20 +1758,20 @@ bases:
     id: AA0307
     name: S-myristoyl-L-cysteine
     identifiers:
-    - ns: PDBHET
-      id: MYR
     - ns: chebi
       id: CHEBI:22061
+    - ns: PDBHET
+      id: MYR
     structure: InChI=1S/C17H33NO2S/c1-2-3-4-5-6-7-8-9-10-11-12-13-17(20)21-15-16(18)14-19/h14,16H,2-13,15,18H2,1H3/t16-/m1/s1
   AA0616:
     id: AA0616
     name: S-methyl-L-methionine
     synonyms:
-    - S-methylmethioninium
-    - (2S)-2-amino-4-(dimethylsulfonio)butanoate
-    - vitamin U
     - '[(3S)-3-amino-3-carboxypropyl](dimethyl)sulfonium'
     - S-methylmethionine
+    - S-methylmethioninium
+    - vitamin U
+    - (2S)-2-amino-4-(dimethylsulfonio)butanoate
     identifiers:
     - ns: chebi
       id: CHEBI:17728
@@ -1754,8 +1794,8 @@ bases:
     name: O-isoaspartyl-L-threonine
     synonyms:
     - O3-(isoaspartyl)-threonine
-    - O(beta)-(beta-aspartyl)threonine
     - (2S,3R)-2-amino-3-([(4S)-3-amino-3-carboxypropanoyl]oxy)propanoic acid
+    - O(beta)-(beta-aspartyl)threonine
     identifiers:
     - ns: PDBHET
       id: AEI
@@ -1771,9 +1811,9 @@ bases:
     id: AA0272
     name: 5-methyl-L-arginine
     synonyms:
+    - delta-methylarginine
     - 2-amino-5-guanidinohexanoic acid
     - 4-methylarginine [misnomer]
-    - delta-methylarginine
     identifiers:
     - ns: PDBHET
       id: AGM
@@ -1782,9 +1822,9 @@ bases:
     id: AA0077
     name: N6-palmitoyl-L-lysine
     synonyms:
-    - N(zeta)-palmitoyllysine
-    - 2-amino-6-(hexadecanamido)hexanoic acid
     - N6-(1-oxohexadecyl)-L-lysine
+    - 2-amino-6-(hexadecanamido)hexanoic acid
+    - N(zeta)-palmitoyllysine
     - epsilon-palmitoyllysine
     identifiers:
     - ns: chebi
@@ -1794,11 +1834,11 @@ bases:
     id: AA0430
     name: L-dehydrolysinonorleucine
     synonyms:
-    - N6-[(5S)-5-amino-5-carboxypentylidene]-L-lysine
+    - dehydrolysylnorleucine
     - dehydrolysinorleucine [misspelling]
     - didehydrolysinonorleucine
+    - N6-[(5S)-5-amino-5-carboxypentylidene]-L-lysine
     - 6-(N6-L-didehydrolysino)-L-norleucine
-    - dehydrolysylnorleucine
     identifiers:
     - ns: chebi
       id: CHEBI:64748
@@ -1807,15 +1847,15 @@ bases:
     id: AA0078
     name: N6-myristoyl-L-lysine
     synonyms:
-    - N6-(1-oxotetradecyl)-L-lysine
     - epsilon-myristoyllysine
+    - N6-(1-oxotetradecyl)-L-lysine
     - N(zeta)-myristoyllysine
     - 2-amino-6-(tetradecanamido)hexanoic acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:21894
     - ns: PDBHET
       id: MYK
+    - ns: chebi
+      id: CHEBI:21894
     structure: InChI=1S/C20H40N2O2/c1-2-3-4-5-6-7-8-9-10-11-12-16-20(24)22-17-14-13-15-19(21)18-23/h18-19H,2-17,21H2,1H3,(H,22,24)/t19-/m0/s1
   AA0478:
     id: AA0478
@@ -1838,11 +1878,11 @@ bases:
     id: AA0499
     name: O-2,4-diacetamido-2,4-dideoxyglucosyl-L-serine
     synonyms:
-    - O-[2,4-bis(acetylamino)]glucosyl-L-serine
     - O-seryl-beta-2,4-bis(acetylamino)glucoside
+    - O-[2,4-bis(acetylamino)]glucosyl-L-serine
     - O3-(2,4-diacetamido-2,4-dideoxy-beta-D-glucopyranosyl)-L-serine
-    - O-(2,4-diacetamido-2,4-dideoxy-beta-D-glucopyranosyl)-L-serine
     - DADDGlc
+    - O-(2,4-diacetamido-2,4-dideoxy-beta-D-glucopyranosyl)-L-serine
     identifiers:
     - ns: PDBHET
       id: DT6
@@ -1851,44 +1891,44 @@ bases:
     id: AA0111
     name: meso-lanthionine
     synonyms:
-    - 3,3'-thiobis-meso-alanine
-    - (2R,6S)-2,6-diamino-4-thiaheptanedioic acid
-    - (R,S)-bis(2-amino-2-carboxyethyl)sulfide
     - (2S,6R)-meso-lanthionine [misnomer]
-    - (2R,2'S)-3,3'-thiobis-(2-aminopropanoic acid)
+    - (2R,6S)-2,6-diamino-4-thiaheptanedioic acid
     - (R)-S-(2-amino-2-carboxyethyl)-D-cysteine
-    - (2R,6S)-meso-lanthionine
-    - cysteine-3-D-alanine thioether
+    - 3,3'-thiobis-meso-alanine
+    - (R,S)-bis(2-amino-2-carboxyethyl)sulfide
     - (2S)-2-amino-3-[[(2R)-2-amino-2-carboxyethyl]sulfanyl]propanoic acid
+    - (2R,6S)-meso-lanthionine
+    - (2R,2'S)-3,3'-thiobis-(2-aminopropanoic acid)
+    - cysteine-3-D-alanine thioether
     identifiers:
-    - ns: chebi
-      id: CHEBI:25013
     - ns: PDBHET
       id: DAL
+    - ns: chebi
+      id: CHEBI:25013
     structure: InChI=1S/C6H12N2O2S/c7-5(1-9)3-11-4-6(8)2-10/h1-2,5-6H,3-4,7-8H2/t5-,6+
   AA0031:
     id: AA0031
     name: 2-pyrrolidone-5-carboxylic acid
     synonyms:
-    - 5-oxoproline
-    - 2-oxopyrrolidine-5-carboxylic acid
-    - PCA
-    - pyroglutamic acid
     - 5-pyrrolidone-2-carboxylic acid
+    - PCA
+    - 5-oxoproline
+    - pyroglutamic acid
+    - 2-oxopyrrolidine-5-carboxylic acid
     - 5-oxopyrrolidine-2-carboxylic acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:30652
     - ns: PDBHET
       id: PCA
+    - ns: chebi
+      id: CHEBI:30652
     structure: InChI=1S/C5H7NO2/c7-3-4-1-2-5(8)6-4/h3-4H,1-2H2,(H,6,8)/t4-/m0/s1
   AA0620:
     id: AA0620
     name: N,N-dimethylglyine
     synonyms:
-    - vitamin B16
-    - 2-(dimethylamino)acetic acid
     - 1-carboxy-N,N-dimethylaminomethane
+    - 2-(dimethylamino)acetic acid
+    - vitamin B16
     identifiers:
     - ns: PDBHET
       id: DMG
@@ -1899,12 +1939,12 @@ bases:
     id: AA0618
     name: O3-(poly-3-hydroxybutyrate)-L-serine
     synonyms:
-    - O3-poly[(R)-3-hydroxybutyrate]serine
-    - O3-poly(3-hydroxybutanoic acid)serine
+    - O3-poly(3-hydroxybutyrate)serine
     - O3-poly(beta-hydroxybutyrate)serine
     - O3-poly(3-hydroxybutanoate)serine
-    - O3-poly(3-hydroxybutyrate)serine
+    - O3-poly(3-hydroxybutanoic acid)serine
     - O3-poly(3-hydroxybutyric acid)serine
+    - O3-poly[(R)-3-hydroxybutyrate]serine
     structure: InChI=1S/C11H19NO6/c1-7(14)3-11(16)18-8(2)4-10(15)17-6-9(12)5-13/h5,7-9,14H,3-4,6,12H2,1-2H3/t7-,8-,9-/m1/s1
   AA0125:
     id: AA0125
@@ -1937,9 +1977,9 @@ bases:
     id: AA0060
     name: N-palmitoyl-L-cysteine
     synonyms:
-    - N-(1-oxahexadecyl)-L-cysteine
     - 2-hexadecanamido-3-sulfanylpropanoic acid
     - 2-hexadecanoylamino-3-mercaptopropanoic acid
+    - N-(1-oxahexadecyl)-L-cysteine
     structure: InChI=1S/C19H37NO2S/c1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-19(22)20-18(16-21)17-23/h16,18,23H,2-15,17H2,1H3,(H,20,22)/t18-/m1/s1
   AA0397:
     id: AA0397
@@ -1956,12 +1996,12 @@ bases:
     id: AA0265
     name: 1-thioglycine
     synonyms:
-    - 'aminoethanethioic S-acid #link CTER'
-    - aminothioacetic acid
-    - 'aminoethanethioic O-acid #link INT'
-    - 'aminoethanethionic acid #link INT'
-    - 'aminoethanethiolic acid #link CTER'
     - 2-amino-1-sulfanylethanone
+    - aminothioacetic acid
+    - 'aminoethanethiolic acid #link CTER'
+    - 'aminoethanethionic acid #link INT'
+    - 'aminoethanethioic O-acid #link INT'
+    - 'aminoethanethioic S-acid #link CTER'
     identifiers:
     - ns: PDBHET
       id: GL3
@@ -1974,10 +2014,10 @@ bases:
     id: AA0046
     name: N-acetylglycine
     synonyms:
-    - (acetylamino)acetic acid
-    - aceturic acid
     - 2-(acetylamino)ethanoic acid
+    - (acetylamino)acetic acid
     - (acetylazanyl)ethanoic acid
+    - aceturic acid
     identifiers:
     - ns: chebi
       id: CHEBI:61888
@@ -1988,10 +2028,10 @@ bases:
     id: AA0367
     name: 3'-(L-tyros-3'-yl)-L-tyrosine
     synonyms:
-    - 6,6'-dihydroxy-(1,1'-biphenyl)-3,3'-bis(2-aminopropanoic acid)
-    - alpha,alpha'-diamino-6,6'-dihydroxy-(1,1'-biphenyl)-3,3'-dipropanoic acid
     - bityrosine
+    - alpha,alpha'-diamino-6,6'-dihydroxy-(1,1'-biphenyl)-3,3'-dipropanoic acid
     - o,o-dityrosine
+    - 6,6'-dihydroxy-(1,1'-biphenyl)-3,3'-bis(2-aminopropanoic acid)
     structure: InChI=1S/C18H20N2O4/c19-13(9-21)5-11-1-3-17(23)15(7-11)16-8-12(2-4-18(16)24)6-14(20)10-22/h1-4,7-10,13-14,23-24H,5-6,19-20H2/t13-,14-/m0/s1
   AA0555:
     id: AA0555
@@ -2005,8 +2045,8 @@ bases:
     id: AA0088
     name: glycine amide
     synonyms:
-    - 2-aminoacetamide
     - glycinamide
+    - 2-aminoacetamide
     - 2-azanylethanamide
     identifiers:
     - ns: chebi
@@ -2018,12 +2058,12 @@ bases:
     id: AA0382
     name: 2-tetrahydropyridinyl-5-imidazolinone glycine
     synonyms:
-    - Zoanthus sp. fluorescent protein zFP538 chromophore
-    - 2-(tetrahydropyrid-2-yl)-5-imidazolinone glycine
     - para-hydroxybenzylidene-imidazolidinone chromophore
     - '[5-oxo-2-(3,4,5,6-tetrahydropyridin-2-yl)-4,5-dihydro-1H-imidazol-1-yl]acetic
       acid'
+    - 2-(tetrahydropyrid-2-yl)-5-imidazolinone glycine
     - 2-(3,4,5,6-tetrahydropyridin-2-yl)-1-carboxymethyl-1-imidazolin-5-one
+    - Zoanthus sp. fluorescent protein zFP538 chromophore
     identifiers:
     - ns: PDBHET
       id: CH7
@@ -2032,9 +2072,9 @@ bases:
     id: AA0282
     name: (2S,3R,4S)-3,4-dihydroxyproline
     synonyms:
+    - 2,3-trans-3,4-cis-3,4-dihydroxy-L-proline
     - 2-alpha-3-beta-4-beta-3,4-dihydroxyproline
     - trans-2,3-cis-3,4-dihydroxy-L-proline
-    - 2,3-trans-3,4-cis-3,4-dihydroxy-L-proline
     structure: InChI=1S/C5H9NO3/c7-2-3-5(9)4(8)1-6-3/h2-6,8-9H,1H2/t3-,4+,5-/m1/s1
   AA0358:
     id: AA0358
@@ -2051,20 +2091,20 @@ bases:
     id: AA0617
     name: S-(poly-3-hydroxybutyrate)-L-cysteine
     synonyms:
-    - S-poly(3-hydroxybutyric acid)cysteine
-    - S-poly(3-hydroxybutanoate)cysteine
-    - S-poly(beta-hydroxybutyrate)cysteine
     - S-poly[(R)-3-hydroxybutyrate]cysteine
     - S-poly(3-hydroxybutyrate)cysteine
     - S-poly(3-hydroxybutanoic acid)cysteine
+    - S-poly(beta-hydroxybutyrate)cysteine
+    - S-poly(3-hydroxybutyric acid)cysteine
+    - S-poly(3-hydroxybutanoate)cysteine
     structure: InChI=1S/C11H19NO5S/c1-7(14)3-10(15)17-8(2)4-11(16)18-6-9(12)5-13/h5,7-9,14H,3-4,6,12H2,1-2H3/t7-,8-,9-/m1/s1
   AA0326:
     id: AA0326
     name: tetrakis-L-cysteinyl triiron tetrasulfide
     synonyms:
-    - tetrakis-L-cysteinyl triiron tetrasulfide D2 cluster
-    - tetrakis-L-cysteinyl linear [3Fe-4S] cluster
     - tetra-mu-sulfido tetrakis-S-L-cysteinyl triiron
+    - tetrakis-L-cysteinyl linear [3Fe-4S] cluster
+    - tetrakis-L-cysteinyl triiron tetrasulfide D2 cluster
     - bis[bis-L-cysteinyl iron disulfido]iron
     identifiers:
     - ns: PDBHET
@@ -2104,11 +2144,11 @@ bases:
     id: AA0185
     name: L-3-oxoalanine
     synonyms:
-    - C(alpha)-formylglycine [misnomer]
-    - 2-amino-3-oxopropionic acid
-    - L-serinesemialdehyde [misnomer]
-    - L-amino-malonic acid semialdehyde
     - L-aminomalonaldehydic acid
+    - 2-amino-3-oxopropionic acid
+    - C(alpha)-formylglycine [misnomer]
+    - L-amino-malonic acid semialdehyde
+    - L-serinesemialdehyde [misnomer]
     identifiers:
     - ns: PDBHET
       id: FGL
@@ -2121,11 +2161,11 @@ bases:
     id: AA0371
     name: 1'-(phospho-5'-adenosine)-L-histidine
     synonyms:
+    - N(tau)-5'-adenylic-L-histidine
     - L-histidine 5'-adenosine phosphoramidester
+    - L-histidine monoanhydride with 5'-adenylic acid
     - tele-5'-adenylic-L-histidine
     - N1'-adenylylated histidine
-    - N(tau)-5'-adenylic-L-histidine
-    - L-histidine monoanhydride with 5'-adenylic acid
     identifiers:
     - ns: PDBHET
       id: AMP
@@ -2142,42 +2182,42 @@ bases:
     id: AA0085
     name: L-cysteine amide
     identifiers:
-    - ns: PDBHET
-      id: CY3
     - ns: chebi
       id: CHEBI:21262
+    - ns: PDBHET
+      id: CY3
     structure: InChI=1S/C3H8N2OS/c4-2(1-7)3(5)6/h2,7H,1,4H2,(H2,5,6)/t2-/m0/s1
   AA0040:
     id: AA0040
     name: 2'-[3-carboxamido-3-(trimethylammonio)propyl]-L-histidine
     synonyms:
+    - (3-[4-(2-amino-2-carboxy-ethyl)-1H-imidazol-2-yl]-1-carbamoyl-propyl)-trimethylammonium
     - 2-amino-4-[[5-(2-amino-2-carboxylato-ethyl)-1,1,3-trimethyl-2,3-dihydroimidazol-2-yl]]but-3-enamide
-    - 2-[(R)-3-carboxamido-3-(trimethylammonio)propyl]-4-((S)-2-amino-2-carboxyethyl)-1H-imidazole
-    - 1-azanyl-4-(4-[2-azanyl-2-carboxyethyl]-1H-imidazol-2-yl)-N,N,N-trimethyl-1-oxobutan-2-azanium
     - diphthamide
+    - 1-azanyl-4-(4-[2-azanyl-2-carboxyethyl]-1H-imidazol-2-yl)-N,N,N-trimethyl-1-oxobutan-2-azanium
+    - 2-[3-carboxamido-3-(trimethylammonio)propyl]histidine
+    - alpha-(aminocarbonyl)-4-(2-amino-2-carboxyethyl)-N,N,N-trimethyl-1H-imidazole-2-propanaminium
+    - 2-[(R)-3-carboxamido-3-(trimethylammonio)propyl]-4-((S)-2-amino-2-carboxyethyl)-1H-imidazole
     - 2-amino-3-[[2-(3-amino-3-carbamoyl-prop-1-enyl)-1,1,3-trimethyl-2,3-dihydroimidazol-5-yl]]propanoic
       acid
-    - alpha-(aminocarbonyl)-4-(2-amino-2-carboxyethyl)-N,N,N-trimethyl-1H-imidazole-2-propanaminium
-    - 2-[3-carboxamido-3-(trimethylammonio)propyl]histidine
-    - (3-[4-(2-amino-2-carboxy-ethyl)-1H-imidazol-2-yl]-1-carbamoyl-propyl)-trimethylammonium
     identifiers:
-    - ns: PDBHET
-      id: DDE
     - ns: chebi
       id: CHEBI:16692
+    - ns: PDBHET
+      id: DDE
     structure: InChI=1S/C13H24N5O2/c1-18(2,3)11(13(15)20)4-5-12-16-7-10(17-12)6-9(14)8-19/h7-9,11H,4-6,14H2,1-3H3,(H2,15,20)(H,16,17)/t9-,11+/m0/s1
   AA0044:
     id: AA0044
     name: N-acetyl-L-glutamic acid
     synonyms:
     - acetylglutamic acid
-    - 2-(acetylazanyl)pentanedioic acid
     - 2-(acetylamino)pentanedioic acid
+    - 2-(acetylazanyl)pentanedioic acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:17533
     - ns: PDBHET
       id: ACE
+    - ns: chebi
+      id: CHEBI:17533
     structure: InChI=1S/C7H11NO4/c1-5(10)8-6(4-9)2-3-7(11)12/h4,6H,2-3H2,1H3,(H,8,10)(H,11,12)/t6-/m0/s1
   AA0295:
     id: AA0295
@@ -2191,11 +2231,11 @@ bases:
     id: AA0354
     name: N2-acetyl-L-arginine
     synonyms:
+    - alpha-acetylamino-delta-guanidinovaleric acid
+    - 2-acetamido-5-guanidinopentanoic acid
     - acetylarginine
     - 2-acetylamino-5-guanidinopentanoic acid
-    - alpha-acetylamino-delta-guanidinovaleric acid
     - N(alpha)-acetylarginine
-    - 2-acetamido-5-guanidinopentanoic acid
     identifiers:
     - ns: PDBHET
       id: ACE
@@ -2212,22 +2252,22 @@ bases:
     id: AA0081
     name: L-alanine amide
     identifiers:
-    - ns: chebi
-      id: CHEBI:21217
     - ns: PDBHET
       id: NH2
+    - ns: chebi
+      id: CHEBI:21217
     structure: InChI=1S/C3H8N2O/c1-2(4)3(5)6/h2H,4H2,1H3,(H2,5,6)/t2-/m0/s1
   AA0428:
     id: AA0428
     name: S-15,16-dihydrobiliverdin-L-cysteine
     synonyms:
-    - 15,16-dihydrobiliverdin IXalpha
     - 3alpha-cysteinyl-15,16-dihydrobiliverdin
+    - 18-ethenyl-8,12-bis(2-carboxyethyl)-3-(2-(cysteinyl-S)-ethyl)-2,7,13,17-tetramethylbiladiene-ab-1,19(16H,21H)-dione
+    - 15,16-Dhbv
+    - 15,16-dihydrobiliverdin IXalpha
+    - DBV
     - 3'-cysteinyl-15,16-dihydrobiliverdin
     - 15,16-dihydrobiliverdin cysteine adduct
-    - 18-ethenyl-8,12-bis(2-carboxyethyl)-3-(2-(cysteinyl-S)-ethyl)-2,7,13,17-tetramethylbiladiene-ab-1,19(16H,21H)-dione
-    - DBV
-    - 15,16-Dhbv
     identifiers:
     - ns: PDBHET
       id: DBV
@@ -2241,10 +2281,10 @@ bases:
     id: AA0114
     name: N6-carboxy-L-lysine
     synonyms:
-    - 2-amino-6-carbamic hexanoic acid
-    - N6-carbamyllysine [misnomer]
     - lysine NZ-carboxylic acid
     - N6-carboxylysine
+    - N6-carbamyllysine [misnomer]
+    - 2-amino-6-carbamic hexanoic acid
     identifiers:
     - ns: PDBHET
       id: FMT
@@ -2277,12 +2317,12 @@ bases:
     id: AA0189
     name: 2-imino-glutamine 5-imidazolinone glycine
     synonyms:
-    - '[2-(3-carbamoyl-1-imino-propyl)-5-oxo-4,5-dihydro-imidazol-1-yl]-acetic acid'
-    - 2-(3-carbamoyl-1-imino-propyl)-1-carboxymethyl-1-imidazolin-5-one
     - fluorescent protein FP583 chromophore
     - para-hydroxybenzylidene-imidazolidinone chromophore
     - 2,N-didehydroglutaminyl-5-imidazolinone glycine
+    - 2-(3-carbamoyl-1-imino-propyl)-1-carboxymethyl-1-imidazolin-5-one
     - red fluorescent protein chromophore
+    - '[2-(3-carbamoyl-1-imino-propyl)-5-oxo-4,5-dihydro-imidazol-1-yl]-acetic acid'
     identifiers:
     - ns: PDBHET
       id: CRQ
@@ -2291,10 +2331,10 @@ bases:
     id: AA0132
     name: S-phycoerythrobilin-L-cysteine
     synonyms:
-    - 18-ethenyl-3-[1-((2-amino-2-carboxy)ethylsulfanyl)ethyl]-2,3,15,16-tetrahydro-2,7,13,17-tetramethyl-1,19-dioxo-(21H,22H,24H)-bilin-8,12-dipropanoic
-      acid
     - PEB
     - phycoerythrobilin cysteine adduct
+    - 18-ethenyl-3-[1-((2-amino-2-carboxy)ethylsulfanyl)ethyl]-2,3,15,16-tetrahydro-2,7,13,17-tetramethyl-1,19-dioxo-(21H,22H,24H)-bilin-8,12-dipropanoic
+      acid
     identifiers:
     - ns: chebi
       id: CHEBI:15618
@@ -2313,20 +2353,20 @@ bases:
     - 2-formylazanyl-4-(methylsulfanyl)butanoic acid
     - 2-formylamino-4-(methylthio)butanoic acid
     identifiers:
-    - ns: PDBHET
-      id: FME
     - ns: chebi
       id: CHEBI:49298
+    - ns: PDBHET
+      id: FME
     structure: InChI=1S/C6H11NO2S/c1-10-3-2-6(4-8)7-5-9/h4-6H,2-3H2,1H3,(H,7,9)/t6-/m0/s1
   AA0380:
     id: AA0380
     name: L-asparagine 5-imidazolinone glycine
     synonyms:
-    - 2-[(S)-1,3-diamino-3-oxopropyl]-1-carboxymethyl-1-imidazolin-5-one
-    - '[2-(1,3-diamino-3-oxopropyl)-5-oxo-4,5-dihydro-imidazol-1-yl]-acetic acid'
-    - Zoanthus sp. fluorescent protein FP506 chromophore
     - para-hydroxybenzylidene-imidazolidinone chromophore
     - asparaginyl-5-imidazolinone glycine
+    - 2-[(S)-1,3-diamino-3-oxopropyl]-1-carboxymethyl-1-imidazolin-5-one
+    - Zoanthus sp. fluorescent protein FP506 chromophore
+    - '[2-(1,3-diamino-3-oxopropyl)-5-oxo-4,5-dihydro-imidazol-1-yl]-acetic acid'
     identifiers:
     - ns: PDBHET
       id: NYG
@@ -2343,14 +2383,14 @@ bases:
     id: AA0035
     name: 1'-phospho-L-histidine
     synonyms:
-    - tele-phosphohistidine
-    - histidine-3-phosphate [misnomer]
-    - histidine-N1'-phosphate
-    - N1-phosphonohistidine
     - NE2-phosphonohistidine
-    - 2-azanyl-3-(1-phosphono-1H-imidazol-4-yl)propanoic acid
-    - histidine-N(epsilon)-phosphate
+    - tele-phosphohistidine
     - N(tau)-phosphohistidine
+    - histidine-N1'-phosphate
+    - histidine-3-phosphate [misnomer]
+    - histidine-N(epsilon)-phosphate
+    - 2-azanyl-3-(1-phosphono-1H-imidazol-4-yl)propanoic acid
+    - N1-phosphonohistidine
     identifiers:
     - ns: PDBHET
       id: NEP
@@ -2416,10 +2456,10 @@ bases:
     id: AA0364
     name: O-acetyl-L-serine
     identifiers:
-    - ns: PDBHET
-      id: OAS
     - ns: chebi
       id: CHEBI:17981
+    - ns: PDBHET
+      id: OAS
     structure: InChI=1S/C5H9NO3/c1-4(8)9-3-5(6)2-7/h2,5H,3,6H2,1H3/t5-/m1/s1
   AA0558:
     id: AA0558
@@ -2441,13 +2481,13 @@ bases:
     id: AA0410
     name: 2-imino-alanine 5-imidazolinone glycine
     synonyms:
-    - red fluorescent protein zRFP574 chromophore
-    - alanyl-5-imidazolinone glycine
     - para-hydroxybenzylidene-imidazolidinone chromophore
-    - 2-(1-iminoethyl)-1-carboxymethyl-1-imidazolin-5-one
+    - red fluorescent protein zRFP574 chromophore
     - '[2-(1-iminoethyl)-5-oxo-4,5-dihydro-imidazol-1-yl]-acetic acid'
     - 2-imino-alanyl-5-imidazolinone glycine
     - 2,N-didehydroalanyl-5-imidazolinone glycine
+    - alanyl-5-imidazolinone glycine
+    - 2-(1-iminoethyl)-1-carboxymethyl-1-imidazolin-5-one
     identifiers:
     - ns: PDBHET
       id: XYG
@@ -2471,8 +2511,8 @@ bases:
     id: AA0059
     name: N-myristoyl-glycine
     synonyms:
-    - N-tetradecanoylglycine
     - N-myristylglycine
+    - N-tetradecanoylglycine
     - N-(1-oxotetradecyl)glycine
     identifiers:
     - ns: PDBHET
@@ -2498,20 +2538,20 @@ bases:
     id: AA0115
     name: N6-1-carboxyethyl-L-lysine
     identifiers:
-    - ns: chebi
-      id: CHEBI:53015
     - ns: PDBHET
       id: MCL
+    - ns: chebi
+      id: CHEBI:53015
     structure: InChI=1S/C9H18N2O3/c1-7(9(13)14)11-5-3-2-4-8(10)6-12/h6-8,11H,2-5,10H2,1H3,(H,13,14)/t7-,8-/m0/s1
   AA0049:
     id: AA0049
     name: N-acetyl-L-methionine
     synonyms:
-    - 2-acetylamino-4-(methylsulfanyl)butanoic acid
-    - acetylmethionine
+    - 2-acetylazanyl-4-(methylsulfanyl)butanoic acid
     - methionamine
     - 2-acetylamino-4-(methylthio)butanoic acid
-    - 2-acetylazanyl-4-(methylsulfanyl)butanoic acid
+    - 2-acetylamino-4-(methylsulfanyl)butanoic acid
+    - acetylmethionine
     identifiers:
     - ns: chebi
       id: CHEBI:21557
@@ -2522,9 +2562,9 @@ bases:
     id: AA0333
     name: S-cyano-L-cysteine
     synonyms:
-    - S-cyanocysteine
     - beta-thiocyanatoalanine
     - serine thiocyanic acid ester
+    - S-cyanocysteine
     - alpha-amino-beta-thiocyanatopropionic acid
     structure: InChI=1S/C4H6N2OS/c5-3-8-2-4(6)1-7/h1,4H,2,6H2/t4-/m1/s1
   AA0120:
@@ -2538,12 +2578,12 @@ bases:
     id: AA0398
     name: O-(N-acetylamino)glucosyl-L-serine
     synonyms:
-    - O-seryl-beta-N-acetylglucosaminide
-    - O3-(N-acetylglucosaminyl)serine
-    - O-(N-acetylglucosaminyl)serine
-    - O-(2-acetylamino-2-deoxy-beta-D-glucopyranosyl)-L-serine
-    - O-glycosylserine
     - O3-(2-acetamido-2-deoxy-beta-D-glucopyranosyl)-L-serine
+    - O-glycosylserine
+    - O3-(N-acetylglucosaminyl)serine
+    - O-(2-acetylamino-2-deoxy-beta-D-glucopyranosyl)-L-serine
+    - O-seryl-beta-N-acetylglucosaminide
+    - O-(N-acetylglucosaminyl)serine
     identifiers:
     - ns: PDBHET
       id: NAG
@@ -2568,11 +2608,11 @@ bases:
     id: AA0221
     name: 1'-(8alpha-FAD)-L-histidine
     synonyms:
-    - 8alpha-(N(epsilon)-histidyl)FAD
     - N(tau)-(8alpha-FAD)-histidine
-    - tele-(8alpha-FAD)-histidine
     - 8alpha-N3-histidyl FAD [misnomer]
+    - 8alpha-(N(epsilon)-histidyl)FAD
     - 8alpha-(N1'-histidyl)FAD
+    - tele-(8alpha-FAD)-histidine
     identifiers:
     - ns: PDBHET
       id: FAD
@@ -2581,11 +2621,11 @@ bases:
     id: AA0033
     name: L-aspartic 4-phosphoric anhydride
     synonyms:
-    - 4-oxo-O-phosphono-L-homoserine
     - 4-phosphoaspartic acid
-    - beta-aspartyl phosphate
     - 2-azanyl-4-oxo-4-(phosphonooxy)butanoic acid
+    - beta-aspartyl phosphate
     - 2-aminobutanedioic 4-phosphoric anhydride
+    - 4-oxo-O-phosphono-L-homoserine
     identifiers:
     - ns: chebi
       id: CHEBI:15836
@@ -2616,32 +2656,32 @@ bases:
     name: L-cysteine sulfenic acid
     synonyms:
     - cysteine S-oxide [tautomer]
+    - S-oxocysteine [tautomer]
     - (2R)-2-amino-3-(oxido-lambda(4)-sulfanyl)propanoic acid [tautomer]
     - 2-amino-3-sulfinylpropanoic acid [tautomer]
-    - S-oxocysteine [tautomer]
     - S-oxycysteine [tautomer]
-    - cysteine sulfoxide [tautomer]
-    - S-hydroxycysteine
     - 2-amino-2-carboxyethanesulfenic acid
-    - 3-sulfenoalanine
+    - S-hydroxycysteine
+    - cysteine sulfoxide [tautomer]
     - cysteine sulphenic acid
+    - 3-sulfenoalanine
     identifiers:
-    - ns: PDBHET
-      id: CSO
     - ns: chebi
       id: CHEBI:61962
+    - ns: PDBHET
+      id: CSO
     structure: InChI=1S/C3H7NO2S/c4-3(1-5)2-7-6/h1,3,6H,2,4H2/t3-/m1/s1
   AA0228:
     id: AA0228
     name: N6-(phospho-5'-guanosine)-L-lysine
     synonyms:
-    - L-lysine monoanhydride with 5'-guanylic acid
-    - 5'-guanylic-N6-L-lysine
-    - N6-L-lysine 5'-guanosine phosphoramidester
     - lysine guanosine-5'-monophosphate
     - epsilon-5'-guanylic-L-lysine
     - N(zeta)-5'-guanylic-lysine
+    - N6-L-lysine 5'-guanosine phosphoramidester
     - N6-(5'-guanylyl)-lysine
+    - 5'-guanylic-N6-L-lysine
+    - L-lysine monoanhydride with 5'-guanylic acid
     identifiers:
     - ns: PDBHET
       id: GPL
@@ -2650,24 +2690,24 @@ bases:
     id: AA0569
     name: N,N-dimethyl-L-arginine
     synonyms:
-    - N2,N2-dimethylarginine
-    - (2S)-5-carbamimidamido-2-(dimethylamino)pentanoic acid [tautomer]
     - N(alpha),N(alpha)-dimethylarginine
+    - (2S)-5-carbamimidamido-2-(dimethylamino)pentanoic acid [tautomer]
+    - N2,N2-dimethylarginine
     structure: InChI=1S/C8H18N4O/c1-12(2)7(6-13)4-3-5-11-8(9)10/h6-7H,3-5H2,1-2H3,(H4,9,10,11)/t7-/m0/s1
   AA0118:
     id: AA0118
     name: N6-lipoyl-L-lysine
     synonyms:
-    - N6-6,8-dithiooctanoyllysine
     - (2S)-2-amino-6-(5-[(3R)-1,2-dithiolan-3-yl]pentanamido)hexanoic acid
-    - (2S,6'R)-2-amino-6-(6,8-dithiooctanamido)hexanoic acid
-    - 2-amino-6-(5-[1,2-dithiolan-3-yl]-1-oxopentyl)aminohexanoic acid
     - N6-lipoyllysine
+    - 2-amino-6-(5-[1,2-dithiolan-3-yl]-1-oxopentyl)aminohexanoic acid
+    - N6-6,8-dithiooctanoyllysine
+    - (2S,6'R)-2-amino-6-(6,8-dithiooctanamido)hexanoic acid
     identifiers:
-    - ns: PDBHET
-      id: LPA
     - ns: chebi
       id: CHEBI:14919
+    - ns: PDBHET
+      id: LPA
     structure: InChI=1S/C14H26N2O2S2/c15-12(11-17)5-3-4-9-16-14(18)7-2-1-6-13-8-10-19-20-13/h11-13H,1-10,15H2,(H,16,18)/t12-,13+/m0/s1
   AA0415:
     id: AA0415
@@ -2677,9 +2717,9 @@ bases:
     id: AA0270
     name: 3'-(1'-L-histidyl)-L-tyrosine
     synonyms:
-    - 3'-(tau-histidyl)tyrosine
-    - 3'-(N(epsilon)-histidyl)tyrosine
     - 3'-(tele-histidyl)tyrosine
+    - 3'-(N(epsilon)-histidyl)tyrosine
+    - 3'-(tau-histidyl)tyrosine
     - 3'-(N1'-histidyl)tyrosine
     identifiers:
     - ns: chebi
@@ -2724,12 +2764,12 @@ bases:
     id: AA0475
     name: N6-propanoyl-L-lysine
     synonyms:
-    - 2-amino-6-propionylaminocaproic acid
-    - epsilon-propionyl-L-lysine
-    - N6-propionyllysine
-    - N6-(1-oxopropyl)-L-lysine
-    - N(zeta)-propanoyllysine
     - epsilon-propanoyl-L-lysine
+    - N6-(1-oxopropyl)-L-lysine
+    - N6-propionyllysine
+    - epsilon-propionyl-L-lysine
+    - 2-amino-6-propionylaminocaproic acid
+    - N(zeta)-propanoyllysine
     identifiers:
     - ns: PDBHET
       id: PRK
@@ -2739,14 +2779,14 @@ bases:
     name: 4-hydroxy-L-proline
     synonyms:
     - 4-trans-hydroxy-L-proline
+    - 4-hydroxyproline
     - gamma-hydroxypyrrolidine-alpha-carboxylic acid
     - L-threo-4-hydroxyproline
-    - 4-hydroxyproline
     identifiers:
-    - ns: PDBHET
-      id: HYP
     - ns: chebi
       id: CHEBI:61965
+    - ns: PDBHET
+      id: HYP
     structure: InChI=1S/C5H9NO2/c7-3-4-1-5(8)2-6-4/h3-6,8H,1-2H2/t4-,5+/m0/s1
   AA0338:
     id: AA0338
@@ -2756,11 +2796,11 @@ bases:
     id: AA0144
     name: 3'-(8alpha-FAD)-L-histidine
     synonyms:
-    - pros-(8alpha-FAD)-histidine
-    - 8alpha-(N(delta)-histidyl)FAD
-    - 8alpha-N1-histidyl FAD [misnomer]
     - N(pi)-(8alpha-FAD)-histidine
     - 8alpha-(N3'-histidyl)FAD
+    - 8alpha-(N(delta)-histidyl)FAD
+    - pros-(8alpha-FAD)-histidine
+    - 8alpha-N1-histidyl FAD [misnomer]
     identifiers:
     - ns: PDBHET
       id: FAD
@@ -2784,9 +2824,9 @@ bases:
     id: AA0105
     name: L-cysteine methyl ester
     synonyms:
-    - mecysteine
-    - methyl L-cysteinate
     - 2-amino-3-mercaptopropanoic methyl ester
+    - methyl L-cysteinate
+    - mecysteine
     - 2-amino-3-sulfanylpropanoic methyl ester
     identifiers:
     - ns: chebi
@@ -2798,15 +2838,15 @@ bases:
     id: AA0067
     name: omega-N,omega-N'-dimethyl-L-arginine
     synonyms:
+    - NG,N'G-dimethylarginine
     - N5-[(methylamino)(methylimino)methyl]ornithine
     - N3,N4-dimethylarginine
     - symmetric dimethylarginine
-    - NG,N'G-dimethylarginine
     identifiers:
-    - ns: PDBHET
-      id: 2MR
     - ns: chebi
       id: CHEBI:61916
+    - ns: PDBHET
+      id: 2MR
     structure: InChI=1S/C8H20N4O/c1-10-8(11-2)12-5-3-4-7(9)6-13/h6-8,10-12H,3-5,9H2,1-2H3/t7-/m0/s1
   AA0486:
     id: AA0486
@@ -2826,10 +2866,10 @@ bases:
     id: AA0462
     name: 3-hydroxy-L-phenylalanine
     synonyms:
-    - L-threo-3-phenylserine
-    - 3-hydoxyphenylalanine
     - beta-phenylserine
     - beta-hydroxyphenylalanine
+    - 3-hydoxyphenylalanine
+    - L-threo-3-phenylserine
     - 3-phenyl-L-serine
     identifiers:
     - ns: chebi
@@ -2839,10 +2879,10 @@ bases:
     id: AA0427
     name: S-phycourobilin-L-cysteine
     synonyms:
+    - phycourobilin cysteine adduct
     - 18-ethenyl-3-[1-(2-amino-2-carboxyethylsulfanyl)ethyl]-2,3,15,16-dihydro-2,7,13,17-tetramethyl-1,19-dioxo-(21H,22H,24H)-bilin-8,12-dipropanoic
       acid
     - PUB
-    - phycourobilin cysteine adduct
     structure: InChI=1S/C36H47N5O7S/c1-7-23-17(2)28(40-36(23)48)12-26-18(3)24(8-10-32(43)44)29(38-26)14-30-25(9-11-33(45)46)19(4)27(39-30)13-31-34(20(5)35(47)41-31)21(6)49-16-22(37)15-42/h7,15,21-22,28,31,38-39H,1,8-14,16,37H2,2-6H3,(H,40,48)(H,41,47)(H,43,44)(H,45,46)/t21-,22-,28-,31+/m1/s1
   AA0508:
     id: AA0508
@@ -2853,8 +2893,8 @@ bases:
     name: N-acetyl-L-aspartic acid
     synonyms:
     - 2-(acetylamino)butanedioic acid
-    - acetylaspartic acid
     - 2-(acetylazanyl)butanedioic acid
+    - acetylaspartic acid
     identifiers:
     - ns: chebi
       id: CHEBI:21547
@@ -2869,9 +2909,9 @@ bases:
     id: AA0053
     name: N-acetyl-L-tyrosine
     synonyms:
-    - 2-acetylazanyl-3-(4-hydoxyphenyl)propanoic acid
-    - N-acetyltyrosine
     - 2-acetylamino-3-(4-hydoxyphenyl)propanoic acid
+    - N-acetyltyrosine
+    - 2-acetylazanyl-3-(4-hydoxyphenyl)propanoic acid
     identifiers:
     - ns: chebi
       id: CHEBI:21563
@@ -2883,14 +2923,14 @@ bases:
     name: O-phospho-L-threonine
     synonyms:
     - 2-azanyl-3-(phosphonooxy)butanoic acid
-    - O3-phosphothreonine
-    - threonine phosphate ester
     - 2-amino-3-hydroxybutanoic acid 3-phosphate
+    - threonine phosphate ester
+    - O3-phosphothreonine
     identifiers:
-    - ns: chebi
-      id: CHEBI:61971
     - ns: PDBHET
       id: TPO
+    - ns: chebi
+      id: CHEBI:61971
     structure: InChI=1S/C4H10NO5P/c1-3(4(5)2-6)10-11(7,8)9/h2-4H,5H2,1H3,(H2,7,8,9)/t3-,4-/m1/s1
   AA0503:
     id: AA0503
@@ -2927,14 +2967,14 @@ bases:
     id: AA0054
     name: N-acetyl-L-valine
     synonyms:
+    - 2-acetylazanyl-3-methylbutanoic acid
     - 2-acetylamino-3-methylbutanoic acid
     - N-acetylvaline
-    - 2-acetylazanyl-3-methylbutanoic acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:21565
     - ns: PDBHET
       id: ACE
+    - ns: chebi
+      id: CHEBI:21565
     structure: InChI=1S/C7H15NO2/c1-5(2)7(4-9)8-6(3)10/h5,7,9H,4H2,1-3H3,(H,8,10)/t7-/m1/s1
   AA0297:
     id: AA0297
@@ -2961,23 +3001,23 @@ bases:
     id: AA0050
     name: N-acetyl-L-proline
     synonyms:
-    - 1-acetylproline
     - N-acetylproline
     - acetylproline
+    - 1-acetylproline
     identifiers:
-    - ns: PDBHET
-      id: ACE
     - ns: chebi
       id: CHEBI:21560
+    - ns: PDBHET
+      id: ACE
     structure: InChI=1S/C7H11NO2/c1-6(10)8-4-2-3-7(8)5-9/h5,7H,2-4H2,1H3/t7-/m0/s1
   AA0063:
     id: AA0063
     name: N-methylglycine
     identifiers:
-    - ns: chebi
-      id: CHEBI:15611
     - ns: PDBHET
       id: SAR
+    - ns: chebi
+      id: CHEBI:15611
     structure: InChI=1S/C3H7NO/c1-4-2-3-5/h3-4H,2H2,1H3
   AA0095:
     id: AA0095
@@ -3019,21 +3059,21 @@ bases:
     id: AA0586
     name: L-lysinonorleucine
     synonyms:
-    - 6-(N6-L-lysino)-L-norleucine
-    - lysinorleucine [misspelling]
     - lysinonorleucine
-    - (2S,2'S)-6,6'-iminobis(2-aminohexanoic acid)
     - N6-[(5S)-5-amino-5-carboxypentyl]-L-lysine
+    - (2S,2'S)-6,6'-iminobis(2-aminohexanoic acid)
     - lysylnorleucine
+    - lysinorleucine [misspelling]
+    - 6-(N6-L-lysino)-L-norleucine
     structure: InChI=1S/C12H25N3O2/c13-11(9-16)5-1-3-7-15-8-4-2-6-12(14)10-17/h9-12,15H,1-8,13-14H2/t11-,12-/m0/s1
   AA0390:
     id: AA0390
     name: O4-(N-acetylamino)glucosyl-L-hydroxyproline
     synonyms:
-    - 4-[(2-N-acetylamino)-alpha-D-glucopyranosyl]oxyproline
-    - 4-(N-acetylglucosaminyloxy)proline
     - O4-glycosyl-hydroxyproline
     - alpha-2-(N-acetylamino)glucopyranosyl-4-hydroxyproline
+    - 4-[(2-N-acetylamino)-alpha-D-glucopyranosyl]oxyproline
+    - 4-(N-acetylglucosaminyloxy)proline
     structure: InChI=1S/C13H22N2O7/c1-6(18)15-10-12(20)11(19)9(5-17)22-13(10)21-8-2-7(4-16)14-3-8/h4,7-14,17,19-20H,2-3,5H2,1H3,(H,15,18)/t7-,8+,9+,10+,11+,12+,13-/m0/s1
   AA0463:
     id: AA0463
@@ -3047,10 +3087,10 @@ bases:
     id: AA0045
     name: N-acetyl-L-glutamine
     synonyms:
-    - 2-acetylamino-5-pentanediamic acid
-    - acetylglutamine
-    - 2-acetylazanyl-5-azanyl-5-oxopentanoic acid
     - 2-acetylamino-5-amino-5-oxopentanoic acid
+    - acetylglutamine
+    - 2-acetylamino-5-pentanediamic acid
+    - 2-acetylazanyl-5-azanyl-5-oxopentanoic acid
     identifiers:
     - ns: chebi
       id: CHEBI:21553
@@ -3065,9 +3105,9 @@ bases:
     id: AA0082
     name: L-arginine amide
     synonyms:
-    - 2-amino-5-carbamimidamidopentanamide
-    - 2-amino-5-guanidinopentanamide
     - argininamide
+    - 2-amino-5-guanidinopentanamide
+    - 2-amino-5-carbamimidamidopentanamide
     identifiers:
     - ns: chebi
       id: CHEBI:21236
@@ -3082,11 +3122,11 @@ bases:
     id: AA0032
     name: L-gamma-carboxyglutamic acid
     synonyms:
-    - 3-amino-1,1,3-propanetricarboxylic acid
-    - 1-carboxyglutamic acid [misnomer]
-    - 3-azanylpropane-1,1,3-tricarboxylic acid
     - 4-carboxyglutamic acid
     - (3S)-3-azanylpropane-1,1,3-tricarboxylic acid
+    - 1-carboxyglutamic acid [misnomer]
+    - 3-azanylpropane-1,1,3-tricarboxylic acid
+    - 3-amino-1,1,3-propanetricarboxylic acid
     identifiers:
     - ns: PDBHET
       id: CGU
@@ -3109,19 +3149,19 @@ bases:
     id: AA0259
     name: phycoerythrobilin-bis-L-cysteine
     synonyms:
+    - phycoerythrobilin biscysteine adduct
     - PEB
     - 3,18-bis-[1-((2-amino-2-carboxy)ethylsulfanyl)ethyl]-2,3,15,16-tetrahydro-2,7,13,17-tetramethyl-1,19-dioxo-(21H,22H,24H)-biladiene-ab-8,12-dipropanoic
       acid
-    - phycoerythrobilin biscysteine adduct
     structure: InChI=1S/C39H54N6O8S2/c1-18-26(7-9-34(48)49)31(42-28(18)11-30-20(3)37(39(53)44-30)23(6)55-17-25(41)15-47)13-32-27(8-10-35(50)51)19(2)29(43-32)12-33-36(21(4)38(52)45-33)22(5)54-16-24(40)14-46/h12-15,21-25,29-30,36,42-43H,7-11,16-17,40-41H2,1-6H3,(H,44,53)(H,45,52)(H,48,49)(H,50,51)/b32-13-,33-12-/t21-,22+,23-,24+,25+,29?,30+,36-/m0/s1
   AA0098:
     id: AA0098
     name: L-tryptophan amide
     identifiers:
-    - ns: chebi
-      id: CHEBI:16533
     - ns: PDBHET
       id: NH2
+    - ns: chebi
+      id: CHEBI:16533
     structure: InChI=1S/C11H13N3O/c12-9(11(13)15)5-7-6-14-10-4-2-1-3-8(7)10/h1-4,6,9,14H,5,12H2,(H2,13,15)/t9-/m0/s1
   AA0554:
     id: AA0554
@@ -3131,12 +3171,12 @@ bases:
     id: AA0561
     name: S-(2-succinyl)-L-cysteine
     synonyms:
-    - (2R)-2-{[(2R)-2-amino-2-carboxyethyl]sulfanyl}butanedioic acid
-    - 2-amino-3-(1,2-dicarboxyethylthio)propanoic acid
+    - 2-((2-amino-2-carboxyethyl)thio)butanedioic acid
+    - S-(2-succinyl)cysteine
     - S-(1,2-dicarboxyethyl)cysteine
     - S-[(2R)-2-succinyl]-L-cysteine
-    - S-(2-succinyl)cysteine
-    - 2-((2-amino-2-carboxyethyl)thio)butanedioic acid
+    - 2-amino-3-(1,2-dicarboxyethylthio)propanoic acid
+    - (2R)-2-{[(2R)-2-amino-2-carboxyethyl]sulfanyl}butanedioic acid
     identifiers:
     - ns: PDBHET
       id: SIN
@@ -3162,10 +3202,10 @@ bases:
     id: AA0070
     name: N4-methyl-L-asparagine
     synonyms:
-    - beta-methylasparagine [misnomer]
-    - N-methylasparagine
     - N(gamma)-methylasparagine
+    - beta-methylasparagine [misnomer]
     - beta-aspartyl methylamide
+    - N-methylasparagine
     identifiers:
     - ns: PDBHET
       id: MEN
@@ -3176,20 +3216,20 @@ bases:
     id: AA0269
     name: L-cysteine persulfide
     synonyms:
-    - 3-disulfanylalanine
-    - 2-amino-3-hydropersulfidopropanoic acid
-    - thiocysteine
-    - 3-(thiosulfeno)-alanine
-    - 2-amino-3-persulfhydrylpropanoic acid
     - 2-amino-3-hydrodisulfidopropanoic acid
-    - S-mercaptocysteine
+    - thiocysteine
+    - 2-amino-3-persulfhydrylpropanoic acid
     - 2-amino-3-disulfanylpropanoic acid
+    - 3-(thiosulfeno)-alanine
+    - S-mercaptocysteine
+    - 2-amino-3-hydropersulfidopropanoic acid
     - S-sulfanylcysteine
+    - 3-disulfanylalanine
     identifiers:
-    - ns: PDBHET
-      id: CSS
     - ns: chebi
       id: CHEBI:61963
+    - ns: PDBHET
+      id: CSS
     structure: InChI=1S/C3H7NOS2/c4-3(1-5)2-7-6/h1,3,6H,2,4H2/t3-/m1/s1
   AA0602:
     id: AA0602
@@ -3207,8 +3247,8 @@ bases:
     name: N-acetyl-L-isoleucine
     synonyms:
     - 2-acetylazanyl-3-methylpentanoic acid
-    - acetylisoleucine
     - 2-acetylamino-3-methylpentanoic acid
+    - acetylisoleucine
     identifiers:
     - ns: chebi
       id: CHEBI:21555
@@ -3221,10 +3261,10 @@ bases:
     id: AA0027
     name: (2S,3R)-3-hydroxyaspartic acid
     synonyms:
-    - 2-azanyl-3-hydroxybutanedioic acid
-    - 3-hydroxyaspartic acid
     - L-erythro-beta-hydroxyaspartic acid
     - 2-amino-3-hydroxysuccinic acid
+    - 2-azanyl-3-hydroxybutanedioic acid
+    - 3-hydroxyaspartic acid
     identifiers:
     - ns: PDBHET
       id: BH2
@@ -3279,9 +3319,9 @@ bases:
     id: AA0318
     name: L-lysine methyl ester
     synonyms:
-    - 2,6-diaminohexanoic methyl ester
-    - alpha,epsilon-diaminocaproic methyl ester
     - methyl L-lysinate
+    - alpha,epsilon-diaminocaproic methyl ester
+    - 2,6-diaminohexanoic methyl ester
     identifiers:
     - ns: chebi
       id: CHEBI:21354
@@ -3321,17 +3361,17 @@ bases:
     id: AA0177
     name: 3',3'',5'-triiodo-L-thyronine
     synonyms:
-    - 3,5,3'-triiodo-L-thyronine
-    - 4-(4-hydroxy-3-iodophenoxy)-3,5-diiodo-L-phenylalanine
-    - liothyronine
-    - 3,3',5-triiodo-L-thyronine
-    - T3
     - O-(4-hydroxy-3-iodophenyl)-3,5-diiodo-L-tyrosine
+    - liothyronine
+    - T3
+    - 4-(4-hydroxy-3-iodophenoxy)-3,5-diiodo-L-phenylalanine
+    - 3,3',5-triiodo-L-thyronine
+    - 3,5,3'-triiodo-L-thyronine
     identifiers:
-    - ns: chebi
-      id: CHEBI:18258
     - ns: PDBHET
       id: T3
+    - ns: chebi
+      id: CHEBI:18258
     structure: InChI=1S/C15H12I3NO3/c16-11-6-10(1-2-14(11)21)22-15-12(17)4-8(5-13(15)18)3-9(19)7-20/h1-2,4-7,9,21H,3,19H2/t9-/m0/s1
   AA0507:
     id: AA0507
@@ -3343,9 +3383,9 @@ bases:
     synonyms:
     - L-beta-formylalanine
     - L-aspartate-beta-semialdehyde
-    - L-aspartic beta-semialdehyde
-    - L-aminosuccinic acid semialdehyde
     - L-aminosuccinaldehydic acid
+    - L-aminosuccinic acid semialdehyde
+    - L-aspartic beta-semialdehyde
     structure: InChI=1S/C4H7NO2/c5-4(3-7)1-2-6/h2-4H,1,5H2/t4-/m0/s1
   AA0195:
     id: AA0195
@@ -3384,10 +3424,10 @@ bases:
     id: AA0155
     name: O-(N-acetylaminogalactosyl)-L-threonine
     identifiers:
-    - ns: chebi
-      id: CHEBI:53605
     - ns: PDBHET
       id: GTH
+    - ns: chebi
+      id: CHEBI:53605
     structure: InChI=1S/C12H22N2O7/c1-5(7(13)3-15)20-12-9(14-6(2)17)11(19)10(18)8(4-16)21-12/h3,5,7-12,16,18-19H,4,13H2,1-2H3,(H,14,17)/t5-,7-,8-,9-,10+,11-,12-/m1/s1
   AA0253:
     id: AA0253
@@ -3400,10 +3440,10 @@ bases:
     id: AA0215
     name: 4-hydroxy-L-arginine
     synonyms:
-    - 2-amino-5-[(aminoiminomethyl)amino]-4-hydroxypentanoic acid [tautomer]
-    - 2-amino-5-guanidino-4-hydroxypentanoic acid
     - C(gamma)-hydroxyarginine
+    - 2-amino-5-guanidino-4-hydroxypentanoic acid
     - gamma-hydroxyarginine
+    - 2-amino-5-[(aminoiminomethyl)amino]-4-hydroxypentanoic acid [tautomer]
     - 2-amino-5-(carbamimidamido)-4-hydroxypentanoic acid [tautomer]
     identifiers:
     - ns: PDBHET
@@ -3417,8 +3457,8 @@ bases:
     id: AA0170
     name: L-glutamyl 5-glycerylphosphorylethanolamine
     synonyms:
-    - L-glutamyl 5-glycerophosphoethanolamine
     - L-glutamyl 5-glycerophosphorylethanolamine
+    - L-glutamyl 5-glycerophosphoethanolamine
     - L-glutamyl 5-glycerylphosphorylethanolamine
     structure: InChI=1S/C10H21N2O8P/c11-8(5-13)1-2-10(16)12-3-4-19-21(17,18)20-7-9(15)6-14/h5,8-9,14-15H,1-4,6-7,11H2,(H,12,16)(H,17,18)/t8-,9+/m0/s1
   AA0612:
@@ -3426,11 +3466,11 @@ bases:
     name: 5-glutamyl N2-glutamate
     synonyms:
     - isoglutamyl monoglutamic acid
-    - gamma-glutamylglutamate
     - N-(gamma-L-glutamyl)-L-glutamic acid
-    - (2S)-2-[(4S)-4-amino-4-carboxybutanamido]pentanedioic acid
-    - 2-([4-azanyl-4-carboxybutanoyl]azanyl)pentanedioic acid
     - isoglutamyl glutamic acid
+    - gamma-glutamylglutamate
+    - 2-([4-azanyl-4-carboxybutanoyl]azanyl)pentanedioic acid
+    - (2S)-2-[(4S)-4-amino-4-carboxybutanamido]pentanedioic acid
     structure: InChI=1S/C10H16N2O6/c11-6(5-13)1-3-8(14)12-7(10(17)18)2-4-9(15)16/h5-7H,1-4,11H2,(H,12,14)(H,15,16)(H,17,18)/t6-,7-/m0/s1
   AA0257:
     id: AA0257
@@ -3443,27 +3483,27 @@ bases:
     id: AA0131
     name: S-phycocyanobilin-L-cysteine
     synonyms:
+    - phycobilin cysteine
+    - PCB
     - phycocyanobilin cysteine adduct
     - (2R,3R)-3-[(1R)-1-(((2R)-2-amino-2-carboxy)ethylsulfanyl)ethyl]-18-ethyl-1,2,3,19,21,22,24-heptahydro-2,7,13,17-tetramethyl-1,19-dioxo-(21H,22H,24H)-bilin-8,12-dipropanoic
       acid
-    - phycobilin cysteine
-    - PCB
     identifiers:
-    - ns: PDBHET
-      id: CYC
     - ns: chebi
       id: CHEBI:15617
+    - ns: PDBHET
+      id: CYC
     structure: InChI=1S/C36H47N5O7S/c1-7-23-17(2)28(40-36(23)48)12-26-18(3)24(8-10-32(43)44)29(38-26)14-30-25(9-11-33(45)46)19(4)27(39-30)13-31-34(20(5)35(47)41-31)21(6)49-16-22(37)15-42/h12-15,20-22,25,34,38-39H,7-11,16,37H2,1-6H3,(H,40,48)(H,41,47)(H,43,44)(H,45,46)/b28-12-,30-14-,31-13-/t20-,21+,22+,25?,34-/m0/s1
   AA0579:
     id: AA0579
     name: (2S,3S)-3-hydroxyaspartic acid
     synonyms:
-    - L-threo-3-hydroxyaspartic acid
     - 2-amino-3-hydroxysuccinic acid
-    - 3-hydroxyaspartic acid
     - 2-azanyl-3-hydroxybutanedioic acid
-    - (3S)-3-hydroxy-L-aspartic acid
     - L-threo-beta-hydroxyaspartic acid
+    - 3-hydroxyaspartic acid
+    - L-threo-3-hydroxyaspartic acid
+    - (3S)-3-hydroxy-L-aspartic acid
     identifiers:
     - ns: chebi
       id: CHEBI:10696
@@ -3475,12 +3515,12 @@ bases:
     name: S-phycobiliviolin-L-cysteine
     synonyms:
     - cryptoviolin
+    - cryptoviolobilin
+    - cryptobiliviolin
     - PVB
+    - S-phycobiliviolin-L-cysteine
     - PBV
     - PXB
-    - cryptobiliviolin
-    - cryptoviolobilin
-    - S-phycobiliviolin-L-cysteine
     identifiers:
     - ns: PDBHET
       id: PVN
@@ -3489,9 +3529,9 @@ bases:
     id: AA0311
     name: N4,N4-dimethyl-L-asparagine
     synonyms:
-    - beta-dimethylasparagine [misnomer]
-    - 2-amino-N4,N4-dimethylbutanediamic acid
     - N(gamma),N(gamma)-dimethylasparagine
+    - 2-amino-N4,N4-dimethylbutanediamic acid
+    - beta-dimethylasparagine [misnomer]
     identifiers:
     - ns: PDBHET
       id: DMH
@@ -3527,10 +3567,10 @@ bases:
     id: AA0094
     name: L-phenylalanine amide
     identifiers:
-    - ns: PDBHET
-      id: NFA
     - ns: chebi
       id: CHEBI:21371
+    - ns: PDBHET
+      id: NFA
     structure: InChI=1S/C9H12N2O/c10-8(9(11)12)6-7-4-2-1-3-5-7/h1-5,8H,6,10H2,(H2,11,12)/t8-/m0/s1
   AA0542:
     id: AA0542
@@ -3568,10 +3608,10 @@ bases:
     id: AA0190
     name: D-aspartic acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:48094
     - ns: PDBHET
       id: DAS
+    - ns: chebi
+      id: CHEBI:48094
     structure: InChI=1S/C4H7NO3/c5-3(2-6)1-4(7)8/h2-3H,1,5H2,(H,7,8)/t3-/m1/s1
   AA0327:
     id: AA0327
@@ -3585,24 +3625,24 @@ bases:
     id: AA0317
     name: 1'-methyl-L-histidine
     synonyms:
-    - N(tau)-methylhistidine
-    - N(epsilon)-methylhistidine
-    - 4-methyl-histidine [misnomer]
     - 3-methylhistidine [misnomer]
+    - N(epsilon)-methylhistidine
+    - N(tau)-methylhistidine
     - tele-methylhistidine
+    - 4-methyl-histidine [misnomer]
     identifiers:
-    - ns: PDBHET
-      id: HIC
     - ns: chebi
       id: CHEBI:16367
+    - ns: PDBHET
+      id: HIC
     structure: InChI=1S/C7H11N3O/c1-10-3-7(9-5-10)2-6(8)4-11/h3-6H,2,8H2,1H3/t6-/m0/s1
   AA0052:
     id: AA0052
     name: N-acetyl-L-threonine
     synonyms:
+    - 2-acetylamino-3-hydroxybutanoic acid
     - 2-acetylazanyl-3-hydroxybutanoic acid
     - N-methylcarbonylthreonine
-    - 2-acetylamino-3-hydroxybutanoic acid
     - N-acetylthreonine
     identifiers:
     - ns: chebi
@@ -3643,10 +3683,10 @@ bases:
     id: AA0083
     name: L-asparagine amide
     identifiers:
-    - ns: chebi
-      id: CHEBI:21243
     - ns: PDBHET
       id: NH2
+    - ns: chebi
+      id: CHEBI:21243
     structure: InChI=1S/C4H9N3O2/c5-2(4(7)9)1-3(6)8/h2H,1,5H2,(H2,6,8)(H2,7,9)/t2-/m0/s1
   AA0407:
     id: AA0407
@@ -3656,10 +3696,10 @@ bases:
     id: AA0117
     name: N6-biotinyl-L-lysine
     synonyms:
-    - N6-[5-((3aS,4S,6aR)-hexahydro-2-oxo-1H-thieno[3,4-d]imidazol-4-yl)-1-oxopentyl]-L-lysine
-    - (3aS-(3aalpha,4beta,6aalpha))-N6-(5-(hexahydro-2-oxo-1H-thieno(3,4-d)imidazol-4-yl)-1-oxopentyl)-L-lysine
     - epsilon-N-biotinyllysine
+    - (3aS-(3aalpha,4beta,6aalpha))-N6-(5-(hexahydro-2-oxo-1H-thieno(3,4-d)imidazol-4-yl)-1-oxopentyl)-L-lysine
     - N6-biotinyllysine
+    - N6-[5-((3aS,4S,6aR)-hexahydro-2-oxo-1H-thieno[3,4-d]imidazol-4-yl)-1-oxopentyl]-L-lysine
     - biocytin
     identifiers:
     - ns: PDBHET
@@ -3697,12 +3737,12 @@ bases:
     id: AA0391
     name: 2-(S-L-cysteinyl)pyruvic acid O-phosphothioketal
     synonyms:
-    - phosphoenolpyruvate cysteine adduct
-    - cysteinyl pyruvate O-phosphothioketal
-    - 2-([(2R)-2-azanyl-2-carboxyethyl]sulfanyl)-2-(phosphonooxy)propanoic acid
-    - 2-([(2R)-2-amino-2-carboxyethyl]sulfanyl)-2-(phosphonooxy)propanoic acid
     - S-[1-carboxy-1-(phosphonooxy)ethyl]cysteine
+    - 2-([(2R)-2-azanyl-2-carboxyethyl]sulfanyl)-2-(phosphonooxy)propanoic acid
     - phospholactoyl cysteine adduct
+    - 2-([(2R)-2-amino-2-carboxyethyl]sulfanyl)-2-(phosphonooxy)propanoic acid
+    - cysteinyl pyruvate O-phosphothioketal
+    - phosphoenolpyruvate cysteine adduct
     identifiers:
     - ns: PDBHET
       id: QPA
@@ -3725,15 +3765,15 @@ bases:
     id: AA0437
     name: L-selenocystine
     synonyms:
-    - bis(beta-amino-beta-carboxyethyl)diselenide
-    - 3,3'-diselenobis(2-aminopropanoic acid)
-    - 3,3'-diselenodialanine
-    - beta,beta'-diamino-beta,beta'-dicarboxydiethyldiselenide
-    - selenium cystine
-    - bis(alpha-aminopropionic acid)-beta-diselenide
     - 3,3'-diselenobisalanine
+    - beta,beta'-diamino-beta,beta'-dicarboxydiethyldiselenide
+    - 3,3'-diselenodialanine
+    - bis(alpha-aminopropionic acid)-beta-diselenide
+    - 3,3'-diselenobis(2-aminopropanoic acid)
+    - selenium cystine
     - beta,beta'-diselenodialanine
     - diselenocysteine
+    - bis(beta-amino-beta-carboxyethyl)diselenide
     identifiers:
     - ns: chebi
       id: CHEBI:28553
@@ -3746,11 +3786,11 @@ bases:
     id: AA0378
     name: 2-imino-glutamic acid 5-imidazolinone glycine
     synonyms:
-    - 2-imino-glutamyl-5-imidazolinone glycine
-    - 2-(3-carboxy-1-iminopropyl)-1-carboxymethyl-1-imidazolin-5-one
-    - '[2-(3-carboxy-1-iminopropyl)-5-oxo-4,5-dihydro-imidazol-1-yl]-acetic acid'
     - para-hydroxybenzylidene-imidazolidinone chromophore
+    - '[2-(3-carboxy-1-iminopropyl)-5-oxo-4,5-dihydro-imidazol-1-yl]-acetic acid'
+    - 2-imino-glutamyl-5-imidazolinone glycine
     - 2,N-didehydroglutamyl-5-imidazolinone glycine
+    - 2-(3-carboxy-1-iminopropyl)-1-carboxymethyl-1-imidazolin-5-one
     identifiers:
     - ns: PDBHET
       id: CRU
@@ -3763,20 +3803,20 @@ bases:
     id: AA0262
     name: L-cysteine sulfinic acid
     synonyms:
-    - cysteine sulphinic acid
-    - 3-sulfinoalanine
-    - 2-amino-2-carboxyethanesulfinic acid
-    - S-cysteinesulfinic acid
-    - S-sulfinocysteine
-    - cysteine-S,S-dioxide [tautomer]
     - 2-amino-3-(dioxido-lambda(6)-sulfanyl)propanoic acid [tautomer]
+    - 3-sulfinoalanine
+    - S-sulfinocysteine
+    - 2-amino-2-carboxyethanesulfinic acid
     - 2-amino-3-sulfonylpropanoic acid [tautomer]
+    - S-cysteinesulfinic acid
+    - cysteine sulphinic acid
     - 3-sulphinoalanine
+    - cysteine-S,S-dioxide [tautomer]
     identifiers:
-    - ns: PDBHET
-      id: CSD
     - ns: chebi
       id: CHEBI:61964
+    - ns: PDBHET
+      id: CSD
     structure: InChI=1S/C3H8NO3S/c4-3(1-5)2-8(6)7/h1,3,6-7H,2,4H2/t3-/m1/s1
   AA0294:
     id: AA0294
@@ -3793,12 +3833,12 @@ bases:
     id: AA0399
     name: O-(N-acetylaminoglucosyl)-L-threonine
     synonyms:
-    - O-(N-acetylglucosaminyl)-L-threonine
+    - O-(2-acetylamino-2-deoxy-beta-D-glucopyranosyl)-L-threonine
     - O3-(2-acetamido-2-deoxy-beta-D-glucopyranosyl)-L-threonine
     - O-threonyl-beta-N-acetylglucosaminide
-    - O3-(N-acetylglucosaminyl)threonine
-    - O-(2-acetylamino-2-deoxy-beta-D-glucopyranosyl)-L-threonine
     - O-glycosylthreonine
+    - O3-(N-acetylglucosaminyl)threonine
+    - O-(N-acetylglucosaminyl)-L-threonine
     identifiers:
     - ns: PDBHET
       id: NDG
@@ -3839,8 +3879,8 @@ bases:
     id: AA0406
     name: O-xylosyl-L-serine
     synonyms:
-    - O-(beta-D-xylopyranosyl)-L-serine
     - O-glycosylserine
+    - O-(beta-D-xylopyranosyl)-L-serine
     - O3-xylosylserine
     identifiers:
     - ns: PDBHET
@@ -3855,8 +3895,8 @@ bases:
     name: (E)-2,3-didehydrotyrosine
     synonyms:
     - para-hydroxybenzylidene-imidazolidinone chromophore
-    - blue non-fluorescent pocilloporin chromophore
     - trans-dehydrotyrosine
+    - blue non-fluorescent pocilloporin chromophore
     - amino-(para-hydroxybenzylidenyl)acetic acid
     identifiers:
     - ns: PDBHET
@@ -3870,9 +3910,9 @@ bases:
     id: AA0456
     name: N,N,N-trimethyl-L-methionine
     synonyms:
-    - (1S)-1-carboxy-N,N,N-trimethyl-3-(methylsulfanyl)propanazanium
-    - N,N,N-trimethylmethionine cation
     - 2-trimethylammonio-4-(methylthio)butanoic acid
+    - N,N,N-trimethylmethionine cation
+    - (1S)-1-carboxy-N,N,N-trimethyl-3-(methylsulfanyl)propanazanium
     - N,N,N-trimethylmethioninium
     identifiers:
     - ns: PDBHET
@@ -3882,11 +3922,11 @@ bases:
     id: AA0171
     name: S-sulfo-L-cysteine
     synonyms:
-    - S-sulfocysteine
-    - cysteine-S-sulfonic acid
     - 2-amino-3-(sulfothio)propanoic acid
-    - cysteine sulfate thioester
+    - cysteine-S-sulfonic acid
+    - S-sulfocysteine
     - 3-(sulfosulfanyl)-L-alanine
+    - cysteine sulfate thioester
     identifiers:
     - ns: chebi
       id: CHEBI:27891
@@ -3913,12 +3953,12 @@ bases:
     id: AA0429
     name: 15,16-dihydrobiliverdin-bis-L-cysteine
     synonyms:
-    - 15,16-dihydrobiliverdin IXalpha
-    - 15,16-dihydrobiliverdin cysteine adduct
     - 3beta,18alpha-biscysteinyl-15,16-dihydrobiliverdin
-    - DBV
     - 8,12-bis(2-carboxyethyl)-3-(2-(cysteinyl-S)-ethyl)-18-(1-(cysteinyl-S)-ethyl)-2,7,13,17-tetramethylbiladiene-ab-1,19(16H,21H)-dione
+    - 15,16-dihydrobiliverdin IXalpha
     - 15,16-Dhbv
+    - DBV
+    - 15,16-dihydrobiliverdin cysteine adduct
     - 3'',18'-biscysteinyl-15,16-dihydrobiliverdin
     identifiers:
     - ns: PDBHET
@@ -3948,12 +3988,12 @@ bases:
     id: AA0123
     name: L-lysinoalanine
     synonyms:
+    - LAL
     - alaninolysine
     - 'lysino-D-alanine #link LYS'
-    - LAL
+    - N-epsilon-(2-amino-2-carboxyethyl)-L-lysine
     - N6-(2-amino-2-carboxyethyl)-L-lysine
     - (2R,9S)-lysinoalanine
-    - N-epsilon-(2-amino-2-carboxyethyl)-L-lysine
     structure: InChI=1S/C9H19N3O2/c10-8(6-13)3-1-2-4-12-5-9(11)7-14/h6-9,12H,1-5,10-11H2/t8-,9-/m0/s1
   AA0471:
     id: AA0471
@@ -3974,20 +4014,20 @@ bases:
     id: AA0585
     name: N6-phospho-L-lysine
     synonyms:
-    - 6-phospholysine
-    - (2S)-2-azanyl-6-(phosphonoamino)hexanoic acid
-    - N(epsilon)-phosphoryllysine
     - N(6)-phosphonolysine
     - N(epsilon)-phospholysine
+    - N(epsilon)-phosphoryllysine
     - N(epsilon)-phosphonyllysine
     - N(epsilon)-phosphonolysine
+    - 6-phospholysine
+    - (2S)-2-azanyl-6-(phosphonoamino)hexanoic acid
     structure: InChI=1S/C6H15N2O4P/c7-6(5-9)3-1-2-4-8-13(10,11)12/h5-6H,1-4,7H2,(H3,8,10,11,12)/t6-/m0/s1
   AA0079:
     id: AA0079
     name: O-palmitoyl-L-threonine
     synonyms:
-    - L-threonine hexadecanoate ester
     - threonine palmitate ester
+    - L-threonine hexadecanoate ester
     - O3-palmitoyl-threonine
     structure: InChI=1S/C20H39NO3/c1-3-4-5-6-7-8-9-10-11-12-13-14-15-16-20(23)24-18(2)19(21)17-22/h17-19H,3-16,21H2,1-2H3/t18-,19-/m1/s1
   AA0545:
@@ -4035,10 +4075,10 @@ bases:
     name: 1'-(phospho-5'-uridine)-L-histidine
     synonyms:
     - L-histidine 5'-uridine phosphoramidester
-    - tele-5'-uridylic-L-histidine
     - L-histidine monoanhydride with 5'-uridylic acid
-    - N(tau)-5'-uridylic-L-histidine
+    - tele-5'-uridylic-L-histidine
     - N1'-uridylylated histidine
+    - N(tau)-5'-uridylic-L-histidine
     identifiers:
     - ns: PDBHET
       id: U5P
@@ -4063,9 +4103,9 @@ bases:
     id: AA0148
     name: L-tryptophyl quinone
     synonyms:
-    - 2-amino-3-(6,7-dioxo-6,7-dihydro-1H-indol-3-yl)-propionic acid
     - N-(3-carboxy-1-oxopropyl)-L-tryptophan
     - 3-[(2S)-2-amino-2-carboxyethyl]-6,7-indolinedione
+    - 2-amino-3-(6,7-dioxo-6,7-dihydro-1H-indol-3-yl)-propionic acid
     identifiers:
     - ns: PDBHET
       id: TRQ
@@ -4074,14 +4114,14 @@ bases:
     id: AA0182
     name: (Z)-dehydrobutyrine
     synonyms:
-    - alpha,beta-dehydroaminobutyric acid
-    - methyl-dehydroalanine
-    - anhydrothreonine
     - Dhb
-    - (Z)-2-aminobutenoic acid
-    - (Z)-2-amino-2-butenoic acid
-    - 3-methyldehydroalanine
     - 2,3-didehydrobutyrine
+    - (Z)-2-amino-2-butenoic acid
+    - methyl-dehydroalanine
+    - 3-methyldehydroalanine
+    - anhydrothreonine
+    - alpha,beta-dehydroaminobutyric acid
+    - (Z)-2-aminobutenoic acid
     identifiers:
     - ns: PDBHET
       id: DBU
@@ -4090,10 +4130,10 @@ bases:
     id: AA0183
     name: (Z)-2,3-didehydrotyrosine
     synonyms:
-    - cis-dehydrotyrosine
-    - amino-(para-hydroxybenzylidenyl)acetic acid
-    - green fluorescent protein chromophore
     - para-hydroxybenzylidene-imidazolidinone chromophore
+    - amino-(para-hydroxybenzylidenyl)acetic acid
+    - cis-dehydrotyrosine
+    - green fluorescent protein chromophore
     - red fluorescent protein chromophore
     identifiers:
     - ns: PDBHET
@@ -4115,9 +4155,9 @@ bases:
     name: L-selenocysteine
     synonyms:
     - SeCys
-    - 3-selenylalanine
     - selenium cysteine
     - 2-azanyl-3-selanylpropanoic acid
+    - 3-selenylalanine
     identifiers:
     - ns: chebi
       id: CHEBI:30000
@@ -4128,10 +4168,10 @@ bases:
     id: AA0065
     name: N-methyl-L-phenylalanine
     identifiers:
-    - ns: chebi
-      id: CHEBI:61884
     - ns: PDBHET
       id: MEA
+    - ns: chebi
+      id: CHEBI:61884
     structure: InChI=1S/C10H13NO/c1-11-10(8-12)7-9-5-3-2-4-6-9/h2-6,8,10-11H,7H2,1H3/t10-/m0/s1
   AA0245:
     id: AA0245
@@ -4145,16 +4185,16 @@ bases:
     id: AA0395
     name: L-histidino vanadium tetraoxide
     synonyms:
-    - (4-[(2S)-2-amino-2-carboxyethyl]-1H-imidazol-1-yl) (dihydroxy)dioxovanadium
     - histidine-1-vanadate
-    - tele-vanadatohistidine
-    - bromoperoxidase vanadium cofactor
-    - histidine-N1'-vanadate
+    - (4-[(2S)-2-amino-2-carboxyethyl]-1H-imidazol-1-yl) (dihydroxy)dioxovanadium
     - 1'-vanadato-L-histidine
+    - haloperoxidase vanadium cofactor
     - N(tau)-vanadatohistidine
     - chloroperoxidase vanadium cofactor
     - histidine-N(epsilon)-vanadate
-    - haloperoxidase vanadium cofactor
+    - tele-vanadatohistidine
+    - histidine-N1'-vanadate
+    - bromoperoxidase vanadium cofactor
     identifiers:
     - ns: PDBHET
       id: VO4
@@ -4163,12 +4203,12 @@ bases:
     id: AA0110
     name: L-lanthionine
     synonyms:
-    - 2-amino-3-(2-amino-2-carboxyethyl)sulfanylpropanoic acid
-    - (R)-S-(2-amino-2-carboxyethyl)-L-cysteine
-    - 3,3'-thiobis-L-alanine
-    - (R,R)-2,6-diamino-4-thiaheptanedioic acid
     - (R,R)-bis(2-amino-2-carboxyethyl)sulfide
     - (R,R)-3,3'-thiobis-(2-aminopropanoic acid)
+    - 3,3'-thiobis-L-alanine
+    - 2-amino-3-(2-amino-2-carboxyethyl)sulfanylpropanoic acid
+    - (R)-S-(2-amino-2-carboxyethyl)-L-cysteine
+    - (R,R)-2,6-diamino-4-thiaheptanedioic acid
     identifiers:
     - ns: chebi
       id: CHEBI:21347
@@ -4186,8 +4226,8 @@ bases:
     name: 2'-(L-lys-N6-yl)-L-4',5'-topaquinone
     synonyms:
     - lysyl oxidase cofactor
-    - 2'-(L-lysine)-L-tyrosyl-4',5'-quinone
     - LTQ
+    - 2'-(L-lysine)-L-tyrosyl-4',5'-quinone
     structure: InChI=1S/C15H21N3O4/c16-11(8-19)3-1-2-4-18-13-7-15(22)14(21)6-10(13)5-12(17)9-20/h6-9,11-12,18H,1-5,16-17H2/t11-,12-/m0/s1
   AA0384:
     id: AA0384
@@ -4199,8 +4239,8 @@ bases:
     synonyms:
     - 3,18-bis(1-[(R)-2-amino-2-carboxyethyl]sulfanylethyl)-2,7,13,17-tetramethyl-1,19-dioxo-4,5,15,16-tetrahydro-(21H,22H,24H)-bilene-b-8,12-dipropanoic
       acid
-    - PUB
     - phycourobilin biscysteine adduct
+    - PUB
     identifiers:
     - ns: PDBHET
       id: PUB
@@ -4223,8 +4263,8 @@ bases:
     id: AA0080
     name: O-palmitoyl-L-serine
     synonyms:
-    - O3-palmitoyl-serine
     - serine palmitate ester
+    - O3-palmitoyl-serine
     - L-serine hexadecanoate ester
     identifiers:
     - ns: PDBHET
@@ -4248,11 +4288,11 @@ bases:
     id: AA0264
     name: O-(sn-1-glycerophosphoryl)-L-serine
     synonyms:
-    - O3-L-serine glyceryl-1-phosphodiester
-    - alpha-glycerophosphoryl serine
-    - glycerophosphoserine
-    - O3-2,3-dihydroxypropyl hydrogen phosphate-L-serine ester
     - O3-(sn-1-glycerophosphoryl)-L-serine
+    - O3-L-serine glyceryl-1-phosphodiester
+    - O3-2,3-dihydroxypropyl hydrogen phosphate-L-serine ester
+    - glycerophosphoserine
+    - alpha-glycerophosphoryl serine
     identifiers:
     - ns: PDBHET
       id: OPE
@@ -4261,13 +4301,13 @@ bases:
     id: AA0149
     name: 4'-(L-tryptophan)-L-tryptophyl quinone
     synonyms:
-    - 4'-tryptophan-tryptophylquinone
-    - 2-amino-3-[2-[2-amino-3-(2-carboxyethyl)-6,7-dioxo-1H-indol-4-yl]-1H-indol-3-yl]propanoic
-      acid
-    - 4-(2'-tryptophyl)tryptophan-6,7-dione
-    - TTQ
     - alpha,alpha'-diamino-6',7'-dihydro-6',7'-dioxo-(2,4'-bi-1H-indole)-3,3'-dipropanoic
       acid
+    - TTQ
+    - 2-amino-3-[2-[2-amino-3-(2-carboxyethyl)-6,7-dioxo-1H-indol-4-yl]-1H-indol-3-yl]propanoic
+      acid
+    - 4'-tryptophan-tryptophylquinone
+    - 4-(2'-tryptophyl)tryptophan-6,7-dione
     identifiers:
     - ns: chebi
       id: CHEBI:20251
@@ -4293,11 +4333,11 @@ bases:
     id: AA0546
     name: L-allo-isoleucine
     synonyms:
-    - alpha-amino-beta-methylvaleric acid
     - allo-L-isoleucine
     - 3-methyl-norvaline
     - L-threo-isoleucine
     - 2-azanyl-3-methylpentanoic acid
+    - alpha-amino-beta-methylvaleric acid
     identifiers:
     - ns: chebi
       id: CHEBI:30008
@@ -4310,9 +4350,9 @@ bases:
     id: AA0084
     name: L-aspartic acid 1-amide
     synonyms:
+    - isoasparagine
     - alpha-asparagine
     - 3-amino-succinamic acid
-    - isoasparagine
     - 3,4-diamino-4-oxobutanoic acid
     identifiers:
     - ns: chebi
@@ -4324,25 +4364,25 @@ bases:
     id: AA0071
     name: N5-methyl-L-glutamine
     synonyms:
-    - gamma-methylglutamine
-    - 2-amino-N5-methylpentanediamic acid
     - N(delta)-methylglutamine
+    - gamma-methylglutamine
     - N-methylglutamine
+    - 2-amino-N5-methylpentanediamic acid
     identifiers:
-    - ns: PDBHET
-      id: MEQ
     - ns: chebi
       id: CHEBI:61891
+    - ns: PDBHET
+      id: MEQ
     structure: InChI=1S/C6H12N2O2/c1-8-6(10)3-2-5(7)4-9/h4-5H,2-3,7H2,1H3,(H,8,10)/t5-/m0/s1
   AA0184:
     id: AA0184
     name: L-serine 5-imidazolinone glycine
     synonyms:
-    - seryl-5-imidazolinone glycine
-    - green fluorescent protein chromophore
     - para-hydroxybenzylidene-imidazolidinone chromophore
+    - seryl-5-imidazolinone glycine
     - 4-methylidene-imidazole-5-one (MIO) active site
     - 2-[1-amino-2-hydroxyethyl]-1-carboxymethyl-1-imidazolin-5-one
+    - green fluorescent protein chromophore
     identifiers:
     - ns: PDBHET
       id: GYS
@@ -4351,19 +4391,19 @@ bases:
     id: AA0560
     name: S-(N-acetylamino)glucosyl-L-cysteine
     identifiers:
-    - ns: chebi
-      id: CHEBI:61631
     - ns: PDBHET
       id: NAG
+    - ns: chebi
+      id: CHEBI:61631
     structure: InChI=1S/C11H20N2O6S/c1-5(16)13-8-10(18)9(17)7(3-15)19-11(8)20-4-6(12)2-14/h2,6-11,15,17-18H,3-4,12H2,1H3,(H,13,16)/t6-,7-,8-,9-,10-,11+/m1/s1
   AA0091:
     id: AA0091
     name: L-leucine amide
     synonyms:
-    - 2-azanyl-4-methylpentanamide
     - alpha-aminoisocaproamide
-    - leucinamide
     - 2-amino-4-methylvaleramide
+    - leucinamide
+    - 2-azanyl-4-methylpentanamide
     identifiers:
     - ns: chebi
       id: CHEBI:21349
@@ -4374,10 +4414,10 @@ bases:
     id: AA0361
     name: O-sulfo-L-serine
     synonyms:
-    - O3-sulfonoserine
-    - serine sulfate ester
     - O3-sulfoserine
     - 2-amino-3-hydroxypropanoic acid 3-sulfate
+    - serine sulfate ester
+    - O3-sulfonoserine
     identifiers:
     - ns: PDBHET
       id: OSE
@@ -4424,10 +4464,10 @@ bases:
     id: AA0034
     name: S-phospho-L-cysteine
     synonyms:
-    - S-phosphonocysteine
     - cysteine phosphate thioester
     - 2-azanyl-3-(phosphonosulfanyl)propanoic acid
     - S3-phosphocysteine
+    - S-phosphonocysteine
     identifiers:
     - ns: chebi
       id: CHEBI:61956
@@ -4438,9 +4478,9 @@ bases:
     id: AA0206
     name: S-glycyl-L-cysteine
     synonyms:
+    - S-(2-amino-1-oxoethyl)cysteine
     - glycine cysteine thioester
     - 1-(cystein-S-yl)-glycinate
-    - S-(2-amino-1-oxoethyl)cysteine
     identifiers:
     - ns: chebi
       id: CHEBI:22050
@@ -4449,10 +4489,10 @@ bases:
     id: AA0492
     name: 3,3-dihydroxy-L-alanine
     synonyms:
-    - 3-hydroxy-L-serine
     - 3,3-dihydroxyalanine
     - C(alpha)-formylglycine hydrate [misnomer]
     - 2-(dihydroxymethyl)glycine
+    - 3-hydroxy-L-serine
     - 3-oxoalanine hydrate
     identifiers:
     - ns: PDBHET
@@ -4495,10 +4535,10 @@ bases:
     id: AA0444
     name: (2S,4R)-5-oxoleucine
     identifiers:
-    - ns: PDBHET
-      id: LED
     - ns: chebi
       id: CHEBI:43739
+    - ns: PDBHET
+      id: LED
     structure: InChI=1S/C6H11NO2/c1-5(3-8)2-6(7)4-9/h3-6H,2,7H2,1H3/t5-,6+/m1/s1
   AA0175:
     id: AA0175
@@ -4516,16 +4556,16 @@ bases:
     name: dipyrrolylmethanemethyl-L-cysteine
     synonyms:
     - dipyrrolylmethyl-L-cysteine
-    - dipyrromethane cofactor
-    - dipyrrole cofactor
     - 3-[5-(3-acetic acid-4-propanoic acid-1-pyrrol-2-yl)methyl-3-acetic acid-4-propanoic
       acid-1-pyrrol-2-yl]methylthio-2-aminopropanoic acid
     - pyrromethane cofactor
+    - dipyrrole cofactor
+    - dipyrromethane cofactor
     identifiers:
-    - ns: chebi
-      id: CHEBI:23842
     - ns: PDBHET
       id: DPM
+    - ns: chebi
+      id: CHEBI:23842
     structure: InChI=1S/C23H29N3O9S/c24-13(9-27)10-36-11-19-16(6-23(34)35)14(2-4-21(30)31)18(26-19)7-17-15(5-22(32)33)12(8-25-17)1-3-20(28)29/h8-9,13,25-26H,1-7,10-11,24H2,(H,28,29)(H,30,31)(H,32,33)(H,34,35)/t13-/m1/s1
   AA0223:
     id: AA0223
@@ -4539,25 +4579,25 @@ bases:
     id: AA0299
     name: L-leucine methyl ester
     synonyms:
-    - 2-amino-4-methylpentanoic methyl ester
     - alpha-aminoisocaproic methyl ester
+    - 2-amino-4-methylpentanoic methyl ester
     - methyl L-leucinate
     identifiers:
-    - ns: chebi
-      id: CHEBI:44075
     - ns: PDBHET
       id: MLL
+    - ns: chebi
+      id: CHEBI:44075
     structure: InChI=1S/C7H15NO2/c1-5(2)4-6(8)7(9)10-3/h5-6H,4,8H2,1-3H3/t6-/m0/s1
   AA0532:
     id: AA0532
     name: N6-butanoyl-L-lysine
     synonyms:
-    - 2-amino-6-butyrylaminocaproic acid
-    - N6-(1-oxobutyl)-L-lysine
-    - N(zeta)-butanoyllysine
-    - epsilon-butyryl-L-lysine
     - epsilon-butanoyl-L-lysine
+    - 2-amino-6-butyrylaminocaproic acid
+    - epsilon-butyryl-L-lysine
+    - N6-(1-oxobutyl)-L-lysine
     - (2S)-2-azanyl-6-(butanoylamino)hexanoic acid
+    - N(zeta)-butanoyllysine
     - N6-butyryllysine
     identifiers:
     - ns: PDBHET
@@ -4578,11 +4618,11 @@ bases:
     id: AA0227
     name: N6-(phospho-5'-adenosine)-L-lysine
     synonyms:
-    - N(zeta)-5'-adenylic-L-lysine
-    - epsilon-5'-adenylic-L-lysine
-    - L-lysine monoanhydride with 5'-adenylic acid
-    - 5'-adenylic-N6-L-lysine
     - N6-L-lysine 5'-adenosine phosphoramidester
+    - L-lysine monoanhydride with 5'-adenylic acid
+    - epsilon-5'-adenylic-L-lysine
+    - 5'-adenylic-N6-L-lysine
+    - N(zeta)-5'-adenylic-L-lysine
     identifiers:
     - ns: PDBHET
       id: AMP
@@ -4618,11 +4658,11 @@ bases:
     id: AA0172
     name: O4'-sulfo-L-tyrosine
     synonyms:
-    - tyrosine sulfate
-    - tyrosine-O-sulphonic acid
     - 2-amino-3-(4-hydroxyphenyl)propanoic acid 4'-sulfate
-    - tyrosine-O-sulfonic acid
     - O4-sulfotyrosine
+    - tyrosine sulfate
+    - tyrosine-O-sulfonic acid
+    - tyrosine-O-sulphonic acid
     identifiers:
     - ns: PDBHET
       id: TYS
@@ -4639,12 +4679,12 @@ bases:
     id: AA0214
     name: L-citrulline
     synonyms:
-    - N5-carbamylornithine
-    - alpha-amino-delta-ureidovaleric acid
-    - N5-(aminocarbonyl)ornithine
-    - delta-ureidonorvaline
     - N5-carbamoylornithine
+    - N5-(aminocarbonyl)ornithine
     - 2-amino-5-(aminocarbonyl)aminopentanoic acid
+    - delta-ureidonorvaline
+    - alpha-amino-delta-ureidovaleric acid
+    - N5-carbamylornithine
     identifiers:
     - ns: PDBHET
       id: CIR
@@ -4654,13 +4694,13 @@ bases:
     name: 3-hydroxy-L-proline
     synonyms:
     - L-threo-3-hydroxyproline
-    - 3-trans-hydroxy-L-proline
     - beta-hydroxypyrrolidine-alpha-carboxylic acid
+    - 3-trans-hydroxy-L-proline
     identifiers:
-    - ns: chebi
-      id: CHEBI:16889
     - ns: PDBHET
       id: HY3
+    - ns: chebi
+      id: CHEBI:16889
     structure: InChI=1S/C5H9NO2/c7-3-4-5(8)1-2-6-4/h3-6,8H,1-2H2/t4-,5+/m1/s1
   AA0377:
     id: AA0377
@@ -4670,10 +4710,10 @@ bases:
     id: AA0147
     name: L-2',4',5'-topaquinone
     synonyms:
+    - TPQ
+    - L-2,4,5-TOPAquinone
     - 5-(2-carboxy-2-aminoethyl)-2-hydroxy-1,4-benzoquinone
     - 2,4,5-trihydroxyphenylalanine quinone
-    - L-2,4,5-TOPAquinone
-    - TPQ
     identifiers:
     - ns: PDBHET
       id: TPQ
@@ -4684,9 +4724,9 @@ bases:
     id: AA0026
     name: (2S,3R)-3-hydroxyasparagine
     synonyms:
-    - (2S,3R)-2,4-diamino-3-hydroxy-4-oxobutanoic acid
-    - 2-azanyl-3-hydroxy-4-butanediamic acid
     - L-erythro-beta-hydroxyasparagine
+    - 2-azanyl-3-hydroxy-4-butanediamic acid
+    - (2S,3R)-2,4-diamino-3-hydroxy-4-oxobutanoic acid
     identifiers:
     - ns: PDBHET
       id: AHB
@@ -4704,9 +4744,9 @@ bases:
     id: AA0108
     name: S-(L-isoglutamyl)-L-cysteine
     synonyms:
-    - gamma-(S-cysteinyl)glutamic acid
-    - 2-amino-5-(2-amino-2-carboxyethyl)thio-5-oxopentanoic acid
     - (S,R)-2-amino-4-[S-(2-amino-2-carboxyethyl)thiocarboxy]butanoic acid
+    - 2-amino-5-(2-amino-2-carboxyethyl)thio-5-oxopentanoic acid
+    - gamma-(S-cysteinyl)glutamic acid
     identifiers:
     - ns: chebi
       id: CHEBI:22021
@@ -4715,11 +4755,11 @@ bases:
     id: AA0057
     name: N-formylglycine
     synonyms:
-    - (formylamino)acetic acid
-    - 2-formamidoacetic acid
-    - (formylazanyl)ethanoic acid
     - N(alpha)-formylglycine
+    - (formylazanyl)ethanoic acid
     - 2-formamidoethanoic acid
+    - 2-formamidoacetic acid
+    - (formylamino)acetic acid
     identifiers:
     - ns: chebi
       id: CHEBI:21717
@@ -4733,21 +4773,21 @@ bases:
     name: L-glutamic acid 5-methyl ester
     synonyms:
     - 2-aminopentanedioic acid 5-methyl ester
+    - glutamic acid 5-methyl ester
     - 5-methyl L-glutamate
+    - glutamic acid gamma-methyl ester
     - (5)-methyl L-hydrogen glutamate
     - 5-methyl L-2-aminoglutarate
-    - glutamic acid 5-methyl ester
-    - glutamic acid gamma-methyl ester
     structure: InChI=1S/C6H11NO3/c1-10-6(9)3-2-5(7)4-8/h4-5H,2-3,7H2,1H3/t5-/m0/s1
   AA0376:
     id: AA0376
     name: L-selenocysteinyl tungsten bis(molybdopterin guanine dinucleotide)
     synonyms:
-    - formate dehydrogenase selenocysteine W-bisMGD cofactor
     - 2-amino-5,6-dimercapto-7-methyl-3,7,8a,9-tetrahydro-8-oxa-1,3,9,10-tetraazaanthracen-4-one
       guanosine dinucleotide
     - guanylate-O'-phosphoric acid mono-(2-amino-5,6-dimercapto-4-oxo-3,5,6,7,8a,9,10,10a-octahydro-4h-8-oxa-1,3,9,10-tetraaza-anthracen-7-ylmethyl)
       ester
+    - formate dehydrogenase selenocysteine W-bisMGD cofactor
     identifiers:
     - ns: PDBHET
       id: 2MD
@@ -4760,11 +4800,11 @@ bases:
     id: AA0381
     name: L-lysine 5-imidazolinone glycine
     synonyms:
-    - Anemonia majano fluorescent protein FP486 chromophore
     - para-hydroxybenzylidene-imidazolidinone chromophore
-    - '[2-(1,5-diaminopentanyl)-5-oxo-4,5-dihydro-imidazol-1-yl]-acetic acid'
-    - lysyl-5-imidazolinone glycine
+    - Anemonia majano fluorescent protein FP486 chromophore
     - 2-[(S)-1,5-diaminopentanyl]-1-carboxymethyl-1-imidazolin-5-one
+    - lysyl-5-imidazolinone glycine
+    - '[2-(1,5-diaminopentanyl)-5-oxo-4,5-dihydro-imidazol-1-yl]-acetic acid'
     identifiers:
     - ns: PDBHET
       id: CR7
@@ -4795,10 +4835,10 @@ bases:
     id: AA0241
     name: glycine thiazole-4-carboxylic acid
     identifiers:
-    - ns: PDBHET
-      id: BB9
     - ns: chebi
       id: CHEBI:21276
+    - ns: PDBHET
+      id: BB9
     structure: InChI=1S/C5H6N2OS/c6-1-5-7-4(2-8)3-9-5/h2-3H,1,6H2
   AA0524:
     id: AA0524
@@ -4819,11 +4859,11 @@ bases:
     id: AA0329
     name: 1'-heme-L-histidine
     synonyms:
-    - tele-histidyl heme
     - N1'-histidyl heme
+    - 2-[1-(N1'-histidyl)ethyl]protoporphyrin IX
+    - tele-histidyl heme
     - N(tau)-histidyl heme
     - N(epsilon)-histidyl heme
-    - 2-[1-(N1'-histidyl)ethyl]protoporphyrin IX
     identifiers:
     - ns: PDBHET
       id: HEM
@@ -4843,12 +4883,12 @@ bases:
     id: AA0613
     name: 5-glutamyl N2-ornithine
     synonyms:
-    - 4-amino-5-[(4-amino-1-carboxy-butyl)amino]-5-ketovaleric acid
-    - 4-amino-5-[(4-amino-1-carboxy-butyl)amino]-5-oxopentanoic acid
-    - (2S)-5-amino-2-([(4S)-4-amino-4-carboxybutanoyl]amino)pentanoic acid
     - N2-(gamma-glutamyl)ornithine
+    - 4-amino-5-[(4-amino-1-carboxy-butyl)amino]-5-ketovaleric acid
     - gamma-glutamylornithine
     - N2-(L-isoglutamyl)-L-ornithine
+    - 4-amino-5-[(4-amino-1-carboxy-butyl)amino]-5-oxopentanoic acid
+    - (2S)-5-amino-2-([(4S)-4-amino-4-carboxybutanoyl]amino)pentanoic acid
     structure: InChI=1S/C10H19N3O4/c11-5-1-2-8(10(16)17)13-9(15)4-3-7(12)6-14/h6-8H,1-5,11-12H2,(H,13,15)(H,16,17)/t7-,8-/m0/s1
   AA0531:
     id: AA0531
@@ -4882,26 +4922,26 @@ bases:
     id: AA0441
     name: (2-aminosuccinimidyl)acetic acid
     synonyms:
-    - aspartimide glycine
-    - (3-amino-2,5-dioxo-1-pyrrolidinyl)acetic acid
     - anhydroaspartyl glycine
     - N-(2-aminosuccinyl)glycine
+    - aspartimide glycine
+    - (3-amino-2,5-dioxo-1-pyrrolidinyl)acetic acid
     identifiers:
-    - ns: PDBHET
-      id: ACY
     - ns: chebi
       id: CHEBI:45890
+    - ns: PDBHET
+      id: ACY
     structure: InChI=1S/C6H8N2O3/c7-4-3-5(10)8(1-2-9)6(4)11/h2,4H,1,3,7H2/t4-/m0/s1
   AA0420:
     id: AA0420
     name: N4-(N-acetylamino)galactosyl-L-asparagine
     synonyms:
-    - N4-(N-acetylgalactosaminyl)asparagine
     - N4-glycosylasparagine
-    - N4-asparagine-beta-N-acetylgalactosaminide
-    - N4-glycosyl-L-asparagine
-    - N4-(2-acetylamino-2-deoxy-beta-D-galactopyranosyl)-L-asparagine
+    - N4-(N-acetylgalactosaminyl)asparagine
     - N4-(2-acetamido-2-deoxy-beta-D-galactopyranosyl)-L-asparagine
+    - N4-asparagine-beta-N-acetylgalactosaminide
+    - N4-(2-acetylamino-2-deoxy-beta-D-galactopyranosyl)-L-asparagine
+    - N4-glycosyl-L-asparagine
     structure: InChI=1S/C12H21N3O7/c1-5(18)14-9-11(21)10(20)7(4-17)22-12(9)15-8(19)2-6(13)3-16/h3,6-7,9-12,17,20-21H,2,4,13H2,1H3,(H,14,18)(H,15,19)/t6-,7+,9+,10-,11+,12-/m0/s1
   AA0621:
     id: AA0621
@@ -4935,11 +4975,11 @@ bases:
     name: N4-(2,4-diacetamido-2,4,6-trideoxy-D-glucosyl)-L-asparagine
     synonyms:
     - DABA
+    - N4-[2,4-bis(acetylamino)-2,4,6-trideoxy-beta-D-glucopyranosyl]-L-asparagine
     - DiNAcBac
+    - N4-[N2,N4-diacetylbacillosaminyl]asparagine
     - DATDH
     - N4-[N,N-diacetylbacillosaminyl]asparagine
-    - N4-[N2,N4-diacetylbacillosaminyl]asparagine
-    - N4-[2,4-bis(acetylamino)-2,4,6-trideoxy-beta-D-glucopyranosyl]-L-asparagine
     identifiers:
     - ns: PDBHET
       id: B6D
@@ -4948,10 +4988,10 @@ bases:
     id: AA0431
     name: 1'-(1,2,3-trihydroxyprop-2-yl)-L-histidine
     synonyms:
-    - N(epsilon)-histidine dihydroxyacetone adduct
-    - N(tau)-(1,2,3-trihydroxypropan-2-yl)histidine
     - tele-(1,2,3-trihydroxypropan-2-yl)histidine
+    - N(tau)-(1,2,3-trihydroxypropan-2-yl)histidine
     - 1-[1,2-dihydroxy-1-(hydroxymethyl)ethyl]-L-histidine
+    - N(epsilon)-histidine dihydroxyacetone adduct
     identifiers:
     - ns: PDBHET
       id: HIQ
