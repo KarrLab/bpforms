@@ -115,14 +115,14 @@ class BuildAlphabetsController(cement.Controller):
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
-            (['--max-bases'], dict(type=float, default=float('inf'),
-                                   help='Maximum number of bases to build. Used for testing')),
+            (['--max-monomers'], dict(type=float, default=float('inf'),
+                                   help='Maximum number of monomers to build. Used for testing')),
         ]
 
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        bpforms.util.build_alphabets(_max_bases=args.max_bases)
+        bpforms.util.build_alphabets(_max_monomers=args.max_monomers)
         print('Alphabets successfully built')
 
 

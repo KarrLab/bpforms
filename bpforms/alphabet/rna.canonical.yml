@@ -1,7 +1,7 @@
 id: canonical_rna
 name: Canonical RNA
-description: The four canonical bases
-bases:
+description: The four canonical RNA nucleotides
+monomers:
   A:
     id: AMP
     name: 2'-adenosine 5'-monophosphate(2−)

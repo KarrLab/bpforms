@@ -1,7 +1,7 @@
 id: protein
 name: Protein
-description: The 20 canonical bases, plus the modified bases in <a href="https://pir.georgetown.edu/resid">RESID</a>
-bases:
+description: The 20 canonical amino acids, plus the modified amino acids in <a href="https://pir.georgetown.edu/resid">RESID</a>
+monomers:
   A:
     id: Ala
     name: L-alanine

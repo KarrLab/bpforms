@@ -30,18 +30,18 @@ Second, use the `BpForms` notation and the `BpForm.from_str` method to create an
         ]AC'''.replace('\n', '').replace(' ', ''))
 
 
-Getting and setting bases
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Getting and setting monomers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Third, individual bases and slices of bases can be get and set similar to lists.::
+Third, individual monomers and slices of monomers can be get and set similar to lists.::
 
     dna_form[0]
-        => <bpforms.core.Base at 0x7fb365341240>
+        => <bpforms.core.Monomer at 0x7fb365341240>
     
-    dna_form[1] = bpforms.dna_alphabet.bases.A
+    dna_form[1] = bpforms.dna_alphabet.monomers.A
     
     dna_form[1:3] 
-        => [<bpforms.core.Base at 0x7fb365341240>, <bpforms.core.Base at 0x7fb365330cf8>]
+        => [<bpforms.core.Monomer at 0x7fb365341240>, <bpforms.core.Monomer at 0x7fb365330cf8>]
     
     dna_form[1:3] = bpforms.DnaForm().from_str('TA')
 
@@ -49,7 +49,7 @@ Third, individual bases and slices of bases can be get and set similar to lists.
 Protonation
 ^^^^^^^^^^^
 
-Fourth, calculate the major protation state of each base in the biopolymer form.::
+Fourth, calculate the major protation state of each monomer in the biopolymer form.::
 
     dna_form.protonate(8.)
 

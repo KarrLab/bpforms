@@ -98,13 +98,13 @@ class CliTestCase(unittest.TestCase):
                 self.assertEqual(captured.stderr.get_text(), '')
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            base_seq = ''.join([
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.bases.A.get_inchi()),
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.bases.C.get_inchi()),
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.bases.G.get_inchi()),
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.bases.T.get_inchi()),
+            monomer_seq = ''.join([
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.A.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.C.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.G.get_inchi()),
+                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.T.get_inchi()),
             ])
-            with __main__.App(argv=['get-properties', 'canonical_dna', base_seq, '--ph', '7.0']) as app:
+            with __main__.App(argv=['get-properties', 'canonical_dna', monomer_seq, '--ph', '7.0']) as app:
                 # run app
                 app.run()
 
@@ -154,7 +154,7 @@ class BuildAlphabetsCliTestCase(unittest.TestCase):
         self.assertFalse(os.path.isfile(bpforms.alphabet.protein.filename))
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['build-alphabets', '--max-bases', '3']) as app:
+            with __main__.App(argv=['build-alphabets', '--max-monomers', '3']) as app:
                 # run app
                 app.run()
 

@@ -51,22 +51,22 @@ get_alphabets_error = function( jqXHR, textStatus, errorThrown ) {
 set_alphabet = function(data, status, jqXHR) {
     var html = ''
     
-    for (chars in data['bases']) {
-        base = data['bases'][chars]
+    for (chars in data['monomers']) {
+        monomer = data['monomers'][chars]
         html += '<tr>'
         html += '<td class="chars"><div>' + chars + '</div></td>'
         
-        id = base['id']
+        id = monomer['id']
         if (id == null)
             id = ''
         html += '<td class="id"><div>' + id + '</div></td>'
         
-        name = base['name']
+        name = monomer['name']
         if (name == null)
             name = ''
         html += '<td class="name"><div>' + name + '</div></td>'
         
-        synonyms = base['synonyms']
+        synonyms = monomer['synonyms']
         if (synonyms == null)
             synonyms = ''
         else
@@ -74,7 +74,7 @@ set_alphabet = function(data, status, jqXHR) {
         html += '<td class="synonyms"><div>' + synonyms + '</div></td>'
         
         
-        identifiers = base['identifiers']
+        identifiers = monomer['identifiers']
         if (identifiers == null)
             identifiers = ''
         else{
@@ -87,7 +87,7 @@ set_alphabet = function(data, status, jqXHR) {
         }
         html += '<td class="identifiers"><div>' + identifiers + '</div></td>'                
         
-        structure = base['structure']
+        structure = monomer['structure']
         if (structure == null)
             structure = ''
         html += '<td class="structure"><div>' + structure + '</div></td>'

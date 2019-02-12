@@ -71,12 +71,12 @@ def get_form(alphabet):
     raise ValueError('Alphabet "{}" must be "dna", "rna", or "protein"'.format(alphabet))
 
 
-def build_alphabets(_max_bases=float('inf')):
+def build_alphabets(_max_monomers=float('inf')):
     """ Build DNA, RNA, and protein alphabets
 
     Args
-        _max_bases (:obj:`float`, optional): maximum number of bases to build; used for testing
+        _max_monomers (:obj:`float`, optional): maximum number of monomers to build; used for testing
     """
-    dna.DnaAlphabetBuilder(_max_bases=_max_bases).run()
-    rna.RnaAlphabetBuilder(_max_bases=_max_bases).run()
-    protein.ProteinAlphabetBuilder(_max_bases=_max_bases).run()
+    dna.DnaAlphabetBuilder(_max_monomers=_max_monomers).run()
+    rna.RnaAlphabetBuilder(_max_monomers=_max_monomers).run()
+    protein.ProteinAlphabetBuilder(_max_monomers=_max_monomers).run()

@@ -1,7 +1,7 @@
 id: canonical_protein
 name: Canonical protein
-description: The 20 canonical bases
-bases:
+description: The 20 canonical amino acids
+monomers:
   A:
     id: Ala
     name: L-alanine

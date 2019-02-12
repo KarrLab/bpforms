@@ -1,7 +1,7 @@
 id: rna
 name: RNA
-description: The four canonical bases, plus the modified bases in <a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>
-bases:
+description: The four canonical RNA nucleotides, plus the modified RNA nucleotides in <a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>
+monomers:
   A:
     id: AMP
     name: 2'-adenosine 5'-monophosphate(2−)
