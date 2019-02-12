@@ -7,7 +7,7 @@
 """
 
 from ruamel import yaml
-from wc_utils.util.chem import EmpiricalFormula, get_major_protonation_state
+from wc_utils.util.chem import EmpiricalFormula, Protonator
 import abc
 import attrdict
 import lark
@@ -501,7 +501,7 @@ class Base(object):
             ph (:obj:`float`): pH
         """
         if self.structure:
-            self.structure = get_major_protonation_state(self.get_inchi(), ph=ph)
+            self.structure = Protonator.run(self.get_inchi(), ph=ph)
 
     def get_inchi(self):
         """ Get InChI representration of structure
@@ -861,7 +861,7 @@ class Alphabet(object):
         for base in bases:
             inchis.append(base.get_inchi())
 
-        new_inchis = get_major_protonation_state(inchis, ph=ph)
+        new_inchis = Protonator.run(inchis, ph=ph)
 
         for base, new_inchi in zip(bases, new_inchis):
             base.structure = new_inchi
@@ -1222,7 +1222,7 @@ class BpForm(object):
         for base in bases:
             inchis.append(base.get_inchi())
 
-        new_inchis = get_major_protonation_state(inchis, ph=ph)
+        new_inchis = Protonator.run(inchis, ph=ph)
 
         for base, new_inchi in zip(bases, new_inchis):
             base.structure = new_inchi
