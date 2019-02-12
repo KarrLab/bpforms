@@ -216,10 +216,10 @@ class ProteinForm(BpForm):
     def __init__(self, base_seq=None):
         """
         Args:
-            base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
+            base_seq (:obj:`BaseSequence`, optional): bases of the protein form
         """
         super(ProteinForm, self).__init__(base_seq=base_seq, alphabet=protein_alphabet,
-                                          bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
+                                          bond_charge=0)
 
 
 class CanonicalProteinForm(BpForm):
@@ -228,7 +228,7 @@ class CanonicalProteinForm(BpForm):
     def __init__(self, base_seq=None):
         """
         Args:
-            base_seq (:obj:`BaseSequence`, optional): bases of the DNA form
+            base_seq (:obj:`BaseSequence`, optional): bases of the protein form
         """
         super(CanonicalProteinForm, self).__init__(base_seq=base_seq, alphabet=canonical_protein_alphabet,
                                                    bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
