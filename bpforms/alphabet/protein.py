@@ -127,19 +127,28 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     if chebi_syn[1] != 0:
                         identifiers.add(Identifier('PDBHET', chebi_syn[1]))
 
-            if name in canonical_aas:
-                canonical_aas[name].structure = structure
-                warnings.warn('Ignoring canonical monomer {}'.format(name), UserWarning)
-                continue
+                # removing modified monomers where metal present in structure because:
+                # - inchi structure generated separates each non covalently bound parts of the monomer
+                # - for many cases theses structures consist of a group of modified monomers coordinating
+                # a metal, and not a single PTM monomer per se
+                inchi_formula = self.get_monomer_inchi_formula(structure)
+                if '.' in inchi_formula:
+                    warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
+                    continue                
 
-            monomer = Monomer(
-                id=id,
-                name=name,
-                synonyms=synonyms,
-                identifiers=identifiers,
-                structure=structure,
-            )
-            alphabet.monomers[id] = monomer
+                if name in canonical_aas:
+                    canonical_aas[name].structure = structure
+                    warnings.warn('Ignoring canonical monomer {}'.format(name), UserWarning)
+                    continue
+
+                monomer = Monomer(
+                    id=id,
+                    name=name,
+                    synonyms=synonyms,
+                    identifiers=identifiers,
+                    structure=structure,
+                )
+                alphabet.monomers[id] = monomer
 
         # remove tmp folder
         shutil.rmtree(tmp_folder)
@@ -214,6 +223,22 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
             return i_chebi, pdbhet, synonyms
 
+    def get_monomer_inchi_formula(self, mol):
+        """ Get the inchi formula of a modified amino acid
+
+        Args:
+            mol (:obj:`openbabel.OBMol`): inchi structure
+
+        Returns:
+            :obj:`int`: inchi chemical formula
+        """
+
+        conv = openbabel.OBConversion()
+        conv.SetOutFormat('inchi')
+        inchi = conv.WriteString(mol).strip()
+        inchi_formula = re.split('[/]', inchi)[1]
+
+        return inchi_formula
 
 class ProteinForm(BpForm):
     """ Protein form """
