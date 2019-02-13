@@ -237,8 +237,11 @@ class MonomerTestCase(unittest.TestCase):
             core.Identifier('metacyc.compound', 'DAMP'),
         ])
         synonyms = set(['A', 'dAMP', 'deoxyadenosine monophosphate'])
+        monomer_0 = core.Monomer()
         monomer = core.Monomer(id='dAMP', name='deoxyadenosine monophosphate', synonyms=synonyms, identifiers=identifiers,
-                         structure=dAMP_inchi, delta_mass=1., delta_charge=-1, start_position=2, end_position=10, comments='Long string')
+                               structure=dAMP_inchi, delta_mass=1., delta_charge=-1, start_position=2, end_position=10,
+                               base_monomer=monomer_0,
+                               comments='Long string')
         self.assertEqual(monomer.id, 'dAMP')
         self.assertEqual(monomer.name, 'deoxyadenosine monophosphate')
         self.assertEqual(monomer.synonyms, synonyms)
@@ -248,6 +251,7 @@ class MonomerTestCase(unittest.TestCase):
         self.assertEqual(monomer.delta_charge, -1)
         self.assertEqual(monomer.start_position, 2)
         self.assertEqual(monomer.end_position, 10)
+        self.assertEqual(monomer.base_monomer, monomer_0)
         self.assertEqual(monomer.comments, 'Long string')
 
     def test_id_setter(self):
@@ -346,6 +350,13 @@ class MonomerTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             monomer.end_position = 'a'
 
+    def test_base_monomer_setter(self):
+        monomer = core.Monomer()
+        monomer.base_monomer = None
+        monomer.base_monomer = core.Monomer()
+        with self.assertRaises(ValueError):
+            monomer.base_monomer = 'A'
+
     def test_comments_setter(self):
         monomer = core.Monomer()
         monomer.comments = None
@@ -398,8 +409,22 @@ class MonomerTestCase(unittest.TestCase):
             monomer = core.Monomer()
             monomer.get_charge()
 
+    def test_to_dict(self):
+        alphabet = dna.dna_alphabet
+
+        monomer = core.Monomer()
+        monomer.base_monomer = alphabet.monomers.A
+        self.assertEqual(monomer.to_dict(alphabet=alphabet), {
+            'base_monomer': 'A',
+        })
+
+        monomer = core.Monomer()
+        monomer.from_dict({'base_monomer': 'A'}, alphabet=alphabet)
+        self.assertEqual(monomer.base_monomer, alphabet.monomers.A)
+
     def test_str(self):
         monomer = core.Monomer()
+        self.assertEqual(str(monomer), '[]')
 
         monomer.id = 'dAMP'
         self.assertEqual(str(monomer), '[id: "dAMP"]')
@@ -438,6 +463,7 @@ class MonomerTestCase(unittest.TestCase):
         monomer_2 = core.Monomer(id='A', structure=dAMP_inchi)
         monomer_3 = core.Monomer(id='B', structure=dAMP_inchi)
         monomer_4 = core.Monomer(id='A', structure=dCMP_inchi)
+        monomer_5 = core.Monomer(id='A', structure=dAMP_inchi, base_monomer=core.Monomer())
 
         self.assertTrue(monomer_1.is_equal(monomer_1))
         self.assertTrue(monomer_1.is_equal(monomer_2))
@@ -445,6 +471,7 @@ class MonomerTestCase(unittest.TestCase):
         self.assertFalse(monomer_1.is_equal(mock.Mock(id='A', structure=dAMP_inchi)))
         self.assertFalse(monomer_1.is_equal(monomer_3))
         self.assertFalse(monomer_1.is_equal(monomer_4))
+        self.assertFalse(monomer_1.is_equal(monomer_5))
 
 
 class MonomerSequenceTestCase(unittest.TestCase):
@@ -625,7 +652,8 @@ class BpFormTestCase(unittest.TestCase):
         bp_form_1 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]))
         bp_form_2 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]))
         bp_form_3 = None
-        bp_form_4 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]), alphabet=dna.canonical_dna_alphabet)
+        bp_form_4 = core.BpForm(monomer_seq=core.MonomerSequence(
+            [core.Monomer(id='A'), core.Monomer(id='B')]), alphabet=dna.canonical_dna_alphabet)
         bp_form_5 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]), backbone_charge=-1)
         bp_form_6 = core.BpForm(monomer_seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), backbone_formula=EmpiricalFormula('H'))
@@ -750,7 +778,8 @@ class BpFormTestCase(unittest.TestCase):
                          EmpiricalFormula('H').get_molecular_weight())
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge() + 1)
 
-        bp_form = core.BpForm([monomer_A, monomer_A, monomer_C, monomer_C, monomer_C], bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+        bp_form = core.BpForm([monomer_A, monomer_A, monomer_C, monomer_C, monomer_C],
+                              bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() * 2 + monomer_C.get_formula() * 3 - EmpiricalFormula('H') * 4)
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() * 2 + monomer_C.get_mol_wt()
                          * 3 - EmpiricalFormula('H').get_molecular_weight() * 4)
@@ -793,33 +822,40 @@ class BpFormTestCase(unittest.TestCase):
                 dna.canonical_dna_alphabet.monomers.A,
             ])))
 
-        self.assertTrue(dna.DnaForm().from_str(
-            'AA[id: "dI"'
-            + ' | name: "2\'-deoxyinosine"'
-            + ' | synonym: "2\'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"'
-            + ' | identifier: "chebi" / "CHEBI:28997"'
-            + ' | structure: ' + dIMP_inchi
-            + ' | delta-mass: -2.5'
-            + ' | delta-charge: 3'
-            + ' | position: 3-5'
-            + ' | comments: "A purine 2\'-deoxyribonucleoside that is inosine ..."]A').is_equal(dna.DnaForm([
-                dna.canonical_dna_alphabet.monomers.A,
-                dna.canonical_dna_alphabet.monomers.A,
-                core.Monomer(
-                    id='dI',
-                    name="2'-deoxyinosine",
-                    synonyms=core.SynonymSet(
-                        ["2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"]),
-                    identifiers=core.IdentifierSet([core.Identifier('chebi', 'CHEBI:28997')]),
-                    structure=dIMP_inchi,
-                    delta_mass=-2.5,
-                    delta_charge=3,
-                    start_position=3,
-                    end_position=5,
-                    comments="A purine 2'-deoxyribonucleoside that is inosine ...",
-                ),
-                dna.canonical_dna_alphabet.monomers.A,
-            ])))
+        dna_form_1 = ('AA[id: "dI"'
+                      + ' | name: "2\'-deoxyinosine"'
+                      + ' | synonym: "2\'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"'
+                      + ' | identifier: "chebi" / "CHEBI:28997"'
+                      + ' | structure: ' + dIMP_inchi
+                      + ' | delta-mass: -2.5'
+                      + ' | delta-charge: 3'
+                      + ' | position: 3-5'
+                      + ' | base-monomer: "A"'
+                      + ' | comments: "A purine 2\'-deoxyribonucleoside that is inosine ..."]A')
+        dna_form_2 = dna.DnaForm().from_str(dna_form_1)
+        dna_form_3 = dna.DnaForm([
+            dna.canonical_dna_alphabet.monomers.A,
+            dna.canonical_dna_alphabet.monomers.A,
+            core.Monomer(
+                id='dI',
+                name="2'-deoxyinosine",
+                synonyms=core.SynonymSet(
+                    ["2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"]),
+                identifiers=core.IdentifierSet([core.Identifier('chebi', 'CHEBI:28997')]),
+                structure=dIMP_inchi,
+                delta_mass=-2.5,
+                delta_charge=3,
+                start_position=3,
+                end_position=5,
+                base_monomer=dna.canonical_dna_alphabet.monomers.A,
+                comments="A purine 2'-deoxyribonucleoside that is inosine ...",
+            ),
+            dna.canonical_dna_alphabet.monomers.A,
+        ])
+        print(str(dna_form_1))
+        print(str(dna_form_2))
+        self.assertEqual(str(dna_form_2), dna_form_1)
+        self.assertTrue(dna_form_2.is_equal(dna_form_3))
 
         self.assertTrue(dna.DnaForm().from_str(
             'AA[id: "dI"'
@@ -881,6 +917,8 @@ class BpFormTestCase(unittest.TestCase):
             core.BpForm(alphabet=alphabet).from_str('AAA{(AA}AA{aA}{Aa}AA')
         with self.assertRaises(lark.exceptions.UnexpectedCharacters):
             core.BpForm(alphabet=alphabet).from_str('AAA{AA}AA{aA}{[Aa}AA')
+        with self.assertRaises(lark.exceptions.VisitError):
+            core.BpForm(alphabet=alphabet).from_str('AAA[base-monomer: "C"]')
 
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'cannot be repeated'):
             dna.DnaForm().from_str(
@@ -916,6 +954,12 @@ class AlphabetTestCase(unittest.TestCase):
             alphabet.monomers['{aa'] = core.Monomer(structure=dAMP_inchi)
         with self.assertRaises(ValueError):
             alphabet.monomers['A]'] = core.Monomer(structure=dAMP_inchi)
+
+    def test_get_monomer_code(self):
+        alphabet = dna.canonical_dna_alphabet
+        self.assertEqual(alphabet.get_monomer_code(alphabet.monomers.A), 'A')
+        with self.assertRaises(ValueError):
+            alphabet.get_monomer_code(core.Monomer())
 
     def test_protonate(self):
         alphabet = core.Alphabet(monomers={
@@ -1003,3 +1047,35 @@ class AlphabetTestCase(unittest.TestCase):
         dna_alphabet.to_yaml(path)
         dna_alphabet_2 = core.Alphabet().from_yaml(path)
         self.assertTrue(dna_alphabet_2.is_equal(dna_alphabet))
+
+    def test_to_from_yaml_without_name(self):
+        dna_alphabet = core.Alphabet(id='test',
+                                     monomers={
+                                         'A': dna.canonical_dna_alphabet.monomers.A,
+                                         'C': dna.canonical_dna_alphabet.monomers.C,
+                                         'G': dna.canonical_dna_alphabet.monomers.G,
+                                         'T': dna.canonical_dna_alphabet.monomers.T,
+                                     })
+        path = os.path.join(self.dir_path, 'alphabet.yml')
+        dna_alphabet.to_yaml(path)
+        dna_alphabet_2 = core.Alphabet().from_yaml(path)
+        self.assertTrue(dna_alphabet_2.is_equal(dna_alphabet))
+
+
+class AlphabetBuilderTestCase(unittest.TestCase):
+    def setUp(self):
+        self.dir_path = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.dir_path)
+
+    def test(self):
+        class AlphabetBuilder(core.AlphabetBuilder):
+            def build(self):
+                return core.Alphabet()
+        alphabet = AlphabetBuilder().run()
+        self.assertIsInstance(alphabet, core.Alphabet)
+
+        path = os.path.join(self.dir_path, 'alphabet.yml')
+        alphabet = AlphabetBuilder().run(path=path)
+        self.assertTrue(os.path.isfile(path))
