@@ -64,9 +64,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                                 '<a href="https://pir.georgetown.edu/resid">RESID</a>')
 
         # get amino acid names from canonical list
-        aa_names = []
+        canonical_aas = {}
         for monomer in alphabet.monomers.keys():
-            aa_names.append(alphabet.monomers[monomer].name)
+            canonical_aas[alphabet.monomers[monomer].name] = alphabet.monomers[monomer]
 
         # create tmp directory
         tmp_folder = tempfile.mkdtemp()
@@ -127,42 +127,50 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     if chebi_syn[1] != 0:
                         identifiers.add(Identifier('PDBHET', chebi_syn[1]))
 
-            if name in aa_names:
+            if name in canonical_aas:
+                canonical_aas[name].structure = structure
                 warnings.warn('Ignoring canonical monomer {}'.format(name), UserWarning)
                 continue
 
-            alphabet.monomers[id] = Monomer(
+            monomer = Monomer(
                 id=id,
                 name=name,
                 synonyms=synonyms,
                 identifiers=identifiers,
                 structure=structure,
             )
+            alphabet.monomers[id] = monomer
 
         # remove tmp folder
         shutil.rmtree(tmp_folder)
 
         return alphabet
 
-    def get_monomer_structure(self, input_pdb):
+    def get_monomer_structure(self, pdb_filename):
         """ Get the structure of a modified AA from pdb structure
 
         Args:
-            input_pdb (:obj:`str`): pdb structure
+            pdb_filename (:obj:`str`): path to PDB file with structure
 
         Returns:
             :obj:`openbabel.OBMol`: structure
         """
 
         # get InChI from pdb structure
-        mol = openbabel.OBMol()
+        pdb_mol = openbabel.OBMol()
         conv = openbabel.OBConversion()
-        handler = openbabel.OBMessageHandler()
-        handler.SetOutputLevel(2)
-        conv.ReadFile(mol, input_pdb)
-        conv.SetOutFormat('inchi')
+        assert conv.SetInFormat('pdb'), 'Unable to set format to PDB'
+        conv.ReadFile(pdb_mol, pdb_filename)
+        assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
+        inchi = conv.WriteString(pdb_mol)
 
-        return mol
+        # create molecule from InChI -- necessary to sanitize molecule from PDB
+        inchi_mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        assert conv.SetInFormat('inchi'), 'Unable to set format to InChI'
+        conv.ReadString(inchi_mol, inchi)
+
+        return inchi_mol
 
     def get_monomer_identifiers_synonyms(self, id, session):
         """ Get the chebi ID and synonyms of a modified AA from pdb structure
@@ -216,7 +224,8 @@ class ProteinForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
         super(ProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=protein_alphabet,
-                                          bond_formula=EmpiricalFormula('H2') * -1, bond_charge=0)
+                                          backbone_formula=EmpiricalFormula('O'), backbone_charge=0,
+                                          bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
 
 
 class CanonicalProteinForm(BpForm):
@@ -228,4 +237,5 @@ class CanonicalProteinForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
         super(CanonicalProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
-                                                   bond_formula=EmpiricalFormula('H2') * -1, bond_charge=0)
+                                                   backbone_formula=EmpiricalFormula('O'), backbone_charge=0,
+                                                   bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)

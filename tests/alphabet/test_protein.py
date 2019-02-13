@@ -6,6 +6,7 @@
 :License: MIT
 """
 
+from bpforms.core import Alphabet
 from bpforms.alphabet import protein
 from wc_utils.util.chem import EmpiricalFormula
 import os.path
@@ -22,8 +23,8 @@ class ProteinTestCase(unittest.TestCase):
         shutil.rmtree(self.dirname)
 
     def test_protein_alphabet(self):
-        self.assertEqual(protein.protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9N1O2H11'))
-        self.assertEqual(protein.canonical_protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9N1O2H11'))
+        self.assertEqual(protein.protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H11NO'))
+        self.assertEqual(protein.canonical_protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H11NO'))
 
     def test_ProteinForm_init(self):
         protein.ProteinForm()
@@ -32,14 +33,19 @@ class ProteinTestCase(unittest.TestCase):
     def test_ProteinForm_properties(self):
         monomers = protein.canonical_protein_alphabet.monomers
         form = protein.CanonicalProteinForm().from_str('AAA')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('H2') * -2
+        self.assertEqual(form.get_formula(), EmpiricalFormula('O') * 3 + EmpiricalFormula('H2O') * -2
                          + monomers.A.get_formula()
                          + monomers.A.get_formula()
                          + monomers.A.get_formula())
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C9H17N3O4'))
         self.assertEqual(form.get_charge(), 3 * monomers.A.get_charge())
 
     def test_ProteinAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
+
         alphabet = protein.ProteinAlphabetBuilder().run(path=path)
-        self.assertEqual(alphabet.monomers.F.get_formula(), EmpiricalFormula('C9N1O2H11'))
+        self.assertEqual(alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H11NO'))
+
         self.assertTrue(os.path.isfile(path))
+        alphabet = Alphabet().from_yaml(path)
+        self.assertEqual(alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H11NO'))
