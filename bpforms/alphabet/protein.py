@@ -109,9 +109,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         names.append(part2)
                 name = ''.join(names)
                 id = re.split("[/.]", file)[3]
-                structure = self.get_monomer_structure(file)
+                structure = self.get_monomer_structure(name, file)
+            if not structure:
+                continue
 
-                code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
+            code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
 
             if code is None or code in alphabet.monomers:
                 code = id
@@ -145,10 +147,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return alphabet
 
-    def get_monomer_structure(self, pdb_filename):
+    def get_monomer_structure(self, name, pdb_filename):
         """ Get the structure of an amino acid from a PDB file
 
         Args:
+            name (:obj:`str`): monomer name
             pdb_filename (:obj:`str`): path to PDB file with structure
 
         Returns:
@@ -162,6 +165,15 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         conv.ReadFile(pdb_mol, pdb_filename)
         assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
         inchi = conv.WriteString(pdb_mol)
+
+        # removing modified monomers where metal present in structure because:
+        # - inchi structure generated separates each non covalently bound parts of the monomer
+        # - for many cases theses structures consist of a group of modified monomers coordinating
+        # a metal, and not a single PTM monomer per se
+        formula = inchi.split('/')[1]
+        if '.' in formula:
+            warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
+            return None
 
         # create molecule from InChI -- necessary to sanitize molecule from PDB
         inchi_mol = openbabel.OBMol()
