@@ -98,17 +98,16 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
         invalid_nucleobases = []
         for item in with_inchi.all():
-            if item.nameid:
-                row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
-                if row is None:
-                    chars = 'dNMP'
-                else:
-                    chars = row.Abbreviation
-                idx = 0
-                tmp = chars
-                while chars in alphabet.monomers:
-                    idx += 1
-                    chars = tmp+'_'+str(idx)
+            row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
+            if row is None:
+                chars = 'dNMP'
+            else:
+                chars = row.Abbreviation
+            idx = 0
+            tmp = chars
+            while chars in alphabet.monomers:
+                idx += 1
+                chars = tmp+'_'+str(idx)
 
             id = item.chebiname
 
@@ -124,8 +123,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                     synonyms.add(otherName[1:-1])
 
             identifiers = IdentifierSet()
-            if item.nameid:
-                identifiers.add(Identifier('chebi', item.nameid))
+            identifiers.add(Identifier('chebi', item.nameid))
 
             structure = item.inchi.strip('[]')
 
@@ -143,9 +141,8 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
             alphabet.monomers[chars] = monomer
 
-            if invalid_nucleobases:
-                warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
-                    '\n- '.join(invalid_nucleobases)), UserWarning)
+            warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
+                '\n- '.join(invalid_nucleobases)), UserWarning)
 
         return alphabet
 
