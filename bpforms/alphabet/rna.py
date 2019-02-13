@@ -20,11 +20,11 @@ import warnings
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna.yml'))
 rna_alphabet = Alphabet().from_yaml(filename)
-# :obj:`Alphabet`: Alphabet for RNA nucleotides
+# :obj:`Alphabet`: Alphabet for RNA nucleosides
 
 canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna.canonical.yml'))
 canonical_rna_alphabet = Alphabet().from_yaml(canonical_filename)
-# :obj:`Alphabet`: Alphabet for canonical RNA nucleotides
+# :obj:`Alphabet`: Alphabet for canonical RNA nucleosides
 
 
 class RnaAlphabetBuilder(AlphabetBuilder):
@@ -58,8 +58,8 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         # create canonical monomers
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'rna'
-        alphabet.name = 'MODOMICS RNA nucleotides'
-        alphabet.description = ('The four canonical RNA nucleotides, plus the modified RNA nucleotides in '
+        alphabet.name = 'MODOMICS RNA nucleosides'
+        alphabet.description = ('The four canonical RNA nucleosides, plus the modified RNA nucleosides in '
                                 '<a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>')
 
         # create requests session
@@ -119,7 +119,8 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if new_nomenclature:
                 identifiers.add(Identifier('modomics.new_nomenclature', new_nomenclature))
 
-            structure = self.get_modification_structure(id, session)
+            structure, more_identifiers = self.get_monomer_details(id, session)
+            identifiers.update(more_identifiers)
 
             if chars in alphabet.monomers:
                 warnings.warn('Ignoring canonical monomer {}'.format(chars), UserWarning)
@@ -137,7 +138,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         # return alphabet
         return alphabet
 
-    def get_modification_structure(self, id, session):
+    def get_monomer_details(self, id, session):
         """ Get the structure of a modified NMP in the MODOMICS database
 
         Args:
@@ -145,6 +146,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         Returns:
             :obj:`openbabel.OBMol`: structure
+            :obj:`IdentifierSet`: identifiers
         """
         response = session.get(self.ENTRY_ENDPOINT.format(id))
         response.raise_for_status()
@@ -153,22 +155,29 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         table = doc.find(id='modification_details')
         tbody = table.find('tbody')
-        tr = tbody.find_all('tr')[-1]
-        tds = tr.find_all('td')
-        assert tds[0].text.startswith('SMILES'), "Wrong cell retrieved to parse structure"
+        rows = tbody.find_all('tr')
+        mol = None
+        identifiers = IdentifierSet()
+        for row in rows:
+            cells = row.find_all('td')
+            if cells[0].text.startswith('SMILES'):
+                smiles = cells[1].text
+                if not smiles:
+                    continue
 
-        td = tds[1]
-        smiles = td.text
-        if not smiles:
-            return None
+                mol = openbabel.OBMol()
+                conv = openbabel.OBConversion()
+                assert conv.SetInFormat('smi')
+                if not conv.ReadString(mol, smiles):
+                    mol = None
+                    continue
 
-        mol = openbabel.OBMol()
-        conv = openbabel.OBConversion()
-        assert conv.SetInFormat('smi')
-        if not conv.ReadString(mol, smiles):
-            return None
+            elif cells[0].text.startswith('PubChem'):
+                link = cells[1].find('a')
+                if link:
+                    identifiers.add(Identifier('pubchem.compound', link.text))
 
-        return mol
+        return mol, identifiers
 
 
 class RnaForm(BpForm):
@@ -180,6 +189,7 @@ class RnaForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
         super(RnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=rna_alphabet,
+                                      backbone_formula=EmpiricalFormula('H-1O3P'), backbone_charge=-2,
                                       bond_formula=EmpiricalFormula('OH') * -1, bond_charge=1)
 
 
@@ -192,4 +202,5 @@ class CanonicalRnaForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
         super(CanonicalRnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_rna_alphabet,
+                                               backbone_formula=EmpiricalFormula('H-1O3P'), backbone_charge=-2,
                                                bond_formula=EmpiricalFormula('OH') * -1, bond_charge=1)

@@ -21,11 +21,11 @@ dna_mod_filename = pkg_resources.resource_filename('bpforms', os.path.join('alph
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.yml'))
 dna_alphabet = Alphabet().from_yaml(filename)
-# :obj:`Alphabet`: Alphabet for DNA nucleotides
+# :obj:`Alphabet`: Alphabet for DNA nucleobases
 
 canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.canonical.yml'))
 canonical_dna_alphabet = Alphabet().from_yaml(canonical_filename)
-# :obj:`Alphabet`: Alphabet for canonical DNA nucleotides
+# :obj:`Alphabet`: Alphabet for canonical DNA nucleobases
 
 engine = sqlalchemy.create_engine('sqlite:///' + dna_mod_filename)
 DeclarativeBase = declarative_base(engine)

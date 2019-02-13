@@ -107,9 +107,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         names.append(part2)
                 name = ''.join(names)
                 id = re.split("[/.]", file)[3]
-                structure = self.get_modification_structure(file)
+                structure = self.get_monomer_structure(file)
 
-                chebi_syn = self.get_modification_identifiers_synonyms(id, session)
+                chebi_syn = self.get_monomer_identifiers_synonyms(id, session)
 
                 synonyms = SynonymSet()
                 identifiers = IdentifierSet()
@@ -144,7 +144,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return alphabet
 
-    def get_modification_structure(self, input_pdb):
+    def get_monomer_structure(self, input_pdb):
         """ Get the structure of a modified AA from pdb structure
 
         Args:
@@ -164,7 +164,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return mol
 
-    def get_modification_identifiers_synonyms(self, id, session):
+    def get_monomer_identifiers_synonyms(self, id, session):
         """ Get the chebi ID and synonyms of a modified AA from pdb structure
 
         Args:

@@ -13,7 +13,7 @@ The following are valuable resources for reconstructing DNA, RNA, and protein mo
 
     * `Modomics <http://modomics.genesilico.pl/modifications/>`_: Databases of modified NMPs and modified RNA
     * `RMBase <http://rna.sysu.edu.cn/rmbase/>`_: Database of posttranscriptionally modified RNAs
-    * `RNA Modification Database <https://mods.rna.albany.edu/>`_: Database of posttranscriptionally modified RNA nucleotides
+    * `RNA Modification Database <https://mods.rna.albany.edu/>`_: Database of posttranscriptionally modified RNA nucleosides
 
 * Proteins
 
