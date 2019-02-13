@@ -21,6 +21,13 @@ class DnaTestCase(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.dirname)
 
+    def test_get_dnamod(self):
+        filename = os.path.join(self.dirname, 'dnamod.sqlite')
+        dna.get_dnamod(filename)
+        self.assertTrue(os.path.isfile(filename))
+
+        dna.get_dnamod(filename)
+
     def test_dna_alphabet(self):
         self.assertEqual(dna.dna_alphabet.monomers.A.get_formula(), EmpiricalFormula('C5H5N5'))
         self.assertEqual(dna.dna_alphabet.monomers.C.get_formula(), EmpiricalFormula('C4H5N3O'))

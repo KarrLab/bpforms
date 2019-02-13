@@ -19,10 +19,16 @@ import warnings
 
 
 dna_mod_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'DNAmod.sqlite'))
-if not os.path.isfile(dna_mod_filename):
-    response = requests.get('https://dnamod.hoffmanlab.org/DNAmod.sqlite')
-    with open(dna_mod_filename, 'wb') as file:
-        file.write(response.content)
+
+
+def get_dnamod(filename):
+    if not os.path.isfile(filename):
+        response = requests.get('https://dnamod.hoffmanlab.org/DNAmod.sqlite')
+        with open(filename, 'wb') as file:
+            file.write(response.content)
+
+
+get_dnamod(dna_mod_filename)
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.yml'))
 dna_alphabet = Alphabet().from_yaml(filename)
