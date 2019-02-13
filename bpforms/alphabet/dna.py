@@ -87,10 +87,10 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'dna'
         alphabet.name = 'DNAmod DNA nucleobases'
-        alphabet.description = ('The four canonical DNA nucleobases, plus the modified DNA nucleobases in '
+        alphabet.description = ('The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
                                 '<a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>')
 
-        # get individual modifications and create monomers
+        # get individual nucleobases and create monomers
         session = self.load_session()
         with_inchi = session.query(self.Names).filter(self.Names.inchi != '[]')
         if not math.isinf(self._max_monomers):

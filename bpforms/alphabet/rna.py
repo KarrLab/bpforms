@@ -59,7 +59,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'rna'
         alphabet.name = 'MODOMICS RNA nucleosides'
-        alphabet.description = ('The four canonical RNA nucleosides, plus the modified RNA nucleosides in '
+        alphabet.description = ('The four canonical RNA nucleosides, plus the non-canonical RNA nucleosides in '
                                 '<a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>')
 
         # create requests session
@@ -81,11 +81,11 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                     break
             orig_monomers[short_name] = monomer[i + 2]
 
-        # get index of modifications
+        # get index of nucleosides
         response = session.get(self.INDEX_ENDPOINT)
         response.raise_for_status()
 
-        # get individual modifications and create monomers
+        # get individual nucleosides and create monomers
         doc = bs4.BeautifulSoup(response.text, 'html.parser')
         table = doc.find('table', {'class': 'datagrid'})
         tbody = table.find('tbody')
@@ -147,10 +147,10 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         return alphabet
 
     def get_nucleoside_details(self, id, session):
-        """ Get the structure of a modified NMP in the MODOMICS database
+        """ Get the structure of a nucleoside in the MODOMICS database
 
         Args:
-            id (:obj:`str`): id of modification in MODOMICS database
+            id (:obj:`str`): id of nucleoside in MODOMICS database
 
         Returns:
             :obj:`openbabel.OBMol`: structure

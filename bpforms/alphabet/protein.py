@@ -60,7 +60,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'protein'
         alphabet.name = 'RESID protein amino acids'
-        alphabet.description = ('The 20 canonical amino acids, plus the modified amino acids in '
+        alphabet.description = ('The 20 canonical amino acids, plus the non-canonical amino acids in '
                                 '<a href="https://pir.georgetown.edu/resid">RESID</a>')
 
         # get amino acid names from canonical list
@@ -147,7 +147,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         return alphabet
 
     def get_monomer_structure(self, pdb_filename):
-        """ Get the structure of a modified AA from pdb structure
+        """ Get the structure of an amino acid from a PDB file
 
         Args:
             pdb_filename (:obj:`str`): path to PDB file with structure
@@ -173,7 +173,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         return inchi_mol
 
     def get_monomer_identifiers_synonyms(self, id, session):
-        """ Get the chebi ID and synonyms of a modified AA from pdb structure
+        """ Get the CHEBI ID and synonyms of an amino acid from its RESID webpage
 
         Args:
             input_pdb (:obj:`str`): id of RESID entry

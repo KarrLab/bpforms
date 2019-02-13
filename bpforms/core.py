@@ -1265,7 +1265,7 @@ class BpForm(object):
         return self.monomer_seq.get_monomer_counts()
 
     def protonate(self, ph):
-        """ Update to the major protonation state of each modification at the pH
+        """ Update to the major protonation state of each monomer at the pH
 
         Args:
             ph (:obj:`float`): pH
