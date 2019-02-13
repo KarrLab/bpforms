@@ -165,10 +165,6 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 if invalid_name in synonym:
                     return False
 
-        formula = monomer.get_formula()
-        if formula.N < 1:
-            return False
-
         return True
 
 
