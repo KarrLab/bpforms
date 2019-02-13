@@ -34,7 +34,16 @@ DeclarativeBase = declarative_base(engine)
 class DnaAlphabetBuilder(AlphabetBuilder):
     """ Build DNA alphabet from MODOMICS """
 
-    INVALID_NAMES = ['adenosine', 'cytidine', 'guanosine', 'uridine', 'side']
+    INVALID_NAMES = (
+        'adenosine', 'cytidine', 'guanosine', 'uridine', 'side',
+        'ribose', 'ribulose', 'phosphate',
+        'antelmycin', 'cytosylglucuronic acid', '1-(beta-D-xylopyranosyl)cytosine',
+        'telbivudine', 'stavudine', 'tenofovir',
+        '9-{2,5-anhydro-4-[(phosphonooxy)methyl]-alpha-L-lyxofuranosyl}-9H-purin-6-amine',
+        'oxetanocin',
+        'adefovir', '5-amino-6-(5-phospho-beta-D-ribosylamino)uracil',
+        "2'-deoxyinosine",
+    )
 
     class Names(DeclarativeBase):
         """"""
