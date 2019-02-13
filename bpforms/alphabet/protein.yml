@@ -175,7 +175,7 @@ monomers:
     - ns: metacyc.compound
       id: HIS
     - ns: pubchem.compound
-      id: '33032'
+      id: '6274'
     - ns: chebi
       id: CHEBI:15971
     - ns: resid
