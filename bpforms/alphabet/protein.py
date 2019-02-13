@@ -65,8 +65,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         # get amino acid names from canonical list
         canonical_aas = {}
-        for monomer in alphabet.monomers.keys():
-            canonical_aas[alphabet.monomers[monomer].name] = alphabet.monomers[monomer]
+        for monomer in alphabet.monomers.values():
+            canonical_aas[monomer.name] = monomer
 
         # create tmp directory
         tmp_folder = tempfile.mkdtemp()
@@ -93,6 +93,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         session.mount('http://', requests.adapters.HTTPAdapter(max_retries=self.MAX_RETRIES))
 
         # extract name of the molecule from pdb file
+        base_monomers = {}
+        monomer_ids = {}
         for file in glob.iglob(tmp_folder+'/*PDB'):
             with open(file, 'r') as f:
                 names = []
@@ -109,25 +111,13 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 id = re.split("[/.]", file)[3]
                 structure = self.get_monomer_structure(file)
 
-                chebi_syn = self.get_monomer_identifiers_synonyms(id, session)
+                code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
 
-                synonyms = SynonymSet()
-                identifiers = IdentifierSet()
-
-                if chebi_syn is not None:
-                    if chebi_syn[2][1:-1]:
-                        synonym = chebi_syn[2]
-                        for elm in synonym:
-                            synonyms.add(elm)
-
-                    if chebi_syn[0] != 0:
-                        chebi = chebi_syn[0]
-                        identifiers.add(Identifier('chebi', 'CHEBI:'+str(chebi)))
-
-                    if chebi_syn[1] != 0:
-                        identifiers.add(Identifier('PDBHET', chebi_syn[1]))
+            if code is None or code in alphabet.monomers:
+                code = id
 
             if name in canonical_aas:
+                monomer_ids[id] = canonical_aas[name]
                 canonical_aas[name].structure = structure
                 warnings.warn('Ignoring canonical monomer {}'.format(name), UserWarning)
                 continue
@@ -138,8 +128,17 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 synonyms=synonyms,
                 identifiers=identifiers,
                 structure=structure,
+                comments=comments,
             )
-            alphabet.monomers[id] = monomer
+            alphabet.monomers[code] = monomer
+
+            monomer_ids[id] = monomer
+            base_monomers[monomer] = base_monomer_ids
+
+        for monomer, base_monomer_ids in base_monomers.items():
+            for base_monomer_id in base_monomer_ids:
+                base_monomer = monomer_ids.get(base_monomer_id, None)
+                monomer.base_monomers.add(base_monomer)
 
         # remove tmp folder
         shutil.rmtree(tmp_folder)
@@ -172,47 +171,89 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return inchi_mol
 
-    def get_monomer_identifiers_synonyms(self, id, session):
+    def get_monomer_details(self, id, session):
         """ Get the CHEBI ID and synonyms of an amino acid from its RESID webpage
 
         Args:
             input_pdb (:obj:`str`): id of RESID entry
 
         Returns:
-            :obj: `list of :obj:`str`: list of synonyms
-            :obj: `int`: ChEBI id 
-            :obj: `str`: PDB HETATM name
+            :obj:`str`: code            
+            :obj:`SynonymSet`: set of synonyms
+            :obj:`IdentifierSet`: set of identifiers
+            :obj:`set` of :obj:`str`: ids of base monomers
+            :obj:`str`: comments
         """
 
         page = session.get('https://pir.georgetown.edu/cgi-bin/resid?id='+id)
         soup = BeautifulSoup(page.text, features="lxml")
 
-        element = soup.select('p.annot')
-        names = element[0].get_text()
-        cross_references = element[1].get_text()
+        paragraphs = soup.select('p.annot')
+        code = None
+        synonyms = SynonymSet()
+        identifiers = IdentifierSet()
+        base_monomer_ids = set()
+        comments = []
+        for paragraph in paragraphs:
+            text = paragraph.get_text()
 
-        # get synonyms
-        if 'Alternate names' in names:
-            l = re.split("[:;]", names.strip())[1:]
-            synonyms = list(map(lambda x: x.strip(), l))
+            # code
+            if 'Sequence code: ' in text and code is None:
+                _, _, code = text.partition('Sequence code: ')
+                code, _, _ = code.partition('#')
+                code, _, _ = code.partition('\n')
+                code = code.strip()
 
-        # get ChEBI id and HETATM name
-        i_chebi = 0
-        pdbhet = 0
-        if 'Cross-references' in cross_references:
-            l = re.split("[:;]", cross_references.strip())[1:]
-            l2 = list(map(lambda x: x.strip(), l))
-            if 'ChEBI' in l2:
-                i_chebi = int(l2[l2.index('ChEBI')+1])
-            else:
-                i_chebi = 0
+            # get synonyms
+            if 'Alternate names:' in text:
+                l = re.split("[:;]", text.strip())[1:]
+                synonyms.update(map(lambda x: x.strip(), l))
 
-            if 'PDBHET' in l2:
-                pdbhet = l2[l2.index('PDBHET')+1]
-            else:
-                pdbhet = 0
+            if 'Systematic name:' in text:
+                _, _, systematic_name = text.partition('Systematic name:')
+                systematic_name, _, _ = systematic_name.partition('\n')
+                synonyms.add(systematic_name.strip())
 
-            return i_chebi, pdbhet, synonyms
+            # ChEBI id and HETATM name
+            if 'Cross-references: ' in text:
+                l = re.split("[:;]", text.strip())[1:]
+                l2 = list(map(lambda x: x.strip(), l))
+                if 'CAS' in l2:
+                    identifiers.add(Identifier('cas', l2[l2.index('CAS')+1]))
+
+                if 'ChEBI' in l2:
+                    identifiers.add(Identifier('chebi', 'CHEBI:' + l2[l2.index('ChEBI')+1]))
+
+                if 'PDBHET' in l2:
+                    identifiers.add(Identifier('pdb.ligand', l2[l2.index('PDBHET')+1]))
+
+                if 'PSI-MOD' in l2:
+                    identifiers.add(Identifier('mod', 'MOD:' + l2[l2.index('PSI-MOD')+1]))
+
+                if 'GO' in l2:
+                    identifiers.add(Identifier('go', 'GO:' + l2[l2.index('GO')+1]))
+
+            # base amino acid
+            if 'Based on ' in text:
+                base_monomer_ids.update(text.partition('Based on ')[2].split('+'))
+
+            # comments
+            if 'Comment: ' in text:
+                comments.append(text.partition('Comment: ')[2].strip())
+
+            if 'Generating Enzyme:' in text:
+                _, _, comment = text.partition('Generating Enzyme:')
+                comment = comment.strip()
+                comment = 'Generating Enzyme: ' + comment
+                if comment[-1] != '.':
+                    comment += '.'
+                comments.append(comment)
+
+        if comments:
+            comments = ' '.join(comments)
+        else:
+            comments = None
+        return code, synonyms, identifiers, base_monomer_ids, comments
 
 
 class ProteinForm(BpForm):
