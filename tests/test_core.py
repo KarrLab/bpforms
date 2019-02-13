@@ -370,7 +370,7 @@ class MonomerTestCase(unittest.TestCase):
 
     def test_get_formula(self):
         monomer = core.Monomer(structure=dAMP_inchi)
-        self.assertEqual(monomer.get_formula(), EmpiricalFormula('C10H12N5O6P'))
+        self.assertEqual(monomer.get_formula(), EmpiricalFormula('C5H5N5'))
 
         with self.assertRaises(ValueError):
             monomer = core.Monomer()
@@ -381,18 +381,18 @@ class MonomerTestCase(unittest.TestCase):
         self.assertEqual(monomer.get_mol_wt(), None)
 
         monomer = core.Monomer(structure=dAMP_inchi)
-        self.assertEqual(monomer.get_mol_wt(), 329.208761998)
+        self.assertEqual(monomer.get_mol_wt(), 135.12999999999997)
 
         monomer.delta_mass = 1.
-        self.assertEqual(monomer.get_mol_wt(), 330.208761998)
+        self.assertEqual(monomer.get_mol_wt(), 136.12999999999997)
 
     def test_get_charge(self):
         monomer = core.Monomer(structure=dAMP_inchi)
-        self.assertEqual(monomer.get_charge(), -2)
+        self.assertEqual(monomer.get_charge(), 0)
 
         monomer = core.Monomer(structure=dAMP_inchi)
         monomer.delta_charge = 1
-        self.assertEqual(monomer.get_charge(), -1)
+        self.assertEqual(monomer.get_charge(), 1)
 
         with self.assertRaises(ValueError):
             monomer = core.Monomer()
@@ -546,7 +546,7 @@ class BpFormTestCase(unittest.TestCase):
         bp_form = core.BpForm()
 
         bp_form.alphabet = dna.canonical_dna_alphabet
-        self.assertEqual(len(bp_form.alphabet.monomers), 4)
+        self.assertEqual(len(bp_form.alphabet.monomers), 5)
 
         with self.assertRaises(ValueError):
             bp_form.alphabet = None

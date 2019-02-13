@@ -34,6 +34,8 @@ DeclarativeBase = declarative_base(engine)
 class DnaAlphabetBuilder(AlphabetBuilder):
     """ Build DNA alphabet from MODOMICS """
 
+    INVALID_NAMES = ['adenosine', 'cytidine', 'guanosine', 'uridine', 'side']
+
     class Names(DeclarativeBase):
         """"""
         __tablename__ = 'names'
@@ -85,6 +87,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         if not math.isinf(self._max_monomers):
             with_inchi = with_inchi.limit(self._max_monomers)
 
+        invalid_nucleobases = []
         for item in with_inchi.all():
             if item.nameid:
                 row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
@@ -117,16 +120,47 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
             structure = item.inchi.strip('[]')
 
-            alphabet.monomers[chars] = Monomer(
+            monomer = Monomer(
                 id=id,
                 name=name,
                 synonyms=synonyms,
                 identifiers=identifiers,
                 structure=structure,
-                # comments="Modification of {}.".format(mod['originating_base'])
             )
 
+            if not self.is_nucleobase_valid(monomer):
+                invalid_nucleobases.append(id)
+                continue
+
+            alphabet.monomers[chars] = monomer
+
+            if invalid_nucleobases:
+                warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
+                    '\n- '.join(invalid_nucleobases)), UserWarning)
+
         return alphabet
+
+    def is_nucleobase_valid(self, monomer):
+        """ Determine if monomer should be included in alphabet
+
+        Args:
+            monomer (:obj:`Monomer`): monomer
+
+        Returns:
+            :obj:`bool`: :obj:`True` if monomer should be included in alphabet
+        """
+        for invalid_name in self.INVALID_NAMES:
+            if invalid_name in monomer.name:
+                return False
+            for synonym in monomer.synonyms:
+                if invalid_name in synonym:
+                    return False
+
+        formula = monomer.get_formula()
+        if formula.N < 1:
+            return False
+
+        return True
 
 
 class DnaForm(BpForm):
@@ -138,6 +172,7 @@ class DnaForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
         super(DnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=dna_alphabet,
+                                      backbone_formula=EmpiricalFormula('C5H7O6P'), backbone_charge=-2,
                                       bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
 
 
@@ -150,4 +185,5 @@ class CanonicalDnaForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
         super(CanonicalDnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
+                                               backbone_formula=EmpiricalFormula('C5H7O6P'), backbone_charge=-2,
                                                bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)

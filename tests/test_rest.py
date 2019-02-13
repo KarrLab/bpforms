@@ -31,7 +31,7 @@ class RestTestCase(unittest.TestCase):
             'monomer_seq': 'ACGT',
             'length': 4,
             'formula': dict(EmpiricalFormula('C39H46N15O28P4')),
-            'mol_wt': 1296.769047992,
+            'mol_wt': 1296.7690479920002,
             'charge': -5,
         })
 

@@ -1,82 +1,73 @@
 id: dna
 name: DNAmod DNA nucleobases
-description: The four canonical DNA nucleobases, plus the modified DNA nucleobases in <a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>
+description: The four canonical DNA nucleobases, plus the modified DNA nucleobases
+  in <a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>
 monomers:
   A:
-    id: dAMP
-    name: 2'-deoxyadenosine 5'-monophosphate(2−)
+    id: adenine
+    name: adenine
     synonyms:
-    - dAMP dianion
-    - dAMP(2−)
+    - 6-aminopurine
     identifiers:
     - ns: metacyc.compound
-      id: DAMP
+      id: ADENINE
     - ns: chebi
-      id: CHEBI:58245
+      id: CHEBI:16708
     - ns: pubchem.compound
-      id: '22848660'
-    structure: InChI=1S/C10H14N5O6P/c11-9-8-10(13-3-12-9)15(4-14-8)7-1-5(16)6(21-7)2-20-22(17,18)19/h3-7,16H,1-2H2,(H2,11,12,13)(H2,17,18,19)/p-2/t5-,6+,7+/m0/s1
+      id: '190'
+    structure: InChI=1S/C5H5N5/c6-4-3-5(9-1-7-3)10-2-8-4/h1-2H,(H3,6,7,8,9,10)
   C:
-    id: dCMP
-    name: 2'-deoxycytidine 5'-monophosphate(2−)
+    id: cytosine
+    name: cytosine
     synonyms:
-    - dCMP dianion
-    - dCMP(2−)
+    - 4-amino-2-oxo-1,2-dihydropyrimidine
     identifiers:
-    - ns: chebi
-      id: CHEBI:57566
-    - ns: metacyc.compound
-      id: DCMP
     - ns: pubchem.compound
-      id: '7058169'
-    structure: InChI=1S/C9H14N3O7P/c10-7-1-2-12(9(14)11-7)8-3-5(13)6(19-8)4-18-20(15,16)17/h1-2,5-6,8,13H,3-4H2,(H2,10,11,14)(H2,15,16,17)/p-2/t5-,6+,8+/m0/s1
+      id: '597'
+    - ns: chebi
+      id: CHEBI:16040
+    - ns: metacyc.compound
+      id: CYTOSINE
+    structure: InChI=1S/C4H5N3O/c5-3-1-2-6-4(8)7-3/h1-2H,(H3,5,6,7,8)
   G:
-    id: dGMP
-    name: 2'-deoxyguanosine 5'-monophosphate(2−)
-    synonyms:
-    - dGMP dianion
-    - dGMP(2−)
+    id: guanine
+    name: guanine
     identifiers:
-    - ns: pubchem.compound
-      id: '6994968'
-    - ns: chebi
-      id: CHEBI:57673
     - ns: metacyc.compound
-      id: DGMP
-    structure: InChI=1S/C10H14N5O7P/c11-10-13-8-7(9(17)14-10)12-3-15(8)6-1-4(16)5(22-6)2-21-23(18,19)20/h3-6,16H,1-2H2,(H2,18,19,20)(H3,11,13,14,17)/p-2/t4-,5+,6+/m0/s1
+      id: GUANINE
+    - ns: pubchem.compound
+      id: '764'
+    - ns: chebi
+      id: CHEBI:16235
+    structure: InChI=1S/C5H5N5O/c6-5-9-3-2(4(11)10-5)7-1-8-3/h1H,(H4,6,7,8,9,10,11)
   T:
-    id: dTMP
-    name: 2'-deoxythymidine 5'-monophosphate(2−)
+    id: thymine
+    name: thymine
     synonyms:
-    - thymidine 5'-phosphate(2−)
-    - TMP dianion
-    - ribothymidine 5'-monophosphate anion
-    - thymidine 5'-phosphate
-    - TMP(2−)
-    - TMP
-    - dTMP(2−)
-    - thymidine 5'-monophosphate
+    - 5-methyl-2,4(1H,3H)-pyrimidinedione
+    - 5-methyluracil
     identifiers:
+    - ns: chebi
+      id: CHEBI:17821
     - ns: metacyc.compound
-      id: TMP
-    - ns: chebi
-      id: CHEBI:63528
+      id: THYMINE
     - ns: pubchem.compound
-      id: '16755631'
-    structure: InChI=1S/C10H15N2O8P/c1-5-3-12(10(15)11-9(5)14)8-2-6(13)7(20-8)4-19-21(16,17)18/h3,6-8,13H,2,4H2,1H3,(H,11,14,15)(H2,16,17,18)/p-2/t6-,7+,8+/m0/s1
-  dNMP:
-    id: 2'-deoxycytidine
-    name: 2'-deoxycytidine
+      id: '1135'
+    structure: InChI=1S/C5H6N2O2/c1-3-2-6-5(9)7-4(3)8/h2H,1H3,(H2,6,7,8,9)
+  dI:
+    id: hypoxanthine
+    name: hypoxanthine
     synonyms:
-    - dcyd
-    - deoxycytidine
-    - dc
-    - 4-amino-1-[(2r,4s,5r)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]pyrimidin-2(1h)-one
+    - deoxyinosine
     identifiers:
     - ns: chebi
-      id: CHEBI:15698
-    structure: InChI=1S/C9H13N3O4/c10-7-1-2-12(9(15)11-7)8-3-5(14)6(4-13)16-8/h1-2,5-6,8,13-14H,3-4H2,(H2,10,11,15)/t5-,6+,8+/m0/s1
-  dNMP_1:
+      id: CHEBI:17368
+    - ns: metacyc.compound
+      id: HYPOXANTHINE
+    - ns: pubchem.compound
+      id: '790'
+    structure: InChI=1S/C5H4N4O/c10-5-3-4(7-1-6-3)8-2-9-5/h1-2H,(H2,6,7,8,9,10)
+  dNMP:
     id: 4-amino-1-[2,5-anhydro-4-(hydroxymethyl)-alpha-L-lyxofuranosyl]-5-methylcytosine
     name: 4-amino-1-[2,5-anhydro-4-(hydroxymethyl)-alpha-L-lyxofuranosyl]-5-methylpyrimidin-2(1H)-one
     synonyms:
@@ -89,8 +80,8 @@ monomers:
     id: 2-O-methylcytosine
     name: 2-methoxypyrimidin-4-amine
     synonyms:
-    - 4-amino-2-methoxypyrimidine
     - o-2-methylcytosine
+    - 4-amino-2-methoxypyrimidine
     identifiers:
     - ns: chebi
       id: CHEBI:70854
@@ -122,16 +113,6 @@ monomers:
     - ns: chebi
       id: CHEBI:74029
     structure: InChI=1S/C6H9N3O/c1-2-9-5(7)3-4-8-6(9)10/h3-4H,2,7H2,1H3
-  dNMP_2:
-    id: 2'-deoxy-5,6-dihydroxy-5,6-dihydrocytidine
-    name: 2'-deoxy-5,6-dihydroxy-5,6-dihydrocytidine
-    synonyms:
-    - dc_glyc
-    - 2'-deoxycytidine glycol
-    identifiers:
-    - ns: chebi
-      id: CHEBI:132169
-    structure: InChI=1S/C9H15N3O6/c10-7-6(15)8(16)12(9(17)11-7)5-1-3(14)4(2-13)18-5/h3-6,8,13-16H,1-2H2,(H2,10,11,17)/t3-,4+,5+,6?,8?/m0/s1
   3mC:
     id: 3-methylcytosine
     name: 6-amino-1-methylpyrimidin-2(1H)-one
@@ -141,35 +122,19 @@ monomers:
     - ns: chebi
       id: CHEBI:39992
     structure: InChI=1S/C5H7N3O/c1-8-4(6)2-3-7-5(8)9/h2-3H,6H2,1H3
-  dNMP_3:
-    id: lamivudine
-    name: 4-amino-1-[(2R,5S)-2-(hydroxymethyl)-1,3-oxathiolan-5-yl]pyrimidin-2(1H)-one
-    synonyms:
-    - (-)-1-((2r,5s)-2-(hydroxymethyl)-1,3-oxathiolan-5-yl)cytosine
-    - (-)-2'-deoxy-3'-thiacytidine
-    - beta-l-3'-thia-2',3'-dideoxycytidine
-    - 3'-thia-2',3'-dideoxycytidine
-    - 3tc
-    - 2',3'-dideoxy-3'-thiacytidine
-    - beta-l-2',3'-dideoxy-3'-thiacytidine
-    - epivir
-    identifiers:
-    - ns: chebi
-      id: CHEBI:63577
-    structure: InChI=1S/C8H11N3O3S/c9-5-1-2-11(8(13)10-5)6-4-15-7(3-12)14-6/h1-2,6-7,12H,3-4H2,(H2,9,10,13)/t6-,7+/m0/s1
-  dNMP_4:
+  dNMP_1:
     id: antelmycin
     name: ''
     synonyms:
     - l 33876
-    - antelmicina
-    - antelmycine
-    - 1-n-(2-o-(3-amino-3-deoxy-beta-d-glucopyranosyl)-4-amino-4-deoxy-d-glycero-d-galacto-d-gluco-beta-d-undecapyranosyl)cytosine
-    - hikizimycin
     - anthelmycin
     - antibiotic 33876
-    - antelmycinum
+    - hikizimycin
     - nsc 337588
+    - antelmicina
+    - 1-n-(2-o-(3-amino-3-deoxy-beta-d-glucopyranosyl)-4-amino-4-deoxy-d-glycero-d-galacto-d-gluco-beta-d-undecapyranosyl)cytosine
+    - antelmycine
+    - antelmycinum
     identifiers:
     - ns: chebi
       id: CHEBI:88275
@@ -185,35 +150,17 @@ monomers:
     - ns: chebi
       id: CHEBI:76793
     structure: InChI=1S/C5H5N3O3/c6-3-2(4(9)10)1-7-5(11)8-3/h1H,(H,9,10)(H3,6,7,8,11)
-  dNMP_5:
-    id: cytidine
-    name: cytidine
-    synonyms:
-    - cytosine riboside
-    - cyd
-    - 4-amino-1beta-d-ribofuranosyl-2(1h)-pyrimidinone
-    - cytosine-1beta-d-ribofuranoside
-    - 1beta-d-ribofuranosylcytosine
-    - zytidin
-    - 4-amino-1-beta-d-ribofuranosylpyrimidin-2(1h)-one
-    - 4-amino-1-beta-d-ribofuranosyl-2(1h)-pyrimidinone
-    - 1-beta-d-ribofuranosylcytosine
-    - cytidin
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17562
-    structure: InChI=1S/C9H13N3O5/c10-5-1-2-12(9(16)11-5)8-7(15)6(14)4(3-13)17-8/h1-2,4,6-8,13-15H,3H2,(H2,10,11,16)/t4-,6-,7-,8-/m1/s1
-  dNMP_6:
+  dNMP_2:
     id: flucytosine
     name: 4-amino-5-fluoropyrimidin-2(1H)-one
     synonyms:
+    - 5-fluorocytosine
     - ancotil
     - flucytosinum
-    - 5-fc
-    - 5-fluorocytosine
-    - ancobon (tn)
     - flucytosina
+    - 5-fc
     - 5-fluorocystosine
+    - ancobon (tn)
     identifiers:
     - ns: chebi
       id: CHEBI:5100
@@ -238,24 +185,6 @@ monomers:
     - ns: chebi
       id: CHEBI:27551
     structure: InChI=1S/C5H7N3O/c1-3-2-7-5(9)8-4(3)6/h2H,1H3,(H3,6,7,8,9)
-  dNMP_7:
-    id: cytarabine
-    name: 4-amino-1-beta-D-arabinofuranosylpyrimidin-2(1H)-one
-    synonyms:
-    - 4-amino-1-beta-d-arabinofuranosyl-2(1h)-pyrimidinone
-    - arabinoside c
-    - citarabina
-    - cytosine arabinoside
-    - cytarabinum
-    - arabinocytosine
-    - 1-beta-d-arabinofuranosylcytosine
-    - cytosine-1-beta-d-arabinofuranoside
-    - cytosine-beta-d-arabinofuranoside
-    - ara-c
-    identifiers:
-    - ns: chebi
-      id: CHEBI:28680
-    structure: InChI=1S/C9H13N3O5/c10-5-1-2-12(9(16)11-5)8-7(15)6(14)4(3-13)17-8/h1-2,4,6-8,13-15H,3H2,(H2,10,11,16)/t4-,6-,7+,8-/m1/s1
   4mC:
     id: N(4)-methylcytosine
     name: 4-(methylamino)pyrimidin-2(1H)-one
@@ -266,19 +195,19 @@ monomers:
     - ns: chebi
       id: CHEBI:21839
     structure: InChI=1S/C5H7N3O/c1-6-4-2-3-7-5(9)8-4/h2-3H,1H3,(H2,6,7,8,9)
-  dNMP_8:
+  dNMP_3:
     id: cytosylglucuronic acid
     name: 4-amino-1-beta-D-glucopyranuronosylpyrimidin-2(1H)-one
     synonyms:
-    - pentopyranic acid
-    - 1-(beta-d-glucuronosyl)cytosine
-    - 1-(beta-d-glucopyranosyluronic acid)cytosine
     - cytosyl-beta-d-glucuronic acid
+    - pentopyranic acid
+    - 1-(beta-d-glucopyranosyluronic acid)cytosine
+    - 1-(beta-d-glucuronosyl)cytosine
     identifiers:
     - ns: chebi
       id: CHEBI:132133
     structure: InChI=1S/C10H13N3O7/c11-3-1-2-13(10(19)12-3)8-6(16)4(14)5(15)7(20-8)9(17)18/h1-2,4-8,14-16H,(H,17,18)(H2,11,12,19)/t4-,5-,6+,7-,8+/m0/s1
-  dNMP_9:
+  dNMP_4:
     id: 1-(beta-D-xylopyranosyl)cytosine
     name: 4-amino-1-beta-D-xylopyranosylpyrimidin-2(1H)-one
     synonyms:
@@ -295,382 +224,14 @@ monomers:
     - ns: chebi
       id: CHEBI:39624
     structure: InChI=1S/C5H7N3O/c1-8-3-2-4(6)7-5(8)9/h2-3H,1H3,(H2,6,7,9)
-  dNMP_10:
+  dNMP_5:
     id: cytosine glycol
     name: 4-amino-5,6-dihydroxy-5,6-dihydropyrimidin-2(1H)-one
     identifiers:
     - ns: chebi
       id: CHEBI:29127
     structure: InChI=1S/C4H7N3O3/c5-2-1(8)3(9)7-4(10)6-2/h1,3,8-9H,(H3,5,6,7,10)
-  dNMP_11:
-    id: 5-methyl-2'-deoxycytidine
-    name: 2'-deoxy-5-methylcytidine
-    synonyms:
-    - 5-methyldeoxycytidine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:47876
-    structure: InChI=1S/C10H15N3O4/c1-5-3-13(10(16)12-9(5)11)8-2-6(15)7(4-14)17-8/h3,6-8,14-15H,2,4H2,1H3,(H2,11,12,16)/t6-,7+,8+/m0/s1
-  5gmC:
-    id: 5-(beta-D-glucosylmethyl)cytosine
-    name: (4-amino-2-oxo-1,2-dihydropyrimidin-5-yl)methyl beta-D-glucopyranoside
-    synonyms:
-    - 5-gmc
-    - beta-glucosyl-5-hydroxymethylcytosine
-    - 5-glucosylmethylcytosine
-    - beta-d-glucosyl-5-hydroxymethylcytosine
-    - 5-beta-d-glucosylmethylcytosine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:131616
-    structure: InChI=1S/C11H17N3O7/c12-9-4(1-13-11(19)14-9)3-20-10-8(18)7(17)6(16)5(2-15)21-10/h1,5-8,10,15-18H,2-3H2,(H3,12,13,14,19)/t5-,6-,7+,8-,10-/m1/s1
-  dNMP_12:
-    id: 3'-CMP
-    name: 3'-cytidylic acid
-    synonyms:
-    - cytidine 3'-monophosphate
-    - cytidine 3'-phosphate
-    - 3'-cmp
-    - 3'-cytidylic acid
-    - cytidine-3'-monophosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:53013
-    structure: InChI=1S/C9H14N3O8P/c10-5-1-2-12(9(15)11-5)8-6(14)7(4(3-13)19-8)20-21(16,17)18/h1-2,4,6-8,13-14H,3H2,(H2,10,11,15)(H2,16,17,18)/t4-,6-,7-,8-/m1/s1
-  dNMP_13:
-    id: CDP-1-stearoyl-2-linoleoyl-sn-glycerol
-    name: 5'-O-[hydroxy({hydroxy[(2R)-2-{[(9Z,12Z)-octadeca-9,12-dienoyl]oxy}-3-(octadecanoyloxy)propoxy]phosphoryl}oxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-dg(18:0/18:2w6)
-    - cdp-dg(18:0/18:2)
-    - cdp-dg(18:0/18:2(9z,12z))
-    - 1-stearoyl-2-linoleoyl-sn-glycero-3-cytidine-5'-diphosphate
-    - cdp-diacylglycerol(18:0/18:2n6)
-    - 1-octadecanoyl-2-(9z,12z-octadecadienoyl)-sn-glycero-3-cytidine-5'-diphosphate
-    - cdp-dg(36:2)
-    - cdp-diacylglycerol(36:2)
-    - cdp-diacylglycerol(18:0/18:2w6)
-    - cdp-dg(18:0/18:2n6)
-    - 1-octadecanoyl-2-(9z,12z-octadecadienoyl)-sn-glycero-3-cdp
-    - cdp-diacylglycerol(18:0/18:2)
-    identifiers:
-    - ns: chebi
-      id: CHEBI:85838
-    structure: InChI=1S/C48H85N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-27-29-31-33-43(52)61-37-40(64-44(53)34-32-30-28-26-24-22-20-18-16-14-12-10-8-6-4-2)38-62-67(57,58)66-68(59,60)63-39-41-45(54)46(55)47(65-41)51-36-35-42(49)50-48(51)56/h12,14,18,20,35-36,40-41,45-47,54-55H,3-11,13,15-17,19,21-34,37-39H2,1-2H3,(H,57,58)(H,59,60)(H2,49,50,56)/b14-12-,20-18-/t40-,41-,45-,46-,47-/m1/s1
-  dNMP_14:
-    id: CDP-1,2-dilinoleoyl-sn-glycerol
-    name: 5'-O-[({[(2R)-2,3-bis{[(9Z,12Z)-octadeca-9,12-dienoyl]oxy}propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - 1,2-di-(9z,12z-octadecadienoyl)-sn-glycero-3-cytidine-5'-diphosphate
-    - cdp-dg(18:2(9z,12z)/18:2(9z,12z))
-    - cdp-dg(18:2/18:2)
-    identifiers:
-    - ns: chebi
-      id: CHEBI:85848
-    structure: InChI=1S/C48H81N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-27-29-31-33-43(52)61-37-40(64-44(53)34-32-30-28-26-24-22-20-18-16-14-12-10-8-6-4-2)38-62-67(57,58)66-68(59,60)63-39-41-45(54)46(55)47(65-41)51-36-35-42(49)50-48(51)56/h11-14,17-20,35-36,40-41,45-47,54-55H,3-10,15-16,21-34,37-39H2,1-2H3,(H,57,58)(H,59,60)(H2,49,50,56)/b13-11-,14-12-,19-17-,20-18-/t40-,41-,45-,46-,47-/m1/s1
-  dNMP_15:
-    id: 1,2-didodecanoyl-sn-glycero-3-cytidine 5'-diphosphate
-    name: 5'-O-[({[(2R)-2,3-bis(dodecanoyloxy)propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-1,2-dilauroyl-sn-glycerol
-    - cdp-1,2-dilauroylglycerol
-    - 1,2-didodecanoyl-sn-glycero-3-cytidine-5'-diphosphate
-    - 1,2-dilauroyl-sn-glycero-3-cytidine 5'-diphosphate
-    - cdp-1,2-didodecanoyl-sn-glycerol
-    - cdp-dg(12:0/12:0)
-    - cdp-1,2-didodecanoylglycerol
-    identifiers:
-    - ns: chebi
-      id: CHEBI:34046
-    structure: InChI=1S/C36H65N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-31(40)49-25-28(52-32(41)22-20-18-16-14-12-10-8-6-4-2)26-50-55(45,46)54-56(47,48)51-27-29-33(42)34(43)35(53-29)39-24-23-30(37)38-36(39)44/h23-24,28-29,33-35,42-43H,3-22,25-27H2,1-2H3,(H,45,46)(H,47,48)(H2,37,38,44)/t28-,29-,33-,34-,35-/m1/s1
-  dNMP_16:
-    id: CDP-dipalmitoyl-sn-glycerol
-    name: 5'-O-[({[(2R)-2,3-bis(hexadecanoyloxy)propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-dihexadecanoyl-sn-glycerol
-    - 1,2-dihexadecanoyl-sn-glycero-3-cdp
-    - cdp-diacylglycerol(32:0)
-    - cdp-dg(32:0)
-    - 1,2-dipalmitoyl-sn-glycero-3-cdp
-    - 1,2-dihexadecanoyl-sn-glycero-3-cytidine 5'-diphosphate
-    - cdp-1,2-dipalmitoylglycerol
-    - cdp-diacylglycerol(16:0/16:0)
-    - cdp-dg(16:0/16:0)
-    - 1,2-dipalmitoyl-sn-glycero-3-cytidine 5'-diphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:77358
-    structure: InChI=1S/C44H81N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-27-29-39(48)57-33-36(60-40(49)30-28-26-24-22-20-18-16-14-12-10-8-6-4-2)34-58-63(53,54)62-64(55,56)59-35-37-41(50)42(51)43(61-37)47-32-31-38(45)46-44(47)52/h31-32,36-37,41-43,50-51H,3-30,33-35H2,1-2H3,(H,53,54)(H,55,56)(H2,45,46,52)/t36-,37-,41-,42-,43-/m1/s1
-  dNMP_17:
-    id: CDP-1,2-dioleoyl-sn-glycerol
-    name: 5'-O-[({[(2R)-2,3-bis{[(9Z)-octadec-9-enoyl]oxy}propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - 1,2-di-(9z-octadecenoyl)-sn-glycero-3-cytidine-5'-diphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:85856
-    structure: InChI=1S/C48H85N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-27-29-31-33-43(52)61-37-40(64-44(53)34-32-30-28-26-24-22-20-18-16-14-12-10-8-6-4-2)38-62-67(57,58)66-68(59,60)63-39-41-45(54)46(55)47(65-41)51-36-35-42(49)50-48(51)56/h17-20,35-36,40-41,45-47,54-55H,3-16,21-34,37-39H2,1-2H3,(H,57,58)(H,59,60)(H2,49,50,56)/b19-17-,20-18-/t40-,41-,45-,46-,47-/m1/s1
-  dNMP_18:
-    id: 1,2-dioctadec-11-enoyl-sn-glycero-3-cytidine 5'-diphosphate
-    name: 5'-O-[{[{(2R)-2,3-bis[(octadec-11-enoyl)oxy]propoxy}(hydroxy)phosphoryl]oxy}(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-1,2-dioctadec-11-enoylglycerol
-    - cdp-dg(18:1/18:1)
-    - cdp-1,2-dioctadec-11-enoyl-sn-glycerol
-    identifiers:
-    - ns: chebi
-      id: CHEBI:104362
-    structure: InChI=1S/C48H85N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-27-29-31-33-43(52)61-37-40(64-44(53)34-32-30-28-26-24-22-20-18-16-14-12-10-8-6-4-2)38-62-67(57,58)66-68(59,60)63-39-41-45(54)46(55)47(65-41)51-36-35-42(49)50-48(51)56/h13-16,35-36,40-41,45-47,54-55H,3-12,17-34,37-39H2,1-2H3,(H,57,58)(H,59,60)(H2,49,50,56)/t40-,41-,45-,46-,47-/m1/s1
-  dNMP_19:
-    id: CDP-1-stearoyl-2-arachidonoyl-sn-glycerol
-    name: 5'-O-[hydroxy({hydroxy[(2R)-2-{[(5Z,8Z,11Z,14Z)-icosa-5,8,11,14-tetraenoyl]oxy}-3-(octadecanoyloxy)propoxy]phosphoryl}oxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-dg(38:4)
-    - cdp-dg(18:0/20:4n6)
-    - cdp-diacylglycerol(38:4)
-    - cdp-dg(18:0/20:4)
-    - 1-stearoyl-2-arachidonoyl-sn-glycero-3-cytidine-5'-diphosphate
-    - 1-octadecanoyl-2-(5z,8z,11z,14z-icosatetraenoyl)-sn-glycero-3-cytidine-5'-diphosphate
-    - cdp-diacylglycerol(18:0/20:4w6)
-    - 1-octadecanoyl-2-(5z,8z,11z,14z-eicosatetraenoyl)-sn-glycero-3-cdp
-    - cdp-1-octadecanoyl-2-(5z,8z,11z,14z-eicosatetraenoyl)-sn-glycerol
-    - cdp-dg(18:0/20:4w6)
-    - cdp-diacylglycerol(18:0/20:4n6)
-    - cdp-1-octadecanoyl-2-(5z,8z,11z,14z-icosatetraenoyl)-sn-glycerol
-    - cdp-diacylglycerol(18:0/20:4)
-    - 1-octadecanoyl-2-(5z,8z,11z,14z-eicosatetraenoyl)-sn-glycero-3-cytidine-5'-diphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:85829
-    structure: InChI=1S/C50H85N3O15P2/c1-3-5-7-9-11-13-15-17-19-20-22-24-26-28-30-32-34-36-46(55)66-42(39-63-45(54)35-33-31-29-27-25-23-21-18-16-14-12-10-8-6-4-2)40-64-69(59,60)68-70(61,62)65-41-43-47(56)48(57)49(67-43)53-38-37-44(51)52-50(53)58/h11,13,17,19,22,24,28,30,37-38,42-43,47-49,56-57H,3-10,12,14-16,18,20-21,23,25-27,29,31-36,39-41H2,1-2H3,(H,59,60)(H,61,62)(H2,51,52,58)/b13-11-,19-17-,24-22-,30-28-/t42-,43-,47-,48-,49-/m1/s1
-  dNMP_20:
-    id: CDP-1,2-diarachidonoyl-sn-glycerol
-    name: 5'-O-[({[(2R)-2,3-bis{[(5Z,8Z,11Z,14Z)-icosa-5,8,11,14-tetraenoyl]oxy}propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - 1,2-di-(5z,8z,11z,14z-eicosatetraenoyl)-sn-glycero-3-cytidine-5'-diphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:85835
-    structure: InChI=1S/C52H81N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-27-29-31-33-35-37-47(56)65-41-44(68-48(57)38-36-34-32-30-28-26-24-22-20-18-16-14-12-10-8-6-4-2)42-66-71(61,62)70-72(63,64)67-43-45-49(58)50(59)51(69-45)55-40-39-46(53)54-52(55)60/h11-14,17-20,23-26,29-32,39-40,44-45,49-51,58-59H,3-10,15-16,21-22,27-28,33-38,41-43H2,1-2H3,(H,61,62)(H,63,64)(H2,53,54,60)/b13-11-,14-12-,19-17-,20-18-,25-23-,26-24-,31-29-,32-30-/t44-,45-,49-,50-,51-/m1/s1
-  dNMP_21:
-    id: CDP-1-palmitoyl-2-arachidonoyl-sn-glycerol
-    name: 5'-O-[({[(2R)-3-(hexadecanoyloxy)-2-{[(5Z,8Z,11Z,14Z)-icosa-5,8,11,14-tetraenoyl]oxy}propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-dg(36:4)
-    - cdp-diacylglycerol(16:0/20:4n6)
-    - 1-hexadecanoyl-2-(5z,8z,11z,14z-icosatetraenoyl)-sn-glycero-3-cytidine-5'-diphosphate
-    - cdp-diacylglycerol(36:4)
-    - cdp-diacylglycerol(16:0/20:4w6)
-    - cdp-1-hexadecanoyl-2-(5z,8z,11z,14z-eicosatetraenoyl)-sn-glycerol
-    - cdp-dg(16:0/20:4n6)
-    - cdp-1-hexadecanoyl-2-(5z,8z,11z,14z-icosatetraenoyl)-sn-glycerol
-    - cdp-dg(16:0/20:4(5z,8z,11z,14z))
-    - cdp-dg(16:0/20:4)
-    - cdp-diacylglycerol(16:0/20:4)
-    - 1-hexadecanoyl-2-(5z,8z,11z,14z-eicosatetraenoyl)-sn-glycero-3-cytidine-5'-diphosphate
-    - cdp-dg(16:0/20:4w6)
-    - 1-palmitoyl-2-arachidonoyl-sn-glycero-3-cytidine-5'-diphosphate
-    - 1-hexadecanoyl-2-(5z,8z,11z,14z-eicosatetraenoyl)-sn-glycero-3-cdp
-    identifiers:
-    - ns: chebi
-      id: CHEBI:85830
-    structure: InChI=1S/C48H81N3O15P2/c1-3-5-7-9-11-13-15-17-18-19-20-22-24-26-28-30-32-34-44(53)64-40(37-61-43(52)33-31-29-27-25-23-21-16-14-12-10-8-6-4-2)38-62-67(57,58)66-68(59,60)63-39-41-45(54)46(55)47(65-41)51-36-35-42(49)50-48(51)56/h11,13,17-18,20,22,26,28,35-36,40-41,45-47,54-55H,3-10,12,14-16,19,21,23-25,27,29-34,37-39H2,1-2H3,(H,57,58)(H,59,60)(H2,49,50,56)/b13-11-,18-17-,22-20-,28-26-/t40-,41-,45-,46-,47-/m1/s1
-  dNMP_22:
-    id: CDP-1-stearoyl-2-(4Z,7Z,10Z,13Z,16Z,19Z)-docosahexaenoyl-sn-glycerol
-    name: 5'-O-[({[(2R)-2-{[(4Z,7Z,10Z,13Z,16Z,19Z)-docosa-4,7,10,13,16,19-hexaenoyl]oxy}-3-(octadecanoyloxy)propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-1-stearoyl-2-docosahexaenoyl-sn-glycerol
-    - cdp-dg(18:0/22:6w3)
-    - cdp-1-octadecanoyl-2-(4z,7z,10z,13z,16z,19z)-docosahexaenoyl-sn-glycerol
-    - cdp-dg(18:0/22:6(4z,7z,10z,13z,16z,19z))
-    - cdp-diacylglycerol(18:0/22:6)
-    - cdp-dg(18:0/22:6)
-    - cdp-diacylglycerol(40:6)
-    - cdp-diacylglycerol(18:0/22:6w3)
-    - cdp-dg(40:6)
-    - 1-octadecanoyl-2-(4z,7z,10z,13z,16z,19z-docosahexaenoyl)-sn-glycero-3-cdp
-    - 1-stearoyl-2-docosahexaenoyl-sn-glycero-3-cytidine-5'-diphosphate
-    - cdp-dg(18:0/22:6n3)
-    - cdp-diacylglycerol(18:0/22:6n3)
-    identifiers:
-    - ns: chebi
-      id: CHEBI:85846
-    structure: InChI=1S/C52H85N3O15P2/c1-3-5-7-9-11-13-15-17-19-20-21-22-24-26-28-30-32-34-36-38-48(57)68-44(41-65-47(56)37-35-33-31-29-27-25-23-18-16-14-12-10-8-6-4-2)42-66-71(61,62)70-72(63,64)67-43-45-49(58)50(59)51(69-45)55-40-39-46(53)54-52(55)60/h5,7,11,13,17,19,21-22,26,28,32,34,39-40,44-45,49-51,58-59H,3-4,6,8-10,12,14-16,18,20,23-25,27,29-31,33,35-38,41-43H2,1-2H3,(H,61,62)(H,63,64)(H2,53,54,60)/b7-5-,13-11-,19-17-,22-21-,28-26-,34-32-/t44-,45-,49-,50-,51-/m1/s1
-  dNMP_23:
-    id: 1,2-dihexadec-9-enoyl-sn-glycero-3-cytidine 5'-diphosphate
-    name: 5'-O-[{[{(2R)-2,3-bis[(hexadec-9-enoyl)oxy]propoxy}(hydroxy)phosphoryl]oxy}(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-1,2-dihexadec-9-enoyl-sn-glycerol
-    - cdp-dg(16:1/16:1)
-    - cdp-1,2-dihexadec-9-enoylglycerol
-    identifiers:
-    - ns: chebi
-      id: CHEBI:104012
-    structure: InChI=1S/C44H77N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-27-29-39(48)57-33-36(60-40(49)30-28-26-24-22-20-18-16-14-12-10-8-6-4-2)34-58-63(53,54)62-64(55,56)59-35-37-41(50)42(51)43(61-37)47-32-31-38(45)46-44(47)52/h13-16,31-32,36-37,41-43,50-51H,3-12,17-30,33-35H2,1-2H3,(H,53,54)(H,55,56)(H2,45,46,52)/t36-,37-,41-,42-,43-/m1/s1
-  dNMP_24:
-    id: 1,2-ditetradecanoyl-sn-glycero-3-cytidine 5'-diphosphate
-    name: 5'-O-[({[(2R)-2,3-bis(tetradecanoyloxy)propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-1,2-ditetradecanoylglycerol
-    - cdp-1,2-ditetradecanoyl-sn-glycerol
-    - cdp-dg(14:0/14:0)
-    - cdp-1,2-dimyristoylglycerol
-    - cdp-1,2-dimyristoyl-sn-glycerol
-    - 1,2-dimyristoyl-sn-glycero-3-cytidine 5'-diphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:103211
-    structure: InChI=1S/C40H73N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-35(44)53-29-32(56-36(45)26-24-22-20-18-16-14-12-10-8-6-4-2)30-54-59(49,50)58-60(51,52)55-31-33-37(46)38(47)39(57-33)43-28-27-34(41)42-40(43)48/h27-28,32-33,37-39,46-47H,3-26,29-31H2,1-2H3,(H,49,50)(H,51,52)(H2,41,42,48)/t32-,33-,37-,38-,39-/m1/s1
-  dNMP_25:
-    id: 1,2-ditetradec-7-enoyl-sn-glycero-3-cytidine 5'-diphosphate
-    name: 5'-O-[{[{(2R)-2,3-bis[(tetradec-9-enoyl)oxy]propoxy}(hydroxy)phosphoryl]oxy}(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-1,2-ditetradec-7-enoyl-sn-glycerol
-    - cdp-1,2-ditetradec-7-enoylglycerol
-    - cdp-dg(14:1/14:1)
-    identifiers:
-    - ns: chebi
-      id: CHEBI:103990
-    structure: InChI=1S/C40H69N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-35(44)53-29-32(56-36(45)26-24-22-20-18-16-14-12-10-8-6-4-2)30-54-59(49,50)58-60(51,52)55-31-33-37(46)38(47)39(57-33)43-28-27-34(41)42-40(43)48/h13-16,27-28,32-33,37-39,46-47H,3-12,17-26,29-31H2,1-2H3,(H,49,50)(H,51,52)(H2,41,42,48)/t32-,33-,37-,38-,39-/m1/s1
-  dNMP_26:
-    id: CDP-1-stearoyl-2-oleoyl-sn-glycerol
-    name: 5'-O-[hydroxy({hydroxy[(2R)-3-(octadecanoyloxy)-2-{[(9Z)-octadec-9-enoyl]oxy}propoxy]phosphoryl}oxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-dg(18:0/18:1(9z))
-    - cdp-dg(18:0/18:1n9)
-    - cdp-dg(18:0/18:1)
-    - cdp-diacylglycerol(18:0/18:1n9)
-    - cdp-diacylglycerol(18:0/18:1w9)
-    - cdp-dg(36:1)
-    - cdp-dg(18:0/18:1w9)
-    - cdp-diacylglycerol(18:0/18:1)
-    - cdp-diacylglycerol(36:1)
-    - 1-octadecanoyl-2-(9z-octadecenoyl)-sn-glycero-3-cytidine-5'-diphosphate
-    - 1-stearoyl-2-oleoyl-sn-glycero-3-cytidine-5'-diphosphate
-    - 1-octadecanoyl-2-(9z-octadecenoyl)-sn-glycero-3-cdp
-    identifiers:
-    - ns: chebi
-      id: CHEBI:85841
-    structure: InChI=1S/C48H87N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-27-29-31-33-43(52)61-37-40(64-44(53)34-32-30-28-26-24-22-20-18-16-14-12-10-8-6-4-2)38-62-67(57,58)66-68(59,60)63-39-41-45(54)46(55)47(65-41)51-36-35-42(49)50-48(51)56/h18,20,35-36,40-41,45-47,54-55H,3-17,19,21-34,37-39H2,1-2H3,(H,57,58)(H,59,60)(H2,49,50,56)/b20-18-/t40-,41-,45-,46-,47-/m1/s1
-  dNMP_27:
-    id: 1,2-dioctadecanoyl-sn-glycero-3-cytidine 5'-diphosphate
-    name: 5'-O-[({[(2R)-2,3-bis(octadecanoyloxy)propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-1,2-distearoyl-sn-glycerol
-    - cdp-dg(36:0)
-    - cdp-diacylglycerol(36:0)
-    - cdp-dg(18:0/18:0)
-    - 1,2-distearoyl-sn-glycero-3-cytidine 5'-diphosphate
-    - cdp-diacylglycerol(18:0/18:0)
-    - cdp-1,2-dioctadecanoylglycerol
-    - cdp-1,2-distearoylglycerol
-    - cdp-1,2-dioctadecanoyl-sn-glycerol
-    identifiers:
-    - ns: chebi
-      id: CHEBI:104121
-    structure: InChI=1S/C48H89N3O15P2/c1-3-5-7-9-11-13-15-17-19-21-23-25-27-29-31-33-43(52)61-37-40(64-44(53)34-32-30-28-26-24-22-20-18-16-14-12-10-8-6-4-2)38-62-67(57,58)66-68(59,60)63-39-41-45(54)46(55)47(65-41)51-36-35-42(49)50-48(51)56/h35-36,40-41,45-47,54-55H,3-34,37-39H2,1-2H3,(H,57,58)(H,59,60)(H2,49,50,56)/t40-,41-,45-,46-,47-/m1/s1
-  dNMP_28:
-    id: CDP-2,3-bis-(O-phytanyl)-sn-glycerol
-    name: 5'-O-[({[(2S)-2,3-bis{[(3R,7R,11R)-3,7,11,15-tetramethylhexadecyl]oxy}propoxy](hydroxy)phosphoryl}oxy)(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-archaeol
-    identifiers:
-    - ns: chebi
-      id: CHEBI:74050
-    structure: InChI=1S/C52H101N3O13P2/c1-38(2)17-11-19-40(5)21-13-23-42(7)25-15-27-44(9)30-33-63-35-46(64-34-31-45(10)28-16-26-43(8)24-14-22-41(6)20-12-18-39(3)4)36-65-69(59,60)68-70(61,62)66-37-47-49(56)50(57)51(67-47)55-32-29-48(53)54-52(55)58/h29,32,38-47,49-51,56-57H,11-28,30-31,33-37H2,1-10H3,(H,59,60)(H,61,62)(H2,53,54,58)/t40-,41-,42-,43-,44-,45-,46+,47-,49-,50-,51-/m1/s1
-  dNMP_29:
-    id: CDP-4-dehydro-3,6-dideoxy-alpha-D-glucose
-    name: cytidine 5'-[3-(3,6-dideoxy-alpha-D-erythro-hexopyranosyl-4-ulose) dihydrogen
-      diphosphate]
-    synonyms:
-    - cdp-3,6-dideoxy-d-erythro-hexos-4-ulose
-    - cytidine diphosphate-4-keto-3,6-dideoxyglucose
-    - cdp-4-dehydro-3,6-dideoxy-d-glucose
-    identifiers:
-    - ns: chebi
-      id: CHEBI:70800
-    structure: InChI=1S/C15H23N3O14P2/c1-6-7(19)4-8(20)14(29-6)31-34(26,27)32-33(24,25)28-5-9-11(21)12(22)13(30-9)18-3-2-10(16)17-15(18)23/h2-3,6,8-9,11-14,20-22H,4-5H2,1H3,(H,24,25)(H,26,27)(H2,16,17,23)/t6-,8-,9-,11-,12-,13-,14-/m1/s1
-  dNMP_30:
-    id: CDP-3,6-dideoxy-alpha-D-glucose
-    name: cytidine 5'-[3-(3,6-dideoxy-alpha-D-ribo-hexopyranosyl) dihydrogen diphosphate]
-    synonyms:
-    - cdp-alpha-d-paratose
-    - cdp-3,6-dideoxy-d-glucose
-    - cdp-3,6-dideoxy-alpha-d-ribo-hexose
-    - cdpparatose
-    identifiers:
-    - ns: chebi
-      id: CHEBI:70802
-    structure: InChI=1S/C15H25N3O14P2/c1-6-7(19)4-8(20)14(29-6)31-34(26,27)32-33(24,25)28-5-9-11(21)12(22)13(30-9)18-3-2-10(16)17-15(18)23/h2-3,6-9,11-14,19-22H,4-5H2,1H3,(H,24,25)(H,26,27)(H2,16,17,23)/t6-,7+,8-,9-,11-,12-,13-,14-/m1/s1
-  dNMP_31:
-    id: CDP-4-dehydro-6-deoxy-alpha-D-glucose
-    name: cytidine 5'-[3-(6-deoxy-alpha-D-xylo-hexopyranosyl-4-ulose) dihydrogen diphosphate]
-    synonyms:
-    - cdp-4-dehydro-6-deoxy-d-glucose
-    identifiers:
-    - ns: chebi
-      id: CHEBI:139396
-    structure: InChI=1S/C15H23N3O15P2/c1-5-8(19)10(21)12(23)14(30-5)32-35(27,28)33-34(25,26)29-4-6-9(20)11(22)13(31-6)18-3-2-7(16)17-15(18)24/h2-3,5-6,9-14,20-23H,4H2,1H3,(H,25,26)(H,27,28)(H2,16,17,24)/t5-,6-,9-,10+,11-,12-,13-,14-/m1/s1
-  dNMP_32:
-    id: CDP-4-dehydro-3,6-dideoxy-D-glucose
-    name: cytidine 5'-[3-(3,6-dideoxy-D-erythro-hexopyranosyl-4-ulose) dihydrogen
-      diphosphate]
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17817
-    structure: InChI=1S/C15H23N3O14P2/c1-6-7(19)4-8(20)14(29-6)31-34(26,27)32-33(24,25)28-5-9-11(21)12(22)13(30-9)18-3-2-10(16)17-15(18)23/h2-3,6,8-9,11-14,20-22H,4-5H2,1H3,(H,24,25)(H,26,27)(H2,16,17,23)/t6-,8-,9-,11-,12-,13-,14?/m1/s1
-  dNMP_33:
-    id: CDP-alpha-D-glucose
-    name: cytidine 5'-[3-(alpha-D-glucopyranosyl) dihydrogen diphosphate]
-    synonyms:
-    - cdp-glc
-    - cdp-d-glucose
-    identifiers:
-    - ns: chebi
-      id: CHEBI:28942
-    structure: InChI=1S/C15H25N3O16P2/c16-7-1-2-18(15(25)17-7)13-11(23)9(21)6(31-13)4-30-35(26,27)34-36(28,29)33-14-12(24)10(22)8(20)5(3-19)32-14/h1-2,5-6,8-14,19-24H,3-4H2,(H,26,27)(H,28,29)(H2,16,17,25)/t5-,6-,8-,9-,10+,11-,12-,13-,14-/m1/s1
-  dNMP_34:
-    id: CDP-4-dehydro-6-deoxy-D-glucose
-    name: cytidine 5'-[3-(6-deoxy-D-xylo-hexopyranosyl-4-ulose) dihydrogen diphosphate]
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17494
-    structure: InChI=1S/C15H23N3O15P2/c1-5-8(19)10(21)12(23)14(30-5)32-35(27,28)33-34(25,26)29-4-6-9(20)11(22)13(31-6)18-3-2-7(16)17-15(18)24/h2-3,5-6,9-14,20-23H,4H2,1H3,(H,25,26)(H,27,28)(H2,16,17,24)/t5-,6-,9-,10+,11-,12-,13-,14?/m1/s1
-  dNMP_35:
-    id: CDP-3,6-dideoxy-D-glucose
-    name: cytidine 5'-[3-(3,6-dideoxy-D-ribo-hexopyranosyl) dihydrogen diphosphate]
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17338
-    structure: InChI=1S/C15H25N3O14P2/c1-6-7(19)4-8(20)14(29-6)31-34(26,27)32-33(24,25)28-5-9-11(21)12(22)13(30-9)18-3-2-10(16)17-15(18)23/h2-3,6-9,11-14,19-22H,4-5H2,1H3,(H,24,25)(H,26,27)(H2,16,17,23)/t6-,7+,8-,9-,11-,12-,13-,14?/m1/s1
-  dNMP_36:
-    id: CDP-3,6-dideoxy-alpha-D-mannose
-    name: cytidine 5'-[3-(3,6-dideoxy-alpha-D-arabino-hexopyranosyl) dihydrogen diphosphate]
-    synonyms:
-    - cdp-alpha-d-tyvelose
-    - cdp-tyvelose
-    - cytidylyldiphosphate-d-tyvelose
-    - cdp-3,6-dideoxy-d-arabino-hexose
-    - cdp-3,6-dideoxy-d-mannose
-    identifiers:
-    - ns: chebi
-      id: CHEBI:88237
-    structure: InChI=1S/C15H25N3O14P2/c1-6-7(19)4-8(20)14(29-6)31-34(26,27)32-33(24,25)28-5-9-11(21)12(22)13(30-9)18-3-2-10(16)17-15(18)23/h2-3,6-9,11-14,19-22H,4-5H2,1H3,(H,24,25)(H,26,27)(H2,16,17,23)/t6-,7+,8+,9-,11-,12-,13-,14-/m1/s1
-  dNMP_37:
-    id: CDP-alpha-D-abequose
-    name: cytidine 5'-[3-(3,6-dideoxy-alpha-D-xylo-hexopyranosyl) dihydrogen diphosphate]
-    identifiers:
-    - ns: chebi
-      id: CHEBI:70799
-    structure: InChI=1S/C15H25N3O14P2/c1-6-7(19)4-8(20)14(29-6)31-34(26,27)32-33(24,25)28-5-9-11(21)12(22)13(30-9)18-3-2-10(16)17-15(18)23/h2-3,6-9,11-14,19-22H,4-5H2,1H3,(H,24,25)(H,26,27)(H2,16,17,23)/t6-,7-,8-,9-,11-,12-,13-,14-/m1/s1
-  dNMP_38:
-    id: CDP-abequose
-    name: cytidine 5'-[3-(3,6-dideoxy-D-xylo-hexopyranosyl) dihydrogen diphosphate]
-    identifiers:
-    - ns: chebi
-      id: CHEBI:16049
-    structure: InChI=1S/C15H25N3O14P2/c1-6-7(19)4-8(20)14(29-6)31-34(26,27)32-33(24,25)28-5-9-11(21)12(22)13(30-9)18-3-2-10(16)17-15(18)23/h2-3,6-9,11-14,19-22H,4-5H2,1H3,(H,24,25)(H,26,27)(H2,16,17,23)/t6-,7-,8-,9-,11-,12-,13-,14?/m1/s1
-  dNMP_39:
+  dNMP_6:
     id: CDP-D-ribose
     name: ''
     synonyms:
@@ -680,342 +241,24 @@ monomers:
     - ns: chebi
       id: CHEBI:138225
     structure: InChI=1S/C14H23N3O15P2/c15-9-1-2-17(14(24)16-9)13-12(23)11(22)8(31-13)5-30-34(27,28)32-33(25,26)29-4-7(20)10(21)6(19)3-18/h1-3,6-8,10-13,19-23H,4-5H2,(H,25,26)(H,27,28)(H2,15,16,24)/t6-,7+,8+,10-,11+,12+,13+/m0/s1
-  dNMP_40:
+  dNMP_7:
     id: CDP-D-ribulose
     name: ''
     identifiers:
     - ns: chebi
       id: CHEBI:138221
     structure: InChI=1S/C14H23N3O15P2/c15-9-1-2-17(14(24)16-9)13-12(23)11(22)8(31-13)5-30-34(27,28)32-33(25,26)29-4-7(20)10(21)6(19)3-18/h1-2,7-8,10-13,18,20-23H,3-5H2,(H,25,26)(H,27,28)(H2,15,16,24)/t7-,8-,10+,11-,12-,13-/m1/s1
-  dNMP_41:
-    id: CDP-3,6-dideoxy-D-mannose
-    name: cytidine 5'-[3-(3,6-dideoxy-D-arabino-hexopyranosyl) dihydrogen diphosphate]
-    synonyms:
-    - cdp-tyvelose
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17259
-    structure: InChI=1S/C15H25N3O14P2/c1-6-7(19)4-8(20)14(29-6)31-34(26,27)32-33(24,25)28-5-9-11(21)12(22)13(30-9)18-3-2-10(16)17-15(18)23/h2-3,6-9,11-14,19-22H,4-5H2,1H3,(H,24,25)(H,26,27)(H2,16,17,23)/t6-,7+,8+,9-,11-,12-,13-,14?/m1/s1
-  dNMP_42:
-    id: CDP-D-glucose
-    name: cytidine 5'-[3-(D-glucopyranosyl) dihydrogen diphosphate]
-    identifiers:
-    - ns: chebi
-      id: CHEBI:35242
-    structure: InChI=1S/C15H25N3O16P2/c16-7-1-2-18(15(25)17-7)13-11(23)9(21)6(31-13)4-30-35(26,27)34-36(28,29)33-14-12(24)10(22)8(20)5(3-19)32-14/h1-2,5-6,8-14,19-24H,3-4H2,(H,26,27)(H,28,29)(H2,16,17,25)/t5-,6-,8-,9-,10+,11-,12-,13-,14?/m1/s1
-  dNMP_43:
-    id: CDP-1L-myo-inositol
-    name: 5'-O-{hydroxy[(hydroxy{[(1R,2S,3R,4R,5S,6S)-2,3,4,5,6-pentahydroxycyclohexyl]oxy}phosphoryl)oxy]phosphoryl}cytidine
-    synonyms:
-    - cdp-3d-myo-inositol
-    identifiers:
-    - ns: chebi
-      id: CHEBI:62566
-    structure: InChI=1S/C15H25N3O16P2/c16-5-1-2-18(15(26)17-5)14-12(25)6(19)4(32-14)3-31-35(27,28)34-36(29,30)33-13-10(23)8(21)7(20)9(22)11(13)24/h1-2,4,6-14,19-25H,3H2,(H,27,28)(H,29,30)(H2,16,17,26)/t4-,6-,7-,8-,9+,10+,11+,12-,13-,14-/m1/s1
-  dNMP_44:
-    id: CDP-choline
-    name: 5'-O-[hydroxy({[2-(trimethylammonio)ethoxy]phosphinato}oxy)phosphoryl]cytidine
-    synonyms:
-    - "[2-cytidylate-o'-phosphonyloxyl]-ethyl-trimethyl-ammonium"
-    - cytidine 5'-diphosphoric choline
-    - cytidindiphosphocholin
-    - cyticholine
-    - citicolinum
-    - cytidine 5'-(cholinyl pyrophosphate)
-    - citicoline
-    - citidin difosfato de colina
-    - cytidine 5'-diphosphocholine
-    - citicolina
-    - cytidine 5'-(choline diphosphate)
-    - cdp-colina
-    identifiers:
-    - ns: chebi
-      id: CHEBI:16436
-    structure: InChI=1S/C14H26N4O11P2/c1-18(2,3)6-7-26-30(22,23)29-31(24,25)27-8-9-11(19)12(20)13(28-9)17-5-4-10(15)16-14(17)21/h4-5,9,11-13,19-20H,6-8H2,1-3H3,(H3-,15,16,21,22,23,24,25)/t9-,11-,12-,13-/m1/s1
-  dNMP_45:
-    id: CDP-2,3-bis-O-(geranylgeranyl)-sn-glycerol
-    name: 5'-O-[{[{[(2S)-2,3-bis{[(2E,6E,10E)-3,7,11,15-tetramethylhexadeca-2,6,10,14-tetraen-1-yl]oxy}propyl]oxy}(hydroxy)phosphoryl]oxy}(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - cdp-2,3-digeranylgeranyl sn-g-1-p
-    identifiers:
-    - ns: chebi
-      id: CHEBI:50726
-    structure: InChI=1S/C52H85N3O13P2/c1-38(2)17-11-19-40(5)21-13-23-42(7)25-15-27-44(9)30-33-63-35-46(64-34-31-45(10)28-16-26-43(8)24-14-22-41(6)20-12-18-39(3)4)36-65-69(59,60)68-70(61,62)66-37-47-49(56)50(57)51(67-47)55-32-29-48(53)54-52(55)58/h17-18,21-22,25-26,29-32,46-47,49-51,56-57H,11-16,19-20,23-24,27-28,33-37H2,1-10H3,(H,59,60)(H,61,62)(H2,53,54,58)/b40-21+,41-22+,42-25+,43-26+,44-30+,45-31+/t46-,47+,49+,50+,51+/m0/s1
-  dNMP_46:
-    id: dCDP
-    name: 2'-deoxycytidine 5'-(trihydrogen diphosphate)
-    synonyms:
-    - d-1beta-ribofuranosylcytosine diphosphate
-    - 2'-deoxycytidine 5'-diphosphate
-    - dcdp
-    - deoxycytidine diphosphate
-    - 2'-deoxycytidine diphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:28846
-    structure: InChI=1S/C9H15N3O10P2/c10-7-1-2-12(9(14)11-7)8-3-5(13)6(21-8)4-20-24(18,19)22-23(15,16)17/h1-2,5-6,8,13H,3-4H2,(H,18,19)(H2,10,11,14)(H2,15,16,17)/t5-,6+,8+/m0/s1
-  dNMP_47:
-    id: 2'-deoxy-5-hydroxymethyl-CDP
-    name: 2'-deoxy-5-(hydroxymethyl)cytidine 5'-(trihydrogen diphosphate)
-    synonyms:
-    - diphosphoric acid mono-(5-hydroxymethyl-2'-deoxy-cytidin-5'-yl ester)
-    - 2'-deoxy-5-hydroxymethylcytidine-5'-diphosphate
-    - 2'-deoxy-5-hydroxymethylcytidine 5'-diphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:835
-    structure: InChI=1S/C10H17N3O11P2/c11-9-5(3-14)2-13(10(16)12-9)8-1-6(15)7(23-8)4-22-26(20,21)24-25(17,18)19/h2,6-8,14-15H,1,3-4H2,(H,20,21)(H2,11,12,16)(H2,17,18,19)/t6-,7+,8+/m0/s1
-  dNMP_48:
-    id: CMP-N-acetyl-beta-neuraminic acid
-    name: cytidine 5'-(5-acetamido-3,5-dideoxy-D-glycero-beta-D-galacto-non-2-ulopyranosylonic
-      acid monophosphate)
-    synonyms:
-    - cmp-sialic acid
-    - cytidine monophosphate n-acetylneuraminic acid
-    - cytidine-5'-monophosphate-5-n-acetylneuraminic acid
-    - cmp acetylneuraminic acid
-    - cytidine-5'-monophospho-n-acetylneuraminic acid
-    - cmp-nana
-    - cmp-beta-neu5ac
-    - cytidine-5'-monophosphono-n-acetylneuraminic acid
-    - cmp-neu5ac
-    - cmp-neunac
-    - cmp-n-acetylneuraminate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:16556
-    structure: InChI=1S/C20H31N4O16P/c1-7(26)22-12-8(27)4-20(18(32)33,39-16(12)13(29)9(28)5-25)40-41(35,36)37-6-10-14(30)15(31)17(38-10)24-3-2-11(21)23-19(24)34/h2-3,8-10,12-17,25,27-31H,4-6H2,1H3,(H,22,26)(H,32,33)(H,35,36)(H2,21,23,34)/t8-,9+,10+,12+,13+,14+,15+,16+,17+,20+/m0/s1
-  dNMP_49:
-    id: CMP-N-glycoloyl-beta-neuraminic acid
-    name: cytidine 5'-[3,5-dideoxy-5-(2-hydroxyacetamido)-D-glycero-beta-D-galacto-non-2-ulopyranosylonic
-      acid monophosphate]
-    synonyms:
-    - cmp-n-glycolylneuraminate
-    - cmp-neungc
-    - cmp-neu5gc
-    - cytidine-5'-monophosphono-n-glycoloyllneuraminic acid
-    - cmp-n-glycoloylneuraminate
-    - cmp-beta-neu5gc
-    identifiers:
-    - ns: chebi
-      id: CHEBI:18098
-    structure: InChI=1S/C20H31N4O17P/c21-10-1-2-24(19(35)22-10)17-15(32)14(31)9(39-17)6-38-42(36,37)41-20(18(33)34)3-7(27)12(23-11(29)5-26)16(40-20)13(30)8(28)4-25/h1-2,7-9,12-17,25-28,30-32H,3-6H2,(H,23,29)(H,33,34)(H,36,37)(H2,21,22,35)/t7-,8+,9+,12+,13+,14+,15+,16+,17+,20+/m0/s1
-  dNMP_50:
-    id: CMP-8-amino-3,8-dideoxy-alpha-D-manno-oct-2-ulosonic acid
-    name: cytidine 5'-[(8-amino-3,8-dideoxy-alpha-D-manno-oct-2-ulopyranosonyl) hydrogen
-      phosphate]
-    synonyms:
-    - cmp-kdo8n
-    identifiers:
-    - ns: chebi
-      id: CHEBI:131602
-    structure: InChI=1S/C17H27N4O14P/c18-4-7(23)13-10(24)6(22)3-17(34-13,15(27)28)35-36(30,31)32-5-8-11(25)12(26)14(33-8)21-2-1-9(19)20-16(21)29/h1-2,6-8,10-14,22-26H,3-5,18H2,(H,27,28)(H,30,31)(H2,19,20,29)/t6-,7-,8-,10-,11-,12-,13-,14-,17+/m1/s1
-  dNMP_51:
-    id: CMP-N,N-diacetyllegionaminic acid
-    name: cytidine 5'-(5,7-diacetamido-3,5,7,9-tetradeoxy-D-glycero-beta-D-galacto-non-2-ulopyranosylonic
-      acid monophosphate)
-    identifiers:
-    - ns: chebi
-      id: CHEBI:68683
-    structure: InChI=1S/C22H34N5O15P/c1-8(28)14(24-9(2)29)18-15(25-10(3)30)11(31)6-22(41-18,20(34)35)42-43(37,38)39-7-12-16(32)17(33)19(40-12)27-5-4-13(23)26-21(27)36/h4-5,8,11-12,14-19,28,31-33H,6-7H2,1-3H3,(H,24,29)(H,25,30)(H,34,35)(H,37,38)(H2,23,26,36)/t8-,11+,12-,14-,15-,16-,17-,18+,19-,22-/m1/s1
-  dNMP_52:
-    id: CMP-pseudaminic acid
-    name: cytidine 5'-[(5,7-diacetamido-3,5,7,9-tetradeoxy-L-glycero-alpha-L-manno-non-2-ulopyranosonyl)
-      hydrogen phosphate]
-    identifiers:
-    - ns: chebi
-      id: CHEBI:63778
-    structure: InChI=1S/C22H34N5O15P/c1-8(28)14(24-9(2)29)18-15(25-10(3)30)11(31)6-22(41-18,20(34)35)42-43(37,38)39-7-12-16(32)17(33)19(40-12)27-5-4-13(23)26-21(27)36/h4-5,8,11-12,14-19,28,31-33H,6-7H2,1-3H3,(H,24,29)(H,25,30)(H,34,35)(H,37,38)(H2,23,26,36)/t8-,11-,12+,14-,15-,16+,17+,18-,19+,22+/m0/s1
-  dNMP_53:
-    id: CMP-3-deoxy-alpha-D-manno-octulosonic acid
-    name: cytidine 5'-[(3-deoxy-alpha-D-manno-oct-2-ulopyranosonyl) hydrogen phosphate]
-    synonyms:
-    - cmp-kdo
-    identifiers:
-    - ns: chebi
-      id: CHEBI:18014
-    structure: InChI=1S/C17H26N3O15P/c18-9-1-2-20(16(29)19-9)14-12(26)11(25)8(33-14)5-32-36(30,31)35-17(15(27)28)3-6(22)10(24)13(34-17)7(23)4-21/h1-2,6-8,10-14,21-26H,3-5H2,(H,27,28)(H,30,31)(H2,18,19,29)/t6-,7-,8-,10-,11-,12-,13-,14-,17+/m1/s1
-  dNMP_54:
-    id: CMP-3-deoxy-beta-D-manno-octulosonic acid
-    name: cytidine 5'-[(3-deoxy-beta-D-manno-oct-2-ulopyranosonyl) hydrogen phosphate]
-    synonyms:
-    - cmp-kdo
-    - cmp-3-deoxy-d-manno-octulosonate
-    - cmp-beta-kdo
-    identifiers:
-    - ns: chebi
-      id: CHEBI:86284
-    structure: InChI=1S/C17H26N3O15P/c18-9-1-2-20(16(29)19-9)14-12(26)11(25)8(33-14)5-32-36(30,31)35-17(15(27)28)3-6(22)10(24)13(34-17)7(23)4-21/h1-2,6-8,10-14,21-26H,3-5H2,(H,27,28)(H,30,31)(H2,18,19,29)/t6-,7-,8-,10-,11-,12-,13-,14-,17-/m1/s1
-  dNMP_55:
-    id: CMP-3-deoxy-D-glycero-beta-D-galacto-nonulosonic acid
-    name: cytidine 5'-[(3-deoxy-D-glycero-beta-D-galacto-non-2-ulopyranosonyl) hydrogen
-      phosphate]
-    synonyms:
-    - cmp-3-deoxy-d-glycero-beta-d-galacto-nononic acid
-    - cmp-deaminoneuraminic acid
-    - cmp-kdn
-    identifiers:
-    - ns: chebi
-      id: CHEBI:131596
-    structure: InChI=1S/C18H28N3O16P/c19-9-1-2-21(17(31)20-9)15-13(28)12(27)8(35-15)5-34-38(32,33)37-18(16(29)30)3-6(23)10(25)14(36-18)11(26)7(24)4-22/h1-2,6-8,10-15,22-28H,3-5H2,(H,29,30)(H,32,33)(H2,19,20,31)/t6-,7+,8+,10+,11+,12+,13+,14+,15+,18+/m0/s1
-  dNMP_56:
-    id: 2'-O-methylcytidine 5'-monophosphate
-    name: 2'-O-methylcytidine 5'-(dihydrogen phosphate)
-    synonyms:
-    - 2'-o-methyl-cmp
-    - 2'-o-methylcytidine 5'-phosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:44666
-    structure: InChI=1S/C10H16N3O8P/c1-19-8-7(14)5(4-20-22(16,17)18)21-9(8)13-3-2-6(11)12-10(13)15/h2-3,5,7-9,14H,4H2,1H3,(H2,11,12,15)(H2,16,17,18)/t5-,7-,8-,9-/m1/s1
-  dNMP_57:
-    id: 5-methylcytidine 5'-monophosphate
-    name: ''
-    synonyms:
-    - 5-methyl-cmp
-    - 5-methylcytidine 5'-phosphate
-    - 5-methylcytidylic acid
-    identifiers:
-    - ns: chebi
-      id: CHEBI:74725
-    structure: InChI=1S/C10H16N3O8P/c1-4-2-13(10(16)12-8(4)11)9-7(15)6(14)5(21-9)3-20-22(17,18)19/h2,5-7,9,14-15H,3H2,1H3,(H2,11,12,16)(H2,17,18,19)/t5-,6-,7-,9-/m1/s1
-  dNMP_58:
-    id: CMP-5'-phosphonoformic acid
-    name: 5'-O-[{[carboxy(hydroxy)phosphoryl]oxy}(hydroxy)phosphoryl]cytidine
-    synonyms:
-    - phosphonoformyl-cmp
-    identifiers:
-    - ns: chebi
-      id: CHEBI:131759
-    structure: InChI=1S/C10H15N3O12P2/c11-5-1-2-13(9(16)12-5)8-7(15)6(14)4(24-8)3-23-27(21,22)25-26(19,20)10(17)18/h1-2,4,6-8,14-15H,3H2,(H,17,18)(H,19,20)(H,21,22)(H2,11,12,16)/t4-,6-,7-,8-/m1/s1
-  dNMP_59:
+  dNMP_8:
     id: lysidine monophosphate
     name: N(6)-[4-amino-1-(5-O-phosphono-beta-D-ribofuranosyl)pyrimidin-2(1H)-ylidene]-L-lysine
     synonyms:
-    - lysidine 5'-monophosphate
     - lysidine 5'-phosphate
+    - lysidine 5'-monophosphate
     identifiers:
     - ns: chebi
       id: CHEBI:83661
     structure: InChI=1S/C15H26N5O9P/c16-8(14(23)24)3-1-2-5-18-15-19-10(17)4-6-20(15)13-12(22)11(21)9(29-13)7-28-30(25,26)27/h4,6,8-9,11-13,21-22H,1-3,5,7,16H2,(H,23,24)(H2,17,18,19)(H2,25,26,27)/t8-,9+,11+,12+,13+/m0/s1
-  dNMP_60:
-    id: cytidine 5'-phosphate 2',3'-cyclic phosphate
-    name: ''
-    synonyms:
-    - cyclo-cdp
-    - pc>p
-    - cmp 2',3'-cyclic phosphate
-    - o(2'),o(3')-hydroxyphosphoryl-o(5')-phosphono-cytidine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:41473
-    structure: InChI=1S/C9H13N3O10P2/c10-5-1-2-12(9(13)11-5)8-7-6(21-24(17,18)22-7)4(20-8)3-19-23(14,15)16/h1-2,4,6-8H,3H2,(H,17,18)(H2,10,11,13)(H2,14,15,16)/t4-,6-,7-,8-/m1/s1
-  dNMP_61:
-    id: N(4)-acetylcytidine 5'-monophosphate
-    name: N-acetylcytidine 5'-(dihydrogen phosphate)
-    synonyms:
-    - n(4)-acetylcytidine 5'-phosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:75086
-    structure: InChI=1S/C11H16N3O9P/c1-5(15)12-7-2-3-14(11(18)13-7)10-9(17)8(16)6(23-10)4-22-24(19,20)21/h2-3,6,8-10,16-17H,4H2,1H3,(H2,19,20,21)(H,12,13,15,18)/t6-,8-,9-,10-/m1/s1
-  dNMP_62:
-    id: N(3)-methylcytidine 5'-monophosphate
-    name: 3-methyl-3,4-dihydrocytidine 5'-(dihydrogen phosphate)
-    synonyms:
-    - n(3)-methylcytidine 5'-phosphate
-    - n(3)-methyl-5'-cytidylic acid
-    identifiers:
-    - ns: chebi
-      id: CHEBI:75083
-    structure: InChI=1S/C10H16N3O8P/c1-12-6(11)2-3-13(10(12)16)9-8(15)7(14)5(21-9)4-20-22(17,18)19/h2-3,5,7-9,11,14-15H,4H2,1H3,(H2,17,18,19)/t5-,7-,8-,9-/m1/s1
-  dNMP_63:
-    id: N(4)-methylcytidine 5'-monophosphate
-    name: N-methylcytidine 5'-(dihydrogen phosphate)
-    synonyms:
-    - n(4)-methyl-cmp
-    - n(4)-methylcytidine 5'-phosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:74778
-    structure: InChI=1S/C10H16N3O8P/c1-11-6-2-3-13(10(16)12-6)9-8(15)7(14)5(21-9)4-20-22(17,18)19/h2-3,5,7-9,14-15H,4H2,1H3,(H,11,12,16)(H2,17,18,19)/t5-,7-,8-,9-/m1/s1
-  dNMP_64:
-    id: ethyl-CTP
-    name: cytidine 5'-(P(3)-ethyl trihydrogen triphosphate)
-    synonyms:
-    - ethyl cytidine triphosphate
-    - monoethyl cytidine-triphosphate
-    - gamma-ethyl cytidine triphosphate
-    - gamma-monoethyl cytidine triphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:62909
-    structure: InChI=1S/C11H20N3O14P3/c1-2-24-29(18,19)27-31(22,23)28-30(20,21)25-5-6-8(15)9(16)10(26-6)14-4-3-7(12)13-11(14)17/h3-4,6,8-10,15-16H,2,5H2,1H3,(H,18,19)(H,20,21)(H,22,23)(H2,12,13,17)/t6-,8-,9-,10-/m1/s1
-  dNMP_65:
-    id: 2'-deoxy-5-hydroxymethyl-CTP
-    name: 2'-deoxy-5-(hydroxymethyl)cytidine 5'-(tetrahydrogen triphosphate)
-    synonyms:
-    - 2'-deoxy-5-hydroxymethylcytidine-5'-triphosphate
-    - 2'-deoxy-5-hydroxymethylcytidine 5'-triphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:836
-    structure: InChI=1S/C10H18N3O14P3/c11-9-5(3-14)2-13(10(16)12-9)8-1-6(15)7(25-8)4-24-29(20,21)27-30(22,23)26-28(17,18)19/h2,6-8,14-15H,1,3-4H2,(H,20,21)(H,22,23)(H2,11,12,16)(H2,17,18,19)/t6-,7+,8+/m0/s1
-  dNMP_66:
-    id: CDP
-    name: cytidine 5'-(trihydrogen diphosphate)
-    synonyms:
-    - cytidine 5'-pyrophosphate
-    - cytidine 5'-diphosphate
-    - cytidine-5'-diphosphate
-    - cytidine diphosphate
-    - cdp
-    - 5'-cdp
-    - "'-(trihydrogen pyrophosphate)"
-    - cytidin
-    - cytidine 5'-diphosphoric acid
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17239
-    structure: InChI=1S/C9H15N3O11P2/c10-5-1-2-12(9(15)11-5)8-7(14)6(13)4(22-8)3-21-25(19,20)23-24(16,17)18/h1-2,4,6-8,13-14H,3H2,(H,19,20)(H2,10,11,15)(H2,16,17,18)/t4-,6-,7-,8-/m1/s1
-  dNMP_67:
-    id: CTP
-    name: cytidine 5'-(tetrahydrogen triphosphate)
-    synonyms:
-    - cytidine-5'-triphosphate
-    - 5'-ctp
-    - cytidine triphosphate
-    - h4ctp
-    - cytidine 5'-triphosphate
-    - ctp
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17677
-    structure: InChI=1S/C9H16N3O14P3/c10-5-1-2-12(9(15)11-5)8-7(14)6(13)4(24-8)3-23-28(19,20)26-29(21,22)25-27(16,17)18/h1-2,4,6-8,13-14H,3H2,(H,19,20)(H,21,22)(H2,10,11,15)(H2,16,17,18)/t4-,6-,7-,8-/m1/s1
-  dNMP_68:
-    id: cytidine 5'-monophosphate
-    name: 5'-cytidylic acid
-    synonyms:
-    - cmp
-    - cytidine-5'-monophosphate
-    - cytidylate
-    - pc
-    - cytidylic acid
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17361
-    structure: InChI=1S/C9H14N3O8P/c10-5-1-2-12(9(15)11-5)8-7(14)6(13)4(20-8)3-19-21(16,17)18/h1-2,4,6-8,13-14H,3H2,(H2,10,11,15)(H2,16,17,18)/t4-,6-,7-,8-/m1/s1
-  dNMP_69:
-    id: cytidine 2'-phosphate
-    name: 2'-cytidylic acid
-    synonyms:
-    - cytidine 2'-monophosphate
-    - 2'-cytidylic acid
-    identifiers:
-    - ns: chebi
-      id: CHEBI:28507
-    structure: InChI=1S/C9H14N3O8P/c10-5-1-2-12(9(15)11-5)8-7(20-21(16,17)18)6(14)4(3-13)19-8/h1-2,4,6-8,13-14H,3H2,(H2,10,11,15)(H2,16,17,18)/t4-,6-,7-,8-/m1/s1
-  dNMP_70:
+  dNMP_9:
     id: 6-(3-hydroxypropyl)thymine
     name: 6-(3-hydroxypropyl)-5-methylpyrimidine-2,4(1H,3H)-dione
     synonyms:
@@ -1024,18 +267,18 @@ monomers:
     - ns: chebi
       id: CHEBI:43299
     structure: InChI=1S/C8H12N2O3/c1-5-6(3-2-4-11)9-8(13)10-7(5)12/h11H,2-4H2,1H3,(H2,9,10,12,13)
-  dNMP_71:
+  dNMP_10:
     id: 6-(1,3-dihydroxyisobutyl)thymine
     name: 6-[3-hydroxy-2-(hydroxymethyl)propyl]-5-methylpyrimidine-2,4(1H,3H)-dione
     synonyms:
+    - dhbt
     - 6-[3-hydroxy-2-(hydroxymethyl)propyl]thymine
     - 6-[3-hydroxy-2-(hydroxymethyl)propyl]-5-methyl-2,4(1h,3h)-pyrimidinedione
-    - dhbt
     identifiers:
     - ns: chebi
       id: CHEBI:41485
     structure: InChI=1S/C9H14N2O4/c1-5-7(2-6(3-12)4-13)10-9(15)11-8(5)14/h6,12-13H,2-4H2,1H3,(H2,10,11,14,15)
-  dNMP_72:
+  dNMP_11:
     id: 6-{[(4R,5R)-4-(hydroxymethyl)thymin-5-yl]methyl}thymine
     name: 6-{[(4R,5R)-4-(hydroxymethyl)-5-methyl-2,6-dioxohexahydropyrimidin-5-yl]methyl}-5-methylpyrimidine-2,4(1H,3H)-dione
     synonyms:
@@ -1044,19 +287,19 @@ monomers:
     - ns: chebi
       id: CHEBI:45366
     structure: InChI=1S/C12H16N4O5/c1-5-6(13-10(20)15-8(5)18)3-12(2)7(4-17)14-11(21)16-9(12)19/h7,17H,3-4H2,1-2H3,(H2,13,15,18,20)(H2,14,16,19,21)/t7-,12+/m0/s1
-  dNMP_73:
+  dNMP_12:
     id: telbivudine
     name: 1-(2-deoxy-beta-L-erythro-pentofuranosyl)-5-methylpyrimidine-2,4(1H,3H)-dione
     synonyms:
+    - 1-(2-deoxy-beta-l-ribofuranosyl)-5-methyluracil
     - beta-l-2'-deoxythymidine
-    - l-thymidine
+    - 2'-deoxy-l-thymidine
+    - ldt
     - l-deoxythymidine
+    - l-dt
     - beta-l-thymidine
     - epavudine
-    - l-dt
-    - 1-(2-deoxy-beta-l-ribofuranosyl)-5-methyluracil
-    - ldt
-    - 2'-deoxy-l-thymidine
+    - l-thymidine
     identifiers:
     - ns: chebi
       id: CHEBI:63624
@@ -1065,89 +308,72 @@ monomers:
     id: alpha-putrescinylthymine
     name: 5-{[(4-aminobutyl)amino]methyl}pyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - putthy
-    - 5-(4-aminobutylaminomethyl)uracil
     - n-thyminylputrescine
+    - 5-(4-aminobutylaminomethyl)uracil
+    - putthy
     identifiers:
     - ns: chebi
       id: CHEBI:132931
     structure: InChI=1S/C9H16N4O2/c10-3-1-2-4-11-5-7-6-12-9(15)13-8(7)14/h6,11H,1-5,10H2,(H2,12,13,14,15)
-  dNMP_74:
+  dNMP_13:
     id: stavudine
     name: 1-[(2R,5S)-5-(hydroxymethyl)-2,5-dihydrofuran-2-yl]-5-methylpyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - d4t
-    - 1-(2,3-dideoxy-beta-d-glycero-pent-2-enofuranosyl)thymine
-    - 3'-deoxy-2'-thymidinene
-    - stv
-    - stavudinum
     - sanilvudine
     - 2',3'-didehydro-3'-deoxythimidine
+    - d4t
+    - 3'-deoxy-2'-thymidinene
     - estavudina
+    - stv
+    - stavudinum
+    - 1-(2,3-dideoxy-beta-d-glycero-pent-2-enofuranosyl)thymine
     identifiers:
     - ns: chebi
       id: CHEBI:63581
     structure: InChI=1S/C10H12N2O4/c1-6-4-12(10(15)11-9(6)14)8-3-2-7(5-13)16-8/h2-4,7-8,13H,5H2,1H3,(H,11,14,15)/t7-,8+/m0/s1
-  dNMP_75:
-    id: thymidine
-    name: thymidine
-    synonyms:
-    - deoxythymidine
-    - 2'-thymidine
-    - dthd
-    - t
-    - 2'-deoxythymidine
-    - 5-methyl-2'-deoxyuridine
-    - 2'-deoxy-5-methyluridine
-    - thymine 2'-deoxyriboside
-    - 1-(2-deoxy-beta-d-erythro-pentofuranosyl)-5-methylpyrimidine-2,4(1h,3h)-dione
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17748
-    structure: InChI=1S/C10H14N2O5/c1-5-3-12(10(16)11-9(5)15)8-2-6(14)7(4-13)17-8/h3,6-8,13-14H,2,4H2,1H3,(H,11,15,16)/t6-,7+,8+/m0/s1
   diHT:
     id: 5,6-dihydrothymine
     name: 5,6-dihydrothymine, 5-methyldihydropyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - 5,6-dihydro-5-methyluracil
     - dihydrothymine
+    - 5,6-dihydro-5-methyluracil
     - 5-methyl-5,6-dihydrouracil
     identifiers:
     - ns: chebi
       id: CHEBI:27468
     structure: InChI=1S/C5H8N2O2/c1-3-2-6-5(9)7-4(3)8/h3H,2H2,1H3,(H2,6,7,8,9)
-  dNMP_76:
+  dNMP_14:
     id: thymine glycol
     name: 5,6-dihydroxy-5-methyldihydropyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: chebi
       id: CHEBI:29128
     structure: InChI=1S/C5H8N2O4/c1-5(11)2(8)6-4(10)7-3(5)9/h2,8,11H,1H3,(H2,6,7,9,10)
-  dNMP_77:
+  dNMP_15:
     id: 1-[(1S,3S,4R,5S)-3-hydroxy-4-(hydroxymethyl)bicyclo[3.1.0]hexan-1-yl]thymine
     name: 1-[(1S,3S,4R,5S)-3-hydroxy-4-(hydroxymethyl)bicyclo[3.1.0]hex-1-yl]-5-methylpyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - (1s,3s,4r,5s)-3-hydroxy-4-hydroxymethyl-1-(5-methyl-2,4-dioxo-1,2,3,4-tetrahydropyrimidin-1-yl)bicyclo[3.1.0]hexane
     - south-methanocarbathymidine
+    - (1s,3s,4r,5s)-3-hydroxy-4-hydroxymethyl-1-(5-methyl-2,4-dioxo-1,2,3,4-tetrahydropyrimidin-1-yl)bicyclo[3.1.0]hexane
     identifiers:
     - ns: chebi
       id: CHEBI:45586
     structure: InChI=1S/C12H16N2O4/c1-6-4-14(11(18)13-10(6)17)12-2-8(12)7(5-15)9(16)3-12/h4,7-9,15-16H,2-3,5H2,1H3,(H,13,17,18)/t7-,8-,9-,12-/m0/s1
-  dNMP_78:
+  dNMP_16:
     id: 1-[(2-hydroxyethoxy)methyl]-6-(phenylsulfanyl)thymine
     name: 1-[(2-hydroxyethoxy)methyl]-5-methyl-6-(phenylsulfanyl)pyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - 6-hept
-    - hept
     - hmptt
-    - 1-[(2-hydroxyethoxy)methyl]-6-(phenylthio)thymine
-    - 1-(2-hydroxyethyloxymethyl)-6-phenyl thiothymine
+    - hept
     - 1-[(2-hydroxyethoxy)methyl]-6-phenylthiothymine
+    - 1-[(2-hydroxyethoxy)methyl]-6-(phenylthio)thymine
+    - 6-hept
+    - 1-(2-hydroxyethyloxymethyl)-6-phenyl thiothymine
     identifiers:
     - ns: chebi
       id: CHEBI:43060
     structure: InChI=1S/C14H16N2O4S/c1-10-12(18)15-14(19)16(9-20-8-7-17)13(10)21-11-5-3-2-4-6-11/h2-6,17H,7-9H2,1H3,(H,15,18,19)
-  dNMP_79:
+  dNMP_17:
     id: 1-[(1S,2S,4S,5R)-4-hydroxy-5-(hydroxymethyl)bicyclo[3.1.0]hexan-2-yl]thymine
     name: 1-[(1S,2S,4S,5R)-4-hydroxy-5-(hydroxymethyl)bicyclo[3.1.0]hex-2-yl]-5-methylpyrimidine-2,4(1H,3H)-dione
     synonyms:
@@ -1162,9 +388,9 @@ monomers:
     id: 5-formyluracil
     name: 2,4-dioxo-1,2,3,4-tetrahydropyrimidine-5-carbaldehyde
     synonyms:
+    - uracil 5-carbaldehyde
     - 5fu
     - fou
-    - uracil 5-carbaldehyde
     identifiers:
     - ns: chebi
       id: CHEBI:80961
@@ -1197,7 +423,7 @@ monomers:
     - ns: chebi
       id: CHEBI:74765
     structure: InChI=1S/C6H8N2O2/c1-4-3-8(2)6(10)7-5(4)9/h3H,1-2H3,(H,7,9,10)
-  dNMP_80:
+  dNMP_18:
     id: 8-(2-chloro-3,4,5-trimethoxybenzyl)-2-fluoro-9-pent-4-yn-1-yl-9H-purin-6-amine
     name: 8-[(2-chloro-3,4,5-trimethoxyphenyl)methyl]-2-fluoro-9-(pent-4-yn-1-yl)-9H-purin-6-amine
     synonyms:
@@ -1206,7 +432,7 @@ monomers:
     - ns: chebi
       id: CHEBI:47628
     structure: InChI=1S/C20H21ClFN5O3/c1-5-6-7-8-27-13(24-15-18(23)25-20(22)26-19(15)27)10-11-9-12(28-2)16(29-3)17(30-4)14(11)21/h1,9H,6-8,10H2,2-4H3,(H2,23,25,26)
-  dNMP_81:
+  dNMP_19:
     id: 9-{2,5-anhydro-4-[(phosphonooxy)methyl]-alpha-L-lyxofuranosyl}-9H-purin-6-amine
     name: 9-{2,5-anhydro-4-[(phosphonooxy)methyl]-alpha-L-lyxofuranosyl}-9H-purin-6-amine
     synonyms:
@@ -1220,8 +446,8 @@ monomers:
     id: 6-hydroxymethyladenine
     name: (9H-purin-6-ylamino)methanol
     synonyms:
-    - n(6)-hydroxymethyladenine
     - n(6)-hydroxymethyl-adenine
+    - n(6)-hydroxymethyladenine
     identifiers:
     - ns: chebi
       id: CHEBI:142766
@@ -1235,40 +461,18 @@ monomers:
     - ns: chebi
       id: CHEBI:102525
     structure: InChI=1S/C7H8N6O/c8-4(14)1-9-6-5-7(11-2-10-5)13-3-12-6/h2-3H,1H2,(H2,8,14)(H2,9,10,11,12,13)
-  dNMP_82:
-    id: N(6)-carbamoylmethyl-2'-deoxyadenosine
-    name: ''
-    synonyms:
-    - n(6)-carbamoylmethyl-2'-deoxyadenosine
-    - n(6)-(carbamoylmethyl)deoxyadenosine
-    - n-(9beta-d-2'-deoxyribofuranosylpurin-6-yl)glycinamide
-    - n(6)-carbamoylmethyldeoxyadenosine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:102719
-    structure: InChI=1S/C12H16N6O4/c13-8(21)2-14-11-10-12(16-4-15-11)18(5-17-10)9-1-6(20)7(3-19)22-9/h4-7,9,19-20H,1-3H2,(H2,13,21)(H,14,15,16)/t6-,7+,9+/m0/s1
-  dNMP_83:
-    id: N-benzyl-9-(alpha-D-glucosyl)adenine
-    name: N-benzyl-9-(alpha-D-glucopyranosyl)-9H-purin-6-amine
-    synonyms:
-    - benzyladenine-9-n-glucoside
-    - n-benzyl-9-(alpha-d-glucopyranosyl)adenine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:72604
-    structure: InChI=1S/C18H21N5O5/c24-7-11-13(25)14(26)15(27)18(28-11)23-9-22-12-16(20-8-21-17(12)23)19-6-10-4-2-1-3-5-10/h1-5,8-9,11,13-15,18,24-27H,6-7H2,(H,19,20,21)/t11-,13-,14+,15-,18+/m1/s1
   6-DMA:
     id: N(6),N(6)-dimethyladenine
     name: N,N-dimethyl-9H-purin-6-amine
     synonyms:
-    - n(6),n(6)-dimethyladenine
-    - n,n-dimethyladenine
-    - 6-dimethylaminopurine
-    - 6-(dimethylamino)purine
-    - n,n-dimethyl-6-aminopurine
     - n,n-dimethyl-1h-purin-6-amine
-    - 6-dimethyladenine
+    - 6-(dimethylamino)purine
+    - 6-dimethylaminopurine
     - n(6)-dimethyladenine
+    - n,n-dimethyladenine
+    - 6-dimethyladenine
+    - n(6),n(6)-dimethyladenine
+    - n,n-dimethyl-6-aminopurine
     identifiers:
     - ns: chebi
       id: CHEBI:60281
@@ -1277,23 +481,23 @@ monomers:
     id: 9H-purine-2,6-diamine
     name: ''
     synonyms:
-    - 9h-purine-2,6-diamine
-    - 2,6-diaminopurine
     - 2-aminoadenine
+    - 2,6-diaminopurine
+    - 9h-purine-2,6-diamine
     identifiers:
     - ns: chebi
       id: CHEBI:40235
     structure: InChI=1S/C5H6N6/c6-3-2-4(9-1-8-2)11-5(7)10-3/h1H,(H5,6,7,8,9,10,11)
-  dNMP_84:
+  dNMP_20:
     id: oxetanocin A
     name: '[(2S,3R,4R)-4-(6-amino-9H-purin-9-yl)oxetane-2,3-diyl]dimethanol'
     synonyms:
+    - nk 84-0218
     - (-)-oxetanocin a
     - 9-[(2r,3r,4s)-3,4-bis(hydroxymethyl)-2-oxetanyl]adenine
-    - 9-((2'r,3'r,4's)-3',4'-bis(hydroxymethyl)-2'-oxetanyl)adenine
     - oxetanocin
     - (-)-oxetanocin
-    - nk 84-0218
+    - 9-((2'r,3'r,4's)-3',4'-bis(hydroxymethyl)-2'-oxetanyl)adenine
     identifiers:
     - ns: chebi
       id: CHEBI:86012
@@ -1303,20 +507,20 @@ monomers:
     name: 6-amino-1,7-dihydro-8H-purin-8-one
     synonyms:
     - oxyadenine
-    - 8-oxo-7,8-dihydroadenine
-    - 7,8-dihydro-8-oxoadenine
     - 8-oxoa
+    - 7,8-dihydro-8-oxoadenine
+    - 8-oxo-7,8-dihydroadenine
     identifiers:
     - ns: chebi
       id: CHEBI:134104
     structure: InChI=1S/C5H5N5O/c6-3-2-4(8-1-7-3)10-5(11)9-2/h1H,(H4,6,7,8,9,10,11)
-  dNMP_85:
+  dNMP_21:
     id: 8-hydroxyadenine
     name: ''
     synonyms:
-    - 6-amino-purin-8-ol
     - 8-hydroxy-1h-purin-6-amine
     - 6-amino-8-hydroxypurine
+    - 6-amino-purin-8-ol
     identifiers:
     - ns: chebi
       id: CHEBI:134105
@@ -1325,28 +529,28 @@ monomers:
     id: N(6)-hydroxyadenine
     name: N-hydroxy-1H-purin-6-amine
     synonyms:
-    - 6-n-hydroxylaminopurine
     - hap
-    - n(6)-hydroxyadenine
     - n-(7h-purin-6-yl)hydroxylamine
-    - 6-hydroxyaminopurine
+    - n(6)-hydroxyadenine
     - 6-hydroxylaminopurine
+    - 6-n-hydroxylaminopurine
+    - 6-hydroxyaminopurine
     - n-hydroxyadenine
     identifiers:
     - ns: chebi
       id: CHEBI:78235
     structure: InChI=1S/C5H5N5O/c11-10-5-3-4(7-1-6-3)8-2-9-5/h1-2,11H,(H2,6,7,8,9,10)
-  dNMP_86:
+  dNMP_22:
     id: 9-(tetrahydrofuryl)adenine
     name: 9-(tetrahydrofuran-2-yl)-9H-purin-6-amine
     synonyms:
-    - 9-(tetrahydro-2-furyl)-adenine
     - sq22536
-    - sq 22,536
+    - sq-22536
+    - 9-(tetrahydro-2-furyl)-adenine
     - sq 22536
     - 6-amino-9-(tetrahydro-2-furyl)-9h-purine
     - 9-(tetrahydro-2-furanyl)-9h-purin-6-amine
-    - sq-22536
+    - sq 22,536
     identifiers:
     - ns: chebi
       id: CHEBI:90232
@@ -1355,130 +559,71 @@ monomers:
     id: 2-amino-6-hydroxyaminopurine
     name: N(6)-hydroxy-3H-purine-2,6-diamine
     synonyms:
-    - guanine oxime
-    - 2-amino-n6-hydroxyadenine
     - 2-amino-n(6)-hydroxyadenine
+    - 2-amino-n6-hydroxyadenine
+    - guanine oxime
     identifiers:
     - ns: chebi
       id: CHEBI:78685
     structure: InChI=1S/C5H6N6O/c6-5-9-3-2(7-1-8-3)4(10-5)11-12/h1,12H,(H4,6,7,8,9,10,11)
-  dNMP_87:
+  dNMP_23:
     id: N-benzyladenine
     name: N-benzyl-9H-purin-6-amine
     synonyms:
-    - n-benzyladenine
-    - benzyladenine
     - cytokinin b
-    - 6-benzylaminopurine
-    - bap
     - n(6)-(benzylamino)purine
     - n-benzyl-9h-purin-6-amine
-    - 6-bap
-    - 6-[(phenylmethyl)amino]-9h-purine
+    - n-benzyladenine
+    - bap
     - n6-benzyladenine
+    - 6-[(phenylmethyl)amino]-9h-purine
     - 6-(benzylamino)purine
+    - benzyladenine
+    - 6-benzylaminopurine
+    - 6-bap
     identifiers:
     - ns: chebi
       id: CHEBI:29022
     structure: InChI=1S/C12H11N5/c1-2-4-9(5-3-1)6-13-11-10-12(15-7-14-10)17-8-16-11/h1-5,7-8H,6H2,(H2,13,14,15,16,17)
-  dNMP_88:
-    id: adenosine
-    name: adenosine
-    synonyms:
-    - 6-amino-9-beta-d-ribofuranosyl-9h-purine
-    - beta-d-adenosine
-    - adenine deoxyribonucleoside
-    - ado
-    - ade-rib
-    - desoxyadenosine
-    - adenocor
-    - 9-beta-d-ribofuranosyl-9h-purin-6-amine
-    - adenyldeoxyriboside
-    - deoxyadenosine
-    - 9-beta-d-ribofuranosidoadenine
-    - (2r,3r,4s,5r)-2-(6-aminopurin-9-yl)-5-(hydroxymethyl)oxolane-3,4-diol
-    - adenoscan
-    - adenosin
-    - adenocard
-    identifiers:
-    - ns: chebi
-      id: CHEBI:16335
-    structure: InChI=1S/C10H13N5O4/c11-8-5-9(13-2-12-8)15(3-14-5)10-7(18)6(17)4(1-16)19-10/h2-4,6-7,10,16-18H,1H2,(H2,11,12,13)/t4-,6-,7-,10-/m1/s1
-  dNMP_89:
+  dNMP_24:
     id: 1H-imidazo[2,1-i]purine
     name: 1H-imidazo[2,1-i]purine
     synonyms:
-    - 1,n(6)-ethenoadenine
     - ethenoadenine
+    - 1,n(6)-ethenoadenine
     identifiers:
     - ns: chebi
       id: CHEBI:29146
     structure: InChI=1S/C7H5N5/c1-2-12-4-11-6-5(7(12)8-1)9-3-10-6/h1-4H,(H,9,10)
-  dNMP_90:
-    id: adenine arabinoside
-    name: 9-(beta-D-arabinofuranosyl)-9H-adenine, 9H-adenin-9-yl beta-D-arabinofuranoside
-    synonyms:
-    - vidarabine
-    - spongoadenosine
-    - 2-(6-amino-purin-9-yl)-5-hydroxymethyl-tetrahydro-furan-3,4-diol
-    - 9-beta-d-arabinofuranosyladenine
-    - 9-beta-d-arabinofuranosyl-9h-purin-6-amine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:45327
-    structure: InChI=1S/C10H13N5O4/c11-8-5-9(13-2-12-8)15(3-14-5)10-7(18)6(17)4(1-16)19-10/h2-4,6-7,10,16-18H,1H2,(H2,11,12,13)/t4-,6-,7+,10-/m1/s1
-  dNMP_91:
+  dNMP_25:
     id: adefovir
     name: '{[2-(6-amino-9H-purin-9-yl)ethoxy]methyl}phosphonic acid'
     synonyms:
-    - n-(2-phosphonylmethoxyethyl)adenine
-    - drg-0156
-    - gs 0393
-    - gs-0393
-    - gs 393
-    - 9-(2-phosphonylmethoxyethyl)adenine
-    - pmea
     - hsdb 8079
     - 9-(2-(phosphonomethoxy)ethyl)adenine
+    - pmea
+    - gs-0393
+    - n-(2-phosphonylmethoxyethyl)adenine
+    - gs 0393
+    - 9-(2-phosphonylmethoxyethyl)adenine
+    - drg-0156
+    - gs 393
     identifiers:
     - ns: chebi
       id: CHEBI:2469
     structure: InChI=1S/C8H12N5O4P/c9-7-6-8(11-3-10-7)13(4-12-6)1-2-17-5-18(14,15)16/h3-4H,1-2,5H2,(H2,9,10,11)(H2,14,15,16)
-  dNMP_92:
-    id: 9-beta-D-xylofuranosyladenine
-    name: 9-(beta-D-xylofuranosyl)-9H-purin-6-amine
-    synonyms:
-    - xylosyladenine
-    - adenine xyloside
-    identifiers:
-    - ns: chebi
-      id: CHEBI:46515
-    structure: InChI=1S/C10H13N5O4/c11-8-5-9(13-2-12-8)15(3-14-5)10-7(18)6(17)4(1-16)19-10/h2-4,6-7,10,16-18H,1H2,(H2,11,12,13)/t4-,6+,7-,10-/m1/s1
-  dNMP_93:
-    id: 9-riburonosyladenine
-    name: 9-beta-D-ribofuranuronosyladenine
-    synonyms:
-    - adenosine-5'-carboxylic acid
-    - ado-5'-cooh
-    - 1-(6-amino-9h-purin-9-yl)-1-deoxy-beta-d-ribofuranuronic acid
-    - adenosine 5'-carboxylic acid
-    - 9-beta-d-ribofuranuronosyl-9h-purin-6-amine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:16009
-    structure: InChI=1S/C10H11N5O5/c11-7-3-8(13-1-12-7)15(2-14-3)9-5(17)4(16)6(20-9)10(18)19/h1-2,4-6,9,16-17H,(H,18,19)(H2,11,12,13)/t4-,5+,6-,9+/m0/s1
-  dNMP_94:
+  dNMP_26:
     id: tenofovir alafenamide
     name: propan-2-yl N-[(S)-({[(2R)-1-(6-amino-9H-purin-9-yl)propan-2-yl]oxy}methyl)(phenoxy)phosphoryl]-L-alaninate
     synonyms:
+    - gs 7340
     - taf
     - gs-7340
-    - gs 7340
     identifiers:
     - ns: chebi
       id: CHEBI:90926
     structure: InChI=1S/C21H29N6O5P/c1-14(2)31-21(28)16(4)26-33(29,32-17-8-6-5-7-9-17)13-30-15(3)10-27-12-25-18-19(22)23-11-24-20(18)27/h5-9,11-12,14-16H,10,13H2,1-4H3,(H,26,29)(H2,22,23,24)/t15-,16+,33+/m1/s1
-  dNMP_95:
+  dNMP_27:
     id: reversine
     name: N(6)-cyclohexyl-N(2)-[4-(morpholin-4-yl)phenyl]-9H-purine-2,6-diamine
     synonyms:
@@ -1487,7 +632,7 @@ monomers:
     - ns: chebi
       id: CHEBI:70723
     structure: InChI=1S/C21H27N7O/c1-2-4-15(5-3-1)24-20-18-19(23-14-22-18)26-21(27-20)25-16-6-8-17(9-7-16)28-10-12-29-13-11-28/h6-9,14-15H,1-5,10-13H2,(H3,22,23,24,25,26,27)
-  dNMP_96:
+  dNMP_28:
     id: oxetanocin A 4-(dihydrogen phosphate)
     name: '[(2S,3R,4R)-4-(6-amino-9H-purin-9-yl)-3-(hydroxymethyl)oxetan-2-yl]methyl
       dihydrogen phosphate'
@@ -1495,20 +640,20 @@ monomers:
     - ns: chebi
       id: CHEBI:86011
     structure: InChI=1S/C10H14N5O6P/c11-8-7-9(13-3-12-8)15(4-14-7)10-5(1-16)6(21-10)2-20-22(17,18)19/h3-6,10,16H,1-2H2,(H2,11,12,13)(H2,17,18,19)/t5-,6-,10-/m1/s1
-  dNMP_97:
+  dNMP_29:
     id: adefovir pivoxil
     name: bis{[(tert-butoxycarbonyl)oxy]methyl} {[2-(6-amino-9H-purin-9-yl)ethoxy]methyl}phosphonate
     synonyms:
-    - gs-0840
+    - gs 0840
+    - 9-(2-((bis((pivaloyloxy)methoxy)phosphinyl)methoxy)ethyl)adenine
     - 9-(2-((-bis((pivaloyloxy)methoxy)phosphinyl)methoxy)ethyl)adenine
+    - adefovir dipivoxil
+    - hepsera
     - preveon
     - gs 840
-    - hepsera
-    - 9-(2-((bis((pivaloyloxy)methoxy)phosphinyl)methoxy)ethyl)adenine
-    - adefovir dipivoxil
     - (((2-(6-amino-9h-purin-9-yl)ethoxy)methyl)phosphinylidene)bis(oxymethylene)
       2,2-dimethylpropanoate
-    - gs 0840
+    - gs-0840
     identifiers:
     - ns: chebi
       id: CHEBI:31175
@@ -1526,9 +671,9 @@ monomers:
     id: 3-methyladenine
     name: 3-methyl-3H-purin-6-amine, 3-methyladenine
     synonyms:
-    - 6-amino-3-methylpurine
     - 3-methyl-3h-adenine
     - 3-methyl-3h-purin-6-ylamine
+    - 6-amino-3-methylpurine
     identifiers:
     - ns: chebi
       id: CHEBI:38635
@@ -1562,145 +707,13 @@ monomers:
     synonyms:
     - 6-map
     - n6-methyladenine
-    - n6-monomethyladenine
     - 6-methylaminopurine
+    - n6-monomethyladenine
     identifiers:
     - ns: chebi
       id: CHEBI:28871
     structure: InChI=1S/C6H7N5/c1-7-5-4-6(10-2-8-4)11-3-9-5/h2-3H,1H3,(H2,7,8,9,10,11)
-  dNMP_98:
-    id: 9-ribosyl-trans-zeatin
-    name: N-[(2E)-4-hydroxy-3-methylbut-2-en-1-yl]adenosine
-    synonyms:
-    - (e)-n-(4-hydroxy-3-methyl-2-butenyl)adenosine
-    - 9-beta-d-ribosyl-trans-zeatin
-    - zeatin riboside
-    - trans-zeatin 9-beta-d-ribofuranoside
-    - trans-zeatin riboside
-    - 9-beta-d-ribofuranosyl-trans-zeatin
-    identifiers:
-    - ns: chebi
-      id: CHEBI:71693
-    structure: InChI=1S/C15H21N5O5/c1-8(4-21)2-3-16-13-10-14(18-6-17-13)20(7-19-10)15-12(24)11(23)9(5-22)25-15/h2,6-7,9,11-12,15,21-24H,3-5H2,1H3,(H,16,17,18)/b8-2+/t9-,11-,12-,15-/m1/s1
-  dNMP_99:
-    id: 9-ribosyl-cis-zeatin
-    name: N-[(2Z)-4-hydroxy-3-methylbut-2-en-1-yl]adenosine
-    synonyms:
-    - cis-zeatin riboside
-    - 9-beta-d-ribofuranosyl-cis-zeatin
-    - cis-ribosylzeatin
-    identifiers:
-    - ns: chebi
-      id: CHEBI:20833
-    structure: InChI=1S/C15H21N5O5/c1-8(4-21)2-3-16-13-10-14(18-6-17-13)20(7-19-10)15-12(24)11(23)9(5-22)25-15/h2,6-7,9,11-12,15,21-24H,3-5H2,1H3,(H,16,17,18)/b8-2-/t9-,11-,12-,15-/m1/s1
-  dNMP_100:
-    id: 7-(beta-D-glucosyl)-cis-zeatin
-    name: 9-beta-D-glucopyranosyl-N-[(2Z)-4-hydroxy-3-methylbut-2-en-1-yl]-7H-purin-6-amine
-    synonyms:
-    - cis-zeatin-7-beta-glucoside
-    - (z)-zeatin-7-beta-d-glucoside
-    - cis-zeatin-7-glucoside
-    - (z)-zeatin-7-beta-glucoside
-    - cis-zeatin-7-beta-d-glucoside
-    - (z)-zeatin-7-glucoside
-    - 7-beta-d-glucopyranosylzeatin
-    identifiers:
-    - ns: chebi
-      id: CHEBI:133211
-    structure: InChI=1S/C16H23N5O6/c1-8(4-22)2-3-17-14-10-15(19-6-18-14)20-7-21(10)16-13(26)12(25)11(24)9(5-23)27-16/h2,6-7,9,11-13,16,22-26H,3-5H2,1H3,(H,17,18,19)/b8-2-/t9-,11-,12+,13-,16-/m1/s1
-  dNMP_101:
-    id: 9-ribosylzeatin
-    name: N-(4-hydroxy-3-methylbut-2-en-1-yl)adenosine
-    synonyms:
-    - zeatin riboside
-    - ribosylzeatin
-    - n-(4-hydroxy-3-methyl-2-butenyl)adenosine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:20838
-    structure: InChI=1S/C15H21N5O5/c1-8(4-21)2-3-16-13-10-14(18-6-17-13)20(7-19-10)15-12(24)11(23)9(5-22)25-15/h2,6-7,9,11-12,15,21-24H,3-5H2,1H3,(H,16,17,18)/t9-,11-,12-,15-/m1/s1
-  dNMP_102:
-    id: 9-ribosyl-trans-zeatin 5'-monophosphate
-    name: N-[(2E)-4-hydroxy-3-methylbut-2-en-1-yl]adenosine 5'-(dihydrogen phosphate)
-    synonyms:
-    - trans-zeatin riboside monophosphate
-    - 9-beta-d-ribosyl-trans-zeatin 5'-monophosphate
-    - tzrmp
-    - 9-beta-d-ribofuranosyl-trans-zeatin 5'-monophosphate
-    - trans-zeatin 9-beta-d-ribofuranoside 5'-monophosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:71719
-    structure: InChI=1S/C15H22N5O8P/c1-8(4-21)2-3-16-13-10-14(18-6-17-13)20(7-19-10)15-12(23)11(22)9(28-15)5-27-29(24,25)26/h2,6-7,9,11-12,15,21-23H,3-5H2,1H3,(H,16,17,18)(H2,24,25,26)/b8-2+/t9-,11-,12-,15-/m1/s1
-  dNMP_103:
-    id: 9-(alpha-D-glucosyl)-cis-zeatin
-    name: 9-(alpha-D-glucopyranosyl)-N-[(2Z)-4-hydroxy-3-methylbut-2-en-1-yl]-9H-purin-6-amine
-    synonyms:
-    - 9-(alpha-d-glucopyranosyl)-cis-zeatin
-    - cis-zeatin-9-n-glucoside
-    identifiers:
-    - ns: chebi
-      id: CHEBI:72607
-    structure: InChI=1S/C16H23N5O6/c1-8(4-22)2-3-17-14-10-15(19-6-18-14)21(7-20-10)16-13(26)12(25)11(24)9(5-23)27-16/h2,6-7,9,11-13,16,22-26H,3-5H2,1H3,(H,17,18,19)/b8-2-/t9-,11-,12+,13-,16+/m1/s1
-  dNMP_104:
-    id: 9-ribosyl-trans-zeatin 5'-triphosphate
-    name: ''
-    synonyms:
-    - trans-zeatin 9-beta-d-ribofuranoside 5'-triphosphate
-    - trans-zeatin riboside triphosphate
-    - 9-beta-d-ribosyl-trans-zeatin 5'-triphosphate
-    - 9-beta-d-ribofuranosyl-trans-zeatin 5'-triphosphate
-    - tzrtp
-    identifiers:
-    - ns: chebi
-      id: CHEBI:71938
-    structure: InChI=1S/C15H24N5O14P3/c1-8(4-21)2-3-16-13-10-14(18-6-17-13)20(7-19-10)15-12(23)11(22)9(32-15)5-31-36(27,28)34-37(29,30)33-35(24,25)26/h2,6-7,9,11-12,15,21-23H,3-5H2,1H3,(H,27,28)(H,29,30)(H,16,17,18)(H2,24,25,26)/b8-2+/t9-,11-,12-,15-/m1/s1
-  dNMP_105:
-    id: 9-(beta-D-glucosyl)-trans-zeatin
-    name: 9-beta-D-glucopyranosyl-N-[(2E)-4-hydroxy-3-methylbut-2-en-1-yl]-9H-purin-6-amine
-    synonyms:
-    - trans-zeatin-9-glucoside
-    - trans-zeatin-9-beta-glucoside
-    - trans-zeatin-9-beta-d-glucoside
-    identifiers:
-    - ns: chebi
-      id: CHEBI:133210
-    structure: InChI=1S/C16H23N5O6/c1-8(4-22)2-3-17-14-10-15(19-6-18-14)21(7-20-10)16-13(26)12(25)11(24)9(5-23)27-16/h2,6-7,9,11-13,16,22-26H,3-5H2,1H3,(H,17,18,19)/b8-2+/t9-,11-,12+,13-,16-/m1/s1
-  dNMP_106:
-    id: 9-(alpha-D-glucosyl)-trans-zeatin
-    name: 9-(alpha-D-glucopyranosyl)-N-[(2E)-4-hydroxy-3-methylbut-2-en-1-yl]-9H-purin-6-amine
-    synonyms:
-    - 9-(alpha-d-glucopyranosyl)-trans-zeatin
-    - trans-zeatin-9-n-glucoside
-    identifiers:
-    - ns: chebi
-      id: CHEBI:72609
-    structure: InChI=1S/C16H23N5O6/c1-8(4-22)2-3-17-14-10-15(19-6-18-14)21(7-20-10)16-13(26)12(25)11(24)9(5-23)27-16/h2,6-7,9,11-13,16,22-26H,3-5H2,1H3,(H,17,18,19)/b8-2+/t9-,11-,12+,13-,16+/m1/s1
-  dNMP_107:
-    id: 9-ribosyl-trans-zeatin 5'-diphosphate
-    name: N-[(2E)-4-hydroxy-3-methylbut-2-en-1-yl]adenosine 5'-(trihydrogen diphosphate)
-    synonyms:
-    - 9-beta-d-ribofuranosyl-trans-zeatin 5'-diphosphate
-    - trans-zeatin 9-beta-d-ribofuranoside 5'-diphosphate
-    - tzrdp
-    - 9-beta-d-ribosyl-trans-zeatin 5'-diphosphate
-    - trans-zeatin riboside diphosphate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:71875
-    structure: InChI=1S/C15H23N5O11P2/c1-8(4-21)2-3-16-13-10-14(18-6-17-13)20(7-19-10)15-12(23)11(22)9(30-15)5-29-33(27,28)31-32(24,25)26/h2,6-7,9,11-12,15,21-23H,3-5H2,1H3,(H,27,28)(H,16,17,18)(H2,24,25,26)/b8-2+/t9-,11-,12-,15-/m1/s1
-  dNMP_108:
-    id: 9-(beta-D-glucosyl)-cis-zeatin
-    name: 9-beta-D-glucopyranosyl-N-[(2Z)-4-hydroxy-3-methylbut-2-en-1-yl]-9H-purin-6-amine
-    synonyms:
-    - cis-zeatin-9-beta-d-glucoside
-    - cis-zeatin-9-beta-glucoside
-    - cis-zeatin-9-glucoside
-    identifiers:
-    - ns: chebi
-      id: CHEBI:133208
-    structure: InChI=1S/C16H23N5O6/c1-8(4-22)2-3-17-14-10-15(19-6-18-14)21(7-20-10)16-13(26)12(25)11(24)9(5-23)27-16/h2,6-7,9,11-13,16,22-26H,3-5H2,1H3,(H,17,18,19)/b8-2-/t9-,11-,12+,13-,16-/m1/s1
-  dNMP_109:
+  dNMP_30:
     id: cis-zeatin
     name: (2Z)-2-methyl-4-(9H-purin-6-ylamino)but-2-en-1-ol
     synonyms:
@@ -1710,125 +723,68 @@ monomers:
     - ns: chebi
       id: CHEBI:46570
     structure: InChI=1S/C10H13N5O/c1-7(4-16)2-3-11-9-8-10(13-5-12-8)15-6-14-9/h2,5-6,16H,3-4H2,1H3,(H2,11,12,13,14,15)/b7-2-
-  dNMP_110:
-    id: O-beta-D-xylosylzeatin
-    name: 2-methyl-4-(1H-purin-6-ylamino)but-2-en-1-yl beta-D-xylopyranoside
-    synonyms:
-    - o-beta-d-xyloxylzeatin
-    - o-beta-d-xylosylzeatin
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17438
-    structure: InChI=1S/C15H21N5O5/c1-8(4-24-15-12(23)11(22)9(21)5-25-15)2-3-16-13-10-14(18-6-17-10)20-7-19-13/h2,6-7,9,11-12,15,21-23H,3-5H2,1H3,(H2,16,17,18,19,20)/b8-2-/t9-,11+,12-,15-/m1/s1
-  dNMP_111:
+  dNMP_31:
     id: trans-zeatin
     name: (2E)-2-methyl-4-(9H-purin-6-ylamino)but-2-en-1-ol
     synonyms:
-    - (e)-2-methyl-4-(1h-purin-6-ylamino)-2-buten-1-ol
-    - (e)-2-methyl-4-(purin-6-ylamino)-2-buten-1-ol
     - zeatin
-    - n6-(4-hydroxyisopentenyl)adenine
-    - (e)-zeatin
     - (e)-2-methyl-4-(1h-purin-6-ylamino)but-2-en-1-ol
+    - (e)-2-methyl-4-(1h-purin-6-ylamino)-2-buten-1-ol
+    - (e)-zeatin
+    - (e)-2-methyl-4-(purin-6-ylamino)-2-buten-1-ol
+    - n6-(4-hydroxyisopentenyl)adenine
     identifiers:
     - ns: chebi
       id: CHEBI:16522
     structure: InChI=1S/C10H13N5O/c1-7(4-16)2-3-11-9-8-10(13-5-12-8)15-6-14-9/h2,5-6,16H,3-4H2,1H3,(H2,11,12,13,14,15)/b7-2+
-  dNMP_112:
+  dNMP_32:
     id: discadenine
     name: (2S)-2-amino-4-{6-[(3-methylbut-2-en-1-yl)amino]-3H-purin-3-yl}butanoic
       acid
     synonyms:
+    - alpha-amino-6-((3-methyl-2-butenyl)amino)-3h-purine-3-butanoic acid
     - 3-(3-amino-3-carboxypropyl)-n6-(delta2-isopentenyl)-adenine
     - 3-(3-amino-3-carboxypropyl)-n6-(delta2)-isopentenyladenine
-    - alpha-amino-6-((3-methyl-2-butenyl)amino)-3h-purine-3-butanoic acid
     identifiers:
     - ns: chebi
       id: CHEBI:15955
     structure: InChI=1S/C14H20N6O2/c1-9(2)3-5-16-12-11-13(18-7-17-11)20(8-19-12)6-4-10(15)14(21)22/h3,7-8,10,16H,4-6,15H2,1-2H3,(H,21,22)/t10-/m0/s1
-  dNMP_113:
+  dNMP_33:
     id: N(6)-dimethylallyladenine
     name: N-(3-methylbut-2-en-1-yl)-7H-purin-6-amine, N-(3-methylbut-2-en-1-yl)-9H-purin-6-amine
     synonyms:
-    - n6-(delta2-isopentenyl)-adenine
-    - n6-isopentenyladenine
     - (3-methyl-but-2-enyl)-(7(9)h-purin-6-yl)-amine
-    - n(6)-(delta2-isopentenyl)adenine
-    - ip
-    - 6-(3-methyl-2-buten-1-ylamino)purine
-    - isopentenyl adenine
+    - 6-(gamma,gamma-dimethylallylamino)purine
+    - n6-dimethylallyladenine
     - isopentenyladenine
     - n6-(delta2-isopentenyl)adenine
-    - 6-(gamma,gamma-dimethylallylamino)purine
+    - 6-(3-methyl-2-buten-1-ylamino)purine
+    - isopentenyl adenine
+    - n6-isopentenyladenine
+    - n(6)-(delta2-isopentenyl)adenine
     - n(6)-dimethylallyladenine
+    - ip
+    - n6-(delta2-isopentenyl)-adenine
     - n6-(3-methylbut-2-enyl)adenine
-    - n6-dimethylallyladenine
     identifiers:
     - ns: chebi
       id: CHEBI:17660
     structure: InChI=1S/C10H13N5/c1-7(2)3-4-11-9-8-10(13-5-12-8)15-6-14-9/h3,5-6H,4H2,1-2H3,(H2,11,12,13,14,15)
-  dNMP_114:
+  dNMP_34:
     id: zeatin
     name: 2-methyl-4-(9H-purin-6-ylamino)but-2-en-1-ol
     identifiers:
     - ns: chebi
       id: CHEBI:15333
     structure: InChI=1S/C10H13N5O/c1-7(4-16)2-3-11-9-8-10(13-5-12-8)15-6-14-9/h2,5-6,16H,3-4H2,1H3,(H2,11,12,13,14,15)
-  dNMP_115:
-    id: dihydrozeatin-9-N-glucoside-O-glucoside
-    name: 4-[(9-alpha-D-glucopyranosyl-9H-purin-6-yl)amino]-2-methylbutyl alpha-D-glucopyranoside
-    synonyms:
-    - 9,o-di(alpha-d-glucosyl)dihydrozeatin
-    identifiers:
-    - ns: chebi
-      id: CHEBI:133477
-    structure: InChI=1S/C22H35N5O11/c1-9(6-36-22-18(35)16(33)14(31)11(5-29)38-22)2-3-23-19-12-20(25-7-24-19)27(8-26-12)21-17(34)15(32)13(30)10(4-28)37-21/h7-11,13-18,21-22,28-35H,2-6H2,1H3,(H,23,24,25)/t9?,10-,11-,13-,14-,15+,16+,17-,18-,21+,22+/m1/s1
-  dNMP_116:
-    id: 7-(alpha-D-glucosyl)dihydrozeatin
-    name: 7-alpha-D-glucopyranosyl-N-(4-hydroxy-3-methylbutyl)-7H-purin-6-amine
-    synonyms:
-    - cis-zeatin-7-alpha-d-glucoside
-    - dihydrozeatin-7-n-glucose
-    - (z)-zeatin-7-alpha-glucoside
-    - (z)-zeatin-7-n-glucoside
-    - cis-zeatin-7-alpha-glucoside
-    - cis-zeatin-7-glucoside
-    - (z)-zeatin-7-alpha-d-glucoside
-    - (z)-zeatin-7-glucoside
-    identifiers:
-    - ns: chebi
-      id: CHEBI:133475
-    structure: InChI=1S/C16H25N5O6/c1-8(4-22)2-3-17-14-10-15(19-6-18-14)20-7-21(10)16-13(26)12(25)11(24)9(5-23)27-16/h6-9,11-13,16,22-26H,2-5H2,1H3,(H,17,18,19)/t8?,9-,11-,12+,13-,16+/m1/s1
-  dNMP_117:
-    id: 9-(alpha-D-glucosyl)dihydrozeatin
-    name: ''
-    synonyms:
-    - 9-(alpha-d-glucopyranosyl)dihydrozeatin
-    - dihydrozeatin-9-n-glucoside
-    identifiers:
-    - ns: chebi
-      id: CHEBI:72612
-    structure: InChI=1S/C16H25N5O6/c1-8(4-22)2-3-17-14-10-15(19-6-18-14)21(7-20-10)16-13(26)12(25)11(24)9(5-23)27-16/h6-9,11-13,16,22-26H,2-5H2,1H3,(H,17,18,19)/t8?,9-,11-,12+,13-,16+/m1/s1
-  dNMP_118:
-    id: 9-(alpha-D-glucosyl)kinetin
-    name: ''
-    synonyms:
-    - kinetin-9-n-glucoside
-    - 9-alpha-d-glucosylkinetin
-    - 9-alpha-d-glucopyranosylkinetin
-    - 9-(alpha-d-glucopyranosyl)kinetin
-    identifiers:
-    - ns: chebi
-      id: CHEBI:72620
-    structure: InChI=1S/C16H19N5O6/c22-5-9-11(23)12(24)13(25)16(27-9)21-7-20-10-14(18-6-19-15(10)21)17-4-8-2-1-3-26-8/h1-3,6-7,9,11-13,16,22-25H,4-5H2,(H,17,18,19)/t9-,11-,12+,13-,16+/m1/s1
-  dNMP_119:
+  dNMP_35:
     id: dihydrozeatin
     name: (2R)-2-methyl-4-(7H-purin-6-ylamino)butan-1-ol
     synonyms:
-    - n6-(4-hydroxyisopentanyl)adenine
     - 2-methyl-4-(1h-purin-6-ylamino)butan-1-ol
-    - 2-methyl-4-(9h-purin-6-ylamino)butan-1-ol
     - n(6)-(4-hydroxyisopentanyl)adenine
+    - n6-(4-hydroxyisopentanyl)adenine
+    - 2-methyl-4-(9h-purin-6-ylamino)butan-1-ol
     identifiers:
     - ns: chebi
       id: CHEBI:17874
@@ -1837,8 +793,8 @@ monomers:
     id: 7,8-dihydro-8-oxoguanine
     name: 2-amino-7,9-dihydro-1H-purine-6,8-dione
     synonyms:
-    - 8-oxoguanine
     - 8-hydroxyguanine
+    - 8-oxoguanine
     identifiers:
     - ns: chebi
       id: CHEBI:52617
@@ -1860,22 +816,22 @@ monomers:
     - ns: chebi
       id: CHEBI:62032
     structure: InChI=1S/C8H9N5O3/c1-3(7(15)16)11-8-12-5-4(6(14)13-8)9-2-10-5/h2-3H,1H3,(H,15,16)(H3,9,10,11,12,13,14)
-  dNMP_120:
+  dNMP_36:
     id: ganciclovir
     name: 2-amino-9-{[(1,3-dihydroxypropan-2-yl)oxy]methyl}-1,9-dihydro-6H-purin-6-one
     synonyms:
-    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-9h-purin-6-ol
-    - 9-((2-hydroxy-1-(hydroxymethyl)ethoxy)methyl)guanine
-    - ga2
-    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-1h-purin-6(9h)-one
-    - 9-[(1,3-dihydroxy-2-propoxy)methyl]guanine
-    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-3h-purin-6(9h)-one
     - 2-amino-9-(2-hydroxy-1-hydroxymethyl-ethoxymethyl)-1,9-dihydro-purin-6-one
-    - 9-(1,3-dihydroxy-propoxymethane)guanine
+    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-3h-purin-6(9h)-one
+    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-1h-purin-6(9h)-one
     - ganciclovirum
     - 2-(6-amino-purin-9-ylmethoxy)-propane-1,3-diol
     - gancyclovir
     - 2-amino-9-(2-hydroxy-1-hydroxymethylethoxymethyl)-6,9-dihydro-1h-6-purinone
+    - 9-((2-hydroxy-1-(hydroxymethyl)ethoxy)methyl)guanine
+    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-9h-purin-6-ol
+    - ga2
+    - 9-(1,3-dihydroxy-propoxymethane)guanine
+    - 9-[(1,3-dihydroxy-2-propoxy)methyl]guanine
     identifiers:
     - ns: chebi
       id: CHEBI:465284
@@ -1893,99 +849,58 @@ monomers:
     id: 1,N(2)-ethenoguanine
     name: 1,4-dihydro-9H-imidazo[1,2-a]purin-9-one
     synonyms:
-    - 1,n(2)-ethenoguanine
     - 1,n(2)-epsilong
+    - 1,n(2)-ethenoguanine
     identifiers:
     - ns: chebi
       id: CHEBI:134096
     structure: InChI=1S/C7H5N5O/c13-6-4-5(10-3-9-4)11-7-8-1-2-12(6)7/h1-3H,(H,8,11)(H,9,10)
-  dNMP_121:
-    id: acyclovir
-    name: 2-amino-9-[(2-hydroxyethoxy)methyl]-1,9-dihydro-6H-purin-6-one
-    synonyms:
-    - acycloguanosine
-    - aciclovirum
-    - aciclovir
-    - zovir
-    identifiers:
-    - ns: chebi
-      id: CHEBI:2453
-    structure: InChI=1S/C8H11N5O3/c9-8-11-6-5(7(15)12-8)10-3-13(6)4-16-2-1-14/h3,14H,1-2,4H2,(H3,9,11,12,15)
-  dNMP_122:
+  dNMP_37:
     id: penciclovir
     name: 2-amino-9-[4-hydroxy-3-(hydroxymethyl)butyl]-1,9-dihydro-6H-purin-6-one
     synonyms:
-    - 9-[2-hydroxy-1-(hydroxymethyl)-ethoxymethyl]guanine
-    - 9-(4-hydroxy-3-hydroxymethylbut-1-yl)-guanine
-    - 9-[4-hydroxy-3-(hydroxymethyl)but-1-yl]guanine
     - pe2
-    - pcv
+    - 9-[2-hydroxy-1-(hydroxymethyl)-ethoxymethyl]guanine
     - penciclovirum
     - 9-(4-hydroxy-3-(hydroxymethyl)butyl)guanine
+    - pcv
+    - 9-(4-hydroxy-3-hydroxymethylbut-1-yl)-guanine
+    - 9-[4-hydroxy-3-(hydroxymethyl)but-1-yl]guanine
     identifiers:
     - ns: chebi
       id: CHEBI:7956
     structure: InChI=1S/C10H15N5O3/c11-10-13-8-7(9(18)14-10)12-5-15(8)2-1-6(3-16)4-17/h5-6,16-17H,1-4H2,(H3,11,13,14,18)
-  dNMP_123:
+  dNMP_38:
     id: valganciclovir
     name: 2-[(2-amino-6-oxo-3,6-dihydro-9H-purin-9-yl)methoxy]-3-hydroxypropyl L-valinate
     identifiers:
     - ns: chebi
       id: CHEBI:63635
     structure: InChI=1S/C14H22N6O5/c1-7(2)9(15)13(23)24-4-8(3-21)25-6-20-5-17-10-11(20)18-14(16)19-12(10)22/h5,7-9,21H,3-4,6,15H2,1-2H3,(H3,16,18,19,22)/t8?,9-/m0/s1
-  dNMP_124:
-    id: O(6)-methyl-2'-deoxyguanosine
-    name: 9-(2-deoxy-beta-D-erythro-pentofuranosyl)-6-methoxy-9H-purin-2-amine
-    synonyms:
-    - o6-methyl-2'-deoxyguanosine
-    - o(6)-methyldeoxyguanosine
-    - 2'-deoxy-o(6)-methylguanosine
-    - o(6)-methyl-2'-deoxyguanosine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:27549
-    structure: InChI=1S/C11H15N5O4/c1-19-10-8-9(14-11(12)15-10)16(4-13-8)7-2-5(18)6(3-17)20-7/h4-7,17-18H,2-3H2,1H3,(H2,12,14,15)/t5-,6+,7+/m0/s1
-  dNMP_125:
+  dNMP_39:
     id: valacyclovir
     name: 2-[(2-amino-6-oxo-1,6-dihydro-9H-purin-9-yl)methoxy]ethyl L-valinate
     synonyms:
-    - l-valine ester with 9-((2-hydroxyethoxy)methyl)guanine
     - l-valin
+    - l-valine ester with 9-((2-hydroxyethoxy)methyl)guanine
     - -((2-amino-1,6-dihydro-6-oxo-9h-purin-9-yl)methoxy)ethyl ester
     identifiers:
     - ns: chebi
       id: CHEBI:35854
     structure: InChI=1S/C13H20N6O4/c1-7(2)8(14)12(21)23-4-3-22-6-19-5-16-9-10(19)17-13(15)18-11(9)20/h5,7-8H,3-4,6,14H2,1-2H3,(H3,15,17,18,20)/t8-/m0/s1
-  dNMP_126:
+  dNMP_40:
     id: 8-hydroxy-7-methylguanine
     name: 2-amino-7-methyl-7,9-dihydro-3H-purine-6,8-dione
     identifiers:
     - ns: chebi
       id: CHEBI:74064
     structure: InChI=1S/C6H7N5O2/c1-11-2-3(9-6(11)13)8-5(7)10-4(2)12/h1H3,(H4,7,8,9,10,12,13)
-  dNMP_127:
-    id: guanosine
-    name: guanosine
-    synonyms:
-    - g
-    - 2-amino-9-beta-d-ribofuranosyl-1,9-dihydro-6h-purin-6-one
-    - 9-beta-d-ribofuranosyl-guanine
-    - guo
-    - guanine riboside
-    - 2-amino-1,9-dihydro-9-beta-d-ribofuranosyl-6h-purin-6-one
-    - guanine-9-beta-d-ribofuranoside
-    - guanosin
-    - 2(3h)-imino-9-beta-d-ribofuranosyl-9h-purin-6(1h)-one
-    identifiers:
-    - ns: chebi
-      id: CHEBI:16750
-    structure: InChI=1S/C10H13N5O5/c11-10-13-7-4(8(19)14-10)12-2-15(7)9-6(18)5(17)3(1-16)20-9/h2-3,5-6,9,16-18H,1H2,(H3,11,13,14,19)/t3-,5-,6-,9-/m1/s1
-  dNMP_128:
+  dNMP_41:
     id: nelarabine
     name: 9-(beta-D-arabinofuranosyl)-6-methoxy-9H-purin-2-amine
     synonyms:
-    - arranon
     - 2-amino-9-beta-d-arabinofuranosyl-6-methoxy-9h-purine
+    - arranon
     - nelzarabine
     identifiers:
     - ns: chebi
@@ -1998,20 +913,6 @@ monomers:
     - ns: chebi
       id: CHEBI:131836
     structure: InChI=1S/C12H15N5O6/c13-8(21)3-1-17(9-5(3)10(22)16-12(14)15-9)11-7(20)6(19)4(2-18)23-11/h1,4,6-7,11,18-20H,2H2,(H2,13,21)(H3,14,15,16,22)/t4-,6-,7-,11-/m1/s1
-  m22G:
-    id: N(2),N(2)-dimethylguanosine
-    name: N,N-dimethylguanosine
-    synonyms:
-    - 2-(dimethylamino)-9-(beta-d-ribofuranosyl)-1,9-dihydro-6h-purin-6-one
-    - n2-dimethylguanosine
-    - n(2),n(2)-dimethylguanosine
-    - m22g
-    - 2,2-dimethylguanosine
-    - 2-dimethylamino-6-oxypurine riboside
-    identifiers:
-    - ns: chebi
-      id: CHEBI:19289
-    structure: InChI=1S/C12H17N5O5/c1-16(2)12-14-9-6(10(21)15-12)13-4-17(9)11-8(20)7(19)5(3-18)22-11/h4-5,7-8,11,18-20H,3H2,1-2H3,(H,14,15,21)/t5-,7-,8-,11-/m1/s1
   3mG:
     id: 2-amino-3-methyl-3,9-dihydro-6H-purin-6-one
     name: 2-amino-3-methyl-3,9-dihydro-6H-purin-6-one
@@ -2043,8 +944,8 @@ monomers:
     synonyms:
     - 2-amino-7-methylhypoxanthine
     - n(7)-methylguanine
-    - 7-methylguanine
     - 2-amino-1,7-dihydro-7-methyl-6h-purin-6-one
+    - 7-methylguanine
     identifiers:
     - ns: chebi
       id: CHEBI:28664
@@ -2076,10 +977,10 @@ monomers:
     id: N(2)-methylguanine
     name: 2-(methylamino)-1,7-dihydro-6H-purin-6-one
     synonyms:
+    - 2-methylamino-6-oxopurine
+    - n-methyl-guanine
     - 1,7-dihydro-2-(methylamino)-6h-purin-6-one
     - 2-methylguanine
-    - n-methyl-guanine
-    - 2-methylamino-6-oxopurine
     identifiers:
     - ns: chebi
       id: CHEBI:21818
@@ -2088,16 +989,16 @@ monomers:
     id: 6-O-methylguanine
     name: 6-methoxy-7H-purin-2-amine
     synonyms:
-    - 2-amino-6-methoxypurine
-    - 6-methoxyguanine
     - o(6)-methylguanine
+    - 6-methoxyguanine
     - o-(6)-methylguanine
+    - 2-amino-6-methoxypurine
     - 6-methoxy-1h-purine-2-amine
     identifiers:
     - ns: chebi
       id: CHEBI:20689
     structure: InChI=1S/C6H7N5O/c1-12-5-3-4(9-2-8-3)10-6(7)11-5/h2H,1H3,(H3,7,8,9,10,11)
-  dNMP_129:
+  dNMP_42:
     id: 6-(3,5-dimethylbenzyl)-1-(ethoxymethyl)-5-isopropyluracil
     name: 6-(3,5-dimethylbenzyl)-1-(ethoxymethyl)-5-(propan-2-yl)pyrimidine-2,4(1H,3H)-dione
     synonyms:
@@ -2108,33 +1009,33 @@ monomers:
     - ns: chebi
       id: CHEBI:42702
     structure: InChI=1S/C19H26N2O3/c1-6-24-11-21-16(10-15-8-13(4)7-14(5)9-15)17(12(2)3)18(22)20-19(21)23/h7-9,12H,6,10-11H2,1-5H3,(H,20,22,23)
-  dNMP_130:
+  dNMP_43:
     id: 6-benzyl-1-(benzyloxymethyl)-5-isopropyluracil
     name: 6-benzyl-1-[(benzyloxy)methyl]-5-(propan-2-yl)pyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - 6-benzyl-1-[(benzyloxy)methyl]-5-(1-methylethyl)uracil
-    - tnk651
-    - 6-benzyl-1-benzyloxymethyl-5-isopropyl uracil
     - 5-(1-methylethyl)-1-[(phenylmethoxy)methyl]-6-(phenylmethyl)-2,4(1h,3h)-pyrimidinedione
+    - 6-benzyl-1-benzyloxymethyl-5-isopropyl uracil
+    - tnk651
+    - 6-benzyl-1-[(benzyloxy)methyl]-5-(1-methylethyl)uracil
     - tnk-651
     identifiers:
     - ns: chebi
       id: CHEBI:45910
     structure: InChI=1S/C22H24N2O3/c1-16(2)20-19(13-17-9-5-3-6-10-17)24(22(26)23-21(20)25)15-27-14-18-11-7-4-8-12-18/h3-12,16H,13-15H2,1-2H3,(H,23,25,26)
-  dNMP_131:
+  dNMP_44:
     id: emivirine
     name: 6-benzyl-1-(ethoxymethyl)-5-(propan-2-yl)pyrimidine-2,4(1H,3H)-dione
     synonyms:
+    - mkc-442
+    - 6-benzyl-1-ethoxymethyl-5-isopropyl uracil
+    - 6-benzyl-1-(ethoxymethyl)-5-(1-methylethyl)uracil
     - coactinon
     - 1-(ethoxymethyl)-5-(1-methylethyl)-6-(phenylmethyl)pyrimidine-2,4(1h,3h)-dione
-    - 6-benzyl-1-ethoxymethyl-5-isopropyl uracil
-    - mkc-442
-    - 6-benzyl-1-(ethoxymethyl)-5-(1-methylethyl)uracil
     identifiers:
     - ns: chebi
       id: CHEBI:44143
     structure: InChI=1S/C17H22N2O3/c1-4-22-11-19-14(10-13-8-6-5-7-9-13)15(12(2)3)16(20)18-17(19)21/h5-9,12H,4,10-11H2,1-3H3,(H,18,20,21)
-  dNMP_132:
+  dNMP_45:
     id: 1-(ethoxymethyl)-5-isopropyl-6-(phenylsulfanyl)uracil
     name: 1-(ethoxymethyl)-6-(phenylsulfanyl)-5-(propan-2-yl)pyrimidine-2,4(1H,3H)-dione
     synonyms:
@@ -2144,50 +1045,27 @@ monomers:
     - ns: chebi
       id: CHEBI:40152
     structure: InChI=1S/C16H20N2O3S/c1-4-21-10-18-15(22-12-8-6-5-7-9-12)13(11(2)3)14(19)17-16(18)20/h5-9,11H,4,10H2,1-3H3,(H,17,19,20)
-  dNMP_133:
+  dNMP_46:
     id: 5-bromouracil
     name: 5-bromopyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - 5-bu
     - bromouracil
-    - 1,2,3,4-tetrahydro-5-bromo-2,4-pyrimidinedione
-    - 5-bromo-2,4(1h,3h)-pyrimidinedione
     - 5-bru
+    - 5-bromo-2,4(1h,3h)-pyrimidinedione
+    - 5-bu
+    - 1,2,3,4-tetrahydro-5-bromo-2,4-pyrimidinedione
     identifiers:
     - ns: chebi
       id: CHEBI:20552
     structure: InChI=1S/C4H3BrN2O2/c5-2-1-6-4(9)7-3(2)8/h1H,(H2,6,7,8,9)
-  dNMP_134:
+  dNMP_47:
     id: 5-iodouracil
     name: 5-iodopyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: chebi
       id: CHEBI:43636
     structure: InChI=1S/C4H3IN2O2/c5-2-1-6-4(9)7-3(2)8/h1H,(H2,6,7,8,9)
-  dNMP_135:
-    id: 5-benzyloxybenzylacyclouridine
-    name: 5-[3-(benzyloxy)benzyl]-1-[(2-hydroxyethoxy)methyl]pyrimidine-2,4(1H,3H)-dione
-    synonyms:
-    - 5-(m-benzyloxybenzyl)-1-(2'-hydroxyethoxymethyl)uracil
-    - bbau
-    - 5-bbau
-    - 1-((2-hydroxyethoxy)methyl)-5-(3-(benzyloxy)benzyl)pyrimidine-2,4(1h,3h)-dione
-    - 5-(benzyloxybenzyl)acyclouridine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:39579
-    structure: InChI=1S/C21H22N2O5/c24-9-10-27-15-23-13-18(20(25)22-21(23)26)11-17-7-4-8-19(12-17)28-14-16-5-2-1-3-6-16/h1-8,12-13,24H,9-11,14-15H2,(H,22,25,26)
-  dNMP_136:
-    id: 5-benzyl-1-(2-hydroxyethoxymethyl)uracil
-    name: 5-benzyl-1-[(2-hydroxyethoxy)methyl]pyrimidine-2,4(1H,3H)-dione
-    synonyms:
-    - 5-benzylacyclouridine
-    - bau
-    identifiers:
-    - ns: chebi
-      id: CHEBI:41037
-    structure: InChI=1S/C14H16N2O4/c17-6-7-20-10-16-9-12(13(18)15-14(16)19)8-11-4-2-1-3-5-11/h1-5,9,17H,6-8,10H2,(H,15,18,19)
-  dNMP_137:
+  dNMP_48:
     id: 6-cyclohexylsulfanyl-1-ethoxymethyl-5-isopropyluracil
     name: 6-(cyclohexylsulfanyl)-1-(ethoxymethyl)-5-(propan-2-yl)pyrimidine-2,4(1H,3H)-dione
     synonyms:
@@ -2197,36 +1075,16 @@ monomers:
     - ns: chebi
       id: CHEBI:62748
     structure: InChI=1S/C16H26N2O3S/c1-4-21-10-18-15(22-12-8-6-5-7-9-12)13(11(2)3)14(19)17-16(18)20/h11-12H,4-10H2,1-3H3,(H,17,19,20)
-  dU:
-    id: 2'-deoxyuridine
-    name: 1-(2-deoxy-beta-D-erythro-pentofuranosyl)uracil
-    synonyms:
-    - du
-    - 2-deoxyuridine
-    - deoxyuridine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:16450
-    structure: InChI=1S/C9H12N2O5/c12-4-6-5(13)3-8(16-6)11-2-1-7(14)10-9(11)15/h1-2,5-6,8,12-13H,3-4H2,(H,10,14,15)/t5-,6+,8+/m0/s1
-  dNMP_138:
-    id: 5-carboxy-2'-deoxyuridine
-    name: 5-carboxy-2'-deoxyuridine
-    synonyms:
-    - 2'-deoxy-5-carboxyuridine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:102485
-    structure: InChI=1S/C10H12N2O7/c13-3-6-5(14)1-7(19-6)12-2-4(9(16)17)8(15)11-10(12)18/h2,5-7,13-14H,1,3H2,(H,16,17)(H,11,15,18)/t5-,6+,7+/m0/s1
-  dNMP_139:
+  dNMP_49:
     id: thiouracil
     name: 2-thioxo-2,3-dihydropyrimidin-4(1H)-one
     synonyms:
-    - 2-mercapto-4-pyrimidinol
     - 2-mercapto-pyrimidin-4-ol
     - 2-thio-2,4-(1h,3h)-pyrimidinedione
+    - 2-mercapto-4-pyrimidinol
     - 2-thioxo-2,3-dihydro-1h-pyrimidin-4-one
-    - 2-thiouracil
     - 4-hydroxy-2-pyrimidinethiol
+    - 2-thiouracil
     identifiers:
     - ns: chebi
       id: CHEBI:348530
@@ -2238,76 +1096,76 @@ monomers:
     - ns: chebi
       id: CHEBI:132195
     structure: InChI=1S/C9H14N2O4/c12-5-7(13)3-1-2-6-4-10-9(15)11-8(6)14/h4,7,12-13H,1-3,5H2,(H2,10,11,14,15)
-  dNMP_140:
+  dNMP_50:
     id: 5,6-dihydroxyuracil
     name: 5,6-dihydroxypyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - isodialuric acid
     - 5,6-dihydroxy-1,2,3,4-tetrahydropyrimidine-2,4-dione
+    - isodialuric acid
     identifiers:
     - ns: chebi
       id: CHEBI:132197
     structure: InChI=1S/C4H4N2O4/c7-1-2(8)5-4(10)6-3(1)9/h7H,(H3,5,6,8,9,10)
-  dNMP_141:
+  dNMP_51:
     id: saflufenacil
     name: 2-chloro-4-fluoro-5-[3-methyl-2,6-dioxo-4-(trifluoromethyl)-3,6-dihydropyrimidin-1(2H)-yl]-N-[methyl(propan-2-yl)sulfamoyl]benzamide,
       2-chloro-4-fluoro-N-[isopropyl(methyl)sulfamoyl]-5-[3-methyl-2,6-dioxo-4-(trifluoromethyl)-3,6-dihydropyrimidin-1(2H)-yl]benzamide
     synonyms:
-    - saflufenacile
-    - n'-{2-chloro-4-fluoro-5-[1,2,3,6-tetrahydro-3-methyl-2,6-dioxo-4-(trifluoromethyl)pyrimidin-1-yl]benzoyl}-n-isopropyl-n-methylsulfamide
     - kixor
+    - saflufenacile
     - 2-chloro-5-[3,6-dihydro-3-methyl-2,6-dioxo-4-(trifluoromethyl)-1(2h)-pyrimidinyl]-4-fluoro-n-[[methyl(1-methylethyl)amino]sulfonyl]benzamide
+    - n'-{2-chloro-4-fluoro-5-[1,2,3,6-tetrahydro-3-methyl-2,6-dioxo-4-(trifluoromethyl)pyrimidin-1-yl]benzoyl}-n-isopropyl-n-methylsulfamide
     identifiers:
     - ns: chebi
       id: CHEBI:142824
     structure: InChI=1S/C17H17ClF4N4O5S/c1-8(2)25(4)32(30,31)23-15(28)9-5-12(11(19)6-10(9)18)26-14(27)7-13(17(20,21)22)24(3)16(26)29/h5-8H,1-4H3,(H,23,28)
-  dNMP_142:
+  dNMP_52:
     id: 1,3-dimethyluracil
     name: 1,3-dimethylpyrimidine-2,4(1H,3H)-dione
     synonyms:
+    - n1,n3-dimethyluracil
     - n,n'-dimethyluracil
     - 2,4-dihydroxy-1,3-dimethylpyrimidine
-    - n1,n3-dimethyluracil
     identifiers:
     - ns: chebi
       id: CHEBI:74763
     structure: InChI=1S/C6H8N2O2/c1-7-4-3-5(9)8(2)6(7)10/h3-4H,1-2H3
-  dNMP_143:
+  dNMP_53:
     id: 5-chlorouracil
     name: 5-chloropyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: chebi
       id: CHEBI:60762
     structure: InChI=1S/C4H3ClN2O2/c5-2-1-6-4(9)7-3(2)8/h1H,(H2,6,7,8,9)
-  dNMP_144:
+  dNMP_54:
     id: 5-nitrouracil
     name: 5-nitropyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: chebi
       id: CHEBI:60763
     structure: InChI=1S/C4H3N3O4/c8-3-2(7(10)11)1-5-4(9)6-3/h1H,(H2,5,6,8,9)
-  dNMP_145:
+  dNMP_55:
     id: 1-methyluracil
     name: 1-methylpyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: chebi
       id: CHEBI:69445
     structure: InChI=1S/C5H6N2O2/c1-7-3-2-4(8)6-5(7)9/h2-3H,1H3,(H,6,8,9)
-  dNMP_146:
+  dNMP_56:
     id: 3-methyluracil
     name: 3-methylpyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: chebi
       id: CHEBI:74732
     structure: InChI=1S/C5H6N2O2/c1-7-4(8)2-3-6-5(7)9/h2-3H,1H3,(H,6,9)
-  dNMP_147:
+  dNMP_57:
     id: 6-methyluracil
     name: 6-methylpyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: chebi
       id: CHEBI:74733
     structure: InChI=1S/C5H6N2O2/c1-3-2-4(8)7-5(9)6-3/h2H,1H3,(H2,6,7,8,9)
-  dNMP_148:
+  dNMP_58:
     id: dasabuvir
     name: N-{6-[3-tert-butyl-5-(2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-2-methoxyphenyl]naphthalen-2-yl}methanesulfonamide
     synonyms:
@@ -2316,52 +1174,24 @@ monomers:
     - ns: chebi
       id: CHEBI:85182
     structure: InChI=1S/C26H27N3O5S/c1-26(2,3)22-15-20(29-11-10-23(30)27-25(29)31)14-21(24(22)34-4)18-7-6-17-13-19(28-35(5,32)33)9-8-16(17)12-18/h6-15,28H,1-5H3,(H,27,30,31)
-  dNMP_149:
+  dNMP_59:
     id: tipiracil
     name: 5-chloro-6-[(2-iminopyrrolidin-1-yl)methyl]pyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: chebi
       id: CHEBI:90879
     structure: InChI=1S/C9H11ClN4O2/c10-7-5(12-9(16)13-8(7)15)4-14-3-1-2-6(14)11/h11H,1-4H2,(H2,12,13,15,16)
-  dNMP_150:
-    id: uridine
-    name: uridine
-    synonyms:
-    - urd
-    - uridin
-    - 1-beta-d-ribofuranosylpyrimidine-2,4(1h,3h)-dione
-    - 1-beta-d-ribofuranosyluracil
-    - beta-uridine
-    - u
-    identifiers:
-    - ns: chebi
-      id: CHEBI:16704
-    structure: InChI=1S/C9H12N2O6/c12-3-4-6(14)7(15)8(17-4)11-2-1-5(13)10-9(11)16/h1-2,4,6-8,12,14-15H,3H2,(H,10,13,16)/t4-,6-,7-,8-/m1/s1
-  5caU:
-    id: uracil-5-carboxylic acid
-    name: 2,4-dioxo-1,2,3,4-tetrahydropyrimidine-5-carboxylic acid
-    synonyms:
-    - uracil 5-carboxylic acid
-    - 5-carboxyuracil
-    - steviolbioside
-    - isoorotic acid
-    - 2,4-dihydroxy-5-pyrimidinecarboxylic acid
-    - uracil 5-carboxylate
-    identifiers:
-    - ns: chebi
-      id: CHEBI:17477
-    structure: InChI=1S/C5H4N2O4/c8-3-2(4(9)10)1-6-5(11)7-3/h1H,(H,9,10)(H2,6,7,8,11)
-  dNMP_151:
+  dNMP_60:
     id: orotic acid
     name: 2,6-dioxo-1,2,3,6-tetrahydropyrimidine-4-carboxylic acid
     synonyms:
-    - uracil-6-carboxylic acid
     - orotsaeure
+    - uracil-6-carboxylic acid
     identifiers:
     - ns: chebi
       id: CHEBI:16742
     structure: InChI=1S/C5H4N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h1H,(H,9,10)(H2,6,7,8,11)
-  dNMP_152:
+  dNMP_61:
     id: orotate
     name: 2,6-dioxo-1,2,3,6-tetrahydropyrimidine-4-carboxylate
     identifiers:
@@ -2372,60 +1202,60 @@ monomers:
     id: 5-hydroxymethyluracil
     name: 5-(hydroxymethyl)pyrimidine-2,4(1H,3H)-dione
     synonyms:
+    - 5-hydroxymethyl uracil
     - 5-(hydroxymethyl)-2,4(1h,3h)-pyrimidinedione
     - 5-(hydroxymethyl)uracil
-    - 5-hydroxymethyl uracil
     identifiers:
     - ns: chebi
       id: CHEBI:16964
     structure: InChI=1S/C5H6N2O3/c8-2-3-1-6-5(10)7-4(3)9/h1,8H,2H2,(H2,6,7,9,10)
-  dNMP_153:
+  dNMP_62:
     id: 5,6-dihydrouracil
     name: dihydropyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - dihydro-2,4(1h,3h)-pyrimidinedione
     - 2,4-dioxotetrahydropyrimidine
-    - hydrouracil
-    - 2,4(1h,3h)-pyrimidinedion
-    - dihydrouracile
     - ihydro-
-    - dihydrouracil
-    - 5,6-dihydro-2,4-dihydroxypyrimidine
+    - hydrouracil
     - dihydropyrimidine-2,4(1h,3h)-dione
+    - 5,6-dihydro-2,4-dihydroxypyrimidine
+    - dihydrouracile
+    - 2,4(1h,3h)-pyrimidinedion
+    - dihydro-2,4(1h,3h)-pyrimidinedione
+    - dihydrouracil
     identifiers:
     - ns: chebi
       id: CHEBI:15901
     structure: InChI=1S/C4H6N2O2/c7-3-1-2-5-4(8)6-3/h1-2H2,(H2,5,6,7,8)
-  dNMP_154:
+  dNMP_63:
     id: 5-fluorouracil
     name: 5-fluoropyrimidine-2,4(1H,3H)-dione, 5-fluorouracil
     synonyms:
-    - fluorouracil
-    - fluorouracilum
-    - 5-fluoracil
-    - 5-fu
-    - fluorouracilo
     - 5-fluoropyrimidine-2,4-dione
+    - 5-fu
+    - 5-fluoracil
+    - fluorouracilum
+    - fluorouracilo
+    - fluorouracil
     identifiers:
     - ns: chebi
       id: CHEBI:46345
     structure: InChI=1S/C4H3FN2O2/c5-2-1-6-4(9)7-3(2)8/h1H,(H2,6,7,8,9)
-  dNMP_155:
+  dNMP_64:
     id: 3-(5-fluorouracil-1-yl)-L-alanine
     name: 3-(5-fluoro-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-L-alanine
     synonyms:
     - (s)-alpha-amino-5-fluoro-3,4-dihydro-2,4-dioxo-1(2h)-pyrimmidinepropanoic acid
     - 5-fluorowillardiine
-    - (s)-(-)-5-fluorowillardiine
     - (s)-f-willardiine
+    - 2-amino-3-(5-fluoro-2,4-dioxo-3,4-dihydro-2h-pyrimidin-1-yl)-propionic acid
     - (2s)-2-amino-3-(5-fluoro-2,4-dioxo-1,2,3,4-tetrahydropyrimidin-1-yl)propanoic
       acid
-    - 2-amino-3-(5-fluoro-2,4-dioxo-3,4-dihydro-2h-pyrimidin-1-yl)-propionic acid
+    - (s)-(-)-5-fluorowillardiine
     identifiers:
     - ns: chebi
       id: CHEBI:42549
     structure: InChI=1S/C7H8FN3O4/c8-3-1-11(2-4(9)6(13)14)7(15)10-5(3)12/h1,4H,2,9H2,(H,13,14)(H,10,12,15)/t4-/m0/s1
-  dNMP_156:
+  dNMP_65:
     id: uracil-6-ylacetic acid
     name: (2,6-dioxo-1,2,3,6-tetrahydropyrimidin-4-yl)acetic acid
     synonyms:
@@ -2435,7 +1265,7 @@ monomers:
     - ns: chebi
       id: CHEBI:46371
     structure: InChI=1S/C6H6N2O4/c9-4-1-3(2-5(10)11)7-6(12)8-4/h1H,2H2,(H,10,11)(H2,7,8,9,12)
-  dNMP_157:
+  dNMP_66:
     id: 5-acetamido-6-formamido-3-methyluracil
     name: N-(6-formamido-3-methyl-2,4-dioxo-1,2,3,4-tetrahydropyrimidin-5-yl)acetamide
     synonyms:
@@ -2445,50 +1275,50 @@ monomers:
     - ns: chebi
       id: CHEBI:32643
     structure: InChI=1S/C8H10N4O4/c1-4(14)10-5-6(9-3-13)11-8(16)12(2)7(5)15/h3H,1-2H3,(H,9,13)(H,10,14)(H,11,16)
-  dNMP_158:
+  dNMP_67:
     id: 5-hydroxyuracil
     name: 5-hydroxypyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - isobarbituric acid
     - dihydropyrimidine-2,4,5(3h)-trione
+    - isobarbituric acid
     identifiers:
     - ns: chebi
       id: CHEBI:29115
     structure: InChI=1S/C4H4N2O3/c7-2-1-5-4(9)6-3(2)8/h1,7H,(H2,5,6,8,9)
-  dNMP_159:
+  dNMP_68:
     id: 6-propyl-2-thiouracil
     name: 6-propyl-2-sulfanylidene-2,3-dihydropyrimidin-4(1H)-one
     synonyms:
-    - 2-mercapto-6-propylpyrimid-4-one
-    - 2,3-dihydro-6-propyl-2-thioxo-4(1h)-pyrimidinone
-    - 6-thio-4-propyluracil
-    - 2-thio-6-propyl-1,3-pyrimidin-4-one
-    - 2-mercapto-6-propyl-4-pyrimidone
-    - 2-thio-4-oxo-6-propyl-1,3-pyrimidine
-    - 6-propylthiouracil
-    - 6-propyl-2-thio-2,4(1h,3h)pyrimidinedione
-    - propylthiouracil
     - propylthiouracilum
-    - propylthiouracile
-    - 6-propyl-2-thioxo-2,3-dihydropyrimidin-4(1h)-one
+    - 2,3-dihydro-6-propyl-2-thioxo-4(1h)-pyrimidinone
+    - propylthiouracil
+    - 6-propyl-2-thio-2,4(1h,3h)pyrimidinedione
+    - 2-mercapto-6-propylpyrimid-4-one
     - propiltiouracilo
+    - 6-propylthiouracil
+    - propylthiouracile
+    - 2-thio-6-propyl-1,3-pyrimidin-4-one
+    - 6-thio-4-propyluracil
+    - 2-mercapto-6-propyl-4-pyrimidone
+    - 6-propyl-2-thioxo-2,3-dihydropyrimidin-4(1h)-one
     - 4-propyl-2-thiouracil
+    - 2-thio-4-oxo-6-propyl-1,3-pyrimidine
     identifiers:
     - ns: chebi
       id: CHEBI:8502
     structure: InChI=1S/C7H10N2OS/c1-2-3-5-4-6(10)9-7(11)8-5/h4H,2-3H2,1H3,(H2,8,9,10,11)
-  dNMP_160:
+  dNMP_69:
     id: 3-(uracil-1-yl)-L-alanine
     name: 3-(2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-L-alanine
     synonyms:
-    - willardiine
-    - 2-amino-3-(2,4-dioxo-3,4-dihydro-2h-pyrimidin-1-yl)-propionic acid
     - 3-(uracil-1-yl)-l-alanine
+    - 2-amino-3-(2,4-dioxo-3,4-dihydro-2h-pyrimidin-1-yl)-propionic acid
+    - willardiine
     identifiers:
     - ns: chebi
       id: CHEBI:15851
     structure: InChI=1S/C7H9N3O4/c8-4(6(12)13)3-10-2-1-5(11)9-7(10)14/h1-2,4H,3,8H2,(H,12,13)(H,9,11,14)/t4-/m0/s1
-  dNMP_161:
+  dNMP_70:
     id: ({[(1R,2R)-2-(uracil-1-yl)cyclopentyl]oxy}methyl)phosphonic acid
     name: ({[(1R,2R)-2-(2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)cyclopentyl]oxy}methyl)phosphonic
       acid
@@ -2496,37 +1326,7 @@ monomers:
     - ns: chebi
       id: CHEBI:42248
     structure: InChI=1S/C10H15N2O6P/c13-9-4-5-12(10(14)11-9)7-2-1-3-8(7)18-6-19(15,16)17/h4-5,7-8H,1-3,6H2,(H,11,13,14)(H2,15,16,17)/t7-,8-/m1/s1
-  5-NedU:
-    id: 5-(2-aminoethyl)-2'-deoxyuridine
-    name: 5-(2-aminoethyl)-2'-deoxyuridine
-    synonyms:
-    - 5-nedu
-    - 5-(2-aminoethyl)-1-[(2r,4s,5r)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]pyrimidine-2,4(1h,3h)-dione
-    - 5-(2-aminoethyl)-1-[(2r,4s,5r)-4-hydroxy-5-(hydroxymethyl)oxolan-2-yl]pyrimidine-2,4-dione
-    identifiers:
-    - ns: chebi
-      id: CHEBI:142166
-    structure: InChI=1S/C11H17N3O5/c12-2-1-6-4-14(11(18)13-10(6)17)9-3-7(16)8(5-15)19-9/h4,7-9,15-16H,1-3,5,12H2,(H,13,17,18)/t7-,8+,9+/m0/s1
-  DHdU:
-    id: 5,6-dihydroxy-2'-deoxyuridine
-    name: 2'-deoxy-5,6-dihydroxyuridine
-    synonyms:
-    - dhdu
-    identifiers:
-    - ns: chebi
-      id: CHEBI:132189
-    structure: InChI=1S/C9H12N2O7/c12-2-4-3(13)1-5(18-4)11-8(16)6(14)7(15)10-9(11)17/h3-5,12-14,16H,1-2H2,(H,10,15,17)/t3-,4+,5+/m0/s1
-  dhpdU:
-    id: 2'-deoxy-5-(4,5-dihydroxypentyl)uridine
-    name: 2'-deoxy-5-(4,5-dihydroxypentyl)uridine
-    synonyms:
-    - dhpdu
-    - 5-(4,5-dihydroxypentyl)-2'-deoxyuridine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:132191
-    structure: InChI=1S/C14H22N2O7/c17-6-9(19)3-1-2-8-5-16(14(22)15-13(8)21)12-4-10(20)11(7-18)23-12/h5,9-12,17-20H,1-4,6-7H2,(H,15,21,22)/t9?,10-,11+,12+/m0/s1
-  dNMP_162:
+  dNMP_71:
     id: (R)-dihydroorotic acid
     name: (4R)-2,6-dioxohexahydropyrimidine-4-carboxylic acid
     synonyms:
@@ -2536,41 +1336,41 @@ monomers:
     - ns: chebi
       id: CHEBI:30866
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)/t2-/m1/s1
-  dNMP_163:
+  dNMP_72:
     id: (S)-dihydroorotic acid
     name: (4S)-2,6-dioxohexahydropyrimidine-4-carboxylic acid
     synonyms:
-    - l-dihydroorotic acid
-    - dihydro-l-orotic acid
     - (s)-4,5-dihydroorotic acid
+    - dihydro-l-orotic acid
+    - l-dihydroorotic acid
     identifiers:
     - ns: chebi
       id: CHEBI:17025
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)/t2-/m0/s1
-  dNMP_164:
+  dNMP_73:
     id: dihydroorotic acid
     name: 2,6-dioxohexahydropyrimidine-4-carboxylic acid
     synonyms:
-    - 4,5-dihydroorotic acid
+    - dl-dihydroortotic acid
     - hydroorotic acid
     - 5,6-dihydro-orotic acid
-    - dl-dihydroortotic acid
+    - 4,5-dihydroorotic acid
     identifiers:
     - ns: chebi
       id: CHEBI:30865
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)
-  dNMP_165:
+  dNMP_74:
     id: (S)-dihydroorotate
     name: (4S)-2,6-dioxohexahydropyrimidine-4-carboxylate
     synonyms:
-    - (s)-4,5-dihydroorotate
     - 4,5-dihydro-l-orotate
+    - (s)-4,5-dihydroorotate
     - (s)-dihydroorotate
     identifiers:
     - ns: chebi
       id: CHEBI:30864
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)/p-1/t2-/m0/s1
-  dNMP_166:
+  dNMP_75:
     id: dihydroorotate
     name: 2,6-dioxohexahydropyrimidine-4-carboxylate
     synonyms:
@@ -2579,54 +1379,54 @@ monomers:
     - ns: chebi
       id: CHEBI:30867
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)/p-1
-  dNMP_167:
+  dNMP_76:
     id: 5-[bis(2-chloroethyl)amino]uracil
     name: 5-[bis(2-chloroethyl)amino]pyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - uracil mustard
-    - uracil nitrogen mustard
-    - 5-n,n-bis(2-chloroethyl)aminouracil
-    - 5-[bis(2-chloroethyl)amino]-2,4(1h,3h)-pyrimidinedione
-    - 5-(di-2-chloroethyl)aminouracil
-    - 5-[di(beta-chloroethyl)amino]uracil
     - 5-aminouracil mustard
+    - 5-[bis(2-chloroethyl)amino]-2,4(1h,3h)-pyrimidinedione
+    - 5-[di(beta-chloroethyl)amino]uracil
+    - 5-(di-2-chloroethyl)aminouracil
+    - uracil nitrogen mustard
     - aminouracil mustard
+    - uracil mustard
+    - 5-n,n-bis(2-chloroethyl)aminouracil
     identifiers:
     - ns: chebi
       id: CHEBI:9884
     structure: InChI=1S/C8H11Cl2N3O2/c9-1-3-13(4-2-10)6-5-11-8(15)12-7(6)14/h5H,1-4H2,(H2,11,12,14,15)
-  dNMP_168:
+  dNMP_77:
     id: 5-amino-6-(D-ribitylamino)uracil
     name: 1-[(5-amino-2,6-dioxo-1,2,3,6-tetrahydropyrimidin-4-yl)amino]-1-deoxy-D-ribitol
     synonyms:
-    - 5-amino-6-(1-d-ribitylamino)uracil
     - 6-(1-d-ribitylamino)-5-amino-2,4-dihydroxypyrimidine
-    - 5-amino-2,6-dioxo-4-ribitylaminopyrimidine
-    - 5-amino-6-(d-ribitylamino)uracil
-    - 5-arpd
-    - 5-amino-6-ribitylaminouracil
-    - 6-(1-d-ribitylamino)-5-aminouracil
     - 5-amino-6-ribitylamino-2,4-(1h,3h)pyrimidinedione
+    - 6-(1-d-ribitylamino)-5-aminouracil
     - 4-(1-d-ribitylamino)-5-amino-2,6-dihydroxypyrimidine
+    - 5-amino-6-(1-d-ribitylamino)uracil
+    - 5-amino-6-(d-ribitylamino)uracil
     - 5-a-ru
+    - 5-arpd
+    - 5-amino-2,6-dioxo-4-ribitylaminopyrimidine
+    - 5-amino-6-ribitylaminouracil
     identifiers:
     - ns: chebi
       id: CHEBI:15934
     structure: InChI=1S/C9H16N4O6/c10-5-7(12-9(19)13-8(5)18)11-1-3(15)6(17)4(16)2-14/h3-4,6,14-17H,1-2,10H2,(H3,11,12,13,18,19)/t3-,4+,6-/m0/s1
-  dNMP_169:
+  dNMP_78:
     id: 5-amino-6-(5-phospho-beta-D-ribosylamino)uracil
     name: N-(5-amino-2,6-dioxo-1,2,3,6-tetrahydropyrimidin-4-yl)-5-O-phosphono-beta-D-ribofuranosylamine,
       N-(5-amino-2,6-dioxo-1,2,3,6-tetrahydropyrimidin-4-yl)-beta-D-ribofuranosylamine
       5-(dihydrogen phosphate)
     synonyms:
-    - 5-amino-6-(ribosylamino)-2,4-(1h,3h)-pyrimidinedione 5'-phosphate
-    - 5-amino-6-(5-phosphoribosylamino)uracil
     - 5-amino-6-(5'-phosphoribosylamino)uracil
+    - 5-amino-6-(5-phosphoribosylamino)uracil
+    - 5-amino-6-(ribosylamino)-2,4-(1h,3h)-pyrimidinedione 5'-phosphate
     identifiers:
     - ns: chebi
       id: CHEBI:18337
     structure: InChI=1S/C9H15N4O9P/c10-3-6(12-9(17)13-7(3)16)11-8-5(15)4(14)2(22-8)1-21-23(18,19)20/h2,4-5,8,14-15H,1,10H2,(H2,18,19,20)(H3,11,12,13,16,17)/t2-,4-,5-,8-/m1/s1
-  dNMP_170:
+  dNMP_79:
     id: 5-(2-oxopropylideneamino)-6-D-ribitylaminouracil
     name: 1-deoxy-1-({2,6-dioxo-5-[(EE)-(2-oxopropylidene)amino]-1,2,3,6-tetrahydropyrimidin-4-yl}amino)-D-ribitol
     synonyms:
@@ -2635,7 +1435,7 @@ monomers:
     - ns: chebi
       id: CHEBI:78398
     structure: InChI=1S/C12H18N4O7/c1-5(18)2-13-8-10(15-12(23)16-11(8)22)14-3-6(19)9(21)7(20)4-17/h2,6-7,9,17,19-21H,3-4H2,1H3,(H3,14,15,16,22,23)/b13-2+/t6-,7+,9-/m0/s1
-  dNMP_171:
+  dNMP_80:
     id: 5-(2-oxoethylideneamino)-6-D-ribitylaminouracil
     name: 1-deoxy-1-({2,6-dioxo-5-[(E)-(2-oxoethylidene)amino]-1,2,3,6-tetrahydropyrimidin-4-yl}amino)-D-ribitol
     synonyms:
@@ -2644,90 +1444,38 @@ monomers:
     - ns: chebi
       id: CHEBI:78397
     structure: InChI=1S/C11H16N4O7/c16-2-1-12-7-9(14-11(22)15-10(7)21)13-3-5(18)8(20)6(19)4-17/h1-2,5-6,8,17-20H,3-4H2,(H3,13,14,15,21,22)/b12-1+/t5-,6+,8-/m0/s1
-  dNMP_172:
+  dNMP_81:
     id: 5,6-diaminouracil
     name: 5,6-diaminopyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - 5,6-diaminopyrimidine-2,4-dione
     - 5,6-diamino-2,4-dihydroxypyrimidine
     - diaminouracil
+    - 5,6-diaminopyrimidine-2,4-dione
     identifiers:
     - ns: chebi
       id: CHEBI:46252
     structure: InChI=1S/C4H6N4O2/c5-1-2(6)7-4(10)8-3(1)9/h5H2,(H4,6,7,8,9,10)
-  dNMP_173:
+  dNMP_82:
     id: 5-amino-6-(5-phospho-D-ribitylamino)uracil
     name: 1-(5-amino-2,6-dioxo-1,2,3,6-tetrahydropyrimidin-4-ylamino)-1-deoxy-5-O-phosphono-D-ribitol,
       1-(5-amino-2,6-dioxo-1,2,3,6-tetrahydropyrimidin-4-ylamino)-1-deoxy-D-ribitol
       5-(dihydrogen phosphate), 1-[(5-amino-2,6-dioxo-1,2,3,6-tetrahydropyrimidin-4-yl)amino]-1-deoxy-5-O-phosphono-D-ribitol
     synonyms:
     - 5-amino-6-(5-phosphoribitylamino)uracil
-    - 5-amino-6-(5-phospho-d-ribitylamino)uracil
     - 5-amino-6-(5'-phosphoribitylamino)uracil
+    - 5-amino-6-(5-phospho-d-ribitylamino)uracil
     - 5-amino-2,6-dioxy-4-(5'-phospho-d-ribitylamino)pyrimidine
     - 5-amino-2,6-dioxy-4-(5'-phosphoribitylamino)pyrimidine
     identifiers:
     - ns: chebi
       id: CHEBI:18247
     structure: InChI=1S/C9H17N4O9P/c10-5-7(12-9(18)13-8(5)17)11-1-3(14)6(16)4(15)2-22-23(19,20)21/h3-4,6,14-16H,1-2,10H2,(H2,19,20,21)(H3,11,12,13,17,18)/t3-,4+,6-/m0/s1
-  5-NeOmdU:
-    id: 5-(2-aminoethoxy)methyl-2'-deoxyuridine
-    name: 5-[(2-aminoethoxy)methyl]-2'-deoxyuridine
-    synonyms:
-    - 5-neomdu
-    - 5-(2-aminoethoxymethyl)-1-[(2r,4s,5r)-4-hydroxy-5-(hydroxymethyl)oxolan-2-yl]pyrimidine-2,4-dione
-    - 5-[(2-aminoethoxy)methyl]-1-[(2r,4s,5r)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]pyrimidine-2,4(1h,3h)-dione
-    identifiers:
-    - ns: chebi
-      id: CHEBI:142164
-    structure: InChI=1S/C12H19N3O6/c13-1-2-20-6-7-4-15(12(19)14-11(7)18)10-3-8(17)9(5-16)21-10/h4,8-10,16-17H,1-3,5-6,13H2,(H,14,18,19)/t8-,9+,10+/m0/s1
-  5hmU_1:
-    id: 5-hydroxymethyl-2'-deoxyuridine
-    name: 2'-deoxy-5-(hydroxymethyl)uridine
-    synonyms:
-    - hmdu
-    - alpha-hydroxy-thymidin
-    - alpha-hydroxythymidine
-    - 1-((2r,4s,5r)-4-hydroxy-5-(hydroxymethyl)-tetrahydrofuran-2-yl)-5-(2-hydroxymethyl)pyrimidine-2,4(1h,3h)-dione
-    - 5-hmdu
-    identifiers:
-    - ns: chebi
-      id: CHEBI:61288
-    structure: InChI=1S/C10H14N2O6/c13-3-5-2-12(10(17)11-9(5)16)8-1-6(15)7(4-14)18-8/h2,6-8,13-15H,1,3-4H2,(H,11,16,17)/t6-,7+,8+/m0/s1
-  base J:
-    id: (beta-D-glucopyranosyloxymethyl)deoxyuridine
-    name: 2'-deoxy-5-[(beta-D-glucopyranosyloxy)methyl]uridine
-    synonyms:
-    - (beta-d-glucosyloxymethyl)deoxyuridine
-    - 5-(beta-d-glucopyranosyloxymethyl)-2'-deoxyuridine
-    - beta-d-glucosyl-homedu
-    - beta-ghmu
-    - alpha-(beta-d-glucopyranosyloxy)thymidine
-    - 5-((glucopyranosyloxy)methyl)uridine
-    - dj
-    identifiers:
-    - ns: chebi
-      id: CHEBI:111513
-    structure: InChI=1S/C16H24N2O11/c19-3-8-7(21)1-10(28-8)18-2-6(14(25)17-16(18)26)5-27-15-13(24)12(23)11(22)9(4-20)29-15/h2,7-13,15,19-24H,1,3-5H2,(H,17,25,26)/t7-,8+,9+,10+,11+,12-,13+,15+/m0/s1
-  base J_1:
-    id: (beta-D-glucopyranosyloxymethyl)deoxyuridine 5'-monophosphate
-    name: 2'-deoxy-5-[(beta-D-glucopyranosyloxy)methyl]uridine 5'-(dihydrogen phosphate)
-    synonyms:
-    - 5-(beta-d-glucopyranosyloxymethyl)-2'-deoxyuridine 5'-monophosphate
-    - beta-d-glucopyranosyloxymethyl-dump
-    - (beta-d-glucosyloxymethyl)deoxyuridine 5'-monophosphate
-    - beta-d-glucosyloxymethyl-dump
-    - djmp
-    identifiers:
-    - ns: chebi
-      id: CHEBI:111511
-    structure: InChI=1S/C16H25N2O14P/c19-3-8-11(21)12(22)13(23)15(32-8)29-4-6-2-18(16(25)17-14(6)24)10-1-7(20)9(31-10)5-30-33(26,27)28/h2,7-13,15,19-23H,1,3-5H2,(H,17,24,25)(H2,26,27,28)/t7-,8+,9+,10+,11+,12-,13+,15+/m0/s1
-  dI:
+  dI_1:
     id: 2'-deoxyinosine
     name: 2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol
     synonyms:
-    - 9-(2-deoxy-beta-d-erythro-pentofuranosyl)-9h-purin-6-ol
     - deoxyinosine
+    - 9-(2-deoxy-beta-d-erythro-pentofuranosyl)-9h-purin-6-ol
     identifiers:
     - ns: chebi
       id: CHEBI:28997
