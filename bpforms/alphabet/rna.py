@@ -90,6 +90,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         table = doc.find('table', {'class': 'datagrid'})
         tbody = table.find('tbody')
         mods = tbody.find_all('tr')
+        ignored_nucleosides = []
         for i_mod, mod in enumerate(mods):
             if i_mod >= self._max_monomers:
                 break
@@ -126,7 +127,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 warnings.warn('Ignoring canonical monomer {}'.format(chars), UserWarning)
                 continue
 
-            alphabet.monomers[chars] = Monomer(
+            monomer = Monomer(
                 id=chars,
                 name=name,
                 synonyms=synonyms,
@@ -134,6 +135,20 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 structure=structure,
                 comments="Modification of {}.".format(orig_monomers[short_name])
             )
+
+            if not monomer.structure:
+                continue
+
+            formula = monomer.get_formula()
+            if formula.C < 9 or formula.O < 4 or formula.N < 2:
+                ignored_nucleosides.append(chars)
+                continue
+
+            alphabet.monomers[chars] = monomer
+
+        if ignored_nucleosides:
+            warnings.warn('The following compounds were ignored because they do not appear to be nucleosides:\n- {}'.format(
+                '\n- '.join(ignored_nucleosides)), UserWarning)
 
         # return alphabet
         return alphabet
