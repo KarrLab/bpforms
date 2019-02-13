@@ -73,13 +73,15 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         stream = io.StringIO(ascii_response.text)
         stream.readline()
         reader = csv.reader(stream, delimiter='\t', quoting=csv.QUOTE_NONE)
-        orig_monomers = {}
+        base_monomer_short_names = {}
         for monomer in reader:
             for i in range(1, 4):
                 short_name = monomer[i]
                 if short_name:
                     break
-            orig_monomers[short_name] = monomer[i + 2]
+            if short_name in ['A', 'C', 'G', 'U']:
+                continue
+            base_monomer_short_names[short_name] = monomer[i + 2]
 
         # get index of nucleosides
         response = session.get(self.INDEX_ENDPOINT)
@@ -90,6 +92,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         table = doc.find('table', {'class': 'datagrid'})
         tbody = table.find('tbody')
         mods = tbody.find_all('tr')
+        monomer_short_names = {}
         invalid_nucleosides = []
         for i_mod, mod in enumerate(mods):
             if i_mod >= self._max_monomers:
@@ -121,6 +124,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
             if chars in alphabet.monomers:
                 warnings.warn('Ignoring canonical monomer {}'.format(chars), UserWarning)
+                monomer_short_names[short_name] = alphabet.monomers[chars]
                 continue
 
             monomer = Monomer(
@@ -129,7 +133,6 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 synonyms=synonyms,
                 identifiers=identifiers,
                 structure=structure,
-                comments="Modification of {}.".format(orig_monomers[short_name])
             )
 
             if not self.is_valid_nucleoside(new_nomenclature, short_name, name, monomer):
@@ -137,10 +140,16 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 continue
 
             alphabet.monomers[chars] = monomer
+            monomer_short_names[short_name] = monomer
 
         if invalid_nucleosides:
             warnings.warn('The following compounds were ignored because they do not appear to be nucleosides:\n- {}'.format(
                 '\n- '.join(invalid_nucleosides)), UserWarning)
+
+        for short_name, monomer in monomer_short_names.items():
+            base_monomer = monomer_short_names.get(base_monomer_short_names.get(short_name, None), None)
+            if base_monomer:
+                monomer.base_monomers.add(base_monomer)
 
         # return alphabet
         return alphabet

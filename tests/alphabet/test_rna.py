@@ -86,5 +86,6 @@ class RnaTestCase(unittest.TestCase):
     def test_RnaAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
         alphabet = rna.RnaAlphabetBuilder(_max_monomers=3).run(path=path)
+        alphabet = rna.RnaAlphabetBuilder().run(path=path)
         self.assertEqual(alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13'))
         self.assertTrue(os.path.isfile(path))
