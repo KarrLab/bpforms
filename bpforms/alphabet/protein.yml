@@ -157,7 +157,7 @@ monomers:
     - ns: resid
       id: AA0008
     - ns: metacyc.compound
-      id: GLU
+      id: GLY
     - ns: chebi
       id: CHEBI:15428
     - ns: pubchem.compound
@@ -229,7 +229,7 @@ monomers:
     - ns: pubchem.compound
       id: '5962'
     - ns: metacyc.compound
-      id: LEU
+      id: LYS
     structure: InChI=1S/C6H14N2O/c7-4-2-1-3-6(8)5-9/h5-6H,1-4,7-8H2/t6-/m0/s1
   M:
     id: Met
