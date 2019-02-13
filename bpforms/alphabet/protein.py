@@ -7,20 +7,20 @@
 """
 
 from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm, Identifier, IdentifierSet, SynonymSet
-from wc_utils.util.chem import EmpiricalFormula
-from ftplib import FTP
 from bs4 import BeautifulSoup
+from ftplib import FTP
+from wc_utils.util.chem import EmpiricalFormula
+import glob
+import openbabel
+import os.path
+import pkg_resources
+import re
 import requests
 import requests_cache
-import tempfile
-import zipfile
 import shutil
-import os.path
-import glob
-import pkg_resources
-import openbabel
-import re
+import tempfile
 import warnings
+import zipfile
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.yml'))
 protein_alphabet = Alphabet().from_yaml(filename)
