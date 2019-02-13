@@ -54,6 +54,17 @@ monomers:
     - ns: pubchem.compound
       id: '1135'
     structure: InChI=1S/C5H6N2O2/c1-3-2-6-5(9)7-4(3)8/h2H,1H3,(H2,6,7,8,9)
+  U:
+    id: uracil
+    name: uracil
+    identifiers:
+    - ns: chebi
+      id: CHEBI:17568
+    - ns: metacyc.compound
+      id: URACIL
+    - ns: pubchem.compound
+      id: '1174'
+    structure: InChI=1S/C4H4N2O2/c7-3-1-2-5-4(8)6-3/h1-2H,(H2,5,6,7,8)
   dI:
     id: hypoxanthine
     name: hypoxanthine

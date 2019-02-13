@@ -13,11 +13,16 @@ from wc_utils.util.chem import EmpiricalFormula
 import math
 import os
 import pkg_resources
+import requests
 import sqlalchemy
 import warnings
 
 
 dna_mod_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'DNAmod.sqlite'))
+if not os.path.isfile(dna_mod_filename):
+    response = requests.get('https://dnamod.hoffmanlab.org/DNAmod.sqlite')
+    with open(dna_mod_filename, 'wb') as file:
+        file.write(response.content)
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.yml'))
 dna_alphabet = Alphabet().from_yaml(filename)
@@ -55,6 +60,24 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         __tablename__ = 'expanded_alphabet'
         __table_args__ = {'autoload': True}
         nameid = sqlalchemy.Column(primary_key=True)
+
+    class ModBase(DeclarativeBase):
+        """"""
+        __tablename__ = 'modbase'
+        __table_args__ = {'autoload': True, 'extend_existing': True}
+        nameid = sqlalchemy.Column(primary_key=True)
+
+    class ModBaseParents(DeclarativeBase):
+        """"""
+        __tablename__ = 'modbase_parents'
+        __table_args__ = {'autoload': True, 'extend_existing': True}
+        nameid = sqlalchemy.Column(primary_key=True)
+
+    class CovMod(DeclarativeBase):
+        """"""
+        __tablename__ = 'covmod'
+        __table_args__ = {'autoload': True, 'extend_existing': True}
+        cmodid = sqlalchemy.Column(primary_key=True)
 
     def load_session(self):
         """ loads an SQLAlchemy session """
@@ -96,36 +119,51 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         if not math.isinf(self._max_monomers):
             with_inchi = with_inchi.limit(self._max_monomers)
 
+        monomer_nameids = {}
+        all_base_monomers_codes = {}
+        all_base_monomers_ids = {}
         invalid_nucleobases = []
         for item in with_inchi.all():
             row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
             if row is None:
-                chars = 'dNMP'
+                chars = 'base'
+            elif row.Symbol:
+                chars = row.Symbol
             else:
                 chars = row.Abbreviation
             idx = 0
             tmp = chars
             while chars in alphabet.monomers:
                 idx += 1
-                chars = tmp+'_'+str(idx)
+                chars = tmp + '-' + str(idx)
 
             id = item.chebiname
 
             name = item.iupacname[1:-1]
 
             synonyms = SynonymSet()
-            # if item.chebiname:
-            #     synonyms.add(item.chebiname)
-
-            listOfNames = item.othernames[1:-1].split(', ')
-            if listOfNames != ['']:
-                for otherName in listOfNames:
-                    synonyms.add(otherName[1:-1])
+            other_names = item.othernames[1:-1].split(', ')
+            if other_names != ['']:
+                for other_name in other_names:
+                    synonyms.add(other_name[1:-1])
 
             identifiers = IdentifierSet()
             identifiers.add(Identifier('chebi', item.nameid))
 
             structure = item.inchi.strip('[]')
+
+            cmodid = None
+            base_monomer_codes = set()
+            for base_monomer_code in session.query(self.ModBase).filter(self.ModBase.nameid == item.nameid).all():
+                cmodid = base_monomer_code.cmodid
+                if self.ModBase.baseid != 'O':
+                    base_monomer_codes.add(base_monomer_code.baseid)
+
+            base_monomer_ids = set()
+            for base_monomer_id in session.query(self.ModBaseParents).filter(self.ModBaseParents.nameid == item.nameid).all():
+                base_monomer_ids.add(base_monomer_id.parentid)
+
+            comments = session.query(self.CovMod).filter(self.CovMod.cmodid == cmodid).first().definition
 
             monomer = Monomer(
                 id=id,
@@ -133,6 +171,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 synonyms=synonyms,
                 identifiers=identifiers,
                 structure=structure,
+                comments=comments,
             )
 
             if not self.is_nucleobase_valid(monomer):
@@ -141,8 +180,21 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
             alphabet.monomers[chars] = monomer
 
-            warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
-                '\n- '.join(invalid_nucleobases)), UserWarning)
+            monomer_nameids[item.nameid] = monomer
+            all_base_monomers_codes[monomer] = base_monomer_codes
+            all_base_monomers_ids[monomer] = base_monomer_ids
+
+        for monomer, base_monomer_codes in all_base_monomers_codes.items():
+            for base_monomer_code in base_monomer_codes:
+                monomer.base_monomers.add(alphabet.monomers[base_monomer_code])
+        for monomer, base_monomer_ids in all_base_monomers_ids.items():
+            for base_monomer_id in base_monomer_ids:
+                base_monomer = monomer_nameids.get(base_monomer_id, None)
+                if base_monomer:
+                    monomer.base_monomers.add(base_monomer)
+
+        warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
+            '\n- '.join(invalid_nucleobases)), UserWarning)
 
         return alphabet
 
