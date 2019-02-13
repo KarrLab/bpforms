@@ -112,8 +112,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 synonyms.add(abbrev)
 
             identifiers = IdentifierSet()
-            if short_name:
-                identifiers.add(Identifier('modomics.short_name', short_name))
+            identifiers.add(Identifier('modomics.short_name', short_name))
             if new_nomenclature:
                 identifiers.add(Identifier('modomics.new_nomenclature', new_nomenclature))
 
@@ -182,8 +181,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
             elif cells[0].text.startswith('PubChem'):
                 link = cells[1].find('a')
-                if link:
-                    identifiers.add(Identifier('pubchem.compound', link.text))
+                identifiers.add(Identifier('pubchem.compound', link.text))
 
         return mol, identifiers
 
