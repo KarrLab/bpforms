@@ -90,7 +90,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         table = doc.find('table', {'class': 'datagrid'})
         tbody = table.find('tbody')
         mods = tbody.find_all('tr')
-        ignored_nucleosides = []
+        invalid_nucleosides = []
         for i_mod, mod in enumerate(mods):
             if i_mod >= self._max_monomers:
                 break
@@ -100,9 +100,6 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             name = cells[1].text
             short_name = cells[2].text
             abbrev = cells[3].text
-
-            if ' (base)' in new_nomenclature:
-                continue
 
             id = short_name
 
@@ -120,7 +117,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if new_nomenclature:
                 identifiers.add(Identifier('modomics.new_nomenclature', new_nomenclature))
 
-            structure, more_identifiers = self.get_monomer_details(id, session)
+            structure, more_identifiers = self.get_nucleoside_details(id, session)
             identifiers.update(more_identifiers)
 
             if chars in alphabet.monomers:
@@ -136,24 +133,20 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 comments="Modification of {}.".format(orig_monomers[short_name])
             )
 
-            if not monomer.structure:
-                continue
-
-            formula = monomer.get_formula()
-            if formula.C < 9 or formula.O < 4 or formula.N < 2:
-                ignored_nucleosides.append(chars)
+            if not self.is_valid_nucleoside(new_nomenclature, short_name, name, monomer):
+                invalid_nucleosides.append(chars)
                 continue
 
             alphabet.monomers[chars] = monomer
 
-        if ignored_nucleosides:
+        if invalid_nucleosides:
             warnings.warn('The following compounds were ignored because they do not appear to be nucleosides:\n- {}'.format(
-                '\n- '.join(ignored_nucleosides)), UserWarning)
+                '\n- '.join(invalid_nucleosides)), UserWarning)
 
         # return alphabet
         return alphabet
 
-    def get_monomer_details(self, id, session):
+    def get_nucleoside_details(self, id, session):
         """ Get the structure of a modified NMP in the MODOMICS database
 
         Args:
@@ -193,6 +186,33 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                     identifiers.add(Identifier('pubchem.compound', link.text))
 
         return mol, identifiers
+
+    def is_valid_nucleoside(self, new_nomenclature, short_name, name, monomer):
+        """ Determine if nucleoside should be included in alphabet
+
+        Args:
+            new_nomenclature (:obj:`str`): new nomenclature
+            short_name (:obj:`str`): short name
+            name (:obj:`str`): name
+            monomer (:obj:`Monomer`): monomer
+
+        Returns:
+            :obj:`bool`: :obj:`True` if monomer should be included in alphabet
+        """
+        if ' (base)' in new_nomenclature:
+            return False
+        if ' (cap)' in name or ' cap' in name:
+            return False
+        if '-CoA)' in name:
+            return False
+        if '(p' in short_name:
+            return False
+        if not monomer.structure:
+            return False
+        formula = monomer.get_formula()
+        if formula.C < 9 or formula.O < 4 or formula.N < 2:
+            return False
+        return True
 
 
 class RnaForm(BpForm):
