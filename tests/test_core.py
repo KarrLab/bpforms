@@ -240,7 +240,7 @@ class MonomerTestCase(unittest.TestCase):
         monomer_0 = core.Monomer()
         monomer = core.Monomer(id='dAMP', name='deoxyadenosine monophosphate', synonyms=synonyms, identifiers=identifiers,
                                structure=dAMP_inchi, delta_mass=1., delta_charge=-1, start_position=2, end_position=10,
-                               base_monomer=monomer_0,
+                               base_monomers=[monomer_0],
                                comments='Long string')
         self.assertEqual(monomer.id, 'dAMP')
         self.assertEqual(monomer.name, 'deoxyadenosine monophosphate')
@@ -251,7 +251,7 @@ class MonomerTestCase(unittest.TestCase):
         self.assertEqual(monomer.delta_charge, -1)
         self.assertEqual(monomer.start_position, 2)
         self.assertEqual(monomer.end_position, 10)
-        self.assertEqual(monomer.base_monomer, monomer_0)
+        self.assertEqual(monomer.base_monomers, set([monomer_0]))
         self.assertEqual(monomer.comments, 'Long string')
 
     def test_id_setter(self):
@@ -350,12 +350,12 @@ class MonomerTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             monomer.end_position = 'a'
 
-    def test_base_monomer_setter(self):
+    def test_base_monomers_setter(self):
         monomer = core.Monomer()
-        monomer.base_monomer = None
-        monomer.base_monomer = core.Monomer()
+        monomer.base_monomers = []
+        monomer.base_monomers = set([core.Monomer()])
         with self.assertRaises(ValueError):
-            monomer.base_monomer = 'A'
+            monomer.base_monomers = 'A'
 
     def test_comments_setter(self):
         monomer = core.Monomer()
@@ -413,14 +413,14 @@ class MonomerTestCase(unittest.TestCase):
         alphabet = dna.dna_alphabet
 
         monomer = core.Monomer()
-        monomer.base_monomer = alphabet.monomers.A
+        monomer.base_monomers = [alphabet.monomers.A]
         self.assertEqual(monomer.to_dict(alphabet=alphabet), {
-            'base_monomer': 'A',
+            'base_monomers': ['A'],
         })
 
         monomer = core.Monomer()
-        monomer.from_dict({'base_monomer': 'A'}, alphabet=alphabet)
-        self.assertEqual(monomer.base_monomer, alphabet.monomers.A)
+        monomer.from_dict({'base_monomers': ['A']}, alphabet=alphabet)
+        self.assertEqual(monomer.base_monomers, set([alphabet.monomers.A]))
 
     def test_str(self):
         monomer = core.Monomer()
@@ -463,7 +463,7 @@ class MonomerTestCase(unittest.TestCase):
         monomer_2 = core.Monomer(id='A', structure=dAMP_inchi)
         monomer_3 = core.Monomer(id='B', structure=dAMP_inchi)
         monomer_4 = core.Monomer(id='A', structure=dCMP_inchi)
-        monomer_5 = core.Monomer(id='A', structure=dAMP_inchi, base_monomer=core.Monomer())
+        monomer_5 = core.Monomer(id='A', structure=dAMP_inchi, base_monomers=[core.Monomer()])
 
         self.assertTrue(monomer_1.is_equal(monomer_1))
         self.assertTrue(monomer_1.is_equal(monomer_2))
@@ -847,7 +847,7 @@ class BpFormTestCase(unittest.TestCase):
                 delta_charge=3,
                 start_position=3,
                 end_position=5,
-                base_monomer=dna.canonical_dna_alphabet.monomers.A,
+                base_monomers=[dna.canonical_dna_alphabet.monomers.A],
                 comments="A purine 2'-deoxyribonucleoside that is inosine ...",
             ),
             dna.canonical_dna_alphabet.monomers.A,

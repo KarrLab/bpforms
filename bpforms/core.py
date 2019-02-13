@@ -211,13 +211,13 @@ class Monomer(object):
         delta_charge (:obj:`int`): additional charge relative to structure
         start_position (:obj:`tuple`): uncertainty in the location of the monomer
         end_position (:obj:`tuple`): uncertainty in the location of the monomer
-        base_monomer (:obj:`Monomer`): monomer which this monomer is derived from
+        base_monomers (:obj:`set` of :obj:`Monomer`): monomers which this monomer is derived from
         comments (:obj:`str`): comments
     """
 
     def __init__(self, id=None, name=None, synonyms=None, identifiers=None, structure=None,
                  delta_mass=None, delta_charge=None, start_position=None, end_position=None,
-                 base_monomer=None, comments=None):
+                 base_monomers=None, comments=None):
         """
         Attributes:
             id (:obj:`str`, optional): id
@@ -229,7 +229,7 @@ class Monomer(object):
             delta_charge (:obj:`float`, optional): additional charge relative to structure
             start_position (:obj:`int`, optional): uncertainty in the location of the monomer
             end_position (:obj:`int`, optional): uncertainty in the location of the monomer
-            base_monomer (:obj:`Monomer`): monomer which this monomer is derived from
+            base_monomers (:obj:`set` of :obj:`Monomer`, optional): monomers which this monomer is derived from
             comments (:obj:`str`, optional): comments
         """
         self.id = id
@@ -241,7 +241,7 @@ class Monomer(object):
         self.delta_charge = delta_charge
         self.start_position = start_position
         self.end_position = end_position
-        self.base_monomer = base_monomer
+        self.base_monomers = base_monomers or set()
         self.comments = comments
 
     @property
@@ -476,27 +476,29 @@ class Monomer(object):
         self._end_position = value
 
     @property
-    def base_monomer(self):
-        """ Get base monomer
+    def base_monomers(self):
+        """ Get base monomers
 
         Returns:
-            :obj:`Monomer`: base monomer
+            :obj:`set` of :obj:`Monomer`: base monomers
         """
-        return self._base_monomer
+        return self._base_monomers
 
-    @base_monomer.setter
-    def base_monomer(self, value):
-        """ Set base monomer
+    @base_monomers.setter
+    def base_monomers(self, value):
+        """ Set base monomers
 
         Args:
-            value (:obj:`Monomer`): base monomer
+            value (:obj:`set` of :obj:`Monomer`): base monomers
 
         Raises:
-            :obj:`ValueError`: if value is not an instance of :obj:`Monomer` or None
+            :obj:`ValueError`: if value is not an instance of :obj:`set`
         """
-        if value and not isinstance(value, Monomer):
-            raise ValueError('`base_monomer` must be an instance of `Monomer` or None')
-        self._base_monomer = value
+        if isinstance(value, list):
+            value = set(value)
+        if not isinstance(value, set):
+            raise ValueError('`base_monomers` must be an instance of `set`')
+        self._base_monomers = value
 
     @property
     def comments(self):
@@ -622,8 +624,8 @@ class Monomer(object):
         if self.structure:
             dict['structure'] = self.get_inchi()
 
-        if self.base_monomer and alphabet:
-            dict['base_monomer'] = alphabet.get_monomer_code(self.base_monomer)
+        if self.base_monomers and alphabet:
+            dict['base_monomers'] = [alphabet.get_monomer_code(monomer) for monomer in self.base_monomers]
 
         return dict
 
@@ -646,7 +648,7 @@ class Monomer(object):
         self.delta_charge = None
         self.start_position = None
         self.end_position = None
-        self.base_monomer = None
+        self.base_monomers.clear()
         self.comments = None
 
         attrs = ['id', 'name', 'delta_mass', 'delta_charge', 'start_position', 'end_position', 'comments']
@@ -667,9 +669,9 @@ class Monomer(object):
         if structure:
             self.structure = structure
 
-        base_monomer = dict.get('base_monomer', None)
-        if base_monomer and alphabet:
-            self.base_monomer = alphabet.monomers.get(base_monomer, None)
+        base_monomer_ids = dict.get('base_monomers', [])
+        if base_monomer_ids and alphabet:
+            self.base_monomers = set([alphabet.monomers.get(monomer_id, None) for monomer_id in base_monomer_ids])
 
         return self
 
@@ -699,8 +701,9 @@ class Monomer(object):
             els.append('delta-charge: ' + str(self.delta_charge))
         if self.start_position is not None or self.end_position is not None:
             els.append('position: {}-{}'.format(self.start_position or '', self.end_position or ''))
-        if self.base_monomer and alphabet:
-            els.append('base-monomer: "{}"'.format(alphabet.get_monomer_code(self.base_monomer)))
+        if alphabet:
+            for base_monomer in self.base_monomers:
+                els.append('base-monomer: "{}"'.format(alphabet.get_monomer_code(base_monomer)))
         if self.comments:
             els.append('comments: "' + self.comments.replace('"', '\\"') + '"')
 
@@ -730,9 +733,16 @@ class Monomer(object):
         if self.get_inchi() != other.get_inchi():
             return False
 
-        if (self.base_monomer is None and other.base_monomer is not None) \
-                or (self.base_monomer is not None and not self.base_monomer.is_equal(other.base_monomer)):
+        if len(self.base_monomers) != len(other.base_monomers):
             return False
+        for base_monomer in self.base_monomers:
+            has_equal = False
+            for other_base_monomer in other.base_monomers:
+                if base_monomer.is_equal(other_base_monomer):
+                    has_equal = True
+                    break
+            if not has_equal:
+                return False
 
         return True
 
@@ -1436,18 +1446,19 @@ class BpForm(object):
                 kwargs = {
                     'synonyms': SynonymSet(),
                     'identifiers': IdentifierSet(),
+                    'base_monomers': set(),
                 }
                 for arg in args:
                     if isinstance(arg, tuple):
                         arg_name, arg_val = arg
-                        if arg_name in ['id', 'name', 'structure', 'delta_mass', 'delta_charge', 'position', 'base_monomer', 'comments']:
+                        if arg_name in ['id', 'name', 'structure', 'delta_mass', 'delta_charge', 'position', 'comments']:
                             if arg_name in kwargs:
                                 raise ValueError('{} attribute cannot be repeated'.format(arg_name))
                             if arg_name == 'position':
                                 kwargs['start_position'], kwargs['end_position'] = arg_val
                             else:
                                 kwargs[arg_name] = arg_val
-                        elif arg_name in ['synonyms', 'identifiers']:
+                        elif arg_name in ['synonyms', 'identifiers', 'base_monomers']:
                             kwargs[arg_name].add(arg_val)
                         else:  # pragma: no cover # the grammar ensures this will never be reached
                             raise ValueError('Invalid attribute {}'.format(arg_name))
@@ -1500,7 +1511,7 @@ class BpForm(object):
                 monomer = self.bp_form.alphabet.monomers.get(chars, None)
                 if monomer is None:
                     raise ValueError('"{}" not in alphabet'.format(chars))
-                return ('base_monomer', monomer)
+                return ('base_monomers', monomer)
 
             @lark.v_args(inline=True)
             def comments(self, *args):
