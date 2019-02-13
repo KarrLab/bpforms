@@ -1052,10 +1052,8 @@ class AlphabetBuilder(abc.ABC):
             :obj:`Alphabet`: alphabet
         """
         alphabet = self.build()
-        print("running AlphabetBuilder.run({})".format(path))
         if path:
             self.save(alphabet, path)
-            print('saved alphabet to yaml')
         return alphabet
 
     @abc.abstractmethod
