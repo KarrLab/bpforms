@@ -70,6 +70,13 @@ Metadata
         | identifier: "pubchem.compound" / "65058"
         ]
 
+* The ``base-monomer`` attribute describes other monomer(s) which the monomer is generated from. The value of this attribute must be the code of a monomer in the 
+alphabet. Each monomer can have one or more bases. This annotation is needed to generate more informative FASTA sequences for ``BpForm``s::
+
+    [id: "m2A"
+        | base-monomer: "A"
+        ]
+
 * The ``comments`` attribute describes additional information about each monomer. Each monomer can only have one comment.::
 
     [id: "dI"

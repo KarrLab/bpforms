@@ -8,7 +8,7 @@ The following tutorial illustrates how to use the `BpForms` Python API. An `inte
 Importing `BpForms`
 ^^^^^^^^^^^^^^^^^^^
 
-First, run this command to import `BpForms`.::
+Run this command to import `BpForms`.::
 
     import bpforms
 
@@ -16,24 +16,25 @@ First, run this command to import `BpForms`.::
 Creating biopolymer forms
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Second, use the `BpForms` notation and the `BpForm.from_str` method to create an instance of `BpForm` that represents a form of a biopolymer.::
+Use the `BpForms` notation and the ``bpforms.BpForm.from_str`` method to create an instance of ``bpforms.BpForm`` that represents a form of a biopolymer.::
 
     dna_form = bpforms.DnaForm().from_str('''ACG[
-        id: "dI" | 
-        structure: InChI=1S
+        id: "dI" 
+        | structure: InChI=1S
             /C10H12N4O4
             /c15-2-6-5(16)1-7(18-6)14-4-13-8-9(14)11-3-12-10(8)17
             /h3-7,15-16H,1-2H2,(H,11,12,17)
             /t5-,6+,7+
             /m0
             /s1
+        | base-monomer: "A"
         ]AC'''.replace('\n', '').replace(' ', ''))
 
 
 Getting and setting monomers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Third, individual monomers and slices of monomers can be get and set similar to lists.::
+Individual monomers and slices of monomers can be get and set similar to lists.::
 
     dna_form[0]
         => <bpforms.core.Monomer at 0x7fb365341240>
@@ -46,10 +47,21 @@ Third, individual monomers and slices of monomers can be get and set similar to 
     dna_form[1:3] = bpforms.DnaForm().from_str('TA')
 
 
+Getting and setting the base of a monomer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Optionally, `BpForms` can track the monomers that are generated from a monomer (e.g. m2A is generated from A). This can be get and set using the ``bpforms.Monomer.base_monomers`` attribute. This attribute is a ``set`` of ``bpforms.Monomer``.::
+
+    di_monomer = dna_form[3]
+    di_monomer.base_monomers
+        => set(<bpforms.core.Monomer at 0x7fb365341240>)
+    di_monomer.base_monomers.add(bpforms.Monomer())
+
+
 Protonation
 ^^^^^^^^^^^
 
-Fourth, calculate the major protation state of each monomer in the biopolymer form.::
+Calculate the major protation state of each monomer in the biopolymer form.::
 
     dna_form.protonate(8.)
 
@@ -57,7 +69,7 @@ Fourth, calculate the major protation state of each monomer in the biopolymer fo
 Calculation of physical properties
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Fifth, use these commands to calculate the length, formula, molecular weight, and charge of the biopolymer form.::
+Use these commands to calculate the length, formula, molecular weight, and charge of the biopolymer form.::
 
     len(dna_form)
         => 6
@@ -72,10 +84,19 @@ Fifth, use these commands to calculate the length, formula, molecular weight, an
         => -7
 
 
+Generating FASTA sequences for `BpForms`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``to_fasta`` method generates FASTA representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomers using the code for their root (e.g. m2A is represented as "A"). Monomers that don't have their base annotated are represented as "N".::
+
+    dna_form.to_fasta()
+        => ACGAAC
+
+
 Determine if two biopolymers describe the same structure
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sixth, use the following command to determine if two instances of `BpForm` describe the same biopolymer.::
+Use the following command to determine if two instances of :obj:`BpForm` describe the same biopolymer.::
 
     dna_form_1 = bpforms.DnaForm().from_str('ACGT')
     dna_form_2 = bpforms.DnaForm().from_str('ACGT')
