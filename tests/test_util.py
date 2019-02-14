@@ -30,12 +30,9 @@ class UtilTestCase(unittest.TestCase):
         shutil.rmtree(self.tempdir)
 
     def test_get_alphabets(self):
-        print(util.get_alphabets())
-        print(util.get_alphabets()['dna'].id)
         self.assertEqual(util.get_alphabets()['dna'], dna.dna_alphabet)
 
     def test_get_alphabet(self):
-        print(util.get_alphabet('dna').is_equal(dna.dna_alphabet))
         self.assertEqual(util.get_alphabet('dna'), dna.dna_alphabet)
         self.assertEqual(util.get_alphabet('rna'), rna.rna_alphabet)
         self.assertEqual(util.get_alphabet('protein'), protein.protein_alphabet)
