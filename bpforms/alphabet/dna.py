@@ -22,10 +22,10 @@ dna_mod_filename = pkg_resources.resource_filename('bpforms', os.path.join('alph
 
 
 def get_dnamod(filename):
-    if not os.path.isfile(filename):
-        response = requests.get('https://dnamod.hoffmanlab.org/DNAmod.sqlite')
-        with open(filename, 'wb') as file:
-            file.write(response.content)
+	if not os.path.isfile(filename):
+		response = requests.get('https://dnamod.hoffmanlab.org/DNAmod.sqlite')
+		with open(filename, 'wb') as file:
+			file.write(response.content)
 
 
 get_dnamod(dna_mod_filename)
@@ -43,207 +43,222 @@ DeclarativeBase = declarative_base(engine)
 
 
 class DnaAlphabetBuilder(AlphabetBuilder):
-    """ Build DNA alphabet from MODOMICS """
+	""" Build DNA alphabet from MODOMICS """
 
-    INVALID_NAMES = (
-        'adenosine', 'cytidine', 'guanosine', 'uridine', 'side',
-        'ribose', 'ribulose', 'phosphate',
-        'antelmycin', 'cytosylglucuronic acid', '1-(beta-D-xylopyranosyl)cytosine',
-        'telbivudine', 'stavudine', 'tenofovir',
-        '9-{2,5-anhydro-4-[(phosphonooxy)methyl]-alpha-L-lyxofuranosyl}-9H-purin-6-amine',
-        'oxetanocin',
-        'adefovir', '5-amino-6-(5-phospho-beta-D-ribosylamino)uracil',
-        "2'-deoxyinosine",
-    )
+	INVALID_NAMES = (
+		'adenosine', 'cytidine', 'guanosine', 'uridine', 'side',
+		'ribose', 'ribulose', 'phosphate',
+		'antelmycin', 'cytosylglucuronic acid', '1-(beta-D-xylopyranosyl)cytosine',
+		'telbivudine', 'stavudine', 'tenofovir',
+		'9-{2,5-anhydro-4-[(phosphonooxy)methyl]-alpha-L-lyxofuranosyl}-9H-purin-6-amine',
+		'oxetanocin',
+		'adefovir', '5-amino-6-(5-phospho-beta-D-ribosylamino)uracil',
+		"2'-deoxyinosine",
+	)
 
-    class Names(DeclarativeBase):
-        """"""
-        __tablename__ = 'names'
-        __table_args__ = {'autoload': True}
+	class Names(DeclarativeBase):
+		""""""
+		__tablename__ = 'names'
+		__table_args__ = {'autoload': True}
 
-    class ExpandedAlphabet(DeclarativeBase):
-        """"""
-        __tablename__ = 'expanded_alphabet'
-        __table_args__ = {'autoload': True}
-        nameid = sqlalchemy.Column(primary_key=True)
+	class ExpandedAlphabet(DeclarativeBase):
+		""""""
+		__tablename__ = 'expanded_alphabet'
+		__table_args__ = {'autoload': True}
+		nameid = sqlalchemy.Column(primary_key=True)
 
-    class ModBase(DeclarativeBase):
-        """"""
-        __tablename__ = 'modbase'
-        __table_args__ = {'autoload': True, 'extend_existing': True}
-        nameid = sqlalchemy.Column(primary_key=True)
+	class ModBase(DeclarativeBase):
+		""""""
+		__tablename__ = 'modbase'
+		__table_args__ = {'autoload': True, 'extend_existing': True}
+		nameid = sqlalchemy.Column(primary_key=True)
 
-    class ModBaseParents(DeclarativeBase):
-        """"""
-        __tablename__ = 'modbase_parents'
-        __table_args__ = {'autoload': True, 'extend_existing': True}
-        nameid = sqlalchemy.Column(primary_key=True)
+	class ModBaseParents(DeclarativeBase):
+		""""""
+		__tablename__ = 'modbase_parents'
+		__table_args__ = {'autoload': True, 'extend_existing': True}
+		nameid = sqlalchemy.Column(primary_key=True)
 
-    class CovMod(DeclarativeBase):
-        """"""
-        __tablename__ = 'covmod'
-        __table_args__ = {'autoload': True, 'extend_existing': True}
-        cmodid = sqlalchemy.Column(primary_key=True)
+	class CovMod(DeclarativeBase):
+		""""""
+		__tablename__ = 'covmod'
+		__table_args__ = {'autoload': True, 'extend_existing': True}
+		cmodid = sqlalchemy.Column(primary_key=True)
 
-    def load_session(self):
-        """ loads an SQLAlchemy session """
-        metadata = DeclarativeBase.metadata
-        Session = sessionmaker(bind=engine)
-        session = Session()
-        return session
+	def load_session(self):
+		""" loads an SQLAlchemy session """
+		metadata = DeclarativeBase.metadata
+		Session = sessionmaker(bind=engine)
+		session = Session()
+		return session
 
-    def run(self, path=filename):
-        """ Build alphabet and, optionally, save to YAML file
+	def run(self, path=filename):
+		""" Build alphabet and, optionally, save to YAML file
 
-        Args:
-            path (:obj:`str`, optional): path to save alphabet
+		Args:
+			path (:obj:`str`, optional): path to save alphabet
 
-        Returns:
-            :obj:`Alphabet`: alphabet
-        """
-        return super(DnaAlphabetBuilder, self).run(path)
+		Returns:
+			:obj:`Alphabet`: alphabet
+		"""
+		return super(DnaAlphabetBuilder, self).run(path)
 
-    def build(self):
-        """ Build alphabet
+	def build(self):
+		""" Build alphabet
 
-        Returns:
-            :obj:`Alphabet`: alphabet
-        """
-        # initialize alphabet
-        alphabet = Alphabet()
+		Returns:
+			:obj:`Alphabet`: alphabet
+		"""
+		# initialize alphabet
+		alphabet = Alphabet()
 
-        # create canonical monomers
-        alphabet.from_yaml(canonical_filename)
-        alphabet.id = 'dna'
-        alphabet.name = 'DNAmod DNA nucleobases'
-        alphabet.description = ('The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
-                                '<a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>')
+		# create canonical monomers
+		alphabet.from_yaml(canonical_filename)
+		alphabet.id = 'dna'
+		alphabet.name = 'DNAmod DNA nucleobases'
+		alphabet.description = ('The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
+								'<a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>')
 
-        # get individual nucleobases and create monomers
-        session = self.load_session()
-        with_inchi = session.query(self.Names).filter(self.Names.inchi != '[]')
-        if not math.isinf(self._max_monomers):
-            with_inchi = with_inchi.limit(self._max_monomers)
+		# get individual nucleobases and create monomers
+		session = self.load_session()
+		with_inchi = session.query(self.Names).filter(self.Names.inchi != '[]')
+		if not math.isinf(self._max_monomers):
+			with_inchi = with_inchi.limit(self._max_monomers)
 
-        monomer_nameids = {}
-        all_base_monomers_codes = {}
-        all_base_monomers_ids = {}
-        invalid_nucleobases = []
-        for item in with_inchi.all():
-            row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
-            if row is None:
-                chars = 'base'
-            elif row.Symbol:
-                chars = row.Symbol
-            else:
-                chars = row.Abbreviation
-            idx = 0
-            tmp = chars
-            while chars in alphabet.monomers:
-                idx += 1
-                chars = tmp + '-' + str(idx)
+		monomer_nameids = {}
+		all_base_monomers_codes = {}
+		all_base_monomers_ids = {}
+		invalid_nucleobases = []
+		for item in with_inchi.all():
+			row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
+			if row is None:
+				chars = 'base'
+			elif row.Symbol:
+				chars = row.Symbol
+			else:
+				chars = row.Abbreviation
+			idx = 0
+			tmp = chars
+			while chars in alphabet.monomers:
+				idx += 1
+				chars = tmp + '-' + str(idx)
 
-            id = item.chebiname
+			id = item.chebiname
 
-            name = item.iupacname[1:-1]
+			name = item.iupacname[1:-1]
 
-            synonyms = SynonymSet()
-            other_names = item.othernames[1:-1].split(', ')
-            if other_names != ['']:
-                for other_name in other_names:
-                    synonyms.add(other_name[1:-1])
+			synonyms = SynonymSet()
+			other_names = item.othernames[1:-1].split(', ')
+			if other_names != ['']:
+				for other_name in other_names:
+					synonyms.add(other_name[1:-1])
 
-            identifiers = IdentifierSet()
-            identifiers.add(Identifier('chebi', item.nameid))
+			identifiers = IdentifierSet()
+			identifiers.add(Identifier('chebi', item.nameid))
 
-            structure = item.inchi.strip('[]')
+			structure = item.inchi.strip('[]')
 
-            cmodid = None
-            base_monomer_codes = set()
-            for base_monomer_code in session.query(self.ModBase).filter(self.ModBase.nameid == item.nameid).all():
-                cmodid = base_monomer_code.cmodid
-                if self.ModBase.baseid != 'O':
-                    base_monomer_codes.add(base_monomer_code.baseid)
+			cmodid = None
+			base_monomer_codes = set()
+			for base_monomer_code in session.query(self.ModBase).filter(self.ModBase.nameid == item.nameid).all():
+				cmodid = base_monomer_code.cmodid
+				if self.ModBase.baseid != 'O':
+					base_monomer_codes.add(base_monomer_code.baseid)
 
-            base_monomer_ids = set()
-            for base_monomer_id in session.query(self.ModBaseParents).filter(self.ModBaseParents.nameid == item.nameid).all():
-                base_monomer_ids.add(base_monomer_id.parentid)
+			base_monomer_ids = set()
+			for base_monomer_id in session.query(self.ModBaseParents).filter(self.ModBaseParents.nameid == item.nameid).all():
+				base_monomer_ids.add(base_monomer_id.parentid)
 
-            comments = session.query(self.CovMod).filter(self.CovMod.cmodid == cmodid).first().definition
+			comments = session.query(self.CovMod).filter(self.CovMod.cmodid == cmodid).first().definition
 
-            monomer = Monomer(
-                id=id,
-                name=name,
-                synonyms=synonyms,
-                identifiers=identifiers,
-                structure=structure,
-                comments=comments,
-            )
+			monomer = Monomer(
+				id=id,
+				name=name,
+				synonyms=synonyms,
+				identifiers=identifiers,
+				structure=structure,
+				comments=comments,
+			)
 
-            if not self.is_nucleobase_valid(monomer):
-                invalid_nucleobases.append(id)
-                continue
+			if not self.is_nucleobase_valid(monomer):
+				invalid_nucleobases.append(id)
+				continue
 
-            alphabet.monomers[chars] = monomer
+			alphabet.monomers[chars] = monomer
 
-            monomer_nameids[item.nameid] = monomer
-            all_base_monomers_codes[monomer] = base_monomer_codes
-            all_base_monomers_ids[monomer] = base_monomer_ids
+			monomer_nameids[item.nameid] = monomer
+			all_base_monomers_codes[monomer] = base_monomer_codes
+			all_base_monomers_ids[monomer] = base_monomer_ids
 
-        for monomer, base_monomer_codes in all_base_monomers_codes.items():
-            for base_monomer_code in base_monomer_codes:
-                monomer.base_monomers.add(alphabet.monomers[base_monomer_code])
-        for monomer, base_monomer_ids in all_base_monomers_ids.items():
-            for base_monomer_id in base_monomer_ids:
-                base_monomer = monomer_nameids.get(base_monomer_id, None)
-                if base_monomer:
-                    monomer.base_monomers.add(base_monomer)
+		for monomer, base_monomer_codes in all_base_monomers_codes.items():
+			for base_monomer_code in base_monomer_codes:
+				monomer.base_monomers.add(alphabet.monomers[base_monomer_code])
+		for monomer, base_monomer_ids in all_base_monomers_ids.items():
+			for base_monomer_id in base_monomer_ids:
+				base_monomer = monomer_nameids.get(base_monomer_id, None)
+				if base_monomer:
+					monomer.base_monomers.add(base_monomer)
 
-        warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
-            '\n- '.join(invalid_nucleobases)), UserWarning)
+		warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
+			'\n- '.join(invalid_nucleobases)), UserWarning)
 
-        return alphabet
+		self.get_gif_from_inchi(alphabet)
 
-    def is_nucleobase_valid(self, monomer):
-        """ Determine if monomer should be included in alphabet
+		return alphabet
 
-        Args:
-            monomer (:obj:`Monomer`): monomer
+	def get_gif_from_inchi(self, alphabet):
+		with open('dna_stuctures.html', 'w') as file:
+			file.writelines(['<!DOCTYPE html>\n', '<html>\n', '<body>\n'])
 
-        Returns:
-            :obj:`bool`: :obj:`True` if monomer should be included in alphabet
-        """
-        for invalid_name in self.INVALID_NAMES:
-            if invalid_name in monomer.name:
-                return False
-            for synonym in monomer.synonyms:
-                if invalid_name in synonym:
-                    return False
+			for item in alphabet:
+				this_inchi = item['structure']
+				line = '<img src="https://cactus.nci.nih.gov/chemical/structure/{}/image">\n'.format(this_inchi)
+				file.write(line)
+				file.write(item["id"])
 
-        return True
+			file.write('</body>\n')
+			file.write('</html>')
+
+	def is_nucleobase_valid(self, monomer):
+		""" Determine if monomer should be included in alphabet
+
+		Args:
+			monomer (:obj:`Monomer`): monomer
+
+		Returns:
+			:obj:`bool`: :obj:`True` if monomer should be included in alphabet
+		"""
+		for invalid_name in self.INVALID_NAMES:
+			if invalid_name in monomer.name:
+				return False
+			for synonym in monomer.synonyms:
+				if invalid_name in synonym:
+					return False
+
+		return True
 
 
 class DnaForm(BpForm):
-    """ DNA form """
+	""" DNA form """
 
-    def __init__(self, monomer_seq=None):
-        """
-        Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
-        """
-        super(DnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=dna_alphabet,
-                                      backbone_formula=EmpiricalFormula('C5H7O6P'), backbone_charge=-2,
-                                      bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+	def __init__(self, monomer_seq=None):
+		"""
+		Args:
+			monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
+		"""
+		super(DnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=dna_alphabet,
+									  backbone_formula=EmpiricalFormula('C5H7O6P'), backbone_charge=-2,
+									  bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
 
 
 class CanonicalDnaForm(BpForm):
-    """ Canonical DNA form """
+	""" Canonical DNA form """
 
-    def __init__(self, monomer_seq=None):
-        """
-        Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
-        """
-        super(CanonicalDnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
-                                               backbone_formula=EmpiricalFormula('C5H7O6P'), backbone_charge=-2,
-                                               bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+	def __init__(self, monomer_seq=None):
+		"""
+		Args:
+			monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
+		"""
+		super(CanonicalDnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
+											   backbone_formula=EmpiricalFormula('C5H7O6P'), backbone_charge=-2,
+											   bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
