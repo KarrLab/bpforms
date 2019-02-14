@@ -9,6 +9,7 @@
 from bpforms.alphabet import dna
 from bpforms.alphabet import rna
 from bpforms.alphabet import protein
+from bpforms import core
 from bpforms import util
 import os
 import shutil
@@ -64,3 +65,5 @@ class UtilTestCase(unittest.TestCase):
         filename = os.path.join(self.tempdir, 'alphabet.html')
         util.gen_html_viz_alphabet(dna.canonical_dna_alphabet, filename)
         self.assertTrue(os.path.isfile(filename))
+
+        util.gen_html_viz_alphabet(core.Alphabet(monomers={'A': core.Monomer()}), filename)

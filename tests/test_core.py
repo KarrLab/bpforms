@@ -463,7 +463,9 @@ class MonomerTestCase(unittest.TestCase):
         monomer_2 = core.Monomer(id='A', structure=dAMP_inchi)
         monomer_3 = core.Monomer(id='B', structure=dAMP_inchi)
         monomer_4 = core.Monomer(id='A', structure=dCMP_inchi)
-        monomer_5 = core.Monomer(id='A', structure=dAMP_inchi, base_monomers=[core.Monomer()])
+        monomer_5 = core.Monomer(id='A', structure=dAMP_inchi, base_monomers=[core.Monomer(id='A')])
+        monomer_6 = core.Monomer(id='A', structure=dAMP_inchi, base_monomers=[core.Monomer(id='A')])
+        monomer_7 = core.Monomer(id='A', structure=dAMP_inchi, base_monomers=[core.Monomer(id='B')])
 
         self.assertTrue(monomer_1.is_equal(monomer_1))
         self.assertTrue(monomer_1.is_equal(monomer_2))
@@ -472,6 +474,12 @@ class MonomerTestCase(unittest.TestCase):
         self.assertFalse(monomer_1.is_equal(monomer_3))
         self.assertFalse(monomer_1.is_equal(monomer_4))
         self.assertFalse(monomer_1.is_equal(monomer_5))
+        self.assertTrue(monomer_5.is_equal(monomer_6))
+        self.assertFalse(monomer_5.is_equal(monomer_7))
+
+    def test_get_image_url(self):
+        self.assertNotEqual(dna.dna_alphabet.monomers.A.get_image_url(), None)
+        self.assertEqual(core.Monomer().get_image_url(), None)
 
 
 class MonomerSequenceTestCase(unittest.TestCase):
