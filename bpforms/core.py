@@ -657,7 +657,10 @@ class Monomer(object):
             dict['structure'] = self.get_inchi()
 
         if self.base_monomers and alphabet:
-            dict['base_monomers'] = [alphabet.get_monomer_code(monomer) for monomer in self.base_monomers]
+            dict['base_monomers'] = []
+            for monomer in self.base_monomers:
+                monomer_code = alphabet.get_monomer_code(monomer)
+                dict['base_monomers'].append(monomer_code)
 
         return dict
 
@@ -703,7 +706,7 @@ class Monomer(object):
 
         base_monomer_ids = dict.get('base_monomers', [])
         if base_monomer_ids and alphabet:
-            self.base_monomers = set([alphabet.monomers.get(monomer_id, None) for monomer_id in base_monomer_ids])
+            self.base_monomers = set([alphabet.monomers.get(monomer_id) for monomer_id in base_monomer_ids])
 
         return self
 
@@ -1030,7 +1033,9 @@ class Alphabet(object):
 
         self.monomers.clear()
         for chars, monomer in dict['monomers'].items():
-            self.monomers[chars] = Monomer().from_dict(monomer, alphabet=self)
+            self.monomers[chars] = Monomer().from_dict(monomer)
+        for chars, monomer in dict['monomers'].items():
+            self.monomers[chars].from_dict(monomer, alphabet=self)
 
         return self
 

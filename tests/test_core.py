@@ -573,7 +573,7 @@ class BpFormTestCase(unittest.TestCase):
         bp_form = core.BpForm()
 
         bp_form.alphabet = dna.canonical_dna_alphabet
-        self.assertEqual(len(bp_form.alphabet.monomers), 5)
+        self.assertEqual(len(bp_form.alphabet.monomers), 6)
 
         with self.assertRaises(ValueError):
             bp_form.alphabet = None
@@ -817,7 +817,7 @@ class BpFormTestCase(unittest.TestCase):
         ])))
 
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'not in alphabet'):
-            self.assertTrue(dna.DnaForm().from_str('UAA').is_equal(dna.DnaForm([
+            self.assertTrue(dna.DnaForm().from_str('EAA').is_equal(dna.DnaForm([
                 dna.canonical_dna_alphabet.monomers.A, dna.canonical_dna_alphabet.monomers.A,
                 dna.canonical_dna_alphabet.monomers.A,
             ])))
@@ -852,8 +852,6 @@ class BpFormTestCase(unittest.TestCase):
             ),
             dna.canonical_dna_alphabet.monomers.A,
         ])
-        print(str(dna_form_1))
-        print(str(dna_form_2))
         self.assertEqual(str(dna_form_2), dna_form_1)
         self.assertTrue(dna_form_2.is_equal(dna_form_3))
 
@@ -949,9 +947,9 @@ class BpFormTestCase(unittest.TestCase):
 
         bpform = core.BpForm(alphabet=alphabet, monomer_seq=[
             alphabet.monomers.A, alphabet.monomers.C, alphabet.monomers.G, alphabet.monomers.T,
-            alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A, 
+            alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A,
             alphabet.monomers.m2222A, alphabet.monomers.m2222C,
-            ])
+        ])
         self.assertEqual(bpform.to_fasta(), 'ACGTAAAAN')
 
 
