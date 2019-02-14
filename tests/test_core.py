@@ -926,6 +926,34 @@ class BpFormTestCase(unittest.TestCase):
                 ' | name: "2\'-deoxyinosine"'
                 ' | name: "2\'-deoxyinosine"]A')
 
+    def test_to_fasta(self):
+        alphabet = core.Alphabet()
+        alphabet.monomers.A = core.Monomer()
+        alphabet.monomers.C = core.Monomer()
+        alphabet.monomers.G = core.Monomer()
+        alphabet.monomers.T = core.Monomer()
+        alphabet.monomers.m2A = core.Monomer(base_monomers=[alphabet.monomers.A])
+        alphabet.monomers.m22A = core.Monomer(base_monomers=[alphabet.monomers.m2A])
+        alphabet.monomers.m222A = core.Monomer(base_monomers=[alphabet.monomers.m22A])
+        alphabet.monomers.m2222A = core.Monomer(base_monomers=[alphabet.monomers.A, alphabet.monomers.m222A])
+        alphabet.monomers.m2222C = core.Monomer(base_monomers=[alphabet.monomers.C, alphabet.monomers.m222A])
+
+        self.assertEqual(alphabet.monomers.A.get_root_monomers(), set([alphabet.monomers.A]))
+        self.assertEqual(alphabet.monomers.C.get_root_monomers(), set([alphabet.monomers.C]))
+        self.assertEqual(alphabet.monomers.G.get_root_monomers(), set([alphabet.monomers.G]))
+        self.assertEqual(alphabet.monomers.T.get_root_monomers(), set([alphabet.monomers.T]))
+        self.assertEqual(alphabet.monomers.m2A.get_root_monomers(), set([alphabet.monomers.A]))
+        self.assertEqual(alphabet.monomers.m22A.get_root_monomers(), set([alphabet.monomers.A]))
+        self.assertEqual(alphabet.monomers.m2222A.get_root_monomers(), set([alphabet.monomers.A]))
+        self.assertEqual(alphabet.monomers.m2222C.get_root_monomers(), set([alphabet.monomers.A, alphabet.monomers.C]))
+
+        bpform = core.BpForm(alphabet=alphabet, monomer_seq=[
+            alphabet.monomers.A, alphabet.monomers.C, alphabet.monomers.G, alphabet.monomers.T,
+            alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A, 
+            alphabet.monomers.m2222A, alphabet.monomers.m2222C,
+            ])
+        self.assertEqual(bpform.to_fasta(), 'ACGTAAAAN')
+
 
 class AlphabetTestCase(unittest.TestCase):
     def setUp(self):

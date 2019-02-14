@@ -523,6 +523,21 @@ class Monomer(object):
             raise ValueError('`comments` must be a string or None')
         self._comments = value
 
+    def get_root_monomers(self):
+        """ Get root monomers
+
+        Returns:
+            :obj:`set` of :obj:`Monomer`: root monomers            
+        """
+        if not self.base_monomers:
+            return set([self])
+
+        roots = set()
+        for base_monomer in self.base_monomers:
+            roots.update(base_monomer.get_root_monomers())
+
+        return roots
+
     def protonate(self, ph):
         """ Update to the major protonation state at the pH
 
@@ -1535,3 +1550,25 @@ class BpForm(object):
         tree = self._parser.parse(str)
         parse_tree_transformer = ParseTreeTransformer(self)
         return parse_tree_transformer.transform(tree)
+
+    def to_fasta(self):
+        """ Get FASTA representation of a monomer with bases represented by the character codes
+        of their parent monomers (e.g. methyl-2-adenosine is represented by 'A')
+
+        Returns:
+            :obj:`str`: FASTA representation of a monomer
+        """
+
+        monomer_codes = {monomer: code for code, monomer in self.alphabet.monomers.items()}
+
+        seq = ''
+        for monomer in self.monomer_seq:
+            root_monomers = monomer.get_root_monomers()
+            root_monomers_codes = list(set(monomer_codes[root_monomer] for root_monomer in root_monomers))
+
+            if len(root_monomers_codes) == 1:
+                seq += root_monomers_codes[0]
+            else:
+                seq += 'N'
+
+        return seq
