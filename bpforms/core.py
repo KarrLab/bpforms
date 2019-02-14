@@ -1047,7 +1047,7 @@ class Alphabet(object):
         """
         yaml_writer = yaml.YAML()
         yaml_writer.default_flow_style = False
-        with open(path, 'w') as file:
+        with open(path, 'wb') as file:
             yaml_writer.dump(self.to_dict(), file)
 
     def from_yaml(self, path):
@@ -1060,7 +1060,7 @@ class Alphabet(object):
             :obj:`Alphabet`: alphabet
         """
         yaml_reader = yaml.YAML()
-        with open(path, 'r') as file:
+        with open(path, 'rb') as file:
             self.from_dict(yaml_reader.load(file))
         return self
 

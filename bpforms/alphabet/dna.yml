@@ -33,10 +33,10 @@ monomers:
     id: guanine
     name: guanine
     identifiers:
-    - ns: pubchem.compound
-      id: '764'
     - ns: chebi
       id: CHEBI:16235
+    - ns: pubchem.compound
+      id: '764'
     - ns: metacyc.compound
       id: GUANINE
     structure: InChI=1S/C5H5N5O/c6-5-9-3-2(4(11)10-5)7-1-8-3/h1H,(H4,6,7,8,9,10,11)
@@ -44,13 +44,13 @@ monomers:
     id: thymine
     name: thymine
     synonyms:
-    - 5-methyl-2,4(1H,3H)-pyrimidinedione
     - 5-methyluracil
+    - 5-methyl-2,4(1H,3H)-pyrimidinedione
     identifiers:
-    - ns: pubchem.compound
-      id: '1135'
     - ns: metacyc.compound
       id: THYMINE
+    - ns: pubchem.compound
+      id: '1135'
     - ns: chebi
       id: CHEBI:17821
     structure: InChI=1S/C5H6N2O2/c1-3-2-6-5(9)7-4(3)8/h2H,1H3,(H2,6,7,8,9)
@@ -58,12 +58,12 @@ monomers:
     id: uracil
     name: uracil
     identifiers:
+    - ns: metacyc.compound
+      id: URACIL
     - ns: chebi
       id: CHEBI:17568
     - ns: pubchem.compound
       id: '1174'
-    - ns: metacyc.compound
-      id: URACIL
     structure: InChI=1S/C4H4N2O2/c7-3-1-2-5-4(8)6-3/h1-2H,(H2,5,6,7,8)
   dI:
     id: hypoxanthine
@@ -71,10 +71,10 @@ monomers:
     synonyms:
     - deoxyinosine
     identifiers:
-    - ns: pubchem.compound
-      id: '790'
     - ns: metacyc.compound
       id: HYPOXANTHINE
+    - ns: pubchem.compound
+      id: '790'
     - ns: chebi
       id: CHEBI:17368
     structure: InChI=1S/C5H4N4O/c10-5-3-4(7-1-6-3)8-2-9-5/h1-2H,(H2,6,7,8,9,10)
@@ -97,8 +97,8 @@ monomers:
     comments: Pyrimidine substituted with a methoxy group at position C-2 and an amine
       group at C-4.
     synonyms:
-    - o-2-methylcytosine
     - 4-amino-2-methoxypyrimidine
+    - o-2-methylcytosine
     identifiers:
     - ns: chebi
       id: CHEBI:70854
@@ -163,8 +163,8 @@ monomers:
     comments: A nucleobase analogue that is cytosine in which the hydrogen at position
       5 is replaced by a carboxy group.
     synonyms:
-    - cytosine-5-carboxylic acid
     - 4-amino-2-oxopyrimidine-5-carboxylic acid
+    - cytosine-5-carboxylic acid
     - 5-carboxylcytosine
     identifiers:
     - ns: chebi
@@ -179,13 +179,13 @@ monomers:
       5 by a fluorine. A prodrug for the antifungal 5-fluorouracil, it is used for
       the treatment of systemic fungal infections.
     synonyms:
-    - ancotil
     - 5-fc
-    - 5-fluorocystosine
     - ancobon (tn)
     - flucytosinum
-    - 5-fluorocytosine
+    - 5-fluorocystosine
+    - ancotil
     - flucytosina
+    - 5-fluorocytosine
     identifiers:
     - ns: chebi
       id: CHEBI:5100
@@ -237,10 +237,10 @@ monomers:
     comments: An N-glycosyl compound that is cytosine in which the proton at position
       1 is replaced by a beta-D-glucuronosyl residue.
     synonyms:
-    - 1-(beta-d-glucopyranosyluronic acid)cytosine
     - pentopyranic acid
-    - cytosyl-beta-d-glucuronic acid
     - 1-(beta-d-glucuronosyl)cytosine
+    - cytosyl-beta-d-glucuronic acid
+    - 1-(beta-d-glucopyranosyluronic acid)cytosine
     identifiers:
     - ns: chebi
       id: CHEBI:132133
@@ -311,9 +311,9 @@ monomers:
     comments: A pyrimidone that is thymine in which the hydrogen at position 6 is
       substituted by a 1,3-dihydroxyisobutyl group.
     synonyms:
-    - dhbt
-    - 6-[3-hydroxy-2-(hydroxymethyl)propyl]thymine
     - 6-[3-hydroxy-2-(hydroxymethyl)propyl]-5-methyl-2,4(1h,3h)-pyrimidinedione
+    - 6-[3-hydroxy-2-(hydroxymethyl)propyl]thymine
+    - dhbt
     identifiers:
     - ns: chebi
       id: CHEBI:41485
@@ -339,14 +339,14 @@ monomers:
     comments: A pyrimidine 2'-deoxyribonucleoside that is the L-enantiomer of thymine.
       A synthetic thymidine nucleoside analogue with activity against HBV DNA polymerase.
     synonyms:
-    - ldt
     - l-dt
-    - beta-l-thymidine
-    - l-thymidine
+    - ldt
     - beta-l-2'-deoxythymidine
-    - epavudine
-    - 1-(2-deoxy-beta-l-ribofuranosyl)-5-methyluracil
+    - beta-l-thymidine
     - l-deoxythymidine
+    - epavudine
+    - l-thymidine
+    - 1-(2-deoxy-beta-l-ribofuranosyl)-5-methyluracil
     - 2'-deoxy-l-thymidine
     identifiers:
     - ns: chebi
@@ -361,9 +361,9 @@ monomers:
       methyl group has been replaced by one of the amino groups of putrescine. It
       replaces about half of the thymine residues in the DNA of bacetriophage phiW-14.
     synonyms:
+    - putthy
     - n-thyminylputrescine
     - 5-(4-aminobutylaminomethyl)uracil
-    - putthy
     identifiers:
     - ns: chebi
       id: CHEBI:132931
@@ -376,14 +376,14 @@ monomers:
     comments: A nucleoside analogue obtained by formal dehydration across positions
       2 and 3 of thymidine. An inhibitor of HIV-1 reverse transcriptase
     synonyms:
-    - stavudinum
     - 3'-deoxy-2'-thymidinene
-    - 1-(2,3-dideoxy-beta-d-glycero-pent-2-enofuranosyl)thymine
-    - sanilvudine
+    - estavudina
     - stv
     - d4t
+    - stavudinum
     - 2',3'-didehydro-3'-deoxythimidine
-    - estavudina
+    - 1-(2,3-dideoxy-beta-d-glycero-pent-2-enofuranosyl)thymine
+    - sanilvudine
     identifiers:
     - ns: chebi
       id: CHEBI:63581
@@ -397,8 +397,8 @@ monomers:
       of thymine.
     synonyms:
     - 5-methyl-5,6-dihydrouracil
-    - dihydrothymine
     - 5,6-dihydro-5-methyluracil
+    - dihydrothymine
     identifiers:
     - ns: chebi
       id: CHEBI:27468
@@ -435,12 +435,12 @@ monomers:
     comments: A pyrimidone that is thymine which is substituted at positions 1 and
       6 by a (2-hydroxyethoxy)methyl group and a phenylsulfanyl group, respectively.
     synonyms:
-    - hept
     - 6-hept
-    - 1-(2-hydroxyethyloxymethyl)-6-phenyl thiothymine
-    - 1-[(2-hydroxyethoxy)methyl]-6-phenylthiothymine
     - 1-[(2-hydroxyethoxy)methyl]-6-(phenylthio)thymine
+    - 1-[(2-hydroxyethoxy)methyl]-6-phenylthiothymine
+    - hept
     - hmptt
+    - 1-(2-hydroxyethyloxymethyl)-6-phenyl thiothymine
     identifiers:
     - ns: chebi
       id: CHEBI:43060
@@ -454,9 +454,9 @@ monomers:
       at the 2-pro-S, 4-pro-S and 5-pro-R positions by thymin-1-yl, hydroxy, and hydroxymethyl
       groups, respectively.
     synonyms:
-    - 1-[(1's,2's,4's,5'r)-4'-hydroxy-5'-(hydroxymethyl)bicyclo[3.1.0]hexan-2'-yl]-5-methylpyrimidine-2,4(1h,3h)-dione
-    - north-methanocarbathymidine
     - 1-[4-hydroxy-5-(hydroxymethyl)bicyclo[3.1.0]hex-2-yl]-5-methylpyrimidine-2,4(1h,3h)-dione
+    - north-methanocarbathymidine
+    - 1-[(1's,2's,4's,5'r)-4'-hydroxy-5'-(hydroxymethyl)bicyclo[3.1.0]hexan-2'-yl]-5-methylpyrimidine-2,4(1h,3h)-dione
     identifiers:
     - ns: chebi
       id: CHEBI:46026
@@ -470,9 +470,9 @@ monomers:
       group of 5-hydroxymethyluracil to the corresponding aldehyde. It is a major
       one-electron photooxidation product of thymine in oligodeoxynucleotides.
     synonyms:
-    - 5fu
     - fou
     - uracil 5-carbaldehyde
+    - 5fu
     identifiers:
     - ns: chebi
       id: CHEBI:80961
@@ -539,8 +539,8 @@ monomers:
     comments: A 6-alkylaminopurine that is adenine where one of the hydrogens of the
       amino group is replaced by a hydroxymethyl group.
     synonyms:
-    - n(6)-hydroxymethyl-adenine
     - n(6)-hydroxymethyladenine
+    - n(6)-hydroxymethyl-adenine
     identifiers:
     - ns: chebi
       id: CHEBI:142766
@@ -568,12 +568,12 @@ monomers:
     synonyms:
     - n(6)-dimethyladenine
     - n,n-dimethyladenine
-    - n,n-dimethyl-6-aminopurine
     - 6-(dimethylamino)purine
+    - 6-dimethylaminopurine
+    - n,n-dimethyl-6-aminopurine
+    - 6-dimethyladenine
     - n,n-dimethyl-1h-purin-6-amine
     - n(6),n(6)-dimethyladenine
-    - 6-dimethyladenine
-    - 6-dimethylaminopurine
     identifiers:
     - ns: chebi
       id: CHEBI:60281
@@ -586,9 +586,9 @@ monomers:
     comments: A member of the class of 2,6-diaminopurines that is 9H-purine in which
       the hydrogens at positions 2 and 6 are replaced by amino groups.
     synonyms:
+    - 2-aminoadenine
     - 2,6-diaminopurine
     - 9h-purine-2,6-diamine
-    - 2-aminoadenine
     identifiers:
     - ns: chebi
       id: CHEBI:40235
@@ -602,8 +602,8 @@ monomers:
       8.
     synonyms:
     - 8-oxo-7,8-dihydroadenine
-    - 8-oxoa
     - oxyadenine
+    - 8-oxoa
     - 7,8-dihydro-8-oxoadenine
     identifiers:
     - ns: chebi
@@ -617,9 +617,9 @@ monomers:
     comments: A nucleobase analogue that is adenine bearing a single hydroxy substituent
       at position 8.
     synonyms:
-    - 6-amino-purin-8-ol
-    - 8-hydroxy-1h-purin-6-amine
     - 6-amino-8-hydroxypurine
+    - 8-hydroxy-1h-purin-6-amine
+    - 6-amino-purin-8-ol
     identifiers:
     - ns: chebi
       id: CHEBI:134105
@@ -633,12 +633,12 @@ monomers:
       of the exocyclic amino hydrogens is replaced by a hydroxy group.
     synonyms:
     - 6-hydroxylaminopurine
-    - hap
-    - 6-n-hydroxylaminopurine
-    - n-(7h-purin-6-yl)hydroxylamine
     - n(6)-hydroxyadenine
+    - 6-n-hydroxylaminopurine
     - n-hydroxyadenine
+    - hap
     - 6-hydroxyaminopurine
+    - n-(7h-purin-6-yl)hydroxylamine
     identifiers:
     - ns: chebi
       id: CHEBI:78235
@@ -652,13 +652,13 @@ monomers:
       9 has been substituted by a tetrahydrofuran-2-yl group. It is an adenylate cyclase
       inhibitor.
     synonyms:
-    - sq 22536
     - sq-22536
-    - sq 22,536
-    - 6-amino-9-(tetrahydro-2-furyl)-9h-purine
+    - sq 22536
     - sq22536
-    - 9-(tetrahydro-2-furyl)-adenine
+    - 6-amino-9-(tetrahydro-2-furyl)-9h-purine
     - 9-(tetrahydro-2-furanyl)-9h-purin-6-amine
+    - sq 22,536
+    - 9-(tetrahydro-2-furyl)-adenine
     identifiers:
     - ns: chebi
       id: CHEBI:90232
@@ -670,9 +670,9 @@ monomers:
     name: N(6)-hydroxy-3H-purine-2,6-diamine
     comments: A 2,6-diaminopurine that is the N(6)-hydroxy derivative of 2,6-diamino-3H-purine.
     synonyms:
-    - 2-amino-n(6)-hydroxyadenine
     - guanine oxime
     - 2-amino-n6-hydroxyadenine
+    - 2-amino-n(6)-hydroxyadenine
     identifiers:
     - ns: chebi
       id: CHEBI:78685
@@ -685,17 +685,17 @@ monomers:
     comments: A member of the class of 6-aminopurines that is adenine in which one
       of the hydrogens of the amino group is replaced by a benzyl group.
     synonyms:
-    - 6-bap
-    - n-benzyladenine
-    - benzyladenine
-    - 6-(benzylamino)purine
     - cytokinin b
     - 6-[(phenylmethyl)amino]-9h-purine
-    - n-benzyl-9h-purin-6-amine
-    - 6-benzylaminopurine
     - bap
-    - n(6)-(benzylamino)purine
+    - n-benzyladenine
+    - 6-benzylaminopurine
+    - 6-bap
+    - benzyladenine
     - n6-benzyladenine
+    - n(6)-(benzylamino)purine
+    - n-benzyl-9h-purin-6-amine
+    - 6-(benzylamino)purine
     identifiers:
     - ns: chebi
       id: CHEBI:29022
@@ -706,8 +706,8 @@ monomers:
     id: 1H-imidazo[2,1-i]purine
     name: 1H-imidazo[2,1-i]purine
     synonyms:
-    - ethenoadenine
     - 1,n(6)-ethenoadenine
+    - ethenoadenine
     identifiers:
     - ns: chebi
       id: CHEBI:29146
@@ -722,15 +722,15 @@ monomers:
       group. An inhibitor of HIV-1 reverse transcriptase, the bis(t-butoxycarbonyloxymethyl)
       ester (dipivoxil ester) prodrug is used to treat chronic hepatitis B viral infection.
     synonyms:
-    - hsdb 8079
-    - 9-(2-(phosphonomethoxy)ethyl)adenine
-    - drg-0156
-    - gs 393
-    - gs-0393
-    - pmea
     - n-(2-phosphonylmethoxyethyl)adenine
-    - 9-(2-phosphonylmethoxyethyl)adenine
+    - pmea
     - gs 0393
+    - gs-0393
+    - hsdb 8079
+    - gs 393
+    - drg-0156
+    - 9-(2-phosphonylmethoxyethyl)adenine
+    - 9-(2-(phosphonomethoxy)ethyl)adenine
     identifiers:
     - ns: chebi
       id: CHEBI:2469
@@ -745,9 +745,9 @@ monomers:
       group. A prodrug for tenofovir, it is used (as the fumarate salt) in combination
       therapy for the treatment of HIV-1 infection.
     synonyms:
-    - taf
     - gs 7340
     - gs-7340
+    - taf
     identifiers:
     - ns: chebi
       id: CHEBI:90926
@@ -787,9 +787,9 @@ monomers:
     comments: A  methyladenine that is adenine substituted with a methyl group at
       position N-3.
     synonyms:
+    - 3-methyl-3h-adenine
     - 3-methyl-3h-purin-6-ylamine
     - 6-amino-3-methylpurine
-    - 3-methyl-3h-adenine
     identifiers:
     - ns: chebi
       id: CHEBI:38635
@@ -835,10 +835,10 @@ monomers:
     comments: A methyladenine that is 9H-purin-6-amine substituted by a methyl group
       at the amino nitrogen.
     synonyms:
+    - 6-methylaminopurine
     - n6-methyladenine
     - n6-monomethyladenine
     - 6-map
-    - 6-methylaminopurine
     identifiers:
     - ns: chebi
       id: CHEBI:28871
@@ -864,11 +864,11 @@ monomers:
     name: (2E)-2-methyl-4-(9H-purin-6-ylamino)but-2-en-1-ol
     comments: The trans-isomer of zeatin.
     synonyms:
-    - zeatin
     - (e)-2-methyl-4-(1h-purin-6-ylamino)-2-buten-1-ol
-    - (e)-zeatin
     - n6-(4-hydroxyisopentenyl)adenine
+    - zeatin
     - (e)-2-methyl-4-(purin-6-ylamino)-2-buten-1-ol
+    - (e)-zeatin
     - (e)-2-methyl-4-(1h-purin-6-ylamino)but-2-en-1-ol
     identifiers:
     - ns: chebi
@@ -885,8 +885,8 @@ monomers:
       at the 3-position.
     synonyms:
     - 3-(3-amino-3-carboxypropyl)-n6-(delta2)-isopentenyladenine
-    - alpha-amino-6-((3-methyl-2-butenyl)amino)-3h-purine-3-butanoic acid
     - 3-(3-amino-3-carboxypropyl)-n6-(delta2-isopentenyl)-adenine
+    - alpha-amino-6-((3-methyl-2-butenyl)amino)-3h-purine-3-butanoic acid
     identifiers:
     - ns: chebi
       id: CHEBI:15955
@@ -899,19 +899,19 @@ monomers:
     comments: A 6-isopentenylaminopurine in which has the isopentenyl double bond
       is located between the 2 and 3 positions of the isopentenyl group.
     synonyms:
-    - n6-(3-methylbut-2-enyl)adenine
-    - (3-methyl-but-2-enyl)-(7(9)h-purin-6-yl)-amine
-    - n(6)-(delta2-isopentenyl)adenine
-    - 6-(3-methyl-2-buten-1-ylamino)purine
-    - isopentenyl adenine
-    - n(6)-dimethylallyladenine
     - ip
-    - n6-isopentenyladenine
     - isopentenyladenine
-    - n6-dimethylallyladenine
+    - n(6)-dimethylallyladenine
+    - isopentenyl adenine
+    - 6-(3-methyl-2-buten-1-ylamino)purine
+    - n6-isopentenyladenine
     - 6-(gamma,gamma-dimethylallylamino)purine
+    - n6-(3-methylbut-2-enyl)adenine
     - n6-(delta2-isopentenyl)adenine
+    - n(6)-(delta2-isopentenyl)adenine
     - n6-(delta2-isopentenyl)-adenine
+    - n6-dimethylallyladenine
+    - (3-methyl-but-2-enyl)-(7(9)h-purin-6-yl)-amine
     identifiers:
     - ns: chebi
       id: CHEBI:17660
@@ -934,10 +934,10 @@ monomers:
       of the amino group is replaced by a 4-hydroxy-3-methylbutyl group. It is an
       intermediate in the zeatin biosynthesis.
     synonyms:
-    - 2-methyl-4-(1h-purin-6-ylamino)butan-1-ol
-    - n6-(4-hydroxyisopentanyl)adenine
     - n(6)-(4-hydroxyisopentanyl)adenine
+    - n6-(4-hydroxyisopentanyl)adenine
     - 2-methyl-4-(9h-purin-6-ylamino)butan-1-ol
+    - 2-methyl-4-(1h-purin-6-ylamino)butan-1-ol
     identifiers:
     - ns: chebi
       id: CHEBI:17874
@@ -951,8 +951,8 @@ monomers:
       replaced by an oxo group and in which the nitrogens at positions 7 and 9 each
       bear a hydrogen.
     synonyms:
-    - 8-hydroxyguanine
     - 8-oxoguanine
+    - 8-hydroxyguanine
     identifiers:
     - ns: chebi
       id: CHEBI:52617
@@ -991,18 +991,18 @@ monomers:
       group at position 9. Ganciclovir is an antiviral drug used to treat or prevent
       AIDS-related cytomegalovirus infections.
     synonyms:
-    - 2-amino-9-(2-hydroxy-1-hydroxymethylethoxymethyl)-6,9-dihydro-1h-6-purinone
-    - gancyclovir
-    - 9-(1,3-dihydroxy-propoxymethane)guanine
-    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-9h-purin-6-ol
-    - 2-(6-amino-purin-9-ylmethoxy)-propane-1,3-diol
-    - ganciclovirum
-    - 2-amino-9-(2-hydroxy-1-hydroxymethyl-ethoxymethyl)-1,9-dihydro-purin-6-one
-    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-3h-purin-6(9h)-one
-    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-1h-purin-6(9h)-one
-    - ga2
     - 9-[(1,3-dihydroxy-2-propoxy)methyl]guanine
     - 9-((2-hydroxy-1-(hydroxymethyl)ethoxy)methyl)guanine
+    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-3h-purin-6(9h)-one
+    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-1h-purin-6(9h)-one
+    - gancyclovir
+    - 2-amino-9-((1,3-dihydroxypropan-2-yloxy)methyl)-9h-purin-6-ol
+    - 9-(1,3-dihydroxy-propoxymethane)guanine
+    - 2-amino-9-(2-hydroxy-1-hydroxymethylethoxymethyl)-6,9-dihydro-1h-6-purinone
+    - 2-(6-amino-purin-9-ylmethoxy)-propane-1,3-diol
+    - ga2
+    - 2-amino-9-(2-hydroxy-1-hydroxymethyl-ethoxymethyl)-1,9-dihydro-purin-6-one
+    - ganciclovirum
     identifiers:
     - ns: chebi
       id: CHEBI:465284
@@ -1044,13 +1044,13 @@ monomers:
       group. An antiviral drug, it is administered topically for treatment of herpes
       labialis. A prodrug, famciclovir, is used for oral administration.
     synonyms:
-    - pe2
-    - 9-[4-hydroxy-3-(hydroxymethyl)but-1-yl]guanine
-    - 9-(4-hydroxy-3-(hydroxymethyl)butyl)guanine
-    - pcv
-    - penciclovirum
     - 9-(4-hydroxy-3-hydroxymethylbut-1-yl)-guanine
     - 9-[2-hydroxy-1-(hydroxymethyl)-ethoxymethyl]guanine
+    - pcv
+    - 9-[4-hydroxy-3-(hydroxymethyl)but-1-yl]guanine
+    - 9-(4-hydroxy-3-(hydroxymethyl)butyl)guanine
+    - pe2
+    - penciclovirum
     identifiers:
     - ns: chebi
       id: CHEBI:7956
@@ -1100,9 +1100,9 @@ monomers:
       via a beta-N(9)-glycosidic bond. Inhibits DNA synthesis and causes cell death;
       a prodrug of 9-beta-D-arabinofuranosylguanine (ara-G).
     synonyms:
-    - 2-amino-9-beta-d-arabinofuranosyl-6-methoxy-9h-purine
-    - arranon
     - nelzarabine
+    - arranon
+    - 2-amino-9-beta-d-arabinofuranosyl-6-methoxy-9h-purine
     identifiers:
     - ns: chebi
       id: CHEBI:63612
@@ -1165,8 +1165,8 @@ monomers:
       an amino group at position 2 and a methyl group at position 7.
     synonyms:
     - 7-methylguanine
-    - 2-amino-1,7-dihydro-7-methyl-6h-purin-6-one
     - n(7)-methylguanine
+    - 2-amino-1,7-dihydro-7-methyl-6h-purin-6-one
     - 2-amino-7-methylhypoxanthine
     identifiers:
     - ns: chebi
@@ -1213,9 +1213,9 @@ monomers:
     comments: A methylguanine in which the methyl group is located at the N2-position.
     synonyms:
     - 2-methylamino-6-oxopurine
-    - 2-methylguanine
     - n-methyl-guanine
     - 1,7-dihydro-2-(methylamino)-6h-purin-6-one
+    - 2-methylguanine
     identifiers:
     - ns: chebi
       id: CHEBI:21818
@@ -1231,11 +1231,11 @@ monomers:
       such as endogenous S-adenosylmethionine, it base-pairs to thymine rather than
       cytidine, causing a G:C to A:T transition in DNA.
     synonyms:
-    - 6-methoxy-1h-purine-2-amine
+    - o(6)-methylguanine
     - o-(6)-methylguanine
     - 6-methoxyguanine
-    - o(6)-methylguanine
     - 2-amino-6-methoxypurine
+    - 6-methoxy-1h-purine-2-amine
     identifiers:
     - ns: chebi
       id: CHEBI:20689
@@ -1249,8 +1249,8 @@ monomers:
       and 6 by ethoxymethyl, isopropyl, and 3,5-dimethylbenzyl groups, respectively.
     synonyms:
     - 6-(3',5'-dimethylbenzyl)-1-ethoxymethyl-5-isopropyluracil
-    - i-ebu-dm
     - 6-(3,5-dimethylbenzyl)-1-(ethoxymethyl)-5-(1-methylethyl)uracil
+    - i-ebu-dm
     identifiers:
     - ns: chebi
       id: CHEBI:42702
@@ -1263,11 +1263,11 @@ monomers:
     comments: A pyrimidone that is uracil which is substituted at positions 1, 5,
       and 6 by benzyloxymethyl, isopropyl, and benzyl groups, respectively.
     synonyms:
-    - 6-benzyl-1-benzyloxymethyl-5-isopropyl uracil
     - 5-(1-methylethyl)-1-[(phenylmethoxy)methyl]-6-(phenylmethyl)-2,4(1h,3h)-pyrimidinedione
-    - tnk-651
-    - tnk651
     - 6-benzyl-1-[(benzyloxy)methyl]-5-(1-methylethyl)uracil
+    - tnk651
+    - 6-benzyl-1-benzyloxymethyl-5-isopropyl uracil
+    - tnk-651
     identifiers:
     - ns: chebi
       id: CHEBI:45910
@@ -1283,10 +1283,10 @@ monomers:
       agent for the treatment of HIV.
     synonyms:
     - mkc-442
-    - 6-benzyl-1-ethoxymethyl-5-isopropyl uracil
     - 1-(ethoxymethyl)-5-(1-methylethyl)-6-(phenylmethyl)pyrimidine-2,4(1h,3h)-dione
-    - coactinon
     - 6-benzyl-1-(ethoxymethyl)-5-(1-methylethyl)uracil
+    - coactinon
+    - 6-benzyl-1-ethoxymethyl-5-isopropyl uracil
     identifiers:
     - ns: chebi
       id: CHEBI:44143
@@ -1313,9 +1313,9 @@ monomers:
     comments: A pyrimidine having keto groups at the 2- and 4-positions and a bromo
       group at the 5-position. Used mainly as an experimental mutagen.
     synonyms:
+    - 5-bromo-2,4(1h,3h)-pyrimidinedione
     - 5-bu
     - bromouracil
-    - 5-bromo-2,4(1h,3h)-pyrimidinedione
     - 1,2,3,4-tetrahydro-5-bromo-2,4-pyrimidinedione
     - 5-bru
     identifiers:
@@ -1356,11 +1356,11 @@ monomers:
       replaced by a thioxo group.
     synonyms:
     - 2-mercapto-pyrimidin-4-ol
-    - 2-thioxo-2,3-dihydro-1h-pyrimidin-4-one
-    - 2-thio-2,4-(1h,3h)-pyrimidinedione
     - 4-hydroxy-2-pyrimidinethiol
     - 2-thiouracil
+    - 2-thioxo-2,3-dihydro-1h-pyrimidin-4-one
     - 2-mercapto-4-pyrimidinol
+    - 2-thio-2,4-(1h,3h)-pyrimidinedione
     identifiers:
     - ns: chebi
       id: CHEBI:348530
@@ -1384,8 +1384,8 @@ monomers:
     comments: A nucleobase analogue that is uracil substituted at positions 5 and
       6 by hydroxy groups.
     synonyms:
-    - 5,6-dihydroxy-1,2,3,4-tetrahydropyrimidine-2,4-dione
     - isodialuric acid
+    - 5,6-dihydroxy-1,2,3,4-tetrahydropyrimidine-2,4-dione
     identifiers:
     - ns: chebi
       id: CHEBI:132197
@@ -1403,10 +1403,10 @@ monomers:
       Canada and several other countries to control weeds in a wide range of food
       crops. Often mixed with other products such as glyphosate.
     synonyms:
-    - saflufenacile
-    - n'-{2-chloro-4-fluoro-5-[1,2,3,6-tetrahydro-3-methyl-2,6-dioxo-4-(trifluoromethyl)pyrimidin-1-yl]benzoyl}-n-isopropyl-n-methylsulfamide
     - kixor
+    - saflufenacile
     - 2-chloro-5-[3,6-dihydro-3-methyl-2,6-dioxo-4-(trifluoromethyl)-1(2h)-pyrimidinyl]-4-fluoro-n-[[methyl(1-methylethyl)amino]sulfonyl]benzamide
+    - n'-{2-chloro-4-fluoro-5-[1,2,3,6-tetrahydro-3-methyl-2,6-dioxo-4-(trifluoromethyl)pyrimidin-1-yl]benzoyl}-n-isopropyl-n-methylsulfamide
     identifiers:
     - ns: chebi
       id: CHEBI:142824
@@ -1419,9 +1419,9 @@ monomers:
     comments: A pyrimidone that is uracil with methyl group substituents at positions
       1 and 3.
     synonyms:
-    - n,n'-dimethyluracil
     - n1,n3-dimethyluracil
     - 2,4-dihydroxy-1,3-dimethylpyrimidine
+    - n,n'-dimethyluracil
     identifiers:
     - ns: chebi
       id: CHEBI:74763
@@ -1539,9 +1539,9 @@ monomers:
     comments: A primary alcohol that is uracil bearing a hydroxymethyl substituent
       at the 5-position.
     synonyms:
+    - 5-(hydroxymethyl)-2,4(1h,3h)-pyrimidinedione
     - 5-(hydroxymethyl)uracil
     - 5-hydroxymethyl uracil
-    - 5-(hydroxymethyl)-2,4(1h,3h)-pyrimidinedione
     identifiers:
     - ns: chebi
       id: CHEBI:16964
@@ -1554,15 +1554,15 @@ monomers:
     comments: A pyrimidine obtained by formal addition of hydrogen across the 5,6-position
       of uracil.
     synonyms:
-    - 2,4-dioxotetrahydropyrimidine
-    - 2,4(1h,3h)-pyrimidinedion
     - dihydrouracil
-    - hydrouracil
+    - 2,4(1h,3h)-pyrimidinedion
     - ihydro-
-    - dihydro-2,4(1h,3h)-pyrimidinedione
     - dihydrouracile
-    - dihydropyrimidine-2,4(1h,3h)-dione
+    - hydrouracil
+    - 2,4-dioxotetrahydropyrimidine
     - 5,6-dihydro-2,4-dihydroxypyrimidine
+    - dihydropyrimidine-2,4(1h,3h)-dione
+    - dihydro-2,4(1h,3h)-pyrimidinedione
     identifiers:
     - ns: chebi
       id: CHEBI:15901
@@ -1579,11 +1579,11 @@ monomers:
       cellular enzyme thymidylate synthetase) and so slows tumour growth.
     synonyms:
     - 5-fluoropyrimidine-2,4-dione
-    - 5-fu
-    - fluorouracilo
     - fluorouracilum
-    - fluorouracil
+    - fluorouracilo
+    - 5-fu
     - 5-fluoracil
+    - fluorouracil
     identifiers:
     - ns: chebi
       id: CHEBI:46345
@@ -1599,12 +1599,12 @@ monomers:
       hGluR2 and hGluR5 respectively).
     synonyms:
     - (s)-alpha-amino-5-fluoro-3,4-dihydro-2,4-dioxo-1(2h)-pyrimmidinepropanoic acid
+    - 5-fluorowillardiine
+    - (s)-f-willardiine
+    - (s)-(-)-5-fluorowillardiine
+    - 2-amino-3-(5-fluoro-2,4-dioxo-3,4-dihydro-2h-pyrimidin-1-yl)-propionic acid
     - (2s)-2-amino-3-(5-fluoro-2,4-dioxo-1,2,3,4-tetrahydropyrimidin-1-yl)propanoic
       acid
-    - 5-fluorowillardiine
-    - 2-amino-3-(5-fluoro-2,4-dioxo-3,4-dihydro-2h-pyrimidin-1-yl)-propionic acid
-    - (s)-(-)-5-fluorowillardiine
-    - (s)-f-willardiine
     identifiers:
     - ns: chebi
       id: CHEBI:42549
@@ -1617,8 +1617,8 @@ monomers:
     comments: A monocarboxylic acid comprising uracil having a carboxymethyl substituent
       at the 6-position.
     synonyms:
-    - 1,2,3,6-tetrahydro-2,6-dioxo-4-pyrimidineacetic acid
     - 6-carboxymethyluracil
+    - 1,2,3,6-tetrahydro-2,6-dioxo-4-pyrimidineacetic acid
     identifiers:
     - ns: chebi
       id: CHEBI:46371
@@ -1656,20 +1656,20 @@ monomers:
       substituted by a thio group and the hydrogen at position 6 is substituted by
       a propyl group.
     synonyms:
-    - propylthiouracilum
-    - 2-mercapto-6-propyl-4-pyrimidone
-    - 6-thio-4-propyluracil
-    - propiltiouracilo
-    - propylthiouracil
-    - 2-mercapto-6-propylpyrimid-4-one
     - 2-thio-4-oxo-6-propyl-1,3-pyrimidine
-    - 6-propyl-2-thioxo-2,3-dihydropyrimidin-4(1h)-one
-    - 6-propyl-2-thio-2,4(1h,3h)pyrimidinedione
-    - propylthiouracile
-    - 2-thio-6-propyl-1,3-pyrimidin-4-one
-    - 6-propylthiouracil
     - 2,3-dihydro-6-propyl-2-thioxo-4(1h)-pyrimidinone
+    - 6-thio-4-propyluracil
+    - propylthiouracile
+    - propylthiouracilum
+    - 2-mercapto-6-propylpyrimid-4-one
+    - 2-thio-6-propyl-1,3-pyrimidin-4-one
+    - 6-propyl-2-thio-2,4(1h,3h)pyrimidinedione
+    - propiltiouracilo
     - 4-propyl-2-thiouracil
+    - propylthiouracil
+    - 6-propylthiouracil
+    - 6-propyl-2-thioxo-2,3-dihydropyrimidin-4(1h)-one
+    - 2-mercapto-6-propyl-4-pyrimidone
     identifiers:
     - ns: chebi
       id: CHEBI:8502
@@ -1706,15 +1706,15 @@ monomers:
     id: (R)-dihydroorotic acid
     name: (4R)-2,6-dioxohexahydropyrimidine-4-carboxylic acid
     synonyms:
-    - 4,5-dihydro-d-orotic acid
     - (r)-4,5-dihydroorotic acid
+    - 4,5-dihydro-d-orotic acid
     identifiers:
     - ns: chebi
       id: CHEBI:30866
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)/t2-/m1/s1
     base_monomers:
-    - base-66
     - U
+    - base-66
   base-65:
     id: (S)-dihydroorotic acid
     name: (4S)-2,6-dioxohexahydropyrimidine-4-carboxylic acid
@@ -1729,40 +1729,40 @@ monomers:
       id: CHEBI:17025
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)/t2-/m0/s1
     base_monomers:
-    - base-66
     - U
+    - base-66
   base-66:
     id: dihydroorotic acid
     name: 2,6-dioxohexahydropyrimidine-4-carboxylic acid
     comments: A pyrimidinemonocarboxylic acid that results from the base-catalysed
       cyclisation of N(alpha)-carbethoxyasparagine.
     synonyms:
-    - 4,5-dihydroorotic acid
-    - 5,6-dihydro-orotic acid
-    - hydroorotic acid
     - dl-dihydroortotic acid
+    - 5,6-dihydro-orotic acid
+    - 4,5-dihydroorotic acid
+    - hydroorotic acid
     identifiers:
     - ns: chebi
       id: CHEBI:30865
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)
     base_monomers:
-    - base-53
     - U
+    - base-53
   base-67:
     id: (S)-dihydroorotate
     name: (4S)-2,6-dioxohexahydropyrimidine-4-carboxylate
     comments: A dihydroorotate that is the conjugate base of (S)-dihydroorotic acid.
     synonyms:
-    - (s)-dihydroorotate
     - (s)-4,5-dihydroorotate
     - 4,5-dihydro-l-orotate
+    - (s)-dihydroorotate
     identifiers:
     - ns: chebi
       id: CHEBI:30864
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)/p-1/t2-/m0/s1
     base_monomers:
-    - base-68
     - U
+    - base-68
   base-68:
     id: dihydroorotate
     name: 2,6-dioxohexahydropyrimidine-4-carboxylate
@@ -1775,20 +1775,20 @@ monomers:
       id: CHEBI:30867
     structure: InChI=1S/C5H6N2O4/c8-3-1-2(4(9)10)6-5(11)7-3/h2H,1H2,(H,9,10)(H2,6,7,8,11)/p-1
     base_monomers:
-    - base-54
     - U
+    - base-54
   base-69:
     id: 5-[bis(2-chloroethyl)amino]uracil
     name: 5-[bis(2-chloroethyl)amino]pyrimidine-2,4(1H,3H)-dione
     synonyms:
-    - aminouracil mustard
     - 5-aminouracil mustard
+    - 5-(di-2-chloroethyl)aminouracil
+    - aminouracil mustard
+    - 5-[di(beta-chloroethyl)amino]uracil
+    - uracil nitrogen mustard
     - 5-[bis(2-chloroethyl)amino]-2,4(1h,3h)-pyrimidinedione
     - 5-n,n-bis(2-chloroethyl)aminouracil
     - uracil mustard
-    - uracil nitrogen mustard
-    - 5-(di-2-chloroethyl)aminouracil
-    - 5-[di(beta-chloroethyl)amino]uracil
     identifiers:
     - ns: chebi
       id: CHEBI:9884
@@ -1802,16 +1802,16 @@ monomers:
       1 is substituted by the 6-amino group of 5,6-diaminouracil. Early intermediate
       in bacterial riboflavin synthesis.
     synonyms:
-    - 5-amino-6-(1-d-ribitylamino)uracil
     - 5-a-ru
     - 5-amino-6-ribitylaminouracil
-    - 6-(1-d-ribitylamino)-5-aminouracil
-    - 4-(1-d-ribitylamino)-5-amino-2,6-dihydroxypyrimidine
-    - 5-amino-2,6-dioxo-4-ribitylaminopyrimidine
-    - 5-amino-6-ribitylamino-2,4-(1h,3h)pyrimidinedione
-    - 5-arpd
     - 5-amino-6-(d-ribitylamino)uracil
+    - 5-amino-6-ribitylamino-2,4-(1h,3h)pyrimidinedione
     - 6-(1-d-ribitylamino)-5-amino-2,4-dihydroxypyrimidine
+    - 5-arpd
+    - 5-amino-6-(1-d-ribitylamino)uracil
+    - 6-(1-d-ribitylamino)-5-aminouracil
+    - 5-amino-2,6-dioxo-4-ribitylaminopyrimidine
+    - 4-(1-d-ribitylamino)-5-amino-2,6-dihydroxypyrimidine
     identifiers:
     - ns: chebi
       id: CHEBI:15934
