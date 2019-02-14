@@ -11,7 +11,6 @@ from bpforms.alphabet import protein
 from wc_utils.util.chem import EmpiricalFormula
 import os.path
 import shutil
-import requests
 import tempfile
 import unittest
 
@@ -40,12 +39,6 @@ class ProteinTestCase(unittest.TestCase):
                          + monomers.A.get_formula())
         self.assertEqual(form.get_formula(), EmpiricalFormula('C9H17N3O4'))
         self.assertEqual(form.get_charge(), 3 * monomers.A.get_charge())
-
-    def test_ProteinForm_get_monomer_details(self):
-        path = os.path.join(self.dirname, 'alphabet.yml')
-        session = requests.Session()
-        self.assertEqual(protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[0], 'S')
-        # add more for the identifiers
 
     def test_ProteinAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
