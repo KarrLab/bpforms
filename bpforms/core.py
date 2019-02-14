@@ -552,6 +552,23 @@ class Monomer(object):
         else:
             return None
 
+    IMAGE_URL_PATTERN = ('https://cactus.nci.nih.gov/chemical/structure/{}/image'
+                         '?format=png'
+                         '&bgcolor=transparent'
+                         '&antialiasing=0')
+
+    def get_image_url(self):
+        """ Get URL for image of structure
+
+        Returns:
+            :obj:`str`: URL for image of structure
+        """
+        inchi = self.get_inchi()
+        if inchi:
+            inchi, _, _ = inchi.partition('/t')
+            return self.IMAGE_URL_PATTERN.format(inchi)
+        return None
+
     def get_formula(self):
         """ Get the chemical formula
 

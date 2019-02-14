@@ -80,3 +80,37 @@ def build_alphabets(_max_monomers=float('inf')):
     dna.DnaAlphabetBuilder(_max_monomers=_max_monomers).run()
     rna.RnaAlphabetBuilder(_max_monomers=_max_monomers).run()
     protein.ProteinAlphabetBuilder(_max_monomers=_max_monomers).run()
+
+
+def gen_html_viz_alphabet(alphabet, filename):
+    """ Create and save an HTML document with images of the monomers in an alphabet
+
+    Args:
+        alphabet (:obj:`Alphabet`): alphabet
+        filename (:obj:`str`): path to save HTML document with images of monomers
+    """
+    doc = ''
+    doc += '<html>'
+    doc += '  <body>'
+    doc += '    <table>'
+    doc += '      <thead>'
+    doc += '        <tr>'
+    doc += '          <th>Code</th>'
+    doc += '          <th>Structure</th>'
+    doc += '        </tr>'
+    doc += '      </thead>'
+    for code, monomer in alphabet.monomers.items():
+        doc += '        <tr>'
+        doc += '          <td>{}</td>'.format(code)
+        url = monomer.get_image_url()
+        if url:
+            doc += '          <td><img src="{}"/></td>'.format(url)
+        else:
+            doc += '          <td></td>'.format(url)
+        doc += '        </tr>'
+    doc += '    </table>'
+    doc += '  </body>'
+    doc += '</html>'
+
+    with open(filename, 'w') as file:
+        file.write(doc)
