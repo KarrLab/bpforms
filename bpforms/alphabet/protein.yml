@@ -163,7 +163,7 @@ monomers:
       id: '750'
     - ns: chebi
       id: CHEBI:15428
-    structure: InChI=1S/C2H5NO2/c3-1-2(4)5/h1,3H2,(H,4,5)
+    structure: InChI=1S/C2H5NO/c3-1-2-4/h2H,1,3H2
   H:
     id: His
     name: L-histidine
