@@ -15,7 +15,8 @@ package_data = {
         'grammar.lark',
         'alphabet/*.yml', # alphabets
         'alphabet/*.sqlite', # alphabets
-        'web', # website
+        'web/*', # website
+        'web/**/*', # website
     ],
 }
 
