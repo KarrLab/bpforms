@@ -24,7 +24,7 @@ class ProteinTestCase(unittest.TestCase):
         shutil.rmtree(self.dirname)
 
     def test_protein_alphabet(self):
-        self.assertEqual(protein.protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H11NO'))
+        self.assertEqual(protein.protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H12NO'))
         self.assertEqual(protein.canonical_protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H11NO'))
 
     def test_ProteinForm_init(self):
@@ -47,8 +47,9 @@ class ProteinTestCase(unittest.TestCase):
         self.assertEqual(protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[0], 'S')
         self.assertEqual(protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[3], {'AA0016'})
         # add more for the identifiers
-
-
+        # self.assertEqual(protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[2],
+                         # IdentifierSet([Identifier('mod', 'MOD:00046')]))
+ 
     def test_ProteinAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
 
