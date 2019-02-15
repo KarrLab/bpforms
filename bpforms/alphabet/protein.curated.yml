@@ -1,6 +1,6 @@
 id: protein
-name: RESID protein amino acids
-description: The non-canonical amino acids in with more than one peptide bond <a
+name: curated RESID protein amino acids
+description: The non-canonical amino acids with more than one peptide bond from <a
   href="https://pir.georgetown.edu/resid">RESID</a>
 monomers:
   AA0126:
