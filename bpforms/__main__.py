@@ -120,10 +120,10 @@ class BuildAlphabetsController(cement.Controller):
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
-            (['--ph'], dict(type=float, default=None,
+            (['--ph'], dict(type=float, default=7.4,
                             help='pH at which calculate major protonation state of each monomer')),
-            (['--major-tautomer'], dict(action='store_true', default=False,
-                                        help='If set, calculate the major tautomer')),
+            (['--not-major-tautomer'], dict(action='store_true', default=False,
+                                            help='If set, calculate the major tautomer')),
             (['--max-monomers'], dict(type=float, default=float('inf'),
                                       help='Maximum number of monomers to build. Used for testing')),
         ]
@@ -131,7 +131,7 @@ class BuildAlphabetsController(cement.Controller):
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        bpforms.util.build_alphabets(ph=args.ph, major_tautomer=args.major_tautomer, _max_monomers=args.max_monomers)
+        bpforms.util.build_alphabets(ph=args.ph, major_tautomer=not args.not_major_tautomer, _max_monomers=args.max_monomers)
         print('Alphabets successfully built')
 
 
