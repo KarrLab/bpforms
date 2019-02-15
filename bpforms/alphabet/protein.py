@@ -36,7 +36,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
     MAX_RETRIES = 5
 
-    def run(self, ph=None, major_tautomer=False, path=filename):
+    def run(self, ph=None, major_tautomer=False, curate=False, path=filename):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
@@ -47,7 +47,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
+        return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, curate=curate, path=path)
 
     def build(self):
         """ Build alphabet
@@ -97,6 +97,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # extract name of the molecule from pdb file
         base_monomers = {}
         monomer_ids = {}
+        curated_entries = []
         for file in glob.iglob(tmp_folder+'/*PDB'):
             with open(file, 'r') as f:
                 names = []
@@ -109,11 +110,21 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     if re.match(r"^COMPND   1", line):
                         part2 = str(line[10:].strip())
                         names.append(part2)
+
+                    # count number of HN and O from peptide bond atom names nomenclature
+                    if str.split(line)[0] == 'ATOM' and str.split(line)[2] == 'HN':
+                        number_hn += 1
+                    if str.split(line)[0] == 'ATOM' and (str.split(line)[2] == 'O'):
+                        number_co += 1
                 name = ''.join(names)
                 id = re.split("[/.]", file)[3]
                 structure = self.get_monomer_structure(name, file)
             if not structure:
                 continue
+
+            # get the ids of modified monomer with more than one peptide bond
+            if number_hn > 1 and number_co > 1:
+                curated_entries.append(id)
 
             code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
 
