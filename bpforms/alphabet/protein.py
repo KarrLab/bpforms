@@ -36,7 +36,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
     MAX_RETRIES = 5
 
-    def run(self, ph=None, major_tautomer=False, curate=False, path=filename):
+    def run(self, ph=None, major_tautomer=False, path=filename):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
@@ -47,7 +47,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, curate=curate, path=path)
+        return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
 
     def build(self):
         """ Build alphabet
@@ -146,6 +146,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 comments=comments,
             )
             alphabet.monomers[code] = monomer
+
 
             monomer_ids[id] = monomer
             base_monomers[monomer] = base_monomer_ids
