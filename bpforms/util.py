@@ -71,15 +71,17 @@ def get_form(alphabet):
     raise ValueError('Alphabet "{}" must be "dna", "rna", or "protein"'.format(alphabet))
 
 
-def build_alphabets(_max_monomers=float('inf')):
+def build_alphabets(ph=None, major_tautomer=False, _max_monomers=float('inf')):
     """ Build DNA, RNA, and protein alphabets
 
-    Args
+    Args:
+        ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+        major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         _max_monomers (:obj:`float`, optional): maximum number of monomers to build; used for testing
     """
-    dna.DnaAlphabetBuilder(_max_monomers=_max_monomers).run()
-    rna.RnaAlphabetBuilder(_max_monomers=_max_monomers).run()
-    protein.ProteinAlphabetBuilder(_max_monomers=_max_monomers).run()
+    dna.DnaAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer)
+    rna.RnaAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer)
+    protein.ProteinAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer)
 
 
 def gen_html_viz_alphabet(alphabet, filename):

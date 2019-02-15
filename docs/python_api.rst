@@ -58,12 +58,12 @@ Optionally, `BpForms` can track the monomers that are generated from a monomer (
     di_monomer.base_monomers.add(bpforms.Monomer())
 
 
-Protonation
-^^^^^^^^^^^
+Protonation and tautomerization
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Calculate the major protation state of each monomer in the biopolymer form.::
+Calculate the major protation and tautomerization state of each monomer in the biopolymer form.::
 
-    dna_form.protonate(8.)
+    dna_form.protonate(8., major_tautomer=True)
 
 
 Calculation of physical properties

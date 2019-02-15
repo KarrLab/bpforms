@@ -37,7 +37,7 @@ class RestTestCase(unittest.TestCase):
 
     def test_get_bpform_properties_with_ph(self):
         client = rest.app.test_client()
-        rv = client.get('/api/bpform/dna/ACGT/7./')
+        rv = client.get('/api/bpform/dna/ACGT/7./1')
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json()['alphabet'], 'dna')
         self.assertEqual(rv.get_json()['monomer_seq'], 'ACGT')
@@ -46,13 +46,16 @@ class RestTestCase(unittest.TestCase):
     def test_get_bpform_properties_errors(self):
         client = rest.app.test_client()
 
-        rv = client.get('/api/bpform/lipid/ACGT/7./')
+        rv = client.get('/api/bpform/lipid/ACGT/7./0')
         self.assertEqual(rv.status_code, 400)
 
-        rv = client.get('/api/bpform/dna/ACG[T/7./')
+        rv = client.get('/api/bpform/dna/ACG[T/7./0')
         self.assertEqual(rv.status_code, 400)
 
-        rv = client.get('/api/bpform/dna/ACGT/a/')
+        rv = client.get('/api/bpform/dna/ACGT/a/0')
+        self.assertEqual(rv.status_code, 400)
+
+        rv = client.get('/api/bpform/dna/ACGT/7./a')
         self.assertEqual(rv.status_code, 400)
 
     def test_get_alphabets(self):

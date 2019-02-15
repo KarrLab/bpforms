@@ -104,7 +104,7 @@ class CliTestCase(unittest.TestCase):
                 '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.G.get_inchi()),
                 '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.T.get_inchi()),
             ])
-            with __main__.App(argv=['get-properties', 'canonical_dna', monomer_seq, '--ph', '7.0']) as app:
+            with __main__.App(argv=['get-properties', 'canonical_dna', monomer_seq, '--ph', '7.0', '--major-tautomer']) as app:
                 # run app
                 app.run()
 

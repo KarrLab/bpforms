@@ -35,16 +35,18 @@ class RnaAlphabetBuilder(AlphabetBuilder):
     ENTRY_ENDPOINT = 'http://modomics.genesilico.pl/modifications/{}/'
     MAX_RETRIES = 5
 
-    def run(self, path=filename):
+    def run(self, ph=None, major_tautomer=False, path=filename):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
             path (:obj:`str`, optional): path to save alphabet
 
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        return super(RnaAlphabetBuilder, self).run(path)
+        return super(RnaAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
 
     def build(self):
         """ Build alphabet

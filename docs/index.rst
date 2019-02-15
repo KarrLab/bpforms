@@ -16,7 +16,7 @@
             /s1
         ]T
 
-* This concrete representation of modified biopolymers enables the `BpForms` software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as automatically protonate biopolymers for specific pHs.
+* This concrete representation of modified biopolymers enables the `BpForms` software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as automatically calculate the major protonation and tautomerization state of biopolymers at specific pHs.
 
 `BpForms` emcompasses five tools:
 

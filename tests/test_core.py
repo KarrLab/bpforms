@@ -1111,5 +1111,5 @@ class AlphabetBuilderTestCase(unittest.TestCase):
         self.assertIsInstance(alphabet, core.Alphabet)
 
         path = os.path.join(self.dir_path, 'alphabet.yml')
-        alphabet = AlphabetBuilder().run(path=path)
+        alphabet = AlphabetBuilder().run(ph=7.4, major_tautomer=True, path=path)
         self.assertTrue(os.path.isfile(path))

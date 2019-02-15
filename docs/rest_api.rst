@@ -29,7 +29,7 @@ The root URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/
         ...
     }
 
-* ``/bpform/{alphabet: rna, dna, or  protein}/{monomer_seq: string}(/{ph: float})?``: optionally, protonates the biopolymer form to the specified pH and returns its length, chemical formula, mass and charge. If the form is invalid, this returns an error message.::
+* ``/bpform/{alphabet: rna, dna, or  protein}/{monomer_seq: string}(/{ph: float}/{major_tautomer: bool})?``: optionally, calculates the major protonation and tautomerization state of the biopolymer form to the specified pH and returns its length, chemical formula, mass and charge. If the form is invalid, this returns an error message.::
 
     {
         alphabet: <string>,

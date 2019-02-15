@@ -61,7 +61,10 @@ class GetPropertiesController(cement.Controller):
         arguments = [
             (['type'], dict(type=str, help='Type of biopolymer')),
             (['structure'], dict(type=str, help='Biopolymer structure')),
-            (['--ph'], dict(default=None, type=float, help='pH')),
+            (['--ph'], dict(default=None, type=float,
+                            help='pH at which calculate major protonation state of each monomer')),
+            (['--major-tautomer'], dict(action='store_true', default=False,
+                                        help='If set, calculate the major tautomer')),
         ]
 
     @cement.ex(hide=True)
@@ -73,7 +76,7 @@ class GetPropertiesController(cement.Controller):
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
         if args.ph is not None:
-            form.protonate(args.ph)
+            form.protonate(args.ph, major_tautomer=args.major_tautomer)
         print('Length: {}'.format(len(form)))
         print('Formula: {}'.format(form.get_formula()))
         print('Molecular weight: {}'.format(form.get_mol_wt()))
@@ -81,17 +84,19 @@ class GetPropertiesController(cement.Controller):
 
 
 class ProtonateController(cement.Controller):
-    """ Protonate a biopolymer form to a specific pH """
+    """ Calculate the major protonation and tautomerization """
 
     class Meta:
         label = 'protonate'
-        description = 'Protonate a biopolymer form to a specific pH'
+        description = 'Calculate the major protonation and tautomerization state of a biopolymer form to a specific pH'
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
             (['type'], dict(type=str, help='Type of biopolymer')),
             (['structure'], dict(type=str, help='Biopolymer structure')),
             (['ph'], dict(type=float, help='pH')),
+            (['--major-tautomer'], dict(action='store_true', default=False,
+                                        help='If set, calculate the major tautomer')),
         ]
 
     @cement.ex(hide=True)
@@ -102,7 +107,7 @@ class ProtonateController(cement.Controller):
             form = type().from_str(args.structure)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
-        form.protonate(args.ph)
+        form.protonate(args.ph, major_tautomer=args.major_tautomer)
         print(str(form))
 
 
@@ -115,14 +120,18 @@ class BuildAlphabetsController(cement.Controller):
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
+            (['--ph'], dict(type=float, default=None,
+                            help='pH at which calculate major protonation state of each monomer')),
+            (['--major-tautomer'], dict(action='store_true', default=False,
+                                        help='If set, calculate the major tautomer')),
             (['--max-monomers'], dict(type=float, default=float('inf'),
-                                   help='Maximum number of monomers to build. Used for testing')),
+                                      help='Maximum number of monomers to build. Used for testing')),
         ]
 
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        bpforms.util.build_alphabets(_max_monomers=args.max_monomers)
+        bpforms.util.build_alphabets(ph=args.ph, major_tautomer=args.major_tautomer, _max_monomers=args.max_monomers)
         print('Alphabets successfully built')
 
 

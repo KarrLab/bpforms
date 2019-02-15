@@ -538,14 +538,15 @@ class Monomer(object):
 
         return roots
 
-    def protonate(self, ph):
-        """ Update to the major protonation state at the pH
+    def protonate(self, ph, major_tautomer=False):
+        """ Update to the major protonation and tautomerization state at the pH
 
         Args:
             ph (:obj:`float`): pH
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         """
         if self.structure:
-            self.structure = Protonator.run(self.get_inchi(), ph=ph)
+            self.structure = Protonator.run(self.get_inchi(), ph=ph, major_tautomer=major_tautomer)
 
     def get_inchi(self):
         """ Get InChI representration of structure
@@ -959,11 +960,12 @@ class Alphabet(object):
                 return code
         raise ValueError('Monomer {} is not in alphabet'.format(monomer.id))
 
-    def protonate(self, ph):
-        """ Protonate monomers
+    def protonate(self, ph, major_tautomer=False):
+        """ Calculate the major protonation and tautomerization of each monomer
 
         Args:
             ph (:obj:`float`): pH
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         """
         monomers = list(filter(lambda monomer: monomer.structure is not None, self.monomers.values()))
 
@@ -971,7 +973,7 @@ class Alphabet(object):
         for monomer in monomers:
             inchis.append(monomer.get_inchi())
 
-        new_inchis = Protonator.run(inchis, ph=ph)
+        new_inchis = Protonator.run(inchis, ph=ph, major_tautomer=major_tautomer)
 
         for monomer, new_inchi in zip(monomers, new_inchis):
             monomer.structure = new_inchi
@@ -1079,16 +1081,20 @@ class AlphabetBuilder(abc.ABC):
         """
         self._max_monomers = _max_monomers
 
-    def run(self, path=None):
+    def run(self, ph=None, major_tautomer=False, path=None):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
             path (:obj:`str`, optional): path to save alphabet
 
         Returns:
             :obj:`Alphabet`: alphabet
         """
         alphabet = self.build()
+        if ph is not None:
+            alphabet.protonate(ph, major_tautomer=major_tautomer)
         if path:
             self.save(alphabet, path)
         return alphabet
@@ -1374,11 +1380,12 @@ class BpForm(object):
         """
         return self.monomer_seq.get_monomer_counts()
 
-    def protonate(self, ph):
-        """ Update to the major protonation state of each monomer at the pH
+    def protonate(self, ph, major_tautomer=True):
+        """ Update to the major protonation and tautomerization state of each monomer at the pHf
 
         Args:
             ph (:obj:`float`): pH
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         """
         monomers = list(filter(lambda monomer: monomer.structure is not None, set(self.monomer_seq)))
 
@@ -1386,7 +1393,7 @@ class BpForm(object):
         for monomer in monomers:
             inchis.append(monomer.get_inchi())
 
-        new_inchis = Protonator.run(inchis, ph=ph)
+        new_inchis = Protonator.run(inchis, ph=ph, major_tautomer=major_tautomer)
 
         for monomer, new_inchi in zip(monomers, new_inchis):
             monomer.structure = new_inchi

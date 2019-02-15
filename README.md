@@ -22,7 +22,7 @@ BpForms is a set of tools for unambiguously representing the structures of modif
           /s1
           ]T
   ```
-* This concrete representation of modified biopolymers enables the BpForms software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as to automatically protonate biopolymers for specific pHs.
+* This concrete representation of modified biopolymers enables the BpForms software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as to automatically calculate the major protonation and tautomerization state of biopolymers at specific pHs.
 
 BpForms encompasses five tools:
 
@@ -45,18 +45,18 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
 ## Installation
 1. Install the third-party dependencies listed below. Detailed installation instructions are available in [An Introduction to Whole-Cell Modeling](http://docs.karrlab.org/intro_to_wc_modeling/master/0.0.1/installation.html).
         
-    * [ChemAxon Marvin](https://chemaxon.com/products/marvin): optional to calculate major protonation states
+    * [ChemAxon Marvin](https://chemaxon.com/products/marvin): optional to calculate major protonation and tautomerization states
       * [Java](https://www.java.com) >= 1.8
     * [Open Babel](http://openbabel.org)
     * [Pip](https://pip.pypa.io) >= 18.0
     * [Python](https://www.python.org) >= 3.6
 
-2. To use Marvin to calculate major protonation states, set ``JAVA_HOME`` to the path to your Java virtual machine (JVM)
+2. To use Marvin to calculate major protonation and tautomerization states, set ``JAVA_HOME`` to the path to your Java virtual machine (JVM)
    ```
    export JAVA_HOME=/usr/lib/jvm/default-java
    ```
 
-3. To use Marvin to calculate major protonation states, add Marvin to the Java class path
+3. To use Marvin to calculate major protonation and tautomerization states, add Marvin to the Java class path
    ```
    export CLASSPATH=$CLASSPATH:/opt/chemaxon/marvinsuite/lib/MarvinBeans.jar
    ```

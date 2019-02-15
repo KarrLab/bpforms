@@ -49,6 +49,7 @@ $('#submit').click(function (evt) {
     alphabet = $("#alphabet").val()
     monomer_seq = $("#monomer_seq_in").val().trim()
     ph = $("#ph").val()
+    major_tautomer = $("#major_tautomer").val()
 
     if (monomer_seq == null || monomer_seq == '') {
         return;
@@ -57,6 +58,7 @@ $('#submit').click(function (evt) {
     url = '/api/bpform/' + alphabet + '/' + monomer_seq
     if (ph != null && ph != "") {
          url += '/' + ph
+         url += '/' + major_tautomer
     }
 
     $.ajax({

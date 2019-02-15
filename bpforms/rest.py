@@ -60,7 +60,6 @@ class Bpform(flask_restplus.Resource):
         Args:
             alphabet (:obj:`str`) id of the alphabet of the biopolymer form
             monomer_seq (:obj:`str`): sequence of monomers of the biopolymer form
-            ph (:obj:`float`): pH
 
         Returns:
             :obj:`dict`
@@ -68,12 +67,13 @@ class Bpform(flask_restplus.Resource):
         return self.get_properties(alphabet, monomer_seq)
 
     @staticmethod
-    def get_properties(alphabet, monomer_seq, ph=None):
+    def get_properties(alphabet, monomer_seq, ph=None, major_tautomer=False):
         """
         Args:
             alphabet (:obj:`str`) id of the alphabet of the biopolymer form
             monomer_seq (:obj:`str`): sequence of monomers of the biopolymer form
-            ph (:obj:`float`): pH
+            ph (:obj:`float`, optional): pH
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
             :obj:`dict`
@@ -89,11 +89,7 @@ class Bpform(flask_restplus.Resource):
             flask_restplus.abort(400, 'Unable to parse monomer sequence', details=str(error))
 
         if ph is not None:
-            try:
-                ph = float(ph)
-            except Exception:
-                flask_restplus.abort(400, 'pH must be a float')
-            form.protonate(ph)
+            form.protonate(ph, major_tautomer=major_tautomer)
         return {
             'alphabet': alphabet,
             'monomer_seq': str(form),
@@ -104,27 +100,37 @@ class Bpform(flask_restplus.Resource):
         }
 
 
-@bpform_ns.route("/<string:alphabet>/<string:monomer_seq>/<string:ph>/")
+@bpform_ns.route("/<string:alphabet>/<string:monomer_seq>/<string:ph>/<string:major_tautomer>")
 @bpform_ns.doc(params={
     'alphabet': 'String: Id of the alphabet of the biopolymer form (e.g. "dna", "rna", or "protein")',
     'monomer_seq': 'String: Sequence of monomers of the biopolymer form',
-    'ph': 'Float, optional: pH at which to calculate the major protonation form of each monomer',
+    'ph': 'Float: pH at which to calculate the major protonation form of each monomer',
+    'major_tautomer': 'Boolean ("0", "1"): if true, calculate the major tautomer',
 })
 class ProtonatedBpform(flask_restplus.Resource):
-    """ Protonate a biopolymer form and calculate its properties """
+    """ Calculate the major protonation and tautomerization form a biopolymer form and calculate its properties """
 
-    def get(self, alphabet, monomer_seq, ph):
-        """ Protonate a biopolymer form and calculate its properties """
+    def get(self, alphabet, monomer_seq, ph, major_tautomer):
+        """ Calculate the major protonation and tautomerization form a biopolymer form and calculate its properties """
         """
         Args:
             alphabet (:obj:`str`) id of the alphabet of the biopolymer form
             monomer_seq (:obj:`str`): sequence of monomers of the biopolymer form
-            ph (:obj:`float`): pH
+            ph (:obj:`string`): pH
+            major_tautomer (:obj:`string`): if :obj:`True`, calculate the major tautomer
 
         Returns:
             :obj:`dict`
         """
-        return Bpform.get_properties(alphabet, monomer_seq, ph=ph)
+        try:
+            ph = float(ph)
+        except Exception:
+            flask_restplus.abort(400, 'pH must be a float')
+        try:
+            major_tautomer = bool(int(major_tautomer))
+        except Exception:
+            flask_restplus.abort(400, 'major_tautomer must be a boolean')
+        return Bpform.get_properties(alphabet, monomer_seq, ph=float(ph), major_tautomer=major_tautomer)
 
 
 alphabet_ns = flask_restplus.Namespace('alphabet', description='List alphabets and get their details')

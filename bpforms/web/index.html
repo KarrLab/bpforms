@@ -33,7 +33,7 @@
             <h3>Enter a biopolymer form</h3>
             <form>
             <label>Select alphabet
-                <select id="alphabet">                    
+                <select id="alphabet">
                 </select>
             </label>
 
@@ -47,13 +47,20 @@
                 <input type="number" id="ph" placeholder="7.4"/>
             </label>
 
+            <label>Optionally, calculate the major tautomer when correcting the protonation
+                <select id="major_tautomer">
+                  <option value=1>Yes</option>
+                  <option value=0 selected>No</option>
+                </select>
+            </label>
+
             <input id="submit" type="button" class="button" value="Calculate"/>
             </form>
         </div>
         <div class="large-6 cell">
             <h3>Computed properties of the biopolymer form</h3>
             <form class="out">
-                <label>Monomer sequence (optionally protonated)
+                <label>Monomer sequence (optionally, with major protonation and tautomerization states)
                     <textarea id="monomer_seq_out"></textarea>
                 </label>
                 <label>Length
