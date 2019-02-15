@@ -74,7 +74,7 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
       ```
 
 ## Examples, tutorial, and documentation
-Please see the [documentation](https://docs.karrlab.org/bpforms). An [interactive tutorial](http://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb) is also available in the whole-cell modeling sandbox.
+Please see the [documentation](https://docs.karrlab.org/bpforms). An [interactive tutorial](https://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb) is also available in the whole-cell modeling sandbox.
 
 ## License
 The package is released under the [MIT license](LICENSE).

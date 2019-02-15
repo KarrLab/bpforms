@@ -3,7 +3,7 @@
 Python API
 ----------
 
-The following tutorial illustrates how to use the `BpForms` Python API. An `interactive version of this tutorial <http://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb>`_ is also available in the whole-cell modeling sandox.
+The following tutorial illustrates how to use the `BpForms` Python API. An `interactive version of this tutorial <https://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb>`_ is also available in the whole-cell modeling sandox.
 
 Importing `BpForms`
 ^^^^^^^^^^^^^^^^^^^
