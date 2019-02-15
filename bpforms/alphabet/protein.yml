@@ -63,7 +63,7 @@ monomers:
       id: ASN
     - ns: resid
       id: AA0003
-    structure: InChI=1S/C4H8N2O2/c5-3(2-7)1-4(6)8/h2-3H,1,5H2,(H2,6,8)/t3-/m0/s1
+    structure: InChI=1S/C4H8N2O2/c5-3(2-7)1-4(6)8/h2-3H,1,5H2,(H2,6,8)/t3-/s1
   D:
     id: Asp
     name: L-aspartic acid
@@ -163,7 +163,7 @@ monomers:
       id: '750'
     - ns: chebi
       id: CHEBI:15428
-    structure: InChI=1S/C2H5NO2/c3-1-2(4)5/h1,3H2,(H,4,5)
+    structure: InChI=1S/C2H5NO/c3-1-2-4/h2H,1,3H2
   H:
     id: His
     name: L-histidine
@@ -400,7 +400,7 @@ monomers:
       id: '6287'
     - ns: resid
       id: AA0020
-    structure: InChI=1S/C5H13NO/c1-4(2)5(6)3-7/h4-5,7H,3,6H2,1-2H3/t5-/m1/s1
+    structure: InChI=1S/C5H11NO/c1-4(2)5(6)3-7/h3-5H,6H2,1-2H3/t5-/s1
   AA0318:
     id: AA0318
     name: L-lysine methyl ester
