@@ -99,6 +99,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         monomer_ids = {}
         curated_entries = []
         for file in glob.iglob(tmp_folder+'/*PDB'):
+            number_hn = 0
+            number_co = 0
             with open(file, 'r') as f:
                 names = []
                 for line in f:
