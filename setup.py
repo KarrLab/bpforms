@@ -13,7 +13,8 @@ package_data = {
     name: [
         'VERSION',
         'grammar.lark',
-        '*.yml', # alphabets
+        'alphabet/*.yml', # alphabets
+        'alphabet/*.sqlite', # alphabets
         'web', # website
     ],
 }
