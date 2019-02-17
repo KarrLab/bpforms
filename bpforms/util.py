@@ -25,6 +25,7 @@ def get_alphabets():
         dna.canonical_dna_alphabet,
         rna.canonical_rna_alphabet,
         protein.canonical_protein_alphabet,
+        protein.curated_protein_alphabet,
     ]
     return {alphabet.id: alphabet for alphabet in alphabets}
 
@@ -67,6 +68,8 @@ def get_form(alphabet):
         return protein.ProteinForm
     if alphabet == 'canonical_protein':
         return protein.CanonicalProteinForm
+    if alphabet == 'curated_protein':
+        return protein.CuratedProteinForm
 
     raise ValueError('Alphabet "{}" must be "dna", "rna", or "protein"'.format(alphabet))
 

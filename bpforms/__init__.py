@@ -9,6 +9,6 @@ from .core import (Identifier, IdentifierSet, SynonymSet, Monomer, MonomerSequen
 from . import alphabet
 from .alphabet.dna import dna_alphabet, canonical_dna_alphabet, DnaForm, CanonicalDnaForm
 from .alphabet.rna import rna_alphabet, canonical_rna_alphabet, RnaForm, CanonicalRnaForm
-from .alphabet.protein import protein_alphabet, canonical_protein_alphabet, ProteinForm, CanonicalProteinForm
+from .alphabet.protein import protein_alphabet, canonical_protein_alphabet, curated_protein_alphabet, ProteinForm, CanonicalProteinForm, CuratedProteinForm
 from . import util
 from .util import get_form

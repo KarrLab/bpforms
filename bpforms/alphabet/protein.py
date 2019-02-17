@@ -30,6 +30,10 @@ canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('al
 canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
 # :obj:`Alphabet`: Alphabet for canonical protein amino acids
 
+curated_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.curated.yml'))
+curated_protein_alphabet = Alphabet().from_yaml(curated_filename)
+# :obj:`Alphabet`: Alphabet for canonical protein amino acids
+
 
 class ProteinAlphabetBuilder(AlphabetBuilder):
     """ Build protein alphabet from RESID """
@@ -149,7 +153,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             )
             alphabet.monomers[code] = monomer
 
-
+            for i in curated_entries:
+                print(i)
             monomer_ids[id] = monomer
             base_monomers[monomer] = base_monomer_ids
 
@@ -306,5 +311,18 @@ class CanonicalProteinForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
         super(CanonicalProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
+                                                   backbone_formula=EmpiricalFormula('O'), backbone_charge=0,
+                                                   bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
+
+
+class CuratedProteinForm(BpForm):
+    """ Canonical protein form """
+
+    def __init__(self, monomer_seq=None):
+        """
+        Args:
+            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
+        """
+        super(CuratedProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=curated_protein_alphabet,
                                                    backbone_formula=EmpiricalFormula('O'), backbone_charge=0,
                                                    bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
