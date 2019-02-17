@@ -30,6 +30,7 @@ class ProteinTestCase(unittest.TestCase):
     def test_ProteinForm_init(self):
         protein.ProteinForm()
         protein.CanonicalProteinForm()
+        protein.CuratedProteinForm()
 
     def test_ProteinForm_properties(self):
         monomers = protein.canonical_protein_alphabet.monomers
@@ -46,10 +47,17 @@ class ProteinTestCase(unittest.TestCase):
         session = requests.Session()
         self.assertEqual(protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[0], 'S')
         self.assertEqual(protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[3], {'AA0016'})
-        # add more for the identifiers
-        # self.assertEqual(protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[2],
-                         # IdentifierSet([Identifier('mod', 'MOD:00046')]))
- 
+
+        identifiers = protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[2]
+        identifiers_test = set([
+            Identifier('pdb.ligand', 'SEP'),
+            Identifier('mod', 'MOD:00046'),
+            Identifier('go', 'GO:0018105'),
+            Identifier('cas', '407-41-0'),
+            Identifier('chebi', 'CHEBI:45522')
+        ])
+        self.assertEqual(identifiers, identifiers_test)
+  
     def test_ProteinAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
 
