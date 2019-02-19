@@ -399,4 +399,4 @@ monomers:
       id: VAL
     - ns: resid
       id: AA0020
-    structure: InChI=1S/C5H13NO/c1-4(2)5(6)3-7/h4-5,7H,3,6H2,1-2H3/t5-/m1/s1
+    structure: InChI=1S/C5H11NO/c1-4(2)5(6)3-7/h3-5H,6H2,1-2H3/t5-/m1/s1
