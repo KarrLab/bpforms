@@ -16,7 +16,7 @@ Examples:
 
 * ``[id: "dI" | name: "deoxyinosine"]ACGC``: represents deoxyinosine at the first position
 * ``AC[id: "dI" | name: "deoxyinosine"]GC``: represents deoxyinosine at the third position
-* ``ACGC{m6A}``: represents methyl-6-adenosine at the last position
+* ``ACGC{6A}``: represents methyl-6-adenosine at the last position
 
 
 Structure
