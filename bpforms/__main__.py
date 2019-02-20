@@ -123,7 +123,7 @@ class BuildAlphabetsController(cement.Controller):
             (['--ph'], dict(type=float, default=7.4,
                             help='pH at which calculate major protonation state of each monomer')),
             (['--not-major-tautomer'], dict(action='store_true', default=False,
-                                            help='If set, calculate the major tautomer')),
+                                            help='If set, do not calculate the major tautomer')),
             (['--max-monomers'], dict(type=float, default=float('inf'),
                                       help='Maximum number of monomers to build. Used for testing')),
         ]
