@@ -48,5 +48,6 @@ Contents
    alphabets.rst
    resources.rst
    future.rst
+   contributing.rst
    API documentation <source/modules.rst>
    about.rst

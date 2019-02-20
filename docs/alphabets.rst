@@ -20,10 +20,4 @@ Users can also create additional alphabets by creating additional instances of `
 Contributing to the alphabets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We welcome contributions to the alphabets, as well as new alphabets. Please use GitHub pull requests to contribute to the alphabets:
-
-#. Create a fork of the `BpForms` Git repository. Please see the `GitHub documentation <https://help.github.com/articles/fork-a-repo/>`_ for more information.
-#. Edit one or more of the alphabets and/or create additional alphabets.
-#. Use Git to commit your changes to your fork of the `BpForms` repository.
-#. Push your changes to GitHub.
-#. Use the GitHub website to create a pull request for your changes. Please see the `GitHub documentation <https://help.github.com/articles/creating-a-pull-request/>`_ for more information.
+We welcome contributions to the alphabets, as well as new alphabets. See :numref:`contributing` for information about how to contribute to `BpForms`.
