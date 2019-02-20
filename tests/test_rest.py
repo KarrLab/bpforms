@@ -24,7 +24,7 @@ class RestTestCase(unittest.TestCase):
 
     def test_get_bpform_properties(self):
         client = rest.app.test_client()
-        rv = client.get('/api/bpform/dna/ACGT/')
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT'))
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json(), {
             'alphabet': 'dna',
@@ -37,7 +37,11 @@ class RestTestCase(unittest.TestCase):
 
     def test_get_bpform_properties_with_ph(self):
         client = rest.app.test_client()
-        rv = client.get('/api/bpform/dna/ACGT/7./1')
+        rv = client.post('/api/bpform/', json=dict(
+            alphabet='dna',
+            monomer_seq='ACGT',
+            ph=7.,
+            major_tautomer=True))
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json()['alphabet'], 'dna')
         self.assertEqual(rv.get_json()['monomer_seq'], 'ACGT')
@@ -46,17 +50,17 @@ class RestTestCase(unittest.TestCase):
     def test_get_bpform_properties_errors(self):
         client = rest.app.test_client()
 
-        rv = client.get('/api/bpform/lipid/ACGT/7./0')
-        self.assertEqual(rv.status_code, 400)
+        rv = client.get('/api/bpform/', json=dict(alphabet='lipid', monomer_seq='ACGT'))
+        self.assertEqual(rv.status_code, 405)
 
-        rv = client.get('/api/bpform/dna/ACG[T/7./0')
-        self.assertEqual(rv.status_code, 400)
+        rv = client.get('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACG[T'))
+        self.assertEqual(rv.status_code, 405)
 
-        rv = client.get('/api/bpform/dna/ACGT/a/0')
-        self.assertEqual(rv.status_code, 400)
+        rv = client.get('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT', ph='a'))
+        self.assertEqual(rv.status_code, 405)
 
-        rv = client.get('/api/bpform/dna/ACGT/7./a')
-        self.assertEqual(rv.status_code, 400)
+        rv = client.get('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT', ph=7., major_tautomer='a'))
+        self.assertEqual(rv.status_code, 405)
 
     def test_get_alphabets(self):
         client = rest.app.test_client()

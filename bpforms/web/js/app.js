@@ -55,14 +55,17 @@ $('#submit').click(function (evt) {
         return;
     }
 
-    url = '/api/bpform/' + alphabet + '/' + monomer_seq
-    if (ph != null && ph != "") {
-         url += '/' + ph
-         url += '/' + major_tautomer
+    data = {
+        'alphabet': alphabet,
+        'monomer_seq': monomer_seq,
+        'ph': ph,
+        'major_tautomer': major_tautomer
     }
 
     $.ajax({
-      url: url,
+      type: 'post',
+      url: '/api/bpform/',
+      data: data,
       success: set_properties
     })
     .fail(display_error);
