@@ -12,6 +12,7 @@ import flask
 import flask_restplus
 import flask_restplus.errors
 import flask_restplus.fields
+import math
 
 app = flask.Flask(__name__)
 
@@ -45,26 +46,31 @@ api = flask_restplus.Api(app,
 bpform_ns = flask_restplus.Namespace('bpform', description='Calculate properties of biopolymer forms')
 api.add_namespace(bpform_ns)
 
-bpform_parser = bpform_ns.parser()
-bpform_parser.add_argument('alphabet', type=str,
-                           location='json',
-                           help='Id of the alphabet of the biopolymer form')
-bpform_parser.add_argument('monomer_seq', type=str,
-                           location='json',
-                           help='Sequence of monomers of the biopolymer form')
-bpform_parser.add_argument('ph', type=float, default=None,
-                           location='json',
-                           help='pH at which to calculate the major microspecies of the biopolymer form')
-bpform_parser.add_argument('major_tautomer', type=bool, default=True,
-                           location='json',
-                           help='If true, calculate the major tautomer')
+bpforms_model = bpform_ns.model('BpForm', {
+    'alphabet': flask_restplus.fields.String(enum=list(bpforms.util.get_alphabets().keys()), required=True,
+                                             title='Alphabet',
+                                             description='Id of the alphabet of the biopolymer form'),
+    'monomer_seq': flask_restplus.fields.String(required=True,
+                                                title='Monomer sequence',
+                                                description='Sequence of monomers of the biopolymer form',
+                                                example='AA'),
+    'ph': flask_restplus.fields.Float(default=float('NaN'), min=0., max=14., required=False,
+                                      title='pH',
+                                      description='pH at which to calculate the major microspecies of the biopolymer form',
+                                      example=7.4),
+    'major_tautomer': flask_restplus.fields.Boolean(default=True, required=False,
+                                                    title='Calculate major tautomer',
+                                                    description='If true, calculate the major tautomer',
+                                                    example=True),
+})
 
 
 @bpform_ns.route("/")
 class Bpform(flask_restplus.Resource):
     """ Optionally, calculate the major protonation and tautomerization form a biopolymer form and calculate its properties """
 
-    @bpform_ns.expect(bpform_parser)
+    @bpform_ns.doc('Optionally, calculate the major protonation and tautomerization form a biopolymer form and calculate its properties')
+    @bpform_ns.expect(bpforms_model, validate=True)
     def post(self):
         """ Optionally, calculate the major protonation and tautomerization form a biopolymer form and calculate its properties """
         """
@@ -72,23 +78,20 @@ class Bpform(flask_restplus.Resource):
             :obj:`dict`
         """
 
-        args = bpform_parser.parse_args(strict=True)
+        args = bpform_ns.payload
         alphabet = args['alphabet']
         monomer_seq = args['monomer_seq']
-        ph = args['ph']
-        major_tautomer = args['major_tautomer']
+        ph = args.get('ph', float('NaN'))
+        major_tautomer = args.get('major_tautomer', True)
 
-        try:
-            form_cls = bpforms.util.get_form(alphabet)
-        except ValueError as error:
-            flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(alphabet))
+        form_cls = bpforms.util.get_form(alphabet)
 
         try:
             form = form_cls().from_str(monomer_seq)
         except Exception as error:
-            flask_restplus.abort(400, 'Unable to parse monomer sequence', details=str(error))
+            flask_restplus.abort(400, 'Unable to parse monomer sequence', errors={'monomer_seq': str(error)})
 
-        if ph is not None:
+        if not math.isnan(ph):
             form.protonate(ph, major_tautomer=major_tautomer)
         return {
             'alphabet': alphabet,

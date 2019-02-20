@@ -24,25 +24,28 @@ set_properties = function(data, status, jqXHR){
         formula += el + data['formula'][el].toString()
     }
 
+    $("#errors").html('')
     $("#monomer_seq_out").val(data['monomer_seq'])
     $("#length").val(data['length'])
     $("#formula").val(formula)
     $("#mol_wt").val(data['mol_wt'])
     $("#charge").val(data['charge'])
-    $("#monomer_seq_out").css('border-color', '#cacaca');
-    $("#monomer_seq_out").css('border-width', '1px');
-    $("#monomer_seq_out").css('background-color', '#e6e6e6');
 }
 
 display_error = function( jqXHR, textStatus, errorThrown ) {
-    error = jqXHR['responseJSON']['message']
-    if ('details' in jqXHR['responseJSON']) {
-        error += '\n\n' + jqXHR['responseJSON']['details']
+    error = '<b>' + jqXHR['responseJSON']['message'] + '</b>'
+    if ('errors' in jqXHR['responseJSON']) {
+        error += '<ul>'
+        for (field in jqXHR['responseJSON']['errors'])
+            error += '<li>'
+            if (field != '')
+                error += '<span style="text-decoration: underline;">' + field + '</span>: '
+            error += jqXHR['responseJSON']['errors'][field]
+            error += '</li>'
+        error += '</ul>'
     }
-    $("#monomer_seq_out").val(error)
-    $("#monomer_seq_out").css('border-color', '#ff0000');
-    $("#monomer_seq_out").css('border-width', '2px');
-    $("#monomer_seq_out").css('background-color', '#ffebeb');
+    console.log(jqXHR['responseJSON'])
+    $("#errors").html(error)
 }
 
 $('#submit').click(function (evt) {
@@ -54,18 +57,24 @@ $('#submit').click(function (evt) {
     if (monomer_seq == null || monomer_seq == '') {
         return;
     }
-
+    
     data = {
         'alphabet': alphabet,
-        'monomer_seq': monomer_seq,
-        'ph': ph,
-        'major_tautomer': major_tautomer
+        'monomer_seq': monomer_seq
+    }
+    if (ph != null && ph != '') {
+        data['ph'] = parseFloat(ph)
+    }
+    if (major_tautomer != null && major_tautomer != '') {
+        data['major_tautomer'] = major_tautomer == '1'
     }
 
     $.ajax({
       type: 'post',
       url: '/api/bpform/',
-      data: data,
+      data: JSON.stringify(data),
+      contentType : 'application/json',
+      dataType: 'json',
       success: set_properties
     })
     .fail(display_error);
