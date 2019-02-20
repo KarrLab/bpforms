@@ -47,5 +47,6 @@ Contents
    tutorial.rst
    alphabets.rst
    resources.rst
+   future.rst
    API documentation <source/modules.rst>
    about.rst
