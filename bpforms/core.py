@@ -1524,7 +1524,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def structure(self, *args):
-                return ('structure', args[-1].value)
+                return ('structure', re.sub(r'[ \t\f\r\n]', '', args[-1].value))
 
             @lark.v_args(inline=True)
             def delta_mass(self, *args):

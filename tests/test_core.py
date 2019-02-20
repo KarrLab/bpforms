@@ -932,6 +932,10 @@ class BpFormTestCase(unittest.TestCase):
                 ' | name: "2\'-deoxyinosine"'
                 ' | name: "2\'-deoxyinosine"]A')
 
+        dna_form_1 = dna.DnaForm().from_str('[structure: ' + dIMP_inchi + ']')
+        dna_form_2 = dna.DnaForm().from_str('[structure: ' + dIMP_inchi.replace('/', '\n\t/') + ']')
+        self.assertTrue(dna_form_1.is_equal(dna_form_2))
+
     def test_to_fasta(self):
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer()
