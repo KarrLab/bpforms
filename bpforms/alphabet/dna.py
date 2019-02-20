@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm, Identifier, IdentifierSet, SynonymSet
+from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm, Backbone, Bond, Identifier, IdentifierSet, SynonymSet
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from wc_utils.util.chem import EmpiricalFormula
@@ -239,8 +239,8 @@ class DnaForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
         super(DnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=dna_alphabet,
-                                      backbone_formula=EmpiricalFormula('C5H7O6P'), backbone_charge=-2,
-                                      bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+                                      backbone=Backbone(formula=EmpiricalFormula('C5H7O6P'), charge=-2),
+                                      bond=Bond(formula=EmpiricalFormula('H') * -1, charge=1))
 
 
 class CanonicalDnaForm(BpForm):
@@ -252,5 +252,5 @@ class CanonicalDnaForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
         super(CanonicalDnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
-                                               backbone_formula=EmpiricalFormula('C5H7O6P'), backbone_charge=-2,
-                                               bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+                                               backbone=Backbone(formula=EmpiricalFormula('C5H7O6P'), charge=-2),
+                                               bond=Bond(formula=EmpiricalFormula('H') * -1, charge=1))

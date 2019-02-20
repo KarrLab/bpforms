@@ -559,8 +559,8 @@ class BpFormTestCase(unittest.TestCase):
         bp_form = core.BpForm()
         self.assertEqual(bp_form.monomer_seq, core.MonomerSequence())
         self.assertEqual(bp_form.alphabet.monomers, {})
-        self.assertEqual(bp_form.bond_formula, EmpiricalFormula())
-        self.assertEqual(bp_form.bond_charge, 0)
+        self.assertEqual(bp_form.bond.formula, EmpiricalFormula())
+        self.assertEqual(bp_form.bond.charge, 0)
 
     def test_set_monomer_seq(self):
         bp_form = core.BpForm()
@@ -591,70 +591,74 @@ class BpFormTestCase(unittest.TestCase):
     def test_set_backbone_formula(self):
         bp_form = core.BpForm()
 
-        bp_form.backbone_formula = EmpiricalFormula('CHO')
-        self.assertEqual(bp_form.backbone_formula, EmpiricalFormula('CHO'))
+        bp_form.backbone.formula = EmpiricalFormula('CHO')
+        self.assertEqual(bp_form.backbone.formula, EmpiricalFormula('CHO'))
 
-        bp_form.backbone_formula = 'CHO'
-        self.assertEqual(bp_form.backbone_formula, EmpiricalFormula('CHO'))
+        bp_form.backbone.formula = 'CHO'
+        self.assertEqual(bp_form.backbone.formula, EmpiricalFormula('CHO'))
 
         with self.assertRaises(ValueError):
-            bp_form.backbone_formula = '123'
+            bp_form.backbone = None
+        with self.assertRaises(ValueError):
+            bp_form.backbone.formula = '123'
         with self.assertRaises(TypeError):
-            bp_form.backbone_formula = 123
+            bp_form.backbone.formula = 123
         with self.assertRaises(TypeError):
-            bp_form.backbone_formula = None
+            bp_form.backbone.formula = None
 
     def test_set_backbone_charge(self):
         bp_form = core.BpForm()
 
-        bp_form.backbone_charge = 1
-        self.assertEqual(bp_form.backbone_charge, 1)
+        bp_form.backbone.charge = 1
+        self.assertEqual(bp_form.backbone.charge, 1)
 
-        bp_form.backbone_charge = 1.
-        self.assertEqual(bp_form.backbone_charge, 1)
+        bp_form.backbone.charge = 1.
+        self.assertEqual(bp_form.backbone.charge, 1)
 
-        bp_form.backbone_charge = -1
-        self.assertEqual(bp_form.backbone_charge, -1)
-
-        with self.assertRaises(ValueError):
-            bp_form.backbone_charge = 1.5
+        bp_form.backbone.charge = -1
+        self.assertEqual(bp_form.backbone.charge, -1)
 
         with self.assertRaises(ValueError):
-            bp_form.backbone_charge = None
+            bp_form.backbone.charge = 1.5
+
+        with self.assertRaises(ValueError):
+            bp_form.backbone.charge = None
 
     def test_set_bond_formula(self):
         bp_form = core.BpForm()
 
-        bp_form.bond_formula = EmpiricalFormula('CHO')
-        self.assertEqual(bp_form.bond_formula, EmpiricalFormula('CHO'))
+        bp_form.bond.formula = EmpiricalFormula('CHO')
+        self.assertEqual(bp_form.bond.formula, EmpiricalFormula('CHO'))
 
-        bp_form.bond_formula = 'CHO'
-        self.assertEqual(bp_form.bond_formula, EmpiricalFormula('CHO'))
+        bp_form.bond.formula = 'CHO'
+        self.assertEqual(bp_form.bond.formula, EmpiricalFormula('CHO'))
 
         with self.assertRaises(ValueError):
-            bp_form.bond_formula = '123'
+            bp_form.bond = None
+        with self.assertRaises(ValueError):
+            bp_form.bond.formula = '123'
         with self.assertRaises(TypeError):
-            bp_form.bond_formula = 123
+            bp_form.bond.formula = 123
         with self.assertRaises(TypeError):
-            bp_form.bond_formula = None
+            bp_form.bond.formula = None
 
     def test_set_bond_charge(self):
         bp_form = core.BpForm()
 
-        bp_form.bond_charge = 1
-        self.assertEqual(bp_form.bond_charge, 1)
+        bp_form.bond.charge = 1
+        self.assertEqual(bp_form.bond.charge, 1)
 
-        bp_form.bond_charge = 1.
-        self.assertEqual(bp_form.bond_charge, 1)
+        bp_form.bond.charge = 1.
+        self.assertEqual(bp_form.bond.charge, 1)
 
-        bp_form.bond_charge = -1
-        self.assertEqual(bp_form.bond_charge, -1)
-
-        with self.assertRaises(ValueError):
-            bp_form.bond_charge = 1.5
+        bp_form.bond.charge = -1
+        self.assertEqual(bp_form.bond.charge, -1)
 
         with self.assertRaises(ValueError):
-            bp_form.bond_charge = None
+            bp_form.bond.charge = 1.5
+
+        with self.assertRaises(ValueError):
+            bp_form.bond.charge = None
 
     def test_is_equal(self):
         bp_form_1 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]))
@@ -662,12 +666,13 @@ class BpFormTestCase(unittest.TestCase):
         bp_form_3 = None
         bp_form_4 = core.BpForm(monomer_seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), alphabet=dna.canonical_dna_alphabet)
-        bp_form_5 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]), backbone_charge=-1)
+        bp_form_5 = core.BpForm(monomer_seq=core.MonomerSequence(
+            [core.Monomer(id='A'), core.Monomer(id='B')]), backbone=core.Backbone(charge=-1))
         bp_form_6 = core.BpForm(monomer_seq=core.MonomerSequence(
-            [core.Monomer(id='A'), core.Monomer(id='B')]), backbone_formula=EmpiricalFormula('H'))
-        bp_form_7 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]), bond_charge=-1)
+            [core.Monomer(id='A'), core.Monomer(id='B')]), backbone=core.Backbone(formula=EmpiricalFormula('H')))
+        bp_form_7 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(charge=-1))
         bp_form_8 = core.BpForm(monomer_seq=core.MonomerSequence(
-            [core.Monomer(id='A'), core.Monomer(id='B')]), bond_formula=EmpiricalFormula('H'))
+            [core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(formula=EmpiricalFormula('H')))
         self.assertTrue(bp_form_1.is_equal(bp_form_1))
         self.assertTrue(bp_form_1.is_equal(bp_form_2))
         self.assertFalse(bp_form_1.is_equal(bp_form_3))
@@ -780,22 +785,22 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() + monomer_C.get_mol_wt())
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge())
 
-        bp_form = core.BpForm([monomer_A, monomer_C], bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+        bp_form = core.BpForm([monomer_A, monomer_C], bond=core.Bond(formula=EmpiricalFormula('H') * -1, charge=1))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() + monomer_C.get_formula() - EmpiricalFormula('H'))
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() + monomer_C.get_mol_wt() -
                          EmpiricalFormula('H').get_molecular_weight())
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge() + 1)
 
         bp_form = core.BpForm([monomer_A, monomer_A, monomer_C, monomer_C, monomer_C],
-                              bond_formula=EmpiricalFormula('H') * -1, bond_charge=1)
+                              bond=core.Bond(formula=EmpiricalFormula('H') * -1, charge=1))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() * 2 + monomer_C.get_formula() * 3 - EmpiricalFormula('H') * 4)
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() * 2 + monomer_C.get_mol_wt()
                          * 3 - EmpiricalFormula('H').get_molecular_weight() * 4)
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() * 2 + monomer_C.get_charge() * 3 + 1 * 4)
 
     def test_protonate(self):
-        monomer_1 = core.Monomer(id='A')
-        monomer_2 = core.Monomer(id='B')
+        monomer_1 = core.Monomer(id='A', structure=dAMP_inchi)
+        monomer_2 = core.Monomer(id='C', structure=dCMP_inchi)
         bp_form = core.BpForm([monomer_1, monomer_2])
         bp_form.protonate(7.)
 

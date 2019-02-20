@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm, Identifier, IdentifierSet, SynonymSet
+from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone, Bond, BpForm, Identifier, IdentifierSet, SynonymSet
 from wc_utils.util.chem import EmpiricalFormula
 import bs4
 import csv
@@ -233,8 +233,8 @@ class RnaForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
         super(RnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=rna_alphabet,
-                                      backbone_formula=EmpiricalFormula('H-1O3P'), backbone_charge=-2,
-                                      bond_formula=EmpiricalFormula('OH') * -1, bond_charge=1)
+                                      backbone=Backbone(formula=EmpiricalFormula('H-1O3P'), charge=-2),
+                                      bond=Bond(formula=EmpiricalFormula('OH') * -1, charge=1))
 
 
 class CanonicalRnaForm(BpForm):
@@ -246,5 +246,5 @@ class CanonicalRnaForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
         super(CanonicalRnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_rna_alphabet,
-                                               backbone_formula=EmpiricalFormula('H-1O3P'), backbone_charge=-2,
-                                               bond_formula=EmpiricalFormula('OH') * -1, bond_charge=1)
+                                               backbone=Backbone(formula=EmpiricalFormula('H-1O3P'), charge=-2),
+                                               bond=Bond(formula=EmpiricalFormula('OH') * -1, charge=1))

@@ -1118,43 +1118,191 @@ class AlphabetBuilder(abc.ABC):
         alphabet.to_yaml(path)
 
 
+class Backbone(object):
+    """ Backbone of a monomer
+
+    Attributes:
+        formula (:obj:`EmpiricalFormula`): empirical formula
+        charge (:obj:`int`): charge
+    """
+
+    def __init__(self, formula=None, charge=0):
+        """
+        Args:
+            formula (:obj:`EmpiricalFormula`, optional): empirical formula
+            charge (:obj:`int`, optional): charge
+        """
+        if formula is None:
+            formula = EmpiricalFormula()
+        self.formula = formula
+        self.charge = charge
+
+    @property
+    def formula(self):
+        """ Get the formula
+
+        Returns:
+            :obj:`EmpiricalFormula`: formula
+        """
+        return self._formula
+
+    @formula.setter
+    def formula(self, value):
+        """ Set the formula
+
+        Args:
+            value (:obj:`EmpiricalFormula` or :obj:`str`): formula
+        """
+        if not isinstance(value, EmpiricalFormula):
+            value = EmpiricalFormula(value)
+        self._mol_wt = value.get_molecular_weight()
+        self._formula = value
+
+    @property
+    def charge(self):
+        """ Get the charge
+
+        Returns:
+            :obj:`str`: charge
+        """
+        return self._charge
+
+    @charge.setter
+    def charge(self, value):
+        """ Set the charge
+
+        Args:
+            value (:obj:`str`): charge
+
+        Raises:
+            :obj:`ValueError`: if the charge is not an integer
+        """
+        if not isinstance(value, (int, float)) or value != int(value):
+            raise ValueError('`charge` must be an integer')
+        self._charge = int(value)
+
+    def is_equal(self, other):
+        """ Determine if two backbones are semantically equal
+
+        Args:
+            other (:obj:`Backbone`): other backbone
+
+        Returns:
+            :obj:`bool`: :obj:`True` if the backbones are semantically equal
+        """
+        return self is other or (self.__class__ == other.__class__
+                                 and self.formula == other.formula
+                                 and self.charge == other.charge)
+
+
+class Bond(object):
+    """ Bond between monomers
+
+    Attributes:
+        formula (:obj:`EmpiricalFormula`): empirical formula
+        charge (:obj:`int`): charge
+    """
+
+    def __init__(self, formula=None, charge=0):
+        """
+        Args:
+            formula (:obj:`EmpiricalFormula`, optional): empirical formula
+            charge (:obj:`int`, optional): charge
+        """
+        if formula is None:
+            formula = EmpiricalFormula()
+        self.formula = formula
+        self.charge = charge
+
+    @property
+    def formula(self):
+        """ Get the formula
+
+        Returns:
+            :obj:`EmpiricalFormula`: formula
+        """
+        return self._formula
+
+    @formula.setter
+    def formula(self, value):
+        """ Set the formula
+
+        Args:
+            value (:obj:`EmpiricalFormula` or :obj:`str`): formula
+        """
+        if not isinstance(value, EmpiricalFormula):
+            value = EmpiricalFormula(value)
+        self._mol_wt = value.get_molecular_weight()
+        self._formula = value
+
+    @property
+    def charge(self):
+        """ Get the charge
+
+        Returns:
+            :obj:`str`: charge
+        """
+        return self._charge
+
+    @charge.setter
+    def charge(self, value):
+        """ Set the charge
+
+        Args:
+            value (:obj:`str`): charge
+
+        Raises:
+            :obj:`ValueError`: if the charge is not an integer
+        """
+        if not isinstance(value, (int, float)) or value != int(value):
+            raise ValueError('`charge` must be an integer')
+        self._charge = int(value)
+
+    def is_equal(self, other):
+        """ Determine if two bonds are semantically equal
+
+        Args:
+            other (:obj:`Bond`): other bond
+
+        Returns:
+            :obj:`bool`: :obj:`True` if the bonds are semantically equal
+        """
+        return self is other or (self.__class__ == other.__class__
+                                 and self.formula == other.formula
+                                 and self.charge == other.charge)
+
+
 class BpForm(object):
     """ Biopolymer form
 
     Attributes:
         monomer_seq (:obj:`MonomerSequence`): monomers of the biopolymer
         alphabet (:obj:`Alphabet`): monomer alphabet
-        backbone_formula (:obj:`EmpiricalFormula`): empirical formula for backbone that connects monomers
-        backbone_charge (:obj:`int`): charge for backbone that connects monomers
-        bond_formula (:obj:`EmpiricalFormula`): empirical formula for bonds between monomers
-        bond_charge (:obj:`int`): charge of bonds between monomers
+        backbone (:obj:`Backbone`): backbone that connects monomers
+        bond (:obj:`Bond`): bonds between (backbones of) monomers
 
         _parser (:obj:`lark.Lark`): parser
     """
 
-    def __init__(self, monomer_seq=None, alphabet=None, backbone_formula=None, backbone_charge=0, bond_formula=None, bond_charge=0):
+    def __init__(self, monomer_seq=None, alphabet=None, backbone=None, bond=None):
         """
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the biopolymer
             alphabet (:obj:`Alphabet`, optional): monomer alphabet
-            backbone_formula (:obj:`EmpiricalFormula`, optional): empirical formula for backbone that connects monomers
-            backbone_charge (:obj:`int`, optional): charge for backbone that connects monomers
-            bond_formula (:obj:`EmpiricalFormula`, optional): empirical formula for bonds between monomers
-            bond_charge (:obj:`int`, optional): charge of bonds between monomers
+            backbone (:obj:`Backbone`, optional): backbone that connects monomers
+            bond (:obj:`Bond`, optional): bonds between (backbones of) monomers
         """
         if alphabet is None:
             alphabet = Alphabet()
-        if backbone_formula is None:
-            backbone_formula = EmpiricalFormula()
-        if bond_formula is None:
-            bond_formula = EmpiricalFormula()
+        if backbone is None:
+            backbone = Backbone()
+        if bond is None:
+            bond = Bond()
 
         self.monomer_seq = monomer_seq or MonomerSequence()
         self.alphabet = alphabet
-        self.backbone_formula = backbone_formula
-        self.backbone_charge = backbone_charge
-        self.bond_formula = bond_formula
-        self.bond_charge = bond_charge
+        self.backbone = backbone
+        self.bond = bond
 
     @property
     def monomer_seq(self):
@@ -1205,92 +1353,44 @@ class BpForm(object):
         self._alphabet = value
 
     @property
-    def backbone_formula(self):
-        """ Get the formula of the backbones
+    def backbone(self):
+        """ Get the backbones
 
         Returns:
-            :obj:`EmpiricalFormula`: formula of the backbones
+            :obj:`Backbone`: backbones
         """
-        return self._backbone_formula
+        return self._backbone
 
-    @backbone_formula.setter
-    def backbone_formula(self, value):
-        """ Set the formula of the backbones
+    @backbone.setter
+    def backbone(self, value):
+        """ Set the backbones
 
         Args:
-            value (:obj:`EmpiricalFormula` or :obj:`str`): formula of the backbones
+            value (:obj:`Backbone`): backbones
         """
-        if not isinstance(value, EmpiricalFormula):
-            value = EmpiricalFormula(value)
-        self._backbone_mol_wt = value.get_molecular_weight()
-        self._backbone_formula = value
+        if not isinstance(value, Backbone):
+            raise ValueError('`backbone` must be an instance of `Backbone`')
+        self._backbone = value
 
     @property
-    def backbone_charge(self):
-        """ Get the backbone charge
+    def bond(self):
+        """ Get the bonds
 
         Returns:
-            :obj:`str`: backbone charge
+            :obj:`Bond`: bonds
         """
-        return self._backbone_charge
+        return self._bond
 
-    @backbone_charge.setter
-    def backbone_charge(self, value):
-        """ Set the backbone charge
+    @bond.setter
+    def bond(self, value):
+        """ Set the bonds
 
         Args:
-            value (:obj:`str`): backbone charge
-
-        Raises:
-            :obj:`ValueError`: if the backbone charge is not an integer
+            value (:obj:`Bond`): bonds
         """
-        if not isinstance(value, (int, float)) or value != int(value):
-            raise ValueError('`backbone_charge` must be an integer')
-        self._backbone_charge = int(value)
-
-    @property
-    def bond_formula(self):
-        """ Get the formula of the bonds
-
-        Returns:
-            :obj:`EmpiricalFormula`: formula of the bonds
-        """
-        return self._bond_formula
-
-    @bond_formula.setter
-    def bond_formula(self, value):
-        """ Set the formula of the bonds
-
-        Args:
-            value (:obj:`EmpiricalFormula` or :obj:`str`): formula of the bonds
-        """
-        if not isinstance(value, EmpiricalFormula):
-            value = EmpiricalFormula(value)
-        self._bond_mol_wt = value.get_molecular_weight()
-        self._bond_formula = value
-
-    @property
-    def bond_charge(self):
-        """ Get the bond charge
-
-        Returns:
-            :obj:`str`: bond charge
-        """
-        return self._bond_charge
-
-    @bond_charge.setter
-    def bond_charge(self, value):
-        """ Set the bond charge
-
-        Args:
-            value (:obj:`str`): bond charge
-
-        Raises:
-            :obj:`ValueError`: if the bond charge is not an integer
-        """
-        if not isinstance(value, (int, float)) or value != int(value):
-            raise ValueError('`bond_charge` must be an integer')
-        self._bond_charge = int(value)
+        if not isinstance(value, Bond):
+            raise ValueError('`bond` must be an instance of `Bond`')
+        self._bond = value
 
     def is_equal(self, other):
         """ Check if two biopolymer forms are semantically equal
@@ -1304,10 +1404,8 @@ class BpForm(object):
         return self is other or (self.__class__ == other.__class__
                                  and self.monomer_seq.is_equal(other.monomer_seq)
                                  and self.alphabet.is_equal(other.alphabet)
-                                 and self.backbone_formula == other.backbone_formula
-                                 and self.backbone_charge == other.backbone_charge
-                                 and self.bond_formula == other.bond_formula
-                                 and self.bond_charge == other.bond_charge)
+                                 and self.backbone.is_equal(other.backbone)
+                                 and self.bond.is_equal(other.bond))
 
     def __getitem__(self, slice):
         """ Get monomer(s) at slice
@@ -1407,7 +1505,7 @@ class BpForm(object):
         formula = EmpiricalFormula()
         for monomer, count in self.get_monomer_counts().items():
             formula += monomer.get_formula() * count
-        return formula + self.backbone_formula * len(self) + self.bond_formula * (len(self) - 1)
+        return formula + self.backbone.formula * len(self) + self.bond.formula * (len(self) - 1)
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -1418,7 +1516,7 @@ class BpForm(object):
         mol_wt = 0.
         for monomer, count in self.get_monomer_counts().items():
             mol_wt += monomer.get_mol_wt() * count
-        return mol_wt + self._backbone_mol_wt * len(self) + self._bond_mol_wt * (len(self) - 1)
+        return mol_wt + self.backbone._mol_wt * len(self) + self.bond._mol_wt * (len(self) - 1)
 
     def get_charge(self):
         """ Get the charge
@@ -1429,7 +1527,7 @@ class BpForm(object):
         charge = 0
         for monomer, count in self.get_monomer_counts().items():
             charge += monomer.get_charge() * count
-        return charge + self.backbone_charge * len(self) + self.bond_charge * (len(self) - 1)
+        return charge + self.backbone.charge * len(self) + self.bond.charge * (len(self) - 1)
 
     def __str__(self):
         """ Get a string representation of the biopolymer form

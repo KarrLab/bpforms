@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm, Identifier, IdentifierSet, SynonymSet
+from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone, Bond, BpForm, Identifier, IdentifierSet, SynonymSet
 from bs4 import BeautifulSoup
 from ftplib import FTP
 from wc_utils.util.chem import EmpiricalFormula
@@ -286,8 +286,8 @@ class ProteinForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
         super(ProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=protein_alphabet,
-                                          backbone_formula=EmpiricalFormula('O'), backbone_charge=0,
-                                          bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
+                                          backbone=Backbone(formula=EmpiricalFormula('O'), charge=0),
+                                          bond=Bond(formula=EmpiricalFormula('H2O') * -1, charge=0))
 
 
 class CanonicalProteinForm(BpForm):
@@ -299,8 +299,8 @@ class CanonicalProteinForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
         super(CanonicalProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
-                                                   backbone_formula=EmpiricalFormula('O'), backbone_charge=0,
-                                                   bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
+                                                   backbone=Backbone(formula=EmpiricalFormula('O'), charge=0),
+                                                   bond=Bond(formula=EmpiricalFormula('H2O') * -1, charge=0))
 
 
 class CuratedProteinForm(BpForm):
@@ -312,5 +312,5 @@ class CuratedProteinForm(BpForm):
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
         super(CuratedProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=curated_protein_alphabet,
-                                                   backbone_formula=EmpiricalFormula('O'), backbone_charge=0,
-                                                   bond_formula=EmpiricalFormula('H2O') * -1, bond_charge=0)
+                                                 backbone=Backbone(formula=EmpiricalFormula('O'), charge=0),
+                                                 bond=Bond(formula=EmpiricalFormula('H2O') * -1, charge=0))
