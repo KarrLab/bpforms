@@ -22,5 +22,5 @@ The following are valuable resources for reconstructing DNA, RNA, and protein mo
     * `FindMod <https://web.expasy.org/findmod/findmod_masses.html>`_: Database of post-translational modifications
     * `Protein Ontology <https://pir.georgetown.edu/pro/>`_: Database of modified proteins
     * `PSIMOD <https://bioportal.bioontology.org/ontologies/PSIMOD>`_: Ontology of modified amino acids
-    * `RESID <https://pir.georgetown.edu/resid/>`_: Database of modified amino acids
+    * `RESID <https://pir.georgetown.edu/resid/>`_: Database of modified protein residues
     * `UniMod <http://www.unimod.org/>`_: Database of modified amino acids

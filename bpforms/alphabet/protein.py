@@ -24,15 +24,15 @@ import zipfile
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.yml'))
 protein_alphabet = Alphabet().from_yaml(filename)
-# :obj:`Alphabet`: Alphabet for protein amino acids
+# :obj:`Alphabet`: Alphabet for protein residues
 
 canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.canonical.yml'))
 canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
-# :obj:`Alphabet`: Alphabet for canonical protein amino acids
+# :obj:`Alphabet`: Alphabet for canonical protein residues
 
 curated_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.curated.yml'))
 curated_protein_alphabet = Alphabet().from_yaml(curated_filename)
-# :obj:`Alphabet`: Alphabet for canonical protein amino acids
+# :obj:`Alphabet`: Alphabet for protein residues that contain multiple peptide bonds
 
 
 class ProteinAlphabetBuilder(AlphabetBuilder):
@@ -65,8 +65,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # load canonical monomers
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'protein'
-        alphabet.name = 'RESID protein amino acids'
-        alphabet.description = ('The 20 canonical amino acids, plus the non-canonical amino acids in '
+        alphabet.name = 'RESID protein residues'
+        alphabet.description = ('The 20 canonical protein residues, plus the non-canonical protein residues in '
                                 '<a href="https://pir.georgetown.edu/resid">RESID</a>')
 
         # get amino acid names from canonical list

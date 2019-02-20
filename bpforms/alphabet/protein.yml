@@ -1,6 +1,6 @@
 id: protein
-name: RESID protein amino acids
-description: The 20 canonical amino acids, plus the non-canonical amino acids in <a
+name: RESID protein residues
+description: The 20 canonical protein residues, plus the non-canonical protein residues in <a
   href="https://pir.georgetown.edu/resid">RESID</a>
 monomers:
   A:

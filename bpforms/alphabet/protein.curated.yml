@@ -1,7 +1,7 @@
 id: curated_protein
-name: curated RESID protein amino acids
-description: The non-canonical amino acids with more than one peptide bond from <a
-  href="https://pir.georgetown.edu/resid">RESID</a>
+name: RESID protein residues with multiple peptide bonds
+description: The non-canonical protein residues in <a
+  href="https://pir.georgetown.edu/resid">RESID</a> that contain multiple peptide bonds
 monomers:
   AA0126:
     id: AA0126
