@@ -161,11 +161,16 @@ class DnaAlphabetBuilder(AlphabetBuilder):
             structure = item.inchi.strip('[]')
 
             cmodid = None
+            verified_status = False
             base_monomer_codes = set()
             for base_monomer_code in session.query(self.ModBase).filter(self.ModBase.nameid == item.nameid).all():
                 cmodid = base_monomer_code.cmodid
+                verified_status = base_monomer_code.verifiedstatus
                 if self.ModBase.baseid != 'O':
                     base_monomer_codes.add(base_monomer_code.baseid)
+
+            if not verified_status:
+                continue
 
             base_monomer_ids = set()
             for base_monomer_id in session.query(self.ModBaseParents).filter(self.ModBaseParents.nameid == item.nameid).all():
