@@ -5,44 +5,4 @@ REST API
 
 The REST JSON API enables researchers to programmatically validate and calculate the properties of biopolymer forms.
 
-The root URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/api/>`_. The REST API provides two endpoints.
-
-* ``/alphabet``: Returns a list of available alphabets.::
-
-    [
-        {
-            'id': 'dna', 
-            'name': 'DNA',
-            'description': '...'
-        },
-        ...
-    ]
-
-* ``/alphabet/{alphabet: string}`` returns an associative array of monomers in the alphabet and their properties::
-
-    {
-        A: {
-            id: 'dAMP',
-            structure: 'InChI=1s/...',
-            ...
-        },
-        ...
-    }
-
-* ``/bpform/{alphabet: rna, dna, or  protein}/{monomer_seq: string}(/{ph: float}/{major_tautomer: bool})?``: optionally, calculates the major protonation and tautomerization state of the biopolymer form to the specified pH and returns its length, chemical formula, mass and charge. If the form is invalid, this returns an error message.::
-
-    {
-        alphabet: <string>,
-        monomer_seq: <string>,
-        length: <integer>,
-        formula: <associative array>,
-        mol_wt: <float>,
-        charge: <integer>
-    }
-
-    OR 
-
-    {
-        message: <string>,
-        details: <string>
-    }
+The root URL for the REST API is `https://bpforms.org/api/ <https://bpforms.org/api/>`_. The REST API provides endpoints to get a list of available alphabets, to get the monomers in an alphabet, and to calculate properties of biopolymers, optionally, at a specific pH. Please see the `inline documentation <https://bpforms.org/api/>`_ for more information.
