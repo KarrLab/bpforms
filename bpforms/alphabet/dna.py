@@ -245,15 +245,17 @@ class DnaForm(BpForm):
             monomer_seq=monomer_seq, alphabet=dna_alphabet,
             backbone=Backbone(
                 structure='InChI=1/C5H11O6P/c6-4-1-2-10-5(4)3-11-12(7,8)9/h4-6H,1-3H2,(H2,7,8,9)/p-2',
-                monomer_bond_atoms=[Atom(element='C', position=None)],
-                backbone_bond_atoms=[Atom(element='N', position=None)],
+                monomer_bond_atoms=[Atom(element='N', position=None)],
+                backbone_bond_atoms=[Atom(element='C', position=2)],
                 monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+                backbone_displaced_atoms=[Atom(element='H', position=2)]),
             bond=Bond(
-                left_bond_atoms=[Atom(element='O', position=None)],
-                right_bond_atoms=[Atom(element='P', position=None)],
-                left_displaced_atoms=[Atom(element='H', position=None)],
-                right_displaced_atoms=[Atom(element='O', position=None, charge=-1)]))
+                left_participant=Monomer,
+                right_participant=Monomer,
+                left_bond_atoms=[Atom(element='O', position=6)],
+                right_bond_atoms=[Atom(element='P', position=12)],
+                left_displaced_atoms=[Atom(element='H', position=6)],
+                right_displaced_atoms=[Atom(element='O', position=8, charge=-1)]))
 
 
 class CanonicalDnaForm(BpForm):
@@ -270,12 +272,14 @@ class CanonicalDnaForm(BpForm):
             monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
             backbone=Backbone(
                 structure='InChI=1/C5H11O6P/c6-4-1-2-10-5(4)3-11-12(7,8)9/h4-6H,1-3H2,(H2,7,8,9)/p-2',
-                monomer_bond_atoms=[Atom(element='C', position=None)],
-                backbone_bond_atoms=[Atom(element='N', position=None)],
+                monomer_bond_atoms=[Atom(element='N', position=None)],
+                backbone_bond_atoms=[Atom(element='C', position=2)],
                 monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+                backbone_displaced_atoms=[Atom(element='H', position=2)]),
             bond=Bond(
-                left_bond_atoms=[Atom(element='O', position=None)],
-                right_bond_atoms=[Atom(element='P', position=None)],
-                left_displaced_atoms=[Atom(element='H', position=None)],
-                right_displaced_atoms=[Atom(element='O', position=None, charge=-1)]))
+                left_participant=Monomer,
+                right_participant=Monomer,
+                left_bond_atoms=[Atom(element='O', position=6)],
+                right_bond_atoms=[Atom(element='P', position=12)],
+                left_displaced_atoms=[Atom(element='H', position=6)],
+                right_displaced_atoms=[Atom(element='O', position=8, charge=-1)]))

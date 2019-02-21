@@ -1506,25 +1506,77 @@ class Bond(object):
     """ Bond between monomers
 
     Attributes:
+        left_participant (:obj:`type`): type of left participant (monomer or backbone)
+        right_participant (:obj:`type`): type of right participant (monomer or backbone)
         left_bond_atoms (:obj:`AtomList`): atoms from left monomer that bonds with right monomer
         right_bond_atoms (:obj:`AtomList`): atoms from right monomer that bonds with left monomer
         left_displaced_atoms (:obj:`AtomList`): atoms from left monomer displaced by bond
         right_displaced_atoms (:obj:`AtomList`): atoms from right monomer displaced by bond
     """
 
-    def __init__(self, left_bond_atoms=None, right_bond_atoms=None,
+    def __init__(self, left_participant=None, right_participant=None, left_bond_atoms=None, right_bond_atoms=None,
                  left_displaced_atoms=None, right_displaced_atoms=None):
         """
         Args:
+            left_participant (:obj:`type`, optional): type of left participant (monomer or backbone)
+            right_participant (:obj:`type`, optional): type of right participant (monomer or backbone)
             left_bond_atoms (:obj:`AtomList`, optional): atoms from left monomer that bonds with right monomer
             right_bond_atoms (:obj:`AtomList`, optional): atoms from right monomer that bonds with left monomer
             left_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomer displaced by bond
             right_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomer displaced by bond
         """
+        self.left_participant = left_participant
+        self.right_participant = right_participant
         self.left_bond_atoms = left_bond_atoms or AtomList()
         self.right_bond_atoms = right_bond_atoms or AtomList()
         self.left_displaced_atoms = left_displaced_atoms or AtomList()
         self.right_displaced_atoms = right_displaced_atoms or AtomList()
+
+    @property
+    def left_participant(self):
+        """ Get type of the left participant
+
+        Returns:
+            :obj:`type`: type of the left participant
+        """
+        return self._left_participant
+
+    @left_participant.setter
+    def left_participant(self, value):
+        """ Set the type of the left participant
+
+        Args:
+            value (:obj:`type`): type of the left participant
+
+        Raises:
+            :obj:`ValueError`: if `left_participant` is not :obj:`None`, :obj:`Monomer`, or :obj:`Backbone`
+        """
+        if value not in [None, Monomer, Backbone]:
+            raise ValueError('`left_participant` must be `None`, `Monomer`, or `Backbone`')
+        self._left_participant = value
+
+    @property
+    def right_participant(self):
+        """ Get type of the right participant
+
+        Returns:
+            :obj:`type`: type of the right participant
+        """
+        return self._right_participant
+
+    @right_participant.setter
+    def right_participant(self, value):
+        """ Set the type of the right participant
+
+        Args:
+            value (:obj:`type`): type of the right participant
+
+        Raises:
+            :obj:`ValueError`: if `right_participant` is not :obj:`None`, :obj:`Monomer`, or :obj:`Backbone`
+        """
+        if value not in [None, Monomer, Backbone]:
+            raise ValueError('`right_participant` must be `None`, `Monomer`, or `Backbone`')
+        self._right_participant = value
 
     @property
     def left_bond_atoms(self):

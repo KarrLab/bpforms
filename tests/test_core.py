@@ -773,6 +773,36 @@ class BackboneTestCase(unittest.TestCase):
 
 
 class BondTestCase(unittest.TestCase):
+    def test_set_left_participant(self):
+        bond = core.Bond()
+
+        bond.left_participant = None
+        self.assertEqual(bond.left_participant, None)
+
+        bond.left_participant = core.Monomer
+        self.assertEqual(bond.left_participant, core.Monomer)
+
+        bond.left_participant = core.Backbone
+        self.assertEqual(bond.left_participant, core.Backbone)
+
+        with self.assertRaises(ValueError):
+            bond.left_participant = core.Atom
+
+    def test_set_right_participant(self):
+        bond = core.Bond()
+
+        bond.right_participant = None
+        self.assertEqual(bond.right_participant, None)
+
+        bond.right_participant = core.Monomer
+        self.assertEqual(bond.right_participant, core.Monomer)
+
+        bond.right_participant = core.Backbone
+        self.assertEqual(bond.right_participant, core.Backbone)
+
+        with self.assertRaises(ValueError):
+            bond.right_participant = core.Atom
+
     def test_set_left_bond_atoms(self):
         bond = core.Bond()
         bond.left_bond_atoms = []
@@ -1030,14 +1060,14 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge())
 
         bp_form = core.BpForm([monomer_A, monomer_C],
-                              bond=core.Bond(None, [], [core.Atom('H', charge=-1, position=None)]))
+                              bond=core.Bond(right_displaced_atoms=[core.Atom('H', charge=-1, position=None)]))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() + monomer_C.get_formula() - EmpiricalFormula('H'))
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() + monomer_C.get_mol_wt() -
                          EmpiricalFormula('H').get_molecular_weight())
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge() + 1)
 
         bp_form = core.BpForm([monomer_A, monomer_A, monomer_C, monomer_C, monomer_C],
-                              bond=core.Bond(None, [], [core.Atom('H', charge=-1, position=None)]))
+                              bond=core.Bond(right_displaced_atoms=[core.Atom('H', charge=-1, position=None)]))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() * 2 + monomer_C.get_formula() * 3 - EmpiricalFormula('H') * 4)
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() * 2 + monomer_C.get_mol_wt()
                          * 3 - EmpiricalFormula('H').get_molecular_weight() * 4)
@@ -1212,7 +1242,16 @@ class BpFormTestCase(unittest.TestCase):
             alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A,
             alphabet.monomers.m2222A, alphabet.monomers.m2222C,
         ])
-        self.assertEqual(bpform.to_fasta(), 'ACGTAAAAN')
+        self.assertEqual(bpform.to_fasta(), 'ACGTAAAA?')
+
+        class CustomBpForm(core.BpForm):
+            DEFAULT_FASTA_CODE = 'X'
+        bpform = CustomBpForm(alphabet=alphabet, monomer_seq=[
+            alphabet.monomers.A, alphabet.monomers.C, alphabet.monomers.G, alphabet.monomers.T,
+            alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A,
+            alphabet.monomers.m2222A, alphabet.monomers.m2222C,
+        ])
+        self.assertEqual(bpform.to_fasta(), 'ACGTAAAAX')
 
 
 class AlphabetTestCase(unittest.TestCase):

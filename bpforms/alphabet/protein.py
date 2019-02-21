@@ -293,10 +293,12 @@ class ProteinForm(BpForm):
             backbone=Backbone(
                 structure='InChI=1S/H2O/h1H2/p-1',
                 monomer_bond_atoms=[Atom(element='C', position=None)],
-                backbone_bond_atoms=[Atom(element='O', position=None)],
+                backbone_bond_atoms=[Atom(element='O', position=1)],
                 monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+                backbone_displaced_atoms=[Atom(element='H', position=1)]),
             bond=Bond(
+                left_participant=Monomer,
+                right_participant=Monomer,
                 left_bond_atoms=[Atom(element='C', position=None)],
                 right_bond_atoms=[Atom(element='N', position=None)],
                 left_displaced_atoms=[Atom(element='O', position=None)],
@@ -318,10 +320,12 @@ class CanonicalProteinForm(BpForm):
             backbone=Backbone(
                 structure='InChI=1S/H2O/h1H2/p-1',
                 monomer_bond_atoms=[Atom(element='C', position=None)],
-                backbone_bond_atoms=[Atom(element='O', position=None)],
+                backbone_bond_atoms=[Atom(element='O', position=1)],
                 monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+                backbone_displaced_atoms=[Atom(element='H', position=1)]),
             bond=Bond(
+                left_participant=Monomer,
+                right_participant=Monomer,
                 left_bond_atoms=[Atom(element='C', position=None)],
                 right_bond_atoms=[Atom(element='N', position=None)],
                 left_displaced_atoms=[Atom(element='O', position=None)],
@@ -343,10 +347,12 @@ class CuratedProteinForm(BpForm):
             backbone=Backbone(
                 structure='InChI=1S/H2O/h1H2/p-1',
                 monomer_bond_atoms=[Atom(element='C', position=None)],
-                backbone_bond_atoms=[Atom(element='O', position=None)],
+                backbone_bond_atoms=[Atom(element='O', position=1)],
                 monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+                backbone_displaced_atoms=[Atom(element='H', position=1)]),
             bond=Bond(
+                left_participant=Monomer,
+                right_participant=Monomer,
                 left_bond_atoms=[Atom(element='C', position=None)],
                 right_bond_atoms=[Atom(element='N', position=None)],
                 left_displaced_atoms=[Atom(element='O', position=None)],
