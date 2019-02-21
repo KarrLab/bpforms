@@ -234,6 +234,8 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 class DnaForm(BpForm):
     """ DNA form """
 
+    DEFAULT_FASTA_CODE = 'N'
+
     def __init__(self, monomer_seq=None):
         """
         Args:
@@ -256,6 +258,8 @@ class DnaForm(BpForm):
 
 class CanonicalDnaForm(BpForm):
     """ Canonical DNA form """
+
+    DEFAULT_FASTA_CODE = 'N'
 
     def __init__(self, monomer_seq=None):
         """

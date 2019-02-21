@@ -228,6 +228,8 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 class RnaForm(BpForm):
     """ RNA form """
 
+    DEFAULT_FASTA_CODE = 'N'
+
     def __init__(self, monomer_seq=None):
         """
         Args:
@@ -250,6 +252,8 @@ class RnaForm(BpForm):
 
 class CanonicalRnaForm(BpForm):
     """ Canonical RNA form """
+
+    DEFAULT_FASTA_CODE = 'N'
 
     def __init__(self, monomer_seq=None):
         """

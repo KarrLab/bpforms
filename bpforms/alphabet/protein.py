@@ -281,6 +281,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 class ProteinForm(BpForm):
     """ Protein form """
 
+    DEFAULT_FASTA_CODE = 'X'
+
     def __init__(self, monomer_seq=None):
         """
         Args:
@@ -304,6 +306,8 @@ class ProteinForm(BpForm):
 class CanonicalProteinForm(BpForm):
     """ Canonical protein form """
 
+    DEFAULT_FASTA_CODE = 'X'
+
     def __init__(self, monomer_seq=None):
         """
         Args:
@@ -326,6 +330,8 @@ class CanonicalProteinForm(BpForm):
 
 class CuratedProteinForm(BpForm):
     """ Canonical protein form """
+
+    DEFAULT_FASTA_CODE = 'X'
 
     def __init__(self, monomer_seq=None):
         """

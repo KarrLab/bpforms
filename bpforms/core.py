@@ -1694,6 +1694,8 @@ class BpForm(object):
         _parser (:obj:`lark.Lark`): parser
     """
 
+    DEFAULT_FASTA_CODE = '?'
+
     def __init__(self, monomer_seq=None, alphabet=None, backbone=None, bond=None, circular=False):
         """
         Args:
@@ -2112,6 +2114,6 @@ class BpForm(object):
             if len(root_monomers_codes) == 1:
                 seq += root_monomers_codes[0]
             else:
-                seq += 'N'
+                seq += self.DEFAULT_FASTA_CODE
 
         return seq
