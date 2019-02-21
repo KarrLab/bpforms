@@ -41,6 +41,15 @@ class RnaTestCase(unittest.TestCase):
 
     def test_RnaForm_properties(self):
         monomers = rna.canonical_rna_alphabet.monomers
+
+        form = rna.CanonicalRnaForm().from_str('A')
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C10H12N5O7P'))
+        self.assertEqual(form.get_charge(), -2)
+
+        form = rna.CanonicalRnaForm().from_str('ACG')
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C29H34O21N13P3'))
+        self.assertEqual(form.get_charge(), -4)
+
         form = rna.CanonicalRnaForm().from_str('ACGU')
         self.assertEqual(form.get_formula(), EmpiricalFormula('H-1O3P') * 4 + EmpiricalFormula('OH') * -3
                          + monomers.A.get_formula()

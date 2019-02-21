@@ -4,7 +4,7 @@ import pkg_resources
 with open(pkg_resources.resource_filename('bpforms', 'VERSION'), 'r') as file:
     __version__ = file.read().strip()
 
-from .core import (Identifier, IdentifierSet, SynonymSet, Monomer, MonomerSequence,
+from .core import (Identifier, IdentifierSet, SynonymSet, Monomer, MonomerSequence, MonomerDict, Backbone, Bond, Atom,
                    Alphabet, AlphabetBuilder, BpForm)
 from . import alphabet
 from .alphabet.dna import dna_alphabet, canonical_dna_alphabet, DnaForm, CanonicalDnaForm

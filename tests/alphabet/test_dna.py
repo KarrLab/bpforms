@@ -45,13 +45,26 @@ class DnaTestCase(unittest.TestCase):
 
     def test_DnaForm_properties(self):
         monomers = dna.canonical_dna_alphabet.monomers
+
+        form = dna.CanonicalDnaForm().from_str('A')
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C10H12N5O6P'))
+        self.assertEqual(form.get_charge(), -2)
+
+        form = dna.CanonicalDnaForm().from_str('ACG')
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C5H7O6P') * 3 + EmpiricalFormula('OH') * -2
+                         + monomers.A.get_formula()
+                         + monomers.C.get_formula()
+                         + monomers.G.get_formula())
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C29H34O18N13P3'))
+        self.assertEqual(form.get_charge(), -4)
+
         form = dna.CanonicalDnaForm().from_str('ACGT')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C5H7O6P') * 4 + EmpiricalFormula('H') * -3
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C5H7O6P') * 4 + EmpiricalFormula('OH') * -3
                          + monomers.A.get_formula()
                          + monomers.C.get_formula()
                          + monomers.G.get_formula()
                          + monomers.T.get_formula())
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C39H46O28N15P4'))
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C39H46O25N15P4'))
         self.assertEqual(form.get_charge(), -5)
 
     def test_DnaAlphabetBuilder(self):

@@ -25,7 +25,7 @@ class ProteinTestCase(unittest.TestCase):
 
     def test_protein_alphabet(self):
         self.assertEqual(protein.protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H12NO'))
-        self.assertEqual(protein.canonical_protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H11NO'))
+        self.assertEqual(protein.canonical_protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H12NO'))
 
     def test_ProteinForm_init(self):
         protein.ProteinForm()
@@ -34,13 +34,18 @@ class ProteinTestCase(unittest.TestCase):
 
     def test_ProteinForm_properties(self):
         monomers = protein.canonical_protein_alphabet.monomers
+
+        form = protein.CanonicalProteinForm().from_str('A')
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C3H7NO2'))
+        self.assertEqual(form.get_charge(), 0)
+
+        form = protein.CanonicalProteinForm().from_str('AA')
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C6H12N2O3'))
+        self.assertEqual(form.get_charge(), 0)
+
         form = protein.CanonicalProteinForm().from_str('AAA')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('O') * 3 + EmpiricalFormula('H2O') * -2
-                         + monomers.A.get_formula()
-                         + monomers.A.get_formula()
-                         + monomers.A.get_formula())
         self.assertEqual(form.get_formula(), EmpiricalFormula('C9H17N3O4'))
-        self.assertEqual(form.get_charge(), 3 * monomers.A.get_charge())
+        self.assertEqual(form.get_charge(), 0)
 
     def test_ProteinForm_get_monomer_details(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
@@ -57,7 +62,7 @@ class ProteinTestCase(unittest.TestCase):
             Identifier('chebi', 'CHEBI:45522')
         ])
         self.assertEqual(identifiers, identifiers_test)
-  
+
     def test_ProteinAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
 

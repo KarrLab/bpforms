@@ -6,7 +6,8 @@
 :License: MIT
 """
 
-from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone, Bond, BpForm, Identifier, IdentifierSet, SynonymSet
+from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone,
+                          Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet)
 from bs4 import BeautifulSoup
 from ftplib import FTP
 from wc_utils.util.chem import EmpiricalFormula
@@ -285,9 +286,19 @@ class ProteinForm(BpForm):
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
-        super(ProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=protein_alphabet,
-                                          backbone=Backbone(formula=EmpiricalFormula('O'), charge=0),
-                                          bond=Bond(formula=EmpiricalFormula('H2O') * -1, charge=0))
+        super(ProteinForm, self).__init__(
+            monomer_seq=monomer_seq, alphabet=protein_alphabet,
+            backbone=Backbone(
+                structure='InChI=1S/H2O/h1H2/p-1',
+                monomer_bond_atoms=[Atom(element='C', position=None)],
+                backbone_bond_atoms=[Atom(element='O', position=None)],
+                monomer_displaced_atoms=[Atom(element='H', position=None)],
+                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+            bond=Bond(
+                left_bond_atoms=[Atom(element='C', position=None)],
+                right_bond_atoms=[Atom(element='N', position=None)],
+                left_displaced_atoms=[Atom(element='O', position=None)],
+                right_displaced_atoms=[Atom(element='H', position=None), Atom(element='H', position=None)]))
 
 
 class CanonicalProteinForm(BpForm):
@@ -298,9 +309,19 @@ class CanonicalProteinForm(BpForm):
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
-        super(CanonicalProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
-                                                   backbone=Backbone(formula=EmpiricalFormula('O'), charge=0),
-                                                   bond=Bond(formula=EmpiricalFormula('H2O') * -1, charge=0))
+        super(CanonicalProteinForm, self).__init__(
+            monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
+            backbone=Backbone(
+                structure='InChI=1S/H2O/h1H2/p-1',
+                monomer_bond_atoms=[Atom(element='C', position=None)],
+                backbone_bond_atoms=[Atom(element='O', position=None)],
+                monomer_displaced_atoms=[Atom(element='H', position=None)],
+                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+            bond=Bond(
+                left_bond_atoms=[Atom(element='C', position=None)],
+                right_bond_atoms=[Atom(element='N', position=None)],
+                left_displaced_atoms=[Atom(element='O', position=None)],
+                right_displaced_atoms=[Atom(element='H', position=None), Atom(element='H', position=None)]))
 
 
 class CuratedProteinForm(BpForm):
@@ -311,6 +332,16 @@ class CuratedProteinForm(BpForm):
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
         """
-        super(CuratedProteinForm, self).__init__(monomer_seq=monomer_seq, alphabet=curated_protein_alphabet,
-                                                 backbone=Backbone(formula=EmpiricalFormula('O'), charge=0),
-                                                 bond=Bond(formula=EmpiricalFormula('H2O') * -1, charge=0))
+        super(CuratedProteinForm, self).__init__(
+            monomer_seq=monomer_seq, alphabet=curated_protein_alphabet,
+            backbone=Backbone(
+                structure='InChI=1S/H2O/h1H2/p-1',
+                monomer_bond_atoms=[Atom(element='C', position=None)],
+                backbone_bond_atoms=[Atom(element='O', position=None)],
+                monomer_displaced_atoms=[Atom(element='H', position=None)],
+                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+            bond=Bond(
+                left_bond_atoms=[Atom(element='C', position=None)],
+                right_bond_atoms=[Atom(element='N', position=None)],
+                left_displaced_atoms=[Atom(element='O', position=None)],
+                right_displaced_atoms=[Atom(element='H', position=None), Atom(element='H', position=None)]))

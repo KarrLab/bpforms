@@ -7,7 +7,7 @@
 """
 
 from ruamel import yaml
-from wc_utils.util.chem import EmpiricalFormula, Protonator
+from wc_utils.util.chem import EmpiricalFormula, Protonator, OpenBabelUtils
 import abc
 import attrdict
 import lark
@@ -555,16 +555,7 @@ class Monomer(object):
             :obj:`str`: InChI representration of structure
         """
         if self.structure:
-            conversion = openbabel.OBConversion()
-            assert conversion.SetOutFormat('inchi'), 'Unable to set format to InChI'
-            conversion.SetOptions('r', conversion.OUTOPTIONS)
-            conversion.SetOptions('F', conversion.OUTOPTIONS)
-            inchi = conversion.WriteString(self.structure).strip()
-            inchi = inchi.replace('InChI=1/', 'InChI=1S/')
-            i_fixed_h = inchi.find('/f')
-            if i_fixed_h >= 0:
-                inchi = inchi[0:i_fixed_h]
-            return inchi
+            return OpenBabelUtils.get_inchi(self.structure)
         else:
             return None
 
@@ -593,23 +584,7 @@ class Monomer(object):
         """
         if not self.structure:
             raise ValueError('A structure must be defined to calculate the formula')
-
-        el_table = openbabel.OBElementTable()
-        formula = {}
-        mass = 0
-        for i_atom in range(self.structure.NumAtoms()):
-            atom = self.structure.GetAtom(i_atom + 1)
-            el = el_table.GetSymbol(atom.GetAtomicNum())
-            if el in formula:
-                formula[el] += 1
-            else:
-                formula[el] = 1
-            mass += el_table.GetMass(atom.GetAtomicNum())
-        formula = EmpiricalFormula(formula)
-
-        # calc hydrogens because OpenBabel doesn't output this
-        formula['H'] = round((self.structure.GetMolWt() - mass) / el_table.GetMass(1))
-        return formula
+        return OpenBabelUtils.get_formula(self.structure)
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -1118,45 +1093,67 @@ class AlphabetBuilder(abc.ABC):
         alphabet.to_yaml(path)
 
 
-class Backbone(object):
-    """ Backbone of a monomer
+class Atom(object):
+    """ An atom in a compound or bond
 
     Attributes:
-        formula (:obj:`EmpiricalFormula`): empirical formula
-        charge (:obj:`int`): charge
+        element (:obj:`str`): code for the element (e.g. 'H') 
+        position (:obj:`int`): IUPAC position of the atom within the compound
+        charge (:obj:`int`): charge of the atom
     """
 
-    def __init__(self, formula=None, charge=0):
+    def __init__(self, element, position=None, charge=0):
         """
         Args:
-            formula (:obj:`EmpiricalFormula`, optional): empirical formula
-            charge (:obj:`int`, optional): charge
+            element (:obj:`str`, optional): code for the element (e.g. 'H') 
+            position (:obj:`int`, optional): IUPAC position of the atom within the compound
+            charge (:obj:`int`, optional): charge of the atom
         """
-        if formula is None:
-            formula = EmpiricalFormula()
-        self.formula = formula
+        self.element = element
+        self.position = position
         self.charge = charge
 
     @property
-    def formula(self):
-        """ Get the formula
+    def element(self):
+        """ Get the element
 
         Returns:
-            :obj:`EmpiricalFormula`: formula
+            :obj:`str`: element
         """
-        return self._formula
+        return self._element
 
-    @formula.setter
-    def formula(self, value):
-        """ Set the formula
+    @element.setter
+    def element(self, value):
+        """ Set the element
 
         Args:
-            value (:obj:`EmpiricalFormula` or :obj:`str`): formula
+            value (:obj:`str`): element
         """
-        if not isinstance(value, EmpiricalFormula):
-            value = EmpiricalFormula(value)
-        self._mol_wt = value.get_molecular_weight()
-        self._formula = value
+        if not isinstance(value, str):
+            raise ValueError('`element` must be a string')
+        self._element = value
+
+    @property
+    def position(self):
+        """ Get the position
+
+        Returns:
+            :obj:`int`: position
+        """
+        return self._position
+
+    @position.setter
+    def position(self, value):
+        """ Set the position
+
+        Args:
+            value (:obj:`int`): position
+        """
+        if value is not None:
+            if (not isinstance(value, (int, float)) or value != int(value) or value < 1):
+                raise ValueError('`position` must be a positive integer or None')
+            value = int(value)
+        self._position = value
 
     @property
     def charge(self):
@@ -1173,13 +1170,314 @@ class Backbone(object):
 
         Args:
             value (:obj:`str`): charge
+        """
+        if not isinstance(value, (float, int)) or int(value) != value:
+            raise ValueError('`charge` must be an integer')
+        value = int(value)
+        self._charge = value
+
+    def is_equal(self, other):
+        """ Determine if two atoms are semantically equal
+
+        Args:
+            other (:obj:`Atom`): other atom
+
+        Returns:
+            :obj:`bool`: obj:`True` if the atoms are semantically equal
+        """
+        if self is other:
+            return True
+        if self.__class__ != other.__class__:
+            return False
+        return self is other or (self.__class__ == other.__class__
+                                 and self.element == other.element
+                                 and self.charge == other.charge
+                                 and self.position == other.position)
+
+
+class AtomList(list):
+    """ List of atoms """
+
+    def __init__(self, atoms=None):
+        """
+        Args:
+            atoms (:obj:iterable of :obj:`Atom`): iterable of atoms
+        """
+        super(AtomList, self).__init__()
+        if atoms is not None:
+            for atom in atoms:
+                self.append(atom)
+
+    def append(self, atom):
+        """ Add a atom
+
+        Args:
+            atom (:obj:`Atom`): atom
 
         Raises:
-            :obj:`ValueError`: if the charge is not an integer
+            :obj:`ValueError`: if the `atom` is not an instance of `Atom`
         """
-        if not isinstance(value, (int, float)) or value != int(value):
-            raise ValueError('`charge` must be an integer')
-        self._charge = int(value)
+        if not isinstance(atom, Atom):
+            raise ValueError('`atom` must be an instance of `Atom`')
+        super(AtomList, self).append(atom)
+
+    def extend(self, atoms):
+        """ Add a list of atoms
+
+        Args:
+            atoms (iterable of :obj:`Atom`): iterable of atoms
+        """
+        for atom in atoms:
+            self.append(atom)
+
+    def insert(self, i, atom):
+        """ Insert an atom at a position
+
+        Args:
+            i (:obj:`int`): position to insert atom
+            atom (:obj:`Atom`): atom
+        """
+        if not isinstance(atom, Atom):
+            raise ValueError('`atom` must be an instance of `Atom`')
+        super(AtomList, self).insert(i, atom)
+
+    def __setitem__(self, slice, atom):
+        """ Set atom(s) at slice
+
+        Args:
+            slice (:obj:`int` or :obj:`slice`): position(s) to set atom
+            atom (:obj:`Atom` or :obj:`AtomList`): atom or atoms
+        """
+        if isinstance(slice, int):
+            if not isinstance(atom, Atom):
+                raise ValueError('`atom` must be a `Atom`')
+        else:
+            for b in atom:
+                if not isinstance(b, Atom):
+                    raise ValueError('`atom` must be an iterable of `Atom`')
+
+        super(AtomList, self).__setitem__(slice, atom)
+
+    def is_equal(self, other):
+        """ Determine if two lists of atoms are semantically equal
+
+        Args:
+            other (:obj:`AtomList`): other list of atoms
+
+        Returns:
+            :obj:`bool`: True, of the lists of atoms are semantically equal
+        """
+        if self is other:
+            return True
+        if self.__class__ != other.__class__ or len(self) != len(other):
+            return False
+        for self_atom, other_atom in zip(self, other):
+            if not self_atom.is_equal(other_atom):
+                return False
+        return True
+
+
+class Backbone(object):
+    """ Backbone of a monomer
+
+    Attributes:
+        structure (:obj:`openbabel.OBMol`): chemical structure
+        backbone_bond_atoms (:obj:`AtomList`): atoms from backbone that bonds to monomer
+        monomer_bond_atoms (:obj:`AtomList`): atoms from monomer that bonds to backbone
+        backbone_displaced_atoms (:obj:`AtomList`): atoms from backbone displaced by bond to monomer
+        monomer_displaced_atoms (:obj:`AtomList`): atoms from monomer displaced by bond to backbone
+    """
+
+    def __init__(self, structure=None, backbone_bond_atoms=None, monomer_bond_atoms=None,
+                 backbone_displaced_atoms=None, monomer_displaced_atoms=None):
+        """
+        Args:
+            structure (:obj:`str` or :obj:`openbabel.OBMol`, optional): chemical structure as InChI-encoded string or OpenBabel molecule
+            backbone_bond_atoms (:obj:`AtomList`, optional): atoms from backbone that bonds to monomer
+            monomer_bond_atoms (:obj:`AtomList`, optional): atoms from monomer that bonds to backbone
+            backbone_displaced_atoms (:obj:`AtomList`, optional): atoms from backbone displaced by bond to monomer
+            monomer_displaced_atoms (:obj:`AtomList`, optional): atoms from monomer displaced by bond to backbone
+        """
+        self.structure = structure
+        self.backbone_bond_atoms = backbone_bond_atoms or AtomList()
+        self.monomer_bond_atoms = monomer_bond_atoms or AtomList()
+        self.backbone_displaced_atoms = backbone_displaced_atoms or AtomList()
+        self.monomer_displaced_atoms = monomer_displaced_atoms or AtomList()
+
+    @property
+    def structure(self):
+        """ Get the structure
+
+        Returns:
+            :obj:`openbabel.OBMol`: structure
+        """
+        return self._structure
+
+    @structure.setter
+    def structure(self, value):
+        """ Set the structure
+
+        Args:
+            value (:obj:`str` or :obj:`openbabel.OBMol`): structure as InChI-encoded string or OpenBabel molecule
+        """
+        if value is not None and not isinstance(value, openbabel.OBMol):
+            ob_mol = openbabel.OBMol()
+            conversion = openbabel.OBConversion()
+            assert conversion.SetInFormat('inchi'), 'Unable to set format to InChI'
+            if not conversion.ReadString(ob_mol, value):
+                raise ValueError('`structure` must be an OpenBabel molecule, InChI-encoded structure, or None')
+            value = ob_mol
+        self._structure = value
+
+    @property
+    def monomer_bond_atoms(self):
+        """ Get the monomer bond atoms
+
+        Returns:
+            :obj:`AtomList`: monomer bond atoms
+        """
+        return self._monomer_bond_atoms
+
+    @monomer_bond_atoms.setter
+    def monomer_bond_atoms(self, value):
+        """ Set the monomer bond atoms
+
+        Args:
+            value (:obj:`AtomList`): monomer bond atoms
+
+        Raises:
+            :obj:`ValueError`: if `monomer_bond_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`monomer_bond_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._monomer_bond_atoms = value
+
+    @property
+    def backbone_bond_atoms(self):
+        """ Get the backbone bond atoms
+
+        Returns:
+            :obj:`AtomList`: backbone bond atoms
+        """
+        return self._backbone_bond_atoms
+
+    @backbone_bond_atoms.setter
+    def backbone_bond_atoms(self, value):
+        """ Set the backbone bond atoms
+
+        Args:
+            value (:obj:`AtomList`): backbone bond atoms
+
+        Raises:
+            :obj:`ValueError`: if `backbone_bond_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`backbone_bond_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._backbone_bond_atoms = value
+
+    @property
+    def monomer_displaced_atoms(self):
+        """ Get the monomer displaced atoms
+
+        Returns:
+            :obj:`AtomList`: monomer displaced atoms
+        """
+        return self._monomer_displaced_atoms
+
+    @monomer_displaced_atoms.setter
+    def monomer_displaced_atoms(self, value):
+        """ Set the monomer displaced atoms
+
+        Args:
+            value (:obj:`AtomList`): monomer displaced atoms
+
+        Raises:
+            :obj:`ValueError`: if `monomer_displaced_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`monomer_displaced_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._monomer_displaced_atoms = value
+
+    @property
+    def backbone_displaced_atoms(self):
+        """ Get the backbone displaced atoms
+
+        Returns:
+            :obj:`AtomList`: backbone displaced atoms
+        """
+        return self._backbone_displaced_atoms
+
+    @backbone_displaced_atoms.setter
+    def backbone_displaced_atoms(self, value):
+        """ Set the backbone displaced atoms
+
+        Args:
+            value (:obj:`AtomList`): backbone displaced atoms
+
+        Raises:
+            :obj:`ValueError`: if `backbone_displaced_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`backbone_displaced_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._backbone_displaced_atoms = value
+
+    def get_inchi(self):
+        """ Get InChI representration of structure
+
+        Returns:
+            :obj:`str`: InChI representration of structure
+        """
+        if self.structure:
+            return OpenBabelUtils.get_inchi(self.structure)
+        return None
+
+    def get_formula(self):
+        """ Get the formula
+
+        Returns:
+            :obj:`EmpiricalFormula`: formula
+        """
+        if self.structure:
+            formula = OpenBabelUtils.get_formula(self.structure)
+        else:
+            formula = EmpiricalFormula()
+        for atom in self.backbone_displaced_atoms:
+            formula[atom.element] -= 1
+        for atom in self.monomer_displaced_atoms:
+            formula[atom.element] -= 1
+        return formula
+
+    def get_mol_wt(self):
+        """ Get the molecular weight
+
+        Returns:
+            :obj:`float`: molecular weight
+        """
+        return self.get_formula().get_molecular_weight()
+
+    def get_charge(self):
+        """ Get the charge
+
+        Returns:
+            :obj:`int`: charge
+        """
+        if self.structure:
+            charge = self.structure.GetTotalCharge()
+        else:
+            charge = 0
+        for atom in self.backbone_displaced_atoms:
+            charge -= atom.charge
+        for atom in self.monomer_displaced_atoms:
+            charge -= atom.charge
+        return charge
 
     def is_equal(self, other):
         """ Determine if two backbones are semantically equal
@@ -1190,73 +1488,177 @@ class Backbone(object):
         Returns:
             :obj:`bool`: :obj:`True` if the backbones are semantically equal
         """
-        return self is other or (self.__class__ == other.__class__
-                                 and self.formula == other.formula
-                                 and self.charge == other.charge)
+        if self is other:
+            return True
+        if self.__class__ != other.__class__:
+            return False
+        if self.get_inchi() != other.get_inchi():
+            return False
+        if not self.monomer_bond_atoms.is_equal(other.monomer_bond_atoms)\
+                or not self.backbone_bond_atoms.is_equal(other.backbone_bond_atoms)\
+                or not self.monomer_displaced_atoms.is_equal(other.monomer_displaced_atoms)\
+                or not self.backbone_displaced_atoms.is_equal(other.backbone_displaced_atoms):
+            return False
+        return True
 
 
 class Bond(object):
     """ Bond between monomers
 
     Attributes:
-        formula (:obj:`EmpiricalFormula`): empirical formula
-        charge (:obj:`int`): charge
+        left_bond_atoms (:obj:`AtomList`): atoms from left monomer that bonds with right monomer
+        right_bond_atoms (:obj:`AtomList`): atoms from right monomer that bonds with left monomer
+        left_displaced_atoms (:obj:`AtomList`): atoms from left monomer displaced by bond
+        right_displaced_atoms (:obj:`AtomList`): atoms from right monomer displaced by bond
     """
 
-    def __init__(self, formula=None, charge=0):
+    def __init__(self, left_bond_atoms=None, right_bond_atoms=None,
+                 left_displaced_atoms=None, right_displaced_atoms=None):
         """
         Args:
-            formula (:obj:`EmpiricalFormula`, optional): empirical formula
-            charge (:obj:`int`, optional): charge
+            left_bond_atoms (:obj:`AtomList`, optional): atoms from left monomer that bonds with right monomer
+            right_bond_atoms (:obj:`AtomList`, optional): atoms from right monomer that bonds with left monomer
+            left_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomer displaced by bond
+            right_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomer displaced by bond
         """
-        if formula is None:
-            formula = EmpiricalFormula()
-        self.formula = formula
-        self.charge = charge
+        self.left_bond_atoms = left_bond_atoms or AtomList()
+        self.right_bond_atoms = right_bond_atoms or AtomList()
+        self.left_displaced_atoms = left_displaced_atoms or AtomList()
+        self.right_displaced_atoms = right_displaced_atoms or AtomList()
 
     @property
-    def formula(self):
+    def left_bond_atoms(self):
+        """ Get the left bond atoms
+
+        Returns:
+            :obj:`AtomList`: left bond atoms
+        """
+        return self._left_bond_atoms
+
+    @left_bond_atoms.setter
+    def left_bond_atoms(self, value):
+        """ Set the left bond atoms
+
+        Args:
+            value (:obj:`AtomList`): left bond atoms
+
+        Raises:
+            :obj:`ValueError`: if `left_bond_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`left_bond_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._left_bond_atoms = value
+
+    @property
+    def right_bond_atoms(self):
+        """ Get the right bond atoms
+
+        Returns:
+            :obj:`AtomList`: right bond atoms
+        """
+        return self._right_bond_atoms
+
+    @right_bond_atoms.setter
+    def right_bond_atoms(self, value):
+        """ Set the right bond atoms
+
+        Args:
+            value (:obj:`AtomList`): right bond atoms
+
+        Raises:
+            :obj:`ValueError`: if `right_bond_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`right_bond_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._right_bond_atoms = value
+
+    @property
+    def left_displaced_atoms(self):
+        """ Get the left displaced atoms
+
+        Returns:
+            :obj:`AtomList`: left displaced atoms
+        """
+        return self._left_displaced_atoms
+
+    @left_displaced_atoms.setter
+    def left_displaced_atoms(self, value):
+        """ Set the left displaced atoms
+
+        Args:
+            value (:obj:`AtomList`): left displaced atoms
+
+        Raises:
+            :obj:`ValueError`: if `left_displaced_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`left_displaced_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._left_displaced_atoms = value
+
+    @property
+    def right_displaced_atoms(self):
+        """ Get the right displaced atoms
+
+        Returns:
+            :obj:`AtomList`: right displaced atoms
+        """
+        return self._right_displaced_atoms
+
+    @right_displaced_atoms.setter
+    def right_displaced_atoms(self, value):
+        """ Set the right displaced atoms
+
+        Args:
+            value (:obj:`AtomList`): right displaced atoms
+
+        Raises:
+            :obj:`ValueError`: if `right_displaced_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`right_displaced_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._right_displaced_atoms = value
+
+    def get_formula(self):
         """ Get the formula
 
         Returns:
             :obj:`EmpiricalFormula`: formula
         """
-        return self._formula
+        formula = EmpiricalFormula()
+        for atom in self.left_displaced_atoms:
+            formula[atom.element] -= 1
+        for atom in self.right_displaced_atoms:
+            formula[atom.element] -= 1
+        return formula
 
-    @formula.setter
-    def formula(self, value):
-        """ Set the formula
+    def get_mol_wt(self):
+        """ Get the molecular weight
 
-        Args:
-            value (:obj:`EmpiricalFormula` or :obj:`str`): formula
+        Returns:
+            :obj:`float`: molecular weight
         """
-        if not isinstance(value, EmpiricalFormula):
-            value = EmpiricalFormula(value)
-        self._mol_wt = value.get_molecular_weight()
-        self._formula = value
+        return self.get_formula().get_molecular_weight()
 
-    @property
-    def charge(self):
+    def get_charge(self):
         """ Get the charge
 
         Returns:
-            :obj:`str`: charge
+            :obj:`int`: charge
         """
-        return self._charge
-
-    @charge.setter
-    def charge(self, value):
-        """ Set the charge
-
-        Args:
-            value (:obj:`str`): charge
-
-        Raises:
-            :obj:`ValueError`: if the charge is not an integer
-        """
-        if not isinstance(value, (int, float)) or value != int(value):
-            raise ValueError('`charge` must be an integer')
-        self._charge = int(value)
+        charge = 0
+        for atom in self.left_displaced_atoms:
+            charge -= atom.charge
+        for atom in self.right_displaced_atoms:
+            charge -= atom.charge
+        return charge
 
     def is_equal(self, other):
         """ Determine if two bonds are semantically equal
@@ -1265,11 +1667,18 @@ class Bond(object):
             other (:obj:`Bond`): other bond
 
         Returns:
-            :obj:`bool`: :obj:`True` if the bonds are semantically equal
+            :obj:`bool`: :obj:`True` if the bond are semantically equal
         """
-        return self is other or (self.__class__ == other.__class__
-                                 and self.formula == other.formula
-                                 and self.charge == other.charge)
+        if self is other:
+            return True
+        if self.__class__ != other.__class__:
+            return False
+        if not self.left_bond_atoms.is_equal(other.left_bond_atoms) \
+                or not self.right_bond_atoms.is_equal(other.right_bond_atoms) \
+                or not self.left_displaced_atoms.is_equal(other.left_displaced_atoms) \
+                or not self.right_displaced_atoms.is_equal(other.right_displaced_atoms):
+            return False
+        return True
 
 
 class BpForm(object):
@@ -1280,17 +1689,19 @@ class BpForm(object):
         alphabet (:obj:`Alphabet`): monomer alphabet
         backbone (:obj:`Backbone`): backbone that connects monomers
         bond (:obj:`Bond`): bonds between (backbones of) monomers
+        circular (:obj:`bool`): if :obj:`True`, indicates that the biopolymer is circular
 
         _parser (:obj:`lark.Lark`): parser
     """
 
-    def __init__(self, monomer_seq=None, alphabet=None, backbone=None, bond=None):
+    def __init__(self, monomer_seq=None, alphabet=None, backbone=None, bond=None, circular=False):
         """
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the biopolymer
             alphabet (:obj:`Alphabet`, optional): monomer alphabet
             backbone (:obj:`Backbone`, optional): backbone that connects monomers
             bond (:obj:`Bond`, optional): bonds between (backbones of) monomers
+            circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         if alphabet is None:
             alphabet = Alphabet()
@@ -1303,6 +1714,7 @@ class BpForm(object):
         self.alphabet = alphabet
         self.backbone = backbone
         self.bond = bond
+        self.circular = circular
 
     @property
     def monomer_seq(self):
@@ -1392,6 +1804,26 @@ class BpForm(object):
             raise ValueError('`bond` must be an instance of `Bond`')
         self._bond = value
 
+    @property
+    def circular(self):
+        """ Get the circularity
+
+        Returns:
+            :obj:`bool`: circularity
+        """
+        return self._circular
+
+    @circular.setter
+    def circular(self, value):
+        """ Set the circularity
+
+        Args:
+            value (:obj:`bool`): circularity
+        """
+        if not isinstance(value, bool):
+            raise ValueError('`circular` must be an instance of `bool`')
+        self._circular = value
+
     def is_equal(self, other):
         """ Check if two biopolymer forms are semantically equal
 
@@ -1405,7 +1837,8 @@ class BpForm(object):
                                  and self.monomer_seq.is_equal(other.monomer_seq)
                                  and self.alphabet.is_equal(other.alphabet)
                                  and self.backbone.is_equal(other.backbone)
-                                 and self.bond.is_equal(other.bond))
+                                 and self.bond.is_equal(other.bond)
+                                 and self.circular == other.circular)
 
     def __getitem__(self, slice):
         """ Get monomer(s) at slice
@@ -1505,7 +1938,7 @@ class BpForm(object):
         formula = EmpiricalFormula()
         for monomer, count in self.get_monomer_counts().items():
             formula += monomer.get_formula() * count
-        return formula + self.backbone.formula * len(self) + self.bond.formula * (len(self) - 1)
+        return formula + self.backbone.get_formula() * len(self) + self.bond.get_formula() * (len(self) - (1 - self.circular))
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -1516,7 +1949,7 @@ class BpForm(object):
         mol_wt = 0.
         for monomer, count in self.get_monomer_counts().items():
             mol_wt += monomer.get_mol_wt() * count
-        return mol_wt + self.backbone._mol_wt * len(self) + self.bond._mol_wt * (len(self) - 1)
+        return mol_wt + self.backbone.get_mol_wt() * len(self) + self.bond.get_mol_wt() * (len(self) - (1 - self.circular))
 
     def get_charge(self):
         """ Get the charge
@@ -1527,7 +1960,7 @@ class BpForm(object):
         charge = 0
         for monomer, count in self.get_monomer_counts().items():
             charge += monomer.get_charge() * count
-        return charge + self.backbone.charge * len(self) + self.bond.charge * (len(self) - 1)
+        return charge + self.backbone.get_charge() * len(self) + self.bond.get_charge() * (len(self) - (1 - self.circular))
 
     def __str__(self):
         """ Get a string representation of the biopolymer form

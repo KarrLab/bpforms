@@ -554,13 +554,297 @@ class MonomerSequenceTestCase(unittest.TestCase):
         self.assertFalse(seq_1.is_equal(seq_3))
 
 
+class AtomTestCase(unittest.TestCase):
+    def test_element_setter(self):
+        atom = core.Atom('C')
+        atom.element = 'C'
+        self.assertEqual(atom.element, 'C')
+        with self.assertRaises(ValueError):
+            atom.element = 1
+
+    def test_position_setter(self):
+        atom = core.Atom('C')
+
+        atom.position = 2
+        self.assertEqual(atom.position, 2)
+
+        atom.position = 2.
+        self.assertEqual(atom.position, 2)
+
+        atom.position = None
+        self.assertEqual(atom.position, None)
+
+        with self.assertRaises(ValueError):
+            atom.position = 'a'
+        with self.assertRaises(ValueError):
+            atom.position = 2.5
+        with self.assertRaises(ValueError):
+            atom.position = -1
+
+    def test_charge_setter(self):
+        atom = core.Atom('C')
+
+        atom.charge = 2
+        self.assertEqual(atom.charge, 2)
+
+        atom.charge = -3
+        self.assertEqual(atom.charge, -3)
+
+        with self.assertRaises(ValueError):
+            atom.charge = None
+
+        with self.assertRaises(ValueError):
+            atom.charge = 'a'
+
+        with self.assertRaises(ValueError):
+            atom.charge = 2.5
+
+    def test_is_equal(self):
+        atom_1 = core.Atom('C', position=2, charge=-3)
+        self.assertTrue(atom_1.is_equal(atom_1))
+        self.assertTrue(atom_1.is_equal(core.Atom('C', position=2, charge=-3)))
+        self.assertFalse(atom_1.is_equal({}))
+        self.assertFalse(atom_1.is_equal(core.Atom('H', position=2, charge=-3)))
+        self.assertFalse(atom_1.is_equal(core.Atom('C', position=3, charge=-3)))
+        self.assertFalse(atom_1.is_equal(core.Atom('C', position=2, charge=-2)))
+
+
+class AtomListTestCase(unittest.TestCase):
+    def test_init(self):
+        atom_1 = core.Atom('C')
+        atom_2 = core.Atom('H')
+        atom_list = core.AtomList([atom_1, atom_2])
+
+    def test_append(self):
+        atom_1 = core.Atom('C')
+        atom_list = core.AtomList()
+        atom_list.append(atom_1)
+        self.assertEqual(atom_list, core.AtomList([atom_1]))
+        with self.assertRaises(ValueError):
+            atom_list.append('C')
+
+    def test_extend(self):
+        atom_1 = core.Atom('C')
+        atom_2 = core.Atom('H')
+        atom_list = core.AtomList()
+        atom_list.extend([atom_1, atom_2])
+        self.assertEqual(atom_list, core.AtomList([atom_1, atom_2]))
+
+    def test_insert(self):
+        atom_1 = core.Atom('C')
+        atom_2 = core.Atom('H')
+        atom_3 = core.Atom('O')
+        atom_list = core.AtomList([atom_1, atom_2])
+
+        atom_list.insert(1, atom_3)
+        self.assertEqual(atom_list, core.AtomList([atom_1, atom_3, atom_2]))
+
+        with self.assertRaises(ValueError):
+            atom_list.insert(1, 'C')
+
+    def test_set_item(self):
+        atom_1 = core.Atom('C')
+        atom_2 = core.Atom('H')
+        atom_3 = core.Atom('O')
+
+        atom_list = core.AtomList([atom_1, atom_2, atom_3])
+        atom_list[0] = atom_3
+        self.assertEqual(atom_list, core.AtomList([atom_3, atom_2, atom_3]))
+
+        atom_list = core.AtomList([atom_1, atom_2, atom_3])
+        atom_list[0:1] = [atom_3]
+        self.assertEqual(atom_list, core.AtomList([atom_3, atom_2, atom_3]))
+
+        atom_list = core.AtomList([atom_1, atom_2, atom_3])
+        with self.assertRaises(ValueError):
+            atom_list[0] = 'C'
+
+        atom_list = core.AtomList([atom_1, atom_2, atom_3])
+        with self.assertRaises(ValueError):
+            atom_list[0:1] = ['C']
+
+    def test_is_equal(self):
+        atom_1 = core.Atom('C')
+        atom_2 = core.Atom('H')
+        atom_3 = core.Atom('O')
+
+        atom_list_1 = core.AtomList([core.Atom('C'), core.Atom('H'), core.Atom('O')])
+        atom_list_2 = core.AtomList([core.Atom('C'), core.Atom('H'), core.Atom('O')])
+        atom_list_3 = core.AtomList([core.Atom('C'), core.Atom('N'), core.Atom('O')])
+        self.assertTrue(atom_list_1.is_equal(atom_list_1))
+        self.assertTrue(atom_list_1.is_equal(atom_list_2))
+        self.assertFalse(atom_list_1.is_equal({}))
+        self.assertFalse(atom_list_1.is_equal(atom_list_3))
+
+
+class BackboneTestCase(unittest.TestCase):
+    def test_set_structure(self):
+        backbone = core.Backbone()
+        backbone.structure = None
+        backbone.structure = dAMP_inchi
+        with self.assertRaises(ValueError):
+            backbone.structure = 'dAMP'
+
+    def test_set_monomer_bond_atoms(self):
+        backbone = core.Backbone()
+        backbone.monomer_bond_atoms = []
+        backbone.monomer_bond_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            backbone.monomer_bond_atoms = None
+
+    def test_set_backbone_bond_atoms(self):
+        backbone = core.Backbone()
+        backbone.backbone_bond_atoms = []
+        backbone.backbone_bond_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            backbone.backbone_bond_atoms = None
+
+    def test_set_monomer_displaced_atoms(self):
+        backbone = core.Backbone()
+        backbone.monomer_displaced_atoms = []
+        backbone.monomer_displaced_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            backbone.monomer_displaced_atoms = None
+
+    def test_set_backbone_displaced_atoms(self):
+        backbone = core.Backbone()
+        backbone.backbone_displaced_atoms = []
+        backbone.backbone_displaced_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            backbone.backbone_displaced_atoms = None
+
+    def test_get_inchi(self):
+        backbone = core.Backbone()
+
+        backbone.structure = dAMP_inchi
+        self.assertEqual(backbone.get_inchi(), dAMP_inchi)
+
+        backbone.structure = None
+        self.assertEqual(backbone.get_inchi(), None)
+
+    def test_get_formula(self):
+        backbone = core.Backbone()
+
+        backbone.structure = dAMP_inchi
+        self.assertEqual(backbone.get_formula(), EmpiricalFormula('C5H5N5'))
+
+        backbone.monomer_displaced_atoms = core.AtomList([core.Atom('C')])
+        backbone.backbone_displaced_atoms = core.AtomList([core.Atom('H'), core.Atom('H')])
+        self.assertEqual(backbone.get_formula(), EmpiricalFormula('C4H3N5'))
+
+        backbone.structure = None
+        self.assertEqual(backbone.get_formula(), EmpiricalFormula('CH2') * -1)
+
+    def test_get_mol_wt(self):
+        backbone = core.Backbone()
+
+        backbone.structure = dAMP_inchi
+        self.assertEqual(backbone.get_mol_wt(), 135.12999999999997)
+
+    def test_get_charge(self):
+        backbone = core.Backbone()
+
+        backbone.structure = dAMP_inchi
+        self.assertEqual(backbone.get_charge(), 0)
+
+        backbone.structure = None
+        self.assertEqual(backbone.get_charge(), 0)
+
+        backbone.monomer_displaced_atoms = core.AtomList([core.Atom('C', charge=2)])
+        backbone.backbone_displaced_atoms = core.AtomList([core.Atom('H', charge=3)])
+        self.assertEqual(backbone.get_charge(), -5)
+
+    def test_is_equal(self):
+        backbone_1 = core.Backbone()
+        backbone_2 = core.Backbone()
+        backbone_3 = core.Backbone(structure=dAMP_inchi)
+        backbone_4 = core.Backbone(monomer_bond_atoms=[core.Atom('H')])
+        backbone_5 = core.Backbone(backbone_bond_atoms=[core.Atom('H')])
+        backbone_6 = core.Backbone(monomer_displaced_atoms=[core.Atom('H')])
+        backbone_7 = core.Backbone(backbone_displaced_atoms=[core.Atom('H')])
+        self.assertTrue(backbone_1.is_equal(backbone_1))
+        self.assertTrue(backbone_1.is_equal(backbone_2))
+        self.assertFalse(backbone_1.is_equal({}))
+        self.assertFalse(backbone_1.is_equal(backbone_3))
+        self.assertFalse(backbone_1.is_equal(backbone_4))
+        self.assertFalse(backbone_1.is_equal(backbone_5))
+        self.assertFalse(backbone_1.is_equal(backbone_6))
+        self.assertFalse(backbone_1.is_equal(backbone_7))
+
+
+class BondTestCase(unittest.TestCase):
+    def test_set_left_bond_atoms(self):
+        bond = core.Bond()
+        bond.left_bond_atoms = []
+        bond.left_bond_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            bond.left_bond_atoms = None
+
+    def test_set_bond_bond_atoms(self):
+        bond = core.Bond()
+        bond.right_bond_atoms = []
+        bond.right_bond_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            bond.right_bond_atoms = None
+
+    def test_set_left_displaced_atoms(self):
+        bond = core.Bond()
+        bond.left_displaced_atoms = []
+        bond.left_displaced_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            bond.left_displaced_atoms = None
+
+    def test_set_bond_displaced_atoms(self):
+        bond = core.Bond()
+        bond.right_displaced_atoms = []
+        bond.right_displaced_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            bond.right_displaced_atoms = None
+
+    def test_get_formula(self):
+        bond = core.Bond()
+
+        bond.left_displaced_atoms = core.AtomList([core.Atom('C')])
+        bond.right_displaced_atoms = core.AtomList([core.Atom('H'), core.Atom('H')])
+        self.assertEqual(bond.get_formula(), EmpiricalFormula('CH2') * -1)
+
+    def test_get_mol_wt(self):
+        bond = core.Bond()
+
+        self.assertEqual(bond.get_mol_wt(), 0.)
+
+    def test_get_charge(self):
+        bond = core.Bond()
+
+        bond.left_displaced_atoms = core.AtomList([core.Atom('C', charge=2)])
+        bond.right_displaced_atoms = core.AtomList([core.Atom('H', charge=3)])
+        self.assertEqual(bond.get_charge(), -5)
+
+    def test_is_equal(self):
+        bond_1 = core.Bond()
+        bond_2 = core.Bond()
+        bond_3 = core.Bond(left_bond_atoms=[core.Atom('H')])
+        bond_4 = core.Bond(right_bond_atoms=[core.Atom('H')])
+        bond_5 = core.Bond(left_displaced_atoms=[core.Atom('H')])
+        bond_6 = core.Bond(right_displaced_atoms=[core.Atom('H')])
+        self.assertTrue(bond_1.is_equal(bond_1))
+        self.assertTrue(bond_1.is_equal(bond_2))
+        self.assertFalse(bond_1.is_equal({}))
+        self.assertFalse(bond_1.is_equal(bond_3))
+        self.assertFalse(bond_1.is_equal(bond_4))
+        self.assertFalse(bond_1.is_equal(bond_5))
+        self.assertFalse(bond_1.is_equal(bond_6))
+
+
 class BpFormTestCase(unittest.TestCase):
     def test_init(self):
         bp_form = core.BpForm()
         self.assertEqual(bp_form.monomer_seq, core.MonomerSequence())
         self.assertEqual(bp_form.alphabet.monomers, {})
-        self.assertEqual(bp_form.bond.formula, EmpiricalFormula())
-        self.assertEqual(bp_form.bond.charge, 0)
+        self.assertEqual(bp_form.backbone.get_formula(), EmpiricalFormula())
+        self.assertEqual(bp_form.backbone.get_charge(), 0)
+        self.assertEqual(bp_form.bond.get_formula(), EmpiricalFormula())
+        self.assertEqual(bp_form.bond.get_charge(), 0)
 
     def test_set_monomer_seq(self):
         bp_form = core.BpForm()
@@ -588,91 +872,52 @@ class BpFormTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             bp_form.alphabet = 'A'
 
-    def test_set_backbone_formula(self):
+    def test_set_backbone(self):
         bp_form = core.BpForm()
 
-        bp_form.backbone.formula = EmpiricalFormula('CHO')
-        self.assertEqual(bp_form.backbone.formula, EmpiricalFormula('CHO'))
-
-        bp_form.backbone.formula = 'CHO'
-        self.assertEqual(bp_form.backbone.formula, EmpiricalFormula('CHO'))
+        bp_form.backbone = core.Backbone()
 
         with self.assertRaises(ValueError):
             bp_form.backbone = None
         with self.assertRaises(ValueError):
-            bp_form.backbone.formula = '123'
-        with self.assertRaises(TypeError):
-            bp_form.backbone.formula = 123
-        with self.assertRaises(TypeError):
-            bp_form.backbone.formula = None
+            bp_form.backbone = '123'
 
-    def test_set_backbone_charge(self):
+    def test_set_bond(self):
         bp_form = core.BpForm()
 
-        bp_form.backbone.charge = 1
-        self.assertEqual(bp_form.backbone.charge, 1)
-
-        bp_form.backbone.charge = 1.
-        self.assertEqual(bp_form.backbone.charge, 1)
-
-        bp_form.backbone.charge = -1
-        self.assertEqual(bp_form.backbone.charge, -1)
-
-        with self.assertRaises(ValueError):
-            bp_form.backbone.charge = 1.5
-
-        with self.assertRaises(ValueError):
-            bp_form.backbone.charge = None
-
-    def test_set_bond_formula(self):
-        bp_form = core.BpForm()
-
-        bp_form.bond.formula = EmpiricalFormula('CHO')
-        self.assertEqual(bp_form.bond.formula, EmpiricalFormula('CHO'))
-
-        bp_form.bond.formula = 'CHO'
-        self.assertEqual(bp_form.bond.formula, EmpiricalFormula('CHO'))
+        bp_form.bond = core.Bond()
 
         with self.assertRaises(ValueError):
             bp_form.bond = None
         with self.assertRaises(ValueError):
-            bp_form.bond.formula = '123'
-        with self.assertRaises(TypeError):
-            bp_form.bond.formula = 123
-        with self.assertRaises(TypeError):
-            bp_form.bond.formula = None
+            bp_form.bond = '123'
 
-    def test_set_bond_charge(self):
+    def test_set_circular(self):
         bp_form = core.BpForm()
 
-        bp_form.bond.charge = 1
-        self.assertEqual(bp_form.bond.charge, 1)
+        bp_form.circular = True
+        self.assertEqual(bp_form.circular, True)
 
-        bp_form.bond.charge = 1.
-        self.assertEqual(bp_form.bond.charge, 1)
-
-        bp_form.bond.charge = -1
-        self.assertEqual(bp_form.bond.charge, -1)
+        bp_form.circular = False
+        self.assertEqual(bp_form.circular, False)
 
         with self.assertRaises(ValueError):
-            bp_form.bond.charge = 1.5
-
-        with self.assertRaises(ValueError):
-            bp_form.bond.charge = None
+            bp_form.circular = None
 
     def test_is_equal(self):
-        bp_form_1 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]))
-        bp_form_2 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]))
+        bp_form_1 = core.BpForm(monomer_seq=core.MonomerSequence(
+            [core.Monomer(id='A'), core.Monomer(id='B')]))
+        bp_form_2 = core.BpForm(monomer_seq=core.MonomerSequence(
+            [core.Monomer(id='A'), core.Monomer(id='B')]))
         bp_form_3 = None
         bp_form_4 = core.BpForm(monomer_seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), alphabet=dna.canonical_dna_alphabet)
         bp_form_5 = core.BpForm(monomer_seq=core.MonomerSequence(
-            [core.Monomer(id='A'), core.Monomer(id='B')]), backbone=core.Backbone(charge=-1))
+            [core.Monomer(id='A'), core.Monomer(id='B')]), backbone=core.Backbone(structure='InChI=1S/O'))
         bp_form_6 = core.BpForm(monomer_seq=core.MonomerSequence(
-            [core.Monomer(id='A'), core.Monomer(id='B')]), backbone=core.Backbone(formula=EmpiricalFormula('H')))
-        bp_form_7 = core.BpForm(monomer_seq=core.MonomerSequence([core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(charge=-1))
-        bp_form_8 = core.BpForm(monomer_seq=core.MonomerSequence(
-            [core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(formula=EmpiricalFormula('H')))
+            [core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(left_bond_atoms=[core.Atom('C')]))
+        bp_form_7 = core.BpForm(monomer_seq=core.MonomerSequence(
+            [core.Monomer(id='A'), core.Monomer(id='B')]), circular=True)
         self.assertTrue(bp_form_1.is_equal(bp_form_1))
         self.assertTrue(bp_form_1.is_equal(bp_form_2))
         self.assertFalse(bp_form_1.is_equal(bp_form_3))
@@ -680,7 +925,6 @@ class BpFormTestCase(unittest.TestCase):
         self.assertFalse(bp_form_1.is_equal(bp_form_5))
         self.assertFalse(bp_form_1.is_equal(bp_form_6))
         self.assertFalse(bp_form_1.is_equal(bp_form_7))
-        self.assertFalse(bp_form_1.is_equal(bp_form_8))
 
     def test_getitem(self):
         monomer_1 = core.Monomer(id='A')
@@ -785,14 +1029,15 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() + monomer_C.get_mol_wt())
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge())
 
-        bp_form = core.BpForm([monomer_A, monomer_C], bond=core.Bond(formula=EmpiricalFormula('H') * -1, charge=1))
+        bp_form = core.BpForm([monomer_A, monomer_C],
+                              bond=core.Bond(None, [], [core.Atom('H', charge=-1, position=None)]))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() + monomer_C.get_formula() - EmpiricalFormula('H'))
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() + monomer_C.get_mol_wt() -
                          EmpiricalFormula('H').get_molecular_weight())
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge() + 1)
 
         bp_form = core.BpForm([monomer_A, monomer_A, monomer_C, monomer_C, monomer_C],
-                              bond=core.Bond(formula=EmpiricalFormula('H') * -1, charge=1))
+                              bond=core.Bond(None, [], [core.Atom('H', charge=-1, position=None)]))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() * 2 + monomer_C.get_formula() * 3 - EmpiricalFormula('H') * 4)
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() * 2 + monomer_C.get_mol_wt()
                          * 3 - EmpiricalFormula('H').get_molecular_weight() * 4)

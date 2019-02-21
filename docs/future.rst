@@ -10,7 +10,7 @@ Limitations, alternatives, and future directions
     #. Add additional monomers to the alphabet that encode non-canonical backbones.
 
 * `BpForms` has limited ability to represent non-canonical bonds between monomers. Users can represent non-canonical bonds by encoding non-canonical bonds within instances of ``bpforms.Monomer`` that represent multiple monomers. However, the `BpForms` notation cannot directly describe non-canonical bonds. The `BpForms` notation could be extended to clearly and compactly describe non-canonical bonds by adding an optional syntax for describing the atoms that bond and the atoms that are displaced by bonds. This syntax could use angle brackets to delimit bonds, a vertical pipe to delimit bonded atoms from displaced atoms, and the IUPAC numbering system to indicate the atoms that bonds and the atoms that are displaced (e.g., ``A<O4, P6 | H4, O6>C``).
-* `BpForms` cannot represent circular biopolymers such as circular DNA. However, `BpForms` could easily be extended to represent circular biopolymers by adding another attribute to ``bpforms.BpForm`` that represents the topology of each biopolymer (e.g., circular or linear).
+* ``bpforms.BpForm.circular`` represents the circularity of biopolymers. This attribute must be set programmatically. The `BpForms` notation cannot not represent the circularity biopolymers.
 * `BpForms` cannot represent the secondary structure (e.g., base pairing) of biopolymers. Extending `BpForms` to represent secondary structure would enable `BpForms` to represent single strand breaks, crosslinks, and other deviations from the canonical secondary structures of biopolymers.
 * `BpForms` cannot represent branched biopolymers such as lipids.
 

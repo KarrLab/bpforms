@@ -6,7 +6,8 @@
 :License: MIT
 """
 
-from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone, Bond, BpForm, Identifier, IdentifierSet, SynonymSet
+from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone,
+                          Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet)
 from wc_utils.util.chem import EmpiricalFormula
 import bs4
 import csv
@@ -232,9 +233,19 @@ class RnaForm(BpForm):
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
-        super(RnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=rna_alphabet,
-                                      backbone=Backbone(formula=EmpiricalFormula('H-1O3P'), charge=-2),
-                                      bond=Bond(formula=EmpiricalFormula('OH') * -1, charge=1))
+        super(RnaForm, self).__init__(
+            monomer_seq=monomer_seq, alphabet=rna_alphabet,
+            backbone=Backbone(
+                structure='InChI=1S/H3O4P/c1-5(2,3)4/h(H3,1,2,3,4)/p-2',
+                monomer_bond_atoms=[Atom(element='O', position=None)],
+                backbone_bond_atoms=[Atom(element='P', position=None)],
+                monomer_displaced_atoms=[Atom(element='H', position=None)],
+                backbone_displaced_atoms=[Atom(element='O', position=None), Atom(element='H', position=None)]),
+            bond=Bond(
+                left_bond_atoms=[Atom(element='O', position=None)],
+                right_bond_atoms=[Atom(element='P', position=None)],
+                left_displaced_atoms=[Atom(element='H', position=None)],
+                right_displaced_atoms=[Atom(element='O', position=None, charge=-1)]))
 
 
 class CanonicalRnaForm(BpForm):
@@ -245,6 +256,16 @@ class CanonicalRnaForm(BpForm):
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
-        super(CanonicalRnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_rna_alphabet,
-                                               backbone=Backbone(formula=EmpiricalFormula('H-1O3P'), charge=-2),
-                                               bond=Bond(formula=EmpiricalFormula('OH') * -1, charge=1))
+        super(CanonicalRnaForm, self).__init__(
+            monomer_seq=monomer_seq, alphabet=canonical_rna_alphabet,
+            backbone=Backbone(
+                structure='InChI=1S/H3O4P/c1-5(2,3)4/h(H3,1,2,3,4)/p-2',
+                monomer_bond_atoms=[Atom(element='O', position=None)],
+                backbone_bond_atoms=[Atom(element='P', position=None)],
+                monomer_displaced_atoms=[Atom(element='H', position=None)],
+                backbone_displaced_atoms=[Atom(element='O', position=None), Atom(element='H', position=None)]),
+            bond=Bond(
+                left_bond_atoms=[Atom(element='O', position=None)],
+                right_bond_atoms=[Atom(element='P', position=None)],
+                left_displaced_atoms=[Atom(element='H', position=None)],
+                right_displaced_atoms=[Atom(element='O', position=None, charge=-1)]))

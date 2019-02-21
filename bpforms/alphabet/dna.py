@@ -6,7 +6,8 @@
 :License: MIT
 """
 
-from bpforms.core import Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm, Backbone, Bond, Identifier, IdentifierSet, SynonymSet
+from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm,
+                          Backbone, Bond, Atom, Identifier, IdentifierSet, SynonymSet)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from wc_utils.util.chem import EmpiricalFormula
@@ -238,9 +239,19 @@ class DnaForm(BpForm):
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
-        super(DnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=dna_alphabet,
-                                      backbone=Backbone(formula=EmpiricalFormula('C5H7O6P'), charge=-2),
-                                      bond=Bond(formula=EmpiricalFormula('H') * -1, charge=1))
+        super(DnaForm, self).__init__(
+            monomer_seq=monomer_seq, alphabet=dna_alphabet,
+            backbone=Backbone(
+                structure='InChI=1/C5H11O6P/c6-4-1-2-10-5(4)3-11-12(7,8)9/h4-6H,1-3H2,(H2,7,8,9)/p-2',
+                monomer_bond_atoms=[Atom(element='C', position=None)],
+                backbone_bond_atoms=[Atom(element='N', position=None)],
+                monomer_displaced_atoms=[Atom(element='H', position=None)],
+                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+            bond=Bond(
+                left_bond_atoms=[Atom(element='O', position=None)],
+                right_bond_atoms=[Atom(element='P', position=None)],
+                left_displaced_atoms=[Atom(element='H', position=None)],
+                right_displaced_atoms=[Atom(element='O', position=None, charge=-1)]))
 
 
 class CanonicalDnaForm(BpForm):
@@ -251,6 +262,16 @@ class CanonicalDnaForm(BpForm):
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
         """
-        super(CanonicalDnaForm, self).__init__(monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
-                                               backbone=Backbone(formula=EmpiricalFormula('C5H7O6P'), charge=-2),
-                                               bond=Bond(formula=EmpiricalFormula('H') * -1, charge=1))
+        super(CanonicalDnaForm, self).__init__(
+            monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
+            backbone=Backbone(
+                structure='InChI=1/C5H11O6P/c6-4-1-2-10-5(4)3-11-12(7,8)9/h4-6H,1-3H2,(H2,7,8,9)/p-2',
+                monomer_bond_atoms=[Atom(element='C', position=None)],
+                backbone_bond_atoms=[Atom(element='N', position=None)],
+                monomer_displaced_atoms=[Atom(element='H', position=None)],
+                backbone_displaced_atoms=[Atom(element='H', position=None)]),
+            bond=Bond(
+                left_bond_atoms=[Atom(element='O', position=None)],
+                right_bond_atoms=[Atom(element='P', position=None)],
+                left_displaced_atoms=[Atom(element='H', position=None)],
+                right_displaced_atoms=[Atom(element='O', position=None, charge=-1)]))
