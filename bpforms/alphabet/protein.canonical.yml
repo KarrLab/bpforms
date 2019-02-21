@@ -149,7 +149,7 @@ monomers:
     structure: InChI=1S/C5H9NO3/c6-4(3-7)1-2-5(8)9/h3-4H,1-2,6H2,(H,8,9)/t4-/m0/s1
   G:
     id: Gly
-    name: Glycine
+    name: glycine
     synonyms:
     - Aminoacetic acid
     - aminoethanoic acid
