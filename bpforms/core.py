@@ -1098,7 +1098,7 @@ class Atom(object):
 
     Attributes:
         element (:obj:`str`): code for the element (e.g. 'H') 
-        position (:obj:`int`): IUPAC position of the atom within the compound
+        position (:obj:`int`): InChI position of the atom within the compound
         charge (:obj:`int`): charge of the atom
     """
 
@@ -1106,7 +1106,7 @@ class Atom(object):
         """
         Args:
             element (:obj:`str`, optional): code for the element (e.g. 'H') 
-            position (:obj:`int`, optional): IUPAC position of the atom within the compound
+            position (:obj:`int`, optional): InChI position of the atom within the compound
             charge (:obj:`int`, optional): charge of the atom
         """
         self.element = element
