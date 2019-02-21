@@ -163,7 +163,7 @@ monomers:
       id: GLU
     - ns: chebi
       id: CHEBI:15428
-    structure: InChI=1S/C2H5NO2/c3-1-2(4)5/h1,3H2,(H,4,5)
+    structure: InChI=1S/C2H5NO/c3-1-2-4/h2H,1,3H2/p+1
   H:
     id: His
     name: L-histidine
@@ -3135,25 +3135,6 @@ monomers:
     structure: InChI=1S/C17H33NO3S/c1-2-16(20)11-9-7-5-3-4-6-8-10-12-17(21)18-15(13-19)14-22/h13,15-16,20,22H,2-12,14H2,1H3,(H,18,21)/t15-,16-/m1/s1
     base_monomers:
     - C
-  AA0365:
-    id: AA0365
-    name: (E)-2,3-didehydrotyrosine
-    synonyms:
-    - para-hydroxybenzylidene-imidazolidinone chromophore
-    - blue non-fluorescent pocilloporin chromophore
-    - amino-(para-hydroxybenzylidenyl)acetic acid
-    - trans-dehydrotyrosine
-    - (2E)-2-amino-3-(4-hydroxyphenyl)prop-2-enoic acid
-    identifiers:
-    - ns: mod
-      id: MOD:00370
-    - ns: go
-      id: GO:0018251
-    - ns: pdb.ligand
-      id: CRK
-    structure: InChI=1S/C9H9NO2/c10-8(6-11)5-7-1-3-9(12)4-2-7/h1-6,12H,10H2
-    base_monomers:
-    - Y
   AA0606:
     id: AA0606
     name: N4-(2,4-diacetamido-2,4,6-trideoxy-D-glucosyl)-L-asparagine
@@ -4163,31 +4144,6 @@ monomers:
     structure: InChI=1S/C11H11ClN2O/c12-8-1-2-11-10(4-8)7(5-14-11)3-9(13)6-15/h1-2,4-6,9,14H,3,13H2/p+1/t9-/m0/s1
     base_monomers:
     - W
-  AA0612:
-    id: AA0612
-    name: 5-glutamyl N2-glutamate
-    comments: 'This entry is for isoglutamyl glutamic acid where there is a single
-      glutamic acid attached to a peptide glutamyl residue by an isopeptide bond.
-      For L-isoglutamyl-polyglutamic acid where there are 2 to 6 alpha-peptide linked
-      glutamic acid residues attached to a peptide glutamyl residue by an isopeptide
-      bond, see RESID:AA0202. Generating Enzyme: glutamate--LysW ligase, ArgX (EC
-      6.3.2.-).'
-    synonyms:
-    - isoglutamyl glutamic acid
-    - isoglutamyl monoglutamic acid
-    - (2S)-2-[(4S)-4-amino-4-carboxybutanamido]pentanedioic acid
-    - N-(gamma-L-glutamyl)-L-glutamic acid
-    - gamma-glutamylglutamate
-    - 2-([4-azanyl-4-carboxybutanoyl]azanyl)pentanedioic acid
-    - (2S)-2-([(4S)-4-amino-4-carboxybutanoyl]amino)pentanedioic acid
-    identifiers:
-    - ns: cas
-      id: 1116-22-9
-    - ns: mod
-      id: MOD:01970
-    structure: InChI=1S/C10H16N2O6/c11-6(5-13)1-3-8(14)12-7(10(17)18)2-4-9(15)16/h5-7H,1-4,11H2,(H,12,14)(H,15,16)(H,17,18)/p-1/t6-,7-/m0/s1
-    base_monomers:
-    - E
   AA0230:
     id: AA0230
     name: S-nitrosyl-L-cysteine
@@ -5496,31 +5452,6 @@ monomers:
     structure: InChI=1S/C10H13NO2/c1-11-9(7-12)6-8-2-4-10(13)5-3-8/h2-5,7,9,11,13H,6H2,1H3/p+1/t9-/m0/s1
     base_monomers:
     - Y
-  AA0586:
-    id: AA0586
-    name: L-lysinonorleucine
-    comments: 'After the oxidation of a lysine to allysine (see RESID:AA0121), this
-      cross-link forms spontaneously with a Schiff-base reaction. In this aleatoric
-      modification two peptide chains may be crosslinked with the peptides contributing
-      a lysine in either biosynthetic position. The lysines forming the cross-link
-      may also be hydroxylated and glycosylated (see RESID:AA0028 and RESID:AA0153).
-      Generating Enzyme: lysyl oxidase (EC 1.4.3.13).'
-    synonyms:
-    - (2S,2'S)-6,6'-iminobis(2-aminohexanoic acid)
-    - 6-(N6-L-lysino)-L-norleucine
-    - N6-[(5S)-5-amino-5-carboxypentyl]-L-lysine
-    - lysinonorleucine
-    - lysylnorleucine
-    - lysinorleucine [misspelling]
-    - (2S)-2-amino-6-([(5S)-5-amino-5-carboxypentyl]amino)hexanoic acid
-    identifiers:
-    - ns: mod
-      id: MOD:01932
-    - ns: cas
-      id: 25612-46-8
-    structure: InChI=1S/C12H25N3O2/c13-11(9-16)5-1-3-7-15-8-4-2-6-12(14)10-17/h9-12,15H,1-8,13-14H2/p+3/t11-,12-/m0/s1
-    base_monomers:
-    - K
   K, Q:
     id: AA0124
     name: N6-(L-isoglutamyl)-L-lysine
@@ -11114,29 +11045,6 @@ monomers:
     structure: InChI=1S/C18H35NO2/c1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-18(21)19-16-17-20/h17H,2-16H2,1H3,(H,19,21)
     base_monomers:
     - AA0008
-  AA0547:
-    id: AA0547
-    name: (E)-dehydrobutyrine
-    comments: 'In some cases it has not been firmly established whether the natural
-      form is the Z or the E isomer. For the Z isomer, see RESID:AA0182. A 2,3-didehydro
-      amino acid blocks Edman degradation. Generating Enzyme: protein-threonine dehydratase
-      (EC 4.2.1.-).'
-    synonyms:
-    - 3-methyldehydroalanine
-    - (2E)-2-aminobut-2-enoic acid
-    - methyl-dehydroalanine
-    - alpha,beta-dehydroaminobutyric acid
-    - 2,3-didehydrobutyrine
-    - Dhb
-    - (E)-2-aminobutenoic acid
-    - anhydrothreonine
-    - (E)-2-amino-2-butenoic acid
-    identifiers:
-    - ns: mod
-      id: MOD:00190
-    structure: InChI=1S/C4H7NO/c1-2-4(5)3-6/h2-3H,5H2,1H3
-    base_monomers:
-    - T
   AA0587:
     id: AA0587
     name: Desmosine
