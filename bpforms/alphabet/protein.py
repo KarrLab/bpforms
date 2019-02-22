@@ -207,7 +207,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             :obj:`str`: comments
         """
 
-        page = session.get('https://pir.georgetown.edu/cgi-bin/resid?id='+id)
+        page = session.get('https://proteininformationresource.org/cgi-bin/resid?id='+id)
         soup = BeautifulSoup(page.text, features="lxml")
 
         paragraphs = soup.select('p.annot')
