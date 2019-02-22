@@ -135,7 +135,6 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             if number_hn > 1 and number_co > 1:
                 print('Ignoring monomer {} with more than one peptide bond anchoring'.format(id))
             else:
-                print('one peptide bond')
                 structure_isotopes = self.get_monomer_isotope_structure(name, file)
 
             code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
