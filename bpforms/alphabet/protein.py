@@ -10,7 +10,7 @@ from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, B
                           Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet)
 from bs4 import BeautifulSoup
 from ftplib import FTP
-from wc_utils.util.chem import EmpiricalFormula
+from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
 import glob
 import openbabel
 import os.path
@@ -117,11 +117,26 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         part2 = str(line[10:].strip())
                         names.append(part2)
 
+                    # get the number of atoms from a peptide bond entity
+                    if str.split(line)[0] == 'ATOM' and str.split(line)[2] == 'HN':
+                        number_hn += 1
+                    if str.split(line)[0] == 'ATOM' and str.split(line)[2] == 'O':
+                        number_co += 1
+
                 name = ''.join(names)
                 id = re.split("[/.]", file)[3]
                 structure = self.get_monomer_structure(name, file)
+
             if not structure:
                 continue
+
+            # check if more than one peptide bond entity is present 
+            # for now change isotope labeling only on monomers with one peptide bond possibility
+            if number_hn > 1 and number_co > 1:
+                print('Ignoring monomer {} with more than one peptide bond anchoring'.format(id))
+            else:
+                print('one peptide bond')
+                structure_isotopes = self.get_monomer_isotope_structure(name, file)
 
             code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
 
@@ -192,6 +207,59 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         conv.ReadString(inchi_mol, inchi)
 
         return inchi_mol
+
+    def get_monomer_isotope_structure(self, name, pdb_filename):
+        """ Get the structure of an amino acid from a PDB file
+        where N from NH moeity and C from CO moeity are labeled as N15 and C13 isotopes
+
+        Args:
+            name (:obj:`str`): monomer name
+            pdb_filename (:obj:`str`): path to PDB file with structure
+
+        Returns:
+            :obj:`openbabel.OBMol`: structure
+        """
+        pdb_mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        assert conv.SetInFormat('pdb'), 'Unable to set format to PDB'
+        conv.ReadFile(pdb_mol, pdb_filename)
+        assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
+
+        # count the total number of atoms in molecule and loop over each atom
+        atomcount = pdb_mol.NumAtoms()
+        for i in range(1, atomcount+1):
+
+            # since N-HN and C-O of peptide bonds must be consecutive in pdb file, get atom_i and atom_i+1
+            if pdb_mol.GetAtom(i+1):
+                atom1 = pdb_mol.GetAtom(i)
+                atom2 = pdb_mol.GetAtom(i+1)
+
+                # check types according to openbabel atom types for N and HN
+                if atom1.GetType() == 'N3' and atom2.GetType() == 'H':  
+                    atom1.SetIsotope(15)
+
+                # check types according to openbabel atom types for C and O
+                if atom1.GetType() == 'C2' and atom2.GetType() == 'O2':  
+                    atom1.SetIsotope(13)
+
+        inchi_isotopes = conv.WriteString(pdb_mol)
+
+        # removing modified monomers where metal present in structure because:
+        # - inchi structure generated separates each non covalently bound parts of the monomer
+        # - for many cases theses structures consist of a group of modified monomers coordinating
+        # a metal, and not a single PTM monomer per se
+        formula = inchi_isotopes.split('/')[1]
+        if '.' in formula:
+            warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
+            return None
+
+        # create molecule from InChI -- necessary to sanitize molecule from PDB
+        inchi_mol_isotopes = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        assert conv.SetInFormat('inchi'), 'Unable to set format to InChI'
+        conv.ReadString(inchi_mol_isotopes, inchi_isotopes)
+
+        return inchi_mol_isotopes
 
     def get_monomer_details(self, id, session):
         """ Get the CHEBI ID and synonyms of an amino acid from its RESID webpage
