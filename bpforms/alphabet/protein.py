@@ -226,6 +226,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         # count the total number of atoms in molecule and loop over each atom
         atomcount = pdb_mol.NumAtoms()
+        res = pdb_mol.GetResidue(0)
         for i in range(1, atomcount+1):
 
             # since N-HN and C-O of peptide bonds must be consecutive in pdb file, get atom_i and atom_i+1
@@ -233,13 +234,44 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 atom1 = pdb_mol.GetAtom(i)
                 atom2 = pdb_mol.GetAtom(i+1)
 
-                # check types according to openbabel atom types for N and HN
-                if atom1.GetType() == 'N3' and atom2.GetType() == 'H':  
-                    atom1.SetIsotope(15)
+                # exception for Proline residue where no HN is present
+                if res.GetName() == 'Pro':
+                    if res.GetNumAtoms() != atomcount:
+                        for res in openbabel.OBResidueIter(pdb_mol):
+                            for atom in openbabel.OBResidueAtomIter(res):
+                                if atom1.GetType() == 'N3' and atom.GetIdx() == atom1.GetIdx():
+                                        atom1.SetIsotope(15)
 
-                # check types according to openbabel atom types for C and O
-                if atom1.GetType() == 'C2' and atom2.GetType() == 'O2':  
-                    atom1.SetIsotope(13)
+                                if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and atom.GetIdx() == atom1.GetIdx():
+                                        atom1.SetIsotope(13)
+
+                else:
+                    if atom1.GetType() == 'N3' and (res.GetAtomID(atom1)).strip() == 'N':
+                        atom1.SetIsotope(15)
+
+                    if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and (res.GetAtomID(atom1)).strip() == 'C':   
+                        atom1.SetIsotope(13)
+
+                # need to check first if residue numbering is present in a correct way, some residues do not have a proper residue number and name but
+                # just a duplicate of the atom number
+                if res.GetNumAtoms() != atomcount:
+                    for res in openbabel.OBResidueIter(pdb_mol):
+                        for atom in openbabel.OBResidueAtomIter(res):
+                            if atom1.GetType() == 'N3' and atom2.GetType() == 'H' and atom.GetIdx() == atom1.GetIdx():
+                                atom1.SetIsotope(15)
+
+                            if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and atom.GetIdx() == atom1.GetIdx():
+                                atom1.SetIsotope(13)
+
+                else:
+
+                    # check types according to openbabel atom types for N and HN
+                    if atom1.GetType() == 'N3' and atom2.GetType() == 'H':  
+                        atom1.SetIsotope(15)
+
+                    # check types according to openbabel atom types for C and O
+                    if atom1.GetType() == 'C2' and atom2.GetType() == 'O2':  
+                        atom1.SetIsotope(13)
 
         inchi_isotopes = conv.WriteString(pdb_mol)
 
