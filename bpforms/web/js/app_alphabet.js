@@ -57,15 +57,12 @@ set_alphabet = function(data, status, jqXHR) {
         if (structure == null) {
             img = ''
         } else {
-            i_tautomer = structure.indexOf('/t')
-            if (i_tautomer >= 0) {
-                img_structure = structure.substring(0, i_tautomer)
-            } else {
-                img_structure = structure
-            }
-
             // https://cactus.nci.nih.gov/blog/?tag=png
-            img = '<img src="https://cactus.nci.nih.gov/chemical/structure/' + encodeURI(img_structure) + '/image?format=png&bgcolor=transparent&antialiasing=0" class="context-menu-one" inchi="' + encodeURI(structure) + '"/>'
+            img = '<img src="https://cactus.nci.nih.gov/chemical/structure/' 
+                  + encodeURI(structure)
+                  + '/image?format=png&bgcolor=transparent&antialiasing=0" class="context-menu-one" structure="' 
+                  + encodeURI(structure) 
+                  + '"/>'
 
         }
         html += '<td class="structure"><div>' + img + '</div></td>'
@@ -105,10 +102,10 @@ $(function(){
         selector: '.context-menu-one',
         items: {
             key: {
-                name: "Copy as InChI",
+                name: "Copy as SMILES",
                 callback: function(data, status, jqXHR) {
-                    inchi = $(status.$trigger[0]).attr('inchi')
-                    copyToClipboard(inchi)
+                    structure = $(status.$trigger[0]).attr('structure')
+                    copyToClipboard(structure)
                 }
             }
         },

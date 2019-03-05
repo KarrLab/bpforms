@@ -31,8 +31,8 @@ canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('al
 canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
 # :obj:`Alphabet`: Alphabet for canonical protein residues
 
-curated_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.curated.yml'))
-curated_protein_alphabet = Alphabet().from_yaml(curated_filename)
+# curated_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.curated.yml'))
+# curated_protein_alphabet = Alphabet().from_yaml(curated_filename)
 # :obj:`Alphabet`: Alphabet for protein residues that contain multiple peptide bonds
 
 
@@ -291,18 +291,16 @@ class ProteinForm(BpForm):
         super(ProteinForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=protein_alphabet,
             backbone=Backbone(
-                structure='InChI=1S/H2O/h1H2/p-1',
-                monomer_bond_atoms=[Atom(element='C', position=None)],
-                backbone_bond_atoms=[Atom(element='O', position=1)],
-                monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=1)]),
+                structure='[OH-]',
+                monomer_bond_atoms=[Atom(Monomer, element='C', position=None)],
+                backbone_bond_atoms=[Atom(Backbone, element='O', position=1)],
+                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                backbone_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
             bond=Bond(
-                left_participant=Monomer,
-                right_participant=Monomer,
-                left_bond_atoms=[Atom(element='C', position=None)],
-                right_bond_atoms=[Atom(element='N', position=None)],
-                left_displaced_atoms=[Atom(element='O', position=None)],
-                right_displaced_atoms=[Atom(element='H', position=None), Atom(element='H', position=None)]))
+                left_bond_atoms=[Atom(Monomer, element='C', position=None)],
+                right_bond_atoms=[Atom(Monomer, element='N', position=None)],
+                left_displaced_atoms=[Atom(Backbone, element='O', position=1)],
+                right_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]))
 
 
 class CanonicalProteinForm(BpForm):
@@ -318,42 +316,13 @@ class CanonicalProteinForm(BpForm):
         super(CanonicalProteinForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
             backbone=Backbone(
-                structure='InChI=1S/H2O/h1H2/p-1',
-                monomer_bond_atoms=[Atom(element='C', position=None)],
-                backbone_bond_atoms=[Atom(element='O', position=1)],
-                monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=1)]),
+                structure='[OH-]',
+                monomer_bond_atoms=[Atom(Monomer, element='C', position=None)],
+                backbone_bond_atoms=[Atom(Backbone, element='O', position=1)],
+                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                backbone_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
             bond=Bond(
-                left_participant=Monomer,
-                right_participant=Monomer,
-                left_bond_atoms=[Atom(element='C', position=None)],
-                right_bond_atoms=[Atom(element='N', position=None)],
-                left_displaced_atoms=[Atom(element='O', position=None)],
-                right_displaced_atoms=[Atom(element='H', position=None), Atom(element='H', position=None)]))
-
-
-class CuratedProteinForm(BpForm):
-    """ Canonical protein form """
-
-    DEFAULT_FASTA_CODE = 'X'
-
-    def __init__(self, monomer_seq=None):
-        """
-        Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
-        """
-        super(CuratedProteinForm, self).__init__(
-            monomer_seq=monomer_seq, alphabet=curated_protein_alphabet,
-            backbone=Backbone(
-                structure='InChI=1S/H2O/h1H2/p-1',
-                monomer_bond_atoms=[Atom(element='C', position=None)],
-                backbone_bond_atoms=[Atom(element='O', position=1)],
-                monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=1)]),
-            bond=Bond(
-                left_participant=Monomer,
-                right_participant=Monomer,
-                left_bond_atoms=[Atom(element='C', position=None)],
-                right_bond_atoms=[Atom(element='N', position=None)],
-                left_displaced_atoms=[Atom(element='O', position=None)],
-                right_displaced_atoms=[Atom(element='H', position=None), Atom(element='H', position=None)]))
+                left_bond_atoms=[Atom(Monomer, element='C', position=None)],
+                right_bond_atoms=[Atom(Monomer, element='N', position=None)],
+                left_displaced_atoms=[Atom(Backbone, element='O', position=1)],
+                right_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]))

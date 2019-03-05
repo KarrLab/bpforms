@@ -8,6 +8,7 @@
 
 from bpforms import core
 from bpforms.alphabet import dna
+from bpforms.alphabet import protein
 from bpforms.alphabet import rna
 from wc_utils.util.chem import EmpiricalFormula
 import copy
@@ -19,10 +20,13 @@ import shutil
 import tempfile
 import unittest
 
-dAMP_inchi = dna.canonical_dna_alphabet.monomers.A.get_inchi()
-dCMP_inchi = dna.canonical_dna_alphabet.monomers.C.get_inchi()
-dGMP_inchi = dna.canonical_dna_alphabet.monomers.G.get_inchi()
-dIMP_inchi = 'InChI=1S/C10H12N4O4/c15-2-6-5(16)1-7(18-6)14-4-13-8-9(14)11-3-12-10(8)17/h3-7,15-16H,1-2H2,(H,11,12,17)/t5-,6+,7+/m0/s1'
+dAMP_inchi = dna.canonical_dna_alphabet.monomers.A.export('inchi')
+dCMP_inchi = dna.canonical_dna_alphabet.monomers.C.export('inchi')
+dGMP_inchi = dna.canonical_dna_alphabet.monomers.G.export('inchi')
+dAMP_smiles = dna.canonical_dna_alphabet.monomers.A.export('smiles')
+dCMP_smiles = dna.canonical_dna_alphabet.monomers.C.export('smiles')
+dGMP_smiles = dna.canonical_dna_alphabet.monomers.G.export('smiles')
+dIMP_smiles = 'OCC1OC(CC1O)N1C=NC2=C1N=CN=C2O'
 
 
 class IdentifierTestCase(unittest.TestCase):
@@ -239,14 +243,14 @@ class MonomerTestCase(unittest.TestCase):
         synonyms = set(['A', 'dAMP', 'deoxyadenosine monophosphate'])
         monomer_0 = core.Monomer()
         monomer = core.Monomer(id='dAMP', name='deoxyadenosine monophosphate', synonyms=synonyms, identifiers=identifiers,
-                               structure=dAMP_inchi, delta_mass=1., delta_charge=-1, start_position=2, end_position=10,
+                               structure=dAMP_smiles, delta_mass=1., delta_charge=-1, start_position=2, end_position=10,
                                base_monomers=[monomer_0],
                                comments='Long string')
         self.assertEqual(monomer.id, 'dAMP')
         self.assertEqual(monomer.name, 'deoxyadenosine monophosphate')
         self.assertEqual(monomer.synonyms, synonyms)
         self.assertEqual(monomer.identifiers, identifiers)
-        self.assertEqual(monomer.get_inchi(), dAMP_inchi)
+        self.assertEqual(monomer.export('inchi'), dAMP_inchi)
         self.assertEqual(monomer.delta_mass, 1.)
         self.assertEqual(monomer.delta_charge, -1)
         self.assertEqual(monomer.start_position, 2)
@@ -294,12 +298,12 @@ class MonomerTestCase(unittest.TestCase):
 
     def test_structure_setter(self):
         monomer = core.Monomer()
-        monomer.structure = dAMP_inchi
+        monomer.structure = dAMP_smiles
 
         ob_mol = openbabel.OBMol()
         conversion = openbabel.OBConversion()
-        conversion.SetInFormat('inchi')
-        conversion.ReadString(ob_mol, dAMP_inchi)
+        conversion.SetInFormat('smi')
+        conversion.ReadString(ob_mol, dAMP_smiles)
         monomer.structure = ob_mol
 
         monomer.structure = ''
@@ -357,6 +361,48 @@ class MonomerTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             monomer.base_monomers = 'A'
 
+    def test_set_monomer_bond_atoms(self):
+        monomer = core.Monomer()
+        monomer.monomer_bond_atoms = []
+        monomer.monomer_bond_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            monomer.monomer_bond_atoms = None
+
+    def test_set_monomer_displaced_atoms(self):
+        monomer = core.Monomer()
+        monomer.monomer_displaced_atoms = []
+        monomer.monomer_displaced_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            monomer.monomer_displaced_atoms = None
+
+    def test_set_left_bond_atoms(self):
+        monomer = core.Monomer()
+        monomer.left_bond_atoms = []
+        monomer.left_bond_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            monomer.left_bond_atoms = None
+
+    def test_set_bond_bond_atoms(self):
+        monomer = core.Monomer()
+        monomer.right_bond_atoms = []
+        monomer.right_bond_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            monomer.right_bond_atoms = None
+
+    def test_set_left_displaced_atoms(self):
+        monomer = core.Monomer()
+        monomer.left_displaced_atoms = []
+        monomer.left_displaced_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            monomer.left_displaced_atoms = None
+
+    def test_set_bond_displaced_atoms(self):
+        monomer = core.Monomer()
+        monomer.right_displaced_atoms = []
+        monomer.right_displaced_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            monomer.right_displaced_atoms = None
+
     def test_comments_setter(self):
         monomer = core.Monomer()
         monomer.comments = None
@@ -364,23 +410,23 @@ class MonomerTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             monomer.comments = 1
 
-    def test_protonate(self):
+    def test_get_major_micro_species(self):
         monomer = core.Monomer()
-        monomer.protonate(7.)
+        monomer.get_major_micro_species(7.)
 
-        monomer = core.Monomer(structure=dAMP_inchi)
-        monomer.protonate(7.)
-        monomer.protonate(10.)
+        monomer = core.Monomer(structure=dAMP_smiles)
+        monomer.get_major_micro_species(7.)
+        monomer.get_major_micro_species(10.)
 
-    def test_get_inchi(self):
+    def test_export(self):
         monomer = core.Monomer()
-        self.assertEqual(monomer.get_inchi(), None)
+        self.assertEqual(monomer.export('inchi'), None)
 
-        monomer = core.Monomer(structure=dAMP_inchi)
-        self.assertEqual(monomer.get_inchi(), dAMP_inchi)
+        monomer = core.Monomer(structure=dAMP_smiles)
+        self.assertEqual(monomer.export('inchi'), dAMP_inchi)
 
     def test_get_formula(self):
-        monomer = core.Monomer(structure=dAMP_inchi)
+        monomer = core.Monomer(structure=dAMP_smiles)
         self.assertEqual(monomer.get_formula(), EmpiricalFormula('C5H5N5'))
 
         with self.assertRaises(ValueError):
@@ -391,17 +437,17 @@ class MonomerTestCase(unittest.TestCase):
         monomer = core.Monomer()
         self.assertEqual(monomer.get_mol_wt(), None)
 
-        monomer = core.Monomer(structure=dAMP_inchi)
-        self.assertEqual(monomer.get_mol_wt(), 135.12999999999997)
+        monomer = core.Monomer(structure=dAMP_smiles)
+        self.assertEqual(monomer.get_mol_wt(), 135.13)
 
         monomer.delta_mass = 1.
-        self.assertEqual(monomer.get_mol_wt(), 136.12999999999997)
+        self.assertEqual(monomer.get_mol_wt(), 136.13)
 
     def test_get_charge(self):
-        monomer = core.Monomer(structure=dAMP_inchi)
+        monomer = core.Monomer(structure=dAMP_smiles)
         self.assertEqual(monomer.get_charge(), 0)
 
-        monomer = core.Monomer(structure=dAMP_inchi)
+        monomer = core.Monomer(structure=dAMP_smiles)
         monomer.delta_charge = 1
         self.assertEqual(monomer.get_charge(), 1)
 
@@ -409,18 +455,25 @@ class MonomerTestCase(unittest.TestCase):
             monomer = core.Monomer()
             monomer.get_charge()
 
-    def test_to_dict(self):
+    def test_to_from_dict(self):
         alphabet = dna.dna_alphabet
 
         monomer = core.Monomer()
         monomer.base_monomers = [alphabet.monomers.A]
-        self.assertEqual(monomer.to_dict(alphabet=alphabet), {
+        monomer.monomer_bond_atoms = [core.Atom(core.Monomer, 'C', charge=3), core.Atom(core.Monomer, 'H', position=3, charge=2)]
+        monomer_as_dict = monomer.to_dict(alphabet=alphabet)
+        self.assertEqual(monomer_as_dict, {
             'base_monomers': ['A'],
+            'monomer_bond_atoms': [
+                {'molecule': 'Monomer', 'element': 'C', 'charge': 3},
+                {'molecule': 'Monomer', 'element': 'H', 'position': 3, 'charge': 2},
+            ],
         })
 
-        monomer = core.Monomer()
-        monomer.from_dict({'base_monomers': ['A']}, alphabet=alphabet)
-        self.assertEqual(monomer.base_monomers, set([alphabet.monomers.A]))
+        monomer_2 = core.Monomer()
+        monomer_2.from_dict(monomer_as_dict, alphabet=alphabet)
+        self.assertEqual(monomer_2.base_monomers, set([alphabet.monomers.A]))
+        self.assertTrue(monomer.is_equal(monomer_2))
 
     def test_str(self):
         monomer = core.Monomer()
@@ -440,8 +493,11 @@ class MonomerTestCase(unittest.TestCase):
         self.assertIn(' | identifier: "chebi" / "CHEBI:58245"', str(monomer))
         self.assertIn(' | identifier: "biocyc.compound" / "DAMP"', str(monomer))
 
-        monomer.structure = dAMP_inchi
-        self.assertIn(' | structure: {}]'.format(dAMP_inchi), str(monomer))
+        monomer.structure = dAMP_smiles
+        self.assertIn(' | structure: "{}"]'.format('Nc1ncnc2c1nc[nH]2'), str(monomer))
+
+        monomer.monomer_bond_atoms.append(core.Atom(core.Monomer, 'C', 2, -3))
+        self.assertIn(' | monomer-bond-atom: Monomer / C / 2 / -3]', str(monomer))
 
         monomer.delta_mass = 1.
         monomer.delta_charge = -1
@@ -459,23 +515,25 @@ class MonomerTestCase(unittest.TestCase):
         self.assertIn(' | comments: "help \\"me\\""', str(monomer))
 
     def test_is_equal(self):
-        monomer_1 = core.Monomer(id='A', structure=dAMP_inchi)
-        monomer_2 = core.Monomer(id='A', structure=dAMP_inchi)
-        monomer_3 = core.Monomer(id='B', structure=dAMP_inchi)
-        monomer_4 = core.Monomer(id='A', structure=dCMP_inchi)
-        monomer_5 = core.Monomer(id='A', structure=dAMP_inchi, base_monomers=[core.Monomer(id='A')])
-        monomer_6 = core.Monomer(id='A', structure=dAMP_inchi, base_monomers=[core.Monomer(id='A')])
-        monomer_7 = core.Monomer(id='A', structure=dAMP_inchi, base_monomers=[core.Monomer(id='B')])
+        monomer_1 = core.Monomer(id='A', structure=dAMP_smiles)
+        monomer_2 = core.Monomer(id='A', structure=dAMP_smiles)
+        monomer_3 = core.Monomer(id='B', structure=dAMP_smiles)
+        monomer_4 = core.Monomer(id='A', structure=dCMP_smiles)
+        monomer_5 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='A')])
+        monomer_6 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='A')])
+        monomer_7 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='B')])
+        monomer_8 = core.Monomer(id='A', structure=dAMP_smiles, monomer_bond_atoms=[core.Atom(None, 'S')])
 
         self.assertTrue(monomer_1.is_equal(monomer_1))
         self.assertTrue(monomer_1.is_equal(monomer_2))
         self.assertTrue(monomer_2.is_equal(monomer_1))
-        self.assertFalse(monomer_1.is_equal(mock.Mock(id='A', structure=dAMP_inchi)))
+        self.assertFalse(monomer_1.is_equal(mock.Mock(id='A', structure=dAMP_smiles)))
         self.assertFalse(monomer_1.is_equal(monomer_3))
         self.assertFalse(monomer_1.is_equal(monomer_4))
         self.assertFalse(monomer_1.is_equal(monomer_5))
         self.assertTrue(monomer_5.is_equal(monomer_6))
         self.assertFalse(monomer_5.is_equal(monomer_7))
+        self.assertFalse(monomer_1.is_equal(monomer_8))
 
     def test_get_image_url(self):
         self.assertNotEqual(dna.dna_alphabet.monomers.A.get_image_url(), None)
@@ -555,15 +613,30 @@ class MonomerSequenceTestCase(unittest.TestCase):
 
 
 class AtomTestCase(unittest.TestCase):
+    def test_molecule_setter(self):
+        atom = core.Atom(core.Monomer, 'C')
+
+        atom.molecule = None
+        self.assertEqual(atom.molecule, None)
+
+        atom.molecule = core.Monomer
+        self.assertEqual(atom.molecule, core.Monomer)
+
+        atom.molecule = core.Backbone
+        self.assertEqual(atom.molecule, core.Backbone)
+
+        with self.assertRaises(ValueError):
+            atom.molecule = core.Atom
+
     def test_element_setter(self):
-        atom = core.Atom('C')
+        atom = core.Atom(core.Monomer, 'C')
         atom.element = 'C'
         self.assertEqual(atom.element, 'C')
         with self.assertRaises(ValueError):
             atom.element = 1
 
     def test_position_setter(self):
-        atom = core.Atom('C')
+        atom = core.Atom(core.Monomer, 'C')
 
         atom.position = 2
         self.assertEqual(atom.position, 2)
@@ -582,7 +655,7 @@ class AtomTestCase(unittest.TestCase):
             atom.position = -1
 
     def test_charge_setter(self):
-        atom = core.Atom('C')
+        atom = core.Atom(core.Monomer, 'C')
 
         atom.charge = 2
         self.assertEqual(atom.charge, 2)
@@ -600,23 +673,48 @@ class AtomTestCase(unittest.TestCase):
             atom.charge = 2.5
 
     def test_is_equal(self):
-        atom_1 = core.Atom('C', position=2, charge=-3)
+        atom_1 = core.Atom(core.Monomer, 'C', position=2, charge=-3)
         self.assertTrue(atom_1.is_equal(atom_1))
-        self.assertTrue(atom_1.is_equal(core.Atom('C', position=2, charge=-3)))
+        self.assertTrue(atom_1.is_equal(core.Atom(core.Monomer, 'C', position=2, charge=-3)))
         self.assertFalse(atom_1.is_equal({}))
-        self.assertFalse(atom_1.is_equal(core.Atom('H', position=2, charge=-3)))
-        self.assertFalse(atom_1.is_equal(core.Atom('C', position=3, charge=-3)))
-        self.assertFalse(atom_1.is_equal(core.Atom('C', position=2, charge=-2)))
+        self.assertFalse(atom_1.is_equal(core.Atom(core.Monomer, 'H', position=2, charge=-3)))
+        self.assertFalse(atom_1.is_equal(core.Atom(core.Monomer, 'C', position=3, charge=-3)))
+        self.assertFalse(atom_1.is_equal(core.Atom(core.Monomer, 'C', position=2, charge=-2)))
+
+    def test_to_from_dict(self):
+        atom_1 = core.Atom(core.Monomer, 'C', position=None, charge=-3)
+        atom_1_dict = atom_1.to_dict()
+        self.assertEqual(atom_1_dict, {'molecule': 'Monomer', 'element': 'C', 'charge': -3})
+        atom_2 = core.Atom(None, '').from_dict(atom_1_dict)
+        self.assertTrue(atom_1.is_equal(atom_2))
+
+        atom_1 = core.Atom(core.Monomer, 'C', position=2, charge=-3)
+        atom_1_dict = atom_1.to_dict()
+        self.assertEqual(atom_1_dict, {'molecule': 'Monomer', 'element': 'C', 'charge': -3, 'position': 2})
+        atom_2 = core.Atom(None, '').from_dict(atom_1.to_dict())
+        self.assertTrue(atom_1.is_equal(atom_2))
+
+        atom_1 = core.Atom(core.Backbone, 'C', position=2, charge=-3)
+        atom_1_dict = atom_1.to_dict()
+        self.assertEqual(atom_1_dict, {'molecule': 'Backbone', 'element': 'C', 'charge': -3, 'position': 2})
+        atom_2 = core.Atom(None, '').from_dict(atom_1.to_dict())
+        self.assertTrue(atom_1.is_equal(atom_2))
+
+        atom_1 = core.Atom(None, 'C', position=2, charge=-3)
+        atom_1_dict = atom_1.to_dict()
+        self.assertEqual(atom_1_dict, {'element': 'C', 'charge': -3, 'position': 2})
+        atom_2 = core.Atom(None, '').from_dict(atom_1.to_dict())
+        self.assertTrue(atom_1.is_equal(atom_2))
 
 
 class AtomListTestCase(unittest.TestCase):
     def test_init(self):
-        atom_1 = core.Atom('C')
-        atom_2 = core.Atom('H')
+        atom_1 = core.Atom(core.Monomer, 'C')
+        atom_2 = core.Atom(core.Monomer, 'H')
         atom_list = core.AtomList([atom_1, atom_2])
 
     def test_append(self):
-        atom_1 = core.Atom('C')
+        atom_1 = core.Atom(core.Monomer, 'C')
         atom_list = core.AtomList()
         atom_list.append(atom_1)
         self.assertEqual(atom_list, core.AtomList([atom_1]))
@@ -624,16 +722,16 @@ class AtomListTestCase(unittest.TestCase):
             atom_list.append('C')
 
     def test_extend(self):
-        atom_1 = core.Atom('C')
-        atom_2 = core.Atom('H')
+        atom_1 = core.Atom(core.Monomer, 'C')
+        atom_2 = core.Atom(core.Monomer, 'H')
         atom_list = core.AtomList()
         atom_list.extend([atom_1, atom_2])
         self.assertEqual(atom_list, core.AtomList([atom_1, atom_2]))
 
     def test_insert(self):
-        atom_1 = core.Atom('C')
-        atom_2 = core.Atom('H')
-        atom_3 = core.Atom('O')
+        atom_1 = core.Atom(core.Monomer, 'C')
+        atom_2 = core.Atom(core.Monomer, 'H')
+        atom_3 = core.Atom(core.Monomer, 'O')
         atom_list = core.AtomList([atom_1, atom_2])
 
         atom_list.insert(1, atom_3)
@@ -643,9 +741,9 @@ class AtomListTestCase(unittest.TestCase):
             atom_list.insert(1, 'C')
 
     def test_set_item(self):
-        atom_1 = core.Atom('C')
-        atom_2 = core.Atom('H')
-        atom_3 = core.Atom('O')
+        atom_1 = core.Atom(core.Monomer, 'C')
+        atom_2 = core.Atom(core.Monomer, 'H')
+        atom_3 = core.Atom(core.Monomer, 'O')
 
         atom_list = core.AtomList([atom_1, atom_2, atom_3])
         atom_list[0] = atom_3
@@ -664,24 +762,37 @@ class AtomListTestCase(unittest.TestCase):
             atom_list[0:1] = ['C']
 
     def test_is_equal(self):
-        atom_1 = core.Atom('C')
-        atom_2 = core.Atom('H')
-        atom_3 = core.Atom('O')
+        atom_1 = core.Atom(core.Monomer, 'C')
+        atom_2 = core.Atom(core.Monomer, 'H')
+        atom_3 = core.Atom(core.Monomer, 'O')
 
-        atom_list_1 = core.AtomList([core.Atom('C'), core.Atom('H'), core.Atom('O')])
-        atom_list_2 = core.AtomList([core.Atom('C'), core.Atom('H'), core.Atom('O')])
-        atom_list_3 = core.AtomList([core.Atom('C'), core.Atom('N'), core.Atom('O')])
+        atom_list_1 = core.AtomList([core.Atom(core.Monomer, 'C'), core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'O')])
+        atom_list_2 = core.AtomList([core.Atom(core.Monomer, 'C'), core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'O')])
+        atom_list_3 = core.AtomList([core.Atom(core.Monomer, 'C'), core.Atom(core.Monomer, 'N'), core.Atom(core.Monomer, 'O')])
+        atom_list_4 = core.AtomList([core.Atom(core.Backbone, 'C'), core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'O')])
         self.assertTrue(atom_list_1.is_equal(atom_list_1))
         self.assertTrue(atom_list_1.is_equal(atom_list_2))
         self.assertFalse(atom_list_1.is_equal({}))
         self.assertFalse(atom_list_1.is_equal(atom_list_3))
+        self.assertFalse(atom_list_1.is_equal(atom_list_4))
+
+    def test_to_from_list(self):
+        atom_list_1 = core.AtomList([core.Atom(core.Monomer, 'C'), core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'O')])
+        atom_list_1_as_list = atom_list_1.to_list()
+        self.assertEqual(atom_list_1_as_list, [
+            {'molecule': 'Monomer', 'element': 'C'},
+            {'molecule': 'Monomer', 'element': 'H'},
+            {'molecule': 'Monomer', 'element': 'O'},
+        ])
+        atom_list_2 = core.AtomList().from_list(atom_list_1_as_list)
+        self.assertTrue(atom_list_1.is_equal(atom_list_2))
 
 
 class BackboneTestCase(unittest.TestCase):
     def test_set_structure(self):
         backbone = core.Backbone()
         backbone.structure = None
-        backbone.structure = dAMP_inchi
+        backbone.structure = dAMP_smiles
         with self.assertRaises(ValueError):
             backbone.structure = 'dAMP'
 
@@ -713,23 +824,25 @@ class BackboneTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             backbone.backbone_displaced_atoms = None
 
-    def test_get_inchi(self):
+    def test_export(self):
         backbone = core.Backbone()
 
-        backbone.structure = dAMP_inchi
-        self.assertEqual(backbone.get_inchi(), dAMP_inchi)
+        backbone.structure = dAMP_smiles
+        self.assertEqual(backbone.export('inchi'), dAMP_inchi)
+        self.assertEqual(backbone.export('smiles'), dAMP_smiles)
 
         backbone.structure = None
-        self.assertEqual(backbone.get_inchi(), None)
+        self.assertEqual(backbone.export('inchi'), None)
+        self.assertEqual(backbone.export('smiles'), None)
 
     def test_get_formula(self):
         backbone = core.Backbone()
 
-        backbone.structure = dAMP_inchi
+        backbone.structure = dAMP_smiles
         self.assertEqual(backbone.get_formula(), EmpiricalFormula('C5H5N5'))
 
-        backbone.monomer_displaced_atoms = core.AtomList([core.Atom('C')])
-        backbone.backbone_displaced_atoms = core.AtomList([core.Atom('H'), core.Atom('H')])
+        backbone.monomer_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C')])
+        backbone.backbone_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'H')])
         self.assertEqual(backbone.get_formula(), EmpiricalFormula('C4H3N5'))
 
         backbone.structure = None
@@ -738,30 +851,30 @@ class BackboneTestCase(unittest.TestCase):
     def test_get_mol_wt(self):
         backbone = core.Backbone()
 
-        backbone.structure = dAMP_inchi
-        self.assertEqual(backbone.get_mol_wt(), 135.12999999999997)
+        backbone.structure = dAMP_smiles
+        self.assertEqual(backbone.get_mol_wt(), 135.13)
 
     def test_get_charge(self):
         backbone = core.Backbone()
 
-        backbone.structure = dAMP_inchi
+        backbone.structure = dAMP_smiles
         self.assertEqual(backbone.get_charge(), 0)
 
         backbone.structure = None
         self.assertEqual(backbone.get_charge(), 0)
 
-        backbone.monomer_displaced_atoms = core.AtomList([core.Atom('C', charge=2)])
-        backbone.backbone_displaced_atoms = core.AtomList([core.Atom('H', charge=3)])
+        backbone.monomer_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C', charge=2)])
+        backbone.backbone_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H', charge=3)])
         self.assertEqual(backbone.get_charge(), -5)
 
     def test_is_equal(self):
         backbone_1 = core.Backbone()
         backbone_2 = core.Backbone()
-        backbone_3 = core.Backbone(structure=dAMP_inchi)
-        backbone_4 = core.Backbone(monomer_bond_atoms=[core.Atom('H')])
-        backbone_5 = core.Backbone(backbone_bond_atoms=[core.Atom('H')])
-        backbone_6 = core.Backbone(monomer_displaced_atoms=[core.Atom('H')])
-        backbone_7 = core.Backbone(backbone_displaced_atoms=[core.Atom('H')])
+        backbone_3 = core.Backbone(structure=dAMP_smiles)
+        backbone_4 = core.Backbone(monomer_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        backbone_5 = core.Backbone(backbone_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        backbone_6 = core.Backbone(monomer_displaced_atoms=[core.Atom(core.Monomer, 'H')])
+        backbone_7 = core.Backbone(backbone_displaced_atoms=[core.Atom(core.Monomer, 'H')])
         self.assertTrue(backbone_1.is_equal(backbone_1))
         self.assertTrue(backbone_1.is_equal(backbone_2))
         self.assertFalse(backbone_1.is_equal({}))
@@ -773,36 +886,6 @@ class BackboneTestCase(unittest.TestCase):
 
 
 class BondTestCase(unittest.TestCase):
-    def test_set_left_participant(self):
-        bond = core.Bond()
-
-        bond.left_participant = None
-        self.assertEqual(bond.left_participant, None)
-
-        bond.left_participant = core.Monomer
-        self.assertEqual(bond.left_participant, core.Monomer)
-
-        bond.left_participant = core.Backbone
-        self.assertEqual(bond.left_participant, core.Backbone)
-
-        with self.assertRaises(ValueError):
-            bond.left_participant = core.Atom
-
-    def test_set_right_participant(self):
-        bond = core.Bond()
-
-        bond.right_participant = None
-        self.assertEqual(bond.right_participant, None)
-
-        bond.right_participant = core.Monomer
-        self.assertEqual(bond.right_participant, core.Monomer)
-
-        bond.right_participant = core.Backbone
-        self.assertEqual(bond.right_participant, core.Backbone)
-
-        with self.assertRaises(ValueError):
-            bond.right_participant = core.Atom
-
     def test_set_left_bond_atoms(self):
         bond = core.Bond()
         bond.left_bond_atoms = []
@@ -834,8 +917,8 @@ class BondTestCase(unittest.TestCase):
     def test_get_formula(self):
         bond = core.Bond()
 
-        bond.left_displaced_atoms = core.AtomList([core.Atom('C')])
-        bond.right_displaced_atoms = core.AtomList([core.Atom('H'), core.Atom('H')])
+        bond.left_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C')])
+        bond.right_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'H')])
         self.assertEqual(bond.get_formula(), EmpiricalFormula('CH2') * -1)
 
     def test_get_mol_wt(self):
@@ -846,17 +929,17 @@ class BondTestCase(unittest.TestCase):
     def test_get_charge(self):
         bond = core.Bond()
 
-        bond.left_displaced_atoms = core.AtomList([core.Atom('C', charge=2)])
-        bond.right_displaced_atoms = core.AtomList([core.Atom('H', charge=3)])
+        bond.left_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C', charge=2)])
+        bond.right_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H', charge=3)])
         self.assertEqual(bond.get_charge(), -5)
 
     def test_is_equal(self):
         bond_1 = core.Bond()
         bond_2 = core.Bond()
-        bond_3 = core.Bond(left_bond_atoms=[core.Atom('H')])
-        bond_4 = core.Bond(right_bond_atoms=[core.Atom('H')])
-        bond_5 = core.Bond(left_displaced_atoms=[core.Atom('H')])
-        bond_6 = core.Bond(right_displaced_atoms=[core.Atom('H')])
+        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        bond_4 = core.Bond(right_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        bond_5 = core.Bond(left_displaced_atoms=[core.Atom(core.Monomer, 'H')])
+        bond_6 = core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'H')])
         self.assertTrue(bond_1.is_equal(bond_1))
         self.assertTrue(bond_1.is_equal(bond_2))
         self.assertFalse(bond_1.is_equal({}))
@@ -943,9 +1026,9 @@ class BpFormTestCase(unittest.TestCase):
         bp_form_4 = core.BpForm(monomer_seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), alphabet=dna.canonical_dna_alphabet)
         bp_form_5 = core.BpForm(monomer_seq=core.MonomerSequence(
-            [core.Monomer(id='A'), core.Monomer(id='B')]), backbone=core.Backbone(structure='InChI=1S/O'))
+            [core.Monomer(id='A'), core.Monomer(id='B')]), backbone=core.Backbone(structure='O'))
         bp_form_6 = core.BpForm(monomer_seq=core.MonomerSequence(
-            [core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(left_bond_atoms=[core.Atom('C')]))
+            [core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'C')]))
         bp_form_7 = core.BpForm(monomer_seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), circular=True)
         self.assertTrue(bp_form_1.is_equal(bp_form_1))
@@ -1041,8 +1124,8 @@ class BpFormTestCase(unittest.TestCase):
         })
 
     def test_get_formula_mol_wt_charge(self):
-        monomer_A = core.Monomer(id='A', structure=dAMP_inchi)
-        monomer_C = core.Monomer(id='C', structure=dCMP_inchi)
+        monomer_A = core.Monomer(id='A', structure=dAMP_smiles)
+        monomer_C = core.Monomer(id='C', structure=dCMP_smiles)
 
         bp_form = core.BpForm([monomer_A])
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula())
@@ -1060,29 +1143,29 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge())
 
         bp_form = core.BpForm([monomer_A, monomer_C],
-                              bond=core.Bond(right_displaced_atoms=[core.Atom('H', charge=-1, position=None)]))
+                              bond=core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'H', charge=-1, position=None)]))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() + monomer_C.get_formula() - EmpiricalFormula('H'))
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() + monomer_C.get_mol_wt() -
                          EmpiricalFormula('H').get_molecular_weight())
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge() + 1)
 
         bp_form = core.BpForm([monomer_A, monomer_A, monomer_C, monomer_C, monomer_C],
-                              bond=core.Bond(right_displaced_atoms=[core.Atom('H', charge=-1, position=None)]))
+                              bond=core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'H', charge=-1, position=None)]))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() * 2 + monomer_C.get_formula() * 3 - EmpiricalFormula('H') * 4)
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() * 2 + monomer_C.get_mol_wt()
                          * 3 - EmpiricalFormula('H').get_molecular_weight() * 4)
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() * 2 + monomer_C.get_charge() * 3 + 1 * 4)
 
-    def test_protonate(self):
-        monomer_1 = core.Monomer(id='A', structure=dAMP_inchi)
-        monomer_2 = core.Monomer(id='C', structure=dCMP_inchi)
+    def test_get_major_micro_species(self):
+        monomer_1 = core.Monomer(id='A', structure=dAMP_smiles)
+        monomer_2 = core.Monomer(id='C', structure=dCMP_smiles)
         bp_form = core.BpForm([monomer_1, monomer_2])
-        bp_form.protonate(7.)
+        bp_form.get_major_micro_species(7.)
 
     def test_str(self):
-        monomer_A = core.Monomer(id='A', structure=dAMP_inchi)
-        monomer_C = core.Monomer(id='C', structure=dCMP_inchi)
-        monomer_G = core.Monomer(id='G', structure=dGMP_inchi)
+        monomer_A = core.Monomer(id='A', structure=dAMP_smiles)
+        monomer_C = core.Monomer(id='C', structure=dCMP_smiles)
+        monomer_G = core.Monomer(id='G', structure=dGMP_smiles)
 
         bp_form = core.BpForm([monomer_A, monomer_C, monomer_G, monomer_A])
         self.assertEqual(str(bp_form), '{}{}{}{}'.format(str(monomer_A), str(monomer_C), str(monomer_G), str(monomer_A)))
@@ -1092,7 +1175,8 @@ class BpFormTestCase(unittest.TestCase):
             'C': monomer_C,
         }))
         self.assertEqual(str(bp_form), '{}{}{}{}'.format('A', 'C', str(monomer_G), 'A'))
-        self.assertEqual(str(bp_form), '{}{}{}{}'.format('A', 'C', '[id: "{}" | structure: {}]'.format('G', dGMP_inchi), 'A'))
+        dGMP_smiles_2 = 'Nc1[nH]c(=O)c2c(n1)[nH]cn2'
+        self.assertEqual(str(bp_form), '{}{}{}{}'.format('A', 'C', '[id: "{}" | structure: "{}"]'.format('G', dGMP_smiles_2), 'A'))
 
     def test_from_str(self):
         self.assertTrue(dna.DnaForm().from_str('AAA').is_equal(dna.DnaForm([
@@ -1114,7 +1198,14 @@ class BpFormTestCase(unittest.TestCase):
                       + ' | name: "2\'-deoxyinosine"'
                       + ' | synonym: "2\'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"'
                       + ' | identifier: "chebi" / "CHEBI:28997"'
-                      + ' | structure: ' + dIMP_inchi
+                      + ' | structure: "' + dIMP_smiles + '"'
+                      + ' | monomer-bond-atom: Monomer / C / 1 / -1'
+                      + ' | monomer-bond-atom: Monomer / D / 2 / -2'
+                      + ' | monomer-displaced-atom: Backbone / D / 2 / -2'
+                      + ' | left-bond-atom: Monomer / E / 3 / -3'
+                      + ' | left-displaced-atom: Backbone / F / 4 / -4'
+                      + ' | right-bond-atom: Monomer / G / 5 / -5'
+                      + ' | right-displaced-atom: Backbone / H / 6 / -6'
                       + ' | delta-mass: -2.5'
                       + ' | delta-charge: 3'
                       + ' | position: 3-5'
@@ -1130,7 +1221,16 @@ class BpFormTestCase(unittest.TestCase):
                 synonyms=core.SynonymSet(
                     ["2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"]),
                 identifiers=core.IdentifierSet([core.Identifier('chebi', 'CHEBI:28997')]),
-                structure=dIMP_inchi,
+                structure=dIMP_smiles,
+                monomer_bond_atoms=[
+                    core.Atom(core.Monomer, 'C', position=1, charge=-1),
+                    core.Atom(core.Monomer, 'D', position=2, charge=-2),
+                ],
+                monomer_displaced_atoms=[core.Atom(core.Backbone, 'D', position=2, charge=-2)],
+                left_bond_atoms=[core.Atom(core.Monomer, 'E', position=3, charge=-3)],
+                left_displaced_atoms=[core.Atom(core.Backbone, 'F', position=4, charge=-4)],
+                right_bond_atoms=[core.Atom(core.Monomer, 'G', position=5, charge=-5)],
+                right_displaced_atoms=[core.Atom(core.Backbone, 'H', position=6, charge=-6)],
                 delta_mass=-2.5,
                 delta_charge=3,
                 start_position=3,
@@ -1140,7 +1240,7 @@ class BpFormTestCase(unittest.TestCase):
             ),
             dna.canonical_dna_alphabet.monomers.A,
         ])
-        self.assertEqual(str(dna_form_2), dna_form_1)
+        self.assertEqual(str(dna_form_2), dna_form_1.replace(dIMP_smiles, 'OCC1OC(CC1O)n1cnc2c1ncnc2O'))
         self.assertTrue(dna_form_2.is_equal(dna_form_3))
 
         self.assertTrue(dna.DnaForm().from_str(
@@ -1212,11 +1312,46 @@ class BpFormTestCase(unittest.TestCase):
                 ' | name: "2\'-deoxyinosine"'
                 ' | name: "2\'-deoxyinosine"]A')
 
-        dna_form_1 = dna.DnaForm().from_str('[structure: ' + dIMP_inchi + ']')
-        dna_form_2 = dna.DnaForm().from_str('[structure: ' + dIMP_inchi.replace('/', '\n\t/') + ']')
+        dna_form_1 = dna.DnaForm().from_str('[structure: "' + dIMP_smiles + '"]')
+        dna_form_2 = dna.DnaForm().from_str('[structure: "' + dIMP_smiles + '"]')
         self.assertTrue(dna_form_1.is_equal(dna_form_2))
 
-    def test_to_fasta(self):
+    def test_export(self):
+        form = dna.CanonicalDnaForm().from_str('A')
+        self.assertEqual(form.export('inchi'), ('InChI=1S'
+                                                '/C10H14N5O6P'
+                                                '/c11-9-8-10(13-3-12-9)15(4-14-8)7-1-5(16)6(21-7)2-20-22(17,18)19'
+                                                '/h3-7,16H,1-2H2,(H2,11,12,13)(H2,17,18,19)'
+                                                '/p-2'))
+
+        form = dna.CanonicalDnaForm().from_str('AA')
+        self.assertEqual(form.export('inchi'), ('InChI=1S'
+                                                '/C20H26N10O11P2'
+                                                '/c21-17-15-19(25-5-23-17)29(7-27-15)13-1-9(31)11(39-13)3-38-43(35,36)'
+                                                '41-10-2-14(40-12(10)4-37-42(32,33)34)30-8-28-16-18(22)24-6-26-20(16)30'
+                                                '/h5-14,31H,1-4H2,(H,35,36)(H2,21,23,25)(H2,22,24,26)(H2,32,33,34)'
+                                                '/p-3'))
+
+        form = rna.CanonicalRnaForm().from_str('AA')
+        self.assertEqual(form.export('inchi'), ('InChI=1S'
+                                                '/C20H26N10O13P2'
+                                                '/c21-15-9-17(25-3-23-15)29(5-27-9)19-12(32)11(31)7(41-19)1-40-45'
+                                                '(37,38)43-14-8(2-39-44(34,35)36)'
+                                                '42-20(13(14)33)30-6-28-10-16(22)24-4-26-18(10)30'
+                                                '/h3-8,11-14,19-20,31-33H,1-2H2,(H,37,38)(H2,21,23,25)(H2,22,24,26)(H2,34,35,36)'
+                                                '/p-3'))
+
+        form = protein.CanonicalProteinForm().from_str('AA')
+        self.assertEqual(form.export('inchi'), 'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)/p+1')
+
+        form = dna.CanonicalDnaForm()
+        self.assertEqual(form.export('inchi'), None)
+
+        form = dna.CanonicalDnaForm().from_str('A[structure: "NC1=C2N=CNC2=NC=N1"]')
+        with self.assertRaises(ValueError):
+            form.export('inchi')
+
+    def test_get_fasta(self):
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer()
         alphabet.monomers.C = core.Monomer()
@@ -1242,7 +1377,7 @@ class BpFormTestCase(unittest.TestCase):
             alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A,
             alphabet.monomers.m2222A, alphabet.monomers.m2222C,
         ])
-        self.assertEqual(bpform.to_fasta(), 'ACGTAAAA?')
+        self.assertEqual(bpform.get_fasta(), 'ACGTAAAA?')
 
         class CustomBpForm(core.BpForm):
             DEFAULT_FASTA_CODE = 'X'
@@ -1251,7 +1386,7 @@ class BpFormTestCase(unittest.TestCase):
             alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A,
             alphabet.monomers.m2222A, alphabet.monomers.m2222C,
         ])
-        self.assertEqual(bpform.to_fasta(), 'ACGTAAAAX')
+        self.assertEqual(bpform.get_fasta(), 'ACGTAAAAX')
 
 
 class AlphabetTestCase(unittest.TestCase):
@@ -1269,18 +1404,18 @@ class AlphabetTestCase(unittest.TestCase):
             alphabet.monomers = None
 
     def test_getitem(self):
-        self.assertEqual(dna.canonical_dna_alphabet.monomers.A.get_inchi(), dAMP_inchi)
+        self.assertEqual(dna.canonical_dna_alphabet.monomers.A.export('inchi'), dAMP_inchi)
 
     def test_setitem(self):
         alphabet = core.Alphabet()
-        alphabet.monomers['A'] = core.Monomer(structure=dAMP_inchi)
-        alphabet.monomers['aA'] = core.Monomer(structure=dAMP_inchi)
-        alphabet.monomers['Aa'] = core.Monomer(structure=dAMP_inchi)
-        alphabet.monomers['*'] = core.Monomer(structure=dAMP_inchi)
+        alphabet.monomers['A'] = core.Monomer(structure=dAMP_smiles)
+        alphabet.monomers['aA'] = core.Monomer(structure=dAMP_smiles)
+        alphabet.monomers['Aa'] = core.Monomer(structure=dAMP_smiles)
+        alphabet.monomers['*'] = core.Monomer(structure=dAMP_smiles)
         with self.assertRaises(ValueError):
-            alphabet.monomers['{aa'] = core.Monomer(structure=dAMP_inchi)
+            alphabet.monomers['{aa'] = core.Monomer(structure=dAMP_smiles)
         with self.assertRaises(ValueError):
-            alphabet.monomers['A]'] = core.Monomer(structure=dAMP_inchi)
+            alphabet.monomers['A]'] = core.Monomer(structure=dAMP_smiles)
 
     def test_get_monomer_code(self):
         alphabet = dna.canonical_dna_alphabet
@@ -1288,12 +1423,12 @@ class AlphabetTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             alphabet.get_monomer_code(core.Monomer())
 
-    def test_protonate(self):
+    def test_get_major_micro_species(self):
         alphabet = core.Alphabet(monomers={
-            'A': core.Monomer(structure=dAMP_inchi),
-            'C': core.Monomer(structure=dCMP_inchi),
+            'A': core.Monomer(structure=dAMP_smiles),
+            'C': core.Monomer(structure=dCMP_smiles),
         })
-        alphabet.protonate(7.)
+        alphabet.get_major_micro_species(7.)
 
     def test_is_equal(self):
         self.assertTrue(dna.canonical_dna_alphabet.is_equal(dna.canonical_dna_alphabet))

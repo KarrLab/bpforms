@@ -92,11 +92,18 @@ class Bpform(flask_restplus.Resource):
             flask_restplus.abort(400, 'Unable to parse monomer sequence', errors={'monomer_seq': str(error)})
 
         if not math.isnan(ph):
-            form.protonate(ph, major_tautomer=major_tautomer)
+            form.get_major_micro_species(ph, major_tautomer=major_tautomer)
+
+        try:
+            structure = form.export('smiles')
+        except Exception:
+            structure = None
+
         return {
             'alphabet': alphabet,
             'monomer_seq': str(form),
             'length': len(form),
+            'structure': structure,
             'formula': dict(form.get_formula()),
             'mol_wt': form.get_mol_wt(),
             'charge': form.get_charge(),

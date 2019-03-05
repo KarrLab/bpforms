@@ -30,8 +30,11 @@ class RestTestCase(unittest.TestCase):
             'alphabet': 'dna',
             'monomer_seq': 'ACGT',
             'length': 4,
+            'structure': ('Nc1c2ncn(c2ncn1)C1CC(OP(=O)(OCC2C(OP(=O)(OCC3C(OP(=O)(OCC4C(O)CC(n5cc(C)c(=O)'
+                          '[nH]c5=O)O4)[O-])CC(n4c5nc(N)[nH]c(=O)c5nc4)O3)[O-])CC(n3c(=O)nc(N)cc3)O2)[O-])'
+                          'C(O1)COP(=O)([O-])[O-]'),
             'formula': dict(EmpiricalFormula('C39H46O25N15P4')),
-            'mol_wt': 1248.772047992,
+            'mol_wt': 1248.7720479920001,
             'charge': -5,
         })
 
@@ -39,13 +42,14 @@ class RestTestCase(unittest.TestCase):
         client = rest.app.test_client()
         rv = client.post('/api/bpform/', json=dict(
             alphabet='dna',
-            monomer_seq='ACGT',
+            monomer_seq='ACGT[structure: "O=C1NC=NC2=C1N=CN2"]',
             ph=7.,
             major_tautomer=True))
         self.assertEqual(rv.status_code, 200)
+        self.assertEqual(rv.get_json()['structure'], None)
         self.assertEqual(rv.get_json()['alphabet'], 'dna')
-        self.assertEqual(rv.get_json()['monomer_seq'], 'ACGT')
-        self.assertEqual(rv.get_json()['length'], 4)
+        self.assertEqual(rv.get_json()['monomer_seq'], 'ACGT[structure: "O=c1[nH]cnc2c1nc[nH]2"]')
+        self.assertEqual(rv.get_json()['length'], 5)
 
     def test_get_bpform_properties_errors(self):
         client = rest.app.test_client()

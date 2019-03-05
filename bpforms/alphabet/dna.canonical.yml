@@ -14,7 +14,15 @@ monomers:
       id: ADENINE
     - ns: pubchem.compound
       id: '190'
-    structure: InChI=1S/C5H5N5/c6-4-3-5(9-1-7-3)10-2-8-4/h1-2H,(H3,6,7,8,9,10)
+    structure: NC1=C2N=CNC2=NC=N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 6
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 6
   C:
     id: cytosine
     name: cytosine
@@ -27,7 +35,15 @@ monomers:
       id: CYTOSINE
     - ns: pubchem.compound
       id: '597'
-    structure: InChI=1S/C4H5N3O/c5-3-1-2-6-4(8)7-3/h1-2H,(H3,5,6,7,8)
+    structure: NC1=NC(=O)NC=C1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 6
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 6
   G:
     id: guanine
     name: guanine
@@ -39,7 +55,15 @@ monomers:
       id: CHEBI:16235
     - ns: metacyc.compound
       id: GUANINE
-    structure: InChI=1S/C5H5N5O/c6-5-9-3-2(4(11)10-5)7-1-8-3/h1H,(H4,6,7,8,9,10,11)
+    structure: NC1=NC2=C(N=CN2)C(=O)N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 8
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 8
   T:
     id: thymine
     name: thymine
@@ -53,7 +77,15 @@ monomers:
       id: THYMINE
     - ns: pubchem.compound
       id: '1135'
-    structure: InChI=1S/C5H6N2O2/c1-3-2-6-5(9)7-4(3)8/h2H,1H3,(H2,6,7,8,9)
+    structure: CC1=CNC(=O)NC1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 4
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 4
   U:
     id: uracil
     name: uracil
@@ -64,7 +96,15 @@ monomers:
       id: URACIL
     - ns: pubchem.compound
       id: '1174'
-    structure: InChI=1S/C4H4N2O2/c7-3-1-2-5-4(8)6-3/h1-2H,(H2,5,6,7,8)
+    structure: O=C1NC=CC(=O)N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 3
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 3
   dI:
     id: hypoxanthine
     name: hypoxanthine
@@ -77,4 +117,12 @@ monomers:
       id: HYPOXANTHINE
     - ns: pubchem.compound
       id: '790'
-    structure: InChI=1S/C5H4N4O/c10-5-3-4(7-1-6-3)8-2-9-5/h1-2H,(H2,6,7,8,9,10)
+    structure: O=C1NC=NC2=C1N=CN2
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 10
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 10

@@ -238,18 +238,16 @@ class RnaForm(BpForm):
         super(RnaForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=rna_alphabet,
             backbone=Backbone(
-                structure='InChI=1S/H3O4P/c1-5(2,3)4/h(H3,1,2,3,4)/p-2',
-                monomer_bond_atoms=[Atom(element='O', position=None)],
-                backbone_bond_atoms=[Atom(element='P', position=5)],
-                monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='O', position=3), Atom(element='H', position=3)]),
+                structure='OP([O-])([O-])=O',
+                monomer_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                backbone_bond_atoms=[Atom(Backbone, element='P', position=2)],
+                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                backbone_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
             bond=Bond(
-                left_participant=Monomer,
-                right_participant=Backbone,
-                left_bond_atoms=[Atom(element='O', position=None)],
-                right_bond_atoms=[Atom(element='P', position=5)],
-                left_displaced_atoms=[Atom(element='H', position=None)],
-                right_displaced_atoms=[Atom(element='O', position=2, charge=-1)]))
+                left_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                right_bond_atoms=[Atom(Backbone,element='P', position=2)],
+                left_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                right_displaced_atoms=[Atom(Backbone,element='O', position=3, charge=-1)]))
 
 
 class CanonicalRnaForm(BpForm):
@@ -265,15 +263,13 @@ class CanonicalRnaForm(BpForm):
         super(CanonicalRnaForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=canonical_rna_alphabet,
             backbone=Backbone(
-                structure='InChI=1S/H3O4P/c1-5(2,3)4/h(H3,1,2,3,4)/p-2',
-                monomer_bond_atoms=[Atom(element='O', position=None)],
-                backbone_bond_atoms=[Atom(element='P', position=5)],
-                monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='O', position=3), Atom(element='H', position=3)]),
+                structure='OP([O-])([O-])=O',
+                monomer_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                backbone_bond_atoms=[Atom(Backbone, element='P', position=2)],
+                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                backbone_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
             bond=Bond(
-                left_participant=Monomer,
-                right_participant=Backbone,
-                left_bond_atoms=[Atom(element='O', position=None)],
-                right_bond_atoms=[Atom(element='P', position=5)],
-                left_displaced_atoms=[Atom(element='H', position=None)],
-                right_displaced_atoms=[Atom(element='O', position=2, charge=-1)]))
+                left_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                right_bond_atoms=[Atom(Backbone, element='P', position=2)],
+                left_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                right_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]))

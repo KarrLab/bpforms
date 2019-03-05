@@ -7,13 +7,7 @@
 * The `BpForms` notation can unambiguously represent the structure of modified forms of biopolymers. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomer at the fourth position.::
   
     ACG[
-        id: "dI" | structure: InChI=1S
-            /C10H12N4O4
-            /c15-2-6-5(16)1-7(18-6)14-4-13-8-9(14)11-3-12-10(8)17
-            /h3-7,15-16H,1-2H2,(H,11,12,17)
-            /t5-,6+,7+
-            /m0
-            /s1
+        id: "dI" | structure: "O=C1NC=NC2=C1N=CN2"
         ]T
 
 * This concrete representation of modified biopolymers enables the `BpForms` software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as automatically calculate the major protonation and tautomerization state of biopolymers at specific pHs.

@@ -76,18 +76,24 @@ class GetPropertiesController(cement.Controller):
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
         if args.ph is not None:
-            form.protonate(args.ph, major_tautomer=args.major_tautomer)
+            form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
         print('Length: {}'.format(len(form)))
+
+        try:
+            structure = form.export('smiles')
+        except Exception:
+            structure = None
+        print('Structure: {}'.format(structure))
         print('Formula: {}'.format(form.get_formula()))
         print('Molecular weight: {}'.format(form.get_mol_wt()))
         print('Charge: {}'.format(form.get_charge()))
 
 
-class ProtonateController(cement.Controller):
+class GetMajorMicroSpeciesController(cement.Controller):
     """ Calculate the major protonation and tautomerization """
 
     class Meta:
-        label = 'protonate'
+        label = 'get-major-micro-species'
         description = 'Calculate the major protonation and tautomerization state of a biopolymer form to a specific pH'
         stacked_on = 'base'
         stacked_type = 'nested'
@@ -107,7 +113,7 @@ class ProtonateController(cement.Controller):
             form = type().from_str(args.structure)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
-        form.protonate(args.ph, major_tautomer=args.major_tautomer)
+        form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
         print(str(form))
 
 
@@ -144,7 +150,7 @@ class App(cement.App):
             BaseController,
             ValidateController,
             GetPropertiesController,
-            ProtonateController,
+            GetMajorMicroSpeciesController,
             BuildAlphabetsController,
         ]
 

@@ -47,7 +47,6 @@ class UtilTestCase(unittest.TestCase):
         self.assertEqual(util.get_form('canonical_dna'), dna.CanonicalDnaForm)
         self.assertEqual(util.get_form('canonical_rna'), rna.CanonicalRnaForm)
         self.assertEqual(util.get_form('canonical_protein'), protein.CanonicalProteinForm)
-        self.assertEqual(util.get_form('curated_protein'), protein.CuratedProteinForm)
         with self.assertRaises(ValueError):
             util.get_form('lipid')
 

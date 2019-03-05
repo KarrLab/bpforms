@@ -7,9 +7,10 @@
 """
 
 from ruamel import yaml
-from wc_utils.util.chem import EmpiricalFormula, Protonator, OpenBabelUtils
+from wc_utils.util.chem import EmpiricalFormula, GetMajorMicroSpecies, OpenBabelUtils
 import abc
 import attrdict
+import copy
 import lark
 import openbabel
 import pkg_resources
@@ -212,12 +213,22 @@ class Monomer(object):
         start_position (:obj:`tuple`): uncertainty in the location of the monomer
         end_position (:obj:`tuple`): uncertainty in the location of the monomer
         base_monomers (:obj:`set` of :obj:`Monomer`): monomers which this monomer is derived from
+        monomer_bond_atoms (:obj:`AtomList`): atoms from monomer that bonds to backbone
+        monomer_displaced_atoms (:obj:`AtomList`): atoms from monomer displaced by bond to backbone
+        left_bond_atoms (:obj:`AtomList`): atoms from left monomer that bonds with right monomer
+        right_bond_atoms (:obj:`AtomList`): atoms from right monomer that bonds with left monomer
+        left_displaced_atoms (:obj:`AtomList`): atoms from left monomer displaced by bond
+        right_displaced_atoms (:obj:`AtomList`): atoms from right monomer displaced by bond
         comments (:obj:`str`): comments
     """
 
     def __init__(self, id=None, name=None, synonyms=None, identifiers=None, structure=None,
                  delta_mass=None, delta_charge=None, start_position=None, end_position=None,
-                 base_monomers=None, comments=None):
+                 base_monomers=None,
+                 monomer_bond_atoms=None, monomer_displaced_atoms=None,
+                 left_bond_atoms=None, right_bond_atoms=None,
+                 left_displaced_atoms=None, right_displaced_atoms=None,
+                 comments=None):
         """
         Attributes:
             id (:obj:`str`, optional): id
@@ -230,6 +241,12 @@ class Monomer(object):
             start_position (:obj:`int`, optional): uncertainty in the location of the monomer
             end_position (:obj:`int`, optional): uncertainty in the location of the monomer
             base_monomers (:obj:`set` of :obj:`Monomer`, optional): monomers which this monomer is derived from
+            monomer_bond_atoms (:obj:`AtomList`, optional): atoms from monomer that bonds to backbone
+            monomer_displaced_atoms (:obj:`AtomList`, optional): atoms from monomer displaced by bond to backbone
+            left_bond_atoms (:obj:`AtomList`, optional): atoms from left monomer that bonds with right monomer
+            right_bond_atoms (:obj:`AtomList`, optional): atoms from right monomer that bonds with left monomer
+            left_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomer displaced by bond
+            right_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomer displaced by bond
             comments (:obj:`str`, optional): comments
         """
         self.id = id
@@ -242,6 +259,12 @@ class Monomer(object):
         self.start_position = start_position
         self.end_position = end_position
         self.base_monomers = base_monomers or set()
+        self.monomer_bond_atoms = monomer_bond_atoms or AtomList()
+        self.monomer_displaced_atoms = monomer_displaced_atoms or AtomList()
+        self.left_bond_atoms = left_bond_atoms or AtomList()
+        self.right_bond_atoms = right_bond_atoms or AtomList()
+        self.left_displaced_atoms = left_displaced_atoms or AtomList()
+        self.right_displaced_atoms = right_displaced_atoms or AtomList()
         self.comments = comments
 
     @property
@@ -354,17 +377,17 @@ class Monomer(object):
         """ Set structure
 
         Args:
-            value (:obj:`openbabel.OBMol` or :obj:`str`): OpenBabel molecule, InChI-encoded structure, or None
+            value (:obj:`openbabel.OBMol` or :obj:`str`): OpenBabel molecule, SMILES-encoded structure, or None
 
         Raises:
-            :obj:`ValueError`: if value is not an OpenBabel molecule, InChI-encoded structure, or None
+            :obj:`ValueError`: if value is not an OpenBabel molecule, SMILES-encoded structure, or None
         """
         if value and not isinstance(value, openbabel.OBMol):
             ob_mol = openbabel.OBMol()
             conversion = openbabel.OBConversion()
-            assert conversion.SetInFormat('inchi'), 'Unable to set format to InChI'
+            assert conversion.SetInFormat('smi'), 'Unable to set format to SMILES'
             if not conversion.ReadString(ob_mol, value):
-                raise ValueError('`structure` must be an OpenBabel molecule, InChI-encoded structure, or None')
+                raise ValueError('`structure` must be an OpenBabel molecule, SMILES-encoded structure, or None')
             value = ob_mol
 
         self._structure = value or None
@@ -501,6 +524,156 @@ class Monomer(object):
         self._base_monomers = value
 
     @property
+    def monomer_bond_atoms(self):
+        """ Get the monomer bond atoms
+
+        Returns:
+            :obj:`AtomList`: monomer bond atoms
+        """
+        return self._monomer_bond_atoms
+
+    @monomer_bond_atoms.setter
+    def monomer_bond_atoms(self, value):
+        """ Set the monomer bond atoms
+
+        Args:
+            value (:obj:`AtomList`): monomer bond atoms
+
+        Raises:
+            :obj:`ValueError`: if `monomer_bond_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`monomer_bond_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._monomer_bond_atoms = value
+
+    @property
+    def monomer_displaced_atoms(self):
+        """ Get the monomer displaced atoms
+
+        Returns:
+            :obj:`AtomList`: monomer displaced atoms
+        """
+        return self._monomer_displaced_atoms
+
+    @monomer_displaced_atoms.setter
+    def monomer_displaced_atoms(self, value):
+        """ Set the monomer displaced atoms
+
+        Args:
+            value (:obj:`AtomList`): monomer displaced atoms
+
+        Raises:
+            :obj:`ValueError`: if `monomer_displaced_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`monomer_displaced_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._monomer_displaced_atoms = value
+
+    @property
+    def left_bond_atoms(self):
+        """ Get the left bond atoms
+
+        Returns:
+            :obj:`AtomList`: left bond atoms
+        """
+        return self._left_bond_atoms
+
+    @left_bond_atoms.setter
+    def left_bond_atoms(self, value):
+        """ Set the left bond atoms
+
+        Args:
+            value (:obj:`AtomList`): left bond atoms
+
+        Raises:
+            :obj:`ValueError`: if `left_bond_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`left_bond_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._left_bond_atoms = value
+
+    @property
+    def right_bond_atoms(self):
+        """ Get the right bond atoms
+
+        Returns:
+            :obj:`AtomList`: right bond atoms
+        """
+        return self._right_bond_atoms
+
+    @right_bond_atoms.setter
+    def right_bond_atoms(self, value):
+        """ Set the right bond atoms
+
+        Args:
+            value (:obj:`AtomList`): right bond atoms
+
+        Raises:
+            :obj:`ValueError`: if `right_bond_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`right_bond_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._right_bond_atoms = value
+
+    @property
+    def left_displaced_atoms(self):
+        """ Get the left displaced atoms
+
+        Returns:
+            :obj:`AtomList`: left displaced atoms
+        """
+        return self._left_displaced_atoms
+
+    @left_displaced_atoms.setter
+    def left_displaced_atoms(self, value):
+        """ Set the left displaced atoms
+
+        Args:
+            value (:obj:`AtomList`): left displaced atoms
+
+        Raises:
+            :obj:`ValueError`: if `left_displaced_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`left_displaced_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._left_displaced_atoms = value
+
+    @property
+    def right_displaced_atoms(self):
+        """ Get the right displaced atoms
+
+        Returns:
+            :obj:`AtomList`: right displaced atoms
+        """
+        return self._right_displaced_atoms
+
+    @right_displaced_atoms.setter
+    def right_displaced_atoms(self, value):
+        """ Set the right displaced atoms
+
+        Args:
+            value (:obj:`AtomList`): right displaced atoms
+
+        Raises:
+            :obj:`ValueError`: if `right_displaced_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`right_displaced_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._right_displaced_atoms = value
+
+    @property
     def comments(self):
         """ Get comments
 
@@ -527,7 +700,7 @@ class Monomer(object):
         """ Get root monomers
 
         Returns:
-            :obj:`set` of :obj:`Monomer`: root monomers            
+            :obj:`set` of :obj:`Monomer`: root monomers
         """
         if not self.base_monomers:
             return set([self])
@@ -538,7 +711,7 @@ class Monomer(object):
 
         return roots
 
-    def protonate(self, ph, major_tautomer=False):
+    def get_major_micro_species(self, ph, major_tautomer=False):
         """ Update to the major protonation and tautomerization state at the pH
 
         Args:
@@ -546,21 +719,28 @@ class Monomer(object):
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         """
         if self.structure:
-            self.structure = Protonator.run(self.get_inchi(), ph=ph, major_tautomer=major_tautomer)
+            structure = GetMajorMicroSpecies.run(self.export('smi', options=('c',)), format='smiles', ph=ph, major_tautomer=major_tautomer)
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.ReadString(self.structure, structure)
 
-    def get_inchi(self):
-        """ Get InChI representration of structure
+    def export(self, format, options=()):
+        """ Export structure to format
+
+        Args:
+            format (:obj:`str`): format
+            options (:obj:`list` of :obj:`str`, optional): export options
 
         Returns:
-            :obj:`str`: InChI representration of structure
+            :obj:`str`: format representation of structure
         """
         if self.structure:
-            return OpenBabelUtils.get_inchi(self.structure)
+            return OpenBabelUtils.export(self.structure, format, options=options)
         else:
             return None
 
     IMAGE_URL_PATTERN = ('https://cactus.nci.nih.gov/chemical/structure/{}/image'
-                         '?format=png'
+                         '?format=gif'
                          '&bgcolor=transparent'
                          '&antialiasing=0')
 
@@ -570,10 +750,9 @@ class Monomer(object):
         Returns:
             :obj:`str`: URL for image of structure
         """
-        inchi = self.get_inchi()
-        if inchi:
-            inchi, _, _ = inchi.partition('/t')
-            return self.IMAGE_URL_PATTERN.format(inchi)
+        smiles = self.export('smi', options=('c',))
+        if smiles:
+            return self.IMAGE_URL_PATTERN.format(smiles)
         return None
 
     def get_formula(self):
@@ -630,13 +809,24 @@ class Monomer(object):
             dict['identifiers'] = [{'ns': i.ns, 'id': i.id} for i in self.identifiers]
 
         if self.structure:
-            dict['structure'] = self.get_inchi()
+            dict['structure'] = self.export('smi', options=('c',))
 
         if self.base_monomers and alphabet:
             dict['base_monomers'] = []
             for monomer in self.base_monomers:
                 monomer_code = alphabet.get_monomer_code(monomer)
                 dict['base_monomers'].append(monomer_code)
+
+        attr_names = (
+            'monomer_bond_atoms', 'monomer_displaced_atoms',
+            'left_bond_atoms', 'right_bond_atoms',
+            'left_displaced_atoms', 'right_displaced_atoms')
+        for attr_name in attr_names:
+            atoms = getattr(self, attr_name)
+            if atoms:
+                dict[attr_name] = []
+                for atom in atoms:
+                    dict[attr_name].append(atom.to_dict())
 
         return dict
 
@@ -684,6 +874,14 @@ class Monomer(object):
         if base_monomer_ids and alphabet:
             self.base_monomers = set([alphabet.monomers.get(monomer_id) for monomer_id in base_monomer_ids])
 
+        attr_names = (
+            'monomer_bond_atoms', 'monomer_displaced_atoms',
+            'left_bond_atoms', 'right_bond_atoms',
+            'left_displaced_atoms', 'right_displaced_atoms')
+        for attr_name in attr_names:
+            atoms = getattr(self, attr_name)
+            atoms.from_list(dict.get(attr_name, []))
+
         return self
 
     def __str__(self, alphabet=None):
@@ -696,25 +894,45 @@ class Monomer(object):
             :obj:`str`: string representation of the monomer
         """
         els = []
+
         if self.id:
             els.append('id: "' + self.id + '"')
+
         if self.name:
             els.append('name: "' + self.name.replace('"', '\\"') + '"')
+
         for synonym in self.synonyms:
             els.append('synonym: "' + synonym.replace('"', '\\"') + '"')
+
         for identifier in self.identifiers:
             els.append('identifier: "' + identifier.ns + '" / "' + identifier.id + '"')
+
         if self.structure:
-            els.append('structure: ' + self.get_inchi())
+            els.append('structure: "' + self.export('smi', options=('c',)) + '"')
+
+        atom_types = [
+            'monomer_bond_atoms', 'monomer_displaced_atoms',
+            'left_bond_atoms', 'left_displaced_atoms',
+            'right_bond_atoms', 'right_displaced_atoms',
+        ]
+        for atom_type in atom_types:
+            for atom in getattr(self, atom_type):
+                els.append('{}: {} / {} / {} / {}'.format(
+                    atom_type[:-1].replace('_', '-'), atom.molecule.__name__, atom.element, atom.position, atom.charge))
+
         if self.delta_mass is not None:
             els.append('delta-mass: ' + str(self.delta_mass))
+
         if self.delta_charge is not None:
             els.append('delta-charge: ' + str(self.delta_charge))
+
         if self.start_position is not None or self.end_position is not None:
             els.append('position: {}-{}'.format(self.start_position or '', self.end_position or ''))
+
         if alphabet:
             for base_monomer in self.base_monomers:
                 els.append('base-monomer: "{}"'.format(alphabet.get_monomer_code(base_monomer)))
+
         if self.comments:
             els.append('comments: "' + self.comments.replace('"', '\\"') + '"')
 
@@ -741,7 +959,7 @@ class Monomer(object):
             if getattr(self, attr) != getattr(other, attr):
                 return False
 
-        if self.get_inchi() != other.get_inchi():
+        if self.export('inchi') != other.export('inchi'):
             return False
 
         if len(self.base_monomers) != len(other.base_monomers):
@@ -753,6 +971,16 @@ class Monomer(object):
                     has_equal = True
                     break
             if not has_equal:
+                return False
+
+        attr_names = (
+            'monomer_bond_atoms', 'monomer_displaced_atoms',
+            'left_bond_atoms', 'right_bond_atoms',
+            'left_displaced_atoms', 'right_displaced_atoms')
+        for attr_name in attr_names:
+            self_atoms = getattr(self, attr_name)
+            other_atoms = getattr(other, attr_name)
+            if not self_atoms.is_equal(other_atoms):
                 return False
 
         return True
@@ -935,7 +1163,7 @@ class Alphabet(object):
                 return code
         raise ValueError('Monomer {} is not in alphabet'.format(monomer.id))
 
-    def protonate(self, ph, major_tautomer=False):
+    def get_major_micro_species(self, ph, major_tautomer=False):
         """ Calculate the major protonation and tautomerization of each monomer
 
         Args:
@@ -944,14 +1172,18 @@ class Alphabet(object):
         """
         monomers = list(filter(lambda monomer: monomer.structure is not None, self.monomers.values()))
 
-        inchis = []
+        structures = []
         for monomer in monomers:
-            inchis.append(monomer.get_inchi())
+            structure = monomer.export('smi', options=('c',))
+            structures.append(structure)
 
-        new_inchis = Protonator.run(inchis, ph=ph, major_tautomer=major_tautomer)
+        new_structures = GetMajorMicroSpecies.run(structures, format='smiles',
+                                                  ph=ph, major_tautomer=major_tautomer)
 
-        for monomer, new_inchi in zip(monomers, new_inchis):
-            monomer.structure = new_inchi
+        for monomer, new_structure in zip(monomers, new_structures):
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.ReadString(monomer.structure, new_structure)
 
     def is_equal(self, other):
         """ Determine two alphabets are semantically equal
@@ -1069,7 +1301,7 @@ class AlphabetBuilder(abc.ABC):
         """
         alphabet = self.build()
         if ph is not None:
-            alphabet.protonate(ph, major_tautomer=major_tautomer)
+            alphabet.get_major_micro_species(ph, major_tautomer=major_tautomer)
         if path:
             self.save(alphabet, path)
         return alphabet
@@ -1097,21 +1329,47 @@ class Atom(object):
     """ An atom in a compound or bond
 
     Attributes:
+        molecule (:obj:`type`): type of parent molecule
         element (:obj:`str`): code for the element (e.g. 'H') 
-        position (:obj:`int`): InChI position of the atom within the compound
+        position (:obj:`int`): SMILES position of the atom within the compound
         charge (:obj:`int`): charge of the atom
     """
 
-    def __init__(self, element, position=None, charge=0):
+    def __init__(self, molecule, element, position=None, charge=0):
         """
         Args:
+            molecule (:obj:`type`): type of parent molecule
             element (:obj:`str`, optional): code for the element (e.g. 'H') 
-            position (:obj:`int`, optional): InChI position of the atom within the compound
+            position (:obj:`int`, optional): SMILES position of the atom within the compound
             charge (:obj:`int`, optional): charge of the atom
         """
+        self.molecule = molecule
         self.element = element
         self.position = position
         self.charge = charge
+
+    @property
+    def molecule(self):
+        """ Get type of parent molecule
+
+        Returns:
+            :obj:`type`: type of parent molecule
+        """
+        return self._molecule
+
+    @molecule.setter
+    def molecule(self, value):
+        """ Set the type of parent molecule
+
+        Args:
+            value (:obj:`type`): type of parent molecule
+
+        Raises:
+            :obj:`ValueError`: if `molecule` is not :obj:`None`, :obj:`Monomer`, or :obj:`Backbone`
+        """
+        if value not in [None, Monomer, Backbone]:
+            raise ValueError('`molecule` must be `None`, `Monomer`, or `Backbone`')
+        self._molecule = value
 
     @property
     def element(self):
@@ -1190,9 +1448,47 @@ class Atom(object):
         if self.__class__ != other.__class__:
             return False
         return self is other or (self.__class__ == other.__class__
+                                 and self.molecule == other.molecule
                                  and self.element == other.element
                                  and self.charge == other.charge
                                  and self.position == other.position)
+
+    def to_dict(self):
+        """ Get dictionary representation
+
+        Returns:
+            :obj:`dict`: dictionary representation
+        """
+        dict = {}
+        if self.molecule:
+            dict['molecule'] = self.molecule.__name__
+        dict['element'] = self.element
+        if self.charge:
+            dict['charge'] = self.charge
+        if self.position is not None:
+            dict['position'] = self.position
+        return dict
+
+    def from_dict(self, dict):
+        """ Load from dictionary representation
+
+        Args:
+            dict (:obj:`dict`): dictionary representation
+
+        Returns:
+            :obj:`Atom`: atom
+        """
+        molecule = dict.get('molecule', None)
+        if molecule == 'Monomer':
+            self.molecule = Monomer
+        elif molecule == 'Backbone':
+            self.molecule = Backbone
+        else:
+            self.molecule = None
+        self.element = dict['element']
+        self.charge = dict.get('charge', 0)
+        self.position = dict.get('position', None)
+        return self
 
 
 class AtomList(list):
@@ -1276,6 +1572,31 @@ class AtomList(list):
                 return False
         return True
 
+    def to_list(self):
+        """ Get list representation
+
+        Returns:
+            :obj:`list`: list representation
+        """
+        list = []
+        for atom in self:
+            list.append(atom.to_dict())
+        return list
+
+    def from_list(self, list):
+        """ Load from list representation
+
+        Args:
+            list (:obj:`list`): list representation
+
+        Returns:
+            :obj:`AtomList`: atom list
+        """
+        self.clear()
+        for atom in list:
+            self.append(Atom(None, '').from_dict(atom))
+        return self
+
 
 class Backbone(object):
     """ Backbone of a monomer
@@ -1292,7 +1613,7 @@ class Backbone(object):
                  backbone_displaced_atoms=None, monomer_displaced_atoms=None):
         """
         Args:
-            structure (:obj:`str` or :obj:`openbabel.OBMol`, optional): chemical structure as InChI-encoded string or OpenBabel molecule
+            structure (:obj:`str` or :obj:`openbabel.OBMol`, optional): chemical structure as SMILES-encoded string or OpenBabel molecule
             backbone_bond_atoms (:obj:`AtomList`, optional): atoms from backbone that bonds to monomer
             monomer_bond_atoms (:obj:`AtomList`, optional): atoms from monomer that bonds to backbone
             backbone_displaced_atoms (:obj:`AtomList`, optional): atoms from backbone displaced by bond to monomer
@@ -1318,14 +1639,14 @@ class Backbone(object):
         """ Set the structure
 
         Args:
-            value (:obj:`str` or :obj:`openbabel.OBMol`): structure as InChI-encoded string or OpenBabel molecule
+            value (:obj:`str` or :obj:`openbabel.OBMol`): structure as SMILES-encoded string or OpenBabel molecule
         """
         if value is not None and not isinstance(value, openbabel.OBMol):
             ob_mol = openbabel.OBMol()
             conversion = openbabel.OBConversion()
-            assert conversion.SetInFormat('inchi'), 'Unable to set format to InChI'
+            assert conversion.SetInFormat('smi'), 'Unable to set format to SMILES'
             if not conversion.ReadString(ob_mol, value):
-                raise ValueError('`structure` must be an OpenBabel molecule, InChI-encoded structure, or None')
+                raise ValueError('`structure` must be an OpenBabel molecule, SMILES-encoded structure, or None')
             value = ob_mol
         self._structure = value
 
@@ -1429,14 +1750,18 @@ class Backbone(object):
             value = AtomList(value)
         self._backbone_displaced_atoms = value
 
-    def get_inchi(self):
-        """ Get InChI representration of structure
+    def export(self, format, options=()):
+        """ Export structure to format
+
+        Args:
+            format (:obj:`str`): format
+            options (:obj:`list` of :obj:`str`, optional): export options
 
         Returns:
-            :obj:`str`: InChI representration of structure
+            :obj:`str`: format representation of structure
         """
         if self.structure:
-            return OpenBabelUtils.get_inchi(self.structure)
+            return OpenBabelUtils.export(self.structure, format, options=options)
         return None
 
     def get_formula(self):
@@ -1492,7 +1817,7 @@ class Backbone(object):
             return True
         if self.__class__ != other.__class__:
             return False
-        if self.get_inchi() != other.get_inchi():
+        if self.export('inchi') != other.export('inchi'):
             return False
         if not self.monomer_bond_atoms.is_equal(other.monomer_bond_atoms)\
                 or not self.backbone_bond_atoms.is_equal(other.backbone_bond_atoms)\
@@ -1506,77 +1831,25 @@ class Bond(object):
     """ Bond between monomers
 
     Attributes:
-        left_participant (:obj:`type`): type of left participant (monomer or backbone)
-        right_participant (:obj:`type`): type of right participant (monomer or backbone)
         left_bond_atoms (:obj:`AtomList`): atoms from left monomer that bonds with right monomer
         right_bond_atoms (:obj:`AtomList`): atoms from right monomer that bonds with left monomer
         left_displaced_atoms (:obj:`AtomList`): atoms from left monomer displaced by bond
         right_displaced_atoms (:obj:`AtomList`): atoms from right monomer displaced by bond
     """
 
-    def __init__(self, left_participant=None, right_participant=None, left_bond_atoms=None, right_bond_atoms=None,
+    def __init__(self, left_bond_atoms=None, right_bond_atoms=None,
                  left_displaced_atoms=None, right_displaced_atoms=None):
         """
         Args:
-            left_participant (:obj:`type`, optional): type of left participant (monomer or backbone)
-            right_participant (:obj:`type`, optional): type of right participant (monomer or backbone)
             left_bond_atoms (:obj:`AtomList`, optional): atoms from left monomer that bonds with right monomer
             right_bond_atoms (:obj:`AtomList`, optional): atoms from right monomer that bonds with left monomer
             left_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomer displaced by bond
             right_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomer displaced by bond
         """
-        self.left_participant = left_participant
-        self.right_participant = right_participant
         self.left_bond_atoms = left_bond_atoms or AtomList()
         self.right_bond_atoms = right_bond_atoms or AtomList()
         self.left_displaced_atoms = left_displaced_atoms or AtomList()
         self.right_displaced_atoms = right_displaced_atoms or AtomList()
-
-    @property
-    def left_participant(self):
-        """ Get type of the left participant
-
-        Returns:
-            :obj:`type`: type of the left participant
-        """
-        return self._left_participant
-
-    @left_participant.setter
-    def left_participant(self, value):
-        """ Set the type of the left participant
-
-        Args:
-            value (:obj:`type`): type of the left participant
-
-        Raises:
-            :obj:`ValueError`: if `left_participant` is not :obj:`None`, :obj:`Monomer`, or :obj:`Backbone`
-        """
-        if value not in [None, Monomer, Backbone]:
-            raise ValueError('`left_participant` must be `None`, `Monomer`, or `Backbone`')
-        self._left_participant = value
-
-    @property
-    def right_participant(self):
-        """ Get type of the right participant
-
-        Returns:
-            :obj:`type`: type of the right participant
-        """
-        return self._right_participant
-
-    @right_participant.setter
-    def right_participant(self, value):
-        """ Set the type of the right participant
-
-        Args:
-            value (:obj:`type`): type of the right participant
-
-        Raises:
-            :obj:`ValueError`: if `right_participant` is not :obj:`None`, :obj:`Monomer`, or :obj:`Backbone`
-        """
-        if value not in [None, Monomer, Backbone]:
-            raise ValueError('`right_participant` must be `None`, `Monomer`, or `Backbone`')
-        self._right_participant = value
 
     @property
     def left_bond_atoms(self):
@@ -1965,7 +2238,7 @@ class BpForm(object):
         """
         return self.monomer_seq.get_monomer_counts()
 
-    def protonate(self, ph, major_tautomer=True):
+    def get_major_micro_species(self, ph, major_tautomer=True):
         """ Update to the major protonation and tautomerization state of each monomer at the pHf
 
         Args:
@@ -1974,14 +2247,157 @@ class BpForm(object):
         """
         monomers = list(filter(lambda monomer: monomer.structure is not None, set(self.monomer_seq)))
 
-        inchis = []
+        structures = []
         for monomer in monomers:
-            inchis.append(monomer.get_inchi())
+            structures.append(monomer.export('smi', options=('c',)))
 
-        new_inchis = Protonator.run(inchis, ph=ph, major_tautomer=major_tautomer)
+        new_structures = GetMajorMicroSpecies.run(structures, format='smiles',
+                                                  ph=ph, major_tautomer=major_tautomer)
 
-        for monomer, new_inchi in zip(monomers, new_inchis):
-            monomer.structure = new_inchi
+        for monomer, new_structure in zip(monomers, new_structures):
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.ReadString(monomer.structure, new_structure)
+
+    def get_structure(self):
+        """ Get an OpenBabel molecule of the structure
+
+        Returns:
+            :obj:`openbabel.OBMol`: OpenBabel molecule of the structure
+        """
+        mol = openbabel.OBMol()
+        n_atom = 0
+
+        # join molecules and get bonded and displaced atoms
+        atoms = []
+        for monomer in self.monomer_seq:
+            monomer_structure = openbabel.OBMol()
+            backbone_structure = openbabel.OBMol()
+            monomer_structure += monomer.structure
+            backbone_structure += self.backbone.structure
+
+            mol += monomer_structure
+            if backbone_structure:
+                mol += backbone_structure
+
+            monomer_atom_attrs = ['monomer', [
+                ['monomer_bond_atoms', self.backbone.monomer_bond_atoms],
+                ['monomer_displaced_atoms', self.backbone.monomer_displaced_atoms]]]
+            if monomer.monomer_bond_atoms:
+                monomer_atom_attrs[1][0][1] = monomer.monomer_bond_atoms
+            if monomer.monomer_displaced_atoms:
+                monomer_atom_attrs[1][1][1] = monomer.monomer_displaced_atoms
+
+            backbone_atom_attrs = ['backbone', [
+                ['backbone_bond_atoms', self.backbone.backbone_bond_atoms],
+                ['backbone_displaced_atoms', self.backbone.backbone_displaced_atoms]]]
+
+            left_atom_attrs = ['left', [
+                ['left_bond_atoms', self.bond.left_bond_atoms],
+                ['left_displaced_atoms', self.bond.left_displaced_atoms]]]
+            if monomer.left_bond_atoms:
+                left_atom_attrs[1][0][1] = monomer.left_bond_atoms
+            if monomer.left_displaced_atoms:
+                left_atom_attrs[1][1][1] = monomer.left_displaced_atoms
+
+            right_atom_attrs = ['right', [
+                ['right_bond_atoms', self.bond.right_bond_atoms],
+                ['right_displaced_atoms', self.bond.right_displaced_atoms]]]
+            if monomer.right_bond_atoms:
+                right_atom_attrs[1][0][1] = monomer.right_bond_atoms
+            if monomer.right_displaced_atoms:
+                right_atom_attrs[1][1][1] = monomer.right_displaced_atoms
+
+            subunit_atoms = {}
+            for type, attrs in [monomer_atom_attrs, backbone_atom_attrs,
+                                left_atom_attrs, right_atom_attrs]:
+                subunit_atoms[type] = {}
+                for attr in attrs:
+                    subunit_atoms[type][attr[0]] = []
+                    for atom_md in attr[1]:
+                        if atom_md.position is None:
+                            raise ValueError('Atom positions must be specified to generate a structure')
+
+                        if atom_md.molecule == Monomer:
+                            atom = mol.GetAtom(n_atom + atom_md.position)
+                        else:
+                            atom = mol.GetAtom(n_atom + atom_md.position + monomer.structure.NumAtoms())
+                        subunit_atoms[type][attr[0]].append([atom, atom_md.element])
+            atoms.append(subunit_atoms)
+
+            n_atom += monomer_structure.NumAtoms()
+            if backbone_structure:
+                n_atom += backbone_structure.NumAtoms()
+
+        def get_hydrogen_atom(parent_atom, selected_hydrogens):
+            for other_atom in openbabel.OBAtomAtomIter(parent_atom):
+                if other_atom.GetAtomicNum() == 1 and other_atom not in selected_hydrogens:  # hydrogen
+                    selected_hydrogens.append(other_atom)
+                    return other_atom
+            return None
+
+        for subunit_atoms in atoms:
+            for residue_atoms in subunit_atoms.values():
+                for type_atoms in residue_atoms.values():
+                    selected_hydrogens = []
+                    for i_atom_el, atom_el in enumerate(type_atoms):
+                        if atom_el[1] == 'H':
+                            type_atoms[i_atom_el] = get_hydrogen_atom(atom_el[0], selected_hydrogens)
+                        else:
+                            type_atoms[i_atom_el] = atom_el[0]
+
+        # bond monomers to backbones
+        for monomer, subunit_atoms in zip(self.monomer_seq, atoms):
+            for atom in subunit_atoms['monomer']['monomer_displaced_atoms']:
+                if atom:
+                    assert mol.DeleteAtom(atom, True)
+
+            for atom in subunit_atoms['backbone']['backbone_displaced_atoms']:
+                if atom:
+                    assert mol.DeleteAtom(atom, True)
+
+            for monomer_atom, backbone_atom in zip(subunit_atoms['monomer']['monomer_bond_atoms'],
+                                                   subunit_atoms['backbone']['backbone_bond_atoms']):
+                bond = openbabel.OBBond()
+                bond.SetBegin(monomer_atom)
+                bond.SetEnd(backbone_atom)
+                bond.SetBondOrder(1)
+                assert mol.AddBond(bond)
+
+        # bond left/right pairs of subunits
+        for left_atoms, right_atoms in zip(atoms[0:-1], atoms[1:]):
+            for atom in left_atoms['left']['left_displaced_atoms']:
+                if atom:
+                    assert mol.DeleteAtom(atom, True)
+
+            for atom in right_atoms['right']['right_displaced_atoms']:
+                if atom:
+                    assert mol.DeleteAtom(atom, True)
+
+            for left_atom, right_atom in zip(left_atoms['left']['left_bond_atoms'],
+                                             right_atoms['right']['right_bond_atoms']):
+                bond = openbabel.OBBond()
+                bond.SetBegin(left_atom)
+                bond.SetEnd(right_atom)
+                bond.SetBondOrder(1)
+                assert mol.AddBond(bond)
+
+        # return molecule
+        return mol
+
+    def export(self, format, options=()):
+        """ Export structure to format
+
+        Args:
+            format (:obj:`str`): format
+            options (:obj:`list` of :obj:`str`, optional): export options
+
+        Returns:
+            :obj:`str`: format representation of structure
+        """
+        if self.monomer_seq:
+            return OpenBabelUtils.export(self.get_structure(), format, options=options)
+        return None
 
     def get_formula(self):
         """ Get the chemical formula
@@ -2074,6 +2490,12 @@ class BpForm(object):
                     'synonyms': SynonymSet(),
                     'identifiers': IdentifierSet(),
                     'base_monomers': set(),
+                    'monomer_bond_atoms': AtomList(),
+                    'monomer_displaced_atoms': AtomList(),
+                    'left_bond_atoms': AtomList(),
+                    'left_displaced_atoms': AtomList(),
+                    'right_bond_atoms': AtomList(),
+                    'right_displaced_atoms': AtomList(),
                 }
                 for arg in args:
                     if isinstance(arg, tuple):
@@ -2087,6 +2509,10 @@ class BpForm(object):
                                 kwargs[arg_name] = arg_val
                         elif arg_name in ['synonyms', 'identifiers', 'base_monomers']:
                             kwargs[arg_name].add(arg_val)
+                        elif arg_name in ['monomer_bond_atoms', 'monomer_displaced_atoms',
+                                          'left_bond_atoms', 'left_displaced_atoms',
+                                          'right_bond_atoms', 'right_displaced_atoms']:
+                            kwargs[arg_name].append(arg_val)
                         else:  # pragma: no cover # the grammar ensures this will never be reached
                             raise ValueError('Invalid attribute {}'.format(arg_name))
                 return Monomer(**kwargs)
@@ -2109,7 +2535,39 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def structure(self, *args):
-                return ('structure', re.sub(r'[ \t\f\r\n]', '', args[-1].value))
+                return ('structure', args[-1])
+
+            @lark.v_args(inline=True)
+            def monomer_bond_atom(self, *args):
+                return ('monomer_bond_atoms', args[1])
+
+            @lark.v_args(inline=True)
+            def monomer_displaced_atom(self, *args):
+                return ('monomer_displaced_atoms', args[1])
+
+            @lark.v_args(inline=True)
+            def left_bond_atom(self, *args):
+                return ('left_bond_atoms', args[1])
+
+            @lark.v_args(inline=True)
+            def left_displaced_atom(self, *args):
+                return ('left_displaced_atoms', args[1])
+
+            @lark.v_args(inline=True)
+            def right_bond_atom(self, *args):
+                return ('right_bond_atoms', args[1])
+
+            @lark.v_args(inline=True)
+            def right_displaced_atom(self, *args):
+                return ('right_displaced_atoms', args[1])
+
+            @lark.v_args(inline=True)
+            def atom(self, *args):
+                if args[-7] == 'Monomer':
+                    molecule = Monomer
+                else:
+                    molecule = Backbone
+                return Atom(molecule, args[-5], position=int(float(args[-3])), charge=int(float(args[-1])))
 
             @lark.v_args(inline=True)
             def delta_mass(self, *args):
@@ -2148,7 +2606,7 @@ class BpForm(object):
         parse_tree_transformer = ParseTreeTransformer(self)
         return parse_tree_transformer.transform(tree)
 
-    def to_fasta(self):
+    def get_fasta(self):
         """ Get FASTA representation of a monomer with bases represented by the character codes
         of their parent monomers (e.g. methyl-2-adenosine is represented by 'A')
 

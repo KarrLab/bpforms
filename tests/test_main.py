@@ -18,8 +18,8 @@ import shutil
 import tempfile
 import unittest
 
-ala_inchi = 'InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1'
-ala_inchi_ph_14 = 'InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/p-1/t2-/m0/s1'
+dI_smiles = 'O=C1NC=NC2=C1N=CN2'
+dI_smiles_ph_14 = 'O=c1[n-]cnc2c1nc[n-]2'
 
 
 class CliTestCase(unittest.TestCase):
@@ -70,7 +70,7 @@ class CliTestCase(unittest.TestCase):
                 self.assertEqual(captured.stderr.get_text(), '')
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['validate', 'canonical_dna', 'ACG[id: "ala" | structure: {}]T'.format(ala_inchi)]) as app:
+            with __main__.App(argv=['validate', 'canonical_dna', 'ACG[id: "dI" | structure: "{}"]T'.format(dI_smiles)]) as app:
                 # run app
                 app.run()
 
@@ -92,18 +92,19 @@ class CliTestCase(unittest.TestCase):
                 # test that the CLI produced the correct output
                 text = captured.stdout.get_text()
                 self.assertIn('Length: 4', text)
+                self.assertNotIn('Structure: None', text)
                 self.assertIn('Formula: C39', text)
                 self.assertIn('Molecular weight: ', text)
                 self.assertIn('Charge: -', text)
                 self.assertEqual(captured.stderr.get_text(), '')
-
+        
+        monomer_seq = ''.join([
+            '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.A.export('smiles')),
+            '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.C.export('smiles')),
+            '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.G.export('smiles')),
+            '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.T.export('smiles')),
+        ])
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            monomer_seq = ''.join([
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.A.get_inchi()),
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.C.get_inchi()),
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.G.get_inchi()),
-                '[structure: {}]'.format(bpforms.alphabet.dna.dna_alphabet.monomers.T.get_inchi()),
-            ])
             with __main__.App(argv=['get-properties', 'canonical_dna', monomer_seq, '--ph', '7.0', '--major-tautomer']) as app:
                 # run app
                 app.run()
@@ -111,6 +112,7 @@ class CliTestCase(unittest.TestCase):
                 # test that the CLI produced the correct output
                 text = captured.stdout.get_text()
                 self.assertIn('Length: 4', text)
+                self.assertIn('Structure: None', text)
                 self.assertIn('Formula: C39', text)
                 self.assertIn('Molecular weight: ', text)
                 self.assertIn('Charge: -', text)
@@ -120,19 +122,19 @@ class CliTestCase(unittest.TestCase):
                 # run app
                 app.run()
 
-    def test_protonate(self):
+    def test_get_major_micro_species(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['protonate', 'canonical_dna', '[id: "ala" | structure: {0}][id: "ala" | structure: {0}]'.format(
-                    ala_inchi), '14.']) as app:
+            with __main__.App(argv=['get-major-micro-species', 'canonical_dna', '[id: "dI" | structure: "{0}"][id: "dI" | structure: "{0}"]'.format(
+                    dI_smiles), '14.']) as app:
                 # run app
                 app.run()
 
                 # test that the CLI produced the correct output
-                self.assertEqual(captured.stdout.get_text(), '[id: "ala" | structure: {0}][id: "ala" | structure: {0}]'.format(
-                    ala_inchi_ph_14))
+                self.assertEqual(captured.stdout.get_text(), '[id: "dI" | structure: "{0}"][id: "dI" | structure: "{0}"]'.format(
+                    dI_smiles_ph_14))
 
         with self.assertRaises(SystemExit):
-            with __main__.App(argv=['protonate', 'canonical_dna', 'ACGT[', '7.']) as app:
+            with __main__.App(argv=['get-major-micro-species', 'canonical_dna', 'ACGT[', '7.']) as app:
                 # run app
                 app.run()
 

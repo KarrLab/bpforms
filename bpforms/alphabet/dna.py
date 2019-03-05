@@ -12,6 +12,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from wc_utils.util.chem import EmpiricalFormula
 import math
+import openbabel
 import os
 import pkg_resources
 import requests
@@ -124,15 +125,15 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
         # get individual nucleobases and create monomers
         session = self.load_session()
-        with_inchi = session.query(self.Names).filter(self.Names.inchi != '[]')
+        with_smiles = session.query(self.Names).filter(self.Names.smiles != '[]')
         if not math.isinf(self._max_monomers):
-            with_inchi = with_inchi.limit(self._max_monomers)
+            with_smiles = with_smiles.limit(self._max_monomers)
 
         monomer_nameids = {}
         all_base_monomers_codes = {}
         all_base_monomers_ids = {}
         invalid_nucleobases = []
-        for item in with_inchi.all():
+        for item in with_smiles.all():
             row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
             if row is None:
                 chars = 'base'
@@ -159,7 +160,8 @@ class DnaAlphabetBuilder(AlphabetBuilder):
             identifiers = IdentifierSet()
             identifiers.add(Identifier('chebi', item.nameid))
 
-            structure = item.inchi.strip('[]')
+            smiles = item.smiles.strip('[]')
+            inchi = item.inchi.strip('[]')
 
             cmodid = None
             verified_status = False
@@ -178,6 +180,13 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 base_monomer_ids.add(base_monomer_id.parentid)
 
             comments = session.query(self.CovMod).filter(self.CovMod.cmodid == cmodid).first().definition
+
+            structure = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            if not conv.ReadString(structure, smiles):
+                assert conv.SetInFormat('inchi')
+                assert conv.ReadString(structure, inchi)
 
             monomer = Monomer(
                 id=id,
@@ -244,18 +253,16 @@ class DnaForm(BpForm):
         super(DnaForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=dna_alphabet,
             backbone=Backbone(
-                structure='InChI=1/C5H11O6P/c6-4-1-2-10-5(4)3-11-12(7,8)9/h4-6H,1-3H2,(H2,7,8,9)/p-2',
-                monomer_bond_atoms=[Atom(element='N', position=None)],
-                backbone_bond_atoms=[Atom(element='C', position=2)],
-                monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=2)]),
+                structure='OC1CCOC1COP([O-])([O-])=O',
+                monomer_bond_atoms=[Atom(Monomer, element='N', position=None)],
+                backbone_bond_atoms=[Atom(Backbone, element='C', position=4)],
+                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                backbone_displaced_atoms=[Atom(Backbone, element='H', position=4)]),
             bond=Bond(
-                left_participant=Monomer,
-                right_participant=Monomer,
-                left_bond_atoms=[Atom(element='O', position=6)],
-                right_bond_atoms=[Atom(element='P', position=12)],
-                left_displaced_atoms=[Atom(element='H', position=6)],
-                right_displaced_atoms=[Atom(element='O', position=8, charge=-1)]))
+                left_bond_atoms=[Atom(Backbone, element='O', position=1)],
+                right_bond_atoms=[Atom(Backbone, element='P', position=9)],
+                left_displaced_atoms=[Atom(Backbone, element='H', position=1)],
+                right_displaced_atoms=[Atom(Backbone, element='O', position=11, charge=-1)]))
 
 
 class CanonicalDnaForm(BpForm):
@@ -271,15 +278,13 @@ class CanonicalDnaForm(BpForm):
         super(CanonicalDnaForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
             backbone=Backbone(
-                structure='InChI=1/C5H11O6P/c6-4-1-2-10-5(4)3-11-12(7,8)9/h4-6H,1-3H2,(H2,7,8,9)/p-2',
-                monomer_bond_atoms=[Atom(element='N', position=None)],
-                backbone_bond_atoms=[Atom(element='C', position=2)],
-                monomer_displaced_atoms=[Atom(element='H', position=None)],
-                backbone_displaced_atoms=[Atom(element='H', position=2)]),
+                structure='OC1CCOC1COP([O-])([O-])=O',
+                monomer_bond_atoms=[Atom(Monomer, element='N', position=None)],
+                backbone_bond_atoms=[Atom(Backbone, element='C', position=4)],
+                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                backbone_displaced_atoms=[Atom(Backbone, element='H', position=4)]),
             bond=Bond(
-                left_participant=Monomer,
-                right_participant=Monomer,
-                left_bond_atoms=[Atom(element='O', position=6)],
-                right_bond_atoms=[Atom(element='P', position=12)],
-                left_displaced_atoms=[Atom(element='H', position=6)],
-                right_displaced_atoms=[Atom(element='O', position=8, charge=-1)]))
+                left_bond_atoms=[Atom(Backbone, element='O', position=1)],
+                right_bond_atoms=[Atom(Backbone, element='P', position=9)],
+                left_displaced_atoms=[Atom(Backbone, element='H', position=1)],
+                right_displaced_atoms=[Atom(Backbone, element='O', position=11, charge=-1)]))

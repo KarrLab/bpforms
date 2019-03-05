@@ -20,13 +20,7 @@ Use the `BpForms` notation and the ``bpforms.BpForm.from_str`` method to create 
 
     dna_form = bpforms.DnaForm().from_str('''ACG[
         id: "dI" 
-        | structure: InChI=1S
-            /C10H12N4O4
-            /c15-2-6-5(16)1-7(18-6)14-4-13-8-9(14)11-3-12-10(8)17
-            /h3-7,15-16H,1-2H2,(H,11,12,17)
-            /t5-,6+,7+
-            /m0
-            /s1
+        | structure: "O=C1NC=NC2=C1N=CN2"
         | base-monomer: "A"
         ]AC'''.replace('\n', '').replace(' ', ''))
 
@@ -63,7 +57,7 @@ Protonation and tautomerization
 
 Calculate the major protation and tautomerization state of each monomer in the biopolymer form.::
 
-    dna_form.protonate(8., major_tautomer=True)
+    dna_form.get_major_micro_species(8., major_tautomer=True)
 
 
 Calculation of physical properties
@@ -87,9 +81,9 @@ Use these commands to calculate the length, formula, molecular weight, and charg
 Generating FASTA sequences for `BpForms`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``to_fasta`` method generates FASTA representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomers using the code for their root (e.g. m2A is represented as "A"). Monomers that don't have their base annotated are represented as "N".::
+The ``get_fasta`` method generates FASTA representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomers using the code for their root (e.g. m2A is represented as "A"). Monomers that don't have their base annotated are represented as "N".::
 
-    dna_form.to_fasta()
+    dna_form.get_fasta()
         => ACGAAC
 
 

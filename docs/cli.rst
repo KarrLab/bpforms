@@ -17,7 +17,7 @@ The command line interface provides four functions to easily manipulate BpForms.
 
 * **Protation of biopolymer forms.** The following command can be used to calculate the major protonation and tautomerization state of each monomer in a biopolymer form. This command will print the sequence of the major protonation/tautomerization states.  Note, this function requires a structure for each monomer.::
 
-    bpforms protonate <alphabet_name> <bpform_sequence> <ph_value>
+    bpforms get-major-micro-species <alphabet_name> <bpform_sequence> <ph_value>
 
 * **Calculation of the physical properties of biopolymer forms.** The following command can be used to calculate the length, formula, mass, and charge of a bipolymer form. The optional ``ph`` argument can be used to calculate the major protonation and tautomerization state of the biopolymer at a specific pH. Note, this function requires a structure for each monomer.::
 
