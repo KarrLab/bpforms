@@ -172,7 +172,7 @@ monomers:
     structure: '[NH3+]C(CCC([O-])=O)C=O'
   G:
     id: Gly
-    name: Glycine
+    name: glycine
     synonyms:
     - Aminoacetic acid
     - aminoethanoic acid

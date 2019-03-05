@@ -8,7 +8,7 @@
 
 from bpforms.core import Alphabet, Identifier, IdentifierSet, Monomer
 from bpforms.alphabet import protein
-from wc_utils.util.chem import EmpiricalFormula
+from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
 import os.path
 import shutil
 import requests
@@ -27,6 +27,23 @@ tri_ALA_inchi = 'InChI=1S/C9H17N3O4/c1-4(10)7(13)11-5(2)8(14)12-6(3)9(15)16/h4-6
 class ProteinTestCase(unittest.TestCase):
     def setUp(self):
         self.dirname = tempfile.mkdtemp()
+        self.tmp_pdbfile = os.path.join(self.dirname, 'AA0005.PDB')
+
+        pdb = ''
+        pdb += 'ATOM      1  N   Cys     1       0.000   0.000   0.000'+'\n'                       
+        pdb += 'ATOM      2  HN  Cys     1      -0.560  -0.366   0.772'+'\n'                         
+        pdb += 'ATOM      3  CA  Cys     1       1.454   0.000   0.000'+'\n'                           
+        pdb += 'ATOM      4  HA  Cys     1       1.815  -0.552  -0.872'+'\n'                           
+        pdb += 'ATOM      5  C   Cys     1       1.798  -0.764   1.252'+'\n'                           
+        pdb += 'ATOM      6  O   Cys     1       0.970  -0.863   2.161'+'\n'                           
+        pdb += 'ATOM      7  CB  Cys     1       1.979   1.438   0.000'+'\n'                           
+        pdb += 'ATOM      8  HB1 Cys     1       1.580   1.957  -0.874'+'\n'                           
+        pdb += 'ATOM      9  HB2 Cys     1       1.629   1.971   0.887'+'\n'                           
+        pdb += 'ATOM     10  SG  Cys     1       3.784   1.560  -0.073'+'\n'                           
+        pdb += 'ATOM     11  HG  Cys     1       4.169   1.730  -1.356'+'\n'                           
+
+        with open(self.tmp_pdbfile, 'w') as file:
+            file.write(pdb)
 
     def tearDown(self):
         shutil.rmtree(self.dirname)
@@ -77,6 +94,17 @@ class ProteinTestCase(unittest.TestCase):
             Identifier('chebi', 'CHEBI:45522')
         ])
         self.assertEqual(identifiers, identifiers_test)
+
+    def test_ProteinForm_get_monomer_isotope_structure(self):
+        path = os.path.join(self.dirname, 'alphabet.yml')
+
+        structure_isotope = protein.ProteinAlphabetBuilder().get_monomer_isotope_structure('AA0005', self.tmp_pdbfile)
+        structure = protein.ProteinAlphabetBuilder().get_monomer_structure('AA0005', self.tmp_pdbfile)
+        
+        # check if correct isotopic species are present
+        self.assertEqual(OpenBabelUtils.get_inchi(structure_isotope), 'InChI=1S/C3H7NOS/c4-3(1-5)2-6/h1,3,6H,2,4H2/t3-/m1/s1/i1+1,4+1')
+        # just in case check than original structure has not been modified
+        self.assertEqual(OpenBabelUtils.get_inchi(structure), 'InChI=1S/C3H7NOS/c4-3(1-5)2-6/h1,3,6H,2,4H2/t3-/m1/s1')
 
     def test_ProteinAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
