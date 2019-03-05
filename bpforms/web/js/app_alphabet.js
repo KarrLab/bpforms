@@ -60,10 +60,9 @@ set_alphabet = function(data, status, jqXHR) {
             // https://cactus.nci.nih.gov/blog/?tag=png
             img = '<img src="https://cactus.nci.nih.gov/chemical/structure/' 
                   + encodeURI(structure)
-                  + '/image?format=png&bgcolor=transparent&antialiasing=0" class="context-menu-one" structure="' 
+                  + '/image?format=gif&bgcolor=transparent&antialiasing=0" class="context-menu-one" structure="' 
                   + encodeURI(structure) 
                   + '"/>'
-
         }
         html += '<td class="structure"><div>' + img + '</div></td>'
 
