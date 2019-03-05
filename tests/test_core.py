@@ -16,6 +16,7 @@ import lark.exceptions
 import mock
 import openbabel
 import os
+import requests
 import shutil
 import tempfile
 import unittest
@@ -536,8 +537,18 @@ class MonomerTestCase(unittest.TestCase):
         self.assertFalse(monomer_1.is_equal(monomer_8))
 
     def test_get_image_url(self):
-        self.assertNotEqual(dna.dna_alphabet.monomers.A.get_image_url(), None)
+        url = dna.dna_alphabet.monomers.A.get_image_url()
+        self.assertNotEqual(url, None)
+        response = requests.get(url)
+        response.raise_for_status()
+
         self.assertEqual(core.Monomer().get_image_url(), None)
+
+    def test_get_image(self):
+        svg = dna.dna_alphabet.monomers.A.get_image()
+        self.assertTrue(svg.startswith('<?xml'))
+
+        self.assertEqual(core.Monomer().get_image(), None)
 
 
 class MonomerSequenceTestCase(unittest.TestCase):

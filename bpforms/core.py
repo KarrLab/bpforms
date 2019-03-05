@@ -7,7 +7,7 @@
 """
 
 from ruamel import yaml
-from wc_utils.util.chem import EmpiricalFormula, GetMajorMicroSpecies, OpenBabelUtils
+from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_molecule, OpenBabelUtils
 import abc
 import attrdict
 import copy
@@ -17,6 +17,7 @@ import pkg_resources
 import re
 import subprocess
 import time
+import urllib.parse
 
 
 class Identifier(object):
@@ -719,7 +720,7 @@ class Monomer(object):
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         """
         if self.structure:
-            structure = GetMajorMicroSpecies.run(self.export('smi', options=('c',)), format='smiles', ph=ph, major_tautomer=major_tautomer)
+            structure = get_major_micro_species(self.export('smi', options=('c',)), 'smiles', ph=ph, major_tautomer=major_tautomer)
             conv = openbabel.OBConversion()
             assert conv.SetInFormat('smi')
             assert conv.ReadString(self.structure, structure)
@@ -752,8 +753,50 @@ class Monomer(object):
         """
         smiles = self.export('smi', options=('c',))
         if smiles:
-            return self.IMAGE_URL_PATTERN.format(smiles)
+            return self.IMAGE_URL_PATTERN.format(urllib.parse.quote(smiles))
         return None
+
+    def get_image(self, bond_label='B', displaced_label='D',
+                  backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff):
+        """ Get image in SVG format
+
+        Args:
+            bond_label (:obj:`str`, optional): label for atoms involved in bonds
+            displaced_label (:obj:`str`, optional): labels for atoms displaced by bond formation
+            backbone_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with backbone
+            left_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomer to left
+            right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomer to right
+
+        Returns:
+            :obj:`str`: SVG image
+        """
+        if not self.structure:
+            return None
+
+        atom_md_types = [
+            (self.monomer_bond_atoms, bond_label, backbone_bond_color),
+            (self.monomer_displaced_atoms, displaced_label, backbone_bond_color),
+            (self.left_bond_atoms, bond_label, left_bond_color),
+            (self.left_displaced_atoms, displaced_label, left_bond_color),
+            (self.right_bond_atoms, bond_label, right_bond_color),
+            (self.right_displaced_atoms, displaced_label, right_bond_color),
+        ]
+        atom_labels = []
+        atom_sets = {}
+        for atom_mds, label, color in atom_md_types:
+            selected_hydrogens = []
+            for atom_md in atom_mds:
+                atom = self.structure.GetAtom(atom_md.position)
+                if atom_md.element == 'H' and atom.GetAtomicNum() != 1:
+                    atom = get_hydrogen_atom(atom, selected_hydrogens)
+
+                if atom:
+                    atom_labels.append({'position': atom.GetIdx(), 'label': label, 'color': color})
+                    if color not in atom_sets:
+                        atom_sets[color] = {'positions': [], 'color': color}
+                    atom_sets[color]['positions'].append(atom.GetIdx())
+
+        return draw_molecule(self.export('smiles'), 'smiles', atom_labels, atom_sets.values())
 
     def get_formula(self):
         """ Get the chemical formula
@@ -1177,8 +1220,8 @@ class Alphabet(object):
             structure = monomer.export('smi', options=('c',))
             structures.append(structure)
 
-        new_structures = GetMajorMicroSpecies.run(structures, format='smiles',
-                                                  ph=ph, major_tautomer=major_tautomer)
+        new_structures = get_major_micro_species(structures, 'smiles',
+                                                 ph=ph, major_tautomer=major_tautomer)
 
         for monomer, new_structure in zip(monomers, new_structures):
             conv = openbabel.OBConversion()
@@ -2251,8 +2294,8 @@ class BpForm(object):
         for monomer in monomers:
             structures.append(monomer.export('smi', options=('c',)))
 
-        new_structures = GetMajorMicroSpecies.run(structures, format='smiles',
-                                                  ph=ph, major_tautomer=major_tautomer)
+        new_structures = get_major_micro_species(structures, 'smiles',
+                                                 ph=ph, major_tautomer=major_tautomer)
 
         for monomer, new_structure in zip(monomers, new_structures):
             conv = openbabel.OBConversion()
@@ -2328,13 +2371,6 @@ class BpForm(object):
             n_atom += monomer_structure.NumAtoms()
             if backbone_structure:
                 n_atom += backbone_structure.NumAtoms()
-
-        def get_hydrogen_atom(parent_atom, selected_hydrogens):
-            for other_atom in openbabel.OBAtomAtomIter(parent_atom):
-                if other_atom.GetAtomicNum() == 1 and other_atom not in selected_hydrogens:  # hydrogen
-                    selected_hydrogens.append(other_atom)
-                    return other_atom
-            return None
 
         for subunit_atoms in atoms:
             for residue_atoms in subunit_atoms.values():
@@ -2627,3 +2663,22 @@ class BpForm(object):
                 seq += self.DEFAULT_FASTA_CODE
 
         return seq
+
+
+def get_hydrogen_atom(parent_atom, selected_hydrogens=None):
+    """ Get a hydrogen atom attached to a parent atom
+
+    Args:
+        parent_atom (:obj:`openbabel.OBAtom`): parent atom
+        selected_hydrogens (:obj:`list`, optional): hydrogens that have already been gotten
+
+    Returns:
+        :obj:`openbabel.OBAtom`: hydrogen atom
+    """
+    if selected_hydrogens is None:
+        selected_hydrogens = []
+    for other_atom in openbabel.OBAtomAtomIter(parent_atom):
+        if other_atom.GetAtomicNum() == 1 and other_atom not in selected_hydrogens:  # hydrogen
+            selected_hydrogens.append(other_atom)
+            return other_atom
+    return None
