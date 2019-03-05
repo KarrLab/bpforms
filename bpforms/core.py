@@ -757,7 +757,8 @@ class Monomer(object):
         return None
 
     def get_image(self, bond_label='B', displaced_label='D',
-                  backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff):
+                  backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff,
+                  include_xml_header=True):
         """ Get image in SVG format
 
         Args:
@@ -766,6 +767,7 @@ class Monomer(object):
             backbone_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with backbone
             left_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomer to left
             right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomer to right
+            include_xml_header (:obj:`bool`, optional): if :obj:`True`, include XML header at the beginning of the SVG
 
         Returns:
             :obj:`str`: SVG image
@@ -796,7 +798,7 @@ class Monomer(object):
                         atom_sets[color] = {'positions': [], 'color': color}
                     atom_sets[color]['positions'].append(atom.GetIdx())
 
-        return draw_molecule(self.export('smiles'), 'smiles', atom_labels, atom_sets.values())
+        return draw_molecule(self.export('smiles'), 'smiles', atom_labels, atom_sets.values(), include_xml_header=include_xml_header)
 
     def get_formula(self):
         """ Get the chemical formula

@@ -35,14 +35,14 @@ class ValidateController(cement.Controller):
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
-            (['type'], dict(type=str, help='Type of biopolymer')),
+            (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
             (['structure'], dict(type=str, help='Biopolymer structure')),
         ]
 
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        type = bpforms.util.get_form(args.type)
+        type = bpforms.util.get_form(args.alphabet)
         try:
             form = type().from_str(args.structure)
             print('Form is valid')
@@ -59,7 +59,7 @@ class GetPropertiesController(cement.Controller):
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
-            (['type'], dict(type=str, help='Type of biopolymer')),
+            (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
             (['structure'], dict(type=str, help='Biopolymer structure')),
             (['--ph'], dict(default=None, type=float,
                             help='pH at which calculate major protonation state of each monomer')),
@@ -70,7 +70,7 @@ class GetPropertiesController(cement.Controller):
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        type = bpforms.util.get_form(args.type)
+        type = bpforms.util.get_form(args.alphabet)
         try:
             form = type().from_str(args.structure)
         except Exception as error:
@@ -98,7 +98,7 @@ class GetMajorMicroSpeciesController(cement.Controller):
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
-            (['type'], dict(type=str, help='Type of biopolymer')),
+            (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
             (['structure'], dict(type=str, help='Biopolymer structure')),
             (['ph'], dict(type=float, help='pH')),
             (['--major-tautomer'], dict(action='store_true', default=False,
@@ -108,7 +108,7 @@ class GetMajorMicroSpeciesController(cement.Controller):
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        type = bpforms.util.get_form(args.type)
+        type = bpforms.util.get_form(args.alphabet)
         try:
             form = type().from_str(args.structure)
         except Exception as error:
@@ -141,6 +141,27 @@ class BuildAlphabetsController(cement.Controller):
         print('Alphabets successfully built')
 
 
+class VizAlphabetController(cement.Controller):
+    """ Visualize an alphabet """
+
+    class Meta:
+        label = 'viz-alphabet'
+        description = 'Visualize an alphabet'
+        stacked_on = 'base'
+        stacked_type = 'nested'
+        arguments = [
+            (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
+            (['path'], dict(type=str, help='Path to save visualization of alphabet')),
+        ]
+
+    @cement.ex(hide=True)
+    def _default(self):
+        args = self.app.pargs
+        alphabet = bpforms.util.get_alphabet(args.alphabet)
+        bpforms.util.gen_html_viz_alphabet(alphabet, args.path)
+        print('Visualization saved to {}'.format(args.path))
+
+
 class App(cement.App):
     """ Command line application """
     class Meta:
@@ -152,6 +173,7 @@ class App(cement.App):
             GetPropertiesController,
             GetMajorMicroSpeciesController,
             BuildAlphabetsController,
+            VizAlphabetController,
         ]
 
 

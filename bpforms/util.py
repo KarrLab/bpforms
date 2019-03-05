@@ -24,7 +24,7 @@ def get_alphabets():
         protein.protein_alphabet,
         dna.canonical_dna_alphabet,
         rna.canonical_rna_alphabet,
-        protein.canonical_protein_alphabet,        
+        protein.canonical_protein_alphabet,
     ]
     return {alphabet.id: alphabet for alphabet in alphabets}
 
@@ -104,11 +104,8 @@ def gen_html_viz_alphabet(alphabet, filename):
     for code, monomer in alphabet.monomers.items():
         doc += '        <tr>'
         doc += '          <td>{}</td>'.format(code)
-        url = monomer.get_image_url()
-        if url:
-            doc += '          <td><img src="{}"/></td>'.format(url)
-        else:
-            doc += '          <td></td>'.format(url)
+        doc += '          <td>{}</td>'.format(
+            monomer.get_image(include_xml_header=False))
         doc += '        </tr>'
     doc += '    </table>'
     doc += '  </body>'

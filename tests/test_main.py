@@ -97,7 +97,7 @@ class CliTestCase(unittest.TestCase):
                 self.assertIn('Molecular weight: ', text)
                 self.assertIn('Charge: -', text)
                 self.assertEqual(captured.stderr.get_text(), '')
-        
+
         monomer_seq = ''.join([
             '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.A.export('smiles')),
             '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.C.export('smiles')),
@@ -124,7 +124,8 @@ class CliTestCase(unittest.TestCase):
 
     def test_get_major_micro_species(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['get-major-micro-species', 'canonical_dna', '[id: "dI" | structure: "{0}"][id: "dI" | structure: "{0}"]'.format(
+            with __main__.App(argv=['get-major-micro-species', 'canonical_dna',
+                                    '[id: "dI" | structure: "{0}"][id: "dI" | structure: "{0}"]'.format(
                     dI_smiles), '14.']) as app:
                 # run app
                 app.run()
@@ -137,6 +138,18 @@ class CliTestCase(unittest.TestCase):
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna', 'ACGT[', '7.']) as app:
                 # run app
                 app.run()
+
+    def test_viz_alphabet(self):
+        path = os.path.join(self.tempdir, 'alphabet.html')
+
+        with capturer.CaptureOutput(merged=False, relay=False) as captured:
+            with __main__.App(argv=['viz-alphabet', 'canonical_dna', path]) as app:
+                # run app
+                app.run()
+
+                # test that the CLI produced the correct output
+                self.assertEqual(captured.stdout.get_text(), 'Visualization saved to {}'.format(path))
+        self.assertTrue(os.path.isfile(path))
 
 
 class BuildAlphabetsCliTestCase(unittest.TestCase):

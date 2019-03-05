@@ -548,6 +548,9 @@ class MonomerTestCase(unittest.TestCase):
         svg = dna.dna_alphabet.monomers.A.get_image()
         self.assertTrue(svg.startswith('<?xml'))
 
+        svg = dna.dna_alphabet.monomers.A.get_image(include_xml_header=False)
+        self.assertTrue(svg.startswith('<svg'))
+
         self.assertEqual(core.Monomer().get_image(), None)
 
 
