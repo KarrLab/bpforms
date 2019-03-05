@@ -103,7 +103,7 @@ $(function(){
             key: {
                 name: "Copy as SMILES",
                 callback: function(data, status, jqXHR) {
-                    structure = $(status.$trigger[0]).attr('structure')
+                    structure = decodeURI($(status.$trigger[0]).attr('structure'))
                     copyToClipboard(structure)
                 }
             }
