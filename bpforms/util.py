@@ -10,6 +10,7 @@ from . import core
 from .alphabet import dna
 from .alphabet import rna
 from .alphabet import protein
+import openbabel
 
 
 def get_alphabets():
@@ -113,3 +114,71 @@ def gen_html_viz_alphabet(alphabet, filename):
 
     with open(filename, 'w') as file:
         file.write(doc)
+
+
+def validate_bpform_linkages(form_type):
+    """ Validate linkages in alphabet
+
+    Args:
+        form_type (:obj:`type`): type of BpForm
+
+    Raises:
+        :obj:`ValueError`: if any of the linkages are invalid
+    """
+
+    form = form_type()
+
+    element_table = openbabel.OBElementTable()
+
+    atom_types = [
+        ['backbone', 'monomer_bond_atoms'],
+        ['backbone', 'backbone_bond_atoms'],
+        ['backbone', 'monomer_displaced_atoms'],
+        ['backbone', 'backbone_displaced_atoms'],
+        ['bond', 'left_bond_atoms'],
+        ['bond', 'right_bond_atoms'],
+        ['bond', 'left_displaced_atoms'],
+        ['bond', 'right_displaced_atoms'],
+    ]
+    for molecule_md, atom_type in atom_types:
+        molecule = getattr(form, molecule_md)
+        selected_hydrogens = []
+        for atom_md in getattr(molecule, atom_type):
+            if atom_md.molecule == core.Backbone:
+                if atom_md.position < 1 or atom_md.position > form.backbone.structure.NumAtoms():
+                    raise ValueError('Invalid position {} for {}.{}'.format(atom_md.position, molecule_md, atom_type))
+                
+                atom = form.backbone.structure.GetAtom(atom_md.position)
+                if atom_md.element == 'H' and atom.GetAtomicNum() != 1:
+                    atom = core.get_hydrogen_atom(atom, selected_hydrogens)
+                    if atom is None:
+                        continue
+
+                if element_table.GetSymbol(atom.GetAtomicNum()) != atom_md.element:
+                    raise ValueError('Invalid element at position {} for {}.{}'.format(atom_md.position, molecule_md, atom_type))
+
+    atom_types = [
+        'monomer_bond_atoms',
+        'monomer_displaced_atoms',
+        'left_bond_atoms',
+        'right_bond_atoms',
+        'left_displaced_atoms',
+        'right_displaced_atoms',
+    ]
+    for monomer in form.alphabet.monomers.values():
+        for atom_type in atom_types:
+            selected_hydrogens = []
+            for atom_md in getattr(monomer, atom_type):
+                if atom_md.molecule == core.Monomer:
+                    if atom_md.position < 1 or atom_md.position > monomer.structure.NumAtoms():
+                        raise ValueError('Invalid position {} for Monomer:{} {}'.format(atom_md.position, monomer.id, atom_type))
+                    
+                    atom = monomer.structure.GetAtom(atom_md.position)
+                    if atom_md.element == 'H' and atom.GetAtomicNum() != 1:
+                        atom = core.get_hydrogen_atom(atom, selected_hydrogens)
+                        if atom is None:
+                            continue
+
+                    if element_table.GetSymbol(atom.GetAtomicNum()) != atom_md.element:
+                        raise ValueError('Invalid element at position {} for Monomer:{} {}'.format(
+                            atom_md.position, monomer.id, atom_type))
