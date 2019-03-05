@@ -103,8 +103,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         base_monomers = {}
         monomer_ids = {}
         for file in glob.iglob(tmp_folder+'/*PDB'):
-            number_hn = 0
-            number_co = 0
+            number_ca = 0
             with open(file, 'r') as f:
                 names = []
                 for line in f:
@@ -119,9 +118,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
                     # get the number of atoms from a peptide bond entity
                     if str.split(line)[0] == 'ATOM' and str.split(line)[2] == 'CA':
-                        number_hn += 1
-                    # if str.split(line)[0] == 'ATOM' and str.split(line)[2] == 'O':
-                        # number_co += 1
+                        number_ca += 1
+
 
                 name = ''.join(names)
                 id = re.split("[/.]", file)[3]
@@ -133,10 +131,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             # check if more than one peptide bond entity is present 
             # for now change isotope labeling only on monomers with one peptide bond possibility
             # if number_hn > 1 and number_co > 1:
-            if number_hn > 1:
+            if number_ca > 1:
                 print('Ignoring monomer {} with more than one peptide bond anchoring'.format(id))
             else:
-                structure_isotopes = self.get_monomer_isotope_structure(name, file)
+                structure_isotopes, index_c, index_n = self.get_monomer_isotope_structure(name, file)
+                print('iso', file, index_c, index_n)
 
             code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
 
@@ -244,13 +243,17 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         for res in openbabel.OBResidueIter(pdb_mol):
                             for atom in openbabel.OBResidueAtomIter(res):
                                 if atom1.GetType() == 'N3' and atom.GetIdx() == atom1.GetIdx():
+                                    index_n = atom1.GetIdx()
                                     atom1.SetIsotope(15)
                                 if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and atom.GetIdx() == atom1.GetIdx():
+                                    index_c = atom1.GetIdx()
                                     atom1.SetIsotope(13)
                     else:
                         if atom1.GetType() == 'N3' and (res.GetAtomID(atom1)).strip() == 'N':
+                            index_n = atom1.GetIdx()
                             atom1.SetIsotope(15)
-                        if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and (res.GetAtomID(atom1)).strip() == 'C':   
+                        if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and (res.GetAtomID(atom1)).strip() == 'C':
+                            index_c = atom1.GetIdx()   
                             atom1.SetIsotope(13)
 
                 # need to check first if residue numbering is present in a correct way, some residues do not have a proper residue number and name but
@@ -261,9 +264,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                             if atom1.GetType() == 'N3' and atom2.GetType() == 'H' and atom.GetIdx() == atom1.GetIdx() and countN == 0:
                                 if pdb_mol.GetAtom(i+2) and (pdb_mol.GetAtom(i+2)).GetType() == 'C3':
                                     countN = 1
+                                    index_n = atom1.GetIdx()
                                     atom1.SetIsotope(15)
                             if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and atom.GetIdx() == atom1.GetIdx() and countC == 0:
                                 countC = 1
+                                index_c = atom1.GetIdx()
                                 atom1.SetIsotope(13)
 
                 if res.GetName() != 'Pro' and res.GetNumAtoms() != 1:
@@ -271,10 +276,12 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     if atom1.GetType() == 'N3' and atom2.GetType() == 'H' and (res.GetAtomID(atom1)).strip() == 'N' and countN == 0:
                         if pdb_mol.GetAtom(i+2) and (pdb_mol.GetAtom(i+2)).GetType() == 'C3':
                             countN = 1
+                            index_n = atom1.GetIdx()
                             atom1.SetIsotope(15)
                     # check types according to openbabel atom types for C and O
                     if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and (res.GetAtomID(atom1)).strip() == 'C' and (res.GetAtomID(atom2)).strip() == 'O' and countC == 0:  
                         countC = 1
+                        index_c = atom1.GetIdx()
                         atom1.SetIsotope(13)
 
         inchi_isotopes = conv.WriteString(pdb_mol)
@@ -294,7 +301,16 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         assert conv.SetInFormat('inchi'), 'Unable to set format to InChI'
         conv.ReadString(inchi_mol_isotopes, inchi_isotopes)
 
-        return inchi_mol_isotopes
+        index_n = 'None'
+        index_c = 'None'
+        for i in range(1, inchi_mol_isotopes.NumAtoms()+1):
+            atom = inchi_mol_isotopes.GetAtom(i)
+            if atom.GetAtomicMass() == 13.003354838:
+                index_c = atom.GetIdx()
+            if atom.GetAtomicMass() == 15.000108898:
+                index_n = atom.GetIdx()
+
+        return inchi_mol_isotopes, index_n, index_c
 
     def get_monomer_details(self, id, session):
         """ Get the CHEBI ID and synonyms of an amino acid from its RESID webpage

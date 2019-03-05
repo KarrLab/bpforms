@@ -98,12 +98,14 @@ class ProteinTestCase(unittest.TestCase):
     def test_ProteinForm_get_monomer_isotope_structure(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
 
-        structure_isotope = protein.ProteinAlphabetBuilder().get_monomer_isotope_structure('AA0005', self.tmp_pdbfile)
+        structure_isotope, indexn, indexc = protein.ProteinAlphabetBuilder().get_monomer_isotope_structure('AA0005', self.tmp_pdbfile)
         structure = protein.ProteinAlphabetBuilder().get_monomer_structure('AA0005', self.tmp_pdbfile)
         
         # check if correct isotopic species are present
         self.assertEqual(OpenBabelUtils.get_inchi(structure_isotope), 'InChI=1S/C3H7NOS/c4-3(1-5)2-6/h1,3,6H,2,4H2/t3-/m1/s1/i1+1,4+1')
-        # just in case check than original structure has not been modified
+        self.assertEqual(indexn, 4)
+        self.assertEqual(indexc, 1)
+        # just in case check that original structure has not been modified
         self.assertEqual(OpenBabelUtils.get_inchi(structure), 'InChI=1S/C3H7NOS/c4-3(1-5)2-6/h1,3,6H,2,4H2/t3-/m1/s1')
 
     def test_ProteinAlphabetBuilder(self):
