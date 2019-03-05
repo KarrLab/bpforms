@@ -138,7 +138,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:70854
-    structure: COc1nc(N)ccn1
+    structure: COC1=NC(N)=CC=N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 9
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 9
     base_monomers:
     - C
   f:
@@ -152,7 +160,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:76794
-    structure: O=Cc1c[nH]c(=O)nc1N
+    structure: NC1=NC(=O)NC=C1C=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 6
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 6
     base_monomers:
     - C
   h:
@@ -166,7 +182,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:76792
-    structure: Nc1nc(=O)[nH]cc1CO
+    structure: NC1=NC(=O)NC=C1CO
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 6
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 6
     base_monomers:
     - C
   e3C:
@@ -177,7 +201,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:74029
-    structure: CCn1c(N)ccnc1=O
+    structure: CCN1C(N)=CC=NC1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 8
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 8
     base_monomers:
     - C
   3mC:
@@ -190,7 +222,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:39992
-    structure: Cn1c(N)ccnc1=O
+    structure: CN1C(N)=CC=NC1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 7
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 7
     base_monomers:
     - C
   c:
@@ -205,7 +245,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:76793
-    structure: '[O-]C(=O)c1c[nH]c(=O)nc1N'
+    structure: 'NC1=NC(=O)NC=C1C([O-])=O'
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 6
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 6
     base_monomers:
     - C
   ɛC:
@@ -217,7 +265,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:29147
-    structure: O=c1[nH]ccc2n1ccn2
+    structure: O=C1NC=CC2=NC=CN12
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 7
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 7
     base_monomers:
     - C
   m:
@@ -231,7 +287,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:27551
-    structure: Cc1c[nH]c(=O)nc1N
+    structure: CC1=CNC(=O)N=C1N
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 4
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 4
     base_monomers:
     - C
   4mC:
@@ -244,7 +308,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:21839
-    structure: CNc1cc[nH]c(=O)n1
+    structure: CNC1=NC(=O)NC=C1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 7
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 7
     base_monomers:
     - C
   1mC:
@@ -255,7 +327,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:39624
-    structure: Cn1ccc(nc1=O)N
+    structure: CN1C=CC(N)=NC1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 2
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 2
     base_monomers:
     - C
   putThy:
@@ -271,7 +351,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:132931
-    structure: '[NH3+]CCCC[NH2+]Cc1c[nH]c(=O)[nH]c1=O'
+    structure: '[NH3+]CCCC[NH2+]CC1=CNC(=O)NC1=O'
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 10
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 10
     base_monomers:
     - T
   diHT:
@@ -287,6 +375,14 @@ monomers:
     - ns: chebi
       id: CHEBI:27468
     structure: CC1CNC(=O)NC1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 4
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 4
     base_monomers:
     - T
   e:
@@ -302,7 +398,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:80961
-    structure: O=Cc1c[nH]c(=O)[nH]c1=O
+    structure: O=CC1=CNC(=O)NC1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 5
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 5
     base_monomers:
     - T
     - g
@@ -316,7 +420,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:134100
-    structure: COc1nc(=O)[nH]cc1C
+    structure: COC1=NC(=O)NC=C1C
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 7
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 7
     base_monomers:
     - T
   3mT:
@@ -329,7 +441,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:74766
-    structure: Cn1c(=O)c(C)c[nH]c1=O
+    structure: CN1C(=O)NC=C(C)C1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 5
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 5
     base_monomers:
     - T
   1mT:
@@ -342,7 +462,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:74765
-    structure: Cc1cn(C)c(=O)[nH]c1=O
+    structure: CN1C=C(C)C(=O)NC1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 2
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 2
     base_monomers:
     - T
   6hmA:
@@ -356,7 +484,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:142766
-    structure: OCNc1ncnc2c1[nH]cn2
+    structure: OCNC1=C2NC=NC2=NC=N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 8
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 8
     base_monomers:
     - A
   ncm6A:
@@ -369,7 +505,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:102525
-    structure: NC(=O)CNc1ncnc2c1[nH]cn2
+    structure: NC(=O)CNC1=C2NC=NC2=NC=N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 10
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 10
     base_monomers:
     - A
   6-DMA:
@@ -389,7 +533,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:60281
-    structure: CN(c1ncnc2c1[nH]cn2)C
+    structure: CN(C)C1=C2NC=NC2=NC=N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 8
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 8
     base_monomers:
     - A
   m2A:
@@ -404,7 +556,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:40235
-    structure: Nc1nc(N)c2c(n1)nc[nH]2
+    structure: NC1=NC(N)=C2NC=NC2=N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 9
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 9
     base_monomers:
     - A
   HAP:
@@ -423,7 +583,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:78235
-    structure: ON=c1[nH+]c[nH]c2c1nc[nH]2
+    structure: ON=C1[NH+]=CNC2=C1N=CN2
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 11
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 11
     base_monomers:
     - A
   AHAP:
@@ -437,7 +605,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:78685
-    structure: ONc1nc(N)nc2c1[nH]cn2
+    structure: NC1=NC(NO)=C2NC=NC2=N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 10
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 10
     base_monomers:
     - A
   1mA:
@@ -449,7 +625,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:18083
-    structure: Cn1cnc2c(c1N)ncn2
+    structure: CN1C=NC2=NC=NC2=C1N
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 6
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 6
     base_monomers:
     - A
   3mA:
@@ -464,7 +648,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:38635
-    structure: Nc1ncn(c2c1ncn2)C
+    structure: CN1C=NC(N)=C2N=CN=C12
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 10
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 10
     base_monomers:
     - A
   9mA:
@@ -476,7 +668,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:40526
-    structure: Nc1ncnc2c1ncn2C
+    structure: CN1C=NC2=C(N)N=CN=C12
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 2
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 2
     base_monomers:
     - A
   4mA:
@@ -487,7 +687,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:134106
-    structure: NC1=C2NC=NC2(N=CN1)C
+    structure: CC12N=CNC1=C(N)NC=N2
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 3
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 3
     base_monomers:
     - A
   7mA:
@@ -497,7 +705,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:28921
-    structure: Cn1cnc2c1c(N)ncn2
+    structure: CN1C=NC2=NC=NC(N)=C12
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 4
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 4
     base_monomers:
     - A
   a:
@@ -513,7 +729,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:28871
-    structure: CNc1ncnc2c1[nH]cn2
+    structure: CNC1=C2NC=NC2=NC=N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 7
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 7
     base_monomers:
     - A
   o:
@@ -524,7 +748,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:44605
-    structure: O=C1N=c2c(=N1)c(=O)[nH]c(n2)N
+    structure: NC1=NC2=NC(=O)N=C2C(=O)N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 5
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 5
     base_monomers:
     - G
   CEG:
@@ -538,36 +770,17 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:62032
-    structure: '[O-]C(=O)C(Nc1[nH]c(=O)c2c(n1)[nH]cn2)C'
+    structure: 'CC(NC1=NC2=C(N=CN2)C(=O)N1)C([O-])=O'
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 10
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 10
     base_monomers:
-    - G
-  N(2),3-ɛG:
-    id: N(2),3-ethenoguanine
-    name: 1H-imidazo(2,1-b)purin-4(5H)-one
-    comments: A nucleobase analogue obtained by addition of an etheno group across
-      positions N2 and 3 of guanine.
-    synonyms:
-    - n(2),3-epsilong
-    identifiers:
-    - ns: chebi
-      id: CHEBI:134095
-    structure: O=c1[nH]c2nccn2c2c1nc[nH]2
-    base_monomers:
-    - G
-  1,N(2)-ɛG:
-    id: 1,N(2)-ethenoguanine
-    name: 1,4-dihydro-9H-imidazo[1,2-a]purin-9-one
-    comments: A nucleobase analogue obtained by addition of an etheno group across
-      positions 1 and N2 of guanine.
-    synonyms:
-    - 1,n(2)-epsilong
-    - 1,n(2)-ethenoguanine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:134096
-    structure: O=c1n2ccnc2[nH]c2c1[nH]cn2
-    base_monomers:
-    - G
+    - G  
   ADG:
     id: 7-amido-7-deazaguanosine
     name: 2-amino-4-oxo-7-beta-D-ribofuranosyl-4,7-dihydro-1H-pyrrolo[2,3-d]pyrimidine-5-carboxamide
@@ -577,7 +790,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:131836
-    structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)C(=O)N
+    structure: NC(=O)C1=CN([C@@H]2O[C@H](CO)[C@@H](O)[C@H]2O)C2=C1C(=O)NC(N)=N2
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 6
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 6
     base_monomers:
     - G
   1mG:
@@ -588,7 +809,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:21803
-    structure: Cn1c(N)nc2c(c1=O)nc[nH]2
+    structure: CN1C(N)=NC2=C(N=CN2)C1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 10
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 10
     base_monomers:
     - G
   2mG:
@@ -603,7 +832,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:21818
-    structure: CNc1[nH]c(=O)c2c(n1)[nH]cn2
+    structure: CNC1=NC2=C(N=CN2)C(=O)N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 9
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 9
     base_monomers:
     - G
   m6G:
@@ -623,7 +860,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:20689
-    structure: COc1nc(N)nc2c1[nH]cn2
+    structure: CNC1=NC2=C(N=CN2)C(=O)N1
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 9
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 9
     base_monomers:
     - G
   dhpUra:
@@ -634,7 +879,15 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:132195
-    structure: OCC(CCCc1c[nH]c(=O)[nH]c1=O)O
+    structure: OCC(O)CCCC1=CNC(=O)NC1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 10
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 10
     base_monomers:
     - U
   g:
@@ -649,6 +902,14 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:16964
-    structure: OCc1c[nH]c(=O)[nH]c1=O
+    structure: OCC1=CNC(=O)NC1=O
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 5
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 5
     base_monomers:
     - U
