@@ -31,8 +31,8 @@ canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('al
 canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
 # :obj:`Alphabet`: Alphabet for canonical protein residues
 
-# curated_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.curated.yml'))
-# curated_protein_alphabet = Alphabet().from_yaml(curated_filename)
+# multiple_peptide_bonds_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.multiple-peptide-bonds.yml'))
+# multiple_peptide_bonds_protein_alphabet = Alphabet().from_yaml(multiple_peptide_bonds_filename)
 # :obj:`Alphabet`: Alphabet for protein residues that contain multiple peptide bonds
 
 
