@@ -406,19 +406,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 22
+      position: 24
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 22
+      position: 24
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 26
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
+      position: 26
     base_monomers:
     - A
   21U:
@@ -435,19 +435,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 22
+      position: 24
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 22
+      position: 24
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 26
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
+      position: 26
     base_monomers:
     - U
   21C:
@@ -464,19 +464,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 26
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
+      position: 26
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 29
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 29
     base_monomers:
     - C
   2A:
@@ -524,19 +524,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 28
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
+      position: 28
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 30
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
+      position: 30
     base_monomers:
     - A
   2160A:
@@ -553,19 +553,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 23
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 23
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 26
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
+      position: 26
     base_monomers:
     - A
   2163A:
@@ -582,19 +582,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 25
+      position: 27
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 25
+      position: 27
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 30
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 30
     base_monomers:
     - A
   2161A:
@@ -613,19 +613,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 22
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
+      position: 22
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 22
+      position: 25
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 22
+      position: 25
     base_monomers:
     - A
   621A:
@@ -642,19 +642,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 14
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 14
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 17
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 17
     base_monomers:
     - A
   2162A:
@@ -671,19 +671,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 25
+      position: 27
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 25
+      position: 27
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 30
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 30
     base_monomers:
     - A
   20U:
@@ -998,19 +998,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 10
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 10
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 5
+      position: 6
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 5
+      position: 6
     base_monomers:
     - U
   03U:
@@ -1027,19 +1027,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 10
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 10
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 5
+      position: 6
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 5
+      position: 6
     base_monomers:
     - U
   308U:
@@ -1056,19 +1056,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 18
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 18
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 20
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 20
     base_monomers:
     - U
   309U:
@@ -1085,19 +1085,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 18
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 18
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 20
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 20
     base_monomers:
     - U
   30U:
@@ -1114,19 +1114,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 18
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 18
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 20
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 20
     base_monomers:
     - U
   3C:
@@ -1145,19 +1145,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 14
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 14
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 17
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 17
     base_monomers:
     - C
   39U:
@@ -1354,19 +1354,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 10
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 10
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 5
+      position: 6
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 5
+      position: 6
     base_monomers:
     - U
   522U:
@@ -1412,19 +1412,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 17
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 17
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 19
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 19
     base_monomers:
     - U
   0583U:
@@ -1470,19 +1470,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 17
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 17
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 19
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 19
     base_monomers:
     - U
   21510U:
@@ -1499,19 +1499,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 25
+      position: 30
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 25
+      position: 30
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 33
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 33
     base_monomers:
     - U
   20510U:
@@ -1528,19 +1528,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 10
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 18
     base_monomers:
     - U
   2510U:
@@ -1557,19 +1557,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 10
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 18
     base_monomers:
     - U
   510U:
@@ -1586,19 +1586,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 10
+      position: 13
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 13
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 15
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 15
     base_monomers:
     - U
   531U:
@@ -1615,19 +1615,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 18
     base_monomers:
     - U
   253U:
@@ -1644,19 +1644,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 14
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 14
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 17
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 17
     base_monomers:
     - U
   053U:
@@ -1789,19 +1789,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 29
+      position: 33
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 29
+      position: 33
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 31
+      position: 36
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 31
+      position: 36
     base_monomers:
     - U
   2051U:
@@ -1826,11 +1826,11 @@ monomers:
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 12
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 12
     base_monomers:
     - U
   251U:
@@ -2143,19 +2143,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 18
     base_monomers:
     - U
   0521U:
@@ -2263,19 +2263,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 11
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 11
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 14
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 14
     base_monomers:
     - U
   21511U:
@@ -2292,19 +2292,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 18
     base_monomers:
     - U
   20511U:
@@ -2323,19 +2323,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 18
     base_monomers:
     - U
   2511U:
@@ -2354,19 +2354,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 18
     base_monomers:
     - U
   511U:
@@ -2383,19 +2383,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 13
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 13
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 15
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 15
     base_monomers:
     - U
   5C:
@@ -2561,19 +2561,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 28
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
+      position: 28
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 25
+      position: 31
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 25
+      position: 31
     base_monomers:
     - G
   347G:
@@ -2590,19 +2590,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 32
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 32
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 29
+      position: 35
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 29
+      position: 35
     base_monomers:
     - G
   348G:
@@ -2619,19 +2619,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 31
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
+      position: 31
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 28
+      position: 34
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 28
+      position: 34
     base_monomers:
     - G
   101G:
@@ -2648,19 +2648,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 20
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 20
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 23
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 23
   100G:
     id: 100G
     name: 7-cyano-7-deazaguanosine
@@ -2675,19 +2675,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 18
   7G:
     id: 7G
     name: 7-methylguanosine
@@ -2702,19 +2702,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 11
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 11
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 14
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 14
     base_monomers:
     - G
   8A:
@@ -2789,19 +2789,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 20
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
+      position: 20
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 23
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
+      position: 23
     base_monomers:
     - G
   27G:
@@ -2818,19 +2818,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 20
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
+      position: 20
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 23
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
+      position: 23
     base_monomers:
     - G
   022G:
@@ -2876,19 +2876,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 21
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
+      position: 21
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 24
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 24
     base_monomers:
     - G
   22G:
@@ -3348,19 +3348,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 18
     base_monomers:
     - A
   63A:
@@ -3437,19 +3437,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 21
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
+      position: 21
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 24
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 24
     base_monomers:
     - A
   6A:
@@ -3495,19 +3495,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 23
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 23
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 26
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
+      position: 26
     base_monomers:
     - A
   20C:
@@ -3524,19 +3524,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 24
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 24
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 26
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
+      position: 26
     base_monomers:
     - C
   103G:
@@ -3553,19 +3553,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 15
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 15
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 18
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 18
   69A:
     id: 69A
     name: cyclic N6-threonylcarbamoyladenosine
@@ -3580,19 +3580,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 19
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 19
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 22
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
+      position: 22
     base_monomers:
     - A
   8U:
@@ -3640,19 +3640,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 25
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
+      position: 25
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 25
+      position: 28
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 25
+      position: 28
   104G:
     id: 104G
     name: galactosyl-queuosine
@@ -3667,19 +3667,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 33
+      position: 38
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 33
+      position: 38
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 35
+      position: 40
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 35
+      position: 40
   2165A:
     id: 2165A
     name: hydroxy-N6-threonylcarbamoyladenosine
@@ -3694,19 +3694,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 21
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
+      position: 21
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 23
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 23
     base_monomers:
     - A
   34830G:
@@ -3723,19 +3723,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 29
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 29
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 29
+      position: 32
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 29
+      position: 32
     base_monomers:
     - G
   9A:
@@ -3812,19 +3812,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 33
+      position: 40
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 33
+      position: 40
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 35
+      position: 38
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 35
+      position: 38
   3480G:
     id: 3480G
     name: methylated undermodified hydroxywybutosine
@@ -3839,19 +3839,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 29
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 29
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 29
+      position: 32
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 29
+      position: 32
     base_monomers:
     - G
   342G:
@@ -3897,19 +3897,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 28
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
+      position: 28
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 28
+      position: 31
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 28
+      position: 31
     base_monomers:
     - G
   9U:
@@ -3957,11 +3957,11 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 22
+      position: 27
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 22
+      position: 27
     left_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3984,19 +3984,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 28
+      position: 33
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 28
+      position: 33
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 30
+      position: 36
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 30
+      position: 36
     base_monomers:
     - G
   502U:
@@ -4104,18 +4104,18 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 22
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
+      position: 22
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 22
+      position: 25
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 22
+      position: 25
     base_monomers:
     - G

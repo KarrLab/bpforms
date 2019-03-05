@@ -7,6 +7,7 @@
 """
 
 from bpforms.alphabet import dna
+from bpforms.util import validate_bpform_linkages
 from wc_utils.util.chem import EmpiricalFormula
 import mock
 import openbabel
@@ -169,3 +170,7 @@ class DnaTestCase(unittest.TestCase):
         alphabet = dna.DnaAlphabetBuilder().run(path=path)
         self.assertEqual(alphabet.monomers.A.get_formula(), EmpiricalFormula('C5H5N5'))
         self.assertTrue(os.path.isfile(path))
+
+    def test_validate_linkages(self):
+        validate_bpform_linkages(dna.CanonicalDnaForm)
+        validate_bpform_linkages(dna.DnaForm)

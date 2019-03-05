@@ -8,6 +8,7 @@
 
 from bpforms.core import Alphabet, Identifier, IdentifierSet, Monomer
 from bpforms.alphabet import protein
+from bpforms.util import validate_bpform_linkages
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
 import os.path
 import shutil
@@ -30,17 +31,17 @@ class ProteinTestCase(unittest.TestCase):
         self.tmp_pdbfile = os.path.join(self.dirname, 'AA0005.PDB')
 
         pdb = ''
-        pdb += 'ATOM      1  N   Cys     1       0.000   0.000   0.000'+'\n'                       
-        pdb += 'ATOM      2  HN  Cys     1      -0.560  -0.366   0.772'+'\n'                         
-        pdb += 'ATOM      3  CA  Cys     1       1.454   0.000   0.000'+'\n'                           
-        pdb += 'ATOM      4  HA  Cys     1       1.815  -0.552  -0.872'+'\n'                           
-        pdb += 'ATOM      5  C   Cys     1       1.798  -0.764   1.252'+'\n'                           
-        pdb += 'ATOM      6  O   Cys     1       0.970  -0.863   2.161'+'\n'                           
-        pdb += 'ATOM      7  CB  Cys     1       1.979   1.438   0.000'+'\n'                           
-        pdb += 'ATOM      8  HB1 Cys     1       1.580   1.957  -0.874'+'\n'                           
-        pdb += 'ATOM      9  HB2 Cys     1       1.629   1.971   0.887'+'\n'                           
-        pdb += 'ATOM     10  SG  Cys     1       3.784   1.560  -0.073'+'\n'                           
-        pdb += 'ATOM     11  HG  Cys     1       4.169   1.730  -1.356'+'\n'                           
+        pdb += 'ATOM      1  N   Cys     1       0.000   0.000   0.000'+'\n'
+        pdb += 'ATOM      2  HN  Cys     1      -0.560  -0.366   0.772'+'\n'
+        pdb += 'ATOM      3  CA  Cys     1       1.454   0.000   0.000'+'\n'
+        pdb += 'ATOM      4  HA  Cys     1       1.815  -0.552  -0.872'+'\n'
+        pdb += 'ATOM      5  C   Cys     1       1.798  -0.764   1.252'+'\n'
+        pdb += 'ATOM      6  O   Cys     1       0.970  -0.863   2.161'+'\n'
+        pdb += 'ATOM      7  CB  Cys     1       1.979   1.438   0.000'+'\n'
+        pdb += 'ATOM      8  HB1 Cys     1       1.580   1.957  -0.874'+'\n'
+        pdb += 'ATOM      9  HB2 Cys     1       1.629   1.971   0.887'+'\n'
+        pdb += 'ATOM     10  SG  Cys     1       3.784   1.560  -0.073'+'\n'
+        pdb += 'ATOM     11  HG  Cys     1       4.169   1.730  -1.356'+'\n'
 
         with open(self.tmp_pdbfile, 'w') as file:
             file.write(pdb)
@@ -61,7 +62,7 @@ class ProteinTestCase(unittest.TestCase):
 
         form = protein.CanonicalProteinForm().from_str('A')
         self.assertEqual(form.get_formula(), EmpiricalFormula('C3H7NO2'))
-        self.assertEqual(form.get_charge(), 0)        
+        self.assertEqual(form.get_charge(), 0)
         self.assertEqual(form.export('inchi'), ALA_inchi)
 
         form = protein.CanonicalProteinForm().from_str('AA')
@@ -100,7 +101,7 @@ class ProteinTestCase(unittest.TestCase):
 
         structure_isotope = protein.ProteinAlphabetBuilder().get_monomer_isotope_structure('AA0005', self.tmp_pdbfile)
         structure = protein.ProteinAlphabetBuilder().get_monomer_structure('AA0005', self.tmp_pdbfile)
-        
+
         # check if correct isotopic species are present
         self.assertEqual(OpenBabelUtils.get_inchi(structure_isotope), 'InChI=1S/C3H7NOS/c4-3(1-5)2-6/h1,3,6H,2,4H2/t3-/m1/s1/i1+1,4+1')
         # just in case check than original structure has not been modified
@@ -115,3 +116,7 @@ class ProteinTestCase(unittest.TestCase):
         self.assertTrue(os.path.isfile(path))
         alphabet = Alphabet().from_yaml(path)
         self.assertEqual(alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H11NO'))
+
+    def test_validate_linkages(self):
+        validate_bpform_linkages(protein.CanonicalProteinForm)
+        validate_bpform_linkages(protein.ProteinForm)

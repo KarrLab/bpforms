@@ -8,6 +8,7 @@
 
 from bpforms.core import Identifier, IdentifierSet, Monomer
 from bpforms.alphabet import rna
+from bpforms.util import validate_bpform_linkages
 from wc_utils.util.chem import EmpiricalFormula
 import mock
 import os.path
@@ -182,3 +183,7 @@ class RnaTestCase(unittest.TestCase):
         alphabet = rna.RnaAlphabetBuilder().run(path=path)
         self.assertEqual(alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13'))
         self.assertTrue(os.path.isfile(path))
+
+    def test_validate_linkages(self):
+        validate_bpform_linkages(rna.CanonicalRnaForm)
+        validate_bpform_linkages(rna.RnaForm)

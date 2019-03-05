@@ -793,10 +793,11 @@ class Monomer(object):
                     atom = get_hydrogen_atom(atom, selected_hydrogens)
 
                 if atom:
-                    atom_labels.append({'position': atom.GetIdx(), 'label': label, 'color': color})
+                    atom_labels.append({'position': atom.GetIdx(), 'element': atom_md.element, 'label': label, 'color': color})
                     if color not in atom_sets:
-                        atom_sets[color] = {'positions': [], 'color': color}
+                        atom_sets[color] = {'positions': [], 'elements': [], 'color': color}
                     atom_sets[color]['positions'].append(atom.GetIdx())
+                    atom_sets[color]['elements'].append(atom_md.element)
 
         return draw_molecule(self.export('smiles'), 'smiles', atom_labels, atom_sets.values(), include_xml_header=include_xml_header)
 
