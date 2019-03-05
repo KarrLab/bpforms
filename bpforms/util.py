@@ -130,6 +130,8 @@ def validate_bpform_linkages(form_type):
 
     element_table = openbabel.OBElementTable()
 
+    errors = []
+
     atom_types = [
         ['backbone', 'monomer_bond_atoms'],
         ['backbone', 'backbone_bond_atoms'],
@@ -146,8 +148,9 @@ def validate_bpform_linkages(form_type):
         for atom_md in getattr(molecule, atom_type):
             if atom_md.molecule == core.Backbone:
                 if atom_md.position < 1 or atom_md.position > form.backbone.structure.NumAtoms():
-                    raise ValueError('Invalid position {} for {}.{}'.format(atom_md.position, molecule_md, atom_type))
-                
+                    errors.append('Invalid position {} for {}.{}'.format(atom_md.position, molecule_md, atom_type))
+                    continue
+
                 atom = form.backbone.structure.GetAtom(atom_md.position)
                 if atom_md.element == 'H' and atom.GetAtomicNum() != 1:
                     atom = core.get_hydrogen_atom(atom, selected_hydrogens)
@@ -155,7 +158,7 @@ def validate_bpform_linkages(form_type):
                         continue
 
                 if element_table.GetSymbol(atom.GetAtomicNum()) != atom_md.element:
-                    raise ValueError('Invalid element at position {} for {}.{}'.format(atom_md.position, molecule_md, atom_type))
+                    errors.append('Invalid element at position {} for {}.{}'.format(atom_md.position, molecule_md, atom_type))
 
     atom_types = [
         'monomer_bond_atoms',
@@ -171,8 +174,9 @@ def validate_bpform_linkages(form_type):
             for atom_md in getattr(monomer, atom_type):
                 if atom_md.molecule == core.Monomer:
                     if atom_md.position < 1 or atom_md.position > monomer.structure.NumAtoms():
-                        raise ValueError('Invalid position {} for Monomer:{} {}'.format(atom_md.position, monomer.id, atom_type))
-                    
+                        errors.append('Invalid position {} for Monomer:{} {}'.format(atom_md.position, monomer.id, atom_type))
+                        continue
+
                     atom = monomer.structure.GetAtom(atom_md.position)
                     if atom_md.element == 'H' and atom.GetAtomicNum() != 1:
                         atom = core.get_hydrogen_atom(atom, selected_hydrogens)
@@ -180,5 +184,8 @@ def validate_bpform_linkages(form_type):
                             continue
 
                     if element_table.GetSymbol(atom.GetAtomicNum()) != atom_md.element:
-                        raise ValueError('Invalid element at position {} for Monomer:{} {}'.format(
+                        errors.append('Invalid element at position {} for Monomer:{} {}'.format(
                             atom_md.position, monomer.id, atom_type))
+
+    if errors:
+        raise ValueError('BpForm {} is invalid:\n  {}'.format(form_type.__name__, '\n  '.join(errors)))
