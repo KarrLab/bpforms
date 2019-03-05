@@ -155,7 +155,12 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 identifiers=identifiers,
                 structure=structure,
                 comments=comments,
-            )
+                monomer_bond_atoms = [Atom(Monomer, element='C', position=index_c)],
+                monomer_displaced_atoms = [Atom(Monomer, element='H', position=index_c)],
+                left_bond_atoms = [Atom(Monomer, element='C', position=index_c)],
+                right_bond_atoms = [Atom(Monomer, element='N', position=index_n)],
+                right_displaced_atoms = [Atom(Monomer, element='H', position=index_n), Atom(Monomer, element='H', position=index_n)],
+           )
             alphabet.monomers[code] = monomer
 
             monomer_ids[id] = monomer
@@ -301,8 +306,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         assert conv.SetInFormat('inchi'), 'Unable to set format to InChI'
         conv.ReadString(inchi_mol_isotopes, inchi_isotopes)
 
-        index_n = 'None'
-        index_c = 'None'
+        index_n = None
+        index_c = None
         for i in range(1, inchi_mol_isotopes.NumAtoms()+1):
             atom = inchi_mol_isotopes.GetAtom(i)
             if atom.GetAtomicMass() == 13.003354838:

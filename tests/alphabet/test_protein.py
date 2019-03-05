@@ -104,6 +104,7 @@ class ProteinTestCase(unittest.TestCase):
 
         # check if correct isotopic species are present
         self.assertEqual(OpenBabelUtils.get_inchi(structure_isotope), 'InChI=1S/C3H7NOS/c4-3(1-5)2-6/h1,3,6H,2,4H2/t3-/m1/s1/i1+1,4+1')
+        # check if correct index for N and C atoms
         self.assertEqual(indexn, 4)
         self.assertEqual(indexc, 1)
         # just in case check that original structure has not been modified
