@@ -27,6 +27,21 @@ set_properties = function(data, status, jqXHR){
     $("#errors").html('')
     $("#monomer_seq_out").val(data['monomer_seq'])
     $("#length").val(data['length'])
+
+    console.log(data['structure'])
+    if (data['structure'] != null && data['structure'] != '') {
+        structure = data['structure']
+        img = '<img src="https://cactus.nci.nih.gov/chemical/structure/'
+              + encodeURI(data['structure'])
+              + '/image?format=gif&bgcolor=transparent&antialiasing=0" class="context-menu-one"'
+              + '/>'
+
+    } else {
+        structure = ''
+        img = ''
+    }
+    $("#structure").val(structure)
+    $("#structure-img").html(img)
     $("#formula").val(formula)
     $("#mol_wt").val(data['mol_wt'])
     $("#charge").val(data['charge'])
@@ -57,7 +72,7 @@ $('#submit').click(function (evt) {
     if (monomer_seq == null || monomer_seq == '') {
         return;
     }
-    
+
     data = {
         'alphabet': alphabet,
         'monomer_seq': monomer_seq
