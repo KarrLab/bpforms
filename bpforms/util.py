@@ -158,7 +158,9 @@ def validate_bpform_linkages(form_type):
                         continue
 
                 if element_table.GetSymbol(atom.GetAtomicNum()) != atom_md.element:
-                    errors.append('Invalid element at position {} for {}.{}'.format(atom_md.position, molecule_md, atom_type))
+                    errors.append('Invalid element {} != {} at position {} for {}.{}'.format(
+                        element_table.GetSymbol(atom.GetAtomicNum()), atom_md.element,
+                        atom_md.position, molecule_md, atom_type))
 
     atom_types = [
         'monomer_bond_atoms',
@@ -184,7 +186,8 @@ def validate_bpform_linkages(form_type):
                             continue
 
                     if element_table.GetSymbol(atom.GetAtomicNum()) != atom_md.element:
-                        errors.append('Invalid element at position {} for Monomer:{} {}'.format(
+                        errors.append('Invalid element {} != {} at position {} for Monomer:{} {}'.format(
+                            element_table.GetSymbol(atom.GetAtomicNum()), atom_md.element,
                             atom_md.position, monomer.id, atom_type))
 
     if errors:
