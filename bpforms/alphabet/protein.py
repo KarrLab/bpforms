@@ -103,7 +103,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         base_monomers = {}
         monomer_ids = {}
         for file in glob.iglob(tmp_folder+'/*PDB'):
-            number_ca = 0
+            id = re.split("[/.]", file)[3]
             with open(file, 'r') as f:
                 names = []
                 for line in f:
@@ -116,26 +116,13 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         part2 = str(line[10:].strip())
                         names.append(part2)
 
-                    # get the number of atoms from a peptide bond entity
-                    if str.split(line)[0] == 'ATOM' and str.split(line)[2] == 'CA':
-                        number_ca += 1
-
-
                 name = ''.join(names)
-                id = re.split("[/.]", file)[3]
                 structure = self.get_monomer_structure(name, file)
+                output_isotopes = self.get_monomer_isotope_structure(name, file)
 
             if not structure:
-                continue
-
-            # check if more than one peptide bond entity is present 
-            # for now change isotope labeling only on monomers with one peptide bond possibility
-            # if number_hn > 1 and number_co > 1:
-            if number_ca > 1:
-                print('Ignoring monomer {} with more than one peptide bond anchoring'.format(id))
-            else:
-                structure_isotopes, index_c, index_n = self.get_monomer_isotope_structure(name, file)
-                print('iso', file, index_c, index_n)
+                print('notstructure', structure)
+                continue            
 
             code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
 
@@ -147,6 +134,13 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 canonical_aas[name].structure = structure
                 warnings.warn('Ignoring canonical monomer {}'.format(name), UserWarning)
                 continue
+
+            if output_isotopes is None:
+                warnings.warn('Ignoring non bonded monomer {}'.format(name), UserWarning)
+                continue
+            else:
+                index_n = output_isotopes[1]
+                index_c = output_isotopes[2]
 
             monomer = Monomer(
                 id=id,
@@ -315,7 +309,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             if atom.GetAtomicMass() == 15.000108898:
                 index_n = atom.GetIdx()
 
-        return inchi_mol_isotopes, index_n, index_c
+        if None in (index_n, index_c):
+            warnings.warn('Ignoring monomer {} without bonding possibility'.format(name), UserWarning)
+            return None
+
+        return [inchi_mol_isotopes, index_n, index_c]
 
     def get_monomer_details(self, id, session):
         """ Get the CHEBI ID and synonyms of an amino acid from its RESID webpage
