@@ -72,8 +72,7 @@ Metadata
         | identifier: "pubchem.compound" / "65058"
         ]
 
-* The ``base-monomer`` attribute describes other monomer(s) which the monomer is generated from. The value of this attribute must be the code of a monomer in the 
-alphabet. Each monomer can have one or more bases. This annotation is needed to generate more informative FASTA sequences for ``BpForm``s::
+* The ``base-monomer`` attribute describes other monomer(s) which the monomer is generated from. The value of this attribute must be the code of a monomer in the alphabet. Each monomer can have one or more bases. This annotation is needed to generate more informative FASTA sequences for `BpForms`::
 
     [id: "m2A"
         | base-monomer: "A"
@@ -91,9 +90,9 @@ Syntax
 ^^^^^^
 
 * Monomers that are in the alphabet are indicated by a single character or multiple characters delimiated by curly brackets.
-* Monomers that are not in the alphabet are defined "inline" with one or more attributes separated by verticle pipes ("|") inside square brackets.
+* Monomers that are not in the alphabet are defined "inline" with one or more attributes separated by vertical pipes ("|") inside square brackets.
 
-  * All of the attributes can optional. However, the `structure` attribute is required to compute the formula, molecular weight, and charge of the biopolymer..
+  * All of the attributes can optional. However, the `structure` attribute is required to compute the formula, molecular weight, and charge of the biopolymer.
   * Attributes are separated by vertical pipes ("|").
   * Attributes and their values are separated by colons (":").
   * White spaces are ignored.
