@@ -4,7 +4,7 @@
 
 `BpForms` is a set of tools for unambiguously representing the structures of modified forms of biopolymers such as DNA, RNA, and protein. 
 
-* The `BpForms` notation can unambiguously represent the structure of modified forms of biopolymers. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomer at the fourth position.::
+* The `BpForms` notation can unambiguously represent the structure of modified forms of biopolymers. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomer at the fourth position::
   
     ACG[
         id: "dI" | structure: "O=C1NC=NC2=C1N=CN2"

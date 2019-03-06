@@ -22,13 +22,13 @@ Examples:
 Structure
 ^^^^^^^^^
 
-The ``structure`` attribute describes the chemical structure of the monomer as a SMILES-encoded string.::
+The ``structure`` attribute describes the chemical structure of the monomer as a SMILES-encoded string::
 
     [id: "dI" |
         structure: "O=C1NC=NC2=C1N=CN2"
         ]
 
-The ``monomer-bond-atom``, ``monomer-displaced-atom``, ``left-bond-atom``, ``left-displaced-atom``, ``right-bond-atom``, and ``right-displaced-atom`` attributes describe the linkages between the monomer and the backbone and between successive monomers.::
+The ``monomer-bond-atom``, ``monomer-displaced-atom``, ``left-bond-atom``, ``left-displaced-atom``, ``right-bond-atom``, and ``right-displaced-atom`` attributes describe the linkages between the monomer and the backbone and between successive monomers::
     
     [id: "dI" |
         structure: "O=C1NC=NC2=C1N=CN2"
@@ -51,20 +51,20 @@ Metadata
 
 `BpForms` can also represent several types of metadata:
 
-* The ``id`` and ``name`` attributes provide human-readable labels for monomers. Only one id and one name is allowed per monomer.::
+* The ``id`` and ``name`` attributes provide human-readable labels for monomers. Only one id and one name is allowed per monomer::
 
     [id: "dI"
         | name: "deoxyinosine"
         ]
 
-* The ``synonym`` attribute provides additional human-readable labels. Each monomer can have multiple synonyms.::
+* The ``synonym`` attribute provides additional human-readable labels. Each monomer can have multiple synonyms::
 
     [id: "dI"
         | synonym: "2'-deoxyinosine"
         | synonym: "2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"
         ]
 
-* The ``identifier`` attribute describes references to entries in external databases. Each monomer can have multiple identifiers. The namespaces and ids of identifers must be separated by "/".::
+* The ``identifier`` attribute describes references to entries in external databases. Each monomer can have multiple identifiers. The namespaces and ids of identifers must be separated by "/"::
 
     [id: "dI"
         | identifier: "biocyc.compound" / "DEOXYINOSINE"
@@ -78,7 +78,7 @@ Metadata
         | base-monomer: "A"
         ]
 
-* The ``comments`` attribute describes additional information about each monomer. Each monomer can only have one comment.::
+* The ``comments`` attribute describes additional information about each monomer. Each monomer can only have one comment::
 
     [id: "dI"
         | comments: "A purine 2'-deoxyribonucleoside that is inosine in which the
