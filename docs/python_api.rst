@@ -81,7 +81,7 @@ Use these commands to calculate the length, formula, molecular weight, and charg
 Generating FASTA sequences for `BpForms`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``get_fasta`` method generates FASTA representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomers using the code for their root (e.g. m2A is represented as "A"). Monomers that don't have their base annotated are represented as "N"::
+The ``get_fasta`` method generates FASTA representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomers using the code for their root (e.g. m2A is represented as "A"). Monomers that don't have their base annotated are represented as "N" and "X" for nucleic acids and proteins, respectively::
 
     dna_form.get_fasta()
         => ACGAAC
