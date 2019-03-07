@@ -121,7 +121,6 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 output_isotopes = self.get_monomer_isotope_structure(name, file)
 
             if not structure:
-                print('notstructure', structure)
                 continue
 
             code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
