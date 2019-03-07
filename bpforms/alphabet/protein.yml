@@ -6724,6 +6724,29 @@ monomers:
     structure: Cn1cc(nc1)C[C@H]([NH3+])C=O
     base_monomers:
     - H
+    left_bond_atoms:
+    - element: C
+      molecule: Monomer
+      position: 14
+    monomer_bond_atoms:
+    - element: C
+      molecule: Monomer
+      position: 14
+    monomer_displaced_atoms:
+    - element: H
+      molecule: Monomer
+      position: 14
+    right_bond_atoms:
+    - element: N
+      molecule: Monomer
+      position: 10
+    right_displaced_atoms:
+    - element: H
+      molecule: Monomer
+      position: 10
+    - element: H
+      molecule: Monomer
+      position: 10
   AA0449:
     id: AA0449
     name: (3R,4R)-4,5-dihydroxyisoleucine
