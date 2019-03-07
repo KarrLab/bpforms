@@ -54,6 +54,11 @@ bpforms_model = bpform_ns.model('BpForm', {
                                                 title='Monomer sequence',
                                                 description='Sequence of monomers of the biopolymer form',
                                                 example='AA'),
+    'circular': flask_restplus.fields.Boolean(default=False,
+                                              required=False,
+                                              title='Circularity',
+                                              description='Circularity of the biopolymer form',
+                                              example='False'),
     'ph': flask_restplus.fields.Float(default=float('NaN'), min=0., max=14., required=False,
                                       title='pH',
                                       description='pH at which to calculate the major microspecies of the biopolymer form',
@@ -81,13 +86,14 @@ class Bpform(flask_restplus.Resource):
         args = bpform_ns.payload
         alphabet = args['alphabet']
         monomer_seq = args['monomer_seq']
+        circular = args.get('circular', False)
         ph = args.get('ph', float('NaN'))
         major_tautomer = args.get('major_tautomer', True)
 
         form_cls = bpforms.util.get_form(alphabet)
 
         try:
-            form = form_cls().from_str(monomer_seq)
+            form = form_cls(circular=circular).from_str(monomer_seq)
         except Exception as error:
             flask_restplus.abort(400, 'Unable to parse monomer sequence', errors={'monomer_seq': str(error)})
 

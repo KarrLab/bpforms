@@ -36,7 +36,8 @@ class ValidateController(cement.Controller):
         stacked_type = 'nested'
         arguments = [
             (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
-            (['structure'], dict(type=str, help='Biopolymer structure')),
+            (['monomer_seq'], dict(type=str, help='Monomer sequence')),
+            (['--circular'], dict(action='store_true', default=False, help='Biopolymer circularity')),
         ]
 
     @cement.ex(hide=True)
@@ -44,7 +45,7 @@ class ValidateController(cement.Controller):
         args = self.app.pargs
         type = bpforms.util.get_form(args.alphabet)
         try:
-            form = type().from_str(args.structure)
+            form = type(circular=args.circular).from_str(args.monomer_seq)
             print('Form is valid')
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
@@ -60,11 +61,12 @@ class GetPropertiesController(cement.Controller):
         stacked_type = 'nested'
         arguments = [
             (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
-            (['structure'], dict(type=str, help='Biopolymer structure')),
+            (['monomer_seq'], dict(type=str, help='Monomer sequence')),
+            (['--circular'], dict(action='store_true', default=False, help='Biopolymer circularity')),
             (['--ph'], dict(default=None, type=float,
                             help='pH at which calculate major protonation state of each monomer')),
-            (['--major-tautomer'], dict(action='store_true', default=False,
-                                        help='If set, calculate the major tautomer')),
+            (['--not-major-tautomer'], dict(action='store_true', default=False,
+                                        help='If set, do not calculate the major tautomer')),
         ]
 
     @cement.ex(hide=True)
@@ -72,11 +74,11 @@ class GetPropertiesController(cement.Controller):
         args = self.app.pargs
         type = bpforms.util.get_form(args.alphabet)
         try:
-            form = type().from_str(args.structure)
+            form = type(circular=args.circular).from_str(args.monomer_seq)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
         if args.ph is not None:
-            form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
+            form.get_major_micro_species(args.ph, major_tautomer=not args.not_major_tautomer)
         print('Length: {}'.format(len(form)))
 
         try:
@@ -99,10 +101,11 @@ class GetMajorMicroSpeciesController(cement.Controller):
         stacked_type = 'nested'
         arguments = [
             (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
-            (['structure'], dict(type=str, help='Biopolymer structure')),
+            (['monomer_seq'], dict(type=str, help='Monomer sequence')),
+            (['--circular'], dict(action='store_true', default=False, help='Biopolymer circularity')),
             (['ph'], dict(type=float, help='pH')),
-            (['--major-tautomer'], dict(action='store_true', default=False,
-                                        help='If set, calculate the major tautomer')),
+            (['--not-major-tautomer'], dict(action='store_true', default=False,
+                                        help='If set, do not calculate the major tautomer')),
         ]
 
     @cement.ex(hide=True)
@@ -110,10 +113,10 @@ class GetMajorMicroSpeciesController(cement.Controller):
         args = self.app.pargs
         type = bpforms.util.get_form(args.alphabet)
         try:
-            form = type().from_str(args.structure)
+            form = type(circular=args.circular).from_str(args.monomer_seq)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
-        form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
+        form.get_major_micro_species(args.ph, major_tautomer=not args.not_major_tautomer)
         print(str(form))
 
 

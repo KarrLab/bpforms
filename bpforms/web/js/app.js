@@ -66,6 +66,7 @@ display_error = function( jqXHR, textStatus, errorThrown ) {
 $('#submit').click(function (evt) {
     alphabet = $("#alphabet").val()
     monomer_seq = $("#monomer_seq_in").val().trim()
+    circular = $("#circular").val()
     ph = $("#ph").val()
     major_tautomer = $("#major_tautomer").val()
 
@@ -76,6 +77,9 @@ $('#submit').click(function (evt) {
     data = {
         'alphabet': alphabet,
         'monomer_seq': monomer_seq
+    }
+    if (circular != null && circular != '') {
+        data['circular'] = circular == '1'
     }
     if (ph != null && ph != '') {
         data['ph'] = parseFloat(ph)

@@ -105,7 +105,7 @@ class CliTestCase(unittest.TestCase):
             '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.T.export('smiles')),
         ])
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['get-properties', 'canonical_dna', monomer_seq, '--ph', '7.0', '--major-tautomer']) as app:
+            with __main__.App(argv=['get-properties', 'canonical_dna', monomer_seq, '--ph', '7.0']) as app:
                 # run app
                 app.run()
 
@@ -116,6 +116,20 @@ class CliTestCase(unittest.TestCase):
                 self.assertIn('Formula: C39', text)
                 self.assertIn('Molecular weight: ', text)
                 self.assertIn('Charge: -', text)
+
+        with capturer.CaptureOutput(merged=False, relay=False) as captured:
+            with __main__.App(argv=['get-properties', 'canonical_dna', 'ACGT', '--circular']) as app:
+                # run app
+                app.run()
+
+                # test that the CLI produced the correct output
+                text = captured.stdout.get_text()
+                self.assertIn('Length: 4', text)
+                self.assertNotIn('Structure: None', text)
+                self.assertIn('Formula: C39', text)
+                self.assertIn('Molecular weight: ', text)
+                self.assertIn('Charge: -', text)
+                self.assertEqual(captured.stderr.get_text(), '')
 
         with self.assertRaises(SystemExit):
             with __main__.App(argv=['get-properties', 'canonical_dna', 'ACGT[']) as app:
