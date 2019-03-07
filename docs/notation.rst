@@ -92,7 +92,7 @@ Syntax
 * Monomers that are in the alphabet are indicated by a single character or multiple characters delimiated by curly brackets.
 * Monomers that are not in the alphabet are defined "inline" with one or more attributes separated by vertical pipes ("|") inside square brackets.
 
-  * All of the attributes can optional. However, the `structure` attribute is required to compute the formula, molecular weight, and charge of the biopolymer.
+  * All of the attributes are optional. However, the `structure` attribute is required to compute the formula, molecular weight, and charge of the biopolymer.
   * Attributes are separated by vertical pipes ("|").
   * Attributes and their values are separated by colons (":").
   * White spaces are ignored.
