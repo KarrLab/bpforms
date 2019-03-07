@@ -1365,6 +1365,25 @@ class BpFormTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             form.export('inchi')
 
+    def test_circular_export(self):
+        form = dna.CanonicalDnaForm(circular=True).from_str('A')
+        self.assertEqual(form.export('inchi'), ('InChI=1S/C10H12N5O5P'
+                                                '/c11-9-8-10(13-3-12-9)15(4-14-8)7-1-5-6(19-7)2-18-21(16,17)20-5'
+                                                '/h3-7H,1-2H2,(H,16,17)(H2,11,12,13)'
+                                                '/p-1'))
+
+        form = dna.CanonicalDnaForm(circular=True).from_str('AA')
+        self.assertEqual(form.export('inchi'), ('InChI=1S/C20H24N10O10P2'
+                                                '/c21-17-15-19(25-5-23-17)29(7-27-15)13-1-9-11(37-13)3-35-42(33,34)'
+                                                '40-10-2-14(38-12(10)4-36-41(31,32)39-9)30-8-28-16-18(22)24-6-26-20(16)30'
+                                                '/h5-14H,1-4H2,(H,31,32)(H,33,34)(H2,21,23,25)(H2,22,24,26)/p-2'))
+
+        form = rna.CanonicalRnaForm(circular=True).from_str('AA')
+        self.assertEqual(form.export('inchi'), ('InChI=1S/C20H24N10O12P2'
+                                                '/c21-15-9-17(25-3-23-15)29(5-27-9)19-11(31)13-7(39-19)1-37-43(33,34)42-14-8(2-38-44(35,36)41-13)40-20'
+                                                '(12(14)32)30-6-28-10-16(22)24-4-26-18(10)30'
+                                                '/h3-8,11-14,19-20,31-32H,1-2H2,(H,33,34)(H,35,36)(H2,21,23,25)(H2,22,24,26)/p-2'))
+
     def test_get_fasta(self):
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer()

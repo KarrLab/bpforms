@@ -1145,7 +1145,7 @@ class MonomerDict(attrdict.AttrDict):
 
 
 class Alphabet(object):
-    """ Alphabet for monomers 
+    """ Alphabet for monomers
 
     Attributes:
         id (:obj:`str`): id
@@ -1321,7 +1321,7 @@ class Alphabet(object):
 
 
 class AlphabetBuilder(abc.ABC):
-    """ Builder for alphabets 
+    """ Builder for alphabets
 
     Attributes:
         _max_monomers (:obj:`float`): maximum number of monomers to build; used to limit length of tests
@@ -1354,7 +1354,7 @@ class AlphabetBuilder(abc.ABC):
 
     @abc.abstractmethod
     def build(self):
-        """ Build alphabet 
+        """ Build alphabet
 
         Returns:
             :obj:`Alphabet`: alphabet
@@ -1376,7 +1376,7 @@ class Atom(object):
 
     Attributes:
         molecule (:obj:`type`): type of parent molecule
-        element (:obj:`str`): code for the element (e.g. 'H') 
+        element (:obj:`str`): code for the element (e.g. 'H')
         position (:obj:`int`): SMILES position of the atom within the compound
         charge (:obj:`int`): charge of the atom
     """
@@ -1385,7 +1385,7 @@ class Atom(object):
         """
         Args:
             molecule (:obj:`type`): type of parent molecule
-            element (:obj:`str`, optional): code for the element (e.g. 'H') 
+            element (:obj:`str`, optional): code for the element (e.g. 'H')
             position (:obj:`int`, optional): SMILES position of the atom within the compound
             charge (:obj:`int`, optional): charge of the atom
         """
@@ -2387,42 +2387,65 @@ class BpForm(object):
 
         # bond monomers to backbones
         for monomer, subunit_atoms in zip(self.monomer_seq, atoms):
-            for atom in subunit_atoms['monomer']['monomer_displaced_atoms']:
-                if atom:
-                    assert mol.DeleteAtom(atom, True)
-
-            for atom in subunit_atoms['backbone']['backbone_displaced_atoms']:
-                if atom:
-                    assert mol.DeleteAtom(atom, True)
-
-            for monomer_atom, backbone_atom in zip(subunit_atoms['monomer']['monomer_bond_atoms'],
-                                                   subunit_atoms['backbone']['backbone_bond_atoms']):
-                bond = openbabel.OBBond()
-                bond.SetBegin(monomer_atom)
-                bond.SetEnd(backbone_atom)
-                bond.SetBondOrder(1)
-                assert mol.AddBond(bond)
+            self._bond_monomer_backbone(mol, monomer, subunit_atoms)
 
         # bond left/right pairs of subunits
         for left_atoms, right_atoms in zip(atoms[0:-1], atoms[1:]):
-            for atom in left_atoms['left']['left_displaced_atoms']:
-                if atom:
-                    assert mol.DeleteAtom(atom, True)
+            self._bond_subunits(mol, left_atoms, right_atoms)
 
-            for atom in right_atoms['right']['right_displaced_atoms']:
-                if atom:
-                    assert mol.DeleteAtom(atom, True)
-
-            for left_atom, right_atom in zip(left_atoms['left']['left_bond_atoms'],
-                                             right_atoms['right']['right_bond_atoms']):
-                bond = openbabel.OBBond()
-                bond.SetBegin(left_atom)
-                bond.SetEnd(right_atom)
-                bond.SetBondOrder(1)
-                assert mol.AddBond(bond)
+        if self.circular:
+            self._bond_subunits(mol, atoms[-1], atoms[0])
 
         # return molecule
         return mol
+
+    def _bond_monomer_backbone(self, mol, monomer, subunit_atoms):
+        """ Bond a monomer to a backbone
+
+        Args:
+            mol (:obj:`openbabel.OBMol`): molecule with a monomer and backbone
+            monomer (:obj:`Monomer`): monomer
+            subunit_atoms (:obj:`dict`): dictionary of atoms in monomer and backbone to bond
+        """
+        for atom in subunit_atoms['monomer']['monomer_displaced_atoms']:
+            if atom:
+                assert mol.DeleteAtom(atom, True)
+
+        for atom in subunit_atoms['backbone']['backbone_displaced_atoms']:
+            if atom:
+                assert mol.DeleteAtom(atom, True)
+
+        for monomer_atom, backbone_atom in zip(subunit_atoms['monomer']['monomer_bond_atoms'],
+                                               subunit_atoms['backbone']['backbone_bond_atoms']):
+            bond = openbabel.OBBond()
+            bond.SetBegin(monomer_atom)
+            bond.SetEnd(backbone_atom)
+            bond.SetBondOrder(1)
+            assert mol.AddBond(bond)
+
+    def _bond_subunits(self, mol, left_atoms, right_atoms):
+        """  Bond a left/right pair of subunits
+
+        Args:
+            mol (:obj:`openbabel.OBMol`): molecule with left and right subunits
+            left_atoms (:obj:`dict`): dictionary of atoms in left subunit to bond
+            right_atoms (:obj:`dict`): dictionary of atoms in right subunit to bond
+        """ 
+        for atom in left_atoms['left']['left_displaced_atoms']:
+            if atom:
+                assert mol.DeleteAtom(atom, True)
+
+        for atom in right_atoms['right']['right_displaced_atoms']:
+            if atom:
+                assert mol.DeleteAtom(atom, True)
+
+        for left_atom, right_atom in zip(left_atoms['left']['left_bond_atoms'],
+                                         right_atoms['right']['right_bond_atoms']):
+            bond = openbabel.OBBond()
+            bond.SetBegin(left_atom)
+            bond.SetEnd(right_atom)
+            bond.SetBondOrder(1)
+            assert mol.AddBond(bond)
 
     def export(self, format, options=()):
         """ Export structure to format

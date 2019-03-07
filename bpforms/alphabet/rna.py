@@ -230,10 +230,11 @@ class RnaForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'N'
 
-    def __init__(self, monomer_seq=None):
+    def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
+            circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(RnaForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=rna_alphabet,
@@ -245,9 +246,10 @@ class RnaForm(BpForm):
                 backbone_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
             bond=Bond(
                 left_bond_atoms=[Atom(Monomer, element='O', position=None)],
-                right_bond_atoms=[Atom(Backbone,element='P', position=2)],
+                right_bond_atoms=[Atom(Backbone, element='P', position=2)],
                 left_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                right_displaced_atoms=[Atom(Backbone,element='O', position=3, charge=-1)]))
+                right_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]),
+            circular=circular)
 
 
 class CanonicalRnaForm(BpForm):
@@ -255,10 +257,11 @@ class CanonicalRnaForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'N'
 
-    def __init__(self, monomer_seq=None):
+    def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
+            circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(CanonicalRnaForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=canonical_rna_alphabet,
@@ -272,4 +275,5 @@ class CanonicalRnaForm(BpForm):
                 left_bond_atoms=[Atom(Monomer, element='O', position=None)],
                 right_bond_atoms=[Atom(Backbone, element='P', position=2)],
                 left_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                right_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]))
+                right_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]),
+            circular=circular)

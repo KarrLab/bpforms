@@ -122,7 +122,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
             if not structure:
                 print('notstructure', structure)
-                continue            
+                continue
 
             code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
 
@@ -149,12 +149,12 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 identifiers=identifiers,
                 structure=structure,
                 comments=comments,
-                monomer_bond_atoms = [Atom(Monomer, element='C', position=index_c)],
-                monomer_displaced_atoms = [Atom(Monomer, element='H', position=index_c)],
-                left_bond_atoms = [Atom(Monomer, element='C', position=index_c)],
-                right_bond_atoms = [Atom(Monomer, element='N', position=index_n)],
-                right_displaced_atoms = [Atom(Monomer, element='H', position=index_n), Atom(Monomer, element='H', position=index_n)],
-           )
+                monomer_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
+                monomer_displaced_atoms=[Atom(Monomer, element='H', position=index_c)],
+                left_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
+                right_bond_atoms=[Atom(Monomer, element='N', position=index_n)],
+                right_displaced_atoms=[Atom(Monomer, element='H', position=index_n), Atom(Monomer, element='H', position=index_n)],
+            )
             alphabet.monomers[code] = monomer
 
             monomer_ids[id] = monomer
@@ -252,10 +252,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                             index_n = atom1.GetIdx()
                             atom1.SetIsotope(15)
                         if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and (res.GetAtomID(atom1)).strip() == 'C':
-                            index_c = atom1.GetIdx()   
+                            index_c = atom1.GetIdx()
                             atom1.SetIsotope(13)
 
-                # need to check first if residue numbering is present in a correct way, some residues do not have a proper residue number and name but
+                # need to check first if residue numbering is present in a correct way,
+                # some residues do not have a proper residue number and name but
                 # just a duplicate of the atom number
                 if res.GetNumAtoms() == 1:
                     for res_i in openbabel.OBResidueIter(pdb_mol):
@@ -278,7 +279,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                             index_n = atom1.GetIdx()
                             atom1.SetIsotope(15)
                     # check types according to openbabel atom types for C and O
-                    if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and (res.GetAtomID(atom1)).strip() == 'C' and (res.GetAtomID(atom2)).strip() == 'O' and countC == 0:  
+                    if atom1.GetType() == 'C2' \
+                            and atom2.GetType() == 'O2' \
+                            and (res.GetAtomID(atom1)).strip() == 'C' \
+                            and (res.GetAtomID(atom2)).strip() == 'O' \
+                            and countC == 0:
                         countC = 1
                         index_c = atom1.GetIdx()
                         atom1.SetIsotope(13)
@@ -405,10 +410,11 @@ class ProteinForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'X'
 
-    def __init__(self, monomer_seq=None):
+    def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
+            circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(ProteinForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=protein_alphabet,
@@ -422,7 +428,8 @@ class ProteinForm(BpForm):
                 left_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 right_bond_atoms=[Atom(Monomer, element='N', position=None)],
                 left_displaced_atoms=[Atom(Backbone, element='O', position=1)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]))
+                right_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]),
+            circular=circular)
 
 
 class CanonicalProteinForm(BpForm):
@@ -430,10 +437,11 @@ class CanonicalProteinForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'X'
 
-    def __init__(self, monomer_seq=None):
+    def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
             monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
+            circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(CanonicalProteinForm, self).__init__(
             monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
@@ -447,4 +455,5 @@ class CanonicalProteinForm(BpForm):
                 left_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 right_bond_atoms=[Atom(Monomer, element='N', position=None)],
                 left_displaced_atoms=[Atom(Backbone, element='O', position=1)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]))
+                right_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]),
+            circular=circular)
