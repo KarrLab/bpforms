@@ -229,3 +229,11 @@ class UtilTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             with mock.patch.object(core.BpForm, 'get_formula', side_effect=[EmpiricalFormula('C10H12N5O6P'), EmpiricalFormula()]):
                 util.validate_bpform_linkages(TestDnaForm)
+
+        with self.assertRaises(ValueError):
+            with mock.patch.object(core.BpForm, 'get_charge', return_value=-100):
+                util.validate_bpform_linkages(TestDnaForm)
+
+        with self.assertRaises(ValueError):
+            with mock.patch.object(core.BpForm, 'get_charge', side_effect=[-2, -100]):
+                util.validate_bpform_linkages(TestDnaForm)

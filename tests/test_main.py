@@ -28,6 +28,7 @@ class CliTestCase(unittest.TestCase):
 
     def tearDown(self):
         shutil.rmtree(self.tempdir)
+        bpforms.alphabet.dna.canonical_dna_alphabet.from_yaml(bpforms.alphabet.dna.canonical_filename)
 
     def test_cli(self):
         with mock.patch('sys.argv', ['bpforms', '--help']):

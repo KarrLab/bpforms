@@ -1312,6 +1312,43 @@ class BpFormTestCase(unittest.TestCase):
         dna_form_2 = dna.DnaForm().from_str('[structure: "' + dIMP_smiles + '"]')
         self.assertTrue(dna_form_1.is_equal(dna_form_2))
 
+    def test__bond_monomer_backbone(self):
+        form = dna.CanonicalDnaForm()
+
+        mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        conv.SetInFormat('smiles')
+        conv.ReadString(mol, '[O-]N([O-])C1=C2N=CNC2=NC=N1')
+        form._bond_monomer_backbone(mol, {
+            'monomer': {
+                'monomer_bond_atoms': [(mol.GetAtom(2), 1), ],
+                'monomer_displaced_atoms': [(mol.GetAtom(1), -1)],
+            },
+            'backbone': {
+                'backbone_bond_atoms': [(mol.GetAtom(8), 1)],
+                'backbone_displaced_atoms': [(mol.GetAtom(3), -1)],
+            }
+        })
+
+    def test__bond_subunits(self):
+        form = dna.CanonicalDnaForm()
+
+        mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        conv.SetInFormat('smiles')
+        conv.ReadString(mol, '[O-]N([O-])C1=C2N=CNC2=NC=N1')
+        form._bond_subunits(mol, {
+            'left': {
+                'left_bond_atoms': [(mol.GetAtom(1), 1), ],
+                'left_displaced_atoms': [(mol.GetAtom(1), -1)],
+            }
+        }, {
+            'right': {
+                'right_bond_atoms': [(mol.GetAtom(8), 1)],
+                'right_displaced_atoms': [(mol.GetAtom(3), -1)],
+            }
+        })
+
     def test_export(self):
         form = dna.CanonicalDnaForm().from_str('A')
         self.assertEqual(form.export('inchi'), ('InChI=1S'
@@ -1338,7 +1375,7 @@ class BpFormTestCase(unittest.TestCase):
                                                 '/p-3'))
 
         form = protein.CanonicalProteinForm().from_str('AA')
-        self.assertEqual(form.export('inchi'), 'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)/p+1')
+        self.assertEqual(form.export('inchi'), 'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)')
 
         form = dna.CanonicalDnaForm()
         self.assertEqual(form.export('inchi'), None)
