@@ -10,7 +10,7 @@ from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, B
                           Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet)
 from bs4 import BeautifulSoup
 from ftplib import FTP
-from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
+from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils, get_major_micro_species
 import glob
 import openbabel
 import os.path
@@ -18,8 +18,6 @@ import pkg_resources
 import re
 import requests
 import requests_cache
-import shutil
-import tempfile
 import warnings
 import zipfile
 
@@ -52,7 +50,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
+        # return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
+
+        alphabet = self.build()
+        # if ph is not None:
+        #    alphabet.get_major_micro_species(ph, major_tautomer=major_tautomer)
+        if path:
+            self.save(alphabet, path)
+        return alphabet
 
     def build(self):
         """ Build alphabet
@@ -75,24 +80,28 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         for monomer in alphabet.monomers.values():
             canonical_aas[monomer.name] = monomer
 
-        # create tmp directory
-        tmp_folder = tempfile.mkdtemp()
+        # create directory
+        pdb_dir = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.pdb'))
+        if not os.path.isdir(pdb_dir):
+            os.mkdir(pdb_dir)
 
-        # retrieve files from ftp.ebi.ac.uk and save them to tmpdir
-        ftp = FTP('ftp.ebi.ac.uk')
-        ftp.login()
-        ftp.cwd('pub/databases/RESID/')
+        # download and unzip PDB files
+        zip_filename = os.path.join(pdb_dir, 'models.zip')
+        if not os.path.isfile(zip_filename):
+            # retrieve files from ftp.ebi.ac.uk and save them to tmpdir
+            ftp = FTP('ftp.ebi.ac.uk')
+            ftp.login()
+            ftp.cwd('pub/databases/RESID/')
 
-        local_filename = os.path.join(tmp_folder, 'models.zip')
-        with open(local_filename, 'wb') as file:
-            ftp.retrbinary('RETR %s' % 'models.zip', file.write)
+            with open(zip_filename, 'wb') as file:
+                ftp.retrbinary('RETR %s' % 'models.zip', file.write)
 
-        # quit ftp
-        ftp.quit()
+            # quit ftp
+            ftp.quit()
 
-        # extract pdbs from models.zip into tmp folder
-        with zipfile.ZipFile(os.path.join(tmp_folder, 'models.zip'), 'r') as z:
-            z.extractall(tmp_folder)
+            # extract pdbs from models.zip into tmp folder
+            with zipfile.ZipFile(os.path.join(pdb_dir, 'models.zip'), 'r') as z:
+                z.extractall(pdb_dir)
 
         # create session to get metadata
         cache_name = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein'))
@@ -102,7 +111,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # extract name of the molecule from pdb file
         base_monomers = {}
         monomer_ids = {}
-        for file in glob.iglob(tmp_folder+'/*PDB'):
+        for file in glob.iglob(pdb_dir + '/*.PDB'):
             id = re.split("[/.]", file)[3]
             with open(file, 'r') as f:
                 names = []
@@ -115,17 +124,15 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     if re.match(r"^COMPND   1", line):
                         part2 = str(line[10:].strip())
                         names.append(part2)
+            name = ''.join(names)
 
-                name = ''.join(names)
-                structure = self.get_monomer_structure(name, file)
-                output_isotopes = self.get_monomer_isotope_structure(name, file)
-
-            if not structure:
+            result = self.get_monomer_structure(name, file)
+            if result is None:
                 warnings.warn('Ignoring monomer {} that has no structure'.format(id), UserWarning)
                 continue
+            structure, index_n, index_c = result
 
             code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
-
             if code is None or code in alphabet.monomers:
                 code = id
 
@@ -141,13 +148,6 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 canonical_aa.right_displaced_atoms[1].position = index_n
                 warnings.warn('Updated canonical monomer {}'.format(name), UserWarning)
                 continue
-
-            if output_isotopes is None:
-                warnings.warn('Ignoring non-bonded monomer {}'.format(name), UserWarning)
-                continue
-            else:
-                index_n = output_isotopes[1]
-                index_c = output_isotopes[2]
 
             monomer = Monomer(
                 id=id,
@@ -173,53 +173,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 base_monomer = monomer_ids.get(base_monomer_id, None)
                 monomer.base_monomers.add(base_monomer)
 
-        # remove tmp folder
-        shutil.rmtree(tmp_folder)
-
         return alphabet
 
     def get_monomer_structure(self, name, pdb_filename):
-        """ Get the structure of an amino acid from a PDB file
-
-        Args:
-            name (:obj:`str`): monomer name
-            pdb_filename (:obj:`str`): path to PDB file with structure
-
-        Returns:
-            :obj:`openbabel.OBMol`: structure
-        """
-
-        # get InChI from pdb structure
-        pdb_mol = openbabel.OBMol()
-        conv = openbabel.OBConversion()
-        assert conv.SetInFormat('pdb'), 'Unable to set format to PDB'
-        conv.ReadFile(pdb_mol, pdb_filename)
-        
-        assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
-        inchi = conv.WriteString(pdb_mol)
-
-        # removing modified monomers where metal present in structure because:
-        # - inchi structure generated separates each non covalently bound parts of the monomer
-        # - for many cases theses structures consist of a group of modified monomers coordinating
-        # a metal, and not a single PTM monomer per se
-        formula = inchi.split('/')[1]
-        if '.' in formula:
-            warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
-            return None
-
-        # create molecule from SMILES -- necessary to sanitize molecule from PDB
-        assert conv.SetOutFormat('smiles'), 'Unable to set format to SMILES'
-        smiles = conv.WriteString(pdb_mol)
-
-        smiles_mol = openbabel.OBMol()
-        conv = openbabel.OBConversion()
-        assert conv.SetInFormat('smiles'), 'Unable to set format to SMILES'
-        assert conv.SetOutFormat('smiles'), 'Unable to set format to SMILES'
-        conv.ReadString(smiles_mol, smiles)
-
-        return smiles_mol
-
-    def get_monomer_isotope_structure(self, name, pdb_filename):
         """ Get the structure of an amino acid from a PDB file
         where N from NH moeity and C from CO moeity are labeled as N15 and C13 isotopes
 
@@ -235,18 +191,40 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         assert conv.SetInFormat('pdb'), 'Unable to set format to PDB'
         conv.ReadFile(pdb_mol, pdb_filename)
 
+        # removing modified monomers where metal present in structure because:
+        # - inchi structure generated separates each non covalently bound parts of the monomer
+        # - for many cases theses structures consist of a group of modified monomers coordinating
+        # a metal, and not a single PTM monomer per se
+        assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
+        inchi = conv.WriteString(pdb_mol)
+        formula = inchi.split('/')[1]
+        if '.' in formula:
+            warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
+            return None
+
+        assert conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
+        conv.SetOptions('c', conv.OUTOPTIONS)
+        smiles = conv.WriteString(pdb_mol).partition('\t')[0]
+        smiles = get_major_micro_species(smiles, 'smiles', 7.4, major_tautomer=True)
+        smiles_mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
+        conv.ReadString(smiles_mol, smiles)
+        smiles = conv.WriteString(smiles_mol)
+        conv.ReadString(smiles_mol, smiles)
+
         # count the total number of atoms in molecule and loop over each atom
         atomcount = pdb_mol.NumAtoms()
         res = pdb_mol.GetResidue(0)
         countN = 0
         countC = 0
 
-        for i in range(1, atomcount+1):
+        for i in range(1, atomcount + 1):
 
             # since N-HN and C-O of peptide bonds must be consecutive in pdb file, get atom_i and atom_i+1
-            if pdb_mol.GetAtom(i+1):
+            if pdb_mol.GetAtom(i + 1):
                 atom1 = pdb_mol.GetAtom(i)
-                atom2 = pdb_mol.GetAtom(i+1)
+                atom2 = pdb_mol.GetAtom(i + 1)
 
                 # exception for Proline based-residue where no HN is present
                 if res.GetName() == 'Pro':
@@ -313,29 +291,47 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             return None
 
         # create molecule from SMILES -- necessary to sanitize molecule from PDB
-        assert conv.SetOutFormat('smiles'), 'Unable to set format to SMILES'
-        smiles_isotopes = conv.WriteString(pdb_mol)
-
+        assert conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
+        conv.SetOptions('c', conv.OUTOPTIONS)
+        smiles_isotopes = conv.WriteString(pdb_mol).partition('\t')[0]
+        smiles_isotopes = get_major_micro_species(smiles_isotopes, 'smiles', 7.4, major_tautomer=True)
         smiles_mol_isotopes = openbabel.OBMol()
-        conv = openbabel.OBConversion()
-        assert conv.SetInFormat('smiles'), 'Unable to set format to SMILES'
-        assert conv.SetOutFormat('smiles'), 'Unable to set format to SMILES'
+        assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
+        conv.ReadString(smiles_mol_isotopes, smiles_isotopes)
+        smiles_isotopes = conv.WriteString(smiles_mol_isotopes)
         conv.ReadString(smiles_mol_isotopes, smiles_isotopes)
 
-        index_n = None
-        index_c = None
-        for i in range(1, smiles_mol_isotopes.NumAtoms()+1):
-            atom = smiles_mol_isotopes.GetAtom(i)
-            if atom.GetAtomicMass() == 13.003354838:
-                index_c = atom.GetIdx()
-            if atom.GetAtomicMass() == 15.000108898:
-                index_n = atom.GetIdx()
+        i_n_isotopes = None
+        i_c_isotopes = None
+        i_heavy = 0
+        for i_atom in range(1, smiles_mol_isotopes.NumAtoms() + 1):
+            atom = smiles_mol_isotopes.GetAtom(i_atom)
+            if atom.GetAtomicNum() > 1:
+                i_heavy += 1
+            if atom.GetIsotope() == 15:
+                i_n_isotopes = i_heavy
+            if atom.GetIsotope() == 13:
+                i_c_isotopes = i_heavy
 
-        if None in (index_n, index_c):
+        i_n = None
+        i_c = None
+        i_heavy = 0
+        for i_atom in range(1, smiles_mol.NumAtoms() + 1):
+            atom = smiles_mol.GetAtom(i_atom)
+            if atom.GetAtomicNum() > 1:
+                i_heavy += 1
+                if i_heavy == i_n_isotopes:
+                    i_n = i_atom
+                    assert atom.GetAtomicNum() == 7
+                if i_heavy == i_c_isotopes:
+                    i_c = i_atom
+                    assert atom.GetAtomicNum() == 6
+
+        if None in (i_n, i_c):
             warnings.warn('Ignoring monomer {} without bonding possibility'.format(name), UserWarning)
             return None
 
-        return [smiles_mol_isotopes, index_n, index_c]
+        return (smiles_mol, i_n, i_c)
 
     def get_monomer_details(self, id, session):
         """ Get the CHEBI ID and synonyms of an amino acid from its RESID webpage
