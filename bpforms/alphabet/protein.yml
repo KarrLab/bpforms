@@ -2869,6 +2869,29 @@ monomers:
     structure: '[O-]C1=CC(=O)C(=CC1=O)C[C@H]([NH3+])C=O'
     base_monomers:
     - Y
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 17
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 17
+    left_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 17
+    right_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 13
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 13
+    - molecule: Monomer
+      element: H
+      position: 13
   AA0534:
     id: AA0534
     name: N,N-dimethyl-L-serine
@@ -3801,6 +3824,29 @@ monomers:
     structure: N[C]([NH3+])SC[C@H]([NH3+])C=O
     base_monomers:
     - C
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 15
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 15
+    left_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 15
+    right_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 11
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 11
+    - molecule: Monomer
+      element: H
+      position: 11
   E, S:
     id: AA0597
     name: O-(L-isoglutamyl)-L-serine
