@@ -1207,6 +1207,29 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)[C@H](CCCC[NH3+])[NH3+])[NH3+]
     base_monomers:
     - K
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 2
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 2
+    left_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 2
+    right_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 26
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 26
+    - molecule: Monomer
+      element: H
+      position: 26
   AA0577:
     id: AA0577
     name: O4'-(N-acetylamino)galactosyl-L-tyrosine
