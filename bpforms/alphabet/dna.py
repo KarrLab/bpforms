@@ -255,9 +255,7 @@ class DnaForm(BpForm):
             monomer_seq=monomer_seq, alphabet=dna_alphabet,
             backbone=Backbone(
                 structure='OC1CCOC1COP([O-])([O-])=O',
-                monomer_bond_atoms=[Atom(Monomer, element='N', position=None)],
                 backbone_bond_atoms=[Atom(Backbone, element='C', position=4)],
-                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
                 backbone_displaced_atoms=[Atom(Backbone, element='H', position=4)]),
             bond=Bond(
                 left_bond_atoms=[Atom(Backbone, element='O', position=1)],
@@ -282,9 +280,7 @@ class CanonicalDnaForm(BpForm):
             monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
             backbone=Backbone(
                 structure='OC1CCOC1COP([O-])([O-])=O',
-                monomer_bond_atoms=[Atom(Monomer, element='N', position=None)],
                 backbone_bond_atoms=[Atom(Backbone, element='C', position=4)],
-                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
                 backbone_displaced_atoms=[Atom(Backbone, element='H', position=4)]),
             bond=Bond(
                 left_bond_atoms=[Atom(Backbone, element='O', position=1)],

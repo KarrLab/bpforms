@@ -121,7 +121,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 output_isotopes = self.get_monomer_isotope_structure(name, file)
 
             if not structure:
-                print('notstructure', structure)
+                warnings.warn('Ignoring monomer {} that has no structure'.format(id), UserWarning)
                 continue
 
             code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
@@ -130,13 +130,20 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 code = id
 
             if name in canonical_aas:
-                monomer_ids[id] = canonical_aas[name]
-                canonical_aas[name].structure = structure
-                warnings.warn('Ignoring canonical monomer {}'.format(name), UserWarning)
+                canonical_aa = canonical_aas[name]
+                monomer_ids[id] = canonical_aa
+                canonical_aa.structure = structure
+                canonical_aa.monomer_bond_atoms[0].position = index_c
+                canonical_aa.monomer_displaced_atoms[0].position = index_c
+                canonical_aa.left_bond_atoms[0].position = index_c
+                canonical_aa.right_bond_atoms[0].position = index_n
+                canonical_aa.right_displaced_atoms[0].position = index_n
+                canonical_aa.right_displaced_atoms[1].position = index_n
+                warnings.warn('Updated canonical monomer {}'.format(name), UserWarning)
                 continue
 
             if output_isotopes is None:
-                warnings.warn('Ignoring non bonded monomer {}'.format(name), UserWarning)
+                warnings.warn('Ignoring non-bonded monomer {}'.format(name), UserWarning)
                 continue
             else:
                 index_n = output_isotopes[1]
@@ -152,8 +159,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 monomer_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
                 monomer_displaced_atoms=[Atom(Monomer, element='H', position=index_c)],
                 left_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
-                right_bond_atoms=[Atom(Monomer, element='N', position=index_n)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=index_n), Atom(Monomer, element='H', position=index_n)],
+                right_bond_atoms=[Atom(Monomer, element='N', position=index_n, charge=-1)],
+                right_displaced_atoms=[Atom(Monomer, element='H', position=index_n, charge=1),
+                                       Atom(Monomer, element='H', position=index_n)],
             )
             alphabet.monomers[code] = monomer
 
@@ -186,6 +194,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         conv = openbabel.OBConversion()
         assert conv.SetInFormat('pdb'), 'Unable to set format to PDB'
         conv.ReadFile(pdb_mol, pdb_filename)
+        
         assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
         inchi = conv.WriteString(pdb_mol)
 
@@ -198,13 +207,17 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
             return None
 
-        # create molecule from InChI -- necessary to sanitize molecule from PDB
-        inchi_mol = openbabel.OBMol()
-        conv = openbabel.OBConversion()
-        assert conv.SetInFormat('inchi'), 'Unable to set format to InChI'
-        conv.ReadString(inchi_mol, inchi)
+        # create molecule from SMILES -- necessary to sanitize molecule from PDB
+        assert conv.SetOutFormat('smiles'), 'Unable to set format to SMILES'
+        smiles = conv.WriteString(pdb_mol)
 
-        return inchi_mol
+        smiles_mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        assert conv.SetInFormat('smiles'), 'Unable to set format to SMILES'
+        assert conv.SetOutFormat('smiles'), 'Unable to set format to SMILES'
+        conv.ReadString(smiles_mol, smiles)
+
+        return smiles_mol
 
     def get_monomer_isotope_structure(self, name, pdb_filename):
         """ Get the structure of an amino acid from a PDB file
@@ -221,7 +234,6 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         conv = openbabel.OBConversion()
         assert conv.SetInFormat('pdb'), 'Unable to set format to PDB'
         conv.ReadFile(pdb_mol, pdb_filename)
-        assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
 
         # count the total number of atoms in molecule and loop over each atom
         atomcount = pdb_mol.NumAtoms()
@@ -288,6 +300,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         index_c = atom1.GetIdx()
                         atom1.SetIsotope(13)
 
+        assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
         inchi_isotopes = conv.WriteString(pdb_mol)
 
         # removing modified monomers where metal present in structure because:
@@ -299,16 +312,20 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
             return None
 
-        # create molecule from InChI -- necessary to sanitize molecule from PDB
-        inchi_mol_isotopes = openbabel.OBMol()
+        # create molecule from SMILES -- necessary to sanitize molecule from PDB
+        assert conv.SetOutFormat('smiles'), 'Unable to set format to SMILES'
+        smiles_isotopes = conv.WriteString(pdb_mol)
+
+        smiles_mol_isotopes = openbabel.OBMol()
         conv = openbabel.OBConversion()
-        assert conv.SetInFormat('inchi'), 'Unable to set format to InChI'
-        conv.ReadString(inchi_mol_isotopes, inchi_isotopes)
+        assert conv.SetInFormat('smiles'), 'Unable to set format to SMILES'
+        assert conv.SetOutFormat('smiles'), 'Unable to set format to SMILES'
+        conv.ReadString(smiles_mol_isotopes, smiles_isotopes)
 
         index_n = None
         index_c = None
-        for i in range(1, inchi_mol_isotopes.NumAtoms()+1):
-            atom = inchi_mol_isotopes.GetAtom(i)
+        for i in range(1, smiles_mol_isotopes.NumAtoms()+1):
+            atom = smiles_mol_isotopes.GetAtom(i)
             if atom.GetAtomicMass() == 13.003354838:
                 index_c = atom.GetIdx()
             if atom.GetAtomicMass() == 15.000108898:
@@ -318,7 +335,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             warnings.warn('Ignoring monomer {} without bonding possibility'.format(name), UserWarning)
             return None
 
-        return [inchi_mol_isotopes, index_n, index_c]
+        return [smiles_mol_isotopes, index_n, index_c]
 
     def get_monomer_details(self, id, session):
         """ Get the CHEBI ID and synonyms of an amino acid from its RESID webpage
@@ -420,9 +437,7 @@ class ProteinForm(BpForm):
             monomer_seq=monomer_seq, alphabet=protein_alphabet,
             backbone=Backbone(
                 structure='[OH-]',
-                monomer_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 backbone_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
                 backbone_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
             bond=Bond(
                 left_bond_atoms=[Atom(Monomer, element='C', position=None)],
@@ -447,9 +462,7 @@ class CanonicalProteinForm(BpForm):
             monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
             backbone=Backbone(
                 structure='[OH-]',
-                monomer_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 backbone_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                monomer_displaced_atoms=[Atom(Monomer, element='H', position=None)],
                 backbone_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
             bond=Bond(
                 left_bond_atoms=[Atom(Monomer, element='C', position=None)],

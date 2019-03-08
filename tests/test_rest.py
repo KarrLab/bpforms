@@ -34,7 +34,7 @@ class RestTestCase(unittest.TestCase):
                           '[nH]c5=O)O4)[O-])CC(n4c5nc(N)[nH]c(=O)c5nc4)O3)[O-])CC(n3c(=O)nc(N)cc3)O2)[O-])'
                           'C(O1)COP(=O)([O-])[O-]'),
             'formula': dict(EmpiricalFormula('C39H46O25N15P4')),
-            'mol_wt': 1248.7720479920001,
+            'mol_wt': 1248.772047992,
             'charge': -5,
         })
 
@@ -46,7 +46,7 @@ class RestTestCase(unittest.TestCase):
             ph=7.,
             major_tautomer=True))
         self.assertEqual(rv.status_code, 200)
-        self.assertEqual(rv.get_json()['structure'], None)
+        self.assertNotEqual(rv.get_json()['structure'], None)
         self.assertEqual(rv.get_json()['alphabet'], 'dna')
         self.assertEqual(rv.get_json()['monomer_seq'], 'ACGT[structure: "O=c1[nH]cnc2c1nc[nH]2"]')
         self.assertEqual(rv.get_json()['length'], 5)
@@ -64,7 +64,7 @@ class RestTestCase(unittest.TestCase):
                           '(OCC2O1)[O-])CC(n1cc(C)c(=O)[nH]c1=O)O5)[O-])CC(n1c2nc(N)[nH]c(=O)'
                           'c2nc1)O4)[O-])CC(n1c(=O)nc(N)cc1)O3)[O-]'),
             'formula': dict(EmpiricalFormula('C39H45O24N15P4')),
-            'mol_wt': 1231.765047992,
+            'mol_wt': 1231.7650479919998,
             'charge': -4,
         })
 
