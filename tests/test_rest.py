@@ -83,6 +83,10 @@ class RestTestCase(unittest.TestCase):
         rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT', ph=7., major_tautomer='a'))
         self.assertEqual(rv.status_code, 400)
 
+        with mock.patch.object(core.BpForm, 'export', side_effect=Exception('unable to generate SMILES')):
+            rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT'))
+        self.assertEqual(rv.status_code, 200)
+
     def test_get_alphabets(self):
         client = rest.app.test_client()
         rv = client.get('/api/alphabet/')
