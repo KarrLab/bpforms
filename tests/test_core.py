@@ -810,26 +810,12 @@ class BackboneTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             backbone.structure = 'dAMP'
 
-    def test_set_monomer_bond_atoms(self):
-        backbone = core.Backbone()
-        backbone.monomer_bond_atoms = []
-        backbone.monomer_bond_atoms = core.AtomList()
-        with self.assertRaises(ValueError):
-            backbone.monomer_bond_atoms = None
-
     def test_set_backbone_bond_atoms(self):
         backbone = core.Backbone()
         backbone.backbone_bond_atoms = []
         backbone.backbone_bond_atoms = core.AtomList()
         with self.assertRaises(ValueError):
             backbone.backbone_bond_atoms = None
-
-    def test_set_monomer_displaced_atoms(self):
-        backbone = core.Backbone()
-        backbone.monomer_displaced_atoms = []
-        backbone.monomer_displaced_atoms = core.AtomList()
-        with self.assertRaises(ValueError):
-            backbone.monomer_displaced_atoms = None
 
     def test_set_backbone_displaced_atoms(self):
         backbone = core.Backbone()
@@ -857,10 +843,10 @@ class BackboneTestCase(unittest.TestCase):
 
         backbone.monomer_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C')])
         backbone.backbone_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'H')])
-        self.assertEqual(backbone.get_formula(), EmpiricalFormula('C4H3N5'))
+        self.assertEqual(backbone.get_formula(), EmpiricalFormula('C5H3N5'))
 
         backbone.structure = None
-        self.assertEqual(backbone.get_formula(), EmpiricalFormula('CH2') * -1)
+        self.assertEqual(backbone.get_formula(), EmpiricalFormula('H2') * -1)
 
     def test_get_mol_wt(self):
         backbone = core.Backbone()
@@ -879,24 +865,20 @@ class BackboneTestCase(unittest.TestCase):
 
         backbone.monomer_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C', charge=2)])
         backbone.backbone_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H', charge=3)])
-        self.assertEqual(backbone.get_charge(), -5)
+        self.assertEqual(backbone.get_charge(), -3)
 
     def test_is_equal(self):
         backbone_1 = core.Backbone()
         backbone_2 = core.Backbone()
         backbone_3 = core.Backbone(structure=dAMP_smiles)
-        backbone_4 = core.Backbone(monomer_bond_atoms=[core.Atom(core.Monomer, 'H')])
-        backbone_5 = core.Backbone(backbone_bond_atoms=[core.Atom(core.Monomer, 'H')])
-        backbone_6 = core.Backbone(monomer_displaced_atoms=[core.Atom(core.Monomer, 'H')])
-        backbone_7 = core.Backbone(backbone_displaced_atoms=[core.Atom(core.Monomer, 'H')])
+        backbone_4 = core.Backbone(backbone_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        backbone_5 = core.Backbone(backbone_displaced_atoms=[core.Atom(core.Monomer, 'H')])
         self.assertTrue(backbone_1.is_equal(backbone_1))
         self.assertTrue(backbone_1.is_equal(backbone_2))
         self.assertFalse(backbone_1.is_equal({}))
         self.assertFalse(backbone_1.is_equal(backbone_3))
         self.assertFalse(backbone_1.is_equal(backbone_4))
         self.assertFalse(backbone_1.is_equal(backbone_5))
-        self.assertFalse(backbone_1.is_equal(backbone_6))
-        self.assertFalse(backbone_1.is_equal(backbone_7))
 
 
 class BondTestCase(unittest.TestCase):
@@ -1361,10 +1343,6 @@ class BpFormTestCase(unittest.TestCase):
         form = dna.CanonicalDnaForm()
         self.assertEqual(form.export('inchi'), None)
 
-        form = dna.CanonicalDnaForm().from_str('A[structure: "NC1=C2N=CNC2=NC=N1"]')
-        with self.assertRaises(ValueError):
-            form.export('inchi')
-
     def test_circular_export(self):
         form = dna.CanonicalDnaForm(circular=True).from_str('A')
         self.assertEqual(form.export('inchi'), ('InChI=1S/C10H12N5O5P'
@@ -1380,7 +1358,8 @@ class BpFormTestCase(unittest.TestCase):
 
         form = rna.CanonicalRnaForm(circular=True).from_str('AA')
         self.assertEqual(form.export('inchi'), ('InChI=1S/C20H24N10O12P2'
-                                                '/c21-15-9-17(25-3-23-15)29(5-27-9)19-11(31)13-7(39-19)1-37-43(33,34)42-14-8(2-38-44(35,36)41-13)40-20'
+                                                '/c21-15-9-17(25-3-23-15)29(5-27-9)19-11(31)13-7(39-19)'
+                                                '1-37-43(33,34)42-14-8(2-38-44(35,36)41-13)40-20'
                                                 '(12(14)32)30-6-28-10-16(22)24-4-26-18(10)30'
                                                 '/h3-8,11-14,19-20,31-32H,1-2H2,(H,33,34)(H,35,36)(H2,21,23,25)(H2,22,24,26)/p-2'))
 

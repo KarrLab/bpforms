@@ -10,6 +10,7 @@ from . import core
 from .alphabet import dna
 from .alphabet import rna
 from .alphabet import protein
+from wc_utils.util.chem import draw_molecule, OpenBabelUtils
 import openbabel
 
 
@@ -85,32 +86,72 @@ def build_alphabets(ph=None, major_tautomer=False, _max_monomers=float('inf')):
     protein.ProteinAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer)
 
 
-def gen_html_viz_alphabet(alphabet, filename):
+def gen_html_viz_alphabet(bpform_type, filename):
     """ Create and save an HTML document with images of the monomers in an alphabet
 
     Args:
-        alphabet (:obj:`Alphabet`): alphabet
+        bpform_type (:obj:`type`): subclass of :obj:`core.BpForm`
         filename (:obj:`str`): path to save HTML document with images of monomers
     """
+    width = 400
+    height = 400
+
+    bpform = bpform_type()
+    alphabet = bpform.alphabet
+
     doc = ''
-    doc += '<html>'
-    doc += '  <body>'
-    doc += '    <table>'
-    doc += '      <thead>'
-    doc += '        <tr>'
-    doc += '          <th>Code</th>'
-    doc += '          <th>Structure</th>'
-    doc += '        </tr>'
-    doc += '      </thead>'
+    doc += '<html>\n'
+    doc += '  <style type="text/css">\n'
+    doc += '  table {width: 100%;}\n'
+    doc += '  thead th {background: #ccc}\n'
+    doc += '  tbody tr:nth-child(even) {background: #dedede}\n'
+    doc += '  tr td, tr th {padding:5px; text-align:center;}\n'
+    doc += '  tr td:first-child, tr tr:first-child {padding-left:10px;}\n'
+    doc += '  tr td:last-child, tr tr:last-child {padding-right:10px;}\n'
+    doc += '  </style>\n'
+    doc += '  <body>\n'
+    doc += '    <table cellpadding="0" cellspacing="0">\n'
+    doc += '      <thead>\n'
+    doc += '        <tr>\n'
+    doc += '          <th>Code</th>\n'
+    doc += '          <th>Monomer</th>\n'
+    doc += '          <th>Dimer</th>\n'
+    doc += '          <th>SMILES</th>\n'
+    doc += '          <th>Monomer bond atoms</th>\n'
+    doc += '          <th>Monomer displaced atoms</th>\n'
+    doc += '          <th>Left bond atoms</th>\n'
+    doc += '          <th>Left displaced atoms</th>\n'
+    doc += '          <th>Right bond atoms</th>\n'
+    doc += '          <th>Right displaced atoms</th>\n'
+    doc += '        </tr>\n'
+    doc += '      </thead>\n'
     for code, monomer in alphabet.monomers.items():
-        doc += '        <tr>'
-        doc += '          <td>{}</td>'.format(code)
-        doc += '          <td>{}</td>'.format(
-            monomer.get_image(include_xml_header=False))
-        doc += '        </tr>'
-    doc += '    </table>'
-    doc += '  </body>'
-    doc += '</html>'
+        doc += '        <tr>\n'
+        doc += '          <td>{}</td>\n'.format(code)
+        doc += '          <td>{}</td>\n'.format(monomer.get_image(width=width, height=height, include_xml_header=False))
+
+        if monomer.structure:
+            dimer = bpform_type()
+            dimer.monomer_seq.append(monomer)
+            dimer.monomer_seq.append(monomer)
+            doc += '          <td>{}</td>\n'.format(draw_molecule(dimer.export('cml'), 'cml', width=width, height=height))
+        else:
+            doc += '          <td>{}</td>\n'.format('')
+        doc += '          <td>{}</td>\n'.format(monomer.export('smiles'))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
+                                                          for atom in monomer.monomer_bond_atoms))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
+                                                          for atom in monomer.monomer_displaced_atoms))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.left_bond_atoms))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
+                                                          for atom in monomer.left_displaced_atoms))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.right_bond_atoms))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
+                                                          for atom in monomer.right_displaced_atoms))
+        doc += '        </tr>\n'
+    doc += '    </table>\n'
+    doc += '  </body>\n'
+    doc += '</html>\n'
 
     with open(filename, 'w') as file:
         file.write(doc)
@@ -132,10 +173,9 @@ def validate_bpform_linkages(form_type):
 
     errors = []
 
+    # validate bonds to backbone
     atom_types = [
-        ['backbone', 'monomer_bond_atoms'],
         ['backbone', 'backbone_bond_atoms'],
-        ['backbone', 'monomer_displaced_atoms'],
         ['backbone', 'backbone_displaced_atoms'],
         ['bond', 'left_bond_atoms'],
         ['bond', 'right_bond_atoms'],
@@ -162,6 +202,7 @@ def validate_bpform_linkages(form_type):
                         element_table.GetSymbol(atom.GetAtomicNum()), atom_md.element,
                         atom_md.position, molecule_md, atom_type))
 
+    # validate bonds to monomer
     atom_types = [
         'monomer_bond_atoms',
         'monomer_displaced_atoms',
@@ -190,5 +231,36 @@ def validate_bpform_linkages(form_type):
                             element_table.GetSymbol(atom.GetAtomicNum()), atom_md.element,
                             atom_md.position, monomer.id, atom_type))
 
+    # validate monomers and dimers
+    for monomer in form.alphabet.monomers.values():
+        monomer_form = form_type(monomer_seq=[monomer])
+        try:
+            monomer_structure = monomer_form.get_structure()
+            if monomer_form.get_formula() != OpenBabelUtils.get_formula(monomer_structure):
+                errors.append('Monomer of {} has incorrect formula'.format(monomer.id))
+                continue
+            if monomer_form.get_charge() != monomer_structure.GetTotalCharge():
+                errors.append('Monomer of {} has incorrect charge'.format(monomer.id))
+                continue
+            OpenBabelUtils.export(monomer_structure, 'smiles')
+            OpenBabelUtils.export(monomer_structure, 'inchi')
+        except Exception as error:
+            errors.append('Unable to form monomer of {}:\n    {}'.format(monomer.id, str(error)))
+
+        dimer_form = form_type(monomer_seq=[monomer, monomer])
+        try:
+            dimer_structure = dimer_form.get_structure()
+            if dimer_form.get_formula() != OpenBabelUtils.get_formula(dimer_structure):
+                errors.append('Dimer of {} has incorrect formula'.format(monomer.id))
+                continue
+            if dimer_form.get_charge() != dimer_structure.GetTotalCharge():
+                errors.append('Dimer of {} has incorrect charge'.format(monomer.id))
+                continue
+            OpenBabelUtils.export(dimer_structure, 'smiles')
+            OpenBabelUtils.export(dimer_structure, 'inchi')
+        except Exception as error:
+            errors.append('Unable to form dimer of {}:\n    {}'.format(monomer.id, str(error)))
+
+    # report errors
     if errors:
         raise ValueError('BpForm {} is invalid:\n  {}'.format(form_type.__name__, '\n  '.join(errors)))

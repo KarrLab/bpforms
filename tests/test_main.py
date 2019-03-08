@@ -98,16 +98,11 @@ class CliTestCase(unittest.TestCase):
                 self.assertIn('Charge: -', text)
                 self.assertEqual(captured.stderr.get_text(), '')
 
-        monomer_seq = ''.join([
-            '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.A.export('smiles')),
-            '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.C.export('smiles')),
-            '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.G.export('smiles')),
-            '[structure: "{}"]'.format(bpforms.alphabet.dna.canonical_dna_alphabet.monomers.T.export('smiles')),
-        ])
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['get-properties', 'canonical_dna', monomer_seq, '--ph', '7.0']) as app:
+            with __main__.App(argv=['get-properties', 'canonical_dna', 'ACGT', '--ph', '7.0']) as app:
                 # run app
-                app.run()
+                with mock.patch.object(bpforms.BpForm, 'export', side_effect=Exception('error')):
+                    app.run()
 
                 # test that the CLI produced the correct output
                 text = captured.stdout.get_text()

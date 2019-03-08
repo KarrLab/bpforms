@@ -758,7 +758,7 @@ class Monomer(object):
 
     def get_image(self, bond_label='B', displaced_label='D',
                   backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff,
-                  include_xml_header=True):
+                  width=200, height=200, include_xml_header=True):
         """ Get image in SVG format
 
         Args:
@@ -767,6 +767,8 @@ class Monomer(object):
             backbone_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with backbone
             left_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomer to left
             right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomer to right
+            width (:obj:`int`, optional): width in pixels
+            height (:obj:`int`, optional): height in pixels
             include_xml_header (:obj:`bool`, optional): if :obj:`True`, include XML header at the beginning of the SVG
 
         Returns:
@@ -799,7 +801,8 @@ class Monomer(object):
                     atom_sets[color]['positions'].append(atom.GetIdx())
                     atom_sets[color]['elements'].append(atom_md.element)
 
-        return draw_molecule(self.export('smiles'), 'smiles', atom_labels, atom_sets.values(), include_xml_header=include_xml_header)
+        return draw_molecule(self.export('cml'), 'cml', atom_labels=atom_labels, atom_sets=atom_sets.values(),
+                             width=width, height=height, include_xml_header=include_xml_header)
 
     def get_formula(self):
         """ Get the chemical formula
@@ -1650,26 +1653,19 @@ class Backbone(object):
     Attributes:
         structure (:obj:`openbabel.OBMol`): chemical structure
         backbone_bond_atoms (:obj:`AtomList`): atoms from backbone that bonds to monomer
-        monomer_bond_atoms (:obj:`AtomList`): atoms from monomer that bonds to backbone
         backbone_displaced_atoms (:obj:`AtomList`): atoms from backbone displaced by bond to monomer
-        monomer_displaced_atoms (:obj:`AtomList`): atoms from monomer displaced by bond to backbone
     """
 
-    def __init__(self, structure=None, backbone_bond_atoms=None, monomer_bond_atoms=None,
-                 backbone_displaced_atoms=None, monomer_displaced_atoms=None):
+    def __init__(self, structure=None, backbone_bond_atoms=None, backbone_displaced_atoms=None):
         """
         Args:
             structure (:obj:`str` or :obj:`openbabel.OBMol`, optional): chemical structure as SMILES-encoded string or OpenBabel molecule
             backbone_bond_atoms (:obj:`AtomList`, optional): atoms from backbone that bonds to monomer
-            monomer_bond_atoms (:obj:`AtomList`, optional): atoms from monomer that bonds to backbone
             backbone_displaced_atoms (:obj:`AtomList`, optional): atoms from backbone displaced by bond to monomer
-            monomer_displaced_atoms (:obj:`AtomList`, optional): atoms from monomer displaced by bond to backbone
         """
         self.structure = structure
         self.backbone_bond_atoms = backbone_bond_atoms or AtomList()
-        self.monomer_bond_atoms = monomer_bond_atoms or AtomList()
         self.backbone_displaced_atoms = backbone_displaced_atoms or AtomList()
-        self.monomer_displaced_atoms = monomer_displaced_atoms or AtomList()
 
     @property
     def structure(self):
@@ -1697,31 +1693,6 @@ class Backbone(object):
         self._structure = value
 
     @property
-    def monomer_bond_atoms(self):
-        """ Get the monomer bond atoms
-
-        Returns:
-            :obj:`AtomList`: monomer bond atoms
-        """
-        return self._monomer_bond_atoms
-
-    @monomer_bond_atoms.setter
-    def monomer_bond_atoms(self, value):
-        """ Set the monomer bond atoms
-
-        Args:
-            value (:obj:`AtomList`): monomer bond atoms
-
-        Raises:
-            :obj:`ValueError`: if `monomer_bond_atoms` is not an instance of `AtomList`
-        """
-        if value is None:
-            raise ValueError('`monomer_bond_atoms` must be an instance of `AtomList`')
-        if not isinstance(value, AtomList):
-            value = AtomList(value)
-        self._monomer_bond_atoms = value
-
-    @property
     def backbone_bond_atoms(self):
         """ Get the backbone bond atoms
 
@@ -1745,31 +1716,6 @@ class Backbone(object):
         if not isinstance(value, AtomList):
             value = AtomList(value)
         self._backbone_bond_atoms = value
-
-    @property
-    def monomer_displaced_atoms(self):
-        """ Get the monomer displaced atoms
-
-        Returns:
-            :obj:`AtomList`: monomer displaced atoms
-        """
-        return self._monomer_displaced_atoms
-
-    @monomer_displaced_atoms.setter
-    def monomer_displaced_atoms(self, value):
-        """ Set the monomer displaced atoms
-
-        Args:
-            value (:obj:`AtomList`): monomer displaced atoms
-
-        Raises:
-            :obj:`ValueError`: if `monomer_displaced_atoms` is not an instance of `AtomList`
-        """
-        if value is None:
-            raise ValueError('`monomer_displaced_atoms` must be an instance of `AtomList`')
-        if not isinstance(value, AtomList):
-            value = AtomList(value)
-        self._monomer_displaced_atoms = value
 
     @property
     def backbone_displaced_atoms(self):
@@ -1822,8 +1768,6 @@ class Backbone(object):
             formula = EmpiricalFormula()
         for atom in self.backbone_displaced_atoms:
             formula[atom.element] -= 1
-        for atom in self.monomer_displaced_atoms:
-            formula[atom.element] -= 1
         return formula
 
     def get_mol_wt(self):
@@ -1844,9 +1788,9 @@ class Backbone(object):
             charge = self.structure.GetTotalCharge()
         else:
             charge = 0
-        for atom in self.backbone_displaced_atoms:
+        for atom in self.backbone_bond_atoms:
             charge -= atom.charge
-        for atom in self.monomer_displaced_atoms:
+        for atom in self.backbone_displaced_atoms:
             charge -= atom.charge
         return charge
 
@@ -1865,9 +1809,7 @@ class Backbone(object):
             return False
         if self.export('inchi') != other.export('inchi'):
             return False
-        if not self.monomer_bond_atoms.is_equal(other.monomer_bond_atoms)\
-                or not self.backbone_bond_atoms.is_equal(other.backbone_bond_atoms)\
-                or not self.monomer_displaced_atoms.is_equal(other.monomer_displaced_atoms)\
+        if not self.backbone_bond_atoms.is_equal(other.backbone_bond_atoms)\
                 or not self.backbone_displaced_atoms.is_equal(other.backbone_displaced_atoms):
             return False
         return True
@@ -2025,7 +1967,11 @@ class Bond(object):
             :obj:`int`: charge
         """
         charge = 0
+        for atom in self.left_bond_atoms:
+            charge -= atom.charge
         for atom in self.left_displaced_atoms:
+            charge -= atom.charge
+        for atom in self.right_bond_atoms:
             charge -= atom.charge
         for atom in self.right_displaced_atoms:
             charge -= atom.charge
@@ -2327,12 +2273,9 @@ class BpForm(object):
                 mol += backbone_structure
 
             monomer_atom_attrs = ['monomer', [
-                ['monomer_bond_atoms', self.backbone.monomer_bond_atoms],
-                ['monomer_displaced_atoms', self.backbone.monomer_displaced_atoms]]]
-            if monomer.monomer_bond_atoms:
-                monomer_atom_attrs[1][0][1] = monomer.monomer_bond_atoms
-            if monomer.monomer_displaced_atoms:
-                monomer_atom_attrs[1][1][1] = monomer.monomer_displaced_atoms
+                ['monomer_bond_atoms', monomer.monomer_bond_atoms],
+                ['monomer_displaced_atoms', monomer.monomer_displaced_atoms],
+            ]]
 
             backbone_atom_attrs = ['backbone', [
                 ['backbone_bond_atoms', self.backbone.backbone_bond_atoms],
@@ -2368,7 +2311,7 @@ class BpForm(object):
                             atom = mol.GetAtom(n_atom + atom_md.position)
                         else:
                             atom = mol.GetAtom(n_atom + atom_md.position + monomer.structure.NumAtoms())
-                        subunit_atoms[type][attr[0]].append([atom, atom_md.element])
+                        subunit_atoms[type][attr[0]].append([atom, atom_md.element, atom_md.charge])
             atoms.append(subunit_atoms)
 
             n_atom += monomer_structure.NumAtoms()
@@ -2381,9 +2324,9 @@ class BpForm(object):
                     selected_hydrogens = []
                     for i_atom_el, atom_el in enumerate(type_atoms):
                         if atom_el[1] == 'H':
-                            type_atoms[i_atom_el] = get_hydrogen_atom(atom_el[0], selected_hydrogens)
+                            type_atoms[i_atom_el] = (get_hydrogen_atom(atom_el[0], selected_hydrogens), atom_el[2])
                         else:
-                            type_atoms[i_atom_el] = atom_el[0]
+                            type_atoms[i_atom_el] = (atom_el[0], atom_el[2])
 
         # bond monomers to backbones
         for monomer, subunit_atoms in zip(self.monomer_seq, atoms):
@@ -2407,21 +2350,25 @@ class BpForm(object):
             monomer (:obj:`Monomer`): monomer
             subunit_atoms (:obj:`dict`): dictionary of atoms in monomer and backbone to bond
         """
-        for atom in subunit_atoms['monomer']['monomer_displaced_atoms']:
+        for atom, atom_charge in subunit_atoms['monomer']['monomer_displaced_atoms']:
             if atom:
                 assert mol.DeleteAtom(atom, True)
 
-        for atom in subunit_atoms['backbone']['backbone_displaced_atoms']:
+        for atom, atom_charge in subunit_atoms['backbone']['backbone_displaced_atoms']:
             if atom:
                 assert mol.DeleteAtom(atom, True)
 
-        for monomer_atom, backbone_atom in zip(subunit_atoms['monomer']['monomer_bond_atoms'],
-                                               subunit_atoms['backbone']['backbone_bond_atoms']):
+        for (monomer_atom, monomer_atom_charge), (backbone_atom, backbone_atom_charge) in zip(
+                subunit_atoms['monomer']['monomer_bond_atoms'],
+                subunit_atoms['backbone']['backbone_bond_atoms']):
             bond = openbabel.OBBond()
             bond.SetBegin(monomer_atom)
             bond.SetEnd(backbone_atom)
             bond.SetBondOrder(1)
             assert mol.AddBond(bond)
+
+            monomer_atom.SetFormalCharge(monomer_atom.GetFormalCharge() + monomer_atom_charge)
+            backbone_atom.SetFormalCharge(backbone_atom.GetFormalCharge() + backbone_atom_charge)
 
     def _bond_subunits(self, mol, left_atoms, right_atoms):
         """  Bond a left/right pair of subunits
@@ -2430,22 +2377,25 @@ class BpForm(object):
             mol (:obj:`openbabel.OBMol`): molecule with left and right subunits
             left_atoms (:obj:`dict`): dictionary of atoms in left subunit to bond
             right_atoms (:obj:`dict`): dictionary of atoms in right subunit to bond
-        """ 
-        for atom in left_atoms['left']['left_displaced_atoms']:
+        """
+        for atom, atom_charge in left_atoms['left']['left_displaced_atoms']:
             if atom:
                 assert mol.DeleteAtom(atom, True)
 
-        for atom in right_atoms['right']['right_displaced_atoms']:
+        for atom, atom_charge in right_atoms['right']['right_displaced_atoms']:
             if atom:
                 assert mol.DeleteAtom(atom, True)
 
-        for left_atom, right_atom in zip(left_atoms['left']['left_bond_atoms'],
-                                         right_atoms['right']['right_bond_atoms']):
+        for (l_atom, l_atom_charge), (r_atom, r_atom_charge) in zip(left_atoms['left']['left_bond_atoms'],
+                                                                    right_atoms['right']['right_bond_atoms']):
             bond = openbabel.OBBond()
-            bond.SetBegin(left_atom)
-            bond.SetEnd(right_atom)
+            bond.SetBegin(l_atom)
+            bond.SetEnd(r_atom)
             bond.SetBondOrder(1)
             assert mol.AddBond(bond)
+
+            l_atom.SetFormalCharge(l_atom.GetFormalCharge() + l_atom_charge)
+            r_atom.SetFormalCharge(r_atom.GetFormalCharge() + r_atom_charge)
 
     def export(self, format, options=()):
         """ Export structure to format
@@ -2470,6 +2420,8 @@ class BpForm(object):
         formula = EmpiricalFormula()
         for monomer, count in self.get_monomer_counts().items():
             formula += monomer.get_formula() * count
+            for atom in monomer.monomer_displaced_atoms:
+                formula[atom.element] -= count
         return formula + self.backbone.get_formula() * len(self) + self.bond.get_formula() * (len(self) - (1 - self.circular))
 
     def get_mol_wt(self):
@@ -2478,10 +2430,7 @@ class BpForm(object):
         Returns:
             :obj:`float`: molecular weight
         """
-        mol_wt = 0.
-        for monomer, count in self.get_monomer_counts().items():
-            mol_wt += monomer.get_mol_wt() * count
-        return mol_wt + self.backbone.get_mol_wt() * len(self) + self.bond.get_mol_wt() * (len(self) - (1 - self.circular))
+        return self.get_formula().get_molecular_weight()
 
     def get_charge(self):
         """ Get the charge
@@ -2492,6 +2441,10 @@ class BpForm(object):
         charge = 0
         for monomer, count in self.get_monomer_counts().items():
             charge += monomer.get_charge() * count
+            for atom in monomer.monomer_bond_atoms:
+                charge -= atom.charge * count
+            for atom in monomer.monomer_displaced_atoms:
+                charge -= atom.charge * count
         return charge + self.backbone.get_charge() * len(self) + self.bond.get_charge() * (len(self) - (1 - self.circular))
 
     def __str__(self):

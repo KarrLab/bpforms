@@ -37,10 +37,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 3
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 3
+      charge: 1
     - molecule: Monomer
       element: H
       position: 3
@@ -78,10 +80,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 11
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
+      charge: 1
     - molecule: Monomer
       element: H
       position: 11
@@ -126,10 +130,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -167,10 +173,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -212,10 +220,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -260,10 +270,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 7
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
+      charge: 1
     - molecule: Monomer
       element: H
       position: 7
@@ -302,10 +314,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -341,10 +355,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -382,10 +398,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -422,10 +440,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 6
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
+      charge: 1
     - molecule: Monomer
       element: H
       position: 6
@@ -465,10 +485,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 6
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
+      charge: 1
     - molecule: Monomer
       element: H
       position: 6
@@ -501,10 +523,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -544,10 +568,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 6
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
+      charge: 1
     - molecule: Monomer
       element: H
       position: 6
@@ -585,10 +611,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -633,10 +661,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 7
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
+      charge: 1
     - molecule: Monomer
       element: H
       position: 7
@@ -680,10 +710,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -724,10 +756,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 5
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
+      charge: 1
     - molecule: Monomer
       element: H
       position: 5
@@ -767,10 +801,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -812,10 +848,12 @@ monomers:
     - molecule: Monomer
       element: N
       position: 1
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+      charge: 1
     - molecule: Monomer
       element: H
       position: 1
@@ -854,13 +892,15 @@ monomers:
     - molecule: Monomer
       element: N
       position: 5
+      charge: -1
     right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
+      charge: 1
     - molecule: Monomer
       element: H
-      position: 5    
+      position: 5
   AA0318:
     id: AA0318
     name: L-lysine methyl ester

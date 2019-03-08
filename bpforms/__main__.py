@@ -160,8 +160,8 @@ class VizAlphabetController(cement.Controller):
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        alphabet = bpforms.util.get_alphabet(args.alphabet)
-        bpforms.util.gen_html_viz_alphabet(alphabet, args.path)
+        bpform_type = bpforms.util.get_form(args.alphabet)
+        bpforms.util.gen_html_viz_alphabet(bpform_type, args.path)
         print('Visualization saved to {}'.format(args.path))
 
 
