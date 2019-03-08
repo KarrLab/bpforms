@@ -235,5 +235,5 @@ class UtilTestCase(unittest.TestCase):
                 util.validate_bpform_linkages(TestDnaForm)
 
         with self.assertRaises(ValueError):
-            with mock.patch.object(core.BpForm, 'get_charge', side_effect=[-3, -100]):
+            with mock.patch.object(core.BpForm, 'get_charge', side_effect=[-2, -100]):
                 util.validate_bpform_linkages(TestDnaForm)
