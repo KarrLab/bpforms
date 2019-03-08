@@ -1338,7 +1338,7 @@ class BpFormTestCase(unittest.TestCase):
                                                 '/p-3'))
 
         form = protein.CanonicalProteinForm().from_str('AA')
-        self.assertEqual(form.export('inchi'), 'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)/p+1')
+        self.assertEqual(form.export('inchi'), 'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)')
 
         form = dna.CanonicalDnaForm()
         self.assertEqual(form.export('inchi'), None)

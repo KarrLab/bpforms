@@ -2367,8 +2367,10 @@ class BpForm(object):
             bond.SetBondOrder(1)
             assert mol.AddBond(bond)
 
-            monomer_atom.SetFormalCharge(monomer_atom.GetFormalCharge() + monomer_atom_charge)
-            backbone_atom.SetFormalCharge(backbone_atom.GetFormalCharge() + backbone_atom_charge)
+            if monomer_atom_charge:
+                monomer_atom.SetFormalCharge(monomer_atom.GetFormalCharge() + monomer_atom_charge)
+            if backbone_atom_charge:
+                backbone_atom.SetFormalCharge(backbone_atom.GetFormalCharge() + backbone_atom_charge)
 
     def _bond_subunits(self, mol, left_atoms, right_atoms):
         """  Bond a left/right pair of subunits
@@ -2394,8 +2396,10 @@ class BpForm(object):
             bond.SetBondOrder(1)
             assert mol.AddBond(bond)
 
-            l_atom.SetFormalCharge(l_atom.GetFormalCharge() + l_atom_charge)
-            r_atom.SetFormalCharge(r_atom.GetFormalCharge() + r_atom_charge)
+            if l_atom_charge:
+                l_atom.SetFormalCharge(l_atom.GetFormalCharge() + l_atom_charge)
+            if r_atom_charge:
+                r_atom.SetFormalCharge(r_atom.GetFormalCharge() + r_atom_charge)
 
     def export(self, format, options=()):
         """ Export structure to format
