@@ -1312,6 +1312,43 @@ class BpFormTestCase(unittest.TestCase):
         dna_form_2 = dna.DnaForm().from_str('[structure: "' + dIMP_smiles + '"]')
         self.assertTrue(dna_form_1.is_equal(dna_form_2))
 
+    def test__bond_monomer_backbone(self):
+        form = dna.CanonicalDnaForm()
+
+        mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        conv.SetInFormat('smiles')
+        conv.ReadString(mol, '[O-]N([O-])C1=C2N=CNC2=NC=N1')
+        form._bond_monomer_backbone(mol, {
+            'monomer': {
+                'monomer_bond_atoms': [(mol.GetAtom(2), 1), ],
+                'monomer_displaced_atoms': [(mol.GetAtom(1), -1)],
+            },
+            'backbone': {
+                'backbone_bond_atoms': [(mol.GetAtom(8), 1)],
+                'backbone_displaced_atoms': [(mol.GetAtom(3), -1)],
+            }
+        })
+
+    def test__bond_subunits(self):
+        form = dna.CanonicalDnaForm()
+
+        mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        conv.SetInFormat('smiles')
+        conv.ReadString(mol, '[O-]N([O-])C1=C2N=CNC2=NC=N1')
+        form._bond_subunits(mol, {
+            'left': {
+                'left_bond_atoms': [(mol.GetAtom(1), 1), ],
+                'left_displaced_atoms': [(mol.GetAtom(1), -1)],
+            }
+        }, {
+            'right': {
+                'right_bond_atoms': [(mol.GetAtom(8), 1)],
+                'right_displaced_atoms': [(mol.GetAtom(3), -1)],
+            }
+        })
+
     def test_export(self):
         form = dna.CanonicalDnaForm().from_str('A')
         self.assertEqual(form.export('inchi'), ('InChI=1S'

@@ -2304,9 +2304,6 @@ class BpForm(object):
                 for attr in attrs:
                     subunit_atoms[type][attr[0]] = []
                     for atom_md in attr[1]:
-                        if atom_md.position is None:
-                            raise ValueError('Atom positions must be specified to generate a structure')
-
                         if atom_md.molecule == Monomer:
                             atom = mol.GetAtom(n_atom + atom_md.position)
                         else:
@@ -2330,7 +2327,7 @@ class BpForm(object):
 
         # bond monomers to backbones
         for monomer, subunit_atoms in zip(self.monomer_seq, atoms):
-            self._bond_monomer_backbone(mol, monomer, subunit_atoms)
+            self._bond_monomer_backbone(mol, subunit_atoms)
 
         # bond left/right pairs of subunits
         for left_atoms, right_atoms in zip(atoms[0:-1], atoms[1:]):
@@ -2342,12 +2339,11 @@ class BpForm(object):
         # return molecule
         return mol
 
-    def _bond_monomer_backbone(self, mol, monomer, subunit_atoms):
+    def _bond_monomer_backbone(self, mol, subunit_atoms):
         """ Bond a monomer to a backbone
 
         Args:
             mol (:obj:`openbabel.OBMol`): molecule with a monomer and backbone
-            monomer (:obj:`Monomer`): monomer
             subunit_atoms (:obj:`dict`): dictionary of atoms in monomer and backbone to bond
         """
         for atom, atom_charge in subunit_atoms['monomer']['monomer_displaced_atoms']:
@@ -2648,7 +2644,7 @@ class BpForm(object):
         return seq
 
 
-def get_hydrogen_atom(parent_atom, selected_hydrogens=None):
+def get_hydrogen_atom(parent_atom, selected_hydrogens):
     """ Get a hydrogen atom attached to a parent atom
 
     Args:
@@ -2658,8 +2654,6 @@ def get_hydrogen_atom(parent_atom, selected_hydrogens=None):
     Returns:
         :obj:`openbabel.OBAtom`: hydrogen atom
     """
-    if selected_hydrogens is None:
-        selected_hydrogens = []
     for other_atom in openbabel.OBAtomAtomIter(parent_atom):
         if other_atom.GetAtomicNum() == 1 and other_atom not in selected_hydrogens:  # hydrogen
             selected_hydrogens.append(other_atom)
