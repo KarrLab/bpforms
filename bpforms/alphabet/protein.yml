@@ -5950,6 +5950,29 @@ monomers:
     structure: O[C@H](CC[NH3+])C[C@H]([NH3+])C=O
     base_monomers:
     - K
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 17
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 17
+    left_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 17
+    right_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 13
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 13
+    - molecule: Monomer
+      element: H
+      position: 13
   AA0457:
     id: AA0457
     name: L-cystine S-oxide
