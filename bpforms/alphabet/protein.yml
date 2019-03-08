@@ -901,27 +901,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-  AA0318:
-    id: AA0318
-    name: L-lysine methyl ester
-    comments: 'Generating Enzyme: protein-lysine O-methyltransferase (EC 2.1.1.-).'
-    synonyms:
-    - 2,6-diaminohexanoic methyl ester
-    - alpha,epsilon-diaminocaproic methyl ester
-    - methyl L-lysinate
-    - methyl (S)-2,6-diaminohexanoate
-    identifiers:
-    - ns: cas
-      id: 687-64-9
-    - ns: go
-      id: GO:0042034
-    - ns: mod
-      id: MOD:00323
-    - ns: chebi
-      id: CHEBI:21354
-    structure: COC(=O)[C@@H]([NH3+])CCCC[NH3+]
-    base_monomers:
-    - K
   AA0567:
     id: AA0567
     name: N6-(2-butenonyl)-L-lysine
@@ -1247,6 +1226,29 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)[C@H](CCCC[NH3+])[NH3+])[NH3+]
     base_monomers:
     - K
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 2
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 2
+    left_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 2
+    right_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 26
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 26
+    - molecule: Monomer
+      element: H
+      position: 26
   AA0577:
     id: AA0577
     name: O4'-(N-acetylamino)galactosyl-L-tyrosine
@@ -2559,6 +2561,29 @@ monomers:
     structure: '[O-]P(=O)(OCC[NH3+])OC[C@H]([NH3+])C=O'
     base_monomers:
     - S
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 19
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 19
+    left_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 19
+    right_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 15
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 15
+    - molecule: Monomer
+      element: H
+      position: 15
   AA0099:
     id: AA0099
     name: L-tyrosine amide
