@@ -60,7 +60,7 @@ bpforms_model = bpform_ns.model('BpForm', {
                                               required=False,
                                               title='Circularity',
                                               description='Circularity of the biopolymer form',
-                                              example='False'),
+                                              example=False),
     'ph': flask_restplus.fields.Float(default=float('NaN'), min=0., max=14., required=False,
                                       title='pH',
                                       description='pH at which to calculate the major microspecies of the biopolymer form',
