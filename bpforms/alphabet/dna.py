@@ -107,8 +107,12 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         """
         return super(DnaAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
 
-    def build(self):
+    def build(self, ph=None, major_tautomer=False):
         """ Build alphabet
+
+        Args:
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
             :obj:`Alphabet`: alphabet
@@ -219,6 +223,10 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
             '\n- '.join(invalid_nucleobases)), UserWarning)
 
+        # get major microspecies for each monomer
+        self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer)
+
+        # return alphabet
         return alphabet
 
     def is_nucleobase_valid(self, monomer):

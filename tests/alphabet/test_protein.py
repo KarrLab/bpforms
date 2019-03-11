@@ -176,10 +176,11 @@ class ProteinTestCase(unittest.TestCase):
         ])
         self.assertEqual(identifiers, identifiers_test)
 
-    def test_ProteinAlphabetBuilder_get_isotope_structure(self):
+    def test_ProteinAlphabetBuilder_get_monomer_structure(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
 
-        structure, index_n, index_c = protein.ProteinAlphabetBuilder().get_monomer_structure('AA0005', self.tmp_pdbfile)
+        structure, index_n, index_c = protein.ProteinAlphabetBuilder().get_monomer_structure(
+            'AA0005', self.tmp_pdbfile, ph=7.4, major_tautomer=True)
 
         # check if correct index for N and C atoms
         self.assertEqual(index_n, 5)

@@ -15,7 +15,7 @@ import openbabel
 
 
 def get_alphabets():
-    """ Get a list of available alphabets 
+    """ Get a list of available alphabets
 
     Returns:
         :obj:`dict`: dictionary which maps the ids of alphabets to alphabets

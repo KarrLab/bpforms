@@ -1350,6 +1350,9 @@ class BpFormTestCase(unittest.TestCase):
         })
 
     def test_export(self):
+        form = dna.CanonicalDnaForm()
+        self.assertEqual(form.export('inchi'), None)
+
         form = dna.CanonicalDnaForm().from_str('A')
         self.assertEqual(form.export('inchi'), ('InChI=1S'
                                                 '/C10H14N5O6P'
@@ -1375,12 +1378,16 @@ class BpFormTestCase(unittest.TestCase):
                                                 '/p-3'))
 
         form = protein.CanonicalProteinForm().from_str('AA')
-        self.assertEqual(form.export('inchi'), 'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)')
+        self.assertEqual(form.export('inchi'),
+                         'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)/t3-,4?/m0/s1')
 
         form = dna.CanonicalDnaForm()
         self.assertEqual(form.export('inchi'), None)
 
     def test_circular_export(self):
+        form = dna.CanonicalDnaForm(circular=True)
+        self.assertEqual(form.export('inchi'), None)
+
         form = dna.CanonicalDnaForm(circular=True).from_str('A')
         self.assertEqual(form.export('inchi'), ('InChI=1S/C10H12N5O5P'
                                                 '/c11-9-8-10(13-3-12-9)15(4-14-8)7-1-5-6(19-7)2-18-21(16,17)20-5'
@@ -1582,7 +1589,7 @@ class AlphabetBuilderTestCase(unittest.TestCase):
 
     def test(self):
         class AlphabetBuilder(core.AlphabetBuilder):
-            def build(self):
+            def build(self, ph=None, major_tautomer=False):
                 return core.Alphabet()
         alphabet = AlphabetBuilder().run()
         self.assertIsInstance(alphabet, core.Alphabet)

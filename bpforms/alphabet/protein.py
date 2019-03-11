@@ -50,17 +50,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        # return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
+        return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
 
-        alphabet = self.build()
-        # if ph is not None:
-        #    alphabet.get_major_micro_species(ph, major_tautomer=major_tautomer)
-        if path:
-            self.save(alphabet, path)
-        return alphabet
-
-    def build(self):
+    def build(self, ph=None, major_tautomer=False):
         """ Build alphabet
+
+        Args:
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
             :obj:`Alphabet`: alphabet
@@ -126,7 +123,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         names.append(part2)
             name = ''.join(names)
 
-            result = self.get_monomer_structure(name, file)
+            result = self.get_monomer_structure(name, file, ph=ph, major_tautomer=major_tautomer)
             if result is None:
                 warnings.warn('Ignoring monomer {} that has no structure'.format(id), UserWarning)
                 continue
@@ -178,12 +175,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return alphabet
 
-    def get_monomer_structure(self, name, pdb_filename):
+    def get_monomer_structure(self, name, pdb_filename, ph=None, major_tautomer=False):
         """ Get the structure of an amino acid from a PDB file
 
         Args:
             name (:obj:`str`): monomer name
             pdb_filename (:obj:`str`): path to PDB file with structure
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
             :obj:`openbabel.OBMol`: structure
@@ -207,7 +206,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         assert conv.SetOutFormat('smi')
         conv.SetOptions('c', conv.OUTOPTIONS)
         smiles = conv.WriteString(pdb_mol).partition('\t')[0]
-        smiles = get_major_micro_species(smiles, 'smiles', 7.4, major_tautomer=True)
+        if ph is not None:
+            smiles = get_major_micro_species(smiles, 'smiles', ph, major_tautomer=major_tautomer)
         smiles_mol = openbabel.OBMol()
         assert conv.SetInFormat('smi')
         conv.ReadString(smiles_mol, smiles)
@@ -354,7 +354,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             input_pdb (:obj:`str`): id of RESID entry
 
         Returns:
-            :obj:`str`: code            
+            :obj:`str`: code
             :obj:`SynonymSet`: set of synonyms
             :obj:`IdentifierSet`: set of identifiers
             :obj:`set` of :obj:`str`: ids of base monomers

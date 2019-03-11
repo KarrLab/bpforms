@@ -49,8 +49,12 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         """
         return super(RnaAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
 
-    def build(self):
+    def build(self, ph=None, major_tautomer=False):
         """ Build alphabet
+
+        Args:
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
             :obj:`Alphabet`: alphabet
@@ -153,6 +157,9 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             base_monomer = monomer_short_names.get(base_monomer_short_names.get(short_name, None), None)
             if base_monomer:
                 monomer.base_monomers.add(base_monomer)
+
+        # get major microspecies for each monomer
+        self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer)
 
         # return alphabet
         return alphabet

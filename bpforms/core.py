@@ -1348,21 +1348,33 @@ class AlphabetBuilder(abc.ABC):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        alphabet = self.build()
-        if ph is not None:
-            alphabet.get_major_micro_species(ph, major_tautomer=major_tautomer)
+        alphabet = self.build(ph=ph, major_tautomer=major_tautomer)
         if path:
             self.save(alphabet, path)
         return alphabet
 
     @abc.abstractmethod
-    def build(self):
+    def build(self, ph=None, major_tautomer=False):
         """ Build alphabet
+
+        Args:
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
             :obj:`Alphabet`: alphabet
         """
         pass  # pragma: no cover
+
+    def get_major_micro_species(self, alphabet, ph=None, major_tautomer=False):
+        """ Get major microspecies for monomers in alphabet
+
+        Args:
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+        """
+        if ph is not None:
+            alphabet.get_major_micro_species(ph, major_tautomer=major_tautomer)
 
     def save(self, alphabet, path):
         """ Save alphabet to YAML file
