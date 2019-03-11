@@ -126,7 +126,10 @@ class Bpform(flask_restplus.Resource):
             except Exception:
                 pass
 
-            warning_message = ' '.join(recorded_warning.message for recorded_warning in recorded_warnings)
+            if recorded_warnings:
+                warning_message = ' '.join(str(recorded_warning) for recorded_warning in recorded_warnings)
+            else:
+                warning_message = None
 
         return {
             'alphabet': alphabet,

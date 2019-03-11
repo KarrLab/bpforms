@@ -68,19 +68,24 @@ class LargeBpFormsTestCase(unittest.TestCase):
         end2 = time.time()
         uss2 = process.memory_full_info().uss
 
-        form.get_major_micro_species(7.4, major_tautomer=True)
+        form.get_major_micro_species(7.4, major_tautomer=False)
         end3 = time.time()
         uss3 = process.memory_full_info().uss
 
-        if structure is not None:
-            OpenBabelUtils.export(structure, 'smiles')
+        form.get_major_micro_species(7.4, major_tautomer=True)
         end4 = time.time()
         uss4 = process.memory_full_info().uss
+
+        if structure is not None:
+            OpenBabelUtils.export(structure, 'smiles')
+        end5 = time.time()
+        uss5 = process.memory_full_info().uss
 
         print(('Calculating polymer of length {} took {:.3f} s'
                '\n  Parsing, length, formula, charge: {:.3f} s, {}'
                '\n  Structure: {:.3f} s, {}'
                '\n  Major microspecies: {:.3f} s, {}'
+               '\n  Major tautomer: {:.3f} s, {}'
                '\n  SMILES: {:.3f} s, {}'
                ).format(
             length, end3 - start,
@@ -88,4 +93,5 @@ class LargeBpFormsTestCase(unittest.TestCase):
             end2 - end1, hurry.filesize.size(uss2 - uss1),
             end3 - end2, hurry.filesize.size(uss3 - uss2),
             end4 - end3, hurry.filesize.size(uss4 - uss3),
+            end5 - end4, hurry.filesize.size(uss5 - uss4),
         ))

@@ -36,7 +36,7 @@ class RestTestCase(unittest.TestCase):
             'formula': dict(EmpiricalFormula('C39H46O25N15P4')),
             'mol_wt': 1248.772047992,
             'charge': -5,
-            'warnings': '',
+            'warnings': None,
         })
 
     def test_get_bpform_properties_with_ph(self):
@@ -70,7 +70,7 @@ class RestTestCase(unittest.TestCase):
             'formula': dict(EmpiricalFormula('C39H45O24N15P4')),
             'mol_wt': 1231.7650479919998,
             'charge': -4,
-            'warnings': '',
+            'warnings': None,
         })
 
     def test_get_bpform_properties_errors(self):

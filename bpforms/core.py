@@ -2289,6 +2289,10 @@ class BpForm(object):
             warnings.warn('Cannot calculate the major microspecies of BpForm with length {} > {}'.format(
                 len(self), config['max_len_get_major_micro_species']), BpFormsWarning)
             return None
+        if major_tautomer and len(self) > config['max_len_get_major_micro_species_major_tautomer']:
+            warnings.warn('Cannot calculate the major tautomer of BpForm with length {} > {}'.format(
+                len(self), config['max_len_get_major_micro_species_major_tautomer']), BpFormsWarning)
+            return None
 
         smiles = self.export('smiles')
         smiles = get_major_micro_species(smiles, 'smiles', 'smiles',
@@ -2897,9 +2901,11 @@ class BpFormFeatureSet(set):
             else:
                 self.add(o)
 
+
 class BpFormsWarning(UserWarning):
     """ BpForms warning """
     pass
+
 
 def get_hydrogen_atom(parent_atom, selected_hydrogens):
     """ Get a hydrogen atom attached to a parent atom
