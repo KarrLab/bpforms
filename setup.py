@@ -29,7 +29,7 @@ setuptools.setup(
     version=md.version,
     description='Unambiguous representation of modified DNA, RNA, and proteins',
     long_description=md.long_description,
-    url="https://github.com/KarrLab/" + name,
+    url="https://www.bpforms.org",
     download_url='https://github.com/KarrLab/' + name,
     author="Karr Lab",
     author_email="karr@mssm.com",
