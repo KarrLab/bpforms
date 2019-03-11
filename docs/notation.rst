@@ -3,7 +3,7 @@
 `BpForms` notation
 ------------------
 
-The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomers using (a) a syntax similar to FASTA and (b) extended alphabets for DNA, RNA, and proteins to describe monomers. `BpForms` contains three pre-built canonical DNA, RNA and protein alphabets and three extended DNA, RNA, and protein alphabets based on DNAmod, MODOMICS, and RESID. Users can also create additional custom alphabets. These alphabets are associated with their corresponding biopolyer form, which allows `BpForms` to calculate the chemical structure (e.g. in SMILES format), chemical formula, molecular weight, and charge of a biopolymer.
+The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomers using (a) a syntax similar to FASTA and (b) extended alphabets for DNA, RNA, and proteins to describe monomers. `BpForms` contains three pre-built canonical DNA, RNA and protein alphabets and three extended DNA, RNA, and protein alphabets curated from the DNAmod, MODOMICS, and RESID databases, respectively. Users can also create additional custom alphabets. These alphabets are associated with their corresponding biopolyer form, which allows `BpForms` to calculate the chemical structure (e.g. in SMILES format), chemical formula, molecular weight, and charge of a biopolymer.
 
 * Monomers that are present in the alphabet are indicated by a single character or multiple characters delimited by curly brackets.
 * Monomers that are not in the alphabet are defined "inline" with one or more attributes separated by vertical pipes ("|") inside square brackets.
@@ -17,9 +17,9 @@ The `BpForms` notation unambiguously represents the primary structure of biopoly
 
 * The positions of the monomers in the string indicate their location in the sequence, for example:
 
-* ``[id: "dI" | name: "deoxyinosine"]ACGC``: represents deoxyinosine at the first position
-* ``AC[id: "dI" | name: "deoxyinosine"]GC``: represents deoxyinosine at the third position
-* ``ACGC{6A}``: represents N6-methyladenosine at the last position
+  * ``[id: "dI" | name: "deoxyinosine"]ACGC``: represents deoxyinosine at the first position
+  * ``AC[id: "dI" | name: "deoxyinosine"]GC``: represents deoxyinosine at the third position
+  * ``ACGC{6A}``: represents N6-methyladenosine at the last position
 
 Chapters 2.1.1 - 2.1.3 describe the attributes of monomers.
 
