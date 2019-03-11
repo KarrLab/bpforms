@@ -2286,12 +2286,12 @@ class BpForm(object):
         if not self.monomer_seq:
             return None
         if len(self) > config['max_len_get_major_micro_species']:
-            warnings.warn('Cannot calculate the major microspecies of BpForm with length {} > {}'.format(
-                len(self), config['max_len_get_major_micro_species']), BpFormsWarning)
+            warnings.warn('Major microspecies calculations are limited to forms with length <='.format(
+                config['max_len_get_major_micro_species']), BpFormsWarning)
             return None
         if major_tautomer and len(self) > config['max_len_get_major_micro_species_major_tautomer']:
-            warnings.warn('Cannot calculate the major tautomer of BpForm with length {} > {}'.format(
-                len(self), config['max_len_get_major_micro_species_major_tautomer']), BpFormsWarning)
+            warnings.warn('Major tautomer calculations are limited to forms with length <= {}'.format(
+                config['max_len_get_major_micro_species_major_tautomer']), BpFormsWarning)
             return None
 
         smiles = self.export('smiles')
@@ -2313,8 +2313,8 @@ class BpForm(object):
             return None
 
         if len(self) > config['max_len_get_structure']:
-            warnings.warn('Cannot calculate the structure of BpForm with length {} > {}'.format(
-                len(self), config['max_len_get_structure']), BpFormsWarning)
+            warnings.warn('Structure calculations are limited to forms with length <= {}'.format(
+                config['max_len_get_structure']), BpFormsWarning)
             return None
 
         mol = openbabel.OBMol()
