@@ -15,13 +15,14 @@ The `BpForms` notation unambiguously represents the primary structure of biopoly
   * The values of the `id`, `name`, `synonym`, and `comments` attributes must be enclosed in quotes ('"').
   * The namespace and id of each identifer must be separated by "/".
 
-* The positions of the monomers in the string indicate their location in the sequence, for example:
+* The positions of the monomers in the string indicate their location in the sequence, as illustrated by the following DNA polymers:
 
-  * ``[id: "dI" | name: "hypoxanthine"]ACGC``: represents hypoxanthine at the first position
-  * ``AC[id: "dI" | name: "hypoxanthine"]GC``: represents hypoxanthine at the third position
-  * ``ACGC{6A}``: represents N6-methyladenosine at the last position
+  * ``ACTGCC``: represents alphabet defined thymine at the third position
+  * ``aCTGCC``: represents alphabet defined 6-methyladenine at the first position
+  * ``ACGC{dI}``: represents alphabet defined hypoxanthine at the last position
+  * ``AC[id: "c1" | name: "custom_1"]GC``: represents inline defined custom_1 at the third position
 
-Chapters 2.1.1 - 2.1.3 describe the attributes of monomers.
+Sections 2.1.1 - 2.1.3 describe the attributes of monomers.
 
 
 Structure
