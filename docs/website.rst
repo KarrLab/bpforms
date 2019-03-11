@@ -8,5 +8,5 @@ The `BpForms` `website <https://bpforms.org>`_ provides a convenient interface t
 The website provides a single input box to enter biopolymer forms. After clicking submit, the website will perform three actions
 
 #. The website will validate the form and report any syntax errors.
-#. Optionally, the website will calculate the major protonation and tautomerization state at the chosen pH.
+#. Optionally, the website will calculate the major protonation and tautomerization states at the chosen pH.
 #. The website will calculate the length, chemical formula, mass, and charge of the submitted form.
