@@ -3,7 +3,7 @@
 `BpForms` notation
 ------------------
 
-The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomers using (a) a syntax similar to FASTA and (b) extended alphabets for DNA, RNA, and proteins based on DNAmod, MODOMICS, and RESID. This enables `BpForms` to calculate the formula, molecular, weight, and charge of biopolymer forms.
+The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomers using (a) a syntax similar to FASTA and (b) extended alphabets for DNA, RNA, and proteins based on DNAmod, MODOMICS, and RESID. This enables `BpForms` to calculate the formula, molecular weight, and charge of biopolymer forms.
 
 * Canonical monomers are indicated by their single upper case character codes.
 * Non-canonical monomers defined in the alphabets that have single-character codes are indicated by these codes.
