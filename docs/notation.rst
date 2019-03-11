@@ -29,7 +29,7 @@ The ``structure`` attribute describes the chemical structure of the monomer as a
         ]
 
 The ``monomer-bond-atom``, ``monomer-displaced-atom``, ``left-bond-atom``, ``left-displaced-atom``, ``right-bond-atom``, and ``right-displaced-atom`` attributes describe the linkages between the monomer and the backbone and between successive monomers::
-    
+
     [id: "dI" |
         structure: "O=C1NC=NC2=C1N=CN2"
         ]
@@ -115,10 +115,10 @@ Examples
 ^^^^^^^^
 
 * DNA::
-    
+
     ACGT[id: "dI" | structure: "O=C1NC=NC2=C1N=CN2" | monomer-bond-atom: Monomer / N / 10 / 0 | monomer-displaced-atom: Monomer / H / 10 / 0]AG{m2A}
 
-* RNA:: 
+* RNA::
 
     {01G}CGU[id: "01A" | structure: "COC1C(O)C(OC1n1cnc2c1ncn(c2=N)C)CO"]AG[id: "019A" | structure: "COC1C(O)C(OC1n1cnc2c1ncn(c2=O)C)CO"]
 

@@ -2,10 +2,10 @@
 =======================
 
 
-`BpForms` is a set of tools for unambiguously representing the structures of modified forms of biopolymers such as DNA, RNA, and protein. 
+`BpForms` is a set of tools for unambiguously representing the structures of modified forms of biopolymers such as DNA, RNA, and protein.
 
 * The `BpForms` notation can unambiguously represent the structure of modified forms of biopolymers. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomer at the fourth position::
-  
+
     ACG[
         id: "dI" | structure: "O=C1NC=NC2=C1N=CN2"
         ]T
@@ -23,8 +23,8 @@
 `BpForms` was motivated by the need to concretely represent the biochemistry of DNA modification, DNA repair, post-transcriptional processing, and post-translational processing in `whole-cell computational models <https://www.wholecell.org>`_. In addition, `BpForms` are a valuable tool for experimental proteomics. In particular, we developed `BpForms` because there were no notations, schemas, data models, or file formats for concretely representing modified forms of biopolymers, despite the existence of several databases and ontologies of DNA, RNA, and protein modifications and the `ProForma Proteoform Notation <https://www.topdownproteomics.org/resources/proforma/>`_.
 
 The `BpForms` syntax was inspired by the ProForma Proteoform Notation. `BpForms` improves upon this syntax in several ways:
- 
-* `BpForms` separates the representation of modified biopolymers from the chemical processes which generate them. 
+
+* `BpForms` separates the representation of modified biopolymers from the chemical processes which generate them.
 * `BpForms` clarifies the representation of multiply modified monomers. This is necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
 * `BpForms` can be customized to represent any modification and, therefore, is not limited to previously enumerated modifications. This is also necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
 * `BpForms` supports two additional types of uncertainty in the structures of biopolyers: uncertainty in the position of a modified nucleotide/amino acid and uncertainty in its charge.

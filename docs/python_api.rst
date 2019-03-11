@@ -19,7 +19,7 @@ Creating biopolymer forms
 Use the `BpForms` notation and the ``bpforms.BpForm.from_str`` method to create an instance of ``bpforms.BpForm`` that represents a form of a biopolymer::
 
     dna_form = bpforms.DnaForm().from_str('''ACG[
-        id: "dI" 
+        id: "dI"
         | structure: "O=C1NC=NC2=C1N=CN2"
         | base-monomer: "A"
         ]AC'''.replace('\n', '').replace(' ', ''))
@@ -32,12 +32,12 @@ Individual monomers and slices of monomers can be get and set similar to lists::
 
     dna_form[0]
         => <bpforms.core.Monomer at 0x7fb365341240>
-    
+
     dna_form[1] = bpforms.dna_alphabet.monomers.A
-    
-    dna_form[1:3] 
+
+    dna_form[1:3]
         => [<bpforms.core.Monomer at 0x7fb365341240>, <bpforms.core.Monomer at 0x7fb365330cf8>]
-    
+
     dna_form[1:3] = bpforms.DnaForm().from_str('TA')
 
 
@@ -67,13 +67,13 @@ Use these commands to calculate the length, formula, molecular weight, and charg
 
     len(dna_form)
         => 6
-    
+
     dna_form.get_formula()
         => AttrDefault(<class 'float'>, False, {'C': 59.0, 'N': 24.0, 'O': 37.0, 'P': 5.0, 'H': 66.0})
-    
+
     dna_form.get_mol_wt()
         => 1858.17680999
-    
+
     dna_form.get_charge()
         => -7
 
@@ -98,6 +98,6 @@ Use the following command to determine if two instances of :obj:`BpForm` describ
 
     dna_form_1.is_equal(dna_form_2)
         => True
-    
+
     dna_form_1.is_equal(dna_form_3)
         => False

@@ -6,7 +6,7 @@ The following are valuable resources for reconstructing DNA, RNA, and protein mo
 * DNA
 
     * `DNAmod <https://dnamod.hoffmanlab.org/>`_: Database of covalently modified nuceleobases
-    * `MethDB <http://www.methdb.net/>`_: Database of DNA methylation 
+    * `MethDB <http://www.methdb.net/>`_: Database of DNA methylation
     * `MethSMRT <http://sysbio.gzzoc.com/methsmrt/>`_: Database for DNA 6mA and 4mC methylomes
 
 * RNA

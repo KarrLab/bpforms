@@ -8,11 +8,11 @@
 
 # BpForms: unambiguous representation of modified DNA, RNA, and proteins
 
-BpForms is a set of tools for unambiguously representing the structures of modified forms of biopolymers such as DNA, RNA, and protein. 
+BpForms is a set of tools for unambiguously representing the structures of modified forms of biopolymers such as DNA, RNA, and protein.
 
 * The BpForms notation can unambiguously represent the structure of modified forms of biopolymers. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomer at the fourth position.
   ```
-  ACG[id: "dI" 
+  ACG[id: "dI"
        | structure: InChI=1S
           /C10H12N4O4
           /c15-2-6-5(16)1-7(18-6)14-4-13-8-9(14)11-3-12-10(8)17
@@ -35,8 +35,8 @@ BpForms encompasses five tools:
 BpForms was motivated by the need to concretely represent the biochemistry of DNA modification, DNA repair, post-transcriptional processing, and post-translational processing in [whole-cell computational models](https://www.wholecell.org). In addition, BpForms are a valuable tool for experimental proteomics. In particular, we developed BpForms because there were no notations, schemas, data models, or file formats for concretely representing modified forms of biopolymers, despite the existence of several databases and ontologies of DNA, RNA, and protein modifications and the [ProForma Proteoform Notation](https://www.topdownproteomics.org/resources/proforma/).
 
 The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms improves upon this syntax in several ways:
- 
-* BpForms separates the representation of modified biopolymers from the chemical processes which generate them. 
+
+* BpForms separates the representation of modified biopolymers from the chemical processes which generate them.
 * BpForms clarifies the representation of multiply modified monomers. This is necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
 * BpForms can be customized to represent any modification and, therefore, is not limited to previously enumerated modifications. This is also necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
 * BpForms supports two additional types of uncertainty in the structures of biopolymers: uncertainty in the position of a modified nucleotide/amino acid within the polymer sequence, and uncertainty in the chemical identity of modified nucleotide/amino acid as deviation from its expected mass or charge.
@@ -44,7 +44,7 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
 
 ## Installation
 1. Install the third-party dependencies listed below. Detailed installation instructions are available in [An Introduction to Whole-Cell Modeling](http://docs.karrlab.org/intro_to_wc_modeling/master/0.0.1/installation.html).
-        
+
     * [ChemAxon Marvin](https://chemaxon.com/products/marvin): optional to calculate major protonation and tautomerization states
       * [Java](https://www.java.com) >= 1.8
     * [Open Babel](http://openbabel.org)
@@ -61,7 +61,7 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
    export CLASSPATH=$CLASSPATH:/opt/chemaxon/marvinsuite/lib/MarvinBeans.jar
    ```
 
-4. Install this package 
+4. Install this package
 
     * Install the latest release from PyPI. For most environments, the ``--process-dependency-links`` option is needed to install some of the dependencies from GitHub.
       ```

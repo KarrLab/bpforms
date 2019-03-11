@@ -10,7 +10,7 @@ Alphabets
 * RNA: The four canonical RNA nucleosides, plus the non-canonical RNA nucleosides in `MODOMICS <http://modomics.genesilico.pl/modifications/>`_.
 * Protein: The 20 canonical protein residues, plus the non-canonical protein residues in `RESID <https://pir.georgetown.edu/resid/>`_.
 
-To support compatibility with the entries in these and other databases, `BpForms` represents biopolymers as so called ``monomers`` linked together via a ``Backbone``. For DNAmod based alphabets, ``monomers`` are nucleobases, and the ``Backbone`` is deoxyribose 5-phosphate. For MODOMICS based alphabets ``monomers`` are nucleosides and the ``Backbone`` is hydrogen phosphate. For RESID based alphabets, ``monomers`` are amino acids, and the ``Backbone`` is hydroxide. 
+To support compatibility with the entries in these and other databases, `BpForms` represents biopolymers as so called ``monomers`` linked together via a ``Backbone``. For DNAmod based alphabets, ``monomers`` are nucleobases, and the ``Backbone`` is deoxyribose 5-phosphate. For MODOMICS based alphabets ``monomers`` are nucleosides and the ``Backbone`` is hydrogen phosphate. For RESID based alphabets, ``monomers`` are amino acids, and the ``Backbone`` is hydroxide.
 
 
 Building additional alphabets
