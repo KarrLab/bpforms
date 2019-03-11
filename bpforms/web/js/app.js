@@ -39,8 +39,6 @@ set_properties = function(data, status, jqXHR){
     $("#monomer_seq_out").val(data['monomer_seq'])
     $("#length").val(data['length'])
 
-    console.log(data)
-
     if (data['structure'] != null && data['structure'] != '') {
         structure = data['structure']
         if (data['length'] <= 20) {
