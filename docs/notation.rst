@@ -17,8 +17,8 @@ The `BpForms` notation unambiguously represents the primary structure of biopoly
 
 * The positions of the monomers in the string indicate their location in the sequence, for example:
 
-  * ``[id: "dI" | name: "deoxyinosine"]ACGC``: represents deoxyinosine at the first position
-  * ``AC[id: "dI" | name: "deoxyinosine"]GC``: represents deoxyinosine at the third position
+  * ``[id: "dI" | name: "hypoxanthine"]ACGC``: represents hypoxanthine at the first position
+  * ``AC[id: "dI" | name: "hypoxanthine"]GC``: represents hypoxanthine at the third position
   * ``ACGC{6A}``: represents N6-methyladenosine at the last position
 
 Chapters 2.1.1 - 2.1.3 describe the attributes of monomers.
