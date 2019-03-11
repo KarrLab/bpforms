@@ -104,7 +104,7 @@ class Bpform(flask_restplus.Resource):
         mol_wt = None
         charge = None
         with warnings.catch_warnings(record=True) as recorded_warnings:
-            warnings.simplefilter('always', bpforms.BpFormsWarning)
+            warnings.simplefilter('once', bpforms.BpFormsWarning)
 
             try:
                 if math.isnan(ph):
