@@ -2286,7 +2286,7 @@ class BpForm(object):
         if not self.monomer_seq:
             return None
         if len(self) > config['max_len_get_major_micro_species']:
-            warnings.warn('Major microspecies calculations are limited to forms with length <='.format(
+            warnings.warn('Major microspecies calculations are limited to forms with length <= {}'.format(
                 config['max_len_get_major_micro_species']), BpFormsWarning)
             return None
         if major_tautomer and len(self) > config['max_len_get_major_micro_species_major_tautomer']:
