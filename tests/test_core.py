@@ -1156,10 +1156,10 @@ class BpFormTestCase(unittest.TestCase):
         bp_form = dna.CanonicalDnaForm([
             dna.canonical_dna_alphabet.monomers.A,
             dna.canonical_dna_alphabet.monomers.C,
-            ])
+        ])
         structure = bp_form.get_major_micro_species(7.4, major_tautomer=True)
-        self.assertEqual(OpenBabelUtils.export(structure, 'smiles'), 
-            'Nc1nc(=O)n(cc1)C1CC(O)C(COP(=O)([O-])OC2CC(OC2COP(=O)([O-])[O-])n2cnc3c(N)ncnc23)O1')
+        self.assertEqual(OpenBabelUtils.export(structure, 'smiles'),
+                         'Nc1nc(=O)n(cc1)C1CC(O)C(COP(=O)([O-])OC2CC(OC2COP(=O)([O-])[O-])n2cnc3c(N)ncnc23)O1')
 
         bp_form = dna.DnaForm()
         self.assertEqual(bp_form.get_major_micro_species(7.), None)
@@ -1603,3 +1603,59 @@ class AlphabetBuilderTestCase(unittest.TestCase):
         path = os.path.join(self.dir_path, 'alphabet.yml')
         alphabet = AlphabetBuilder().run(ph=7.4, major_tautomer=True, path=path)
         self.assertTrue(os.path.isfile(path))
+
+
+class BpFormFeatureTestCase(unittest.TestCase):
+    def test(self):
+        form = core.BpForm()
+        self.assertEqual(len(form.features), 0)
+
+        feature = core.BpFormFeature(None, start_position=1, end_position=2)
+        self.assertEqual(feature.start_position, 1)
+        self.assertEqual(feature.end_position, 2)
+        form.features.add(feature)
+        self.assertEqual(len(form.features), 1)
+        self.assertIn(feature, form.features)
+        self.assertEqual(feature.form, form)
+
+        form.features.remove(feature)
+        self.assertEqual(len(form.features), 0)
+        self.assertEqual(feature.form, None)
+
+        form = core.BpForm()
+        feature = core.BpFormFeature(None, start_position=1, end_position=2)
+        feature.form = form
+        self.assertEqual(feature.form, form)
+        self.assertEqual(len(form.features), 1)
+        self.assertIn(feature, form.features)
+        feature.form = None
+        self.assertEqual(feature.form, None)
+        self.assertEqual(len(form.features), 0)
+
+        form = core.BpForm()
+        self.assertEqual(len(form.features), 0)
+        feature = core.BpFormFeature(form, start_position=1, end_position=2)
+        self.assertEqual(len(form.features), 1)
+        self.assertIn(feature, form.features)
+
+        with self.assertRaises(ValueError):
+            feature.form = -1
+        with self.assertRaises(ValueError):
+            feature.start_position = -1
+        with self.assertRaises(ValueError):
+            feature.end_position = -1
+        with self.assertRaises(ValueError):
+            form.features = None
+        with self.assertRaises(ValueError):
+            form.features = core.BpFormFeatureSet(form)
+        with self.assertRaises(ValueError):
+            form.features.form = None
+        with self.assertRaises(ValueError):
+            form.features.form = form
+        with self.assertRaises(ValueError):
+            form.features.add(None)
+
+        feature1 = core.BpFormFeature(None, 2, 3)
+        feature2 = core.BpFormFeature(None, 3, 4)
+        form.features.update(set([feature1]))
+        form.features.symmetric_difference_update([feature1, feature2])

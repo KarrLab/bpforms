@@ -2020,6 +2020,7 @@ class BpForm(object):
         backbone (:obj:`Backbone`): backbone that connects monomers
         bond (:obj:`Bond`): bonds between (backbones of) monomers
         circular (:obj:`bool`): if :obj:`True`, indicates that the biopolymer is circular
+        features (:obj:`BpFormFeatureSet`): set of features
 
         _parser (:obj:`lark.Lark`): parser
     """
@@ -2047,6 +2048,7 @@ class BpForm(object):
         self.backbone = backbone
         self.bond = bond
         self.circular = circular
+        self.features = BpFormFeatureSet(self)
 
     @property
     def monomer_seq(self):
@@ -2155,6 +2157,30 @@ class BpForm(object):
         if not isinstance(value, bool):
             raise ValueError('`circular` must be an instance of `bool`')
         self._circular = value
+
+    @property
+    def features(self):
+        """ Get the features
+
+        Returns:
+            :obj:`BpFormFeatureSet`: features
+        """
+        return self._features
+
+    @features.setter
+    def features(self, value):
+        """ Set the features
+
+        Args:
+            value (:obj:`BpFormFeatureSet`): features
+        """
+        if not isinstance(value, BpFormFeatureSet):
+            raise ValueError('`features` must be an instance of `BpFormFeatureSet`')
+
+        if hasattr(self, '_features'):
+            raise ValueError('`features` cannot be set outside constructor')
+
+        self._features = value
 
     def is_equal(self, other):
         """ Check if two biopolymer forms are semantically equal
@@ -2656,6 +2682,202 @@ class BpForm(object):
                 seq += self.DEFAULT_FASTA_CODE
 
         return seq
+
+
+class BpFormFeature(object):
+    """ A region (start and end positions) of a BpForm
+
+    Attributes:
+        form (:obj:`BpForm`): biopolymer form
+        start_position (:obj:`int`): start position (1-base)
+        end_position (:obj:`int`): end position (1-based)
+    """
+
+    def __init__(self, form, start_position, end_position):
+        """
+        Args:
+            form (:obj:`BpForm`): biopolymer form
+            start_position (:obj:`int`): start position (1-base)
+            end_position (:obj:`int`): end position (1-based)
+        """
+        self.form = form
+        self.start_position = start_position
+        self.end_position = end_position
+
+    @property
+    def form(self):
+        """ Get the biopolymer form
+
+        Returns:
+            :obj:`BpForm`: biopolymer form
+        """
+        return self._form
+
+    @form.setter
+    def form(self, value):
+        """ Set the biopolymer form
+
+        Args:
+            value (:obj:`BpForm`): biopolymer form
+
+        Raises:
+            :obj:`ValueError`: form is not an instance of :obj:`BpForm`
+        """
+        if value is not None and not isinstance(value, BpForm):
+            raise ValueError('`form` must be an instance of `BpForm` or None')
+
+        if hasattr(self, '_form'):
+            if value != self._form:
+                if self._form is not None:
+                    old_form = self._form
+                    self._form = None
+                    if self in old_form.features:
+                        old_form.features.remove(self)
+                if value is not None:
+                    self._form = value
+                    if self not in value.features:
+                        value.features.add(self)
+        else:
+            self._form = value
+            if value is not None:
+                if self not in value.features:
+                    value.features.add(self)
+
+    @property
+    def start_position(self):
+        """ Get the start position
+
+        Returns:
+            :obj:`int`: start position
+        """
+        return self._start_position
+
+    @start_position.setter
+    def start_position(self, value):
+        """ Set the start position
+
+        Args:
+            value (:obj:`int`): start position
+
+        Raises:
+            :obj:`ValueError`: start position is not a non-negative integer
+        """
+        if int(value) != value or value < 0:
+            raise ValueError('`start_position` must be a non-negative integer')
+        self._start_position = int(value)
+
+    @property
+    def end_position(self):
+        """ Get the end position
+
+        Returns:
+            :obj:`int`: end position
+        """
+        return self._end_position
+
+    @end_position.setter
+    def end_position(self, value):
+        """ Set the end position
+
+        Args:
+            value (:obj:`int`): end position
+
+        Raises:
+            :obj:`ValueError`: end position is not a non-negative integer
+        """
+        if int(value) != value or value < 0:
+            raise ValueError('`end_position` must be a non-negative integer')
+        self._end_position = int(value)
+
+
+class BpFormFeatureSet(set):
+    """ Set of features 
+
+    Attributes:
+        form (:obj:`BpForm`): form
+    """
+
+    def __init__(self, form):
+        """
+        Args:
+            form (:obj:`BpForm`): form
+        """
+        super(BpFormFeatureSet, self).__init__()
+        self.form = form
+
+    @property
+    def form(self):
+        """ Get the biopolymer form
+
+        Returns:
+            :obj:`BpForm`: biopolymer form
+        """
+        return self._form
+
+    @form.setter
+    def form(self, value):
+        """ Set the biopolymer form
+
+        Args:
+            value (:obj:`BpForm`): biopolymer form
+
+        Raises:
+            :obj:`ValueError`: form is not an instance of :obj:`BpForm`
+        """
+        if not isinstance(value, BpForm):
+            raise ValueError('`form` must be an instance of `BpForm`')
+
+        if hasattr(self, '_form'):
+            raise ValueError('`form` cannot be set outside constructor')
+
+        self._form = value
+
+    def add(self, feature):
+        """ Add a feature
+
+        Args:
+            feature (:obj:`BpFormFeature`): feature
+
+        Raises:
+            :obj:`ValueError`: if the `feature` is not an instance of `BpFormFeature`
+        """
+        if not isinstance(feature, BpFormFeature):
+            raise ValueError('`feature` must be an instance of `BpFormFeature`')
+        if feature not in self:
+            super(BpFormFeatureSet, self).add(feature)
+            if feature.form != self.form:
+                feature.form = self.form
+
+    def remove(self, feature):
+        """ Remove a feature
+
+        Args:
+            feature (:obj:`BpFormFeature`): feature
+        """
+        super(BpFormFeatureSet, self).remove(feature)
+        if feature.form != None:
+            feature.form = None
+
+    def update(self, features):
+        """ Add a set of features
+
+        Args:
+            features (iterable of :obj:`BpFormFeature`): features
+        """
+        for feature in features:
+            self.add(feature)
+
+    def symmetric_difference_update(self, other):
+        """ Remove common elements with other and add elements from other not in self
+
+        Args:
+            other (:obj:`BpFormFeatureSet`): other set of features
+        """
+        for o in other:
+            if o in self:
+                self.remove(o)
+            else:
+                self.add(o)
 
 
 def get_hydrogen_atom(parent_atom, selected_hydrogens):
