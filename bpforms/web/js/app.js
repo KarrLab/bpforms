@@ -39,20 +39,23 @@ set_properties = function(data, status, jqXHR){
     $("#monomer_seq_out").val(data['monomer_seq'])
     $("#length").val(data['length'])
 
+    console.log(data)
+
     if (data['structure'] != null && data['structure'] != '') {
+        structure = data['structure']
         if (data['length'] <= 20) {
-            structure = data['structure']
             img = '<img src="https://cactus.nci.nih.gov/chemical/structure/'
                   + encodeURI(data['structure'])
                   + '/image?format=gif&bgcolor=transparent&antialiasing=0" class="context-menu-one"'
                   + '/>'
         } else {
-            if (!warnings) {
+            if (warnings == '') {
                 warnings = 'Warning: '
             }
             warnings += ' Visualizations are limited to polymers with length <= 20.'
             $("#warnings").html(warnings)
             $("#warnings").css('padding-bottom', '16px')
+            img = ''
         }
 
     } else {
