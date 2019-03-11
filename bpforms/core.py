@@ -720,8 +720,8 @@ class Monomer(object):
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         """
         if self.structure:
-            structure = get_major_micro_species(self.export('smi', options=('c',)), 
-                'smiles', 'smiles', ph=ph, major_tautomer=major_tautomer)
+            structure = get_major_micro_species(self.export('smi', options=('c',)),
+                                                'smiles', 'smiles', ph=ph, major_tautomer=major_tautomer)
             conv = openbabel.OBConversion()
             assert conv.SetInFormat('smi')
             assert conv.ReadString(self.structure, structure)
