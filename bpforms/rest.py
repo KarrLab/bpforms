@@ -127,7 +127,7 @@ class Bpform(flask_restplus.Resource):
                 pass
 
             if recorded_warnings:
-                warning_message = ' '.join(str(recorded_warning) for recorded_warning in recorded_warnings)
+                warning_message = ' '.join(str(recorded_warning.message) for recorded_warning in recorded_warnings)
             else:
                 warning_message = None
 
