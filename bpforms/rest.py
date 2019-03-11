@@ -14,6 +14,7 @@ import flask_restplus
 import flask_restplus.errors
 import flask_restplus.fields
 import math
+import warnings
 
 app = flask.Flask(__name__)
 
@@ -102,25 +103,30 @@ class Bpform(flask_restplus.Resource):
         formula = None
         mol_wt = None
         charge = None
-        try:
-            if math.isnan(ph):
-                formula = dict(form.get_formula())
-                mol_wt = form.get_mol_wt()
-                charge = form.get_charge()
-                structure = form.get_structure()
-            else:
-                structure = form.get_major_micro_species(ph, major_tautomer=major_tautomer)
-                if structure is not None:
-                    formula = OpenBabelUtils.get_formula(structure)
-                    mol_wt = formula.get_molecular_weight()
-                    formula = dict(formula)
-                    charge = structure.GetTotalCharge()
-            if structure is None:
-                smiles = None
-            else:
-                smiles = OpenBabelUtils.export(structure, 'smiles')
-        except Exception:
-            pass
+        with warnings.catch_warnings(record=True) as recorded_warnings:
+            warnings.simplefilter('once', bpforms.BpFormsWarning)
+
+            try:
+                if math.isnan(ph):
+                    formula = dict(form.get_formula())
+                    mol_wt = form.get_mol_wt()
+                    charge = form.get_charge()
+                    structure = form.get_structure()
+                else:
+                    structure = form.get_major_micro_species(ph, major_tautomer=major_tautomer)
+                    if structure is not None:
+                        formula = OpenBabelUtils.get_formula(structure)
+                        mol_wt = formula.get_molecular_weight()
+                        formula = dict(formula)
+                        charge = structure.GetTotalCharge()
+                if structure is None:
+                    smiles = None
+                else:
+                    smiles = OpenBabelUtils.export(structure, 'smiles')
+            except Exception:
+                pass
+
+            warning_message = ' '.join(recorded_warning.message for recorded_warning in recorded_warnings)
 
         return {
             'alphabet': alphabet,
@@ -130,6 +136,7 @@ class Bpform(flask_restplus.Resource):
             'formula': formula,
             'mol_wt': mol_wt,
             'charge': charge,
+            'warnings': warning_message,
         }
 
 

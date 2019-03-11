@@ -5,8 +5,8 @@ with open(pkg_resources.resource_filename('bpforms', 'VERSION'), 'r') as file:
     __version__ = file.read().strip()
 
 from . import config
-from .core import (Identifier, IdentifierSet, SynonymSet, Monomer, MonomerSequence, MonomerDict, Backbone, Bond, Atom,
-                   Alphabet, AlphabetBuilder, BpForm)
+from .core import (Identifier, IdentifierSet, SynonymSet, Monomer, MonomerSequence, MonomerDict, Backbone, Bond, Atom, AtomList,
+                   Alphabet, AlphabetBuilder, BpForm, BpFormFeature, BpFormFeatureSet, BpFormsWarning)
 from . import alphabet
 from .alphabet.dna import dna_alphabet, canonical_dna_alphabet, DnaForm, CanonicalDnaForm
 from .alphabet.rna import rna_alphabet, canonical_rna_alphabet, RnaForm, CanonicalRnaForm
