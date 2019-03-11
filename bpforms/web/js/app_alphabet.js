@@ -81,7 +81,6 @@ get_alphabet_error = function( jqXHR, textStatus, errorThrown ) {
 get_alphabet = function() {
     i_hash = document.URL.indexOf('#')
     if (i_hash == -1) {
-        console.log('Hash must be the id of an alphabet')
     }else{
         hash = document.URL.substr(i_hash + 1)
         $.ajax({

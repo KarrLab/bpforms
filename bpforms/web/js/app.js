@@ -24,17 +24,36 @@ set_properties = function(data, status, jqXHR){
         formula += el + data['formula'][el].toString()
     }
 
+    if (data['warnings'] != null) {
+        warnings = 'Warning: ' + data['warnings']
+        $("#warnings").html(warnings)
+        $("#warnings").css('padding-bottom', '16px')
+    } else {
+        warnings = ''
+        $("#warnings").html(warnings)
+        $("#warnings").css('padding-bottom', '0px')
+    }
     $("#errors").html('')
+    $("#errors").css('padding-bottom', '0px')
+
     $("#monomer_seq_out").val(data['monomer_seq'])
     $("#length").val(data['length'])
 
-    console.log(data['structure'])
     if (data['structure'] != null && data['structure'] != '') {
-        structure = data['structure']
-        img = '<img src="https://cactus.nci.nih.gov/chemical/structure/'
-              + encodeURI(data['structure'])
-              + '/image?format=gif&bgcolor=transparent&antialiasing=0" class="context-menu-one"'
-              + '/>'
+        if (data['length'] <= 20) {
+            structure = data['structure']
+            img = '<img src="https://cactus.nci.nih.gov/chemical/structure/'
+                  + encodeURI(data['structure'])
+                  + '/image?format=gif&bgcolor=transparent&antialiasing=0" class="context-menu-one"'
+                  + '/>'
+        } else {
+            if (!warnings) {
+                warnings = 'Warning: '
+            }
+            warnings += ' Visualizations are limited to polymers with length <= 20.'
+            $("#warnings").html(warnings)
+            $("#warnings").css('padding-bottom', '16px')
+        }
 
     } else {
         structure = ''
@@ -48,6 +67,9 @@ set_properties = function(data, status, jqXHR){
 }
 
 display_error = function( jqXHR, textStatus, errorThrown ) {
+    $("#warnings").html('')
+    $("#warnings").css('padding-bottom', '0px')
+
     error = '<b>' + jqXHR['responseJSON']['message'] + '</b>'
     if ('errors' in jqXHR['responseJSON']) {
         error += '<ul>'
@@ -59,8 +81,8 @@ display_error = function( jqXHR, textStatus, errorThrown ) {
             error += '</li>'
         error += '</ul>'
     }
-    console.log(jqXHR['responseJSON'])
     $("#errors").html(error)
+    $("#errors").css('padding-bottom', '16px')
 }
 
 $('#submit').click(function (evt) {
