@@ -111,10 +111,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # extract name of the molecule from pdb file
         base_monomers = {}
         monomer_ids = {}
-        for file in glob.iglob(pdb_dir + '/*.PDB'):
-            id = re.split("[/.]", file)[3]
+        for file in glob.iglob(os.path.join(pdb_dir, '*.PDB')):
+            id, _ = os.path.splitext(os.path.basename(file))
+            names = []
             with open(file, 'r') as f:
-                names = []
                 for line in f:
                     if re.match(r"^COMPND    ", line):
                         part1 = str(line[10:].strip())
@@ -171,13 +171,15 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         for monomer, base_monomer_ids in base_monomers.items():
             for base_monomer_id in base_monomer_ids:
                 base_monomer = monomer_ids.get(base_monomer_id, None)
-                monomer.base_monomers.add(base_monomer)
+                if base_monomer == None:
+                    warnings.warn('Base {} for {} is invalid'.format(base_monomer_id, monomer.id), UserWarning)
+                else:
+                    monomer.base_monomers.add(base_monomer)
 
         return alphabet
 
     def get_monomer_structure(self, name, pdb_filename):
         """ Get the structure of an amino acid from a PDB file
-        where N from NH moeity and C from CO moeity are labeled as N15 and C13 isotopes
 
         Args:
             name (:obj:`str`): monomer name
@@ -202,136 +204,148 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
             return None
 
-        assert conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
+        assert conv.SetOutFormat('smi')
         conv.SetOptions('c', conv.OUTOPTIONS)
         smiles = conv.WriteString(pdb_mol).partition('\t')[0]
         smiles = get_major_micro_species(smiles, 'smiles', 7.4, major_tautomer=True)
         smiles_mol = openbabel.OBMol()
-        conv = openbabel.OBConversion()
-        assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
-        conv.ReadString(smiles_mol, smiles)
-        smiles = conv.WriteString(smiles_mol)
+        assert conv.SetInFormat('smi')
         conv.ReadString(smiles_mol, smiles)
 
-        # count the total number of atoms in molecule and loop over each atom
-        atomcount = pdb_mol.NumAtoms()
-        res = pdb_mol.GetResidue(0)
-        countN = 0
-        countC = 0
-
-        for i in range(1, atomcount + 1):
-
-            # since N-HN and C-O of peptide bonds must be consecutive in pdb file, get atom_i and atom_i+1
-            if pdb_mol.GetAtom(i + 1):
-                atom1 = pdb_mol.GetAtom(i)
-                atom2 = pdb_mol.GetAtom(i + 1)
-
-                # exception for Proline based-residue where no HN is present
-                if res.GetName() == 'Pro':
-                    if res.GetNumAtoms() == 1:
-                        for res in openbabel.OBResidueIter(pdb_mol):
-                            for atom in openbabel.OBResidueAtomIter(res):
-                                if atom1.GetType() == 'N3' and atom.GetIdx() == atom1.GetIdx():
-                                    index_n = atom1.GetIdx()
-                                    atom1.SetIsotope(15)
-                                if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and atom.GetIdx() == atom1.GetIdx():
-                                    index_c = atom1.GetIdx()
-                                    atom1.SetIsotope(13)
-                    else:
-                        if atom1.GetType() == 'N3' and (res.GetAtomID(atom1)).strip() == 'N':
-                            index_n = atom1.GetIdx()
-                            atom1.SetIsotope(15)
-                        if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and (res.GetAtomID(atom1)).strip() == 'C':
-                            index_c = atom1.GetIdx()
-                            atom1.SetIsotope(13)
-
-                # need to check first if residue numbering is present in a correct way,
-                # some residues do not have a proper residue number and name but
-                # just a duplicate of the atom number
-                if res.GetNumAtoms() == 1:
-                    for res_i in openbabel.OBResidueIter(pdb_mol):
-                        for atom in openbabel.OBResidueAtomIter(res_i):
-                            if atom1.GetType() == 'N3' and atom2.GetType() == 'H' and atom.GetIdx() == atom1.GetIdx() and countN == 0:
-                                if pdb_mol.GetAtom(i+2) and (pdb_mol.GetAtom(i+2)).GetType() == 'C3':
-                                    countN = 1
-                                    index_n = atom1.GetIdx()
-                                    atom1.SetIsotope(15)
-                            if atom1.GetType() == 'C2' and atom2.GetType() == 'O2' and atom.GetIdx() == atom1.GetIdx() and countC == 0:
-                                countC = 1
-                                index_c = atom1.GetIdx()
-                                atom1.SetIsotope(13)
-
-                if res.GetName() != 'Pro' and res.GetNumAtoms() != 1:
-                    # check types according to openbabel atom types for N and HN
-                    if atom1.GetType() == 'N3' and atom2.GetType() == 'H' and (res.GetAtomID(atom1)).strip() == 'N' and countN == 0:
-                        if pdb_mol.GetAtom(i+2) and (pdb_mol.GetAtom(i+2)).GetType() == 'C3':
-                            countN = 1
-                            index_n = atom1.GetIdx()
-                            atom1.SetIsotope(15)
-                    # check types according to openbabel atom types for C and O
-                    if atom1.GetType() == 'C2' \
-                            and atom2.GetType() == 'O2' \
-                            and (res.GetAtomID(atom1)).strip() == 'C' \
-                            and (res.GetAtomID(atom2)).strip() == 'O' \
-                            and countC == 0:
-                        countC = 1
-                        index_c = atom1.GetIdx()
-                        atom1.SetIsotope(13)
-
-        assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
-        inchi_isotopes = conv.WriteString(pdb_mol)
-
-        # removing modified monomers where metal present in structure because:
-        # - inchi structure generated separates each non covalently bound parts of the monomer
-        # - for many cases theses structures consist of a group of modified monomers coordinating
-        # a metal, and not a single PTM monomer per se
-        formula = inchi_isotopes.split('/')[1]
-        if '.' in formula:
-            warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
-            return None
-
-        # create molecule from SMILES -- necessary to sanitize molecule from PDB
         assert conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
         conv.SetOptions('c', conv.OUTOPTIONS)
-        smiles_isotopes = conv.WriteString(pdb_mol).partition('\t')[0]
-        smiles_isotopes = get_major_micro_species(smiles_isotopes, 'smiles', 7.4, major_tautomer=True)
-        smiles_mol_isotopes = openbabel.OBMol()
+        smiles = conv.WriteString(smiles_mol).partition('\t')[0]
         assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
-        conv.ReadString(smiles_mol_isotopes, smiles_isotopes)
-        smiles_isotopes = conv.WriteString(smiles_mol_isotopes)
-        conv.ReadString(smiles_mol_isotopes, smiles_isotopes)
+        conv.ReadString(smiles_mol, smiles)
 
-        i_n_isotopes = None
-        i_c_isotopes = None
-        i_heavy = 0
-        for i_atom in range(1, smiles_mol_isotopes.NumAtoms() + 1):
-            atom = smiles_mol_isotopes.GetAtom(i_atom)
-            if atom.GetAtomicNum() > 1:
-                i_heavy += 1
-            if atom.GetIsotope() == 15:
-                i_n_isotopes = i_heavy
-            if atom.GetIsotope() == 13:
-                i_c_isotopes = i_heavy
-
-        i_n = None
-        i_c = None
-        i_heavy = 0
+        # find N and C termini
+        atom_ns = []
+        atom_cs = []
         for i_atom in range(1, smiles_mol.NumAtoms() + 1):
             atom = smiles_mol.GetAtom(i_atom)
-            if atom.GetAtomicNum() > 1:
-                i_heavy += 1
-                if i_heavy == i_n_isotopes:
-                    i_n = i_atom
-                    assert atom.GetAtomicNum() == 7
-                if i_heavy == i_c_isotopes:
-                    i_c = i_atom
-                    assert atom.GetAtomicNum() == 6
+            if self.is_n_terminus(atom):
+                atom_ns.append(atom)
+            elif self.is_c_terminus(atom):
+                atom_cs.append(atom)
 
-        if None in (i_n, i_c):
-            warnings.warn('Ignoring monomer {} without bonding possibility'.format(name), UserWarning)
+        termini = []
+        for atom_n in atom_ns:
+            for atom_c in atom_cs:
+                if self.is_terminus(atom_n, atom_c):
+                    termini.append((atom_n, atom_c))
+
+        if not termini:
+            warnings.warn('Ignoring monomer {} without N- and C-termini'.format(name), UserWarning)
             return None
+        if len(termini) > 1:
+            warnings.warn('Ignoring monomer {} with multiple N- and C-termini'.format(name), UserWarning)
+            return None
+        atom_n, atom_c = termini[0]
 
-        return (smiles_mol, i_n, i_c)
+        return (smiles_mol, atom_n.GetIdx(), atom_c.GetIdx())
+
+    def is_n_terminus(self, atom):
+        """ Determine if an atom is an N-terminus
+
+        Args:
+            atom (:obj:`openbabel.OBAtom`): atom
+
+        Returns:
+            :obj:`bool`: :obj:`True` if the atom is an N-terminus
+        """
+        if atom is None:
+            return False
+
+        # check atom is nitrogen
+        if atom.GetAtomicNum() != 7:
+            return False
+
+        # check atom has charge + 1
+        if atom.GetFormalCharge() != 1:
+            return False
+
+        # check atom is single-bonded to at least 1 carbon
+        has_single_c = False
+        for bond in openbabel.OBAtomBondIter(atom):
+            other_atom = bond.GetBeginAtom()
+            if other_atom == atom:
+                other_atom = bond.GetEndAtom()
+            if bond.GetBondOrder() == 1 and other_atom.GetAtomicNum() == 6:
+                has_single_c = True
+        if not has_single_c:
+            return False
+
+        # check atom bonded to at least 2 hydrogens
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(atom)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(atom)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        if other_atoms.count(1) < 2:
+            return False
+
+        # return True
+        return True
+
+    def is_c_terminus(self, atom):
+        """ Determine if an atom is an C-terminus
+
+        Args:
+            atom (:obj:`openbabel.OBAtom`): atom
+
+        Returns:
+            :obj:`bool`: :obj:`True` if the atom is an C-terminus
+        """
+        if atom is None:
+            return False
+
+        # check atom is hydrogen
+        if atom.GetAtomicNum() != 6:
+            return False
+
+        # check atom has charge 0
+        if atom.GetFormalCharge() != 0:
+            return False
+
+        # check atom is bonded to 1 oxygen, 1 carbon, and 1 hydrogen atom
+        other_atoms = sorted([other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(atom)])
+        if set(other_atoms).difference(set([1, 6, 8])):
+            return False
+        if 6 not in other_atoms or 8 not in other_atoms:
+            return False
+        if len(other_atoms) > 2 and other_atoms[-2] != 1:
+            return False
+
+        # check bonds to carbon and hydrogen are single bonds and bond to oxygen is a double bond
+        for bond in openbabel.OBAtomBondIter(atom):
+            other_atom = bond.GetBeginAtom()
+            if other_atom == atom:
+                other_atom = bond.GetEndAtom()
+            if other_atom.GetAtomicNum() != 8 and bond.GetBondOrder() != 1:
+                return False
+            if other_atom.GetAtomicNum() == 8 and bond.GetBondOrder() != 2:
+                return False
+
+        # return True
+        return True
+
+    def is_terminus(self, atom_n, atom_c):
+        """ Determine if a pair of atoms are N- and C-termini
+
+        Args:
+            atom_n (:obj:`openbabel.OBAtom`): potential N-terminus
+            atom_c (:obj:`openbabel.OBAtom`): potential C-terminus
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the atoms are N- and C-termini
+        """
+        atom_n_neighbors = set((atom.GetIdx(), atom.GetAtomicNum()) for atom in openbabel.OBAtomAtomIter(atom_n))
+        atom_c_neighbors = set((atom.GetIdx(), atom.GetAtomicNum()) for atom in openbabel.OBAtomAtomIter(atom_c))
+        connecting_atoms = atom_n_neighbors.intersection(atom_c_neighbors)
+
+        for idx, atomic_num in connecting_atoms:
+            if atomic_num == 6:
+                return True
+
+        return False
 
     def get_monomer_details(self, id, session):
         """ Get the CHEBI ID and synonyms of an amino acid from its RESID webpage

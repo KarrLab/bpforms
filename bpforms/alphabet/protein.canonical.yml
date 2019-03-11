@@ -6,322 +6,322 @@ monomers:
     id: Ala
     name: L-alanine
     synonyms:
-    - β-phenyl-L-alanine
-    - (S)-alpha-Amino-beta-phenylpropionic acid
-    - (S)-2-Amino-3-phenylpropionic acid
     - 3-phenyl-L-alanine
+    - (S)-2-Amino-3-phenylpropionic acid
+    - (S)-alpha-Amino-beta-phenylpropionic acid
+    - β-phenyl-L-alanine
     identifiers:
+    - ns: chebi
+      id: CHEBI:16977
     - ns: pubchem.compound
       id: '5950'
     - ns: resid
       id: AA0001
     - ns: metacyc.compound
       id: L-ALPHA-ALANINE
-    - ns: chebi
-      id: CHEBI:16977
-    structure: 'CC([NH3+])C=O'
+    structure: C[C@H]([NH3+])C=O
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 7
+      position: 8
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 7
+      position: 8
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 7
+      position: 8
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 3
       charge: -1
+      position: 4
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 3
       charge: 1
+      position: 4
     - molecule: Monomer
       element: H
-      position: 3
+      position: 4
   R:
     id: Arg
     name: L-arginine
     synonyms:
-    - β-phenyl-L-alanine
-    - (S)-alpha-Amino-beta-phenylpropionic acid
-    - (S)-2-Amino-3-phenylpropionic acid
     - 3-phenyl-L-alanine
+    - (S)-2-Amino-3-phenylpropionic acid
+    - (S)-alpha-Amino-beta-phenylpropionic acid
+    - β-phenyl-L-alanine
     identifiers:
-    - ns: chebi
-      id: CHEBI:16467
     - ns: pubchem.compound
       id: '6322'
-    - ns: metacyc.compound
-      id: ARG
     - ns: resid
       id: AA0002
-    structure: 'NC(=[NH2+])NCCCC([NH3+])C=O'
+    - ns: chebi
+      id: CHEBI:16467
+    - ns: metacyc.compound
+      id: ARG
+    structure: O=C[C@H](CCCNC(=[NH2+])N)[NH3+]
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 15
+      position: 2
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 2
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 15
+      position: 2
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 11
       charge: -1
+      position: 14
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
       charge: 1
+      position: 14
     - molecule: Monomer
       element: H
-      position: 11
+      position: 14
   N:
     id: Asn
     name: L-asparagine
     synonyms:
-    - L-Asparagin
-    - 2-Aminosuccinamic acid
-    - alpha-aminosuccinamic acid
-    - L-2-aminosuccinamic acid
-    - (S)-2-amino-3-carbamoylpropanoic acid
-    - (2S)-2,4-diamino-4-oxobutanoic acid
-    - (2S)-2-amino-3-carbamoylpropanoic acid
     - (S)-Asparagine
-    - L-Asparagine
     - L-aspartic acid beta-amide
+    - (S)-2-amino-3-carbamoylpropanoic acid
+    - (2S)-2-amino-3-carbamoylpropanoic acid
+    - 2-Aminosuccinamic acid
+    - (2S)-2,4-diamino-4-oxobutanoic acid
+    - L-Asparagine
     - Aspartamic acid
+    - L-Asparagin
+    - L-2-aminosuccinamic acid
+    - alpha-aminosuccinamic acid
     identifiers:
     - ns: metacyc.compound
       id: ASN
+    - ns: resid
+      id: AA0003
     - ns: pubchem.compound
       id: '6267'
     - ns: chebi
       id: CHEBI:17196
-    - ns: resid
-      id: AA0003
-    structure: 'NC(CC(N)=O)C=O'
+    structure: NC(=O)C[C@H]([NH3+])C=O
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 7
+      position: 11
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 7
+      position: 11
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 7
+      position: 11
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 7
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 7
     - molecule: Monomer
       element: H
-      position: 1
+      position: 7
   D:
     id: Asp
     name: L-aspartic acid
     synonyms:
-    - L-Asparaginsaeure
     - (S)-2-aminosuccinic acid
-    - 2-Aminosuccinic acid
     - (S)-2-aminobutanedioic acid
+    - 2-Aminosuccinic acid
+    - L-Asparaginsaeure
     identifiers:
     - ns: chebi
       id: CHEBI:17053
     - ns: resid
       id: AA0004
-    - ns: metacyc.compound
-      id: ASP
     - ns: pubchem.compound
       id: '5960'
-    structure: '[NH3+]C(CC([O-])=O)C=O'
+    - ns: metacyc.compound
+      id: ASP
+    structure: O=C[C@H](CC(=O)[O-])[NH3+]
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 10
+      position: 2
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 2
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 10
+      position: 2
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 9
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 9
     - molecule: Monomer
       element: H
-      position: 1
+      position: 9
   C:
     id: Cys
     name: L-cysteine
     synonyms:
+    - E920
     - E 920
-    - (2R)-2-amino-3-sulfanylpropanoic acid
     - L-2-Amino-3-mercaptopropionic acid
+    - (2R)-2-amino-3-sulfanylpropanoic acid
+    - E-920
     - (2R)-2-amino-3-mercaptopropanoic acid
     - L-Zystein
     - (R)-2-amino-3-mercaptopropanoic acid
-    - E920
-    - E-920
     identifiers:
     - ns: chebi
       id: CHEBI:17561
-    - ns: metacyc.compound
-      id: CYS
-    - ns: resid
-      id: AA0005
     - ns: pubchem.compound
       id: '5862'
-    structure: '[NH3+]C(CS)C=O'
+    - ns: resid
+      id: AA0005
+    - ns: metacyc.compound
+      id: CYS
+    structure: SC[C@H]([NH3+])C=O
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 8
+      position: 9
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 9
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 8
+      position: 9
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 5
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 5
     - molecule: Monomer
       element: H
-      position: 1
+      position: 5
   Q:
     id: Gln
     name: L-glutamine
     synonyms:
-    - L-2-Aminoglutaramic acid
-    - (S)-2,5-diamino-5-oxopentanoic acid
-    - L-(+)-glutamine
     - L-Glutaminsaeure-5-amid
+    - L-(+)-glutamine
+    - L-2-Aminoglutaramic acid
+    - Glutamic acid amide
+    - (S)-2,5-diamino-5-oxopentanoic acid
     - (2S)-2-amino-4-carbamoylbutanoic acid
+    - L-glutamic acid gamma-amide
     - Levoglutamide
+    - (2S)-2,5-diamino-5-oxopentanoic acid
     - L-2-aminoglutaramic acid
     - Glutamic acid 5-amide
-    - (2S)-2,5-diamino-5-oxopentanoic acid
-    - L-glutamic acid gamma-amide
-    - Glutamic acid amide
     identifiers:
-    - ns: resid
-      id: AA0007
-    - ns: pubchem.compound
-      id: '5961'
     - ns: metacyc.compound
       id: GLN
     - ns: chebi
       id: CHEBI:18050
-    structure: 'NC(=O)CCC([NH3+])C=O'
+    - ns: resid
+      id: AA0007
+    - ns: pubchem.compound
+      id: '5961'
+    structure: O=C[C@H](CCC(=O)N)[NH3+]
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 11
+      position: 2
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 2
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 11
+      position: 2
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 7
       charge: -1
+      position: 10
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 7
       charge: 1
+      position: 10
     - molecule: Monomer
       element: H
-      position: 7
+      position: 10
   E:
     id: Glu
     name: L-glutamic acid
     synonyms:
-    - (S)-glutamic acid
-    - L-Glutaminic acid
     - L-Glutaminsaeure
     - (S)-2-aminopentanedioic acid
     - Glutamate
+    - (S)-glutamic acid
+    - L-Glutaminic acid
     identifiers:
     - ns: resid
       id: AA0006
-    - ns: pubchem.compound
-      id: '33032'
     - ns: chebi
       id: CHEBI:16015
     - ns: metacyc.compound
       id: GLU
-    structure: '[NH3+]C(CCC([O-])=O)C=O'
+    - ns: pubchem.compound
+      id: '33032'
+    structure: O=C[C@H](CCC(=O)[O-])[NH3+]
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 11
+      position: 2
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 2
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 11
+      position: 2
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 10
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 10
     - molecule: Monomer
       element: H
-      position: 1
+      position: 10
   G:
     id: Gly
     name: glycine
@@ -329,15 +329,15 @@ monomers:
     - Aminoacetic acid
     - aminoethanoic acid
     identifiers:
-    - ns: resid
-      id: AA0008
     - ns: pubchem.compound
       id: '750'
     - ns: metacyc.compound
       id: GLU
     - ns: chebi
       id: CHEBI:15428
-    structure: '[NH3+]CC=O'
+    - ns: resid
+      id: AA0008
+    structure: C([NH3+])C=O
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
@@ -353,297 +353,297 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 2
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 2
     - molecule: Monomer
       element: H
-      position: 1
+      position: 2
   H:
     id: His
     name: L-histidine
     synonyms:
-    - L-(-)-histidine
-    - (S)-alpha-Amino-1H-imidazole-4-propionic acid
     - (S)-4-(2-Amino-2-carboxyethyl)imidazole
     - (S)-alpha-amino-1H-Imidazole-4-propanoic acid
+    - L-(-)-histidine
+    - (S)-alpha-Amino-1H-imidazole-4-propionic acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:15971
+    - ns: resid
+      id: AA0009
     - ns: metacyc.compound
       id: HIS
     - ns: pubchem.compound
       id: '33032'
-    - ns: resid
-      id: AA0009
-    structure: '[NH3+]C(CC1=CNC=N1)C=O'
+    - ns: chebi
+      id: CHEBI:15971
+    structure: C(c1c[nH]cn1)[C@H]([NH3+])C=O
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 12
+      position: 14
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 14
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 12
+      position: 14
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 10
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 10
     - molecule: Monomer
       element: H
-      position: 1
+      position: 10
   I:
     id: Ile
     name: L-isoleucine
     synonyms:
-    - 2-Amino-3-methylvaleric acid
     - (2S,3S)-2-amino-3-methylpentanoic acid
     - alpha-amino-beta-methylvaleric acid
+    - 2-Amino-3-methylvaleric acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:17191
     - ns: resid
       id: AA0010
     - ns: metacyc.compound
       id: ILE
+    - ns: chebi
+      id: CHEBI:17191
     - ns: pubchem.compound
       id: '6306'
-    structure: 'CCC(C)C([NH3+])C=O'
+    structure: CC[C@@H]([C@@H](C=O)[NH3+])C
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 10
+      position: 7
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 7
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 10
+      position: 7
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 6
       charge: -1
+      position: 9
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 6
       charge: 1
+      position: 9
     - molecule: Monomer
       element: H
-      position: 6
+      position: 9
   L:
     id: Leu
     name: L-leucine
     synonyms:
-    - (2S)-2-amino-4-methylpentanoic acid
-    - 2-Amino-4-methylvaleric acid
     - (S)-leucine
-    - (2S)-alpha-2-Amino-4-methylvaleric acid
+    - 2-Amino-4-methylvaleric acid
+    - (2S)-2-amino-4-methylpentanoic acid
     - (2S)-alpha-Leucine
     - (S)-(+)-leucine
+    - (2S)-alpha-2-Amino-4-methylvaleric acid
     identifiers:
-    - ns: metacyc.compound
-      id: LEU
+    - ns: resid
+      id: AA0011
     - ns: pubchem.compound
       id: '6106'
     - ns: chebi
       id: CHEBI:15603
-    - ns: resid
-      id: AA0011
-    structure: 'CC(C)CC([NH3+])C=O'
+    - ns: metacyc.compound
+      id: LEU
+    structure: O=C[C@H](CC(C)C)[NH3+]
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 10
+      position: 2
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 2
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 10
+      position: 2
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 6
       charge: -1
+      position: 9
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 6
       charge: 1
+      position: 9
     - molecule: Monomer
       element: H
-      position: 6
+      position: 9
   K:
     id: Lys
     name: L-lysine
     identifiers:
-    - ns: metacyc.compound
-      id: LEU
     - ns: chebi
       id: CHEBI:18019
     - ns: pubchem.compound
       id: '5962'
     - ns: resid
       id: AA0012
-    structure: '[NH3+]CCCCC([NH3+])C=O'
+    - ns: metacyc.compound
+      id: LEU
+    structure: O=C[C@H](CCCC[NH3+])[NH3+]
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 14
+      position: 2
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 2
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 14
+      position: 2
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 13
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 13
     - molecule: Monomer
       element: H
-      position: 1
+      position: 13
   M:
     id: Met
     name: L-methionine
     synonyms:
+    - (2S)-2-amino-4-(methylsulfanyl)butanoic acid
     - (S)-2-amino-4-(methylthio)butanoic acid
+    - (S)-methionine
     - L-alpha-amino-gamma-methylmercaptobutyric acid
     - L-(-)-methionine
     - (S)-2-amino-4-(methylthio)butyric acid
-    - (S)-methionine
-    - (2S)-2-amino-4-(methylsulfanyl)butanoic acid
     identifiers:
-    - ns: resid
-      id: AA0013
     - ns: metacyc.compound
       id: MET
-    - ns: pubchem.compound
-      id: '6137'
     - ns: chebi
       id: CHEBI:16643
-    structure: 'CSCCC([NH3+])C=O'
+    - ns: pubchem.compound
+      id: '6137'
+    - ns: resid
+      id: AA0013
+    structure: CSCC[C@H]([NH3+])C=O
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 10
+      position: 11
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 11
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 10
+      position: 11
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 6
       charge: -1
+      position: 7
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 6
       charge: 1
+      position: 7
     - molecule: Monomer
       element: H
-      position: 6
+      position: 7
   F:
     id: Phe
     name: L-phenylalanine
     synonyms:
-    - β-phenyl-L-alanine
-    - (S)-alpha-Amino-beta-phenylpropionic acid
-    - (S)-2-Amino-3-phenylpropionic acid
     - 3-phenyl-L-alanine
+    - (S)-2-Amino-3-phenylpropionic acid
+    - (S)-alpha-Amino-beta-phenylpropionic acid
+    - β-phenyl-L-alanine
     identifiers:
     - ns: pubchem.compound
       id: '22848660'
+    - ns: metacyc.compound
+      id: PHE
     - ns: resid
       id: AA0014
     - ns: chebi
       id: CHEBI:17295
-    - ns: metacyc.compound
-      id: PHE
-    structure: '[NH3+]C(CC1=CC=CC=C1)C=O'
+    structure: O=C[C@H](Cc1ccccc1)[NH3+]
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 13
+      position: 2
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 2
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 13
+      position: 2
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 12
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 12
     - molecule: Monomer
       element: H
-      position: 1
+      position: 12
   P:
     id: Pro
     name: L-proline
     synonyms:
-    - (-)-(S)-proline
     - L-(-)-proline
-    - (S)-2-carboxypyrrolidine
-    - (-)-2-pyrrolidinecarboxylic acid
-    - 2-Pyrrolidinecarboxylic acid
-    - L-alpha-pyrrolidinecarboxylic acid
     - (2S)-pyrrolidine-2-carboxylic acid
+    - 2-Pyrrolidinecarboxylic acid
     - (-)-proline
     - L-pyrrolidine-2-carboxylic acid
+    - (S)-2-carboxypyrrolidine
     - (S)-pyrrolidine-2-carboxylic acid
     - (S)-2-pyrrolidinecarboxylic acid
+    - (-)-2-pyrrolidinecarboxylic acid
+    - L-alpha-pyrrolidinecarboxylic acid
+    - (-)-(S)-proline
     identifiers:
-    - ns: metacyc.compound
-      id: PRO
     - ns: pubchem.compound
       id: '145742'
-    - ns: chebi
-      id: CHEBI:17203
     - ns: resid
       id: AA0015
-    structure: 'O=CC1CCC[NH2+]1'
+    - ns: metacyc.compound
+      id: PRO
+    - ns: chebi
+      id: CHEBI:17203
+    structure: O=C[C@@H]1CCC[NH2+]1
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
@@ -659,222 +659,222 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 7
       charge: -1
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 7
       charge: 1
+      position: 8
     - molecule: Monomer
       element: H
-      position: 7
+      position: 8
   S:
     id: Ser
     name: L-serine
     synonyms:
-    - L-(-)-serine; beta-Hydroxyalanine
-    - L-3-Hydroxy-2-aminopropionic acid
+    - (S)-serine
+    - beta-Hydroxy-L-alanine
     - (S)-alpha-Amino-beta-hydroxypropionic acid
     - L-2-Amino-3-hydroxypropionic acid
-    - (S)-serine
-    - (2S)-2-amino-3-hydroxypropanoic acid
     - L-3-Hydroxy-alanine
-    - beta-Hydroxy-L-alanine
     - (S)-(-)-serine
+    - (2S)-2-amino-3-hydroxypropanoic acid
+    - L-3-Hydroxy-2-aminopropionic acid
     - (S)-2-amino-3-hydroxypropanoic acid
+    - L-(-)-serine; beta-Hydroxyalanine
     identifiers:
-    - ns: chebi
-      id: CHEBI:17115
-    - ns: metacyc.compound
-      id: SER
     - ns: resid
       id: AA0016
+    - ns: metacyc.compound
+      id: SER
+    - ns: chebi
+      id: CHEBI:17115
     - ns: pubchem.compound
       id: '5951'
-    structure: '[NH3+]C(CO)C=O'
+    structure: OC[C@H]([NH3+])C=O
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 8
+      position: 9
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 9
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 8
+      position: 9
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 5
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 5
     - molecule: Monomer
       element: H
-      position: 1
+      position: 5
   T:
     id: Thr
     name: L-threonine
     synonyms:
-    - L-(-)-Threonine
-    - L-2-Amino-3-hydroxybutyric acid
-    - (2S,3R)-(-)-Threonine
-    - (2S,3R)-2-amino-3-hydroxybutanoic acid
-    - (2S)-threonine
-    - L-alpha-amino-beta-hydroxybutyric acid
     - 2-Amino-3-hydroxybutyric acid
+    - (2S,3R)-2-amino-3-hydroxybutanoic acid
+    - L-alpha-amino-beta-hydroxybutyric acid
+    - (2S)-threonine
+    - (2S,3R)-(-)-Threonine
+    - L-2-Amino-3-hydroxybutyric acid
+    - L-(-)-Threonine
     identifiers:
-    - ns: metacyc.compound
-      id: THR
     - ns: resid
       id: AA0017
-    - ns: pubchem.compound
-      id: '6288'
+    - ns: metacyc.compound
+      id: THR
     - ns: chebi
       id: CHEBI:16857
-    structure: 'CC(O)C([NH3+])C=O'
+    - ns: pubchem.compound
+      id: '6288'
+    structure: C[C@H]([C@H]([NH3+])C=O)O
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 9
+      position: 10
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 10
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 9
+      position: 10
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 5
       charge: -1
+      position: 6
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 5
       charge: 1
+      position: 6
     - molecule: Monomer
       element: H
-      position: 5
+      position: 6
   W:
     id: Trp
     name: L-tryptophan
     synonyms:
-    - L-(−)-tryptophan
+    - (S)-α-amino-1H-indole-3-propanoic acid
+    - (S)-alpha-Amino-beta-(3-indolyl)-propionic acid
     - L-β-3-indolylalanine
     - (S)-tryptophan
-    - (S)-alpha-Amino-beta-(3-indolyl)-propionic acid
-    - (S)-α-amino-1H-indole-3-propanoic acid
     - (2S)-2-amino-3-(1H-indol-3-yl)propanoic acid
+    - L-(−)-tryptophan
     identifiers:
     - ns: chebi
       id: CHEBI:16828
-    - ns: resid
-      id: AA0018
-    - ns: pubchem.compound
-      id: '6305'
     - ns: metacyc.compound
       id: TRP
-    structure: '[NH3+]C(CC1=CNC2=CC=CC=C12)C=O'
+    - ns: pubchem.compound
+      id: '6305'
+    - ns: resid
+      id: AA0018
+    structure: O=C[C@H](Cc1c[nH]c2c1cccc2)[NH3+]
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 16
+      position: 2
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
+      position: 2
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 16
+      position: 2
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 16
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 16
     - molecule: Monomer
       element: H
-      position: 1
+      position: 16
   Y:
     id: Tyr
     name: L-tyrosine
     synonyms:
     - (S)-alpha-amino-4-hydroxybenzenepropanoic acid
-    - (S)-3-(p-Hydroxyphenyl)alanine
-    - 4-hydroxy-L-phenylalanine
-    - (-)-alpha-amino-p-hydroxyhydrocinnamic acid
-    - (2S)-2-amino-3-(4-hydroxyphenyl)propanoic acid
     - (S)-(-)-Tyrosine
-    - (S)-2-Amino-3-(p-hydroxyphenyl)propionic acid
+    - 4-hydroxy-L-phenylalanine
+    - (2S)-2-amino-3-(4-hydroxyphenyl)propanoic acid
     - (S)-Tyrosine
+    - (S)-3-(p-Hydroxyphenyl)alanine
+    - (S)-2-Amino-3-(p-hydroxyphenyl)propionic acid
+    - (-)-alpha-amino-p-hydroxyhydrocinnamic acid
     identifiers:
-    - ns: pubchem.compound
-      id: '6057'
+    - ns: metacyc.compound
+      id: TYR
     - ns: chebi
       id: CHEBI:17895
     - ns: resid
       id: AA0019
-    - ns: metacyc.compound
-      id: TYR
-    structure: '[NH3+]C(CC1=CC=C(O)C=C1)C=O'
+    - ns: pubchem.compound
+      id: '6057'
+    structure: O=C[C@H](Cc1ccc(cc1)O)[NH3+]
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 14
+      position: 2
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 2
     left_bond_atoms:
     - molecule: Monomer
       element: C
-      position: 14
+      position: 2
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 1
       charge: -1
+      position: 13
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
       charge: 1
+      position: 13
     - molecule: Monomer
       element: H
-      position: 1
+      position: 13
   V:
     id: Val
     name: L-valine
     synonyms:
-    - 2-Amino-3-methylbutyric acid
-    - (2S)-2-amino-3-methylbutanoic acid
-    - (S)-valine
     - L-alpha-Amino-beta-methylbutyric acid
+    - (S)-valine
+    - 2-Amino-3-methylbutyric acid
     - L-(+)-alpha-Aminoisovaleric acid
+    - (2S)-2-amino-3-methylbutanoic acid
     identifiers:
-    - ns: chebi
-      id: CHEBI:16414
-    - ns: metacyc.compound
-      id: VAL
-    - ns: pubchem.compound
-      id: '6287'
     - ns: resid
       id: AA0020
-    structure: 'CC(C)C([NH3+])CO'
+    - ns: pubchem.compound
+      id: '6287'
+    - ns: metacyc.compound
+      id: VAL
+    - ns: chebi
+      id: CHEBI:16414
+    structure: 'CC(C)C([NH3+])C=O'
     monomer_bond_atoms:
     - molecule: Monomer
       element: C
@@ -890,13 +890,13 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: N
-      position: 5
       charge: -1
+      position: 5
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 5
       charge: 1
+      position: 5
     - molecule: Monomer
       element: H
       position: 5
