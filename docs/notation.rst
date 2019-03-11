@@ -104,7 +104,7 @@ Syntax
   * The values of the `id`, `name`, `synonym`, and `comments` attributes must be enclosed in quotes ('"').
   * The namespace and id of each identifer must be separated by "/".
 
-* The positions of the monomers in the string indicates in their location in the sequence.
+* The positions of the monomers in the string indicate their location in the sequence.
 
 
 Grammar
