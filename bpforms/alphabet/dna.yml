@@ -304,21 +304,6 @@ monomers:
       position: 7
     base_monomers:
     - C
-  1mC:
-    id: 1-methylcytosine
-    name: 4-amino-1-methylpyrimidin-2(1H)-one
-    comments: A pyrimidone that is cytosine in which the hydrogen attached to the
-      nitrogen at position 1 is substituted by a methyl group.
-    identifiers:
-    - ns: chebi
-      id: CHEBI:39624
-    structure: CN1C=CC(N)=NC1=O
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: N
-      position: 2
-    base_monomers:
-    - C
   putThy:
     id: alpha-putrescinylthymine
     name: 5-{[(4-aminobutyl)amino]methyl}pyrimidine-2,4(1H,3H)-dione
@@ -431,23 +416,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - T
-  1mT:
-    id: 1,5-dimethyluracil
-    name: 1,5-dimethylpyrimidine-2,4(1H,3H)-dione
-    comments: A pyrimidone that is uracil with methyl group substituents at positions
-      1 and 5.
-    synonyms:
-    - 1-methylthymine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:74765
-    structure: CN1C=C(C)C(=O)NC1=O
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: N
-      position: 2
     base_monomers:
     - T
   6hmA:
@@ -606,22 +574,6 @@ monomers:
     - molecule: Monomer
       element: N
       position: 10
-    base_monomers:
-    - A
-  9mA:
-    id: 9-methyladenine
-    name: 9-methyl-9H-purin-6-amine
-    comments: Adenine substituted with a methyl group at position N-9.
-    synonyms:
-    - n9-methyladenine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:40526
-    structure: CN1C=NC2=C(N)N=CN=C12
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: N
-      position: 2
     base_monomers:
     - A
   4mA:
