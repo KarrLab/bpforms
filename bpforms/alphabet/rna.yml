@@ -1768,11 +1768,11 @@ monomers:
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 12
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 12
     base_monomers:
     - U
   2151U:
@@ -1857,11 +1857,11 @@ monomers:
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 12
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 12
     base_monomers:
     - U
   051U:
@@ -1977,11 +1977,11 @@ monomers:
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 12
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 12
     base_monomers:
     - U
   071C:
@@ -2006,11 +2006,11 @@ monomers:
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 12
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 12
     base_monomers:
     - C
   71C:
@@ -2511,11 +2511,11 @@ monomers:
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 12
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 12
     base_monomers:
     - U
   54U:
@@ -3298,11 +3298,11 @@ monomers:
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 12
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 12
     base_monomers:
     - A
   65A:
@@ -3327,11 +3327,11 @@ monomers:
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 12
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 12
     base_monomers:
     - A
   68A:
@@ -3812,19 +3812,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 40
+      position: 38
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 40
+      position: 38
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 38
+      position: 40
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 38
+      position: 40
   3480G:
     id: 3480G
     name: methylated undermodified hydroxywybutosine
@@ -3957,19 +3957,19 @@ monomers:
     monomer_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 24
     monomer_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 24
     left_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 27
     left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
+      position: 27
   3470G:
     id: 3470G
     name: undermodified hydroxywybutosine
