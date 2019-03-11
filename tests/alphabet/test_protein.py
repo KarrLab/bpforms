@@ -191,7 +191,8 @@ class ProteinTestCase(unittest.TestCase):
 
     def test_ProteinAlphabetBuilder(self):
         pdb_dir = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.pdb'))
-        shutil.rmtree(pdb_dir)
+        if os.path.isdir(pdb_dir):
+            shutil.rmtree(pdb_dir)
 
         path = os.path.join(self.dirname, 'alphabet.yml')
 
