@@ -1588,46 +1588,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 33
-  AA0274:
-    id: AA0274
-    name: N-pyruvic acid 2-iminyl-L-cysteine
-    comments: The cysteine sulfhydryl may cyclize with the imine to form 2-methyl-thiazolidine-2,4-dicarboxylic
-      acid [CAS:152574-58-8].
-    synonyms:
-    - (R)-2-(1-carboxy-2-sulfanylethanimino)propanoic acid
-    identifiers:
-    - ns: go
-      id: GO:0018386
-    - ns: mod
-      id: MOD:00279
-    structure: SC[C@H]([NH2+][C@H](C(=O)[O-])C)C=O
-    base_monomers:
-    - C
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 14
-    monomer_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 14
-    left_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 14
-    right_bond_atoms:
-    - molecule: Monomer
-      element: N
-      charge: -1
-      position: 5
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      charge: 1
-      position: 5
-    - molecule: Monomer
-      element: H
-      position: 5
   AA0075:
     id: AA0075
     name: N6,N6-dimethyl-L-lysine
@@ -6562,54 +6522,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 24
-  AA0338:
-    id: AA0338
-    name: N-methyl-L-tyrosine
-    comments: 'This modification is predicted for proteins homologous to pilin in
-      certain organisms where the position corresponding to N-methylphenylalanine
-      instead encodes tyrosine. Polypeptides with monomethylated amino terminals can
-      undergo premature cleavage during the coupling step of an Edman degradation.
-      This can result in "preview" with both a residue and the following residue being
-      seen from the first step on through a sequence. Generating Enzyme: prepilin
-      peptidase (EC 3.4.23.43).'
-    synonyms:
-    - (2S)-3-(4-hydroxyphenyl)-2-(methylamino)propanoic acid
-    - N-methyltyrosine
-    identifiers:
-    - ns: go
-      id: GO:0046897
-    - ns: cas
-      id: 537-49-5
-    - ns: mod
-      id: MOD:00343
-    structure: O=C[C@H](Cc1ccc(cc1)O)[NH2+]C
-    base_monomers:
-    - Y
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    monomer_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    left_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: N
-      charge: -1
-      position: 13
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      charge: 1
-      position: 13
-    - molecule: Monomer
-      element: H
-      position: 13
   AA0523:
     id: AA0523
     name: omega-N,omega-N,omega-N'-trimethyl-L-arginine
@@ -6893,46 +6805,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-  AA0521:
-    id: AA0521
-    name: N-(DNA-1',2'-dideoxyribos-1'-ylidene)-L-valine
-    comments: "The model has three open valences, one on the valine carboxyl group\
-      \ and two in the DNA nucleotide segment on the 5'-phosphate and the 3'-hydroxyl.\
-      \ The keyword \"phosphoprotein\" is not used with polynucleotide-linked intermediate\
-      \ modifications. Generating Enzyme: DNA glycosylase (EC 3.2.2.-)."
-    synonyms:
-    - (2S)-2-[(3R,4R)-3,4-dihydroxy-5-(phosphonooxy)pentylidene]amino-3-methylbutanoic
-      acid
-    - DNA glycosylase valine Schiff base intermediate
-    identifiers:
-    - ns: mod
-      id: MOD:01665
-    structure: O=C[C@H](C(C)C)[NH2+]CC[C@@H]([C@@H](COP(O)O)O)O
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    monomer_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    left_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: N
-      charge: -1
-      position: 8
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      charge: 1
-      position: 8
-    - molecule: Monomer
-      element: H
-      position: 8
   AA0269:
     id: AA0269
     name: L-cysteine persulfide
@@ -9772,52 +9644,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-  AA0533:
-    id: AA0533
-    name: N-methyl-L-serine
-    comments: 'Polypeptides with monomethylated amino terminals can undergo premature
-      cleavage during the coupling step of an Edman degradation. This can result in
-      "preview" with both a residue and the following residue being seen from the
-      first step on through a sequence. Generating Enzyme: N-terminal RCC1 methyltransferase
-      (EC 2.1.1.-).'
-    synonyms:
-    - N-methylserine
-    - (2S)-3-hydroxy-2-(methylamino)propanoic acid
-    identifiers:
-    - ns: mod
-      id: MOD:01782
-    - ns: go
-      id: GO:0035570
-    - ns: cas
-      id: 2480-26-4
-    structure: C[NH2+][C@H](C=O)CO
-    base_monomers:
-    - S
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 7
-    monomer_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 7
-    left_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 7
-    right_bond_atoms:
-    - molecule: Monomer
-      element: N
-      charge: -1
-      position: 2
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      charge: 1
-      position: 2
-    - molecule: Monomer
-      element: H
-      position: 2
   AA0068:
     id: AA0068
     name: omega-N,omega-N-dimethyl-L-arginine
@@ -11063,55 +10889,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-  AA0061:
-    id: AA0061
-    name: N-methyl-L-alanine
-    comments: 'Polypeptides with monomethylated amino terminals can undergo premature
-      cleavage during the coupling step of an Edman degradation. This can result in
-      "preview" with both a residue and the following residue being seen from the
-      first step on through a sequence. Generating Enzyme: N-terminal RCC1 methyltransferase
-      (EC 2.1.1.-).'
-    synonyms:
-    - N-methylalanine
-    - 2-methylazanylpropanoic acid
-    - (2S)-2-methylaminopropanoic acid
-    identifiers:
-    - ns: pdb.ligand
-      id: MAA
-    - ns: chebi
-      id: CHEBI:61922
-    - ns: cas
-      id: 3913-67-5
-    - ns: mod
-      id: MOD:00070
-    - ns: go
-      id: GO:0018011
-    structure: C[C@H]([NH2+]C)C=O
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 8
-    monomer_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 8
-    left_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 8
-    right_bond_atoms:
-    - molecule: Monomer
-      element: N
-      charge: -1
-      position: 4
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      charge: 1
-      position: 4
-    - molecule: Monomer
-      element: H
-      position: 4
   AA0548:
     id: AA0548
     name: S-(2-aminovinyl)-L-cysteine
@@ -11957,42 +11734,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-  AA0275:
-    id: AA0275
-    name: N-pyruvic acid 2-iminyl-L-valine
-    synonyms:
-    - (S)-2-(1-carboxy-2-methylpropanimino)propanoic acid
-    identifiers:
-    - ns: go
-      id: GO:0018388
-    - ns: mod
-      id: MOD:00280
-    structure: O=C[C@H](C(C)C)[NH2+][C@H](C(=O)[O-])C
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    monomer_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    left_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: N
-      charge: -1
-      position: 8
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      charge: 1
-      position: 8
-    - molecule: Monomer
-      element: H
-      position: 8
   AA0178:
     id: AA0178
     name: L-thyroxine
@@ -12372,62 +12113,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 20
-  AA0063:
-    id: AA0063
-    name: N-methylglycine
-    comments: 'Sarcosine occurs internally in some nonencoded peptides. It has been
-      observed as a minor post-translational modification arising from the incomplete
-      trimethylation of N-terminal glycine.  See RESID:AA0619 and RESID:AA0620. Polypeptides
-      with monomethylated amino terminals can undergo premature cleavage during the
-      coupling step of an Edman degradation. This can result in "preview" with both
-      a residue and the following residue being seen from the first step on through
-      a sequence. It is not clear whether "N-terminal methyltransferase" defined in
-      EC 2.1.1.244 is intended to exclude an enzyme activity that methylates N-terminal
-      glycine, or whether there are distinguishable enzyme activities. Generating
-      Enzyme: protein N-terminal methyltransferase (EC 2.1.1.244).'
-    synonyms:
-    - methylaminoethanoic acid
-    - methylaminoacetic acid
-    - L-sarcosine
-    identifiers:
-    - ns: chebi
-      id: CHEBI:15611
-    - ns: pdb.ligand
-      id: SAR
-    - ns: cas
-      id: 107-97-1
-    - ns: mod
-      id: MOD:00072
-    - ns: go
-      id: GO:0018013
-    structure: C[NH2+]CC=O
-    base_monomers:
-    - G
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 6
-    monomer_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 6
-    left_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 6
-    right_bond_atoms:
-    - molecule: Monomer
-      element: N
-      charge: -1
-      position: 2
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      charge: 1
-      position: 2
-    - molecule: Monomer
-      element: H
-      position: 2
   AA0519:
     id: AA0519
     name: O-(ADP-ribosyl)-L-threonine
@@ -12607,56 +12292,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-  AA0065:
-    id: AA0065
-    name: N-methyl-L-phenylalanine
-    comments: 'Polypeptides with monomethylated amino terminals can undergo premature
-      cleavage during the coupling step of an Edman degradation. This can result in
-      "preview" with both a residue and the following residue being seen from the
-      first step on through a sequence. Generating Enzyme: prepilin peptidase (EC
-      3.4.23.43).'
-    synonyms:
-    - N-methylphenylalanine
-    - (2S)-2-methylamino-3-phenylpropanoic acid
-    identifiers:
-    - ns: pdb.ligand
-      id: MEA
-    - ns: cas
-      id: 2566-30-5
-    - ns: chebi
-      id: CHEBI:61884
-    - ns: mod
-      id: MOD:00074
-    - ns: go
-      id: GO:0018015
-    structure: O=C[C@H](Cc1ccccc1)[NH2+]C
-    base_monomers:
-    - F
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    monomer_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    left_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: N
-      charge: -1
-      position: 12
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      charge: 1
-      position: 12
-    - molecule: Monomer
-      element: H
-      position: 12
   AA0144:
     id: AA0144
     name: 3'-(8alpha-FAD)-L-histidine

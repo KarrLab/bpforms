@@ -91,10 +91,15 @@ class GetPropertiesController(cement.Controller):
                 structure = form.get_structure()
             else:
                 structure = form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
-                formula = OpenBabelUtils.get_formula(structure)
-                mol_wt = formula.get_molecular_weight()
-                charge = structure.GetTotalCharge()
-            smiles = OpenBabelUtils.export(structure, 'smiles')
+                if structure is not None:
+                    formula = OpenBabelUtils.get_formula(structure)
+                    mol_wt = formula.get_molecular_weight()
+                    charge = structure.GetTotalCharge()
+            
+            if structure is None:
+                smiles = None
+            else:
+                smiles = OpenBabelUtils.export(structure, 'smiles')
         except Exception:
             pass
 
