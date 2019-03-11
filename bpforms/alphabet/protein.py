@@ -207,7 +207,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         conv.SetOptions('c', conv.OUTOPTIONS)
         smiles = conv.WriteString(pdb_mol).partition('\t')[0]
         if ph is not None:
-            smiles = get_major_micro_species(smiles, 'smiles', ph, major_tautomer=major_tautomer)
+            smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
         smiles_mol = openbabel.OBMol()
         assert conv.SetInFormat('smi')
         conv.ReadString(smiles_mol, smiles)

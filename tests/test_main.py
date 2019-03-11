@@ -102,6 +102,22 @@ class CliTestCase(unittest.TestCase):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             with __main__.App(argv=['get-properties', 'canonical_dna', 'ACGT', '--ph', '7.0']) as app:
                 # run app
+                app.run()
+
+                # test that the CLI produced the correct output
+                text = captured.stdout.get_text()
+                self.assertIn('Length: 4', text)
+                self.assertIn('Structure: ' + (
+                    'Cc1cn(C2CC(O)C(COP(=O)([O-])OC3CC(OC3COP(=O)([O-])OC3CC(OC3COP(=O)([O-])'
+                    'OC3CC(OC3COP(=O)([O-])[O-])n3cnc4c(N)ncnc34)n3ccc(N)nc3=O)n3cnc4c3nc(N)[nH]'
+                    'c4=O)O2)c(=O)[nH]c1=O'), text)
+                self.assertIn('Formula: C39', text)
+                self.assertIn('Molecular weight: 1248.772047992', text)
+                self.assertIn('Charge: -5', text)
+
+        with capturer.CaptureOutput(merged=False, relay=False) as captured:
+            with __main__.App(argv=['get-properties', 'canonical_dna', 'ACGT', '--ph', '7.0']) as app:
+                # run app
                 with mock.patch.object(bpforms.BpForm, 'export', side_effect=Exception('error')):
                     app.run()
 
@@ -109,9 +125,9 @@ class CliTestCase(unittest.TestCase):
                 text = captured.stdout.get_text()
                 self.assertIn('Length: 4', text)
                 self.assertIn('Structure: None', text)
-                self.assertIn('Formula: C39', text)
-                self.assertIn('Molecular weight: ', text)
-                self.assertIn('Charge: -', text)
+                self.assertIn('Formula: None', text)
+                self.assertIn('Molecular weight: None', text)
+                self.assertIn('Charge: None', text)
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             with __main__.App(argv=['get-properties', 'canonical_dna', 'ACGT', '--circular']) as app:
@@ -141,8 +157,7 @@ class CliTestCase(unittest.TestCase):
                 app.run()
 
                 # test that the CLI produced the correct output
-                self.assertEqual(captured.stdout.get_text(), '[id: "dI" | structure: "{0}"][id: "dI" | structure: "{0}"]'.format(
-                    dI_smiles_ph_14))
+                self.assertEqual(captured.stdout.get_text(), 'OC1CCOC1COP(=O)([O-])OC1CCOC1COP(=O)([O-])[O-]')
 
         with self.assertRaises(SystemExit):
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna', 'ACGT[', '7.']) as app:

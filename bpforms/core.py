@@ -720,7 +720,8 @@ class Monomer(object):
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         """
         if self.structure:
-            structure = get_major_micro_species(self.export('smi', options=('c',)), 'smiles', ph=ph, major_tautomer=major_tautomer)
+            structure = get_major_micro_species(self.export('smi', options=('c',)), 
+                'smiles', 'smiles', ph=ph, major_tautomer=major_tautomer)
             conv = openbabel.OBConversion()
             assert conv.SetInFormat('smi')
             assert conv.ReadString(self.structure, structure)
@@ -1226,7 +1227,7 @@ class Alphabet(object):
             structure = monomer.export('smi', options=('c',))
             structures.append(structure)
 
-        new_structures = get_major_micro_species(structures, 'smiles',
+        new_structures = get_major_micro_species(structures, 'smiles', 'smiles',
                                                  ph=ph, major_tautomer=major_tautomer)
 
         for monomer, new_structure in zip(monomers, new_structures):
@@ -2242,26 +2243,27 @@ class BpForm(object):
         """
         return self.monomer_seq.get_monomer_counts()
 
-    def get_major_micro_species(self, ph, major_tautomer=True):
-        """ Update to the major protonation and tautomerization state of each monomer at the pHf
+    def get_major_micro_species(self, ph, major_tautomer=False):
+        """ Get the major protonation and tautomerization state
 
         Args:
             ph (:obj:`float`): pH
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+
+        Returns:
+            :obj:`openbabel.OBMol`: major protonation and tautomerization state
         """
-        monomers = list(filter(lambda monomer: monomer.structure is not None, set(self.monomer_seq)))
+        if not self.monomer_seq:
+            return None
 
-        structures = []
-        for monomer in monomers:
-            structures.append(monomer.export('smi', options=('c',)))
-
-        new_structures = get_major_micro_species(structures, 'smiles',
-                                                 ph=ph, major_tautomer=major_tautomer)
-
-        for monomer, new_structure in zip(monomers, new_structures):
-            conv = openbabel.OBConversion()
-            assert conv.SetInFormat('smi')
-            assert conv.ReadString(monomer.structure, new_structure)
+        smiles = self.export('smiles')
+        smiles = get_major_micro_species(smiles, 'smiles', 'smiles',
+                                         ph=ph, major_tautomer=major_tautomer)
+        mol = openbabel.OBMol()
+        conv = openbabel.OBConversion()
+        assert conv.SetInFormat('smiles')
+        assert conv.ReadString(mol, smiles)
+        return mol
 
     def get_structure(self):
         """ Get an OpenBabel molecule of the structure

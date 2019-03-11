@@ -6,6 +6,7 @@
 :License: MIT
 """
 
+from wc_utils.util.chem import OpenBabelUtils
 import bpforms
 import bpforms.util
 import flask
@@ -63,7 +64,7 @@ bpforms_model = bpform_ns.model('BpForm', {
                                       title='pH',
                                       description='pH at which to calculate the major microspecies of the biopolymer form',
                                       example=7.4),
-    'major_tautomer': flask_restplus.fields.Boolean(default=True, required=False,
+    'major_tautomer': flask_restplus.fields.Boolean(default=False, required=False,
                                                     title='Calculate major tautomer',
                                                     description='If true, calculate the major tautomer',
                                                     example=True),
@@ -88,7 +89,7 @@ class Bpform(flask_restplus.Resource):
         monomer_seq = args['monomer_seq']
         circular = args.get('circular', False)
         ph = args.get('ph', float('NaN'))
-        major_tautomer = args.get('major_tautomer', True)
+        major_tautomer = args.get('major_tautomer', False)
 
         form_cls = bpforms.util.get_form(alphabet)
 
@@ -97,22 +98,34 @@ class Bpform(flask_restplus.Resource):
         except Exception as error:
             flask_restplus.abort(400, 'Unable to parse monomer sequence', errors={'monomer_seq': str(error)})
 
-        if not math.isnan(ph):
-            form.get_major_micro_species(ph, major_tautomer=major_tautomer)
-
+        smiles = None
+        formula = None
+        mol_wt = None
+        charge = None
         try:
-            structure = form.export('smiles')
+            if math.isnan(ph):
+                formula = dict(form.get_formula())
+                mol_wt = form.get_mol_wt()
+                charge = form.get_charge()
+                structure = form.get_structure()
+            else:
+                structure = form.get_major_micro_species(ph, major_tautomer=major_tautomer)
+                formula = OpenBabelUtils.get_formula(structure)
+                mol_wt = formula.get_molecular_weight()
+                formula = dict(formula)
+                charge = structure.GetTotalCharge()
+            smiles = OpenBabelUtils.export(structure, 'smiles')
         except Exception:
-            structure = None
+            pass
 
         return {
             'alphabet': alphabet,
             'monomer_seq': str(form),
             'length': len(form),
-            'structure': structure,
-            'formula': dict(form.get_formula()),
-            'mol_wt': form.get_mol_wt(),
-            'charge': form.get_charge(),
+            'structure': smiles,
+            'formula': formula,
+            'mol_wt': mol_wt,
+            'charge': charge,
         }
 
 

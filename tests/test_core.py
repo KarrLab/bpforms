@@ -10,7 +10,7 @@ from bpforms import core
 from bpforms.alphabet import dna
 from bpforms.alphabet import protein
 from bpforms.alphabet import rna
-from wc_utils.util.chem import EmpiricalFormula
+from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
 import copy
 import lark.exceptions
 import mock
@@ -1153,10 +1153,16 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() * 2 + monomer_C.get_charge() * 3 + 1 * 4)
 
     def test_get_major_micro_species(self):
-        monomer_1 = core.Monomer(id='A', structure=dAMP_smiles)
-        monomer_2 = core.Monomer(id='C', structure=dCMP_smiles)
-        bp_form = core.BpForm([monomer_1, monomer_2])
-        bp_form.get_major_micro_species(7.)
+        bp_form = dna.CanonicalDnaForm([
+            dna.canonical_dna_alphabet.monomers.A,
+            dna.canonical_dna_alphabet.monomers.C,
+            ])
+        structure = bp_form.get_major_micro_species(7.4, major_tautomer=True)
+        self.assertEqual(OpenBabelUtils.export(structure, 'smiles'), 
+            'Nc1nc(=O)n(cc1)C1CC(O)C(COP(=O)([O-])OC2CC(OC2COP(=O)([O-])[O-])n2cnc3c(N)ncnc23)O1')
+
+        bp_form = dna.DnaForm()
+        self.assertEqual(bp_form.get_major_micro_species(7.), None)
 
     def test_str(self):
         monomer_A = core.Monomer(id='A', structure=dAMP_smiles)

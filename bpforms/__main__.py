@@ -6,6 +6,7 @@
 :License: MIT
 """
 
+from wc_utils.util.chem import OpenBabelUtils
 import bpforms
 import bpforms.util
 import cement
@@ -65,8 +66,8 @@ class GetPropertiesController(cement.Controller):
             (['--circular'], dict(action='store_true', default=False, help='Biopolymer circularity')),
             (['--ph'], dict(default=None, type=float,
                             help='pH at which calculate major protonation state of each monomer')),
-            (['--not-major-tautomer'], dict(action='store_true', default=False,
-                                        help='If set, do not calculate the major tautomer')),
+            (['--major-tautomer'], dict(action='store_true', default=False,
+                                        help='If set, calculate the major tautomer')),
         ]
 
     @cement.ex(hide=True)
@@ -77,18 +78,31 @@ class GetPropertiesController(cement.Controller):
             form = type(circular=args.circular).from_str(args.monomer_seq)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
-        if args.ph is not None:
-            form.get_major_micro_species(args.ph, major_tautomer=not args.not_major_tautomer)
-        print('Length: {}'.format(len(form)))
 
+        smiles = None
+        formula = None
+        mol_wt = None
+        charge = None
         try:
-            structure = form.export('smiles')
+            if args.ph is None:
+                formula = form.get_formula()
+                mol_wt = form.get_mol_wt()
+                charge = form.get_charge()
+                structure = form.get_structure()
+            else:
+                structure = form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
+                formula = OpenBabelUtils.get_formula(structure)
+                mol_wt = formula.get_molecular_weight()
+                charge = structure.GetTotalCharge()
+            smiles = OpenBabelUtils.export(structure, 'smiles')
         except Exception:
-            structure = None
-        print('Structure: {}'.format(structure))
-        print('Formula: {}'.format(form.get_formula()))
-        print('Molecular weight: {}'.format(form.get_mol_wt()))
-        print('Charge: {}'.format(form.get_charge()))
+            pass
+
+        print('Length: {}'.format(len(form)))
+        print('Structure: {}'.format(smiles))
+        print('Formula: {}'.format(formula))
+        print('Molecular weight: {}'.format(mol_wt))
+        print('Charge: {}'.format(charge))
 
 
 class GetMajorMicroSpeciesController(cement.Controller):
@@ -104,8 +118,8 @@ class GetMajorMicroSpeciesController(cement.Controller):
             (['monomer_seq'], dict(type=str, help='Monomer sequence')),
             (['--circular'], dict(action='store_true', default=False, help='Biopolymer circularity')),
             (['ph'], dict(type=float, help='pH')),
-            (['--not-major-tautomer'], dict(action='store_true', default=False,
-                                        help='If set, do not calculate the major tautomer')),
+            (['--major-tautomer'], dict(action='store_true', default=False,
+                                        help='If set, calculate the major tautomer')),
         ]
 
     @cement.ex(hide=True)
@@ -116,8 +130,8 @@ class GetMajorMicroSpeciesController(cement.Controller):
             form = type(circular=args.circular).from_str(args.monomer_seq)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
-        form.get_major_micro_species(args.ph, major_tautomer=not args.not_major_tautomer)
-        print(str(form))
+        structure = form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
+        print(OpenBabelUtils.export(structure, 'smiles'))
 
 
 class BuildAlphabetsController(cement.Controller):
@@ -131,8 +145,8 @@ class BuildAlphabetsController(cement.Controller):
         arguments = [
             (['--ph'], dict(type=float, default=7.4,
                             help='pH at which calculate major protonation state of each monomer')),
-            (['--not-major-tautomer'], dict(action='store_true', default=False,
-                                            help='If set, do not calculate the major tautomer')),
+            (['--major-tautomer'], dict(action='store_true', default=False,
+                                        help='If set, calculate the major tautomer')),
             (['--max-monomers'], dict(type=float, default=float('inf'),
                                       help='Maximum number of monomers to build. Used for testing')),
         ]
@@ -140,7 +154,7 @@ class BuildAlphabetsController(cement.Controller):
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        bpforms.util.build_alphabets(ph=args.ph, major_tautomer=not args.not_major_tautomer, _max_monomers=args.max_monomers)
+        bpforms.util.build_alphabets(ph=args.ph, major_tautomer=args.major_tautomer, _max_monomers=args.max_monomers)
         print('Alphabets successfully built')
 
 
