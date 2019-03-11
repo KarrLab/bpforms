@@ -661,22 +661,6 @@ monomers:
       element: H
       position: 10
     base_monomers:
-    - G  
-  ADG:
-    id: 7-amido-7-deazaguanosine
-    name: 2-amino-4-oxo-7-beta-D-ribofuranosyl-4,7-dihydro-1H-pyrrolo[2,3-d]pyrimidine-5-carboxamide
-    comments: A 7-deazaguanosine ribonucleoside that has 7-carbamoyl-7-deazaguanine
-      as the nucleobase. It is present in archaeal tRNA and has also been found in
-      bacterial DNA.
-    identifiers:
-    - ns: chebi
-      id: CHEBI:131836
-    structure: NC(=O)C1=CN([C@@H]2O[C@H](CO)[C@@H](O)[C@H]2O)C2=C1C(=O)NC(N)=N2
-    monomer_bond_atoms:
-    - molecule: Monomer
-      element: N
-      position: 6
-    base_monomers:
     - G
   1mG:
     id: 1-methylguanine
