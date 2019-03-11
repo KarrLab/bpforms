@@ -11,6 +11,7 @@ from bpforms.alphabet import rna
 from bpforms.util import validate_bpform_linkages
 from wc_utils.util.chem import EmpiricalFormula
 import mock
+import openbabel
 import os.path
 import requests
 import shutil
@@ -187,3 +188,70 @@ class RnaTestCase(unittest.TestCase):
     def test_validate_linkages(self):
         validate_bpform_linkages(rna.CanonicalRnaForm)
         validate_bpform_linkages(rna.RnaForm)
+
+        for monomer in rna.CanonicalRnaForm().alphabet.monomers.values():
+            b_atom = monomer.structure.GetAtom(monomer.monomer_bond_atoms[0].position)
+            r_atom = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
+            assert self.are_atoms_valid(b_atom, r_atom)
+
+        for monomer in rna.RnaForm().alphabet.monomers.values():
+            b_atom = monomer.structure.GetAtom(monomer.monomer_bond_atoms[0].position)
+            r_atom = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
+            assert self.are_atoms_valid(b_atom, r_atom)
+
+    def are_atoms_valid(self, b_atom, r_atom):
+        assert b_atom.GetAtomicNum() == 8
+        assert b_atom.GetFormalCharge() == 0
+
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(b_atom)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(b_atom)])
+        other_atoms += [1] * (2 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        assert other_atoms == [1, 6]
+
+        # get first C
+        for other_atom in openbabel.OBAtomAtomIter(b_atom):
+            if other_atom.GetAtomicNum() == 6:
+                c_1 = other_atom
+        assert c_1.GetFormalCharge() == 0
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_1)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_1)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        assert other_atoms == [1, 1, 6, 8]
+
+        # get second C
+        for other_atom in openbabel.OBAtomAtomIter(c_1):
+            if other_atom.GetAtomicNum() == 6:
+                c_2 = other_atom
+        assert c_2.GetFormalCharge() == 0
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_2)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_2)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        assert other_atoms == [1, 6, 6, 8]
+
+        # get third C
+        for other_atom in openbabel.OBAtomAtomIter(c_2):
+            if other_atom.GetAtomicNum() == 6 and other_atom.GetIdx() != c_1.GetIdx():
+                c_3 = other_atom
+        assert c_3.GetFormalCharge() == 0
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_3)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_3)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        assert other_atoms == [1, 6, 6, 8]
+
+        # get second O
+        for other_atom in openbabel.OBAtomAtomIter(c_3):
+            if other_atom.GetAtomicNum() == 8:
+                r_atom_2 = other_atom
+        assert r_atom_2.GetFormalCharge() == 0
+        assert r_atom_2.GetIdx() == r_atom.GetIdx()
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(r_atom_2)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(r_atom_2)])
+        other_atoms += [1] * (2 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        assert other_atoms == [1, 6]
+
+        return True
