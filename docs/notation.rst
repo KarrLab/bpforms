@@ -3,20 +3,25 @@
 `BpForms` notation
 ------------------
 
-The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomers using (a) a syntax similar to FASTA and (b) extended alphabets for DNA, RNA, and proteins based on DNAmod, MODOMICS, and RESID. This enables `BpForms` to calculate the formula, molecular weight, and charge of biopolymer forms.
+The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomers using (a) a syntax similar to FASTA and (b) extended alphabets for DNA, RNA, and proteins to describe monomers. `BpForms` contains three pre-built canonical DNA, RNA and protein alphabets and three extended DNA, RNA, and protein alphabets based on DNAmod, MODOMICS, and RESID. Users can also create additional custom alphabets. These alphabets are associated with their corresponding biopolyer form, which allows `BpForms` to calculate the chemical structure (e.g. in SMILES format), chemical formula, molecular weight, and charge of a biopolymer.
 
-* Canonical monomers are indicated by their single upper case character codes.
-* Non-canonical monomers defined in the alphabets that have single-character codes are indicated by these codes.
-* Non-canonical monomers defined in the alphabets that have multiple-character codes are indicated by these codes delimited by curly brackets.
-* Non-canonical monomers that are not defined in the alphabet can be defined "inline" with multiple attributes separated by vertical pipes ("|") enclosed inside square brackets. The structures of these monomers are defined in SMILES format using the ``structure`` attribute. Additional attributes can provide metadata about monomers such as their ids and names.
+* Monomers that are present in the alphabet are indicated by a single character or multiple characters delimited by curly brackets.
+* Monomers that are not in the alphabet are defined "inline" with one or more attributes separated by vertical pipes ("|") inside square brackets.
 
-`BpForms` contains three pre-built canonical DNA, RNA and protein alphabets and three extended DNA, RNA, and protein alphabets based on DNAmod, MODOMICS, and RESID. Users can also create additional custom alphabets.
+  * All of the attributes are optional. However, the `structure` attribute is required to compute the formula, molecular weight, and charge of the biopolymer.
+  * Attributes are separated by vertical pipes ("|").
+  * Attributes and their values are separated by colons (":").
+  * White spaces are ignored.
+  * The values of the `id`, `name`, `synonym`, and `comments` attributes must be enclosed in quotes ('"').
+  * The namespace and id of each identifer must be separated by "/".
 
-Examples:
+* The positions of the monomers in the string indicate their location in the sequence, for example:
 
 * ``[id: "dI" | name: "deoxyinosine"]ACGC``: represents deoxyinosine at the first position
 * ``AC[id: "dI" | name: "deoxyinosine"]GC``: represents deoxyinosine at the third position
 * ``ACGC{6A}``: represents N6-methyladenosine at the last position
+
+Chapters 2.1.1 - 2.1.3 describe the attributes of monomers.
 
 
 Structure
@@ -29,6 +34,7 @@ The ``structure`` attribute describes the chemical structure of the monomer as a
         ]
 
 We recommend defining this attribute for each monomer. Theis attribute must be defined to calculate the structure, formula, molecular weight, and charge of the biopolymer.
+
 
 Linkages
 ^^^^^^^^
@@ -89,22 +95,6 @@ Metadata
         | comments: "A purine 2'-deoxyribonucleoside that is inosine in which the
                      hydroxy group at position 2' is replaced by a hydrogen."
         ]
-
-
-Syntax
-^^^^^^
-
-* Monomers that are in the alphabet are indicated by a single character or multiple characters delimiated by curly brackets.
-* Monomers that are not in the alphabet are defined "inline" with one or more attributes separated by vertical pipes ("|") inside square brackets.
-
-  * All of the attributes are optional. However, the `structure` attribute is required to compute the formula, molecular weight, and charge of the biopolymer.
-  * Attributes are separated by vertical pipes ("|").
-  * Attributes and their values are separated by colons (":").
-  * White spaces are ignored.
-  * The values of the `id`, `name`, `synonym`, and `comments` attributes must be enclosed in quotes ('"').
-  * The namespace and id of each identifer must be separated by "/".
-
-* The positions of the monomers in the string indicate their location in the sequence.
 
 
 Grammar
