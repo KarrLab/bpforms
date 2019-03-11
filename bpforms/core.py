@@ -6,6 +6,7 @@
 :License: MIT
 """
 
+from .config import get_config
 from ruamel import yaml
 from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_molecule, OpenBabelUtils
 import abc
@@ -18,6 +19,9 @@ import re
 import subprocess
 import time
 import urllib.parse
+import warnings
+
+config = get_config()['bpforms']
 
 
 class Identifier(object):
@@ -2281,6 +2285,10 @@ class BpForm(object):
         """
         if not self.monomer_seq:
             return None
+        if len(self) > config['max_len_get_major_micro_species']:
+            warnings.warn('Cannot calculate the major microspecies of BpForm with length {} > {}'.format(
+                len(self), config['max_len_get_major_micro_species']), BpFormsWarning)
+            return None
 
         smiles = self.export('smiles')
         smiles = get_major_micro_species(smiles, 'smiles', 'smiles',
@@ -2297,6 +2305,14 @@ class BpForm(object):
         Returns:
             :obj:`openbabel.OBMol`: OpenBabel molecule of the structure
         """
+        if not self.monomer_seq:
+            return None
+
+        if len(self) > config['max_len_get_structure']:
+            warnings.warn('Cannot calculate the structure of BpForm with length {} > {}'.format(
+                len(self), config['max_len_get_structure']), BpFormsWarning)
+            return None
+
         mol = openbabel.OBMol()
         n_atom = 0
 
@@ -2447,9 +2463,11 @@ class BpForm(object):
         Returns:
             :obj:`str`: format representation of structure
         """
-        if self.monomer_seq:
-            return OpenBabelUtils.export(self.get_structure(), format, options=options)
-        return None
+        structure = self.get_structure()
+        if structure is None:
+            return None
+        else:
+            return OpenBabelUtils.export(structure, format, options=options)
 
     def get_formula(self):
         """ Get the chemical formula
@@ -2879,6 +2897,9 @@ class BpFormFeatureSet(set):
             else:
                 self.add(o)
 
+class BpFormsWarning(UserWarning):
+    """ BpForms warning """
+    pass
 
 def get_hydrogen_atom(parent_atom, selected_hydrogens):
     """ Get a hydrogen atom attached to a parent atom

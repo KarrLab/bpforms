@@ -7,7 +7,8 @@
 """
 
 from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone,
-                          Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet)
+                          Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet,
+                          BpFormsWarning)
 from wc_utils.util.chem import EmpiricalFormula
 import bs4
 import csv
@@ -130,7 +131,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             identifiers.update(more_identifiers)
 
             if chars in alphabet.monomers:
-                warnings.warn('Ignoring canonical monomer {}'.format(chars), UserWarning)
+                warnings.warn('Ignoring canonical monomer {}'.format(chars), BpFormsWarning)
                 monomer_short_names[short_name] = alphabet.monomers[chars]
                 continue
 
@@ -151,7 +152,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         if invalid_nucleosides:
             warnings.warn('The following compounds were ignored because they do not appear to be nucleosides:\n- {}'.format(
-                '\n- '.join(invalid_nucleosides)), UserWarning)
+                '\n- '.join(invalid_nucleosides)), BpFormsWarning)
 
         for short_name, monomer in monomer_short_names.items():
             base_monomer = monomer_short_names.get(base_monomer_short_names.get(short_name, None), None)

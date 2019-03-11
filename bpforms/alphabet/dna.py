@@ -7,7 +7,8 @@
 """
 
 from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm,
-                          Backbone, Bond, Atom, Identifier, IdentifierSet, SynonymSet)
+                          Backbone, Bond, Atom, Identifier, IdentifierSet, SynonymSet,
+                          BpFormsWarning)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from wc_utils.util.chem import EmpiricalFormula
@@ -221,7 +222,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                     monomer.base_monomers.add(base_monomer)
 
         warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
-            '\n- '.join(invalid_nucleobases)), UserWarning)
+            '\n- '.join(invalid_nucleobases)), BpFormsWarning)
 
         # get major microspecies for each monomer
         self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer)

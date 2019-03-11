@@ -1,6 +1,7 @@
 attrdict
 beautifulsoup4
 cement >= 3.0.0
+configobj
 lark_parser >= 0.6.6
 openbabel
 requests
@@ -8,4 +9,4 @@ requests_cache
 ruamel.yaml >= 0.15
 setuptools
 sqlalchemy
-git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils-0.0.3
+git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils-0.0.4 >= 0.0.4

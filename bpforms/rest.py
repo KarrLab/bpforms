@@ -110,11 +110,15 @@ class Bpform(flask_restplus.Resource):
                 structure = form.get_structure()
             else:
                 structure = form.get_major_micro_species(ph, major_tautomer=major_tautomer)
-                formula = OpenBabelUtils.get_formula(structure)
-                mol_wt = formula.get_molecular_weight()
-                formula = dict(formula)
-                charge = structure.GetTotalCharge()
-            smiles = OpenBabelUtils.export(structure, 'smiles')
+                if structure is not None:
+                    formula = OpenBabelUtils.get_formula(structure)
+                    mol_wt = formula.get_molecular_weight()
+                    formula = dict(formula)
+                    charge = structure.GetTotalCharge()
+            if structure is None:
+                smiles = None
+            else:
+                smiles = OpenBabelUtils.export(structure, 'smiles')
         except Exception:
             pass
 

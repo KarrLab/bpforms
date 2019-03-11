@@ -7,7 +7,8 @@
 """
 
 from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone,
-                          Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet)
+                          Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet,
+                          BpFormsWarning)
 from bs4 import BeautifulSoup
 from ftplib import FTP
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils, get_major_micro_species
@@ -125,7 +126,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
             result = self.get_monomer_structure(name, file, ph=ph, major_tautomer=major_tautomer)
             if result is None:
-                warnings.warn('Ignoring monomer {} that has no structure'.format(id), UserWarning)
+                warnings.warn('Ignoring monomer {} that has no structure'.format(id), BpFormsWarning)
                 continue
             structure, index_n, index_c = result
 
@@ -143,7 +144,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 canonical_aa.right_bond_atoms[0].position = index_n
                 canonical_aa.right_displaced_atoms[0].position = index_n
                 canonical_aa.right_displaced_atoms[1].position = index_n
-                warnings.warn('Updated canonical monomer {}'.format(name), UserWarning)
+                warnings.warn('Updated canonical monomer {}'.format(name), BpFormsWarning)
                 continue
 
             monomer = Monomer(
@@ -169,7 +170,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             for base_monomer_id in base_monomer_ids:
                 base_monomer = monomer_ids.get(base_monomer_id, None)
                 if base_monomer == None:
-                    warnings.warn('Base {} for {} is invalid'.format(base_monomer_id, monomer.id), UserWarning)
+                    warnings.warn('Base {} for {} is invalid'.format(base_monomer_id, monomer.id), BpFormsWarning)
                 else:
                     monomer.base_monomers.add(base_monomer)
 
@@ -200,7 +201,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         inchi = conv.WriteString(pdb_mol)
         formula = inchi.split('/')[1]
         if '.' in formula:
-            warnings.warn('Ignoring metal coordinated monomer {}'.format(name), UserWarning)
+            warnings.warn('Ignoring metal coordinated monomer {}'.format(name), BpFormsWarning)
             return None
 
         assert conv.SetOutFormat('smi')
@@ -235,10 +236,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     termini.append((atom_n, atom_c))
 
         if not termini:
-            warnings.warn('Ignoring monomer {} without N- and C-termini'.format(name), UserWarning)
+            warnings.warn('Ignoring monomer {} without N- and C-termini'.format(name), BpFormsWarning)
             return None
         if len(termini) > 1:
-            warnings.warn('Ignoring monomer {} with multiple N- and C-termini'.format(name), UserWarning)
+            warnings.warn('Ignoring monomer {} with multiple N- and C-termini'.format(name), BpFormsWarning)
             return None
         atom_n, atom_c = termini[0]
 

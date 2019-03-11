@@ -4,6 +4,7 @@ import pkg_resources
 with open(pkg_resources.resource_filename('bpforms', 'VERSION'), 'r') as file:
     __version__ = file.read().strip()
 
+from . import config
 from .core import (Identifier, IdentifierSet, SynonymSet, Monomer, MonomerSequence, MonomerDict, Backbone, Bond, Atom,
                    Alphabet, AlphabetBuilder, BpForm)
 from . import alphabet
