@@ -7136,6 +7136,55 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
+  AA0171:
+    id: AA0171
+    name: S-sulfo-L-cysteine
+    synonyms:
+    - cysteine-S-sulfonic acid
+    - cysteine sulfate thioester
+    - (2R)-2-amino-3-(sulfosulfanyl)propanoic acid
+    - 3-(sulfosulfanyl)-L-alanine
+    - 2-amino-3-(sulfothio)propanoic acid
+    - S-sulfocysteine
+    identifiers:
+    - ns: pdb.ligand
+      id: CSU
+    - ns: chebi
+      id: CHEBI:27891
+    - ns: go
+      id: GO:0018248
+    - ns: cas
+      id: 1637-71-4
+    - ns: mod
+      id: MOD:00180
+    structure: O=C[C@H](CS#S([O-])([O-])[O-])[NH3+]
+    base_monomers:
+    - C
+    monomer_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 2
+    monomer_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 2
+    left_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 2
+    right_bond_atoms:
+    - molecule: Monomer
+      element: N
+      charge: -1
+      position: 11
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      charge: 1
+      position: 11
+    - molecule: Monomer
+      element: H
+      position: 11
   AA0211:
     id: AA0211
     name: N6-formyl-L-lysine
