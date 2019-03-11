@@ -104,7 +104,7 @@
 
         <div class="large-6 cell">
           <h3>Overview</h3>
-          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined monomers delimited by curly brackets and (b) user-defined monomers described in square brackets by one or more attributes separated by "|". The <tt>structure</tt> attribute is required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
+          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined monomers delimited by curly brackets and (b) user-defined monomers described in square brackets by one or more attributes separated by "|". The <tt>structure</tt>, <tt>monomer-bond-atom</tt>, <tt>monomer-displaced-atom</tt>, <tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom<tt>, and <tt>right-displaced-atom</tt> attributes are required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
           <p style="margin-bottom: 0px;"><i>BpForms</i> has several pre-built alphabets.</p>
           <ul id="alphabet_descriptions">          
           </ul>
@@ -119,8 +119,18 @@
         </div>
 
         <div class="large-6 cell">
-          <h3>The structures of monomers</h3>
-          The <tt>structure</tt> attribute describes the chemical structure of the inline monomer. This attribute is a SMILES-encoded string. Each monomer can only have one structure. The <tt>monomer-bond-atom</tt>, <tt>monomer-displaced-atom</tt>, <tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, and <tt>right-displaced-atom</tt> attributes describe the linkages between the monomer and the backbone and between successive monomers. Each monomer can have multiple bonds and multiple displaced atoms. These attributes are required to calculate the structure of the BpForm.
+          <h3>Structures of monomers</h3>
+          The <tt>structure</tt> attribute describes the chemical structure of the inline monomer. This attribute is a SMILES-encoded string. Each monomer can only have one structure. This attribute is required to calculate the structure of the BpForm.
+        </div>
+        <div class="large-6 cell">
+          <h3>Examples</h3>
+          <tt>[id: "dI" 
+            | structure: "O=C1NC=NC2=C1N=CN2"
+          ]</tt>
+        </div>
+
+        <h3>Linksages between monomers</h3>
+          The <tt>monomer-bond-atom</tt>, <tt>monomer-displaced-atom</tt>, <tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom<tt>, and <tt>right-displaced-atom</tt> attributes describe the linkages between monomers and their backbone and between successive monomers. Each monomer can have multiple bonds and multiple displaced atoms. These attributes are required to calculate the structure of the BpForm.
         </div>
         <div class="large-6 cell">
           <h3>Examples</h3>

@@ -28,6 +28,11 @@ The ``structure`` attribute describes the chemical structure of the monomer as a
         structure: "O=C1NC=NC2=C1N=CN2"
         ]
 
+We recommend defining this attribute for each monomer. Theis attribute must be defined to calculate the structure, formula, molecular weight, and charge of the biopolymer.
+
+Linkages
+^^^^^^^^
+
 The ``monomer-bond-atom``, ``monomer-displaced-atom``, ``left-bond-atom``, ``left-displaced-atom``, ``right-bond-atom``, and ``right-displaced-atom`` attributes describe the linkages between the monomer and the backbone and between successive monomers::
 
     [id: "dI" |
