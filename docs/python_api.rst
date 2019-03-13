@@ -55,7 +55,7 @@ Optionally, `BpForms` can track the monomers that are generated from a monomer (
 Protonation and tautomerization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Calculate the major protation and tautomerization state of each monomer in the biopolymer form::
+Calculate the major protonation and tautomerization state of each monomer in the biopolymer form::
 
     dna_form.get_major_micro_species(8., major_tautomer=True)
 
