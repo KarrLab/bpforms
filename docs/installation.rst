@@ -21,12 +21,14 @@ To use ChemAxon Marvin to calculate major protonation and tautomerization states
 
 Latest release From PyPI
 ---------------------------
-Run the following command to install the latest release from PyPI. For most environments, the ``--process-dependency-links`` option is needed to install some of the dependencies from GitHub::
+Run the following command to install the latest release from PyPI.::
 
-    pip install --process-dependency-links bpforms[all]
+    pip install bpforms[all]
 
 Latest revision from GitHub
 ---------------------------
-Run the following command to install the latest version from GitHub. For most environments, the ``--process-dependency-links`` option is needed to install some of the dependencies from GitHub::
+Run the following command to install the latest version from GitHub.::
 
-    pip install --process-dependency-links git+git://github.com/KarrLab/bpforms.git#egg=bpforms[all]
+    pip install git+https://github.com/KarrLab/log.git#egg=log
+    pip install git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils[all]
+    pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms[all]

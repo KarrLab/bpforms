@@ -9,4 +9,4 @@ requests_cache
 ruamel.yaml >= 0.15
 setuptools
 sqlalchemy
-git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils-0.0.4 >= 0.0.4
+wc_utils >= 0.0.5
