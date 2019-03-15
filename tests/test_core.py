@@ -553,6 +553,34 @@ class MonomerTestCase(unittest.TestCase):
 
         self.assertEqual(core.Monomer().get_image(), None)
 
+    def test_get_fasta(self):
+        alphabet = core.Alphabet()
+        alphabet.monomers.A = core.Monomer()
+        alphabet.monomers.C = core.Monomer()
+        alphabet.monomers.G = core.Monomer()
+        alphabet.monomers.T = core.Monomer()
+        alphabet.monomers.m2A = core.Monomer(base_monomers=[alphabet.monomers.A])
+        alphabet.monomers.m22A = core.Monomer(base_monomers=[alphabet.monomers.m2A])
+        alphabet.monomers.m222A = core.Monomer(base_monomers=[alphabet.monomers.m22A])
+        alphabet.monomers.m2222A = core.Monomer(base_monomers=[alphabet.monomers.A, alphabet.monomers.m222A])
+        alphabet.monomers.m2222C = core.Monomer(base_monomers=[alphabet.monomers.C, alphabet.monomers.m222A])
+
+        monomer_codes = {monomer: code for code, monomer in alphabet.monomers.items()}
+
+        self.assertEqual(alphabet.monomers.A.get_fasta(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.C.get_fasta(monomer_codes), 'C')
+        self.assertEqual(alphabet.monomers.G.get_fasta(monomer_codes), 'G')
+        self.assertEqual(alphabet.monomers.T.get_fasta(monomer_codes), 'T')
+        self.assertEqual(alphabet.monomers.m2A.get_fasta(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.m22A.get_fasta(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.m222A.get_fasta(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.m2222A.get_fasta(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.m2222C.get_fasta(monomer_codes), '?')
+        self.assertEqual(alphabet.monomers.m2222C.get_fasta(monomer_codes, default_code='X'), 'X')
+
+        self.assertEqual(core.Monomer().get_fasta(monomer_codes), '?')
+        self.assertEqual(core.Monomer().get_fasta(monomer_codes, default_code='X'), 'X')
+
 
 class MonomerSequenceTestCase(unittest.TestCase):
     def test_init(self):

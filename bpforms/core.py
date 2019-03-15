@@ -992,6 +992,25 @@ class Monomer(object):
 
         return '[' + ' | '.join(els) + ']'
 
+    def get_fasta(self, monomer_codes, default_code='?'):
+        """ Get FASTA representation of a monomer using the character code
+        of its parent monomer (e.g. methyl-2-adenosine is represented by 'A')
+
+        Args:
+            monomer_codes (:obj:`dict`): dictionary that maps monomers to codes
+            default_code (:obj:`str`): default code
+
+        Returns:
+            :obj:`str`: FASTA representation of monomer
+        """
+        roots = self.get_root_monomers()
+        root_codes = list(set(monomer_codes.get(root, default_code) for root in roots))
+
+        if len(root_codes) == 1:
+            return root_codes[0]
+        else:
+            return default_code
+
     def is_equal(self, other):
         """ Check if two monomers are semantically equal
 
@@ -2684,24 +2703,18 @@ class BpForm(object):
         return parse_tree_transformer.transform(tree)
 
     def get_fasta(self):
-        """ Get FASTA representation of a monomer with bases represented by the character codes
+        """ Get FASTA representation of a polymer with bases represented by the character codes
         of their parent monomers (e.g. methyl-2-adenosine is represented by 'A')
 
         Returns:
-            :obj:`str`: FASTA representation of a monomer
+            :obj:`str`: FASTA representation of a polymer
         """
 
         monomer_codes = {monomer: code for code, monomer in self.alphabet.monomers.items()}
 
         seq = ''
         for monomer in self.monomer_seq:
-            root_monomers = monomer.get_root_monomers()
-            root_monomers_codes = list(set(monomer_codes[root_monomer] for root_monomer in root_monomers))
-
-            if len(root_monomers_codes) == 1:
-                seq += root_monomers_codes[0]
-            else:
-                seq += self.DEFAULT_FASTA_CODE
+            seq += monomer.get_fasta(default_code=self.DEFAULT_FASTA_CODE, monomer_codes=monomer_codes)
 
         return seq
 
