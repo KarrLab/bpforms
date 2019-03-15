@@ -512,7 +512,7 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:78235
-    structure: ON=C1[NH+]=CNC2=C1N=CN2
+    structure: O\N=C1\[NH+]=CNC2=C1N=CN2
     monomer_bond_atoms:
     - molecule: Monomer
       element: N
