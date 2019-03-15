@@ -25,7 +25,7 @@ set_properties = function(data, status, jqXHR){
     }
 
     if (data['warnings'] != null) {
-        warnings = 'Warning: ' + data['warnings'] + ' Please download <i>BpForms</i> to calculate properties of longer biopolymers.'
+        warnings = 'Warning: ' + data['warnings'] + '. Please download <i>BpForms</i> to calculate properties of longer biopolymers.'
         $("#warnings").html(warnings)
         $("#warnings").css('padding-bottom', '16px')
     } else {
@@ -51,7 +51,10 @@ set_properties = function(data, status, jqXHR){
                 warnings += ' Visualizations are limited to polymers with length <= 20.'
                 warnings += ' Please download <i>BpForms</i> to calculate properties of longer biopolymers.'
             } else {
-                warnings += ' Visualizations are limited to polymers with length <= 20.'
+                warnings = 'Warning: ' 
+                    + data['warnings'] 
+                    + '. Visualizations are limited to polymers with length <= 20'
+                    + '. Please download <i>BpForms</i> to calculate properties of longer biopolymers.'                
             }
             $("#warnings").html(warnings)
             $("#warnings").css('padding-bottom', '16px')
