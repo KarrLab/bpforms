@@ -74,6 +74,9 @@ Please see the [documentation](https://docs.karrlab.org/bpforms). An [interactiv
 ## License
 The package is released under the [MIT license](LICENSE).
 
+## Citing BpForms
+Lang PF, Chebaro Y & Jonathan R. Karr. BpForms: a toolkit for concretely describing modified DNA, RNA and proteins. arXiv:1903.10042. [:link:](https://arxiv.org/abs/1903.10042)
+
 ## Development team
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York, USA.
 

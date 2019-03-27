@@ -21,6 +21,15 @@ This package was developed by the `Karr Lab <https://www.karrlab.org/>`_ at the 
 * `Paul Lang <http://www.dtc.ox.ac.uk/people/17/langp/>`_
 
 ----------------------
+Citing BpForms
+----------------------
+Lang PF, Chebaro Y & Jonathan R. Karr. BpForms: a toolkit for concretely describing modified DNA, RNA and proteins. arXiv:1903.10042. |citation_link|
+
+.. |citation_link| raw:: html
+
+   <a href="https://arxiv.org/abs/1903.10042"><i class="fa fa-link"></i></a>
+
+----------------------
 Acknowledgements
 ----------------------
 
