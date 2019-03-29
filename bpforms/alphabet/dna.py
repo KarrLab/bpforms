@@ -126,7 +126,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         alphabet.id = 'dna'
         alphabet.name = 'DNAmod DNA nucleobases'
         alphabet.description = ('The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
-                                '<a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>')
+                                '<a href="https://dnamod.hoffmanlab.org">DNAmod</a>')
 
         # get individual nucleobases and create monomers
         session = self.load_session()

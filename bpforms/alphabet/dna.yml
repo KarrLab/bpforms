@@ -1,7 +1,7 @@
 id: dna
 name: DNAmod DNA nucleobases
 description: The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases
-  in <a href="https://dnamod.hoffmanlab.org/modifications">DNAmod</a>
+  in <a href="https://dnamod.hoffmanlab.org">DNAmod</a>
 monomers:
   A:
     id: adenine
