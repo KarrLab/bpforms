@@ -55,3 +55,7 @@ textarea { height: 100px; }
 .alphabet .synonyms { width: 250px; max-width: 250px }
 .alphabet .identifiers { width: 219px; max-width: 219px; }
 .alphabet .structure { width: 310px; max-width: 310px; }
+
+pre {
+    font-size: 0.75rem;
+}

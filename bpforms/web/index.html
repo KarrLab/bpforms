@@ -217,6 +217,56 @@
 
       <div class="grid-x grid-padding-x green">
         <div class="large-12 cell">
+          <h2>Integrating BpForms into pathway databases, models, and <i>in silico</i> designs</h2>
+        </div>
+        <div class="large-6 cell">
+          <h3>Pathway databases (BioPAX <a href="https://www.biopax.org/"><i class="fi-link"></i></a>)</h3>
+          <p>We are exploring a recommended best practice for encoding BpForms in BioPAX.
+        </div>
+        <div class="large-6 cell">
+          <h3>Example</h3>
+          Coming soon.
+        </div>
+
+        <div class="large-6 cell">
+          <h3>Models (SBML <a href="https://sbml.org"><i class="fi-link"></i></a>)</h3>
+          <p>The <tt>annotation</tt> attribute of <tt>species</tt> can be used to describe species with BpForms.</p>
+        </div>
+        <div class="large-6 cell">
+          <h3>Example</h3>
+<pre>
+&lt;species&gt;
+    &lt;annotation&gt;
+      &lt;bpforms:bpform xmlns:bpforms="https://www.bpforms.org/ns"&gt;
+        &lt;bpforms:alphabet&gt;dna&lt;/bpforms:alphabet&gt;
+        &lt;bpforms:sequence&gt;A{m2C}GT&lt;/bpforms:sequence&gt;
+      &lt;/bpforms:BpForm&gt;
+    &lt;/annotation&gt;
+&lt;/species&gt;
+</pre>
+        </div>        
+
+        <div class="large-6 cell">
+          <h3><i>In silico</i> designs (SBOL <a href="http://sbolstandard.org/"><i class="fi-link"></i></a>)</h3>
+          <p>These encoding URIs can be used to describe components in <i>in silico</i> designs:</p>
+          <ul>
+            <li>DNA: http://edamontology.org/format_XXXX <a href="http://edamontology.org/format_XXXX"><i class="fi-link"></i></a></li>
+            <li>RNA: http://edamontology.org/format_YYYY <a href="http://edamontology.org/format_YYYY"><i class="fi-link"></i></a></li>
+            <li>Protein: http://edamontology.org/format_ZZZZ <a href="http://edamontology.org/format_ZZZZ"><i class="fi-link"></i></a></li>
+        </div>
+        <div class="large-6 cell">
+          <h3>Example</h3>
+<pre>
+&lt;sbol:Sequence&gt;
+    &lt;sbol:encoding rdf:resource="http://edamontology.org/format_XXXX"/&gt;
+    &lt;sbol:elements>A{m2C}GT&lt;/sbol:elements&gt;
+&lt;/sbol:Sequence&gt;
+</pre>
+        </div>
+      </div>
+
+      <div class="grid-x grid-padding-x purple">
+        <div class="large-12 cell">
           <h2><i>BpForm</i> interfaces</h2>
         </div>
         <div class="large-3 cell">
@@ -245,7 +295,7 @@
         </div>
       </div>
 
-      <div class="grid-x grid-padding-x purple">
+      <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
           <h2>About <i>BpForms</i></h2>
         </div>

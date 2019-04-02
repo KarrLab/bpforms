@@ -40,6 +40,7 @@ Contents
    installation.rst
    tutorial.rst
    alphabets.rst
+   integrations.rst
    resources.rst
    future.rst
    contributing.rst
