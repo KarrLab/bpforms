@@ -175,8 +175,8 @@ def validate_bpform_linkages(form_type):
 
     # validate bonds to backbone
     atom_types = [
-        ['backbone', 'parent_bond_atoms'],
-        ['backbone', 'parent_displaced_atoms'],
+        ['backbone', 'monomer_bond_atoms'],
+        ['backbone', 'monomer_displaced_atoms'],
         ['bond', 'left_bond_atoms'],
         ['bond', 'right_bond_atoms'],
         ['bond', 'left_displaced_atoms'],
