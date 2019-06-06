@@ -205,7 +205,7 @@ class SynonymSet(set):
 
 
 class Monomer(object):
-    """ A monomer in a biopolymer
+    """ A monomeric form in a biopolymer
 
     Attributes:
         id (:obj:`str`): id
@@ -215,15 +215,15 @@ class Monomer(object):
         structure (:obj:`openbabel.OBMol`): chemical structure
         delta_mass (:obj:`float`): additional mass (Dalton) relative to structure
         delta_charge (:obj:`int`): additional charge relative to structure
-        start_position (:obj:`tuple`): uncertainty in the location of the monomer
-        end_position (:obj:`tuple`): uncertainty in the location of the monomer
-        base_monomers (:obj:`set` of :obj:`Monomer`): monomers which this monomer is derived from
-        backbone_bond_atoms (:obj:`AtomList`): atoms from monomer that bond to backbone
-        backbone_displaced_atoms (:obj:`AtomList`): atoms from monomer displaced by bond to backbone
-        right_bond_atoms (:obj:`AtomList`): atoms that bond with right/suceeding/following/forward monomer
-        left_bond_atoms (:obj:`AtomList`): atoms that bond with left/preceding/previous/backward monomer
-        right_displaced_atoms (:obj:`AtomList`): atoms displaced by bond with right/suceeding/following/forward monomer
-        left_displaced_atoms (:obj:`AtomList`): atoms displaced by bond with left/preceding/previous/backward monomer
+        start_position (:obj:`tuple`): uncertainty in the location of the monomeric form
+        end_position (:obj:`tuple`): uncertainty in the location of the monomeric form
+        base_monomers (:obj:`set` of :obj:`Monomer`): monomers which this monomeric form is derived from
+        backbone_bond_atoms (:obj:`AtomList`): atoms from monomeric form that bond to backbone
+        backbone_displaced_atoms (:obj:`AtomList`): atoms from monomeric form displaced by bond to backbone
+        right_bond_atoms (:obj:`AtomList`): atoms that bond with right/suceeding/following/forward monomeric form
+        left_bond_atoms (:obj:`AtomList`): atoms that bond with left/preceding/previous/backward monomeric form
+        right_displaced_atoms (:obj:`AtomList`): atoms displaced by bond with right/suceeding/following/forward monomeric form
+        left_displaced_atoms (:obj:`AtomList`): atoms displaced by bond with left/preceding/previous/backward monomeric form
         comments (:obj:`str`): comments
     """
 
@@ -243,15 +243,15 @@ class Monomer(object):
             structure (:obj:`openbabel.OBMol` or :obj:`str`, optional): chemical structure
             delta_mass (:obj:`float`, optional): additional mass (Dalton) relative to structure
             delta_charge (:obj:`float`, optional): additional charge relative to structure
-            start_position (:obj:`int`, optional): uncertainty in the location of the monomer
-            end_position (:obj:`int`, optional): uncertainty in the location of the monomer
-            base_monomers (:obj:`set` of :obj:`Monomer`, optional): monomers which this monomer is derived from
-            backbone_bond_atoms (:obj:`AtomList`, optional): atoms from monomer that bond to backbone
-            backbone_displaced_atoms (:obj:`AtomList`, optional): atoms from monomer displaced by bond to backbone
-            right_bond_atoms (:obj:`AtomList`, optional): atoms that bond with right/suceeding/following/forward monomer
-            left_bond_atoms (:obj:`AtomList`, optional): atoms that bond with left/preceding/previous/backward monomer
-            right_displaced_atoms (:obj:`AtomList`, optional): atoms displaced by bond with right/suceeding/following/forward monomer
-            left_displaced_atoms (:obj:`AtomList`, optional): atoms displaced by bond with left/preceding/previous/backward monomer
+            start_position (:obj:`int`, optional): uncertainty in the location of the monomeric form
+            end_position (:obj:`int`, optional): uncertainty in the location of the monomeric form
+            base_monomers (:obj:`set` of :obj:`Monomer`, optional): monomers which this monomeric form is derived from
+            backbone_bond_atoms (:obj:`AtomList`, optional): atoms from monomeric form that bond to backbone
+            backbone_displaced_atoms (:obj:`AtomList`, optional): atoms from monomeric form displaced by bond to backbone
+            right_bond_atoms (:obj:`AtomList`, optional): atoms that bond with right/suceeding/following/forward monomeric form
+            left_bond_atoms (:obj:`AtomList`, optional): atoms that bond with left/preceding/previous/backward monomeric form
+            right_displaced_atoms (:obj:`AtomList`, optional): atoms displaced by bond with right/suceeding/following/forward monomeric form
+            left_displaced_atoms (:obj:`AtomList`, optional): atoms displaced by bond with left/preceding/previous/backward monomeric form
             comments (:obj:`str`, optional): comments
         """
         self.id = id
@@ -505,19 +505,19 @@ class Monomer(object):
 
     @property
     def base_monomers(self):
-        """ Get base monomers
+        """ Get base monomeric forms
 
         Returns:
-            :obj:`set` of :obj:`Monomer`: base monomers
+            :obj:`set` of :obj:`Monomer`: base monomeric forms
         """
         return self._base_monomers
 
     @base_monomers.setter
     def base_monomers(self, value):
-        """ Set base monomers
+        """ Set base monomeric forms
 
         Args:
-            value (:obj:`set` of :obj:`Monomer`): base monomers
+            value (:obj:`set` of :obj:`Monomer`): base monomeric forms
 
         Raises:
             :obj:`ValueError`: if value is not an instance of :obj:`set`
@@ -530,19 +530,19 @@ class Monomer(object):
 
     @property
     def backbone_bond_atoms(self):
-        """ Get the monomer bond atoms
+        """ Get the atoms from the monomeric form that bond to backbone
 
         Returns:
-            :obj:`AtomList`: monomer bond atoms
+            :obj:`AtomList`: atoms from the monomeric form that bond to backbone
         """
         return self._backbone_bond_atoms
 
     @backbone_bond_atoms.setter
     def backbone_bond_atoms(self, value):
-        """ Set the monomer bond atoms
+        """ Set the atoms from the monomeric form that bond to backbone
 
         Args:
-            value (:obj:`AtomList`): monomer bond atoms
+            value (:obj:`AtomList`): atoms from the monomeric form that bond to backbone
 
         Raises:
             :obj:`ValueError`: if `backbone_bond_atoms` is not an instance of `AtomList`
@@ -555,19 +555,19 @@ class Monomer(object):
 
     @property
     def backbone_displaced_atoms(self):
-        """ Get the monomer displaced atoms
+        """ Get the atoms from the monomeric form displaced by the bond to the backbone
 
         Returns:
-            :obj:`AtomList`: monomer displaced atoms
+            :obj:`AtomList`: atoms from the monomeric form displaced by the bond to the backbone
         """
         return self._backbone_displaced_atoms
 
     @backbone_displaced_atoms.setter
     def backbone_displaced_atoms(self, value):
-        """ Set the monomer displaced atoms
+        """ Set the atoms from the monomeric form displaced by the bond to the backbone
 
         Args:
-            value (:obj:`AtomList`): monomer displaced atoms
+            value (:obj:`AtomList`): atoms from the monomeric form displaced by the bond to the backbone
 
         Raises:
             :obj:`ValueError`: if `backbone_displaced_atoms` is not an instance of `AtomList`
@@ -702,10 +702,10 @@ class Monomer(object):
         self._comments = value
 
     def get_root_monomers(self):
-        """ Get root monomers
+        """ Get root monomeric forms
 
         Returns:
-            :obj:`set` of :obj:`Monomer`: root monomers
+            :obj:`set` of :obj:`Monomer`: root monomeric forms
         """
         if not self.base_monomers:
             return set([self])
@@ -770,8 +770,8 @@ class Monomer(object):
             bond_label (:obj:`str`, optional): label for atoms involved in bonds
             displaced_label (:obj:`str`, optional): labels for atoms displaced by bond formation
             backbone_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with backbone
-            left_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomer to left
-            right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomer to right
+            left_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to left
+            right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to right
             width (:obj:`int`, optional): width in pixels
             height (:obj:`int`, optional): height in pixels
             include_xml_header (:obj:`bool`, optional): if :obj:`True`, include XML header at the beginning of the SVG
@@ -840,13 +840,13 @@ class Monomer(object):
         return self.structure.GetTotalCharge() + (self.delta_charge or 0)
 
     def to_dict(self, alphabet=None):
-        """ Get a dictionary representation of the monomer
+        """ Get a dictionary representation of the monomeric form
 
         Args:
             alphabet (:obj:`Alphabet`, optional): alphabet
 
         Returns:
-            :obj:`dict`: dictionary representation of the monomer
+            :obj:`dict`: dictionary representation of the monomeric form
         """
         dict = {}
 
@@ -885,14 +885,14 @@ class Monomer(object):
         return dict
 
     def from_dict(self, dict, alphabet=None):
-        """ Get a dictionary representation of the monomer
+        """ Get a dictionary representation of the monomeric form
 
         Args:
-            dict (:obj:`dict`): dictionary representation of the monomer
+            dict (:obj:`dict`): dictionary representation of the monomeric form
             alphabet (:obj:`Alphabet`, optional): alphabet
 
         Returns:
-            :obj:`Monomer`: monomer
+            :obj:`Monomer`: monomeric form
         """
         self.id = None
         self.name = None
@@ -939,13 +939,13 @@ class Monomer(object):
         return self
 
     def __str__(self, alphabet=None):
-        """ Get a string representation of the monomer
+        """ Get a string representation of the monomeric form
 
         Args:
             alphabet (:obj:`Alphabet`, optional): alphabet
 
         Returns:
-            :obj:`str`: string representation of the monomer
+            :obj:`str`: string representation of the monomeric form
         """
         els = []
 
@@ -993,15 +993,15 @@ class Monomer(object):
         return '[' + ' | '.join(els) + ']'
 
     def get_fasta(self, monomer_codes, default_code='?'):
-        """ Get FASTA representation of a monomer using the character code
+        """ Get FASTA representation of a monomeric form using the character code
         of its parent monomer (e.g. methyl-2-adenosine is represented by 'A')
 
         Args:
-            monomer_codes (:obj:`dict`): dictionary that maps monomers to codes
+            monomer_codes (:obj:`dict`): dictionary that maps monomeric forms to codes
             default_code (:obj:`str`): default code
 
         Returns:
-            :obj:`str`: FASTA representation of monomer
+            :obj:`str`: FASTA representation of monomeric form
         """
         roots = self.get_root_monomers()
         root_codes = list(set(monomer_codes.get(root, default_code) for root in roots))
@@ -1012,10 +1012,10 @@ class Monomer(object):
             return default_code
 
     def is_equal(self, other):
-        """ Check if two monomers are semantically equal
+        """ Check if two monomeric forms are semantically equal
 
         Args:
-            other (:obj:`Monomer`): another monomer
+            other (:obj:`Monomer`): another monomeric form
 
         Returns:
             :obj:`bool`: :obj:`True`, if the objects have the same structure
@@ -1060,12 +1060,12 @@ class Monomer(object):
 
 
 class MonomerSequence(list):
-    """ Sequence of monomers """
+    """ Sequence of monomeric forms """
 
     def __init__(self, monomers=None):
         """
         Args:
-            monomers (:obj:iterable of :obj:`Monomer`): iterable of monomers
+            monomers (:obj:iterable of :obj:`Monomer`): iterable of monomeric forms
         """
         super(MonomerSequence, self).__init__()
         if monomers is not None:
@@ -1073,10 +1073,10 @@ class MonomerSequence(list):
                 self.append(monomer)
 
     def append(self, monomer):
-        """ Add a monomer
+        """ Add a monomeric form
 
         Args:
-            monomer (:obj:`Monomer`): monomer
+            monomer (:obj:`Monomer`): monomeric form
 
         Raises:
             :obj:`ValueError`: if the `monomer` is not an instance of `Monomer`
@@ -1086,31 +1086,31 @@ class MonomerSequence(list):
         super(MonomerSequence, self).append(monomer)
 
     def extend(self, monomers):
-        """ Add a list of monomers
+        """ Add a list of monomeric forms
 
         Args:
-            monomers (iterable of :obj:`Monomer`): iterable of monomers
+            monomers (iterable of :obj:`Monomer`): iterable of monomeric forms
         """
         for monomer in monomers:
             self.append(monomer)
 
     def insert(self, i, monomer):
-        """ Insert a monomer at a position
+        """ Insert a monomeric form at a position
 
         Args:
-            i (:obj:`int`): position to insert monomer
-            monomer (:obj:`Monomer`): monomer
+            i (:obj:`int`): position to insert monomeric form
+            monomer (:obj:`Monomer`): monomeric form
         """
         if not isinstance(monomer, Monomer):
             raise ValueError('`monomer` must be an instance of `Monomer`')
         super(MonomerSequence, self).insert(i, monomer)
 
     def __setitem__(self, slice, monomer):
-        """ Set monomer(s) at slice
+        """ Set monomeric form(s) at slice
 
         Args:
-            slice (:obj:`int` or :obj:`slice`): position(s) to set monomer
-            monomer (:obj:`Monomer` or :obj:`list` of :obj:`Monomer`): monomer or monomers
+            slice (:obj:`int` or :obj:`slice`): position(s) to set monomeric form
+            monomer (:obj:`Monomer` or :obj:`list` of :obj:`Monomer`): monomeric form(s)
         """
         if isinstance(slice, int):
             if not isinstance(monomer, Monomer):
@@ -1123,10 +1123,10 @@ class MonomerSequence(list):
         super(MonomerSequence, self).__setitem__(slice, monomer)
 
     def get_monomer_counts(self):
-        """ Get the frequency of each monomer within the sequence
+        """ Get the frequency of each monomeric form within the sequence
 
         Returns:
-            :obj:`dict`: dictionary that maps monomers to their counts
+            :obj:`dict`: dictionary that maps monomeric forms to their counts
         """
         counts = {}
         for monomer in self:
@@ -1137,13 +1137,13 @@ class MonomerSequence(list):
         return counts
 
     def is_equal(self, other):
-        """ Determine if two monomer sequences are semantically equal
+        """ Determine if two sequences of monomeric forms are semantically equal
 
         Args:
-            other (:obj:`MonomerSequence`): other monomer sequence
+            other (:obj:`MonomerSequence`): other sequence
 
         Returns:
-            :obj:`bool`: True, of the monomer sequences are semantically equal
+            :obj:`bool`: True, of the sequences are semantically equal
         """
         if self is other:
             return True
@@ -1156,14 +1156,14 @@ class MonomerSequence(list):
 
 
 class MonomerDict(attrdict.AttrDict):
-    """ Dictionary for monomers """
+    """ Dictionary for monomeric forms """
 
     def __setitem__(self, chars, monomer):
-        """ Set monomer with chars
+        """ Set monomeric form with chars
 
         Args:
-            chars (:obj:`str`): characters for monomer
-            monomer (:obj:`Monomer`): monomer
+            chars (:obj:`str`): characters for monomeric form
+            monomer (:obj:`Monomer`): monomeric form
         """
         if not re.match(r'^[^\[\]\{\}]+$', chars):
             raise ValueError(f'`chars` "{chars}" must be at least one character, excluding '
@@ -1172,13 +1172,13 @@ class MonomerDict(attrdict.AttrDict):
 
 
 class Alphabet(object):
-    """ Alphabet for monomers
+    """ Alphabet for monomeric forms
 
     Attributes:
         id (:obj:`str`): id
         name (:obj:`str`): name
         description (:obj:`str`): description
-        monomers (:obj:`dict`): monomers
+        monomers (:obj:`dict`): monomeric forms
     """
 
     def __init__(self, id=None, name=None, description=None, monomers=None):
@@ -1187,7 +1187,7 @@ class Alphabet(object):
             id (:obj:`str`, optional): id
             name (:obj:`str`, optional): name
             description (:obj:`str`, optional): description
-            monomers (:obj:`dict`, optional): monomers
+            monomers (:obj:`dict`, optional): monomeric forms
         """
         self.id = id
         self.name = name
@@ -1196,19 +1196,19 @@ class Alphabet(object):
 
     @property
     def monomers(self):
-        """ Get the monomers
+        """ Get the monomeric forms
 
         Returns:
-            :obj:`MonomerDict`: monomers
+            :obj:`MonomerDict`: monomeric forms
         """
         return self._monomers
 
     @monomers.setter
     def monomers(self, value):
-        """ Set the monomers
+        """ Set the monomeric forms
 
         Args:
-            value (:obj:`MonomerDict`): monomers
+            value (:obj:`MonomerDict`): monomeric forms
 
         Raises:
             :obj:`ValueError`: if `monomers` is not an instance of `MonomerDict`
@@ -1220,16 +1220,16 @@ class Alphabet(object):
         self._monomers = value
 
     def get_monomer_code(self, monomer):
-        """ Get the code for a monomer in the alphabet
+        """ Get the code for a monomeric form in the alphabet
 
         Args:
-            monomer (:obj:`Monomer`): monomer
+            monomer (:obj:`Monomer`): monomeric form
 
         Returns:
-            :obj:`str`: code for monomer
+            :obj:`str`: code for monomeric form
 
         Raises:
-            :obj:`ValueError`: if monomer is not in alphabet
+            :obj:`ValueError`: if monomeric form is not in alphabet
         """
         for code, alph_monomer in self.monomers.items():
             if monomer == alph_monomer:
@@ -1237,7 +1237,7 @@ class Alphabet(object):
         raise ValueError('Monomer {} is not in alphabet'.format(monomer.id))
 
     def get_major_micro_species(self, ph, major_tautomer=False):
-        """ Calculate the major protonation and tautomerization of each monomer
+        """ Calculate the major protonation and tautomerization of each monomeric form
 
         Args:
             ph (:obj:`float`): pH
@@ -1351,13 +1351,13 @@ class AlphabetBuilder(abc.ABC):
     """ Builder for alphabets
 
     Attributes:
-        _max_monomers (:obj:`float`): maximum number of monomers to build; used to limit length of tests
+        _max_monomers (:obj:`float`): maximum number of monomeric forms to build; used to limit length of tests
     """
 
     def __init__(self, _max_monomers=float('inf')):
         """
         Args:
-            _max_monomers (:obj:`float`, optional): maximum number of monomers to build; used to limit length of tests
+            _max_monomers (:obj:`float`, optional): maximum number of monomeric forms to build; used to limit length of tests
         """
         self._max_monomers = _max_monomers
 
@@ -1365,7 +1365,7 @@ class AlphabetBuilder(abc.ABC):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
-            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
             path (:obj:`str`, optional): path to save alphabet
 
@@ -1382,7 +1382,7 @@ class AlphabetBuilder(abc.ABC):
         """ Build alphabet
 
         Args:
-            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
@@ -1391,10 +1391,10 @@ class AlphabetBuilder(abc.ABC):
         pass  # pragma: no cover
 
     def get_major_micro_species(self, alphabet, ph=None, major_tautomer=False):
-        """ Get major microspecies for monomers in alphabet
+        """ Get major microspecies for monomeric forms in alphabet
 
         Args:
-            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         """
         if ph is not None:
@@ -1684,20 +1684,20 @@ class AtomList(list):
 
 
 class Backbone(object):
-    """ Backbone of a monomer
+    """ Backbone of a monomeric form
 
     Attributes:
         structure (:obj:`openbabel.OBMol`): chemical structure
-        monomer_bond_atoms (:obj:`AtomList`): atoms from backbone that bond to monomer
-        monomer_displaced_atoms (:obj:`AtomList`): atoms from backbone displaced by bond to monomer
+        monomer_bond_atoms (:obj:`AtomList`): atoms from backbone that bond to monomeric form
+        monomer_displaced_atoms (:obj:`AtomList`): atoms from backbone displaced by bond to monomeric form
     """
 
     def __init__(self, structure=None, monomer_bond_atoms=None, monomer_displaced_atoms=None):
         """
         Args:
             structure (:obj:`str` or :obj:`openbabel.OBMol`, optional): chemical structure as SMILES-encoded string or OpenBabel molecule
-            monomer_bond_atoms (:obj:`AtomList`, optional): atoms from backbone that bond to monomer
-            monomer_displaced_atoms (:obj:`AtomList`, optional): atoms from backbone displaced by bond to monomer
+            monomer_bond_atoms (:obj:`AtomList`, optional): atoms from backbone that bond to monomeric form
+            monomer_displaced_atoms (:obj:`AtomList`, optional): atoms from backbone displaced by bond to monomeric form
         """
         self.structure = structure
         self.monomer_bond_atoms = monomer_bond_atoms or AtomList()
@@ -1852,23 +1852,23 @@ class Backbone(object):
 
 
 class Bond(object):
-    """ Bond between monomers
+    """ Bond between monomeric forms
 
     Attributes:
-        left_bond_atoms (:obj:`AtomList`): atoms from left monomer that bond with right monomer
-        right_bond_atoms (:obj:`AtomList`): atoms from right monomer that bond with left monomer
-        left_displaced_atoms (:obj:`AtomList`): atoms from left monomer displaced by bond
-        right_displaced_atoms (:obj:`AtomList`): atoms from right monomer displaced by bond
+        left_bond_atoms (:obj:`AtomList`): atoms from left monomeric form that bond with right monomeric form
+        right_bond_atoms (:obj:`AtomList`): atoms from right monomeric form that bond with left monomeric form
+        left_displaced_atoms (:obj:`AtomList`): atoms from left monomeric form displaced by bond
+        right_displaced_atoms (:obj:`AtomList`): atoms from right monomeric form displaced by bond
     """
 
     def __init__(self, left_bond_atoms=None, right_bond_atoms=None,
                  left_displaced_atoms=None, right_displaced_atoms=None):
         """
         Args:
-            left_bond_atoms (:obj:`AtomList`, optional): atoms from left monomer that bond with right monomer
-            right_bond_atoms (:obj:`AtomList`, optional): atoms from right monomer that bond with left monomer
-            left_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomer displaced by bond
-            right_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomer displaced by bond
+            left_bond_atoms (:obj:`AtomList`, optional): atoms from left monomeric form that bond with right monomeric form
+            right_bond_atoms (:obj:`AtomList`, optional): atoms from right monomeric form that bond with left monomeric form
+            left_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomeric form displaced by bond
+            right_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomeric form displaced by bond
         """
         self.left_bond_atoms = left_bond_atoms or AtomList()
         self.right_bond_atoms = right_bond_atoms or AtomList()
@@ -2038,10 +2038,10 @@ class BpForm(object):
     """ Biopolymer form
 
     Attributes:
-        monomer_seq (:obj:`MonomerSequence`): monomers of the biopolymer
-        alphabet (:obj:`Alphabet`): monomer alphabet
-        backbone (:obj:`Backbone`): backbone that connects monomers
-        bond (:obj:`Bond`): bonds between (backbones of) monomers
+        monomer_seq (:obj:`MonomerSequence`): sequence of monomeric forms of the biopolymer
+        alphabet (:obj:`Alphabet`): alphabet of monomeric forms
+        backbone (:obj:`Backbone`): backbone that connects monomeric forms
+        bond (:obj:`Bond`): bonds between (backbones of) monomeric forms
         circular (:obj:`bool`): if :obj:`True`, indicates that the biopolymer is circular
         features (:obj:`BpFormFeatureSet`): set of features
 
@@ -2053,10 +2053,10 @@ class BpForm(object):
     def __init__(self, monomer_seq=None, alphabet=None, backbone=None, bond=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the biopolymer
-            alphabet (:obj:`Alphabet`, optional): monomer alphabet
-            backbone (:obj:`Backbone`, optional): backbone that connects monomers
-            bond (:obj:`Bond`, optional): bonds between (backbones of) monomers
+            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the biopolymer
+            alphabet (:obj:`Alphabet`, optional): alphabet of monomeric forms
+            backbone (:obj:`Backbone`, optional): backbone that connects monomeric forms
+            bond (:obj:`Bond`, optional): bonds between (backbones of) monomeric forms
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         if alphabet is None:
@@ -2075,19 +2075,19 @@ class BpForm(object):
 
     @property
     def monomer_seq(self):
-        """ Get the monomer sequence
+        """ Get the sequence of monomeric forms
 
         Returns:
-            :obj:`MonomerSequence`: monomer sequence
+            :obj:`MonomerSequence`: sequence of monomeric forms
         """
         return self._monomer_seq
 
     @monomer_seq.setter
     def monomer_seq(self, value):
-        """ Set the monomer sequence
+        """ Set the sequence of monomeric forms
 
         Args:
-            value (:obj:`MonomerSequence`): monomer sequence
+            value (:obj:`MonomerSequence`): sequence of monomeric forms
 
         Raises:
             :obj:`ValueError`: if `monomer_seq` is not an instance of `MonomerSequence`
@@ -2109,7 +2109,7 @@ class BpForm(object):
 
     @alphabet.setter
     def alphabet(self, value):
-        """ Set the monomer sequence
+        """ Set the sequence of monomeric forms
 
         Args:
             value (:obj:`Alphabet`): alphabet
@@ -2222,27 +2222,27 @@ class BpForm(object):
                                  and self.circular == other.circular)
 
     def __getitem__(self, slice):
-        """ Get monomer(s) at slice
+        """ Get monomeric form(s) at slice
 
         Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
 
         Returns:
-            :obj:`Monomer` or :obj:`Monomers`: monomer or monomers
+            :obj:`Monomer` or :obj:`Monomers`: monomeric form(s)
         """
         return self.monomer_seq.__getitem__(slice)
 
     def __setitem__(self, slice, monomer):
-        """ Set monomer(s) at slice
+        """ Set monomeric form(s) at slice
 
         Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
-            monomer (:obj:`Monomer` or :obj:`Monomers`): monomer or monomers
+            monomer (:obj:`Monomer` or :obj:`Monomers`): monomeric forms(s)
         """
         self.monomer_seq.__setitem__(slice, monomer)
 
     def __delitem__(self, slice):
-        """ Delete monomer(s) at slice
+        """ Delete monomeric form(s) at slice
 
         Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
@@ -2250,29 +2250,29 @@ class BpForm(object):
         self.monomer_seq.__delitem__(slice)
 
     def __iter__(self):
-        """ Get iterator over monomer sequence
+        """ Get iterator over sequence of monomeric forms
 
         Returns:
-            :obj:`iterator` of :obj:`Monomer`: iterator of monomers
+            :obj:`iterator` of :obj:`Monomer`: iterator of monomeric forms
         """
         return self.monomer_seq.__iter__()
 
     def __reversed__(self):
-        """ Get reverse iterator over monomer sequence
+        """ Get reverse iterator over sequence of monomeric forms
 
         Returns:
-            :obj:`iterator` of :obj:`Monomer`: iterator of monomers
+            :obj:`iterator` of :obj:`Monomer`: iterator of monomeric forms
         """
         return self.monomer_seq.__reversed__()
 
     def __contains__(self, monomer):
-        """ Determine if a monomer is in the form
+        """ Determine if a monomeric form is in the biopolymer form
 
         Args:
-            monomer (:obj:`Monomer`): monomer
+            monomer (:obj:`Monomer`): monomeric form
 
         Returns:
-            :obj:`bool`: true if the monomer is in the sequence
+            :obj:`bool`: true if the monomeric form is in the sequence
         """
         return self.monomer_seq.__contains__(monomer)
 
@@ -2284,11 +2284,14 @@ class BpForm(object):
         """
         return len(self.monomer_seq)
 
+    def validate(self):
+        self.monomer_seq # todo
+
     def get_monomer_counts(self):
-        """ Get the frequency of each monomer within the biopolymer
+        """ Get the frequency of each monomeric form within the biopolymer
 
         Returns:
-            :obj:`dict`: dictionary that maps monomers to their counts
+            :obj:`dict`: dictionary that maps monomeric forms to their counts
         """
         return self.monomer_seq.get_monomer_counts()
 
@@ -2404,7 +2407,7 @@ class BpForm(object):
                         else:
                             type_atoms[i_atom_el] = (atom_el[0], atom_el[2])
 
-        # bond monomers to backbones
+        # bond monomeric forms to backbones
         for monomer, subunit_atoms in zip(self.monomer_seq, atoms):
             self._bond_monomer_backbone(mol, subunit_atoms)
 
@@ -2419,11 +2422,11 @@ class BpForm(object):
         return mol
 
     def _bond_monomer_backbone(self, mol, subunit_atoms):
-        """ Bond a monomer to a backbone
+        """ Bond a monomeric form to a backbone
 
         Args:
-            mol (:obj:`openbabel.OBMol`): molecule with a monomer and backbone
-            subunit_atoms (:obj:`dict`): dictionary of atoms in monomer and backbone to bond
+            mol (:obj:`openbabel.OBMol`): molecule with a monomeric form and backbone
+            subunit_atoms (:obj:`dict`): dictionary of atoms in monomeric form and backbone to bond
         """
         for atom, atom_charge in subunit_atoms['monomer']['backbone_displaced_atoms']:
             if atom:

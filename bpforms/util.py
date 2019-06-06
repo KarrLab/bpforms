@@ -77,9 +77,9 @@ def build_alphabets(ph=None, major_tautomer=False, _max_monomers=float('inf')):
     """ Build DNA, RNA, and protein alphabets
 
     Args:
-        ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+        ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
         major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
-        _max_monomers (:obj:`float`, optional): maximum number of monomers to build; used for testing
+        _max_monomers (:obj:`float`, optional): maximum number of monomeric forms to build; used for testing
     """
     dna.DnaAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer)
     rna.RnaAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer)
@@ -87,11 +87,11 @@ def build_alphabets(ph=None, major_tautomer=False, _max_monomers=float('inf')):
 
 
 def gen_html_viz_alphabet(bpform_type, filename):
-    """ Create and save an HTML document with images of the monomers in an alphabet
+    """ Create and save an HTML document with images of the monomeric forms in an alphabet
 
     Args:
         bpform_type (:obj:`type`): subclass of :obj:`core.BpForm`
-        filename (:obj:`str`): path to save HTML document with images of monomers
+        filename (:obj:`str`): path to save HTML document with images of monomeric forms
     """
     width = 400
     height = 400
@@ -114,11 +114,11 @@ def gen_html_viz_alphabet(bpform_type, filename):
     doc += '      <thead>\n'
     doc += '        <tr>\n'
     doc += '          <th>Code</th>\n'
-    doc += '          <th>Monomer</th>\n'
+    doc += '          <th>Monomeric form</th>\n'
     doc += '          <th>Dimer</th>\n'
     doc += '          <th>SMILES</th>\n'
-    doc += '          <th>Monomer bond atoms</th>\n'
-    doc += '          <th>Monomer displaced atoms</th>\n'
+    doc += '          <th>Monomeric form bond atoms</th>\n'
+    doc += '          <th>Monomeric form displaced atoms</th>\n'
     doc += '          <th>Left bond atoms</th>\n'
     doc += '          <th>Left displaced atoms</th>\n'
     doc += '          <th>Right bond atoms</th>\n'
@@ -217,7 +217,7 @@ def validate_bpform_linkages(form_type):
             for atom_md in getattr(monomer, atom_type):
                 if atom_md.molecule == core.Monomer:
                     if atom_md.position < 1 or atom_md.position > monomer.structure.NumAtoms():
-                        errors.append('Invalid position {} for Monomer:{} {}'.format(atom_md.position, monomer.id, atom_type))
+                        errors.append('Invalid position {} for monomeric form:{} {}'.format(atom_md.position, monomer.id, atom_type))
                         continue
 
                     atom = monomer.structure.GetAtom(atom_md.position)
@@ -227,25 +227,25 @@ def validate_bpform_linkages(form_type):
                             continue
 
                     if element_table.GetSymbol(atom.GetAtomicNum()) != atom_md.element:
-                        errors.append('Invalid element {} != {} at position {} for Monomer:{} {}'.format(
+                        errors.append('Invalid element {} != {} at position {} for monomeric form:{} {}'.format(
                             element_table.GetSymbol(atom.GetAtomicNum()), atom_md.element,
                             atom_md.position, monomer.id, atom_type))
 
-    # validate monomers and dimers
+    # validate monomeric forms and dimers
     for monomer in form.alphabet.monomers.values():
         monomer_form = form_type(monomer_seq=[monomer])
         try:
             monomer_structure = monomer_form.get_structure()
             if monomer_form.get_formula() != OpenBabelUtils.get_formula(monomer_structure):
-                errors.append('Monomer of {} has incorrect formula'.format(monomer.id))
+                errors.append('Monomeric form of {} has incorrect formula'.format(monomer.id))
                 continue
             if monomer_form.get_charge() != monomer_structure.GetTotalCharge():
-                errors.append('Monomer of {} has incorrect charge'.format(monomer.id))
+                errors.append('Monomeric form of {} has incorrect charge'.format(monomer.id))
                 continue
             OpenBabelUtils.export(monomer_structure, 'smiles')
             OpenBabelUtils.export(monomer_structure, 'inchi')
         except Exception as error:
-            errors.append('Unable to form monomer of {}:\n    {}'.format(monomer.id, str(error)))
+            errors.append('Unable to create monomeric form of {}:\n    {}'.format(monomer.id, str(error)))
 
         dimer_form = form_type(monomer_seq=[monomer, monomer])
         try:

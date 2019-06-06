@@ -99,7 +99,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
-            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
             path (:obj:`str`, optional): path to save alphabet
 
@@ -112,7 +112,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         """ Build alphabet
 
         Args:
-            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
@@ -121,14 +121,14 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         # initialize alphabet
         alphabet = Alphabet()
 
-        # create canonical monomers
+        # create canonical monomeric forms
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'dna'
         alphabet.name = 'DNAmod DNA nucleobases'
         alphabet.description = ('The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
                                 '<a href="https://dnamod.hoffmanlab.org">DNAmod</a>')
 
-        # get individual nucleobases and create monomers
+        # get individual nucleobases and create monomeric forms
         session = self.load_session()
         with_smiles = session.query(self.Names).filter(self.Names.smiles != '[]')
         if not math.isinf(self._max_monomers):
@@ -224,20 +224,20 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
             '\n- '.join(invalid_nucleobases)), BpFormsWarning)
 
-        # get major microspecies for each monomer
+        # get major microspecies for each monomeric form
         self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer)
 
         # return alphabet
         return alphabet
 
     def is_nucleobase_valid(self, monomer):
-        """ Determine if monomer should be included in alphabet
+        """ Determine if monomeric form should be included in alphabet
 
         Args:
-            monomer (:obj:`Monomer`): monomer
+            monomer (:obj:`Monomer`): monomeric form
 
         Returns:
-            :obj:`bool`: :obj:`True` if monomer should be included in alphabet
+            :obj:`bool`: :obj:`True` if monomeric form should be included in alphabet
         """
         for invalid_name in self.INVALID_NAMES:
             if invalid_name in monomer.name:
@@ -257,7 +257,7 @@ class DnaForm(BpForm):
     def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
+            monomer_seq (:obj:`MonomerSequence`, optional): monomeric forms of the DNA form
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(DnaForm, self).__init__(
@@ -282,7 +282,7 @@ class CanonicalDnaForm(BpForm):
     def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
+            monomer_seq (:obj:`MonomerSequence`, optional): monomeric forms of the DNA form
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(CanonicalDnaForm, self).__init__(

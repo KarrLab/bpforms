@@ -41,7 +41,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
-            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
             path (:obj:`str`, optional): path to save alphabet
 
@@ -54,7 +54,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         """ Build alphabet
 
         Args:
-            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
@@ -63,7 +63,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         # initialize alphabet
         alphabet = Alphabet()
 
-        # create canonical monomers
+        # create canonical monomeric forms
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'rna'
         alphabet.name = 'MODOMICS RNA nucleosides'
@@ -75,7 +75,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
         session.mount('http://', requests.adapters.HTTPAdapter(max_retries=self.MAX_RETRIES))
 
-        # get originating monomers
+        # get originating monomeric forms
         ascii_response = session.get(self.INDEX_ASCII_ENDPOINT)
         ascii_response.raise_for_status()
         stream = io.StringIO(ascii_response.text)
@@ -95,7 +95,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         response = session.get(self.INDEX_ENDPOINT)
         response.raise_for_status()
 
-        # get individual nucleosides and create monomers
+        # get individual nucleosides and create monomeric forms
         doc = bs4.BeautifulSoup(response.text, 'html.parser')
         table = doc.find('table', {'class': 'datagrid'})
         tbody = table.find('tbody')
@@ -131,7 +131,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             identifiers.update(more_identifiers)
 
             if chars in alphabet.monomers:
-                warnings.warn('Ignoring canonical monomer {}'.format(chars), BpFormsWarning)
+                warnings.warn('Ignoring canonical monomeric form {}'.format(chars), BpFormsWarning)
                 monomer_short_names[short_name] = alphabet.monomers[chars]
                 continue
 
@@ -159,7 +159,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if base_monomer:
                 monomer.base_monomers.add(base_monomer)
 
-        # get major microspecies for each monomer
+        # get major microspecies for each monomeric form
         self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer)
 
         # return alphabet
@@ -212,10 +212,10 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             new_nomenclature (:obj:`str`): new nomenclature
             short_name (:obj:`str`): short name
             name (:obj:`str`): name
-            monomer (:obj:`Monomer`): monomer
+            monomer (:obj:`Monomer`): monomeric form
 
         Returns:
-            :obj:`bool`: :obj:`True` if monomer should be included in alphabet
+            :obj:`bool`: :obj:`True` if monomeric form should be included in alphabet
         """
         if ' (base)' in new_nomenclature:
             return False
@@ -241,7 +241,7 @@ class RnaForm(BpForm):
     def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
+            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the DNA
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(RnaForm, self).__init__(
@@ -266,7 +266,7 @@ class CanonicalRnaForm(BpForm):
     def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the DNA form
+            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the DNA
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(CanonicalRnaForm, self).__init__(

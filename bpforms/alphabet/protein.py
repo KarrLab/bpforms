@@ -44,7 +44,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
-            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
             path (:obj:`str`, optional): path to save alphabet
 
@@ -57,7 +57,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         """ Build alphabet
 
         Args:
-            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
@@ -66,7 +66,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # initialize alphabet
         alphabet = Alphabet()
 
-        # load canonical monomers
+        # load canonical monomeric forms
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'protein'
         alphabet.name = 'RESID protein residues'
@@ -126,7 +126,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
             result = self.get_monomer_structure(name, file, ph=ph, major_tautomer=major_tautomer)
             if result is None:
-                warnings.warn('Ignoring monomer {} that has no structure'.format(id), BpFormsWarning)
+                warnings.warn('Ignoring monomeric form {} that has no structure'.format(id), BpFormsWarning)
                 continue
             structure, index_n, index_c = result
 
@@ -144,7 +144,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 canonical_aa.left_bond_atoms[0].position = index_n
                 canonical_aa.left_displaced_atoms[0].position = index_n
                 canonical_aa.left_displaced_atoms[1].position = index_n
-                warnings.warn('Updated canonical monomer {}'.format(name), BpFormsWarning)
+                warnings.warn('Updated canonical monomeric form {}'.format(name), BpFormsWarning)
                 continue
 
             monomer = Monomer(
@@ -180,9 +180,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         """ Get the structure of an amino acid from a PDB file
 
         Args:
-            name (:obj:`str`): monomer name
+            name (:obj:`str`): name of monomeric form
             pdb_filename (:obj:`str`): path to PDB file with structure
-            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomer
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
 
         Returns:
@@ -193,15 +193,15 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         assert conv.SetInFormat('pdb'), 'Unable to set format to PDB'
         conv.ReadFile(pdb_mol, pdb_filename)
 
-        # removing modified monomers where metal present in structure because:
-        # - inchi structure generated separates each non covalently bound parts of the monomer
-        # - for many cases theses structures consist of a group of modified monomers coordinating
-        # a metal, and not a single PTM monomer per se
+        # removing modified monomeric forms where metal present in structure because:
+        # - inchi structure generated separates each non covalently bound parts of the monomeric form
+        # - for many cases theses structures consist of a group of modified monomeric form coordinating
+        # a metal, and not a single PTM monomeric form per se
         assert conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
         inchi = conv.WriteString(pdb_mol)
         formula = inchi.split('/')[1]
         if '.' in formula:
-            warnings.warn('Ignoring metal coordinated monomer {}'.format(name), BpFormsWarning)
+            warnings.warn('Ignoring metal coordinated monomeric form {}'.format(name), BpFormsWarning)
             return None
 
         assert conv.SetOutFormat('smi')
@@ -236,10 +236,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     termini.append((atom_n, atom_c))
 
         if not termini:
-            warnings.warn('Ignoring monomer {} without N- and C-termini'.format(name), BpFormsWarning)
+            warnings.warn('Ignoring monomeric form {} without N- and C-termini'.format(name), BpFormsWarning)
             return None
         if len(termini) > 1:
-            warnings.warn('Ignoring monomer {} with multiple N- and C-termini'.format(name), BpFormsWarning)
+            warnings.warn('Ignoring monomeric form {} with multiple N- and C-termini'.format(name), BpFormsWarning)
             return None
         atom_n, atom_c = termini[0]
 
@@ -358,7 +358,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             :obj:`str`: code
             :obj:`SynonymSet`: set of synonyms
             :obj:`IdentifierSet`: set of identifiers
-            :obj:`set` of :obj:`str`: ids of base monomers
+            :obj:`set` of :obj:`str`: ids of base monomeric forms
             :obj:`str`: comments
         """
 
@@ -441,7 +441,7 @@ class ProteinForm(BpForm):
     def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
+            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the protein
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(ProteinForm, self).__init__(
@@ -466,7 +466,7 @@ class CanonicalProteinForm(BpForm):
     def __init__(self, monomer_seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomers of the protein form
+            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the protein
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(CanonicalProteinForm, self).__init__(

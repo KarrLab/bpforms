@@ -25,10 +25,10 @@ Use the `BpForms` notation and the ``bpforms.BpForm.from_str`` method to create 
         ]AC'''.replace('\n', '').replace(' ', ''))
 
 
-Getting and setting monomers
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Getting and setting monomeric forms
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Individual monomers and slices of monomers can be get and set similar to lists::
+Individual monomeric forms and slices of monomeric forms can be get and set similar to lists::
 
     dna_form[0]
         => <bpforms.core.Monomer at 0x7fb365341240>
@@ -41,10 +41,10 @@ Individual monomers and slices of monomers can be get and set similar to lists::
     dna_form[1:3] = bpforms.DnaForm().from_str('TA')
 
 
-Getting and setting the base of a monomer
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Getting and setting the base of a monomeric form
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Optionally, `BpForms` can track the monomers that are generated from a monomer (e.g. m2A is generated from A). This can be get and set using the ``bpforms.Monomer.base_monomers`` attribute. This attribute is a ``set`` of ``bpforms.Monomer``::
+Optionally, `BpForms` can track the monomeric forms that are generated from a monomeric form (e.g. m2A is generated from A). This can be get and set using the ``bpforms.Monomer.base_monomers`` attribute. This attribute is a ``set`` of ``bpforms.Monomer``::
 
     di_monomer = dna_form[3]
     di_monomer.base_monomers
@@ -55,7 +55,7 @@ Optionally, `BpForms` can track the monomers that are generated from a monomer (
 Protonation and tautomerization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Calculate the major protonation and tautomerization state of each monomer in the biopolymer form::
+Calculate the major protonation and tautomerization state of each monomeric form in the biopolymer form::
 
     dna_form.get_major_micro_species(8., major_tautomer=True)
 
@@ -81,7 +81,7 @@ Use these commands to calculate the length, formula, molecular weight, and charg
 Generating FASTA sequences for `BpForms`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``get_fasta`` method generates FASTA representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomers using the code for their root (e.g. m2A is represented as "A"). Monomers that don't have their base annotated are represented as "N" and "X" for nucleic acids and proteins, respectively::
+The ``get_fasta`` method generates FASTA representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomeric forms using the code for their root (e.g. m2A is represented as "A"). Monomeric forms that don't have their base annotated are represented as "N" and "X" for nucleic acids and proteins, respectively::
 
     dna_form.get_fasta()
         => ACGAAC

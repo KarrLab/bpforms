@@ -53,8 +53,8 @@ bpforms_model = bpform_ns.model('BpForm', {
                                              title='Alphabet',
                                              description='Id of the alphabet of the biopolymer form'),
     'monomer_seq': flask_restplus.fields.String(required=True,
-                                                title='Monomer sequence',
-                                                description='Sequence of monomers of the biopolymer form',
+                                                title='Sequence of monomeric forms',
+                                                description='Sequence of monomeric forms of the biopolymer form',
                                                 example='AA'),
     'circular': flask_restplus.fields.Boolean(default=False,
                                               required=False,
@@ -97,7 +97,7 @@ class Bpform(flask_restplus.Resource):
         try:
             form = form_cls(circular=circular).from_str(monomer_seq)
         except Exception as error:
-            flask_restplus.abort(400, 'Unable to parse monomer sequence', errors={'monomer_seq': str(error)})
+            flask_restplus.abort(400, 'Unable to parse sequence of monomeric forms', errors={'monomer_seq': str(error)})
 
         smiles = None
         formula = None

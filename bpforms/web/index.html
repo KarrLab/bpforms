@@ -37,7 +37,7 @@
                 </select>
             </label>
 
-            <label>Enter monomer sequence
+            <label>Enter sequence of monomeric forms
                 <textarea
                     id="monomer_seq_in"
                     placeholder='AC{m2A}CC[id: dI | structure: "O=C1NC=NC2=C1N=CN2"]G'></textarea>
@@ -101,7 +101,7 @@
 
         <div class="large-6 cell">
           <h3>Overview</h3>
-          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined monomers delimited by curly brackets and (b) user-defined monomers described in square brackets by one or more attributes separated by "|". The <tt>structure</tt>, <tt>monomer-bond-atom</tt>, <tt>monomer-displaced-atom</tt>, <tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, and <tt>right-displaced-atom</tt> attributes are required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
+          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined monomeric forms delimited by curly brackets and (b) user-defined monomeric forms described in square brackets by one or more attributes separated by "|". The <tt>structure</tt>, <tt>monomer-bond-atom</tt>, <tt>monomer-displaced-atom</tt>, <tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, and <tt>right-displaced-atom</tt> attributes are required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
           <p style="margin-bottom: 0px;"><i>BpForms</i> has several pre-built alphabets.</p>
           <ul id="alphabet_descriptions">          
           </ul>
@@ -116,8 +116,8 @@
         </div>
 
         <div class="large-6 cell">
-          <h3>Structures of monomers</h3>
-          The <tt>structure</tt> attribute describes the chemical structure of the inline monomer. This attribute is a SMILES-encoded string. Each monomer can only have one structure. This attribute is required to calculate the structure of the BpForm.
+          <h3>Structures of monomeric forms</h3>
+          The <tt>structure</tt> attribute describes the chemical structure of the inline monomeric form. This attribute is a SMILES-encoded string. Each monomeric form can only have one structure. This attribute is required to calculate the structure of the BpForm.
         </div>
         <div class="large-6 cell">
           <h3>Examples</h3>
@@ -127,8 +127,8 @@
         </div>
 
         <div class="large-6 cell">
-        <h3>Linkages between monomers</h3>
-          The <tt>monomer-bond-atom</tt>, <tt>monomer-displaced-atom</tt>, <tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, and <tt>right-displaced-atom</tt> attributes describe the linkages between monomers and their backbone and between successive monomers. Each monomer can have multiple bonds and multiple displaced atoms. These attributes are required to calculate the structure of the BpForm.
+        <h3>Linkages between monomeric forms</h3>
+          The <tt>monomer-bond-atom</tt>, <tt>monomer-displaced-atom</tt>, <tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, and <tt>right-displaced-atom</tt> attributes describe the linkages between monomeric forms and their backbone and between successive monomeric forms. Each monomeric form can have multiple bonds and multiple displaced atoms. These attributes are required to calculate the structure of the BpForm.
         </div>
          <div class="large-6 cell">
          <h3>Examples</h3>
@@ -143,8 +143,8 @@
           <h3>Uncertainty about the primary sequence</h3>
           <i>BpForms</i> can represent two types of uncertainty in the primary sequences of biopolymer forms.
           <ul>
-          <li>The <tt>delta-mass</tt> <tt>delta-charge</tt> attributes describe uncertainty in the chemical identity of the monomer.</li>
-          <li>The <tt>position</tt> attribute describes uncertainty in the position of the monomer within the sequence.</i>
+          <li>The <tt>delta-mass</tt> <tt>delta-charge</tt> attributes describe uncertainty in the chemical identity of the monomeric form.</li>
+          <li>The <tt>position</tt> attribute describes uncertainty in the position of the monomeric form within the sequence.</i>
           </ul>
         </div>
         <div class="large-6 cell">
@@ -157,13 +157,13 @@
 
 
         <div class="large-6 cell">
-          <h3>Metadata about monomers</h3>
-          <i>BpForms</i> can represent several types of metadata about monomers.
+          <h3>Metadata about monomeric forms</h3>
+          <i>BpForms</i> can represent several types of metadata about monomeric forms.
           <ul>
-            <li>The <tt>id</tt> and <tt>name</tt> attributes are human-readable labels for monomers. Only one id and one name is allowed per monomer.</li>
-            <li>The <tt>synonym</tt> attribute is an additional human-readable label. Monomers can have multiple synonyms.</li>
-            <li>The <tt>identifier</tt> attribute indicates entries in databases and ontologies which are equivalent to the monomer. Monomers can have multiple identifiers. The namespace and id of each identifer must be separated by a "/".</li>
-            <li>The <tt>comments</tt> attribute describes additional information about the monomer. Monomers can only have one comment.</li>
+            <li>The <tt>id</tt> and <tt>name</tt> attributes are human-readable labels for monomeric forms. Only one id and one name is allowed per monomeric form.</li>
+            <li>The <tt>synonym</tt> attribute is an additional human-readable label. Monomeric forms can have multiple synonyms.</li>
+            <li>The <tt>identifier</tt> attribute indicates entries in databases and ontologies which are equivalent to the monomeric form. Monomeric forms can have multiple identifiers. The namespace and id of each identifer must be separated by a "/".</li>
+            <li>The <tt>comments</tt> attribute describes additional information about the monomeric form. Monomeric forms can only have one comment.</li>
           </ul>
         </div>
         <div class="large-6 cell">

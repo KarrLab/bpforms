@@ -10,13 +10,12 @@ Alphabets
 * RNA: The four canonical RNA nucleosides, plus the non-canonical RNA nucleosides in `MODOMICS <http://modomics.genesilico.pl/modifications/>`_.
 * Protein: The 20 canonical protein residues, plus the non-canonical protein residues in `RESID <https://pir.georgetown.edu/resid/>`_.
 
-To support compatibility with the entries in these and other databases, `BpForms` represents biopolymers as so called ``monomers`` linked together via a ``Backbone``. For DNAmod based alphabets, ``monomers`` are nucleobases, and the ``Backbone`` is deoxyribose 5-phosphate. For MODOMICS based alphabets ``monomers`` are nucleosides and the ``Backbone`` is hydrogen phosphate. For RESID based alphabets, ``monomers`` are amino acids, and the ``Backbone`` is hydroxide.
-
+To support compatibility with the entries in these and other databases, `BpForms` represents biopolymers as sequence of ``monomeric forms`` linked together via a ``backbone``. For compatibility with DNAmod, the monomeric forms form the DNA alphabets are nucleobases and the backbones for the DNA alphabets is deoxyribose 5-phosphate. For compatibility with MODOMICS, the monomeric forms of the RNA alphabets are nucleosides and the backbones for the RNA alphabets is hydrogen phosphate. For compatibility with RESID, the monomeric forms of the protein alphabets are amino acid stubs and the backbones of the protein alphabets is hydroxide.
 
 Building additional alphabets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Users can also create additional alphabets by creating additional instances of ``bpforms.Alphabet``. Users can either add monomers programmatically or load them from YAML files. Users can add monomers programmatically by creating instances of ``bpforms.Monomer`` and adding them to the ``monomers`` attribute of ``bpforms.Alphabet``, which is a dictionary that maps the character codes of monomers to monomers. Users can load monomers from YAML files by using the ``from_yaml`` method of ``bpforms.Alphabet``. Please see `bpforms/alphabet/dna.yml <https://github.com/KarrLab/bpforms/blob/master/bpforms/alphabet/dna.yml>`_ for an example of the YAML alphabet format.
+Users can also create additional alphabets by creating additional instances of ``bpforms.Alphabet``. Users can either add monomeric forms programmatically or load them from YAML files. Users can add monomeric forms programmatically by creating instances of ``bpforms.Monomer`` and adding them to the ``monomers`` attribute of ``bpforms.Alphabet``, which is a dictionary that maps the character codes of monomeric forms to monomeric forms. Users can load monomeric forms from YAML files by using the ``from_yaml`` method of ``bpforms.Alphabet``. Please see `bpforms/alphabet/dna.yml <https://github.com/KarrLab/bpforms/blob/master/bpforms/alphabet/dna.yml>`_ for an example of the YAML alphabet format.
 
 
 Contributing to the alphabets

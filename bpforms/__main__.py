@@ -37,7 +37,7 @@ class ValidateController(cement.Controller):
         stacked_type = 'nested'
         arguments = [
             (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
-            (['monomer_seq'], dict(type=str, help='Monomer sequence')),
+            (['monomer_seq'], dict(type=str, help='Sequence of monomeric forms')),
             (['--circular'], dict(action='store_true', default=False, help='Biopolymer circularity')),
         ]
 
@@ -62,10 +62,10 @@ class GetPropertiesController(cement.Controller):
         stacked_type = 'nested'
         arguments = [
             (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
-            (['monomer_seq'], dict(type=str, help='Monomer sequence')),
+            (['monomer_seq'], dict(type=str, help='Sequence of monomeric forms')),
             (['--circular'], dict(action='store_true', default=False, help='Biopolymer circularity')),
             (['--ph'], dict(default=None, type=float,
-                            help='pH at which calculate major protonation state of each monomer')),
+                            help='pH at which calculate major protonation state of each monomeric form')),
             (['--major-tautomer'], dict(action='store_true', default=False,
                                         help='If set, calculate the major tautomer')),
         ]
@@ -120,7 +120,7 @@ class GetMajorMicroSpeciesController(cement.Controller):
         stacked_type = 'nested'
         arguments = [
             (['alphabet'], dict(type=str, help='Biopolymer alphabet')),
-            (['monomer_seq'], dict(type=str, help='Monomer sequence')),
+            (['monomer_seq'], dict(type=str, help='Sequence of monomeric forms')),
             (['--circular'], dict(action='store_true', default=False, help='Biopolymer circularity')),
             (['ph'], dict(type=float, help='pH')),
             (['--major-tautomer'], dict(action='store_true', default=False,
@@ -149,11 +149,11 @@ class BuildAlphabetsController(cement.Controller):
         stacked_type = 'nested'
         arguments = [
             (['--ph'], dict(type=float, default=7.4,
-                            help='pH at which calculate major protonation state of each monomer')),
+                            help='pH at which calculate major protonation state of each monomeric form')),
             (['--major-tautomer'], dict(action='store_true', default=False,
                                         help='If set, calculate the major tautomer')),
             (['--max-monomers'], dict(type=float, default=float('inf'),
-                                      help='Maximum number of monomers to build. Used for testing')),
+                                      help='Maximum number of monomeric forms to build. Used for testing')),
         ]
 
     @cement.ex(hide=True)
