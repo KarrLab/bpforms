@@ -6,33 +6,27 @@
 [![License](https://img.shields.io/github/license/KarrLab/bpforms.svg)](LICENSE)
 ![Analytics](https://ga-beacon.appspot.com/UA-86759801-1/bpforms/README.md?pixel)
 
-# BpForms: unambiguous representation of modified DNA, RNA, and proteins
+# BpForms: concrete representation of non-canonical DNA, RNA, and proteins
 
-BpForms is a set of tools for unambiguously representing the structures of modified forms of biopolymers such as DNA, RNA, and protein.
+BpForms is a set of tools for concretely representing the primary structures of non-canonical forms of biopolymers, such as oxidized DNA, methylated RNA, and acetylated proteins, and calculating properties of non-canonical biopolymers.
 
-* The BpForms notation can unambiguously represent the structure of modified forms of biopolymers. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomer at the fourth position.
+BpForms encompasses five tools:
+
+* A notation for describing non-canonical biopolymers. See below and the [documentation](https://docs.karrlab.org/bpforms/) for details and examples.
+* A web app, [https://bpforms.org](https://bpforms.org), for calculating properties of non-canonical biopolymers
+* A [JSON REST API](https://docs.karrlab.org/bpforms/master/0.0.1/rest_api.html#rest-api) for programmatically calculating properties of non-canonical biopolymers
+* A command line interface for calculating properties of non-canonical biopolymers. See the [documentation](https://docs.karrlab.org/bpforms/master/0.0.1/cli.html) for more information.
+* A Python API for programmatically calculating properties of non-canonical biopolymers. See the [documentation](https://docs.karrlab.org/bpforms/master/0.0.1/python_api.html) for more information.
+
+The BpForms notation and data model can concretely represent the structure of non-canonical forms of biopolymers. For example, the following text represents a modified DNA molecule that contains a deoxyinosine monomer at the fourth position.
   ```
   ACG[id: "dI"
        | structure: "[H][C@]1(O)C[C@@]([H])(O[C@]1([H])CO)N1C=NC2=C1N=CN=C2O"]T
   ```
-* This concrete representation of modified biopolymers enables the BpForms software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as to automatically calculate the major protonation and tautomerization state of biopolymers at specific pHs.
 
-BpForms encompasses five tools:
+This concrete representation of non biopolymers enables the BpForms software to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as the major protonation and tautomerization state of biopolymers at specific pHs.
 
-* [Notation for describing biopolymers](https://docs.karrlab.org/bpforms/)
-* Web-based graphical interface: [https://bpforms.org](https://bpforms.org)
-* [REST JSON API](https://docs.karrlab.org/bpforms/master/0.0.1/rest_api.html#rest-api)
-* [Command line interface](https://docs.karrlab.org/bpforms/master/0.0.1/cli.html)
-* [Python API](https://docs.karrlab.org/bpforms/master/0.0.1/python_api.html)
-
-BpForms was motivated by the need to concretely represent the biochemistry of DNA modification, DNA repair, post-transcriptional processing, and post-translational processing in [whole-cell computational models](https://www.wholecell.org). In addition, BpForms is a valuable tool for experimental proteomics and synthetic biology. In particular, we developed BpForms because there were no notations, schemas, data models, or file formats for concretely representing modified forms of biopolymers, despite the existence of several databases and ontologies of DNA, RNA, and protein modifications, the [ProForma Proteoform Notation](https://www.topdownproteomics.org/resources/proforma/), and the MOMODICS codes for modified RNA.
-
-The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms improves upon this syntax in several ways:
-
-* BpForms separates the representation of modified biopolymers from the chemical processes which generate them.
-* BpForms can represent any modification and, therefore, is not limited to previously enumerated modifications. This is necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
-* BpForms can capture additional uncertainty in the structures of biopolymers: uncertainty in the position of a modified monomer within a sequence, and uncertainty in the chemical identity of a modified monomer (e.g., deviation from its expected mass or charge).
-* BpForms has a concrete grammar. This enables error checking, as well as the calculation of chemical formulae, masses, and charges, which is essential for modeling and other applications.
+BpForms was motivated by the need to concretely represent the biochemistry of DNA modification, DNA repair, post-transcriptional processing, and post-translational processing in [whole-cell computational models](https://www.wholecell.org). BpForms is also a  valuable tool for experimental proteomics and synthetic biology. In particular, we developed BpForms because there were no notations, schemas, data models, or file formats for concretely representing non-canonical forms of biopolymers, despite the existence of several databases and ontologies of DNA, RNA, and protein modifications, the [ProForma Proteoform Notation](https://www.topdownproteomics.org/resources/proforma/), and the [MOMODICS](http://modomics.genesilico.pl/) codes for modified RNA bases.
 
 ## Installation
 1. Install the third-party dependencies listed below. Detailed installation instructions are available in [An Introduction to Whole-Cell Modeling](http://docs.karrlab.org/intro_to_wc_modeling/master/0.0.1/installation.html).
@@ -55,15 +49,21 @@ The BpForms syntax was inspired by the ProForma Proteoform Notation. BpForms imp
 
 4. Install this package
 
-    * Install the latest release from PyPI.
+    * Install the latest release from PyPI:
       ```
-      pip install bpforms[all]
+      pip install bpforms
       ```
 
-    * Install the latest revision from GitHub.
+    * Install the latest revision from GitHub:
       ```
       pip install git+https://github.com/KarrLab/log.git#egg=log
       pip install git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils[all]
+      pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms
+      ```
+
+    * To install the rest API, BpForms must be installed with the `[all]` option:
+      ```
+      pip install bpforms[all]
       pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms[all]
       ```
 
