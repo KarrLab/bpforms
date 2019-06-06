@@ -93,18 +93,18 @@ display_error = function( jqXHR, textStatus, errorThrown ) {
 
 $('#submit').click(function (evt) {
     alphabet = $("#alphabet").val()
-    monomer_seq = $("#monomer_seq_in").val().trim()
+    seq = $("#monomer_seq_in").val().trim()
     circular = $("#circular").val()
     ph = $("#ph").val()
     major_tautomer = $("#major_tautomer").val()
 
-    if (monomer_seq == null || monomer_seq == '') {
+    if (seq == null || seq == '') {
         return;
     }
 
     data = {
         'alphabet': alphabet,
-        'monomer_seq': monomer_seq
+        'seq': seq
     }
     if (circular != null && circular != '') {
         data['circular'] = circular == '1'

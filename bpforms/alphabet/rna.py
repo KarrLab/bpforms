@@ -238,14 +238,14 @@ class RnaForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'N'
 
-    def __init__(self, monomer_seq=None, circular=False):
+    def __init__(self, seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the DNA
+            seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the DNA
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(RnaForm, self).__init__(
-            monomer_seq=monomer_seq, alphabet=rna_alphabet,
+            seq=seq, alphabet=rna_alphabet,
             backbone=Backbone(
                 structure='OP([O-])([O-])=O',
                 monomer_bond_atoms=[Atom(Backbone, element='P', position=2)],
@@ -263,14 +263,14 @@ class CanonicalRnaForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'N'
 
-    def __init__(self, monomer_seq=None, circular=False):
+    def __init__(self, seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the DNA
+            seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the DNA
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(CanonicalRnaForm, self).__init__(
-            monomer_seq=monomer_seq, alphabet=canonical_rna_alphabet,
+            seq=seq, alphabet=canonical_rna_alphabet,
             backbone=Backbone(
                 structure='OP([O-])([O-])=O',
                 monomer_bond_atoms=[Atom(Backbone, element='P', position=2)],

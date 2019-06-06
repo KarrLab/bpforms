@@ -132,8 +132,8 @@ def gen_html_viz_alphabet(bpform_type, filename):
 
         if monomer.structure:
             dimer = bpform_type()
-            dimer.monomer_seq.append(monomer)
-            dimer.monomer_seq.append(monomer)
+            dimer.seq.append(monomer)
+            dimer.seq.append(monomer)
             doc += '          <td>{}</td>\n'.format(draw_molecule(dimer.export('cml'), 'cml', width=width, height=height))
         else:
             doc += '          <td>{}</td>\n'.format('')
@@ -233,7 +233,7 @@ def validate_bpform_linkages(form_type):
 
     # validate monomeric forms and dimers
     for monomer in form.alphabet.monomers.values():
-        monomer_form = form_type(monomer_seq=[monomer])
+        monomer_form = form_type(seq=[monomer])
         try:
             monomer_structure = monomer_form.get_structure()
             if monomer_form.get_formula() != OpenBabelUtils.get_formula(monomer_structure):
@@ -247,7 +247,7 @@ def validate_bpform_linkages(form_type):
         except Exception as error:
             errors.append('Unable to create monomeric form of {}:\n    {}'.format(monomer.id, str(error)))
 
-        dimer_form = form_type(monomer_seq=[monomer, monomer])
+        dimer_form = form_type(seq=[monomer, monomer])
         try:
             dimer_structure = dimer_form.get_structure()
             if dimer_form.get_formula() != OpenBabelUtils.get_formula(dimer_structure):

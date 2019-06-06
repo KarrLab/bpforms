@@ -976,7 +976,7 @@ class BondTestCase(unittest.TestCase):
 class BpFormTestCase(unittest.TestCase):
     def test_init(self):
         bp_form = core.BpForm()
-        self.assertEqual(bp_form.monomer_seq, core.MonomerSequence())
+        self.assertEqual(bp_form.seq, core.MonomerSequence())
         self.assertEqual(bp_form.alphabet.monomers, {})
         self.assertEqual(bp_form.backbone.get_formula(), EmpiricalFormula())
         self.assertEqual(bp_form.backbone.get_charge(), 0)
@@ -986,17 +986,17 @@ class BpFormTestCase(unittest.TestCase):
     def test_set_monomer_seq(self):
         bp_form = core.BpForm()
 
-        bp_form.monomer_seq = core.MonomerSequence()
-        self.assertEqual(len(bp_form.monomer_seq), 0)
+        bp_form.seq = core.MonomerSequence()
+        self.assertEqual(len(bp_form.seq), 0)
 
-        bp_form.monomer_seq = [core.Monomer(), core.Monomer()]
-        self.assertIsInstance(bp_form.monomer_seq, core.MonomerSequence)
-        self.assertEqual(len(bp_form.monomer_seq), 2)
+        bp_form.seq = [core.Monomer(), core.Monomer()]
+        self.assertIsInstance(bp_form.seq, core.MonomerSequence)
+        self.assertEqual(len(bp_form.seq), 2)
 
         with self.assertRaises(ValueError):
-            bp_form.monomer_seq = None
+            bp_form.seq = None
         with self.assertRaises(ValueError):
-            bp_form.monomer_seq = 'A'
+            bp_form.seq = 'A'
 
     def test_set_alphabet(self):
         bp_form = core.BpForm()
@@ -1042,18 +1042,18 @@ class BpFormTestCase(unittest.TestCase):
             bp_form.circular = None
 
     def test_is_equal(self):
-        bp_form_1 = core.BpForm(monomer_seq=core.MonomerSequence(
+        bp_form_1 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]))
-        bp_form_2 = core.BpForm(monomer_seq=core.MonomerSequence(
+        bp_form_2 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]))
         bp_form_3 = None
-        bp_form_4 = core.BpForm(monomer_seq=core.MonomerSequence(
+        bp_form_4 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), alphabet=dna.canonical_dna_alphabet)
-        bp_form_5 = core.BpForm(monomer_seq=core.MonomerSequence(
+        bp_form_5 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), backbone=core.Backbone(structure='O'))
-        bp_form_6 = core.BpForm(monomer_seq=core.MonomerSequence(
+        bp_form_6 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'C')]))
-        bp_form_7 = core.BpForm(monomer_seq=core.MonomerSequence(
+        bp_form_7 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), circular=True)
         self.assertTrue(bp_form_1.is_equal(bp_form_1))
         self.assertTrue(bp_form_1.is_equal(bp_form_2))
@@ -1133,7 +1133,7 @@ class BpFormTestCase(unittest.TestCase):
         bp_form = core.BpForm()
         self.assertEqual(len(bp_form), 0)
 
-        bp_form = core.BpForm(monomer_seq=[core.Monomer(), core.Monomer()])
+        bp_form = core.BpForm(seq=[core.Monomer(), core.Monomer()])
         self.assertEqual(len(bp_form), 2)
 
     def test_get_monomer_counts(self):
@@ -1462,7 +1462,7 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(alphabet.monomers.m2222A.get_root_monomers(), set([alphabet.monomers.A]))
         self.assertEqual(alphabet.monomers.m2222C.get_root_monomers(), set([alphabet.monomers.A, alphabet.monomers.C]))
 
-        bpform = core.BpForm(alphabet=alphabet, monomer_seq=[
+        bpform = core.BpForm(alphabet=alphabet, seq=[
             alphabet.monomers.A, alphabet.monomers.C, alphabet.monomers.G, alphabet.monomers.T,
             alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A,
             alphabet.monomers.m2222A, alphabet.monomers.m2222C,
@@ -1471,7 +1471,7 @@ class BpFormTestCase(unittest.TestCase):
 
         class CustomBpForm(core.BpForm):
             DEFAULT_FASTA_CODE = 'X'
-        bpform = CustomBpForm(alphabet=alphabet, monomer_seq=[
+        bpform = CustomBpForm(alphabet=alphabet, seq=[
             alphabet.monomers.A, alphabet.monomers.C, alphabet.monomers.G, alphabet.monomers.T,
             alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A,
             alphabet.monomers.m2222A, alphabet.monomers.m2222C,

@@ -438,14 +438,14 @@ class ProteinForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'X'
 
-    def __init__(self, monomer_seq=None, circular=False):
+    def __init__(self, seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the protein
+            seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the protein
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(ProteinForm, self).__init__(
-            monomer_seq=monomer_seq, alphabet=protein_alphabet,
+            seq=seq, alphabet=protein_alphabet,
             backbone=Backbone(
                 structure='[OH-]',
                 monomer_bond_atoms=[Atom(Backbone, element='O', position=1)],
@@ -463,14 +463,14 @@ class CanonicalProteinForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'X'
 
-    def __init__(self, monomer_seq=None, circular=False):
+    def __init__(self, seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the protein
+            seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the protein
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(CanonicalProteinForm, self).__init__(
-            monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
+            seq=seq, alphabet=canonical_protein_alphabet,
             backbone=Backbone(
                 structure='[OH-]',
                 monomer_bond_atoms=[Atom(Backbone, element='O', position=1)],

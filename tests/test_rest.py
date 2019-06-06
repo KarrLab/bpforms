@@ -24,11 +24,11 @@ class RestTestCase(unittest.TestCase):
 
     def test_get_bpform_properties(self):
         client = rest.app.test_client()
-        rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT'))
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT'))
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json(), {
             'alphabet': 'dna',
-            'monomer_seq': 'ACGT',
+            'seq': 'ACGT',
             'length': 4,
             'structure': ('Nc1c2ncn(c2ncn1)C1CC(OP(=O)(OCC2C(OP(=O)(OCC3C(OP(=O)(OCC4C(O)CC(n5cc(C)c(=O)'
                           '[nH]c5=O)O4)[O-])CC(n4c5nc(N)[nH]c(=O)c5nc4)O3)[O-])CC(n3c(=O)nc(N)cc3)O2)[O-])'
@@ -43,7 +43,7 @@ class RestTestCase(unittest.TestCase):
         client = rest.app.test_client()
         rv = client.post('/api/bpform/', json=dict(
             alphabet='dna',
-            monomer_seq='ACGT',
+            seq='ACGT',
             ph=7.,
             major_tautomer=True))
         self.assertEqual(rv.status_code, 200)
@@ -52,17 +52,17 @@ class RestTestCase(unittest.TestCase):
             'OC3CC(OC3COP(=O)([O-])[O-])n3cnc4c(N)ncnc34)n3ccc(N)nc3=O)n3cnc4c3nc(N)[nH]'
             'c4=O)O2)c(=O)[nH]c1=O'))
         self.assertEqual(rv.get_json()['alphabet'], 'dna')
-        self.assertEqual(rv.get_json()['monomer_seq'], 'ACGT')
+        self.assertEqual(rv.get_json()['seq'], 'ACGT')
         self.assertEqual(rv.get_json()['length'], 4)
 
     def test_get_bpform_properties_circular(self):
         client = rest.app.test_client()
-        rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT', circular=True))
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT', circular=True))
         self.assertEqual(rv.status_code, 200)
         print(rv.get_json())
         self.assertEqual(rv.get_json(), {
             'alphabet': 'dna',
-            'monomer_seq': 'ACGT',
+            'seq': 'ACGT',
             'length': 4,
             'structure': ('Nc1c2ncn(c2ncn1)C1CC2OP(=O)(OCC3C(OP(=O)(OCC4C(OP(=O)(OCC5C(OP(=O)'
                           '(OCC2O1)[O-])CC(n1cc(C)c(=O)[nH]c1=O)O5)[O-])CC(n1c2nc(N)[nH]c(=O)'
@@ -76,24 +76,24 @@ class RestTestCase(unittest.TestCase):
     def test_get_bpform_properties_errors(self):
         client = rest.app.test_client()
 
-        rv = client.post('/api/bpform/', json=dict(alphabet='lipid', monomer_seq='ACGT'))
+        rv = client.post('/api/bpform/', json=dict(alphabet='lipid', seq='ACGT'))
         self.assertEqual(rv.status_code, 400)
 
-        rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACG[T'))
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACG[T'))
         self.assertEqual(rv.status_code, 400)
 
-        rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT', ph='a'))
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT', ph='a'))
         self.assertEqual(rv.status_code, 400)
 
-        rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT', ph=7., major_tautomer='a'))
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT', ph=7., major_tautomer='a'))
         self.assertEqual(rv.status_code, 400)
 
         with mock.patch.object(core.BpForm, 'export', side_effect=Exception('unable to generate SMILES')):
-            rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT'))
+            rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT'))
         self.assertEqual(rv.status_code, 200)
 
         with mock.patch.object(core.BpForm, 'get_major_micro_species', side_effect=Exception('unable to generate SMILES')):
-            rv = client.post('/api/bpform/', json=dict(alphabet='dna', monomer_seq='ACGT', ph=7.))
+            rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT', ph=7.))
         self.assertEqual(rv.status_code, 200)
 
     def test_get_alphabets(self):

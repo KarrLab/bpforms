@@ -254,14 +254,14 @@ class DnaForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'N'
 
-    def __init__(self, monomer_seq=None, circular=False):
+    def __init__(self, seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomeric forms of the DNA form
+            seq (:obj:`MonomerSequence`, optional): monomeric forms of the DNA form
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(DnaForm, self).__init__(
-            monomer_seq=monomer_seq, alphabet=dna_alphabet,
+            seq=seq, alphabet=dna_alphabet,
             backbone=Backbone(
                 structure='OC1CCOC1COP([O-])([O-])=O',
                 monomer_bond_atoms=[Atom(Backbone, element='C', position=4)],
@@ -279,14 +279,14 @@ class CanonicalDnaForm(BpForm):
 
     DEFAULT_FASTA_CODE = 'N'
 
-    def __init__(self, monomer_seq=None, circular=False):
+    def __init__(self, seq=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): monomeric forms of the DNA form
+            seq (:obj:`MonomerSequence`, optional): monomeric forms of the DNA form
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(CanonicalDnaForm, self).__init__(
-            monomer_seq=monomer_seq, alphabet=canonical_dna_alphabet,
+            seq=seq, alphabet=canonical_dna_alphabet,
             backbone=Backbone(
                 structure='OC1CCOC1COP([O-])([O-])=O',
                 monomer_bond_atoms=[Atom(Backbone, element='C', position=4)],

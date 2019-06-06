@@ -44,7 +44,7 @@ class LargeBpFormsTestCase(unittest.TestCase):
 
         # test REST API
         client = rest.app.test_client()
-        rv = client.post('/api/bpform/', json=dict(alphabet=form.alphabet.id, monomer_seq=alphabet * pow(2, 5),
+        rv = client.post('/api/bpform/', json=dict(alphabet=form.alphabet.id, seq=alphabet * pow(2, 5),
                                                    ph=7.4, major_tautomer=True))
         self.assertEqual(rv.status_code, 200)
 

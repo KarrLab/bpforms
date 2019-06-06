@@ -52,7 +52,7 @@ bpforms_model = bpform_ns.model('BpForm', {
     'alphabet': flask_restplus.fields.String(enum=list(bpforms.util.get_alphabets().keys()), required=True,
                                              title='Alphabet',
                                              description='Id of the alphabet of the biopolymer form'),
-    'monomer_seq': flask_restplus.fields.String(required=True,
+    'seq': flask_restplus.fields.String(required=True,
                                                 title='Sequence of monomeric forms',
                                                 description='Sequence of monomeric forms of the biopolymer form',
                                                 example='AA'),
@@ -87,7 +87,7 @@ class Bpform(flask_restplus.Resource):
 
         args = bpform_ns.payload
         alphabet = args['alphabet']
-        monomer_seq = args['monomer_seq']
+        seq = args['seq']
         circular = args.get('circular', False)
         ph = args.get('ph', float('NaN'))
         major_tautomer = args.get('major_tautomer', False)
@@ -95,9 +95,9 @@ class Bpform(flask_restplus.Resource):
         form_cls = bpforms.util.get_form(alphabet)
 
         try:
-            form = form_cls(circular=circular).from_str(monomer_seq)
+            form = form_cls(circular=circular).from_str(seq)
         except Exception as error:
-            flask_restplus.abort(400, 'Unable to parse sequence of monomeric forms', errors={'monomer_seq': str(error)})
+            flask_restplus.abort(400, 'Unable to parse sequence of monomeric forms', errors={'seq': str(error)})
 
         smiles = None
         formula = None
@@ -133,7 +133,7 @@ class Bpform(flask_restplus.Resource):
 
         return {
             'alphabet': alphabet,
-            'monomer_seq': str(form),
+            'seq': str(form),
             'length': len(form),
             'structure': smiles,
             'formula': formula,

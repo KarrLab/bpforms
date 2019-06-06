@@ -2038,7 +2038,7 @@ class BpForm(object):
     """ Biopolymer form
 
     Attributes:
-        monomer_seq (:obj:`MonomerSequence`): sequence of monomeric forms of the biopolymer
+        seq (:obj:`MonomerSequence`): sequence of monomeric forms of the biopolymer
         alphabet (:obj:`Alphabet`): alphabet of monomeric forms
         backbone (:obj:`Backbone`): backbone that connects monomeric forms
         bond (:obj:`Bond`): bonds between (backbones of) monomeric forms
@@ -2050,10 +2050,10 @@ class BpForm(object):
 
     DEFAULT_FASTA_CODE = '?'
 
-    def __init__(self, monomer_seq=None, alphabet=None, backbone=None, bond=None, circular=False):
+    def __init__(self, seq=None, alphabet=None, backbone=None, bond=None, circular=False):
         """
         Args:
-            monomer_seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the biopolymer
+            seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the biopolymer
             alphabet (:obj:`Alphabet`, optional): alphabet of monomeric forms
             backbone (:obj:`Backbone`, optional): backbone that connects monomeric forms
             bond (:obj:`Bond`, optional): bonds between (backbones of) monomeric forms
@@ -2066,7 +2066,7 @@ class BpForm(object):
         if bond is None:
             bond = Bond()
 
-        self.monomer_seq = monomer_seq or MonomerSequence()
+        self.seq = seq or MonomerSequence()
         self.alphabet = alphabet
         self.backbone = backbone
         self.bond = bond
@@ -2074,7 +2074,7 @@ class BpForm(object):
         self.features = BpFormFeatureSet(self)
 
     @property
-    def monomer_seq(self):
+    def seq(self):
         """ Get the sequence of monomeric forms
 
         Returns:
@@ -2082,18 +2082,18 @@ class BpForm(object):
         """
         return self._monomer_seq
 
-    @monomer_seq.setter
-    def monomer_seq(self, value):
+    @seq.setter
+    def seq(self, value):
         """ Set the sequence of monomeric forms
 
         Args:
             value (:obj:`MonomerSequence`): sequence of monomeric forms
 
         Raises:
-            :obj:`ValueError`: if `monomer_seq` is not an instance of `MonomerSequence`
+            :obj:`ValueError`: if `seq` is not an instance of `MonomerSequence`
         """
         if value is None:
-            raise ValueError('`monomer_seq` must be an instance of `MonomerSequence`')
+            raise ValueError('`seq` must be an instance of `MonomerSequence`')
         if not isinstance(value, MonomerSequence):
             value = MonomerSequence(value)
         self._monomer_seq = value
@@ -2215,7 +2215,7 @@ class BpForm(object):
             :obj:`bool`: :obj:`True`, if the objects have the same structure
         """
         return self is other or (self.__class__ == other.__class__
-                                 and self.monomer_seq.is_equal(other.monomer_seq)
+                                 and self.seq.is_equal(other.seq)
                                  and self.alphabet.is_equal(other.alphabet)
                                  and self.backbone.is_equal(other.backbone)
                                  and self.bond.is_equal(other.bond)
@@ -2230,7 +2230,7 @@ class BpForm(object):
         Returns:
             :obj:`Monomer` or :obj:`Monomers`: monomeric form(s)
         """
-        return self.monomer_seq.__getitem__(slice)
+        return self.seq.__getitem__(slice)
 
     def __setitem__(self, slice, monomer):
         """ Set monomeric form(s) at slice
@@ -2239,7 +2239,7 @@ class BpForm(object):
             slice (:obj:`int` or :obj:`slice`): position(s)
             monomer (:obj:`Monomer` or :obj:`Monomers`): monomeric forms(s)
         """
-        self.monomer_seq.__setitem__(slice, monomer)
+        self.seq.__setitem__(slice, monomer)
 
     def __delitem__(self, slice):
         """ Delete monomeric form(s) at slice
@@ -2247,7 +2247,7 @@ class BpForm(object):
         Args:
             slice (:obj:`int` or :obj:`slice`): position(s)
         """
-        self.monomer_seq.__delitem__(slice)
+        self.seq.__delitem__(slice)
 
     def __iter__(self):
         """ Get iterator over sequence of monomeric forms
@@ -2255,7 +2255,7 @@ class BpForm(object):
         Returns:
             :obj:`iterator` of :obj:`Monomer`: iterator of monomeric forms
         """
-        return self.monomer_seq.__iter__()
+        return self.seq.__iter__()
 
     def __reversed__(self):
         """ Get reverse iterator over sequence of monomeric forms
@@ -2263,7 +2263,7 @@ class BpForm(object):
         Returns:
             :obj:`iterator` of :obj:`Monomer`: iterator of monomeric forms
         """
-        return self.monomer_seq.__reversed__()
+        return self.seq.__reversed__()
 
     def __contains__(self, monomer):
         """ Determine if a monomeric form is in the biopolymer form
@@ -2274,7 +2274,7 @@ class BpForm(object):
         Returns:
             :obj:`bool`: true if the monomeric form is in the sequence
         """
-        return self.monomer_seq.__contains__(monomer)
+        return self.seq.__contains__(monomer)
 
     def __len__(self):
         """ Get the length of the sequence of the form
@@ -2282,10 +2282,10 @@ class BpForm(object):
         Returns:
             :obj:`int`: length
         """
-        return len(self.monomer_seq)
+        return len(self.seq)
 
     def validate(self):
-        self.monomer_seq # todo
+        self.seq # todo
 
     def get_monomer_counts(self):
         """ Get the frequency of each monomeric form within the biopolymer
@@ -2293,7 +2293,7 @@ class BpForm(object):
         Returns:
             :obj:`dict`: dictionary that maps monomeric forms to their counts
         """
-        return self.monomer_seq.get_monomer_counts()
+        return self.seq.get_monomer_counts()
 
     def get_major_micro_species(self, ph, major_tautomer=False):
         """ Get the major protonation and tautomerization state
@@ -2305,7 +2305,7 @@ class BpForm(object):
         Returns:
             :obj:`openbabel.OBMol`: major protonation and tautomerization state
         """
-        if not self.monomer_seq:
+        if not self.seq:
             return None
         if len(self) > config['max_len_get_major_micro_species']:
             warnings.warn('Major microspecies calculations are limited to forms with length <= {}'.format(
@@ -2331,7 +2331,7 @@ class BpForm(object):
         Returns:
             :obj:`openbabel.OBMol`: OpenBabel molecule of the structure
         """
-        if not self.monomer_seq:
+        if not self.seq:
             return None
 
         if len(self) > config['max_len_get_structure']:
@@ -2344,7 +2344,7 @@ class BpForm(object):
 
         # join molecules and get bonded and displaced atoms
         atoms = []
-        for monomer in self.monomer_seq:
+        for monomer in self.seq:
             monomer_structure = openbabel.OBMol()
             backbone_structure = openbabel.OBMol()
             monomer_structure += monomer.structure
@@ -2408,7 +2408,7 @@ class BpForm(object):
                             type_atoms[i_atom_el] = (atom_el[0], atom_el[2])
 
         # bond monomeric forms to backbones
-        for monomer, subunit_atoms in zip(self.monomer_seq, atoms):
+        for monomer, subunit_atoms in zip(self.seq, atoms):
             self._bond_monomer_backbone(mol, subunit_atoms)
 
         # bond left/right pairs of subunits
@@ -2539,7 +2539,7 @@ class BpForm(object):
         """
         alphabet_monomers = {monomer: chars for chars, monomer in self.alphabet.monomers.items()}
         val = ''
-        for monomer in self.monomer_seq:
+        for monomer in self.seq:
             chars = alphabet_monomers.get(monomer, None)
             if chars:
                 if len(chars) == 1:
@@ -2569,9 +2569,9 @@ class BpForm(object):
                 self.bp_form = bp_form
 
             @lark.v_args(inline=True)
-            def seq(self, *monomer_seq):
-                self.bp_form.monomer_seq.clear()
-                self.bp_form.monomer_seq = monomer_seq
+            def seq(self, *seq):
+                self.bp_form.seq.clear()
+                self.bp_form.seq = seq
                 return self.bp_form
 
             @lark.v_args(inline=True)
@@ -2716,7 +2716,7 @@ class BpForm(object):
         monomer_codes = {monomer: code for code, monomer in self.alphabet.monomers.items()}
 
         seq = ''
-        for monomer in self.monomer_seq:
+        for monomer in self.seq:
             seq += monomer.get_fasta(default_code=self.DEFAULT_FASTA_CODE, monomer_codes=monomer_codes)
 
         return seq

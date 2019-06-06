@@ -71,9 +71,9 @@ class UtilTestCase(unittest.TestCase):
         alphabet = core.Alphabet(monomers={'A': core.Monomer()})
 
         class TestForm(core.BpForm):
-            def __init__(self, monomer_seq=None, circular=False):
+            def __init__(self, seq=None, circular=False):
                 super(TestForm, self).__init__(
-                    monomer_seq=monomer_seq, alphabet=alphabet,
+                    seq=seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
@@ -88,9 +88,9 @@ class UtilTestCase(unittest.TestCase):
 
     def test_validate_bpform_linkages(self):
         class TestDnaForm(core.BpForm):
-            def __init__(self, monomer_seq=None):
+            def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
-                    monomer_seq=monomer_seq, alphabet=dna.canonical_dna_alphabet,
+                    seq=seq, alphabet=dna.canonical_dna_alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
@@ -103,9 +103,9 @@ class UtilTestCase(unittest.TestCase):
         util.validate_bpform_linkages(TestDnaForm)
 
         class TestDnaForm(core.BpForm):
-            def __init__(self, monomer_seq=None):
+            def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
-                    monomer_seq=monomer_seq, alphabet=dna.canonical_dna_alphabet,
+                    seq=seq, alphabet=dna.canonical_dna_alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=1000)],
@@ -119,9 +119,9 @@ class UtilTestCase(unittest.TestCase):
             util.validate_bpform_linkages(TestDnaForm)
 
         class TestDnaForm(core.BpForm):
-            def __init__(self, monomer_seq=None):
+            def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
-                    monomer_seq=monomer_seq, alphabet=dna.canonical_dna_alphabet,
+                    seq=seq, alphabet=dna.canonical_dna_alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='E', position=4)],
@@ -141,9 +141,9 @@ class UtilTestCase(unittest.TestCase):
                                            )
 
         class TestDnaForm(core.BpForm):
-            def __init__(self, monomer_seq=None):
+            def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
-                    monomer_seq=monomer_seq, alphabet=alphabet,
+                    seq=seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
@@ -162,9 +162,9 @@ class UtilTestCase(unittest.TestCase):
                                            )
 
         class TestDnaForm(core.BpForm):
-            def __init__(self, monomer_seq=None):
+            def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
-                    monomer_seq=monomer_seq, alphabet=alphabet,
+                    seq=seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
@@ -184,9 +184,9 @@ class UtilTestCase(unittest.TestCase):
                                            )
 
         class TestDnaForm(core.BpForm):
-            def __init__(self, monomer_seq=None):
+            def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
-                    monomer_seq=monomer_seq, alphabet=alphabet,
+                    seq=seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
@@ -206,9 +206,9 @@ class UtilTestCase(unittest.TestCase):
                                            )
 
         class TestDnaForm(core.BpForm):
-            def __init__(self, monomer_seq=None):
+            def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
-                    monomer_seq=monomer_seq, alphabet=alphabet,
+                    seq=seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
