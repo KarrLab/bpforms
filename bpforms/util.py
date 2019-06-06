@@ -139,9 +139,9 @@ def gen_html_viz_alphabet(bpform_type, filename):
             doc += '          <td>{}</td>\n'.format('')
         doc += '          <td>{}</td>\n'.format(monomer.export('smiles'))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
-                                                          for atom in monomer.monomer_bond_atoms))
+                                                          for atom in monomer.backbone_bond_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
-                                                          for atom in monomer.monomer_displaced_atoms))
+                                                          for atom in monomer.backbone_displaced_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.left_bond_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
                                                           for atom in monomer.left_displaced_atoms))
@@ -175,8 +175,8 @@ def validate_bpform_linkages(form_type):
 
     # validate bonds to backbone
     atom_types = [
-        ['backbone', 'backbone_bond_atoms'],
-        ['backbone', 'backbone_displaced_atoms'],
+        ['backbone', 'parent_bond_atoms'],
+        ['backbone', 'parent_displaced_atoms'],
         ['bond', 'left_bond_atoms'],
         ['bond', 'right_bond_atoms'],
         ['bond', 'left_displaced_atoms'],
@@ -204,8 +204,8 @@ def validate_bpform_linkages(form_type):
 
     # validate bonds to monomer
     atom_types = [
-        'monomer_bond_atoms',
-        'monomer_displaced_atoms',
+        'backbone_bond_atoms',
+        'backbone_displaced_atoms',
         'left_bond_atoms',
         'right_bond_atoms',
         'left_displaced_atoms',

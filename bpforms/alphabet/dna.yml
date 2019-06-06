@@ -16,11 +16,11 @@ monomers:
     - ns: pubchem.compound
       id: '190'
     structure: NC1=C2N=CNC2=NC=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -37,11 +37,11 @@ monomers:
     - ns: pubchem.compound
       id: '597'
     structure: NC1=NC(=O)NC=C1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -57,11 +57,11 @@ monomers:
     - ns: metacyc.compound
       id: GUANINE
     structure: NC1=NC2=C(N=CN2)C(=O)N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -79,11 +79,11 @@ monomers:
     - ns: pubchem.compound
       id: '1135'
     structure: CC1=CNC(=O)NC1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 4
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 4
@@ -98,11 +98,11 @@ monomers:
     - ns: pubchem.compound
       id: '1174'
     structure: O=C1NC=CC(=O)N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 3
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 3
@@ -119,11 +119,11 @@ monomers:
     - ns: pubchem.compound
       id: '790'
     structure: O=C1NC=NC2=C1N=CN2
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -139,11 +139,11 @@ monomers:
     - ns: chebi
       id: CHEBI:70854
     structure: COC1=NC(N)=CC=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 9
-    monomer_displaced_atoms: []
+    backbone_displaced_atoms: []
     base_monomers:
     - C
   f:
@@ -158,11 +158,11 @@ monomers:
     - ns: chebi
       id: CHEBI:76794
     structure: NC1=NC(=O)NC=C1C=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -180,11 +180,11 @@ monomers:
     - ns: chebi
       id: CHEBI:76792
     structure: NC1=NC(=O)NC=C1CO
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -199,7 +199,7 @@ monomers:
     - ns: chebi
       id: CHEBI:74029
     structure: CCN1C(N)=CC=NC1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 8
@@ -216,7 +216,7 @@ monomers:
     - ns: chebi
       id: CHEBI:39992
     structure: CN1C(N)=CC=NC1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 7
@@ -235,11 +235,11 @@ monomers:
     - ns: chebi
       id: CHEBI:76793
     structure: 'NC1=NC(=O)NC=C1C([O-])=O'
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -255,7 +255,7 @@ monomers:
     - ns: chebi
       id: CHEBI:29147
     structure: O=C1NC=CC2=NC=CN12
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 7
@@ -273,11 +273,11 @@ monomers:
     - ns: chebi
       id: CHEBI:27551
     structure: CC1=CNC(=O)N=C1N
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 4
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 4
@@ -294,11 +294,11 @@ monomers:
     - ns: chebi
       id: CHEBI:21839
     structure: CNC1=NC(=O)NC=C1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 7
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
@@ -318,11 +318,11 @@ monomers:
     - ns: chebi
       id: CHEBI:132931
     structure: '[NH3+]CCCC[NH2+]CC1=CNC(=O)NC1=O'
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 15
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -341,11 +341,11 @@ monomers:
     - ns: chebi
       id: CHEBI:27468
     structure: CC1CNC(=O)NC1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 4
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 4
@@ -365,11 +365,11 @@ monomers:
     - ns: chebi
       id: CHEBI:80961
     structure: O=CC1=CNC(=O)NC1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 5
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -387,11 +387,11 @@ monomers:
     - ns: chebi
       id: CHEBI:134100
     structure: COC1=NC(=O)NC=C1C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 7
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
@@ -408,11 +408,11 @@ monomers:
     - ns: chebi
       id: CHEBI:74766
     structure: CN1C(=O)NC=C(C)C1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 5
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -430,7 +430,7 @@ monomers:
     - ns: chebi
       id: CHEBI:142766
     structure: OCNC1=C2NC=NC2=NC=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 8
@@ -447,7 +447,7 @@ monomers:
     - ns: chebi
       id: CHEBI:102525
     structure: NC(=O)CNC1=C2NC=NC2=NC=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
@@ -471,7 +471,7 @@ monomers:
     - ns: chebi
       id: CHEBI:60281
     structure: CN(C)C1=C2NC=NC2=NC=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 8
@@ -490,7 +490,7 @@ monomers:
     - ns: chebi
       id: CHEBI:40235
     structure: NC1=NC(N)=C2NC=NC2=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 9
@@ -513,11 +513,11 @@ monomers:
     - ns: chebi
       id: CHEBI:78235
     structure: O\N=C1\[NH+]=CNC2=C1N=CN2
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 12
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -535,7 +535,7 @@ monomers:
     - ns: chebi
       id: CHEBI:78685
     structure: NC1=NC(NO)=C2NC=NC2=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
@@ -551,7 +551,7 @@ monomers:
     - ns: chebi
       id: CHEBI:18083
     structure: CN1C=NC2=NC=NC2=C1N
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
@@ -570,7 +570,7 @@ monomers:
     - ns: chebi
       id: CHEBI:38635
     structure: CN1C=NC(N)=C2N=CN=C12
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
@@ -585,7 +585,7 @@ monomers:
     - ns: chebi
       id: CHEBI:134106
     structure: CC12N=CNC1=C(N)NC=N2
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 3
@@ -599,7 +599,7 @@ monomers:
     - ns: chebi
       id: CHEBI:28921
     structure: CN1C=NC2=NC=NC(N)=C12
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 4
@@ -619,7 +619,7 @@ monomers:
     - ns: chebi
       id: CHEBI:28871
     structure: CNC1=C2NC=NC2=NC=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 7
@@ -634,7 +634,7 @@ monomers:
     - ns: chebi
       id: CHEBI:44605
     structure: NC1=NC2=NC(=O)N=C2C(=O)N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 5
@@ -652,11 +652,11 @@ monomers:
     - ns: chebi
       id: CHEBI:62032
     structure: 'CC(NC1=NC2=C(N=CN2)C(=O)N1)C([O-])=O'
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -671,11 +671,11 @@ monomers:
     - ns: chebi
       id: CHEBI:21803
     structure: CN1C(N)=NC2=C(N=CN2)C1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -694,11 +694,11 @@ monomers:
     - ns: chebi
       id: CHEBI:21818
     structure: CNC1=NC2=C(N=CN2)C(=O)N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -722,11 +722,11 @@ monomers:
     - ns: chebi
       id: CHEBI:20689
     structure: CNC1=NC2=C(N=CN2)C(=O)N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -741,11 +741,11 @@ monomers:
     - ns: chebi
       id: CHEBI:132195
     structure: OCC(O)CCCC1=CNC(=O)NC1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -764,11 +764,11 @@ monomers:
     - ns: chebi
       id: CHEBI:16964
     structure: OCC1=CNC(=O)NC1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 5
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5

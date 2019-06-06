@@ -138,8 +138,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 canonical_aa = canonical_aas[name]
                 monomer_ids[id] = canonical_aa
                 canonical_aa.structure = structure
-                canonical_aa.monomer_bond_atoms[0].position = index_c
-                canonical_aa.monomer_displaced_atoms[0].position = index_c
+                canonical_aa.backbone_bond_atoms[0].position = index_c
+                canonical_aa.backbone_displaced_atoms[0].position = index_c
                 canonical_aa.left_bond_atoms[0].position = index_c
                 canonical_aa.right_bond_atoms[0].position = index_n
                 canonical_aa.right_displaced_atoms[0].position = index_n
@@ -154,8 +154,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 identifiers=identifiers,
                 structure=structure,
                 comments=comments,
-                monomer_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
-                monomer_displaced_atoms=[Atom(Monomer, element='H', position=index_c)],
+                backbone_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
+                backbone_displaced_atoms=[Atom(Monomer, element='H', position=index_c)],
                 left_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
                 right_bond_atoms=[Atom(Monomer, element='N', position=index_n, charge=-1)],
                 right_displaced_atoms=[Atom(Monomer, element='H', position=index_n, charge=1),
@@ -448,8 +448,8 @@ class ProteinForm(BpForm):
             monomer_seq=monomer_seq, alphabet=protein_alphabet,
             backbone=Backbone(
                 structure='[OH-]',
-                backbone_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                backbone_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
+                parent_bond_atoms=[Atom(Backbone, element='O', position=1)],
+                parent_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
             bond=Bond(
                 left_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 right_bond_atoms=[Atom(Monomer, element='N', position=None)],
@@ -473,8 +473,8 @@ class CanonicalProteinForm(BpForm):
             monomer_seq=monomer_seq, alphabet=canonical_protein_alphabet,
             backbone=Backbone(
                 structure='[OH-]',
-                backbone_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                backbone_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
+                parent_bond_atoms=[Atom(Backbone, element='O', position=1)],
+                parent_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
             bond=Bond(
                 left_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 right_bond_atoms=[Atom(Monomer, element='N', position=None)],

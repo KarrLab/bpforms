@@ -15,11 +15,11 @@ monomers:
     - ns: pubchem.compound
       id: '190'
     structure: NC1=C2N=CNC2=NC=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -36,11 +36,11 @@ monomers:
     - ns: pubchem.compound
       id: '597'
     structure: NC1=NC(=O)NC=C1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -56,11 +56,11 @@ monomers:
     - ns: metacyc.compound
       id: GUANINE
     structure: NC1=NC2=C(N=CN2)C(=O)N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -78,11 +78,11 @@ monomers:
     - ns: pubchem.compound
       id: '1135'
     structure: CC1=CNC(=O)NC1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 4
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 4
@@ -97,11 +97,11 @@ monomers:
     - ns: pubchem.compound
       id: '1174'
     structure: O=C1NC=CC(=O)N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 3
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 3
@@ -118,11 +118,11 @@ monomers:
     - ns: pubchem.compound
       id: '790'
     structure: O=C1NC=NC2=C1N=CN2
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10

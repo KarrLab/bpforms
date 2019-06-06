@@ -362,19 +362,19 @@ class MonomerTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             monomer.base_monomers = 'A'
 
-    def test_set_monomer_bond_atoms(self):
+    def test_set_backbone_bond_atoms(self):
         monomer = core.Monomer()
-        monomer.monomer_bond_atoms = []
-        monomer.monomer_bond_atoms = core.AtomList()
+        monomer.backbone_bond_atoms = []
+        monomer.backbone_bond_atoms = core.AtomList()
         with self.assertRaises(ValueError):
-            monomer.monomer_bond_atoms = None
+            monomer.backbone_bond_atoms = None
 
-    def test_set_monomer_displaced_atoms(self):
+    def test_set_backbone_displaced_atoms(self):
         monomer = core.Monomer()
-        monomer.monomer_displaced_atoms = []
-        monomer.monomer_displaced_atoms = core.AtomList()
+        monomer.backbone_displaced_atoms = []
+        monomer.backbone_displaced_atoms = core.AtomList()
         with self.assertRaises(ValueError):
-            monomer.monomer_displaced_atoms = None
+            monomer.backbone_displaced_atoms = None
 
     def test_set_left_bond_atoms(self):
         monomer = core.Monomer()
@@ -461,11 +461,11 @@ class MonomerTestCase(unittest.TestCase):
 
         monomer = core.Monomer()
         monomer.base_monomers = [alphabet.monomers.A]
-        monomer.monomer_bond_atoms = [core.Atom(core.Monomer, 'C', charge=3), core.Atom(core.Monomer, 'H', position=3, charge=2)]
+        monomer.backbone_bond_atoms = [core.Atom(core.Monomer, 'C', charge=3), core.Atom(core.Monomer, 'H', position=3, charge=2)]
         monomer_as_dict = monomer.to_dict(alphabet=alphabet)
         self.assertEqual(monomer_as_dict, {
             'base_monomers': ['A'],
-            'monomer_bond_atoms': [
+            'backbone_bond_atoms': [
                 {'molecule': 'Monomer', 'element': 'C', 'charge': 3},
                 {'molecule': 'Monomer', 'element': 'H', 'position': 3, 'charge': 2},
             ],
@@ -497,8 +497,8 @@ class MonomerTestCase(unittest.TestCase):
         monomer.structure = dAMP_smiles
         self.assertIn(' | structure: "{}"]'.format('Nc1ncnc2c1nc[nH]2'), str(monomer))
 
-        monomer.monomer_bond_atoms.append(core.Atom(core.Monomer, 'C', 2, -3))
-        self.assertIn(' | monomer-bond-atom: Monomer / C / 2 / -3]', str(monomer))
+        monomer.backbone_bond_atoms.append(core.Atom(core.Monomer, 'C', 2, -3))
+        self.assertIn(' | backbone-bond-atom: Monomer / C / 2 / -3]', str(monomer))
 
         monomer.delta_mass = 1.
         monomer.delta_charge = -1
@@ -523,7 +523,7 @@ class MonomerTestCase(unittest.TestCase):
         monomer_5 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='A')])
         monomer_6 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='A')])
         monomer_7 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='B')])
-        monomer_8 = core.Monomer(id='A', structure=dAMP_smiles, monomer_bond_atoms=[core.Atom(None, 'S')])
+        monomer_8 = core.Monomer(id='A', structure=dAMP_smiles, backbone_bond_atoms=[core.Atom(None, 'S')])
 
         self.assertTrue(monomer_1.is_equal(monomer_1))
         self.assertTrue(monomer_1.is_equal(monomer_2))
@@ -838,19 +838,19 @@ class BackboneTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             backbone.structure = 'dAMP'
 
-    def test_set_backbone_bond_atoms(self):
+    def test_set_parent_bond_atoms(self):
         backbone = core.Backbone()
-        backbone.backbone_bond_atoms = []
-        backbone.backbone_bond_atoms = core.AtomList()
+        backbone.parent_bond_atoms = []
+        backbone.parent_bond_atoms = core.AtomList()
         with self.assertRaises(ValueError):
-            backbone.backbone_bond_atoms = None
+            backbone.parent_bond_atoms = None
 
-    def test_set_backbone_displaced_atoms(self):
+    def test_set_parent_displaced_atoms(self):
         backbone = core.Backbone()
-        backbone.backbone_displaced_atoms = []
-        backbone.backbone_displaced_atoms = core.AtomList()
+        backbone.parent_displaced_atoms = []
+        backbone.parent_displaced_atoms = core.AtomList()
         with self.assertRaises(ValueError):
-            backbone.backbone_displaced_atoms = None
+            backbone.parent_displaced_atoms = None
 
     def test_export(self):
         backbone = core.Backbone()
@@ -869,8 +869,8 @@ class BackboneTestCase(unittest.TestCase):
         backbone.structure = dAMP_smiles
         self.assertEqual(backbone.get_formula(), EmpiricalFormula('C5H5N5'))
 
-        backbone.monomer_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C')])
-        backbone.backbone_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'H')])
+        backbone.backbone_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C')])
+        backbone.parent_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'H')])
         self.assertEqual(backbone.get_formula(), EmpiricalFormula('C5H3N5'))
 
         backbone.structure = None
@@ -891,16 +891,16 @@ class BackboneTestCase(unittest.TestCase):
         backbone.structure = None
         self.assertEqual(backbone.get_charge(), 0)
 
-        backbone.monomer_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C', charge=2)])
-        backbone.backbone_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H', charge=3)])
+        backbone.backbone_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C', charge=2)])
+        backbone.parent_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H', charge=3)])
         self.assertEqual(backbone.get_charge(), -3)
 
     def test_is_equal(self):
         backbone_1 = core.Backbone()
         backbone_2 = core.Backbone()
         backbone_3 = core.Backbone(structure=dAMP_smiles)
-        backbone_4 = core.Backbone(backbone_bond_atoms=[core.Atom(core.Monomer, 'H')])
-        backbone_5 = core.Backbone(backbone_displaced_atoms=[core.Atom(core.Monomer, 'H')])
+        backbone_4 = core.Backbone(parent_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        backbone_5 = core.Backbone(parent_displaced_atoms=[core.Atom(core.Monomer, 'H')])
         self.assertTrue(backbone_1.is_equal(backbone_1))
         self.assertTrue(backbone_1.is_equal(backbone_2))
         self.assertFalse(backbone_1.is_equal({}))
@@ -1229,9 +1229,9 @@ class BpFormTestCase(unittest.TestCase):
                       + ' | synonym: "2\'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"'
                       + ' | identifier: "chebi" / "CHEBI:28997"'
                       + ' | structure: "' + dIMP_smiles + '"'
-                      + ' | monomer-bond-atom: Monomer / C / 1 / -1'
-                      + ' | monomer-bond-atom: Monomer / D / 2 / -2'
-                      + ' | monomer-displaced-atom: Backbone / D / 2 / -2'
+                      + ' | backbone-bond-atom: Monomer / C / 1 / -1'
+                      + ' | backbone-bond-atom: Monomer / D / 2 / -2'
+                      + ' | backbone-displaced-atom: Backbone / D / 2 / -2'
                       + ' | left-bond-atom: Monomer / E / 3 / -3'
                       + ' | left-displaced-atom: Backbone / F / 4 / -4'
                       + ' | right-bond-atom: Monomer / G / 5 / -5'
@@ -1252,11 +1252,11 @@ class BpFormTestCase(unittest.TestCase):
                     ["2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"]),
                 identifiers=core.IdentifierSet([core.Identifier('chebi', 'CHEBI:28997')]),
                 structure=dIMP_smiles,
-                monomer_bond_atoms=[
+                backbone_bond_atoms=[
                     core.Atom(core.Monomer, 'C', position=1, charge=-1),
                     core.Atom(core.Monomer, 'D', position=2, charge=-2),
                 ],
-                monomer_displaced_atoms=[core.Atom(core.Backbone, 'D', position=2, charge=-2)],
+                backbone_displaced_atoms=[core.Atom(core.Backbone, 'D', position=2, charge=-2)],
                 left_bond_atoms=[core.Atom(core.Monomer, 'E', position=3, charge=-3)],
                 left_displaced_atoms=[core.Atom(core.Backbone, 'F', position=4, charge=-4)],
                 right_bond_atoms=[core.Atom(core.Monomer, 'G', position=5, charge=-5)],
@@ -1355,12 +1355,12 @@ class BpFormTestCase(unittest.TestCase):
         conv.ReadString(mol, '[O-]N([O-])C1=C2N=CNC2=NC=N1')
         form._bond_monomer_backbone(mol, {
             'monomer': {
-                'monomer_bond_atoms': [(mol.GetAtom(2), 1), ],
-                'monomer_displaced_atoms': [(mol.GetAtom(1), -1)],
+                'backbone_bond_atoms': [(mol.GetAtom(2), 1), ],
+                'backbone_displaced_atoms': [(mol.GetAtom(1), -1)],
             },
             'backbone': {
-                'backbone_bond_atoms': [(mol.GetAtom(8), 1)],
-                'backbone_displaced_atoms': [(mol.GetAtom(3), -1)],
+                'parent_bond_atoms': [(mol.GetAtom(8), 1)],
+                'parent_displaced_atoms': [(mol.GetAtom(3), -1)],
             }
         })
 

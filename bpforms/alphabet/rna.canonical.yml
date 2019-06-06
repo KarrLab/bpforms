@@ -17,11 +17,11 @@ monomers:
     - ns: modomics.short_name
       id: A
     structure: NC1=C2N=CN(C3OC(CO)C(O)C3O)C2=NC=N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: O
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -48,11 +48,11 @@ monomers:
     - ns: modomics.short_name
       id: C
     structure: NC1=NC(=O)N(C=C1)C1OC(CO)C(O)C1O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: O
       position: 13
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
@@ -79,11 +79,11 @@ monomers:
     - ns: modomics.short_name
       id: G
     structure: NC1=NC2=C(N=CN2C2OC(CO)C(O)C2O)C(=O)N1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: O
       position: 13
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
@@ -110,11 +110,11 @@ monomers:
     - ns: modomics.short_name
       id: U
     structure: OCC1OC(C(O)C1O)N1C=CC(=O)NC1=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1

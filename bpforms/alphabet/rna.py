@@ -248,8 +248,8 @@ class RnaForm(BpForm):
             monomer_seq=monomer_seq, alphabet=rna_alphabet,
             backbone=Backbone(
                 structure='OP([O-])([O-])=O',
-                backbone_bond_atoms=[Atom(Backbone, element='P', position=2)],
-                backbone_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
+                parent_bond_atoms=[Atom(Backbone, element='P', position=2)],
+                parent_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
             bond=Bond(
                 left_bond_atoms=[Atom(Monomer, element='O', position=None)],
                 right_bond_atoms=[Atom(Backbone, element='P', position=2)],
@@ -273,8 +273,8 @@ class CanonicalRnaForm(BpForm):
             monomer_seq=monomer_seq, alphabet=canonical_rna_alphabet,
             backbone=Backbone(
                 structure='OP([O-])([O-])=O',
-                backbone_bond_atoms=[Atom(Backbone, element='P', position=2)],
-                backbone_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
+                parent_bond_atoms=[Atom(Backbone, element='P', position=2)],
+                parent_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
             bond=Bond(
                 left_bond_atoms=[Atom(Monomer, element='O', position=None)],
                 right_bond_atoms=[Atom(Backbone, element='P', position=2)],

@@ -21,11 +21,11 @@ monomers:
     - ns: chebi
       id: CHEBI:16977
     structure: C[C@H]([NH3+])C=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -64,11 +64,11 @@ monomers:
     - ns: resid
       id: AA0002
     structure: O=C[C@H](CCCNC(=[NH2+])N)[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -114,11 +114,11 @@ monomers:
     - ns: chebi
       id: CHEBI:17196
     structure: NC(=O)C[C@H]([NH3+])C=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -157,11 +157,11 @@ monomers:
     - ns: chebi
       id: CHEBI:17053
     structure: O=C[C@H](CC(=O)[O-])[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -204,11 +204,11 @@ monomers:
     - ns: resid
       id: AA0005
     structure: SC[C@H]([NH3+])C=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -254,11 +254,11 @@ monomers:
     - ns: pubchem.compound
       id: '5961'
     structure: O=C[C@H](CCC(=O)N)[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -298,11 +298,11 @@ monomers:
     - ns: pubchem.compound
       id: '33032'
     structure: O=C[C@H](CCC(=O)[O-])[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -339,11 +339,11 @@ monomers:
     - ns: metacyc.compound
       id: GLU
     structure: C([NH3+])C=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -382,11 +382,11 @@ monomers:
     - ns: metacyc.compound
       id: HIS
     structure: C(c1c[nH]cn1)[C@H]([NH3+])C=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -424,11 +424,11 @@ monomers:
     - ns: metacyc.compound
       id: ILE
     structure: CC[C@@H]([C@@H](C=O)[NH3+])C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
@@ -469,11 +469,11 @@ monomers:
     - ns: pubchem.compound
       id: '6106'
     structure: O=C[C@H](CC(C)C)[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -507,11 +507,11 @@ monomers:
     - ns: resid
       id: AA0012
     structure: O=C[C@H](CCCC[NH3+])[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -552,11 +552,11 @@ monomers:
     - ns: chebi
       id: CHEBI:16643
     structure: CSCC[C@H]([NH3+])C=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -595,11 +595,11 @@ monomers:
     - ns: pubchem.compound
       id: '22848660'
     structure: O=C[C@H](Cc1ccccc1)[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -645,11 +645,11 @@ monomers:
     - ns: chebi
       id: CHEBI:17203
     structure: O=C[C@@H]1CCC[NH2+]1
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -694,11 +694,11 @@ monomers:
     - ns: pubchem.compound
       id: '5951'
     structure: OC[C@H]([NH3+])C=O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -740,11 +740,11 @@ monomers:
     - ns: resid
       id: AA0017
     structure: C[C@H]([C@H]([NH3+])C=O)O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -785,11 +785,11 @@ monomers:
     - ns: metacyc.compound
       id: TRP
     structure: O=C[C@H](Cc1c[nH]c2c1cccc2)[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -832,11 +832,11 @@ monomers:
     - ns: pubchem.compound
       id: '6057'
     structure: O=C[C@H](Cc1ccc(cc1)O)[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -876,11 +876,11 @@ monomers:
     - ns: chebi
       id: CHEBI:16414
     structure: 'CC(C)C([NH3+])C=O'
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -921,11 +921,11 @@ monomers:
     structure: C/C=C/C(=O)NCCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
@@ -971,11 +971,11 @@ monomers:
     structure: O=C[C@H](COP(=O)([O-])[O-])[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1009,11 +1009,11 @@ monomers:
     base_monomers:
     - S
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1055,11 +1055,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1NC(=O)C)O)O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1103,11 +1103,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(cc1)OS(=O)(=O)[O-])[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1144,11 +1144,11 @@ monomers:
     structure: SCCNC(=O)CCNC(=O)[C@H](C(COP(=O)(OC[C@@H](C=O)[NH3+])[O-])(C)C)O
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 23
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 23
@@ -1194,11 +1194,11 @@ monomers:
     structure: O=C[C@H](Cc1cc(I)c(c(c1)I)Oc1ccc(c(c1)I)O)[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1239,11 +1239,11 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)[C@H](CCCC[NH3+])[NH3+])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1281,11 +1281,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(cc1)O[C@H]1O[C@@H](CO)[C@@H]([C@@H]([C@@H]1NC(=O)C)O)O)[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1328,11 +1328,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H]([C@H]1C(=C[C@H]2[NH2+]C(=Cc3[nH]c(c(c3CCC(=O)[O-])C)C=C3NC(=O)C(=C3C)C=C)C(=C2C)CCC(=O)[O-])NC(=O)[C@H]1C)C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1369,11 +1369,11 @@ monomers:
     structure: CCCCCCCC(=O)OC[C@@H](C=O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -1420,11 +1420,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H](c1nc2n(c1=O)cc([nH]c2Cc1ccccc1)c1ccc(cc1)O)c1ccc(cc1)O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1463,11 +1463,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH2+]Cc1c(cnc(c1O)C)COP(=O)([O-])[O-])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1514,11 +1514,11 @@ monomers:
     structure: CNC(NCCC[C@@H](C=O)[NH3+])NC
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -1563,11 +1563,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH2+]C=C[C@H](C=CC=C(C=CC1=C(C)CCCC1(C)C)C)C)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1603,11 +1603,11 @@ monomers:
     structure: SC[C@H]([NH2+]C(C(=O)[O-])C)C=O
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
@@ -1654,11 +1654,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH+](C)C)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1703,11 +1703,11 @@ monomers:
     structure: O=C[C@@H](CC(=O)[O-])[NH3+]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1750,11 +1750,11 @@ monomers:
     structure: CSCC[C@@H]([NH3+])C=O
     base_monomers:
     - M
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -1791,11 +1791,11 @@ monomers:
     base_monomers:
     - T
     - G
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -1826,11 +1826,11 @@ monomers:
     - ns: mod
       id: MOD:00756
     structure: OC[C@H]([C@H](C=O)[NH3+])C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
@@ -1867,11 +1867,11 @@ monomers:
     base_monomers:
     - S
     - F
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1911,11 +1911,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH2+]CCCNCCC[NH+](CCCN(CCC[NH+](CCCN(CCC[NH+](C)C)C)C)C)C)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -1951,11 +1951,11 @@ monomers:
     base_monomers:
     - Y
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 16
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -2003,11 +2003,11 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)CCCC[C@@H]1SC[C@H]2[C@@H]1NC(=O)N2)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2047,11 +2047,11 @@ monomers:
     structure: O=C[C@]1(O)CCC[NH2+]1
     base_monomers:
     - P
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2091,11 +2091,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(cc1)Br)[NH3+]
     base_monomers:
     - F
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2131,11 +2131,11 @@ monomers:
     structure: O=C[C@H]1[NH2+]C[C@H]([C@@H]1O)O
     base_monomers:
     - P
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2176,11 +2176,11 @@ monomers:
     structure: O=C[C@H](C[C@@H](C(=O)[O-])O)[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2230,11 +2230,11 @@ monomers:
     structure: O=C[C@H](CSC/C=C(/CC/C=C(/CC/C=C(/CCC=C(C)C)\C)\C)\C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2272,11 +2272,11 @@ monomers:
     structure: O=C[C@H](C(C)C)[NH2+]CC[C@@H]([C@@H](COP(O)O)O)O
     base_monomers:
     - V
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2318,11 +2318,11 @@ monomers:
     structure: C[NH2+][C@H](C=O)CO
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
@@ -2369,11 +2369,11 @@ monomers:
     structure: C[C@H]([NH2+]C)C=O
     base_monomers:
     - A
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -2407,11 +2407,11 @@ monomers:
     structure: O=C[C@H](C(C)C)[NH2+]C(C(=O)[O-])C
     base_monomers:
     - V
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2463,11 +2463,11 @@ monomers:
     structure: C[NH2+]CC=O
     base_monomers:
     - G
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -2513,11 +2513,11 @@ monomers:
     structure: O=C[C@H](Cc1ccccc1)[NH2+]C
     base_monomers:
     - F
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2565,11 +2565,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H](C1=C(C)C(=O)N[C@H]1Cc1[nH]c(c(c1C)CCC(=O)[O-])Cc1[nH]c(c(c1CCC(=O)[O-])C)C=C1NC(=O)C(=C1C)CC)C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2629,11 +2629,11 @@ monomers:
     base_monomers:
     - K
     - O
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2673,11 +2673,11 @@ monomers:
     structure: '[O-]P(=O)(OCC[NH3+])OC[C@H]([NH3+])C=O'
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 19
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 19
@@ -2715,11 +2715,11 @@ monomers:
     base_monomers:
     - C
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2766,11 +2766,11 @@ monomers:
     structure: CC[C@H]([NH3+])C=O
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -2806,11 +2806,11 @@ monomers:
     structure: O=C[C@H](Cc1c[nH]c2c1ccc(c2)Cl)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2849,11 +2849,11 @@ monomers:
     structure: O=C[C@H]([C@H]([C@@H](O)C)C)[NH3+]
     base_monomers:
     - I
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2891,11 +2891,11 @@ monomers:
     structure: O=C[C@H](Cc1ccccc1Br)[NH3+]
     base_monomers:
     - F
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -2937,11 +2937,11 @@ monomers:
     structure: '[O-]C1=CC(=O)C(=CC1=O)C[C@H]([NH3+])C=O'
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -2982,11 +2982,11 @@ monomers:
     structure: O=C[C@H](CCCNC(=[NH2+])N[C@@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1O)O)O)[NH3+]
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3027,11 +3027,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)NCC(=O)[O-])[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3067,11 +3067,11 @@ monomers:
     structure: O=C[C@H]([C@H](O[P@](=O)(OC[C@H]([C@H]([C@H](Cn1c2=C[C@@H](C)C(=Cc2nc2c1[nH]c(=O)[nH]c2=O)C)O)O)O)[O-])C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3110,11 +3110,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(cc1)O[C@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1O)O)O)[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3153,11 +3153,11 @@ monomers:
     structure: OC[C@@H]1O[C@H]([C@@H]([C@H]1O)O)O[C@H]1C[NH2+][C@@H](C1)C=O
     base_monomers:
     - P
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 24
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 24
@@ -3193,11 +3193,11 @@ monomers:
     structure: O=C[C@H](CSSCCNC(=O)CCNC(=O)[C@@H](C(CO[P@](=O)(O[P@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1OP(=O)([O-])[O-])O)n1cnc2c1ncnc2N)[O-])[O-])(C)C)O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3238,11 +3238,11 @@ monomers:
     structure: CCCCCCCCCCCCCCCC(=O)O[C@@H]([C@@H](C=O)[NH3+])C
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 23
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 23
@@ -3286,11 +3286,11 @@ monomers:
     structure: O=C[C@H]([C@H](O[C@@H]1O[C@H](CO)[C@@H]([C@@H]([C@H]1NC(=O)C)O)O)C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3328,11 +3328,11 @@ monomers:
     structure: CCCCCCCCCCCCCCC/C=C/[C@H]([C@@H](NC(=O)CCCCCCCCCCCCCCCCCCCCCCCCCCCCCOC(=O)CC[C@@H](C=O)[NH3+])CO)O
     base_monomers:
     - Q
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 61
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 61
@@ -3375,11 +3375,11 @@ monomers:
     structure: O=C[C@H](CCCCN[P@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1nc(N)[nH]c2=O)[O-])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3421,11 +3421,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)N[C@H](C(=O)[O-])CCC[NH3+])[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3463,11 +3463,11 @@ monomers:
     structure: CO[C@@H]([C@@H](C=O)[NH3+])C
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
@@ -3510,11 +3510,11 @@ monomers:
     structure: O=C[C@H](CCCCN[P@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1ncnc2N)[O-])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3561,11 +3561,11 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)[O-])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3600,11 +3600,11 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)[C@@H](COP(=O)([O-])[O-])O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3648,11 +3648,11 @@ monomers:
     - S
     - Q
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3697,11 +3697,11 @@ monomers:
     structure: CCCCCCCCCCCCCC(=O)NCCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 23
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 23
@@ -3744,11 +3744,11 @@ monomers:
     structure: O=C[C@@H](Cc1ncn(c1)[P@@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1NC=N[C@H]2N)[O-])[NH3+]
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3791,11 +3791,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH2+]C=C[C@H](C=CC=C(C=CC1=C(C)C=CCC1(C)C)C)C)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -3841,11 +3841,11 @@ monomers:
     structure: O[C@@H]1C[C@H]([NH2+]C1)C=O
     base_monomers:
     - P
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -3892,11 +3892,11 @@ monomers:
     structure: O[C@H]1[C@@H](OC[C@H]([NH3+])C=O)OC[C@H]([C@@H]1O)O
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -3940,11 +3940,11 @@ monomers:
     structure: CSC[C@H]([NH3+])C=O
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -3985,11 +3985,11 @@ monomers:
     structure: '[NH3+]CCCC[NH2+]CCCNC(=O)CNC(=O)[C@@H](NC(=O)CC[C@@H](C(=O)[O-])[NH3+])CSSC[C@@H](C=O)[NH3+]'
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 44
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 44
@@ -4027,11 +4027,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(cc1)O[P@@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1ccc(=O)[nH]c1=O)[O-])[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4066,11 +4066,11 @@ monomers:
     structure: O=C[C@H](CS[C@@](CC(=O)N)(C=O)N)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4110,11 +4110,11 @@ monomers:
     structure: O=C[C@](CCC(=O)N)([NH3+])C
     base_monomers:
     - Q
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4157,11 +4157,11 @@ monomers:
     structure: C[C@H](NC(=[NH2+])N)CC[C@H]([NH3+])C=O
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 18
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -4208,11 +4208,11 @@ monomers:
     base_monomers:
     - S
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -4253,11 +4253,11 @@ monomers:
     structure: O=C[C@H](CCC[NH2+][C]([NH2+]C)[NH3+])[NH3+]
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4300,11 +4300,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(c(c1)N(=O)=O)[O-])[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4341,11 +4341,11 @@ monomers:
     structure: O=C[C@H](CC(=O)OC[C@@H]1C=c2c(C=C1C)nc1c(n2C[C@@H]([C@@H]([C@@H](CO[P@@](=O)(O[P@](=O)(OC[C@H]2O[C@H]([C@@H]([C@@H]2O)O)n2cnc3c2NC=N[C@H]3N)[O-])[O-])O)O)O)[nH]c(=O)[nH]c1=O)[NH3+]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4376,11 +4376,11 @@ monomers:
     - ns: mod
       id: MOD:01386
     structure: O=C[C@H](C(O)(C)C)[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4417,11 +4417,11 @@ monomers:
     structure: CCCCCCCCCC(=O)O[C@@H]([C@@H](C=O)[NH3+])C
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -4462,11 +4462,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(c(c1)O)O)[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4501,11 +4501,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)N[C@H](C(=O)[O-])CCCC(=O)OP(=O)([O-])[O-])[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4545,11 +4545,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)N[C@H]1O[C@H]([C@H]([C@H]1O)O)CO[P@@](=O)(O[P@](=O)(OC[C@@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1NC=N[C@H]2N)[O-])[O-])[NH3+]
     base_monomers:
     - Q
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4586,11 +4586,11 @@ monomers:
     structure: OC[C@H]1O[C@@H](O[C@H]2C[NH2+][C@@H](C2)C=O)[C@@H]([C@H]([C@H]1O)O)O
     base_monomers:
     - P
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 18
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -4632,11 +4632,11 @@ monomers:
     structure: O=C[C@H](CO[C@@H]1O[C@H](CO)[C@@H]([C@@H]([C@H]1NC(=O)C)O)O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4675,11 +4675,11 @@ monomers:
     structure: O=C[C@H](C[C@H]([C@@H](C[NH3+])O)O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4724,11 +4724,11 @@ monomers:
     structure: OC[C@@H](COP(=O)(OC[C@@H](C=O)[NH3+])[O-])O
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
@@ -4773,11 +4773,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(cc1)OP(=O)([O-])[O-])[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4815,11 +4815,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1O)O)O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4864,11 +4864,11 @@ monomers:
     base_monomers:
     - D
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4905,11 +4905,11 @@ monomers:
     structure: O=C[C@H](CSSC[C@@H](C(=O)N[C@@H]1[C@@H](O[C@@H]([C@H]([C@H]1O)O)CO)O[C@H](C(=O)[O-])CC(=O)[O-])[NH3+])[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -4948,11 +4948,11 @@ monomers:
     structure: ClNCCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -5007,11 +5007,11 @@ monomers:
     structure: OSC[C@H]([NH3+])C=O
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -5045,11 +5045,11 @@ monomers:
     structure: C[C@@](CO)(C[C@H]([NH3+])C=O)O
     base_monomers:
     - L
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -5086,11 +5086,11 @@ monomers:
     structure: O=C[C@H](CC[C@@H](O[C@@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1O)O)O)C[NH3+])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5135,11 +5135,11 @@ monomers:
     structure: O=C[C@H](CC(=O)OP(=O)([O-])[O-])[NH3+]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5176,11 +5176,11 @@ monomers:
     structure: O=C[C@H]([C@H](O[C@H]1O[C@H](CO)[C@H]([C@@H]([C@@H]1O)O)O)C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5227,11 +5227,11 @@ monomers:
     structure: O=C[C@H](CO[C@@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1NC(=O)C)O)O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5265,11 +5265,11 @@ monomers:
     structure: Clc1cc2c(C[C@H]([NH3+])C=O)c[nH]c2cc1
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
@@ -5315,11 +5315,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)N[C@H](C(=O)[O-])CCC(=O)[O-])[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5360,11 +5360,11 @@ monomers:
     structure: O[C@H](CC[NH3+])C[C@H]([NH3+])C=O
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -5409,11 +5409,11 @@ monomers:
     structure: O=C[C@H]([C@H](OP(=O)([O-])[O-])C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5451,11 +5451,11 @@ monomers:
     structure: O=C[C@H](CC1C(=O)Nc2c1cccc2)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5498,11 +5498,11 @@ monomers:
     structure: O=C[C@H](CO[C@H]1O[C@@H]([C@H]([C@H]1O)O)CO[P@](=O)(O[P@@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1ncnc2N)[O-])[O-])[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5550,11 +5550,11 @@ monomers:
     structure: CSCC[C@H]([NH2+]C)C=O
     base_monomers:
     - M
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -5591,11 +5591,11 @@ monomers:
     structure: CCCCCCCCCC(=O)OC[C@@H](C=O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 16
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -5635,11 +5635,11 @@ monomers:
     structure: OC[C@H]1O[C@H](O[C@H]2C[NH2+][C@@H](C2)C=O)[C@@H]([C@H]([C@@H]1O)O)NC(=O)C
     base_monomers:
     - P
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 18
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -5680,11 +5680,11 @@ monomers:
     structure: O=C[C@H](CO[C@H]1O[C@H](CO)[C@H]([C@@H]([C@@H]1O)O)O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5724,11 +5724,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(cc1)OCC1CC2C(CC1C)NC1C(N2C[C@@H]([C@@H]([C@@H](CO[P@@](=O)(O[P@@](=O)(OC[C@H]2O[C@H]([C@@H]([C@@H]2O)O)n2cnc3c2ncnc3N)[O-])[O-])O)O)O)NC(=O)[N-]C1=O)[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5770,11 +5770,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH2+][C@H]1O[C@@H]([C@H]([C@H]1O)O)CO[P@](=O)(O[P@@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1NC=N[C@H]2N)[O-])[O-])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5816,11 +5816,11 @@ monomers:
     base_monomers:
     - Q
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5861,11 +5861,11 @@ monomers:
     structure: O=C[C@H](CC[C@@H](O[C@@H]1O[C@H](CO)[C@@H]([C@@H]([C@H]1O[C@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1O)O)O)O)O)C[NH3+])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5913,11 +5913,11 @@ monomers:
     structure: O=C[C@H](CC[C@H](CNC(=O)C[C@H](CCC[NH3+])[NH3+])O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -5967,11 +5967,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH2+]C[C@@H](CC[NH3+])O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6012,11 +6012,11 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)CC(=O)[O-])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6055,11 +6055,11 @@ monomers:
     structure: O=C[C@H](CSC[C@@H](OCC[C@@H](CCC[C@@H](CCC[C@@H](CCCC(C)C)C)C)C)COCC[C@@H](CCC[C@@H](CCC[C@@H](CCCC(C)C)C)C)C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6101,11 +6101,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(c(c1)I)O)[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6139,11 +6139,11 @@ monomers:
     structure: C[C@](CO)(C[C@H]([NH3+])C=O)O
     base_monomers:
     - L
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -6185,11 +6185,11 @@ monomers:
     base_monomers:
     - G
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -6235,11 +6235,11 @@ monomers:
     structure: O=C[C@H](CSSC[C@@H](C(=O)NCC(=O)[O-])NC(=O)CC[C@@H](C(=O)[O-])[NH3+])[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6279,11 +6279,11 @@ monomers:
     structure: CCCCCC=CC=C1C(=O)C[C@H]([C@@H]1CC=CCCCC(=O)[O-])SC[C@@H](C=O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 30
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 30
@@ -6330,11 +6330,11 @@ monomers:
     structure: O=C[C@H](C(=O)[O-])[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6370,11 +6370,11 @@ monomers:
     structure: CCCCCCCC/C=C\CCCCCCCC(=O)NCCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 27
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 27
@@ -6415,11 +6415,11 @@ monomers:
     structure: O=C[C@H](CCCN([C]([NH3+])N)C)[NH3+]
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6455,11 +6455,11 @@ monomers:
     base_monomers:
     - K
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6502,11 +6502,11 @@ monomers:
     structure: O=C[C@H](Cc1ncn(c1)[P@@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1nc(N)[nH]c2=O)[O-])[NH3+]
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6549,11 +6549,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH2+][C@H](C(=O)[O-])C)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6596,11 +6596,11 @@ monomers:
     structure: CCCCCCCCCCCCCCCC(=O)OC[C@@H](C=O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 22
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 22
@@ -6644,11 +6644,11 @@ monomers:
     structure: O=C[C@H](CO[C@@H]1O[C@H](C)[C@H]([C@@H]([C@H]1NC(=O)C)O)NC(=O)C)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6689,11 +6689,11 @@ monomers:
     structure: O=C[C@H](Cc1c([nH]c2c1cccc2)[C@H]1O[C@H](CO)[C@H]([C@@H]([C@@H]1O)O)O)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6733,11 +6733,11 @@ monomers:
     base_monomers:
     - K
     - G
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6779,11 +6779,11 @@ monomers:
     structure: O=C[C@@H](Cc1c[nH]c2c1cccc2)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6820,11 +6820,11 @@ monomers:
     structure: CCCCCC/C=C\CCCCCCCC(=O)OC[C@@H](C=O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 22
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 22
@@ -6868,11 +6868,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(cc1)O)[NH2+]C
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6910,11 +6910,11 @@ monomers:
     structure: O=C[C@H](CCCNC(=[NH+]C)N(C)C)[NH3+]
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -6961,11 +6961,11 @@ monomers:
     structure: C[NH2+][C@@H](CC(C)C)C=O
     base_monomers:
     - L
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -7006,11 +7006,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)N[C@H](C(=O)[O-])CCCC[NH3+])[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7053,11 +7053,11 @@ monomers:
     structure: C[C@@H]([NH3+])C=O
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -7103,11 +7103,11 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)CCCC[C@@H]1CCSS1)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7151,11 +7151,11 @@ monomers:
     base_monomers:
     - Y
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 15
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -7207,11 +7207,11 @@ monomers:
     structure: SSC[C@H]([NH3+])C=O
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -7249,11 +7249,11 @@ monomers:
     structure: OC[C@@H](C(=O)N[C@@H]1[C@@H](C)O[C@H]([C@@H]([C@H]1O)NC(=O)C)OC[C@@H](C=O)[NH3+])O
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 29
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 29
@@ -7292,11 +7292,11 @@ monomers:
     structure: CCCCCCCC(=O)NCCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -7344,11 +7344,11 @@ monomers:
     base_monomers:
     - M
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -7396,11 +7396,11 @@ monomers:
     structure: O=C[C@H]([C@H](O[C@@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1NC(=O)C)O)O)C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7440,11 +7440,11 @@ monomers:
     structure: O=C[C@H](CCS(=O)(=O)C)[NH3+]
     base_monomers:
     - M
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7482,11 +7482,11 @@ monomers:
     structure: OC[C@@H](C[C@@H](C=O)[NH3+])C
     base_monomers:
     - L
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -7531,11 +7531,11 @@ monomers:
     structure: O=C[C@H](CS#S([O-])([O-])[O-])[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7573,11 +7573,11 @@ monomers:
     structure: O=CNCCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -7615,11 +7615,11 @@ monomers:
     structure: O=C[C@H](CS[Se]C[C@@H](C=O)N)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7665,11 +7665,11 @@ monomers:
     structure: O=C[C@H](Cc1ncn(c1)C[C@@H]1C=c2c(C=C1C)[nH+]c1c(n2C[C@@H]([C@@H]([C@@H](CO[P@@](=O)(O[P@@](=O)(OC[C@H]2O[C@H]([C@@H]([C@@H]2O)O)n2cnc3c2NC=N[C@H]3N)[O-])[O-])O)O)O)[nH]c(=O)[nH]c1=O)[NH3+]
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7716,11 +7716,11 @@ monomers:
     structure: '[NH3+]C[C@@H](CC[C@@H](C=O)[NH3+])O'
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -7759,11 +7759,11 @@ monomers:
     structure: O=C[C@H]1[NH2+]C[C@@H]([C@@H]1O)O
     base_monomers:
     - P
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7802,11 +7802,11 @@ monomers:
     structure: Oc1cccc2c1[nH]cc2C[C@H]([NH3+])C=O
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 19
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 19
@@ -7842,11 +7842,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H]1O[C@H](CO)[C@@H]([C@@H]([C@H]1O)O)O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7887,11 +7887,11 @@ monomers:
     structure: O=C[C@H](Cc1ccc(cc1)O[P@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1ncnc2N)[O-])[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7927,11 +7927,11 @@ monomers:
     structure: O=C[C@H](Cc1c([nH]c2c1cccc2O)[C@H]1O[C@H](CO)[C@H]([C@@H]([C@@H]1O)O)O)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -7972,11 +7972,11 @@ monomers:
     structure: O=CC[C@@H](C=O)[NH3+]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 6
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -8015,11 +8015,11 @@ monomers:
     structure: C[C@H]([C@@H]([NH3+])C=O)O
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -8064,11 +8064,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H](C(=O)[O-])CC(=O)[O-])[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8104,11 +8104,11 @@ monomers:
     base_monomers:
     - M
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -8146,11 +8146,11 @@ monomers:
     structure: O=C[C@H](CO[C@H]1O[C@H](CO)[C@@H]([C@@H]([C@H]1O)O)O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8189,11 +8189,11 @@ monomers:
     base_monomers:
     - C
     - G
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -8242,11 +8242,11 @@ monomers:
     structure: Cn1cc(nc1)C[C@H]([NH3+])C=O
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -8286,11 +8286,11 @@ monomers:
     structure: OC[C@@H]([C@@H]([C@@H](C=O)[NH3+])C)O
     base_monomers:
     - I
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -8337,11 +8337,11 @@ monomers:
     structure: O=C[C@H]([C@@H](C(=O)[O-])O)[NH3+]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8379,11 +8379,11 @@ monomers:
     structure: OCC(n1cnc(c1)C[C@@H](C=O)[NH3+])(CO)O
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -8419,11 +8419,11 @@ monomers:
     base_monomers:
     - W
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8461,11 +8461,11 @@ monomers:
     structure: O=C[C@H]([C@H](OS(=O)(=O)[O-])C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8510,11 +8510,11 @@ monomers:
     structure: O=C[C@H](CCCNC(=O)N)[NH3+]
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8559,11 +8559,11 @@ monomers:
     base_monomers:
     - T
     - Q
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8600,11 +8600,11 @@ monomers:
     structure: C[C@H]([C@H]([NH3+])C=O)OC(=O)CCCCCCC
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 10
@@ -8649,11 +8649,11 @@ monomers:
     structure: O=C[C@H](COP(=O)(O[C@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1NC(=O)C)O)O)[O-])[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8697,11 +8697,11 @@ monomers:
     structure: O=C[C@H](CC[S@](=O)C)[NH3+]
     base_monomers:
     - M
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8745,11 +8745,11 @@ monomers:
     base_monomers:
     - D
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8798,11 +8798,11 @@ monomers:
     structure: O=C[C@H](CSCc1[nH]c(c(c1CC(=O)[O-])CCC(=O)[O-])Cc1[nH]cc(c1CC(=O)[O-])CCC(=O)[O-])[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8841,11 +8841,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H](C1=C(C)C(=O)N[C@H]1Cc1[nH]c(c(c1C)CCC(=O)[O-])Cc1[nH]c(c(c1CCC(=O)[O-])C)C[C@H]1NC(=O)C(=C1C)C=C)C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8888,11 +8888,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H]1O[C@@H]([C@H]([C@H]1O)O)CO[P@](=O)(O[P@@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1ncnc2N)[O-])[O-])[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8928,11 +8928,11 @@ monomers:
     base_monomers:
     - D
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -8972,11 +8972,11 @@ monomers:
     structure: O=C[C@H]([C@H](OC(=O)C)C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9013,11 +9013,11 @@ monomers:
     structure: O=C[C@H]([C@H](O[C@H]1O[C@H](CO)[C@@H]([C@@H]([C@H]1O)O)O)C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9054,11 +9054,11 @@ monomers:
     base_monomers:
     - S
     - G
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
@@ -9097,11 +9097,11 @@ monomers:
     base_monomers:
     - C
     - F
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 15
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -9134,11 +9134,11 @@ monomers:
     structure: O=C[C@H](CC(O)(C)C)[NH3+]
     base_monomers:
     - L
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9180,11 +9180,11 @@ monomers:
     structure: CC[C@H]([C@@H](C=O)[NH3+])C
     base_monomers:
     - I
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
@@ -9223,11 +9223,11 @@ monomers:
     structure: O=C[C@H](CSC/C=C(/CC/C=C(/CC/C=C(\CO)/C)\C)\C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9266,11 +9266,11 @@ monomers:
     structure: O=C[C@H](CC(=O)OSC(=O)[O-])[NH3+]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9311,11 +9311,11 @@ monomers:
     structure: O=C[C@@H](C[C@@H](C=O)[NH3+])C
     base_monomers:
     - L
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -9352,11 +9352,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)SCCNC(=O)CCNC(=O)[C@@H](C(CO[P@](=O)(O[P@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1OP(=O)([O-])[O-])O)n1cnc2c1ncnc2N)[O-])[O-])(C)C)O)[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9405,11 +9405,11 @@ monomers:
     base_monomers:
     - S
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9448,11 +9448,11 @@ monomers:
     - ns: mod
       id: MOD:00705
     structure: O=C[C@@H](C(C)C)[NH3+]
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9494,11 +9494,11 @@ monomers:
     structure: COC(=O)C[C@H]([NH3+])C=O
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -9544,11 +9544,11 @@ monomers:
     structure: O=C[C@H](CSC/C=C(/CC/C=C(/CCC=C(C)C)\C)\C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9596,11 +9596,11 @@ monomers:
     structure: O=C[C@H](CC(C(=O)[O-])C(=O)[O-])[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9638,11 +9638,11 @@ monomers:
     structure: O=C[C@H](Cc1cccc(c1)Br)[NH3+]
     base_monomers:
     - F
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9677,11 +9677,11 @@ monomers:
     structure: O=C[C@H](Cc1cc(O)c(c(c1)O)O)[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9727,11 +9727,11 @@ monomers:
     structure: O=C[C@H](CCCNC(=[NH2+])N[C@@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1NC(=O)C)O)O)[NH3+]
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9775,11 +9775,11 @@ monomers:
     structure: O=C[C@H](CS[C@H](C1=C(C)C(=O)NC1=Cc1[nH]c(c(c1C)CCC(=O)[O-])Cc1[nH]c(c(c1CCC(=O)[O-])C)C[C@H]1NC(=O)C(=C1C)C=C)C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9817,11 +9817,11 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)CCC(=O)[O-])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9864,11 +9864,11 @@ monomers:
     structure: '[NH3+]C[C@H](CC[C@@H](C=O)[NH3+])O'
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -9905,11 +9905,11 @@ monomers:
     structure: SCCNC(=O)CCNC(=O)[C@@H](C(CO[P@](=O)(O[P@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O[C@H]1O[C@@H]([C@H]([C@H]1O)O)CO[P@@](=O)(OC[C@@H](C=O)[NH3+])[O-])n1cnc2c1ncnc2N)[O-])[O-])(C)C)O
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 54
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 54
@@ -9951,11 +9951,11 @@ monomers:
     structure: O=C[C@@H](CC(C)C)[NH3+]
     base_monomers:
     - L
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -9994,11 +9994,11 @@ monomers:
     structure: O=C[C@H]([C@H](O[C@H]1O[C@H](COP(=O)([O-])[O-])[C@H]([C@H]([C@@H]1O)O)O)C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10039,11 +10039,11 @@ monomers:
     structure: O=C[C@@H](Cc1ccccc1)[NH3+]
     base_monomers:
     - F
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10089,11 +10089,11 @@ monomers:
     structure: O=C[C@H](CCC[NH2+][C](N(C)C)[NH3+])[NH3+]
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10131,11 +10131,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)N[C@H](C(=O)[O-])CCC(=O)[O-])[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10174,11 +10174,11 @@ monomers:
     structure: O=C[C@H](CO[P@](=O)(OC[C@H]([C@H]([C@H](Cn1c2=C[C@@H](C)C(=Cc2nc2c1[nH]c(=O)[nH]c2=O)C)O)O)O)[O-])[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10221,11 +10221,11 @@ monomers:
     structure: O=C[C@H](COP(=O)(O[C@H]1O[C@H](CO)[C@H]([C@@H]([C@@H]1O)O)O)[O-])[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10270,11 +10270,11 @@ monomers:
     structure: O=C[C@H](C[C@H](CNC(=[NH2+])N)O)[NH3+]
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10310,11 +10310,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH2+][C@@H](C(=O)[O-])C)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10354,11 +10354,11 @@ monomers:
     structure: O=C[C@H](CSc1c(C)c(C)cc2c1[nH]c1c(=O)[nH]c(=O)[nH]c1n2C[C@@H]([C@@H]([C@@H](COP(=O)([O-])[O-])O)O)O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10406,11 +10406,11 @@ monomers:
     structure: OC[C@H](COP(=O)(OCCNC(=O)CC[C@@H](C=O)[NH3+])[O-])O
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 19
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 19
@@ -10454,11 +10454,11 @@ monomers:
     structure: O=C[C@H](CSP(=O)([O-])[O-])[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10502,11 +10502,11 @@ monomers:
     base_monomers:
     - S
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -10552,11 +10552,11 @@ monomers:
     structure: CC[C@@H]([C@H]([NH2+]C)C=O)C
     base_monomers:
     - I
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -10598,11 +10598,11 @@ monomers:
     structure: O=C[C@H](COS(=O)(=O)[O-])[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10643,11 +10643,11 @@ monomers:
     base_monomers:
     - T
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10687,11 +10687,11 @@ monomers:
     structure: O=C[C@H](CCCC(=O)[O-])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10741,11 +10741,11 @@ monomers:
     structure: O=C[C@@H](Cc1ncn(c1)P(=O)([O-])[O-])[NH3+]
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10787,11 +10787,11 @@ monomers:
     structure: O=C[C@H](Cc1cc(I)c(c(c1)I)[O-])[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10838,11 +10838,11 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)C)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10885,11 +10885,11 @@ monomers:
     structure: O=C[C@H](CO[C@@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1NC(=O)C)O)NC(=O)C)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -10932,11 +10932,11 @@ monomers:
     structure: CCCC(=O)NCCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
@@ -10975,11 +10975,11 @@ monomers:
     structure: O=C[C@H](C[C@@H]1C(=O)Nc2c1cccc2)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11029,11 +11029,11 @@ monomers:
     structure: O=C[C@H](CCCCNC(=O)CC)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11075,11 +11075,11 @@ monomers:
     structure: O=C[C@H](Cc1ncn(c1)C[C@@H]1C=c2c(C=C1C)nc1c(n2C[C@@H]([C@@H]([C@@H](COP(=O)([O-])[O-])O)O)O)[nH]c(=O)[nH]c1=O)[NH3+]
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11114,11 +11114,11 @@ monomers:
     base_monomers:
     - T
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11155,11 +11155,11 @@ monomers:
     structure: O=C[C@H]([C@H](O[C@H]1O[C@H](C)[C@@H]([C@@H]([C@H]1O)O)O)C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11193,11 +11193,11 @@ monomers:
     structure: O=C[C@H](CS[C@](C=O)(N)C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11234,11 +11234,11 @@ monomers:
     structure: O=C[C@H](CO[C@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1O)O)O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11284,11 +11284,11 @@ monomers:
     structure: O=CCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -11327,11 +11327,11 @@ monomers:
     structure: NC=CSC[C@H](C=O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 8
@@ -11365,11 +11365,11 @@ monomers:
     structure: Brc1nc(c[nH]1)C[C@H]([NH3+])C=O
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 15
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -11410,11 +11410,11 @@ monomers:
     structure: O=C[C@H](Cc1c[nH]c2c1C=CC(=O)C2=O)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11456,11 +11456,11 @@ monomers:
     structure: O=C[C@H](CS[C@@](C(=O)[O-])(OP(=O)([O-])[O-])C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11506,11 +11506,11 @@ monomers:
     structure: O=C[C@H]([C@H](C(=O)[O-])O)[NH3+]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11556,11 +11556,11 @@ monomers:
     structure: CC[C@@H]([C@H](C=O)[NH3+])C
     base_monomers:
     - I
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
@@ -11595,11 +11595,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)NCCc1c[nH]cn1)[NH3+]
     base_monomers:
     - Q
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11639,11 +11639,11 @@ monomers:
     structure: O=C[C@H](CO[C@@H]1O[C@H](C)[C@@H]([C@@H]([C@H]1NC(=O)C)O)O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11677,11 +11677,11 @@ monomers:
     structure: O=C[C@H](Cc1c2ccccc2[nH]c1S(=O)(=O)C)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11724,11 +11724,11 @@ monomers:
     structure: CCCCCCCCCCCCCCCC(=O)NCCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 25
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 25
@@ -11763,11 +11763,11 @@ monomers:
     base_monomers:
     - I
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 35
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 35
@@ -11810,11 +11810,11 @@ monomers:
     structure: O=C[C@H](COC(=O)C[C@H](OC(=O)C[C@H](O)C)C)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11864,11 +11864,11 @@ monomers:
     structure: O=C[C@H](Cc1cncn1P(=O)([O-])[O-])[NH3+]
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11903,11 +11903,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)N[C@H](C(=O)[O-])CCCC(=O)[O-])[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -11952,11 +11952,11 @@ monomers:
     structure: C[NH2+]CCCC[C@@H](C=O)[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -11997,11 +11997,11 @@ monomers:
     structure: O=C[C@H](C(C(=O)[O-])C(=O)[O-])[NH3+]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12041,11 +12041,11 @@ monomers:
     structure: NC(=[NH2+])NCC[C@H]([C@H]([NH3+])C=O)O
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -12086,11 +12086,11 @@ monomers:
     structure: O=C[C@@H](Cc1ncn(c1)[P@@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1ccc(=O)[nH]c1=O)[O-])[NH3+]
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12129,11 +12129,11 @@ monomers:
     structure: Oc1cc2c(CCNC(=O)CC[C@H]([NH3+])C=O)c[nH]c2cc1
     base_monomers:
     - Q
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 19
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 19
@@ -12179,11 +12179,11 @@ monomers:
     structure: O=C[C@H](Cc1cc(I)c(c(c1)I)Oc1cc(I)c(c(c1)I)O)[NH3+]
     base_monomers:
     - Y
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12226,11 +12226,11 @@ monomers:
     base_monomers:
     - T
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -12275,11 +12275,11 @@ monomers:
     structure: O=C[C@H](CCCCNP(=O)([O-])[O-])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12328,11 +12328,11 @@ monomers:
     base_monomers:
     - Q
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12370,11 +12370,11 @@ monomers:
     structure: O=C[C@H](CO[C@H]1O[C@H](C)[C@@H]([C@@H]([C@H]1O)O)O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12420,11 +12420,11 @@ monomers:
     structure: CS[C@@H]([C@@H](C=O)[NH3+])C(=O)[O-]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 7
@@ -12468,11 +12468,11 @@ monomers:
     structure: O=C[C@H](CCC(=O)NC)[NH3+]
     base_monomers:
     - Q
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12508,11 +12508,11 @@ monomers:
     structure: O=CCCC[C@@H](C(=O)[O-])NC(=O)CC[C@@H](C=O)[NH3+]
     base_monomers:
     - E
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 18
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -12553,11 +12553,11 @@ monomers:
     structure: O=C[C@H]([C@H](O[C@H]1O[C@H]([C@H]([C@H]1O)O)CO[P@@](=O)(O[P@](=O)(OC[C@@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1NC=N[C@H]2N)[O-])[O-])C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12595,11 +12595,11 @@ monomers:
     structure: CCC[C@@H](C(=O)CCC(=O)CC=CCCCCCC(=O)[O-])OC(=O)C[C@@H](C=O)[NH3+]
     base_monomers:
     - D
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 29
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 29
@@ -12641,11 +12641,11 @@ monomers:
     structure: O=C[C@H](Cc1cn(c2c1cccc2)[C@H]1O[C@H](CO)[C@H]([C@@H]([C@@H]1O)O)O)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12687,11 +12687,11 @@ monomers:
     structure: O=C[C@H](COC(=O)C)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12736,11 +12736,11 @@ monomers:
     structure: O=C[C@H](Cc1cncn1CC1CC2C(CC1C)NC1C(N2C[C@@H]([C@@H]([C@@H](CO[P@](=O)(O[P@@](=O)(OC[C@H]2O[C@H]([C@@H]([C@@H]2O)O)n2cnc3c2ncnc3N)[O-])[O-])O)O)O)NC(=O)[N-]C1=O)[NH3+]
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12782,11 +12782,11 @@ monomers:
     structure: '[SeH]SC[C@H]([NH3+])C=O'
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -12822,11 +12822,11 @@ monomers:
     base_monomers:
     - S
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12868,11 +12868,11 @@ monomers:
     structure: O=C[C@H](CC[S](C)C)[NH3+]
     base_monomers:
     - M
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12919,11 +12919,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H]([C@H]1C(=C[C@@H]2[NH2+]C(=Cc3[nH]c(c(c3CCC(=O)[O-])C)C[C@H]3NC(=O)C(=C3C)C=C)C(=C2C)CCC(=O)[O-])NC(=O)[C@H]1C)C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -12963,11 +12963,11 @@ monomers:
     structure: O=C[C@H](Cc1c[nH]c2c1ccc(c2)Br)[NH3+]
     base_monomers:
     - W
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -13011,11 +13011,11 @@ monomers:
     structure: O=C[C@H](CCCNC(=[NH+]P(=O)([O-])[O-])N)[NH3+]
     base_monomers:
     - R
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -13065,11 +13065,11 @@ monomers:
     structure: O=C[C@H](CS[C@@H]([C@H]1C(=CC2=C(C)[C@@H](C(=Cc3[nH]c(c(c3CCC(=O)[O-])C)C=C3NC(=O)C(=C3C)CC)[NH2+]2)CCC(=O)[O-])NC(=O)[C@H]1C)C)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -13109,11 +13109,11 @@ monomers:
     structure: O=C[C@H]([C@H](O[P@](=O)(OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1ncnc2N)[O-])C)[NH3+]
     base_monomers:
     - T
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -13152,11 +13152,11 @@ monomers:
     base_monomers:
     - C
     - F
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 15
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -13201,11 +13201,11 @@ monomers:
     structure: CCCCCCCCCCCCCCCC(=O)OC[C@H](OC(=O)CCCCCCC/C=C\CCCCCCCC)CSC[C@@H](C=O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 47
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 47
@@ -13253,11 +13253,11 @@ monomers:
     structure: Cn1cncc1C[C@H]([NH3+])C=O
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -13306,11 +13306,11 @@ monomers:
     structure: O=C[C@H]1[NH2+]CC[C@@H]1O
     base_monomers:
     - P
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -13346,11 +13346,11 @@ monomers:
     structure: O=C[C@H]1[NH2+][C@H](C[C@@H]1C)O
     base_monomers:
     - I
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -13391,11 +13391,11 @@ monomers:
     structure: O=C[C@H](CSCC1CC2C(CC1C)NC1C(N2C[C@@H]([C@@H]([C@@H](CO[P@@](=O)(O[P@](=O)(OC[C@H]2O[C@H]([C@@H]([C@@H]2O)O)n2cnc3c2ncnc3N)[O-])[O-])O)O)O)NC(=O)[N-]C1=O)[NH3+]
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -13439,11 +13439,11 @@ monomers:
     structure: O=C[C@H](CCCC[NH2+]CCCC[NH3+])[NH3+]
     base_monomers:
     - K
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -13488,11 +13488,11 @@ monomers:
     structure: CSSC[C@H]([NH3+])C=O
     base_monomers:
     - C
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -13536,11 +13536,11 @@ monomers:
     structure: O=C[C@H](Cc1cncn1CC1CC2C(CC1C)NC1C(N2C[C@@H]([C@@H]([C@@H](COP(=O)([O-])[O-])O)O)O)NC(=O)[N-]C1=O)[NH3+]
     base_monomers:
     - H
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2
@@ -13582,11 +13582,11 @@ monomers:
     structure: O=C[C@H](CO[C@H]1O[C@H](C(=O)[O-])[C@H]([C@@H]([C@H]1O)O)O)[NH3+]
     base_monomers:
     - S
-    monomer_bond_atoms:
+    backbone_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    monomer_displaced_atoms:
+    backbone_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 2

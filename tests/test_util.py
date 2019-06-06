@@ -76,8 +76,8 @@ class UtilTestCase(unittest.TestCase):
                     monomer_seq=monomer_seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
-                        backbone_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
-                        backbone_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
+                        parent_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
+                        parent_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
                         left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
@@ -93,8 +93,8 @@ class UtilTestCase(unittest.TestCase):
                     monomer_seq=monomer_seq, alphabet=dna.canonical_dna_alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
-                        backbone_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
-                        backbone_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
+                        parent_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
+                        parent_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
                         left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
@@ -108,8 +108,8 @@ class UtilTestCase(unittest.TestCase):
                     monomer_seq=monomer_seq, alphabet=dna.canonical_dna_alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
-                        backbone_bond_atoms=[core.Atom(core.Backbone, element='C', position=1000)],
-                        backbone_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
+                        parent_bond_atoms=[core.Atom(core.Backbone, element='C', position=1000)],
+                        parent_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
                         left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
@@ -124,8 +124,8 @@ class UtilTestCase(unittest.TestCase):
                     monomer_seq=monomer_seq, alphabet=dna.canonical_dna_alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
-                        backbone_bond_atoms=[core.Atom(core.Backbone, element='E', position=4)],
-                        backbone_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
+                        parent_bond_atoms=[core.Atom(core.Backbone, element='E', position=4)],
+                        parent_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
                         left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
@@ -136,8 +136,8 @@ class UtilTestCase(unittest.TestCase):
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
-                                           monomer_bond_atoms=[core.Atom(molecule=core.Monomer, element='N', position=6)],
-                                           monomer_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
+                                           backbone_bond_atoms=[core.Atom(molecule=core.Monomer, element='N', position=6)],
+                                           backbone_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
                                            )
 
         class TestDnaForm(core.BpForm):
@@ -146,8 +146,8 @@ class UtilTestCase(unittest.TestCase):
                     monomer_seq=monomer_seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
-                        backbone_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
-                        backbone_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
+                        parent_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
+                        parent_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
                         left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
@@ -157,8 +157,8 @@ class UtilTestCase(unittest.TestCase):
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
-                                           monomer_bond_atoms=[core.Atom(molecule=core.Monomer, element='N', position=1000)],
-                                           monomer_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
+                                           backbone_bond_atoms=[core.Atom(molecule=core.Monomer, element='N', position=1000)],
+                                           backbone_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
                                            )
 
         class TestDnaForm(core.BpForm):
@@ -167,8 +167,8 @@ class UtilTestCase(unittest.TestCase):
                     monomer_seq=monomer_seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
-                        backbone_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
-                        backbone_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
+                        parent_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
+                        parent_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
                         left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
@@ -179,8 +179,8 @@ class UtilTestCase(unittest.TestCase):
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
-                                           monomer_bond_atoms=[core.Atom(molecule=core.Monomer, element='E', position=6)],
-                                           monomer_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
+                                           backbone_bond_atoms=[core.Atom(molecule=core.Monomer, element='E', position=6)],
+                                           backbone_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
                                            )
 
         class TestDnaForm(core.BpForm):
@@ -189,8 +189,8 @@ class UtilTestCase(unittest.TestCase):
                     monomer_seq=monomer_seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
-                        backbone_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
-                        backbone_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
+                        parent_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
+                        parent_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
                         left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
@@ -201,8 +201,8 @@ class UtilTestCase(unittest.TestCase):
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
-                                           monomer_bond_atoms=[core.Atom(molecule=core.Monomer, element='N', position=6)],
-                                           monomer_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
+                                           backbone_bond_atoms=[core.Atom(molecule=core.Monomer, element='N', position=6)],
+                                           backbone_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
                                            )
 
         class TestDnaForm(core.BpForm):
@@ -211,8 +211,8 @@ class UtilTestCase(unittest.TestCase):
                     monomer_seq=monomer_seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
-                        backbone_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
-                        backbone_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
+                        parent_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
+                        parent_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
                         left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
