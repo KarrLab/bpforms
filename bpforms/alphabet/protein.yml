@@ -29,16 +29,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 4
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -72,16 +72,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -122,16 +122,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 7
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -165,16 +165,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -212,16 +212,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -262,16 +262,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -306,16 +306,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -347,16 +347,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 6
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 6
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 2
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -390,16 +390,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -432,16 +432,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 7
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -477,16 +477,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -515,16 +515,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -560,16 +560,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 7
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -603,16 +603,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -653,16 +653,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -702,16 +702,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -748,16 +748,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 6
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -793,16 +793,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -840,16 +840,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -884,16 +884,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -929,16 +929,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -979,16 +979,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1017,16 +1017,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1063,16 +1063,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 26
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1111,16 +1111,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1152,16 +1152,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 23
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 23
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 25
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1202,16 +1202,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 23
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1247,16 +1247,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 26
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1289,16 +1289,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 32
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1336,16 +1336,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 57
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1377,16 +1377,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1428,16 +1428,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 41
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1471,16 +1471,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 27
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1522,16 +1522,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1571,16 +1571,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 33
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1611,16 +1611,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1662,16 +1662,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1711,16 +1711,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1758,16 +1758,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 7
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1799,16 +1799,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 6
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1834,16 +1834,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 7
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1875,16 +1875,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 19
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1919,16 +1919,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 45
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -1959,16 +1959,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 16
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 16
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 18
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2011,16 +2011,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 28
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2055,16 +2055,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2099,16 +2099,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2139,16 +2139,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2184,16 +2184,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2238,16 +2238,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 27
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2280,16 +2280,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2326,16 +2326,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 7
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 2
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2377,16 +2377,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 4
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2415,16 +2415,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2471,16 +2471,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 6
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 6
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 2
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2521,16 +2521,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2573,16 +2573,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 54
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2637,16 +2637,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 22
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2681,16 +2681,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 19
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 19
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2723,16 +2723,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 31
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2774,16 +2774,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2814,16 +2814,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2857,16 +2857,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2899,16 +2899,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2945,16 +2945,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -2990,16 +2990,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 30
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3035,16 +3035,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3075,16 +3075,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 45
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3118,16 +3118,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 29
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3161,16 +3161,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 24
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 24
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 18
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3201,16 +3201,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 60
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3246,16 +3246,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 23
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 23
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 25
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3294,16 +3294,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 28
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3336,16 +3336,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 61
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 61
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 63
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3383,16 +3383,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 38
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3429,16 +3429,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 22
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3471,16 +3471,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 7
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3518,16 +3518,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 36
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3569,16 +3569,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3608,16 +3608,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 21
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3656,16 +3656,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3705,16 +3705,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 23
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 23
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 25
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3752,16 +3752,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 38
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3799,16 +3799,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 33
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3849,16 +3849,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 7
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3900,16 +3900,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3948,16 +3948,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 6
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -3993,16 +3993,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 44
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 44
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 46
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4035,16 +4035,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 38
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4074,16 +4074,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4118,16 +4118,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4165,16 +4165,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 18
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 18
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4216,16 +4216,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4261,16 +4261,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 20
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4308,16 +4308,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4349,16 +4349,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 73
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4384,16 +4384,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4425,16 +4425,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 19
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4470,16 +4470,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4509,16 +4509,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 25
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4553,16 +4553,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 54
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4594,16 +4594,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 18
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 18
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4640,16 +4640,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 26
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4683,16 +4683,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4732,16 +4732,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4781,16 +4781,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4823,16 +4823,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 23
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4872,16 +4872,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 21
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4913,16 +4913,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 43
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -4956,16 +4956,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5015,16 +5015,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 6
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5053,16 +5053,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5094,16 +5094,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 31
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5143,16 +5143,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5184,16 +5184,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 25
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5235,16 +5235,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 26
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5273,16 +5273,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5323,16 +5323,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 20
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5368,16 +5368,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5417,16 +5417,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5459,16 +5459,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5506,16 +5506,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 50
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5558,16 +5558,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 7
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5599,16 +5599,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 16
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 16
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 18
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5643,16 +5643,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 18
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 18
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5688,16 +5688,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 23
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5732,16 +5732,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 73
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5778,16 +5778,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 56
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5824,16 +5824,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5869,16 +5869,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 47
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5921,16 +5921,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 28
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -5975,16 +5975,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 22
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6020,16 +6020,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6063,16 +6063,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 59
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6109,16 +6109,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6147,16 +6147,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6193,16 +6193,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6243,16 +6243,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 32
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6287,16 +6287,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 30
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 30
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 32
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6338,16 +6338,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6378,16 +6378,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 27
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 27
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 29
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6423,16 +6423,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6463,16 +6463,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 22
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6510,16 +6510,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 39
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6557,16 +6557,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 18
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6604,16 +6604,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 22
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 22
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 24
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6652,16 +6652,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 28
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6697,16 +6697,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 32
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6741,16 +6741,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6787,16 +6787,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6828,16 +6828,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 22
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 22
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 24
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6876,16 +6876,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6918,16 +6918,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -6969,16 +6969,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 2
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7014,16 +7014,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 23
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7061,16 +7061,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 4
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7111,16 +7111,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 22
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7159,16 +7159,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 15
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7215,16 +7215,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 6
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7257,16 +7257,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 29
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 29
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 31
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7300,16 +7300,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 19
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7352,16 +7352,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 19
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7404,16 +7404,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 28
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7448,16 +7448,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7490,16 +7490,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7539,16 +7539,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7581,16 +7581,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7623,16 +7623,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7673,16 +7673,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 76
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7724,16 +7724,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7767,16 +7767,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7810,16 +7810,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 19
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 19
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7850,16 +7850,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 23
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7895,16 +7895,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 39
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7935,16 +7935,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 33
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -7980,16 +7980,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 6
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 6
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8023,16 +8023,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 6
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8072,16 +8072,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8112,16 +8112,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8154,16 +8154,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 23
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8197,16 +8197,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 4
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8250,16 +8250,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8294,16 +8294,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8345,16 +8345,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8387,16 +8387,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8427,16 +8427,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 25
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8469,16 +8469,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8518,16 +8518,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8567,16 +8567,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 22
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8608,16 +8608,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 10
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 6
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8657,16 +8657,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 30
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8705,16 +8705,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8753,16 +8753,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 18
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8806,16 +8806,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 39
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8849,16 +8849,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 55
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8896,16 +8896,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 50
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8936,16 +8936,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 22
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -8980,16 +8980,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9021,16 +9021,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 25
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9062,16 +9062,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9105,16 +9105,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 15
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9142,16 +9142,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9188,16 +9188,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 7
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9231,16 +9231,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 23
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9274,16 +9274,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9319,16 +9319,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9360,16 +9360,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 62
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9413,16 +9413,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 18
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9456,16 +9456,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9502,16 +9502,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 8
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9552,16 +9552,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 22
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9604,16 +9604,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9646,16 +9646,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9685,16 +9685,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9735,16 +9735,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 33
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9783,16 +9783,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 54
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9825,16 +9825,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9872,16 +9872,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 12
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9913,16 +9913,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 54
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 54
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 56
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -9959,16 +9959,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10002,16 +10002,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 29
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10047,16 +10047,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10097,16 +10097,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 19
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10139,16 +10139,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 20
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10182,16 +10182,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 43
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10229,16 +10229,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 27
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10278,16 +10278,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 16
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10318,16 +10318,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 18
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10362,16 +10362,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 44
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10414,16 +10414,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 19
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 19
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 21
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10462,16 +10462,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10510,16 +10510,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10560,16 +10560,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 7
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10606,16 +10606,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10651,16 +10651,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10695,16 +10695,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10749,16 +10749,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10795,16 +10795,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10846,16 +10846,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10893,16 +10893,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 29
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10940,16 +10940,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 13
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -10983,16 +10983,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11037,16 +11037,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11083,16 +11083,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 48
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11122,16 +11122,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11163,16 +11163,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 24
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11201,16 +11201,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11242,16 +11242,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 23
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11292,16 +11292,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11335,16 +11335,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11373,16 +11373,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 15
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11418,16 +11418,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 18
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11464,16 +11464,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11514,16 +11514,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11564,16 +11564,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 7
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11603,16 +11603,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 18
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11647,16 +11647,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 25
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11685,16 +11685,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 20
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11732,16 +11732,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 25
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 25
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 27
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11771,16 +11771,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 35
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 35
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 37
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11818,16 +11818,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 21
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11872,16 +11872,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11911,16 +11911,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 21
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -11960,16 +11960,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12005,16 +12005,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 12
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12049,16 +12049,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 17
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12094,16 +12094,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 36
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12137,16 +12137,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 19
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 19
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 15
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12187,16 +12187,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 24
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12234,16 +12234,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 9
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12283,16 +12283,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 14
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12336,16 +12336,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12378,16 +12378,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 22
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12428,16 +12428,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 7
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 9
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12476,16 +12476,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 11
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12516,16 +12516,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 18
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 18
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 20
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12561,16 +12561,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 53
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12603,16 +12603,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 29
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 29
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 31
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12649,16 +12649,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 31
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12695,16 +12695,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12744,16 +12744,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 71
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12790,16 +12790,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 7
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12830,16 +12830,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 13
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12876,16 +12876,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12927,16 +12927,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 58
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -12971,16 +12971,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13019,16 +13019,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13073,16 +13073,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 57
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13117,16 +13117,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 35
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13160,16 +13160,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 15
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 17
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13209,16 +13209,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 47
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 47
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 49
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13261,16 +13261,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 14
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 10
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13314,16 +13314,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13354,16 +13354,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 5
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13399,16 +13399,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 67
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13447,16 +13447,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 20
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13496,16 +13496,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 7
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13544,16 +13544,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 45
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1
@@ -13590,16 +13590,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 2
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    right_bond_atoms:
+    left_bond_atoms:
     - molecule: Monomer
       element: N
       charge: -1
       position: 24
-    right_displaced_atoms:
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
       charge: 1

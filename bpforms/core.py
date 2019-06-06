@@ -220,10 +220,10 @@ class Monomer(object):
         base_monomers (:obj:`set` of :obj:`Monomer`): monomers which this monomer is derived from
         backbone_bond_atoms (:obj:`AtomList`): atoms from monomer that bond to backbone
         backbone_displaced_atoms (:obj:`AtomList`): atoms from monomer displaced by bond to backbone
-        left_bond_atoms (:obj:`AtomList`): atoms from left monomer that bond with right monomer
-        right_bond_atoms (:obj:`AtomList`): atoms from right monomer that bond with left monomer
-        left_displaced_atoms (:obj:`AtomList`): atoms from left monomer displaced by bond
-        right_displaced_atoms (:obj:`AtomList`): atoms from right monomer displaced by bond
+        right_bond_atoms (:obj:`AtomList`): atoms that bond with right/suceeding/following/forward monomer
+        left_bond_atoms (:obj:`AtomList`): atoms that bond with left/preceding/previous/backward monomer
+        right_displaced_atoms (:obj:`AtomList`): atoms displaced by bond with right/suceeding/following/forward monomer
+        left_displaced_atoms (:obj:`AtomList`): atoms displaced by bond with left/preceding/previous/backward monomer
         comments (:obj:`str`): comments
     """
 
@@ -231,8 +231,8 @@ class Monomer(object):
                  delta_mass=None, delta_charge=None, start_position=None, end_position=None,
                  base_monomers=None,
                  backbone_bond_atoms=None, backbone_displaced_atoms=None,
-                 left_bond_atoms=None, right_bond_atoms=None,
-                 left_displaced_atoms=None, right_displaced_atoms=None,
+                 right_bond_atoms=None, left_bond_atoms=None,
+                 right_displaced_atoms=None, left_displaced_atoms=None,
                  comments=None):
         """
         Attributes:
@@ -248,10 +248,10 @@ class Monomer(object):
             base_monomers (:obj:`set` of :obj:`Monomer`, optional): monomers which this monomer is derived from
             backbone_bond_atoms (:obj:`AtomList`, optional): atoms from monomer that bond to backbone
             backbone_displaced_atoms (:obj:`AtomList`, optional): atoms from monomer displaced by bond to backbone
-            left_bond_atoms (:obj:`AtomList`, optional): atoms from left monomer that bond with right monomer
-            right_bond_atoms (:obj:`AtomList`, optional): atoms from right monomer that bond with left monomer
-            left_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomer displaced by bond
-            right_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomer displaced by bond
+            right_bond_atoms (:obj:`AtomList`, optional): atoms that bond with right/suceeding/following/forward monomer
+            left_bond_atoms (:obj:`AtomList`, optional): atoms that bond with left/preceding/previous/backward monomer
+            right_displaced_atoms (:obj:`AtomList`, optional): atoms displaced by bond with right/suceeding/following/forward monomer
+            left_displaced_atoms (:obj:`AtomList`, optional): atoms displaced by bond with left/preceding/previous/backward monomer
             comments (:obj:`str`, optional): comments
         """
         self.id = id
@@ -266,10 +266,10 @@ class Monomer(object):
         self.base_monomers = base_monomers or set()
         self.backbone_bond_atoms = backbone_bond_atoms or AtomList()
         self.backbone_displaced_atoms = backbone_displaced_atoms or AtomList()
-        self.left_bond_atoms = left_bond_atoms or AtomList()
         self.right_bond_atoms = right_bond_atoms or AtomList()
-        self.left_displaced_atoms = left_displaced_atoms or AtomList()
+        self.left_bond_atoms = left_bond_atoms or AtomList()
         self.right_displaced_atoms = right_displaced_atoms or AtomList()
+        self.left_displaced_atoms = left_displaced_atoms or AtomList()
         self.comments = comments
 
     @property
@@ -579,45 +579,20 @@ class Monomer(object):
         self._backbone_displaced_atoms = value
 
     @property
-    def left_bond_atoms(self):
+    def right_bond_atoms(self):
         """ Get the left bond atoms
 
         Returns:
             :obj:`AtomList`: left bond atoms
         """
-        return self._left_bond_atoms
-
-    @left_bond_atoms.setter
-    def left_bond_atoms(self, value):
-        """ Set the left bond atoms
-
-        Args:
-            value (:obj:`AtomList`): left bond atoms
-
-        Raises:
-            :obj:`ValueError`: if `left_bond_atoms` is not an instance of `AtomList`
-        """
-        if value is None:
-            raise ValueError('`left_bond_atoms` must be an instance of `AtomList`')
-        if not isinstance(value, AtomList):
-            value = AtomList(value)
-        self._left_bond_atoms = value
-
-    @property
-    def right_bond_atoms(self):
-        """ Get the right bond atoms
-
-        Returns:
-            :obj:`AtomList`: right bond atoms
-        """
         return self._right_bond_atoms
 
     @right_bond_atoms.setter
     def right_bond_atoms(self, value):
-        """ Set the right bond atoms
+        """ Set the left bond atoms
 
         Args:
-            value (:obj:`AtomList`): right bond atoms
+            value (:obj:`AtomList`): left bond atoms
 
         Raises:
             :obj:`ValueError`: if `right_bond_atoms` is not an instance of `AtomList`
@@ -629,45 +604,45 @@ class Monomer(object):
         self._right_bond_atoms = value
 
     @property
-    def left_displaced_atoms(self):
+    def left_bond_atoms(self):
+        """ Get the right bond atoms
+
+        Returns:
+            :obj:`AtomList`: right bond atoms
+        """
+        return self._left_bond_atoms
+
+    @left_bond_atoms.setter
+    def left_bond_atoms(self, value):
+        """ Set the right bond atoms
+
+        Args:
+            value (:obj:`AtomList`): right bond atoms
+
+        Raises:
+            :obj:`ValueError`: if `left_bond_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`left_bond_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._left_bond_atoms = value
+
+    @property
+    def right_displaced_atoms(self):
         """ Get the left displaced atoms
 
         Returns:
             :obj:`AtomList`: left displaced atoms
         """
-        return self._left_displaced_atoms
-
-    @left_displaced_atoms.setter
-    def left_displaced_atoms(self, value):
-        """ Set the left displaced atoms
-
-        Args:
-            value (:obj:`AtomList`): left displaced atoms
-
-        Raises:
-            :obj:`ValueError`: if `left_displaced_atoms` is not an instance of `AtomList`
-        """
-        if value is None:
-            raise ValueError('`left_displaced_atoms` must be an instance of `AtomList`')
-        if not isinstance(value, AtomList):
-            value = AtomList(value)
-        self._left_displaced_atoms = value
-
-    @property
-    def right_displaced_atoms(self):
-        """ Get the right displaced atoms
-
-        Returns:
-            :obj:`AtomList`: right displaced atoms
-        """
         return self._right_displaced_atoms
 
     @right_displaced_atoms.setter
     def right_displaced_atoms(self, value):
-        """ Set the right displaced atoms
+        """ Set the left displaced atoms
 
         Args:
-            value (:obj:`AtomList`): right displaced atoms
+            value (:obj:`AtomList`): left displaced atoms
 
         Raises:
             :obj:`ValueError`: if `right_displaced_atoms` is not an instance of `AtomList`
@@ -677,6 +652,31 @@ class Monomer(object):
         if not isinstance(value, AtomList):
             value = AtomList(value)
         self._right_displaced_atoms = value
+
+    @property
+    def left_displaced_atoms(self):
+        """ Get the right displaced atoms
+
+        Returns:
+            :obj:`AtomList`: right displaced atoms
+        """
+        return self._left_displaced_atoms
+
+    @left_displaced_atoms.setter
+    def left_displaced_atoms(self, value):
+        """ Set the right displaced atoms
+
+        Args:
+            value (:obj:`AtomList`): right displaced atoms
+
+        Raises:
+            :obj:`ValueError`: if `left_displaced_atoms` is not an instance of `AtomList`
+        """
+        if value is None:
+            raise ValueError('`left_displaced_atoms` must be an instance of `AtomList`')
+        if not isinstance(value, AtomList):
+            value = AtomList(value)
+        self._left_displaced_atoms = value
 
     @property
     def comments(self):
@@ -785,10 +785,10 @@ class Monomer(object):
         atom_md_types = [
             (self.backbone_bond_atoms, bond_label, backbone_bond_color),
             (self.backbone_displaced_atoms, displaced_label, backbone_bond_color),
-            (self.left_bond_atoms, bond_label, left_bond_color),
-            (self.left_displaced_atoms, displaced_label, left_bond_color),
-            (self.right_bond_atoms, bond_label, right_bond_color),
-            (self.right_displaced_atoms, displaced_label, right_bond_color),
+            (self.right_bond_atoms, bond_label, left_bond_color),
+            (self.right_displaced_atoms, displaced_label, left_bond_color),
+            (self.left_bond_atoms, bond_label, right_bond_color),
+            (self.left_displaced_atoms, displaced_label, right_bond_color),
         ]
         atom_labels = []
         atom_sets = {}
@@ -873,8 +873,8 @@ class Monomer(object):
 
         attr_names = (
             'backbone_bond_atoms', 'backbone_displaced_atoms',
-            'left_bond_atoms', 'right_bond_atoms',
-            'left_displaced_atoms', 'right_displaced_atoms')
+            'right_bond_atoms', 'left_bond_atoms',
+            'right_displaced_atoms', 'left_displaced_atoms')
         for attr_name in attr_names:
             atoms = getattr(self, attr_name)
             if atoms:
@@ -930,8 +930,8 @@ class Monomer(object):
 
         attr_names = (
             'backbone_bond_atoms', 'backbone_displaced_atoms',
-            'left_bond_atoms', 'right_bond_atoms',
-            'left_displaced_atoms', 'right_displaced_atoms')
+            'right_bond_atoms', 'left_bond_atoms',
+            'right_displaced_atoms', 'left_displaced_atoms')
         for attr_name in attr_names:
             atoms = getattr(self, attr_name)
             atoms.from_list(dict.get(attr_name, []))
@@ -966,8 +966,8 @@ class Monomer(object):
 
         atom_types = [
             'backbone_bond_atoms', 'backbone_displaced_atoms',
-            'left_bond_atoms', 'left_displaced_atoms',
             'right_bond_atoms', 'right_displaced_atoms',
+            'left_bond_atoms', 'left_displaced_atoms',
         ]
         for atom_type in atom_types:
             for atom in getattr(self, atom_type):
@@ -1048,8 +1048,8 @@ class Monomer(object):
 
         attr_names = (
             'backbone_bond_atoms', 'backbone_displaced_atoms',
-            'left_bond_atoms', 'right_bond_atoms',
-            'left_displaced_atoms', 'right_displaced_atoms')
+            'right_bond_atoms', 'left_bond_atoms',
+            'right_displaced_atoms', 'left_displaced_atoms')
         for attr_name in attr_names:
             self_atoms = getattr(self, attr_name)
             other_atoms = getattr(other, attr_name)
@@ -2363,18 +2363,18 @@ class BpForm(object):
             left_atom_attrs = ['left', [
                 ['left_bond_atoms', self.bond.left_bond_atoms],
                 ['left_displaced_atoms', self.bond.left_displaced_atoms]]]
-            if monomer.left_bond_atoms:
-                left_atom_attrs[1][0][1] = monomer.left_bond_atoms
-            if monomer.left_displaced_atoms:
-                left_atom_attrs[1][1][1] = monomer.left_displaced_atoms
+            if monomer.right_bond_atoms:
+                left_atom_attrs[1][0][1] = monomer.right_bond_atoms
+            if monomer.right_displaced_atoms:
+                left_atom_attrs[1][1][1] = monomer.right_displaced_atoms
 
             right_atom_attrs = ['right', [
                 ['right_bond_atoms', self.bond.right_bond_atoms],
                 ['right_displaced_atoms', self.bond.right_displaced_atoms]]]
-            if monomer.right_bond_atoms:
-                right_atom_attrs[1][0][1] = monomer.right_bond_atoms
-            if monomer.right_displaced_atoms:
-                right_atom_attrs[1][1][1] = monomer.right_displaced_atoms
+            if monomer.left_bond_atoms:
+                right_atom_attrs[1][0][1] = monomer.left_bond_atoms
+            if monomer.left_displaced_atoms:
+                right_atom_attrs[1][1][1] = monomer.left_displaced_atoms
 
             subunit_atoms = {}
             for type, attrs in [monomer_atom_attrs, backbone_atom_attrs,
@@ -2588,10 +2588,10 @@ class BpForm(object):
                     'base_monomers': set(),
                     'backbone_bond_atoms': AtomList(),
                     'backbone_displaced_atoms': AtomList(),
-                    'left_bond_atoms': AtomList(),
-                    'left_displaced_atoms': AtomList(),
                     'right_bond_atoms': AtomList(),
                     'right_displaced_atoms': AtomList(),
+                    'left_bond_atoms': AtomList(),
+                    'left_displaced_atoms': AtomList(),
                 }
                 for arg in args:
                     if isinstance(arg, tuple):
@@ -2606,8 +2606,8 @@ class BpForm(object):
                         elif arg_name in ['synonyms', 'identifiers', 'base_monomers']:
                             kwargs[arg_name].add(arg_val)
                         elif arg_name in ['backbone_bond_atoms', 'backbone_displaced_atoms',
-                                          'left_bond_atoms', 'left_displaced_atoms',
-                                          'right_bond_atoms', 'right_displaced_atoms']:
+                                          'right_bond_atoms', 'right_displaced_atoms',
+                                          'left_bond_atoms', 'left_displaced_atoms']:
                             kwargs[arg_name].append(arg_val)
                         else:  # pragma: no cover # the grammar ensures this will never be reached
                             raise ValueError('Invalid attribute {}'.format(arg_name))
@@ -2642,20 +2642,20 @@ class BpForm(object):
                 return ('backbone_displaced_atoms', args[1])
 
             @lark.v_args(inline=True)
-            def left_bond_atom(self, *args):
-                return ('left_bond_atoms', args[1])
-
-            @lark.v_args(inline=True)
-            def left_displaced_atom(self, *args):
-                return ('left_displaced_atoms', args[1])
-
-            @lark.v_args(inline=True)
             def right_bond_atom(self, *args):
                 return ('right_bond_atoms', args[1])
 
             @lark.v_args(inline=True)
             def right_displaced_atom(self, *args):
                 return ('right_displaced_atoms', args[1])
+
+            @lark.v_args(inline=True)
+            def left_bond_atom(self, *args):
+                return ('left_bond_atoms', args[1])
+
+            @lark.v_args(inline=True)
+            def left_displaced_atom(self, *args):
+                return ('left_displaced_atoms', args[1])
 
             @lark.v_args(inline=True)
             def atom(self, *args):

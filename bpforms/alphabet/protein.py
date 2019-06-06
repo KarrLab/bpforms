@@ -140,10 +140,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 canonical_aa.structure = structure
                 canonical_aa.backbone_bond_atoms[0].position = index_c
                 canonical_aa.backbone_displaced_atoms[0].position = index_c
-                canonical_aa.left_bond_atoms[0].position = index_c
-                canonical_aa.right_bond_atoms[0].position = index_n
-                canonical_aa.right_displaced_atoms[0].position = index_n
-                canonical_aa.right_displaced_atoms[1].position = index_n
+                canonical_aa.right_bond_atoms[0].position = index_c
+                canonical_aa.left_bond_atoms[0].position = index_n
+                canonical_aa.left_displaced_atoms[0].position = index_n
+                canonical_aa.left_displaced_atoms[1].position = index_n
                 warnings.warn('Updated canonical monomer {}'.format(name), BpFormsWarning)
                 continue
 
@@ -156,9 +156,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 comments=comments,
                 backbone_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
                 backbone_displaced_atoms=[Atom(Monomer, element='H', position=index_c)],
-                left_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
-                right_bond_atoms=[Atom(Monomer, element='N', position=index_n, charge=-1)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=index_n, charge=1),
+                right_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
+                left_bond_atoms=[Atom(Monomer, element='N', position=index_n, charge=-1)],
+                left_displaced_atoms=[Atom(Monomer, element='H', position=index_n, charge=1),
                                        Atom(Monomer, element='H', position=index_n)],
             )
             alphabet.monomers[code] = monomer

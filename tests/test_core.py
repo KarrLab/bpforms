@@ -376,33 +376,33 @@ class MonomerTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             monomer.backbone_displaced_atoms = None
 
-    def test_set_left_bond_atoms(self):
-        monomer = core.Monomer()
-        monomer.left_bond_atoms = []
-        monomer.left_bond_atoms = core.AtomList()
-        with self.assertRaises(ValueError):
-            monomer.left_bond_atoms = None
-
-    def test_set_bond_bond_atoms(self):
+    def test_set_right_bond_atoms(self):
         monomer = core.Monomer()
         monomer.right_bond_atoms = []
         monomer.right_bond_atoms = core.AtomList()
         with self.assertRaises(ValueError):
             monomer.right_bond_atoms = None
 
-    def test_set_left_displaced_atoms(self):
+    def test_set_bond_bond_atoms(self):
         monomer = core.Monomer()
-        monomer.left_displaced_atoms = []
-        monomer.left_displaced_atoms = core.AtomList()
+        monomer.left_bond_atoms = []
+        monomer.left_bond_atoms = core.AtomList()
         with self.assertRaises(ValueError):
-            monomer.left_displaced_atoms = None
+            monomer.left_bond_atoms = None
 
-    def test_set_bond_displaced_atoms(self):
+    def test_set_right_displaced_atoms(self):
         monomer = core.Monomer()
         monomer.right_displaced_atoms = []
         monomer.right_displaced_atoms = core.AtomList()
         with self.assertRaises(ValueError):
             monomer.right_displaced_atoms = None
+
+    def test_set_bond_displaced_atoms(self):
+        monomer = core.Monomer()
+        monomer.left_displaced_atoms = []
+        monomer.left_displaced_atoms = core.AtomList()
+        with self.assertRaises(ValueError):
+            monomer.left_displaced_atoms = None
 
     def test_comments_setter(self):
         monomer = core.Monomer()
@@ -1232,10 +1232,10 @@ class BpFormTestCase(unittest.TestCase):
                       + ' | backbone-bond-atom: Monomer / C / 1 / -1'
                       + ' | backbone-bond-atom: Monomer / D / 2 / -2'
                       + ' | backbone-displaced-atom: Backbone / D / 2 / -2'
-                      + ' | left-bond-atom: Monomer / E / 3 / -3'
-                      + ' | left-displaced-atom: Backbone / F / 4 / -4'
-                      + ' | right-bond-atom: Monomer / G / 5 / -5'
-                      + ' | right-displaced-atom: Backbone / H / 6 / -6'
+                      + ' | right-bond-atom: Monomer / E / 3 / -3'
+                      + ' | right-displaced-atom: Backbone / F / 4 / -4'
+                      + ' | left-bond-atom: Monomer / G / 5 / -5'
+                      + ' | left-displaced-atom: Backbone / H / 6 / -6'
                       + ' | delta-mass: -2.5'
                       + ' | delta-charge: 3'
                       + ' | position: 3-5'
@@ -1257,10 +1257,10 @@ class BpFormTestCase(unittest.TestCase):
                     core.Atom(core.Monomer, 'D', position=2, charge=-2),
                 ],
                 backbone_displaced_atoms=[core.Atom(core.Backbone, 'D', position=2, charge=-2)],
-                left_bond_atoms=[core.Atom(core.Monomer, 'E', position=3, charge=-3)],
-                left_displaced_atoms=[core.Atom(core.Backbone, 'F', position=4, charge=-4)],
-                right_bond_atoms=[core.Atom(core.Monomer, 'G', position=5, charge=-5)],
-                right_displaced_atoms=[core.Atom(core.Backbone, 'H', position=6, charge=-6)],
+                right_bond_atoms=[core.Atom(core.Monomer, 'E', position=3, charge=-3)],
+                right_displaced_atoms=[core.Atom(core.Backbone, 'F', position=4, charge=-4)],
+                left_bond_atoms=[core.Atom(core.Monomer, 'G', position=5, charge=-5)],
+                left_displaced_atoms=[core.Atom(core.Backbone, 'H', position=6, charge=-6)],
                 delta_mass=-2.5,
                 delta_charge=3,
                 start_position=3,

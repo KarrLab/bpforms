@@ -191,12 +191,12 @@ class RnaTestCase(unittest.TestCase):
 
         for monomer in rna.CanonicalRnaForm().alphabet.monomers.values():
             b_atom = monomer.structure.GetAtom(monomer.backbone_bond_atoms[0].position)
-            r_atom = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
+            r_atom = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
             assert self.are_atoms_valid(b_atom, r_atom)
 
         for monomer in rna.RnaForm().alphabet.monomers.values():
             b_atom = monomer.structure.GetAtom(monomer.backbone_bond_atoms[0].position)
-            r_atom = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
+            r_atom = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
             assert self.are_atoms_valid(b_atom, r_atom)
 
     def are_atoms_valid(self, b_atom, r_atom):

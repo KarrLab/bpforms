@@ -3,7 +3,7 @@ seq: monomer+
 ?monomer: alphabet_monomer | inline_monomer
 alphabet_monomer: CHAR | DELIMITED_CHARS
 inline_monomer: "[" WS* inline_monomer_attr (ATTR_SEP inline_monomer_attr)* WS* "]"
-?inline_monomer_attr: id | name | synonym | identifier | structure | backbone_bond_atom | backbone_displaced_atom | left_bond_atom | right_bond_atom | left_displaced_atom | right_displaced_atom | delta_mass | delta_charge | position | base_monomer | comments
+?inline_monomer_attr: id | name | synonym | identifier | structure | backbone_bond_atom | backbone_displaced_atom | right_bond_atom | left_bond_atom | right_displaced_atom | left_displaced_atom | delta_mass | delta_charge | position | base_monomer | comments
 ?id: "id" FIELD_SEP ESCAPED_STRING
 ?name: "name" FIELD_SEP ESCAPED_STRING
 ?synonym: "synonym" FIELD_SEP ESCAPED_STRING
@@ -13,10 +13,10 @@ inline_monomer: "[" WS* inline_monomer_attr (ATTR_SEP inline_monomer_attr)* WS* 
 ?structure: "structure" FIELD_SEP "\"" SMILES "\""
 ?backbone_bond_atom: "backbone-bond-atom" FIELD_SEP atom
 ?backbone_displaced_atom: "backbone-displaced-atom" FIELD_SEP atom
-?left_bond_atom: "left-bond-atom" FIELD_SEP atom
 ?right_bond_atom: "right-bond-atom" FIELD_SEP atom
-?left_displaced_atom: "left-displaced-atom" FIELD_SEP atom
+?left_bond_atom: "left-bond-atom" FIELD_SEP atom
 ?right_displaced_atom: "right-displaced-atom" FIELD_SEP atom
+?left_displaced_atom: "left-displaced-atom" FIELD_SEP atom
 ?atom: atom_molecule IDENTIFIER_SEP atom_element IDENTIFIER_SEP atom_position IDENTIFIER_SEP atom_charge
 ?atom_molecule: /(Monomer|Backbone)/
 ?atom_element: /[A-Z][a-z]?/

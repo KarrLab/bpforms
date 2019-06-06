@@ -214,8 +214,8 @@ class ProteinTestCase(unittest.TestCase):
         errors = []
         builder = protein.ProteinAlphabetBuilder()
         for monomer in alphabet.monomers.values():
-            atom_n = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
-            atom_c = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
+            atom_n = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
+            atom_c = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
             if not builder.is_n_terminus(atom_n):
                 errors.append('Monomer {} does not have a N-terminus'.format(monomer.id))
             if not builder.is_c_terminus(atom_c):

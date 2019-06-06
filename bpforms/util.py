@@ -142,12 +142,12 @@ def gen_html_viz_alphabet(bpform_type, filename):
                                                           for atom in monomer.backbone_bond_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
                                                           for atom in monomer.backbone_displaced_atoms))
-        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.left_bond_atoms))
-        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
-                                                          for atom in monomer.left_displaced_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.right_bond_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
                                                           for atom in monomer.right_displaced_atoms))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.left_bond_atoms))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
+                                                          for atom in monomer.left_displaced_atoms))
         doc += '        </tr>\n'
     doc += '    </table>\n'
     doc += '  </body>\n'
@@ -206,10 +206,10 @@ def validate_bpform_linkages(form_type):
     atom_types = [
         'backbone_bond_atoms',
         'backbone_displaced_atoms',
-        'left_bond_atoms',
         'right_bond_atoms',
-        'left_displaced_atoms',
+        'left_bond_atoms',
         'right_displaced_atoms',
+        'left_displaced_atoms',
     ]
     for monomer in form.alphabet.monomers.values():
         for atom_type in atom_types:

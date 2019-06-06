@@ -26,11 +26,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 13
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
@@ -57,11 +57,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 15
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -88,11 +88,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 15
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -119,11 +119,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -146,11 +146,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -175,11 +175,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -204,11 +204,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -233,11 +233,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 11
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -264,11 +264,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -295,11 +295,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -326,11 +326,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -355,11 +355,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -384,11 +384,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -411,11 +411,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 24
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 26
@@ -440,11 +440,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 24
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 26
@@ -469,11 +469,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 26
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 29
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 29
@@ -500,11 +500,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -529,11 +529,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 28
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 30
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 30
@@ -558,11 +558,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 23
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 26
@@ -587,11 +587,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 27
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 30
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 30
@@ -618,11 +618,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 22
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 25
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 25
@@ -647,11 +647,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -676,11 +676,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 27
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 30
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 30
@@ -705,11 +705,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -734,11 +734,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -765,11 +765,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -796,11 +796,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -825,11 +825,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -856,11 +856,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -887,11 +887,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -916,11 +916,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -945,11 +945,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -974,11 +974,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -1003,11 +1003,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 6
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -1032,11 +1032,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 6
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -1061,11 +1061,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 18
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 20
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 20
@@ -1090,11 +1090,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 18
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 20
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 20
@@ -1119,11 +1119,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 18
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 20
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 20
@@ -1150,11 +1150,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -1179,11 +1179,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 14
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -1210,11 +1210,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 14
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -1241,11 +1241,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 16
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -1272,11 +1272,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -1301,11 +1301,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -1330,11 +1330,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -1359,11 +1359,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 6
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
@@ -1388,11 +1388,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -1417,11 +1417,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 19
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 19
@@ -1446,11 +1446,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -1475,11 +1475,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 19
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 19
@@ -1504,11 +1504,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 30
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 33
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 33
@@ -1533,11 +1533,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -1562,11 +1562,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -1591,11 +1591,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 15
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -1620,11 +1620,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -1649,11 +1649,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -1678,11 +1678,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -1707,11 +1707,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 14
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -1736,11 +1736,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -1765,11 +1765,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 12
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -1794,11 +1794,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 33
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 36
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 36
@@ -1823,11 +1823,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 12
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -1854,11 +1854,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 12
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -1883,11 +1883,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -1914,11 +1914,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -1945,11 +1945,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -1974,11 +1974,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 12
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -2003,11 +2003,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 12
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -2032,11 +2032,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -2061,11 +2061,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -2090,11 +2090,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -2119,11 +2119,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -2148,11 +2148,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -2177,11 +2177,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -2206,11 +2206,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 15
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -2237,11 +2237,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 12
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -2268,11 +2268,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 14
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -2297,11 +2297,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -2328,11 +2328,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -2359,11 +2359,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -2388,11 +2388,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 15
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -2419,11 +2419,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 11
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -2448,11 +2448,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 11
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -2479,11 +2479,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 11
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 11
@@ -2508,11 +2508,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 12
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -2537,11 +2537,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -2566,11 +2566,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 28
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 31
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 31
@@ -2595,11 +2595,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 32
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 35
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 35
@@ -2624,11 +2624,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 31
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 34
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 34
@@ -2653,11 +2653,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 20
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 23
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 23
@@ -2680,11 +2680,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -2707,11 +2707,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 14
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -2736,11 +2736,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 16
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -2765,11 +2765,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -2794,11 +2794,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 20
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 23
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 23
@@ -2823,11 +2823,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 20
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 23
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 23
@@ -2852,11 +2852,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -2881,11 +2881,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 21
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 24
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 24
@@ -2912,11 +2912,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -2943,11 +2943,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -2972,11 +2972,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -3001,11 +3001,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -3032,11 +3032,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 17
@@ -3061,11 +3061,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -3090,11 +3090,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 16
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -3119,11 +3119,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -3148,11 +3148,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 14
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -3177,11 +3177,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 5
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 5
@@ -3208,11 +3208,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 13
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 15
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 15
@@ -3237,11 +3237,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 19
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 19
@@ -3266,11 +3266,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -3295,11 +3295,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 12
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -3324,11 +3324,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 12
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 12
@@ -3353,11 +3353,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -3382,11 +3382,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 19
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 21
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 21
@@ -3413,11 +3413,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 16
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -3442,11 +3442,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 21
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 24
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 24
@@ -3471,11 +3471,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 14
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
@@ -3500,11 +3500,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 23
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 26
@@ -3529,11 +3529,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 24
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 26
@@ -3558,11 +3558,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 18
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 18
@@ -3585,11 +3585,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 19
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 22
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 22
@@ -3616,11 +3616,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -3645,11 +3645,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 25
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 28
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 28
@@ -3672,11 +3672,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 38
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 40
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 40
@@ -3699,11 +3699,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 21
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 23
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 23
@@ -3728,11 +3728,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 29
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 32
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 32
@@ -3759,11 +3759,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -3788,11 +3788,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 19
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 19
@@ -3817,11 +3817,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 38
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 40
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 40
@@ -3844,11 +3844,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 29
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 32
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 32
@@ -3873,11 +3873,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 21
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 23
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 23
@@ -3902,11 +3902,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 28
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 31
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 31
@@ -3933,11 +3933,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -3962,11 +3962,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 24
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 27
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 27
@@ -3989,11 +3989,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 33
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 36
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 36
@@ -4020,11 +4020,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 9
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 9
@@ -4051,11 +4051,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 16
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 16
@@ -4080,11 +4080,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 26
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 28
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 28
@@ -4109,11 +4109,11 @@ monomers:
     - molecule: Monomer
       element: H
       position: 22
-    left_bond_atoms:
+    right_bond_atoms:
     - molecule: Monomer
       element: O
       position: 25
-    left_displaced_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 25
