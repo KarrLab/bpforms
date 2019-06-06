@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/github/license/KarrLab/bpforms.svg)](LICENSE)
 ![Analytics](https://ga-beacon.appspot.com/UA-86759801-1/bpforms/README.md?pixel)
 
-# `BpForms`: toolkit for concretely representating non-canonical DNA, RNA, and proteins
+# `BpForms`: toolkit for concretely describing non-canonical DNA, RNA, and proteins
 
 `BpForms` is a set of tools for concretely representing the primary structures of non-canonical forms of biopolymers, such as oxidized DNA, methylated RNA, and acetylated proteins, and calculating properties of non-canonical biopolymers.
 
