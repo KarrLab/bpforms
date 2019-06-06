@@ -1372,14 +1372,15 @@ class BpFormTestCase(unittest.TestCase):
         conv.SetInFormat('smiles')
         conv.ReadString(mol, '[O-]N([O-])C1=C2N=CNC2=NC=N1')
         form._bond_subunits(mol, {
-            'left': {
-                'left_bond_atoms': [(mol.GetAtom(1), 1), ],
-                'left_displaced_atoms': [(mol.GetAtom(1), -1)],
-            }
-        }, {
             'right': {
                 'right_bond_atoms': [(mol.GetAtom(8), 1)],
                 'right_displaced_atoms': [(mol.GetAtom(3), -1)],
+            }
+        },
+            {
+            'left': {
+                'left_bond_atoms': [(mol.GetAtom(1), 1), ],
+                'left_displaced_atoms': [(mol.GetAtom(1), -1)],
             }
         })
 
@@ -1477,6 +1478,53 @@ class BpFormTestCase(unittest.TestCase):
             alphabet.monomers.m2222A, alphabet.monomers.m2222C,
         ])
         self.assertEqual(bpform.get_fasta(), 'ACGTAAAAX')
+
+    def test_validate(self):
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        self.assertEqual(form.validate(), [])
+
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        form.backbone.monomer_bond_atoms[0].molecule = core.Monomer
+        self.assertNotEqual(form.validate(), [])
+
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        form.bond.left_bond_atoms.append(core.Atom(core.Monomer, 'C', None))
+        self.assertNotEqual(form.validate(), [])
+
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        form.bond.left_bond_atoms[0].position = None
+        self.assertNotEqual(form.validate(), [])
+
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        form.seq[0].backbone_bond_atoms[0].molecule = core.Backbone
+        self.assertNotEqual(form.validate(), [])
+        form.seq[0].backbone_bond_atoms[0].molecule = core.Monomer
+
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        form.seq[0].right_bond_atoms.append(core.Atom(core.Backbone, 'C', 1))
+        self.assertNotEqual(form.validate(), [])
+        form.seq[0].right_bond_atoms.pop()
+
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        form.backbone.monomer_bond_atoms = []
+        self.assertNotEqual(form.validate(), [])
+
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        form.bond.left_bond_atoms = []
+        self.assertNotEqual(form.validate(), [])
+
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        form.bond.right_bond_atoms = []
+        self.assertNotEqual(form.validate(), [])
 
 
 class AlphabetTestCase(unittest.TestCase):

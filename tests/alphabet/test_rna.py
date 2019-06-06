@@ -255,3 +255,8 @@ class RnaTestCase(unittest.TestCase):
         assert other_atoms == [1, 6]
 
         return True
+
+    def test_validate_form(self):
+        form = rna.RnaForm()
+        form.from_str('ACGU')
+        self.assertEqual(form.validate(), [])

@@ -251,10 +251,10 @@ class RnaForm(BpForm):
                 monomer_bond_atoms=[Atom(Backbone, element='P', position=2)],
                 monomer_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
             bond=Bond(
-                left_bond_atoms=[Atom(Monomer, element='O', position=None)],
-                right_bond_atoms=[Atom(Backbone, element='P', position=2)],
-                left_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                right_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]),
+                right_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                left_bond_atoms=[Atom(Backbone, element='P', position=2)],
+                right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                left_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]),
             circular=circular)
 
 
@@ -276,8 +276,8 @@ class CanonicalRnaForm(BpForm):
                 monomer_bond_atoms=[Atom(Backbone, element='P', position=2)],
                 monomer_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
             bond=Bond(
-                left_bond_atoms=[Atom(Monomer, element='O', position=None)],
-                right_bond_atoms=[Atom(Backbone, element='P', position=2)],
-                left_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                right_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]),
+                right_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                left_bond_atoms=[Atom(Backbone, element='P', position=2)],
+                right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                left_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]),
             circular=circular)

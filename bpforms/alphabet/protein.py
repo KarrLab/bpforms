@@ -451,10 +451,10 @@ class ProteinForm(BpForm):
                 monomer_bond_atoms=[Atom(Backbone, element='O', position=1)],
                 monomer_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
             bond=Bond(
-                left_bond_atoms=[Atom(Monomer, element='C', position=None)],
-                right_bond_atoms=[Atom(Monomer, element='N', position=None)],
-                left_displaced_atoms=[Atom(Backbone, element='O', position=1)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]),
+                right_bond_atoms=[Atom(Monomer, element='C', position=None)],
+                left_bond_atoms=[Atom(Monomer, element='N', position=None)],
+                right_displaced_atoms=[Atom(Backbone, element='O', position=1)],
+                left_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]),
             circular=circular)
 
 
@@ -476,8 +476,8 @@ class CanonicalProteinForm(BpForm):
                 monomer_bond_atoms=[Atom(Backbone, element='O', position=1)],
                 monomer_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
             bond=Bond(
-                left_bond_atoms=[Atom(Monomer, element='C', position=None)],
-                right_bond_atoms=[Atom(Monomer, element='N', position=None)],
-                left_displaced_atoms=[Atom(Backbone, element='O', position=1)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]),
+                right_bond_atoms=[Atom(Monomer, element='C', position=None)],
+                left_bond_atoms=[Atom(Monomer, element='N', position=None)],
+                right_displaced_atoms=[Atom(Backbone, element='O', position=1)],
+                left_displaced_atoms=[Atom(Monomer, element='H', position=None), Atom(Monomer, element='H', position=None)]),
             circular=circular)

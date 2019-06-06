@@ -45,11 +45,17 @@ class ValidateController(cement.Controller):
     def _default(self):
         args = self.app.pargs
         type = bpforms.util.get_form(args.alphabet)
+        
         try:
-            form = type(circular=args.circular).from_str(args.seq)
-            print('Form is valid')
+            form = type(circular=args.circular).from_str(args.seq)            
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
+
+        errors = form.validate()
+        if errors:
+            raise SystemExit('Form is invalid:\n  {}'.format('\n  '.join(errors)))
+
+        print('Form is valid')
 
 
 class GetPropertiesController(cement.Controller):
@@ -74,10 +80,15 @@ class GetPropertiesController(cement.Controller):
     def _default(self):
         args = self.app.pargs
         type = bpforms.util.get_form(args.alphabet)
+        
         try:
             form = type(circular=args.circular).from_str(args.seq)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
+
+        errors = form.validate()
+        if errors:
+            raise SystemExit('Form is invalid:\n  {}'.format('\n  '.join(errors)))
 
         smiles = None
         formula = None
@@ -131,10 +142,16 @@ class GetMajorMicroSpeciesController(cement.Controller):
     def _default(self):
         args = self.app.pargs
         type = bpforms.util.get_form(args.alphabet)
+        
         try:
             form = type(circular=args.circular).from_str(args.seq)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
+
+        errors = form.validate()
+        if errors:
+            raise SystemExit('Form is invalid:\n  {}'.format('\n  '.join(errors)))
+
         structure = form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
         print(OpenBabelUtils.export(structure, 'smiles'))
 

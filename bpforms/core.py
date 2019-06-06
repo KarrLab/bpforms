@@ -2285,7 +2285,69 @@ class BpForm(object):
         return len(self.seq)
 
     def validate(self):
-        self.seq # todo
+        """ Check that the biopolymer form is valid and return any errors
+
+        * Check that monomeric forms :math:`1 \ldots L-1` can bind to the right (their right bonding attributes are set)
+        * Check that monomeric forms :math:`2 \ldots L` can bind to the left (their left bonding attributes are set)
+
+        Returns:
+            :obj:`list` of :obj:`str`: list of errors, if any
+        """
+        errors = []
+
+        # check that bond atoms are defined
+        atom_types = ['monomer_bond_atoms', 'monomer_displaced_atoms']
+        for atom_type in atom_types:
+            for i_atom, atom in enumerate(getattr(self.backbone, atom_type)):
+                if atom.molecule != Backbone or not atom.element or not atom.position:
+                    errors.append("Backbone atom '{}[{}]' must have a defined element and position".format(atom_type, i_atom))
+
+        atom_types = ['left_bond_atoms', 'left_displaced_atoms',
+                      'right_bond_atoms', 'right_displaced_atoms']
+        for atom_type in atom_types:
+            if len(set(atom.molecule for atom in getattr(self.bond, atom_type))) > 1:
+                errors.append("'{}' must have the same molecule type".format(atom_type))
+
+            for i_atom, atom in enumerate(getattr(self.bond, atom_type)):
+                if not atom.element or (atom.molecule == Backbone and not atom.position):
+                    errors.append("Bond atom '{}[{}]' must have a defined element and position".format(atom_type, i_atom))
+
+        for i_monomer, monomer in enumerate(self.seq):
+            atom_types = ['backbone_bond_atoms', 'backbone_displaced_atoms']
+            for atom_type in atom_types:
+                for i_atom, atom in enumerate(getattr(monomer, atom_type)):
+                    if atom.molecule != Monomer or not atom.element or not atom.position:
+                        errors.append("'{}[{}]' of monomer {} must have a defined element and position".format(
+                            atom_type, i_atom, i_monomer + 1))
+
+            atom_types = ['right_bond_atoms', 'right_displaced_atoms',
+                          'left_bond_atoms', 'left_displaced_atoms']
+            for atom_type in atom_types:
+                for i_atom, atom in enumerate(getattr(monomer, atom_type)):
+                    if atom.molecule != Monomer or not atom.element or not atom.position:
+                        errors.append("'{}[{}]' of monomer {} must have a defined element and position".format(
+                            atom_type, i_atom, i_monomer + 1))
+
+        # check that monomers 1 .. L-1 can bind to right
+        for i_monomer, monomer in enumerate(self.seq[0:-1]):
+            if not monomer.right_bond_atoms and not \
+                (monomer.backbone_bond_atoms
+                 and self.backbone.monomer_bond_atoms
+                 and self.bond.right_bond_atoms
+                 and self.bond.right_bond_atoms[0].molecule == Backbone):
+                errors.append('Monomeric form {} must be able to bind to the right'.format(i_monomer + 1))
+
+        # check that monomers 2 .. L can bind to left
+        for i_monomer, monomer in enumerate(self.seq[1:]):
+            if not monomer.left_bond_atoms and not \
+                (monomer.backbone_bond_atoms
+                 and self.backbone.monomer_bond_atoms
+                 and self.bond.left_bond_atoms
+                 and self.bond.left_bond_atoms[0].molecule == Backbone):
+                errors.append('Monomeric form {} must be able to bind to the left'.format(i_monomer + 2))
+
+        # return errors
+        return errors
 
     def get_monomer_counts(self):
         """ Get the frequency of each monomeric form within the biopolymer
@@ -2366,18 +2428,18 @@ class BpForm(object):
             left_atom_attrs = ['left', [
                 ['left_bond_atoms', self.bond.left_bond_atoms],
                 ['left_displaced_atoms', self.bond.left_displaced_atoms]]]
-            if monomer.right_bond_atoms:
-                left_atom_attrs[1][0][1] = monomer.right_bond_atoms
-            if monomer.right_displaced_atoms:
-                left_atom_attrs[1][1][1] = monomer.right_displaced_atoms
+            if monomer.left_bond_atoms:
+                left_atom_attrs[1][0][1] = monomer.left_bond_atoms
+            if monomer.left_displaced_atoms:
+                left_atom_attrs[1][1][1] = monomer.left_displaced_atoms
 
             right_atom_attrs = ['right', [
                 ['right_bond_atoms', self.bond.right_bond_atoms],
                 ['right_displaced_atoms', self.bond.right_displaced_atoms]]]
-            if monomer.left_bond_atoms:
-                right_atom_attrs[1][0][1] = monomer.left_bond_atoms
-            if monomer.left_displaced_atoms:
-                right_atom_attrs[1][1][1] = monomer.left_displaced_atoms
+            if monomer.right_bond_atoms:
+                right_atom_attrs[1][0][1] = monomer.right_bond_atoms
+            if monomer.right_displaced_atoms:
+                right_atom_attrs[1][1][1] = monomer.right_displaced_atoms
 
             subunit_atoms = {}
             for type, attrs in [monomer_atom_attrs, backbone_atom_attrs,
@@ -2458,16 +2520,16 @@ class BpForm(object):
             left_atoms (:obj:`dict`): dictionary of atoms in left subunit to bond
             right_atoms (:obj:`dict`): dictionary of atoms in right subunit to bond
         """
-        for atom, atom_charge in left_atoms['left']['left_displaced_atoms']:
+        for atom, atom_charge in left_atoms['right']['right_displaced_atoms']:
             if atom:
                 assert mol.DeleteAtom(atom, True)
 
-        for atom, atom_charge in right_atoms['right']['right_displaced_atoms']:
+        for atom, atom_charge in right_atoms['left']['left_displaced_atoms']:
             if atom:
                 assert mol.DeleteAtom(atom, True)
 
-        for (l_atom, l_atom_charge), (r_atom, r_atom_charge) in zip(left_atoms['left']['left_bond_atoms'],
-                                                                    right_atoms['right']['right_bond_atoms']):
+        for (l_atom, l_atom_charge), (r_atom, r_atom_charge) in zip(left_atoms['right']['right_bond_atoms'],
+                                                                    right_atoms['left']['left_bond_atoms']):
             bond = openbabel.OBBond()
             bond.SetBegin(l_atom)
             bond.SetEnd(r_atom)

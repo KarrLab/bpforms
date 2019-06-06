@@ -96,6 +96,18 @@ class RestTestCase(unittest.TestCase):
             rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT', ph=7.))
         self.assertEqual(rv.status_code, 200)
 
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna', 
+            seq='ACGT[id: "dI" | structure: "{}" | backbone-bond-atom: Monomer / N / 10 / 0 | backbone-displaced-atom: Monomer / H / 10 / 0 ]'.format(
+                'O=C1NC=NC2=C1N=CN2'
+                )))
+        self.assertEqual(rv.status_code, 200)
+
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna', 
+            seq='ACGT[id: "dI" | structure: "{}" | backbone-displaced-atom: Monomer / H / 10 / 0 ]'.format(
+                'O=C1NC=NC2=C1N=CN2'
+                )))
+        self.assertEqual(rv.status_code, 400)
+
     def test_get_alphabets(self):
         client = rest.app.test_client()
         rv = client.get('/api/alphabet/')

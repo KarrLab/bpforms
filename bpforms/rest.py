@@ -99,6 +99,10 @@ class Bpform(flask_restplus.Resource):
         except Exception as error:
             flask_restplus.abort(400, 'Unable to parse sequence of monomeric forms', errors={'seq': str(error)})
 
+        errors = form.validate()
+        if errors:
+            flask_restplus.abort(400, 'Form is invalid', errors={'seq': '. '.join(errors)})
+
         smiles = None
         formula = None
         mol_wt = None

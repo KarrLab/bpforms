@@ -267,10 +267,10 @@ class DnaForm(BpForm):
                 monomer_bond_atoms=[Atom(Backbone, element='C', position=4)],
                 monomer_displaced_atoms=[Atom(Backbone, element='H', position=4)]),
             bond=Bond(
-                left_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                right_bond_atoms=[Atom(Backbone, element='P', position=9)],
-                left_displaced_atoms=[Atom(Backbone, element='H', position=1)],
-                right_displaced_atoms=[Atom(Backbone, element='O', position=11, charge=-1)]),
+                right_bond_atoms=[Atom(Backbone, element='O', position=1)],
+                left_bond_atoms=[Atom(Backbone, element='P', position=9)],
+                right_displaced_atoms=[Atom(Backbone, element='H', position=1)],
+                left_displaced_atoms=[Atom(Backbone, element='O', position=11, charge=-1)]),
             circular=circular)
 
 
@@ -292,8 +292,8 @@ class CanonicalDnaForm(BpForm):
                 monomer_bond_atoms=[Atom(Backbone, element='C', position=4)],
                 monomer_displaced_atoms=[Atom(Backbone, element='H', position=4)]),
             bond=Bond(
-                left_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                right_bond_atoms=[Atom(Backbone, element='P', position=9)],
-                left_displaced_atoms=[Atom(Backbone, element='H', position=1)],
-                right_displaced_atoms=[Atom(Backbone, element='O', position=11, charge=-1)]),
+                right_bond_atoms=[Atom(Backbone, element='O', position=1)],
+                left_bond_atoms=[Atom(Backbone, element='P', position=9)],
+                right_displaced_atoms=[Atom(Backbone, element='H', position=1)],
+                left_displaced_atoms=[Atom(Backbone, element='O', position=11, charge=-1)]),
             circular=circular)

@@ -225,3 +225,8 @@ class ProteinTestCase(unittest.TestCase):
         if errors:
             raise ValueError('Alphabet has invalid monomer(s):\n  {}'.format('\n  '.join(
                 errors)))
+
+    def test_validate_form(self):
+        form = protein.ProteinForm()
+        form.from_str('ARG')
+        self.assertEqual(form.validate(), [])

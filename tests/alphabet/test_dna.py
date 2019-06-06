@@ -174,3 +174,8 @@ class DnaTestCase(unittest.TestCase):
     def test_validate_linkages(self):
         validate_bpform_linkages(dna.CanonicalDnaForm)
         validate_bpform_linkages(dna.DnaForm)
+
+    def test_validate_form(self):
+        form = dna.DnaForm()
+        form.from_str('ACGT')
+        self.assertEqual(form.validate(), [])
