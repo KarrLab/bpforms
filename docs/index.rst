@@ -1,34 +1,27 @@
 `BpForms` documentation
 =======================
 
+`BpForms` is a set of tools for concretely representing the primary structures of non-canonical forms of biopolymers, such as oxidized DNA, methylated RNA, and acetylated proteins, and calculating properties of non-canonical biopolymers.
 
-`BpForms` is a set of tools for unambiguously representing the structures of modified forms of biopolymers such as DNA, RNA, and protein.
+`BpForms` emcompasses five tools:
 
-* The `BpForms` notation can unambiguously represent the structure of modified forms of biopolymers. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomer at the fourth position::
+* A notation for concretely describing the primary structures of non-canonical biopolymers. See :numref:`notation` for detailed information. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomer at the fourth position:  
+  ::
 
     ACG[
         id: "dI" | structure: "O=C1NC=NC2=C1N=CN2"
         ]T
 
-* This concrete representation of modified biopolymers enables the `BpForms` software tools to calculate the chemical formulae, molecular weights, and charges of biopolymers, as well as automatically calculate the major protonation and tautomerization state of biopolymers at specific pHs.
+  This concrete representation enables the `BpForms` software tools to calculate properties of non-canonical biopolymers.
 
-`BpForms` emcompasses five tools:
+* Tools for calculating properties of non-canonical biopolymers including their chemical formulae, molecular weights, charges, and major protonation and tautomerization states.
+  
+  * A web-based graphical interface: See `https://bpforms.org <https://bpforms.org>`_ and :numref:`graphical_web_interface`.
+  * A JSON REST API: See `https://bpforms.org/api <https://bpforms.org/api>`_ and :numref:`rest_api`.
+  * A command line interface: See :numref:`cli`.
+  * A Python API: See :numref:`python_api`.
 
-* Notation for describing biopolymers: See :numref:`notation`.
-* Web-based graphical interface: See `https://bpforms.org <https://bpforms.org>`_ and :numref:`graphical_web_interface`.
-* REST JSON API: See :numref:`rest_api`.
-* Command line interface: See :numref:`cli`.
-* Python API: See :numref:`python_api`.
-
-`BpForms` was motivated by the need to concretely represent the biochemistry of DNA modification, DNA repair, post-transcriptional processing, and post-translational processing in `whole-cell computational models <https://www.wholecell.org>`_. In addition, `BpForms` are a valuable tool for experimental proteomics. In particular, we developed `BpForms` because there were no notations, schemas, data models, or file formats for concretely representing modified forms of biopolymers, despite the existence of several databases and ontologies of DNA, RNA, and protein modifications and the `ProForma Proteoform Notation <https://www.topdownproteomics.org/resources/proforma/>`_.
-
-The `BpForms` syntax was inspired by the ProForma Proteoform Notation. `BpForms` improves upon this syntax in several ways:
-
-* `BpForms` separates the representation of modified biopolymers from the chemical processes which generate them.
-* `BpForms` clarifies the representation of multiply modified monomers. This is necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
-* `BpForms` can be customized to represent any modification and, therefore, is not limited to previously enumerated modifications. This is also necessary to represent the combinatorial complexity of modified DNA, RNA, and proteins.
-* `BpForms` supports two additional types of uncertainty in the structures of biopolyers: uncertainty in the position of a modified nucleotide/amino acid and uncertainty in its charge.
-* `BpForms` has a concrete grammar. This enables error checking, as well the calculation of chemical formulae, masses, and charges which is essential for modeling.
+`BpForms` was motivated by the need to concretely represent the biochemistry of DNA modification, DNA repair, post-transcriptional processing, and post-translational processing in `whole-cell computational models <https://www.wholecell.org>`_. `BpForms` is also a valuable tool for experimental proteomics and synthetic biology. In particular, we developed `BpForms` because there were no notations, schemas, data models, or file formats for concretely representing modified forms of biopolymers, despite the existence of several databases and ontologies of DNA, RNA, and protein modifications, the `ProForma Proteoform Notation <https://www.topdownproteomics.org/resources/proforma/>`_, and the `MOMODICS <http://modomics.genesilico.pl>`_ codes for modified RNA bases.
 
 Contents
 --------
