@@ -9,7 +9,7 @@
 from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone,
                           Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet,
                           BpFormsWarning)
-from wc_utils.util.chem import EmpiricalFormula
+from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species
 import bs4
 import csv
 import io
@@ -130,11 +130,6 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             structure, more_identifiers = self.get_nucleoside_details(id, session)
             identifiers.update(more_identifiers)
 
-            if chars in alphabet.monomers:
-                warnings.warn('Ignoring canonical monomeric form {}'.format(chars), BpFormsWarning)
-                monomer_short_names[short_name] = alphabet.monomers[chars]
-                continue
-
             monomer = Monomer(
                 id=chars,
                 name=name,
@@ -143,7 +138,37 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 structure=structure,
             )
 
-            if not self.is_valid_nucleoside(new_nomenclature, short_name, name, monomer):
+            if not monomer.structure:
+                continue
+            if '*' in monomer.export('smiles'):
+                continue
+            if ' (base)' in new_nomenclature:
+                continue
+            if ' (cap)' in name or ' cap' in name:
+                continue
+            if '-CoA)' in name:
+                continue
+            if new_nomenclature and new_nomenclature[-1] == 'N':
+                continue
+
+            conv = openbabel.OBConversion()
+            assert conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
+            assert conv.SetInFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+
+            smiles = conv.WriteString(monomer.structure).partition('\t')[0]
+            if ph is not None:
+                smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
+            smiles_mol = openbabel.OBMol()
+            conv.ReadString(smiles_mol, smiles)
+
+            smiles = conv.WriteString(smiles_mol).partition('\t')[0]
+            smiles_mol2 = openbabel.OBMol()
+            conv.ReadString(smiles_mol2, smiles)
+
+            monomer.structure = smiles_mol2
+
+            if not self.is_valid_nucleoside(monomer):
                 invalid_nucleosides.append(chars)
                 continue
 
@@ -205,31 +230,161 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         return mol, identifiers
 
-    def is_valid_nucleoside(self, new_nomenclature, short_name, name, monomer):
+    def is_valid_nucleoside(self, monomer):
         """ Determine if nucleoside should be included in alphabet
 
         Args:
-            new_nomenclature (:obj:`str`): new nomenclature
-            short_name (:obj:`str`): short name
-            name (:obj:`str`): name
             monomer (:obj:`Monomer`): monomeric form
 
         Returns:
-            :obj:`bool`: :obj:`True` if monomeric form should be included in alphabet
+            :obj:`bool`: :obj:`True` if the monomeric form is a valid nucleoside
         """
-        if ' (base)' in new_nomenclature:
-            return False
-        if ' (cap)' in name or ' cap' in name:
-            return False
-        if '-CoA)' in name:
-            return False
-        if '(p' in short_name:
-            return False
-        if not monomer.structure:
-            return False
         formula = monomer.get_formula()
         if formula.C < 9 or formula.O < 4 or formula.N < 2:
             return False
+
+        atom_bs = []
+        atom_rs = []
+        for i_atom in range(1, monomer.structure.NumAtoms() + 1):
+            atom = monomer.structure.GetAtom(i_atom)
+            if self.is_backbone_atom(atom):
+                atom_bs.append(atom)
+            elif self.is_right_bond_atom(atom):
+                atom_rs.append(atom)
+
+        termini = []
+        for atom_b in atom_bs:
+            for atom_r in atom_rs:
+                if self.is_terminus(atom_b, atom_r):
+                    termini.append((atom_b, atom_r))
+
+        if termini:
+            atom_b_idx = termini[0][0].GetIdx()
+            atom_r_idx = termini[0][1].GetIdx()
+        else:
+            if atom_bs and not atom_rs:
+                atom_b_idx = atom_bs[0].GetIdx()
+                atom_r_idx = None
+            elif atom_rs and not atom_bs:
+                atom_b_idx = None
+                atom_r_idx = atom_rs[0].GetIdx()
+            else:
+                atom_b_idx = None
+                atom_r_idx = None
+
+        if atom_b_idx:
+            monomer.backbone_bond_atoms = [Atom(Monomer, 'O', atom_b_idx)]
+            monomer.backbone_displaced_atoms = [Atom(Monomer, 'H', atom_b_idx)]
+        if atom_r_idx:
+            monomer.right_bond_atoms = [Atom(Monomer, 'O', atom_r_idx)]
+            monomer.right_displaced_atoms = [Atom(Monomer, 'H', atom_r_idx)]
+
+        return True
+
+    def is_terminus(self, b_atom, r_atom):
+        """ Determine if a pair of atoms is a valid pair of linkage sites
+
+        Args:
+            b_atom (:obj:`openbabel.OBAtom`): potential backbone atom
+            r_atom (:obj:`openbabel.OBAtom`): potential right bond atom
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the atoms are a valid pair of linkage sites
+        """
+        r_atom_2 = self.is_backbone_atom(b_atom)
+        if not r_atom_2:
+            return False
+
+        if not self.is_right_bond_atom(r_atom):
+            return False
+
+        return r_atom_2.GetIdx() == r_atom.GetIdx()
+
+    def is_backbone_atom(self, b_atom):
+        """ Determine if an atom is a valid backbone linkage site
+
+        Args:
+            b_atom (:obj:`openbabel.OBAtom`): potential backbone atom
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the atom is a valid backbone linkage site
+        """
+        if b_atom.GetAtomicNum() != 8:
+            return False
+        if b_atom.GetFormalCharge() != 0:
+            return False
+
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(b_atom)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(b_atom)])
+        other_atoms += [1] * (2 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        if other_atoms != [1, 6]:
+            return False
+
+        # get first C
+        for other_atom in openbabel.OBAtomAtomIter(b_atom):
+            if other_atom.GetAtomicNum() == 6:
+                c_1 = other_atom
+        if c_1.GetFormalCharge() != 0:
+            return False
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_1)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_1)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        if other_atoms != [1, 1, 6, 8]:
+            return False
+
+        # get second C
+        for other_atom in openbabel.OBAtomAtomIter(c_1):
+            if other_atom.GetAtomicNum() == 6:
+                c_2 = other_atom
+        if c_2.GetFormalCharge() != 0:
+            return False
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_2)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_2)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        if other_atoms != [1, 6, 6, 8]:
+            return False
+
+        # get third C
+        for other_atom in openbabel.OBAtomAtomIter(c_2):
+            if other_atom.GetAtomicNum() == 6 and other_atom.GetIdx() != c_1.GetIdx():
+                c_3 = other_atom
+        if c_3.GetFormalCharge() != 0:
+            return False
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_3)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_3)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        if other_atoms != [1, 6, 6, 8]:
+            return False
+
+        # get second O
+        for other_atom in openbabel.OBAtomAtomIter(c_3):
+            if other_atom.GetAtomicNum() == 8:
+                r_atom_2 = other_atom
+        if r_atom_2.GetFormalCharge() != 0:
+            return False
+
+        return r_atom_2
+
+    def is_right_bond_atom(self, r_atom):
+        """ Determine if an atom is a valid right bond linkage site
+
+        Args:
+            b_atom (:obj:`openbabel.OBAtom`): potential right bond atom
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the atom is a valid right bond linkage site
+        """
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(r_atom)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(r_atom)])
+        other_atoms += [1] * (2 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        if other_atoms != [1, 6]:
+            return False
+
         return True
 
 

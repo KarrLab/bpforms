@@ -4,17 +4,19 @@ description: The four canonical RNA nucleosides, plus the non-canonical RNA nucl
   in <a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>
 monomers:
   A:
-    id: adenosine
+    id: A
     name: adenosine
+    synonyms:
+    - A
     identifiers:
-    - ns: pubchem.compound
-      id: '60961'
     - ns: metacyc.compound
       id: ADENOSINE
     - ns: chebi
       id: CHEBI:16335
     - ns: modomics.new_nomenclature
       id: A
+    - ns: pubchem.compound
+      id: '60961'
     - ns: modomics.short_name
       id: A
     structure: NC1=C2N=CN(C3OC(CO)C(O)C3O)C2=NC=N1
@@ -35,8 +37,10 @@ monomers:
       element: H
       position: 13
   C:
-    id: cytidine
+    id: C
     name: cytidine
+    synonyms:
+    - C
     identifiers:
     - ns: metacyc.compound
       id: CYTIDINE
@@ -66,9 +70,13 @@ monomers:
       element: H
       position: 15
   G:
-    id: guanosine
+    id: G
     name: guanosine
+    synonyms:
+    - G
     identifiers:
+    - ns: modomics.short_name
+      id: G
     - ns: pubchem.compound
       id: '6802'
     - ns: metacyc.compound
@@ -76,8 +84,6 @@ monomers:
     - ns: chebi
       id: CHEBI:16750
     - ns: modomics.new_nomenclature
-      id: G
-    - ns: modomics.short_name
       id: G
     structure: NC1=NC2=C(N=CN2C2OC(CO)C(O)C2O)C(=O)N1
     backbone_bond_atoms:
@@ -97,11 +103,11 @@ monomers:
       element: H
       position: 15
   U:
-    id: uridine
+    id: U
     name: uridine
+    synonyms:
+    - U
     identifiers:
-    - ns: pubchem.compound
-      id: '6029'
     - ns: metacyc.compound
       id: URIDINE
     - ns: chebi
@@ -110,6 +116,8 @@ monomers:
       id: U
     - ns: modomics.short_name
       id: U
+    - ns: pubchem.compound
+      id: '6029'
     structure: OCC1OC(C(O)C1O)N1C=CC(=O)NC1=O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -137,15 +145,17 @@ monomers:
       id: m1Am
     - ns: modomics.new_nomenclature
       id: 01A
-    structure: COC1C(O)C(CO)OC1N1C=NC2=C1N=CN(C)C2=N
+    structure: COC1C(O)C(OC1n1cnc2c1ncn(c2=N)C)CO
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 21
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 21
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -154,8 +164,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - A
   01G:
     id: 01G
     name: 1,2′-O-dimethylguanosine
@@ -166,15 +174,17 @@ monomers:
       id: m1Gm
     - ns: modomics.new_nomenclature
       id: 01G
-    structure: COC1C(O)C(CO)OC1N1C=NC2=C1N=C(N)N(C)C2=O
+    structure: COC1C(O)C(OC1n1cnc2c1nc(N)n(c2=O)C)CO
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 22
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 22
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -183,27 +193,27 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - G
   019A:
     id: 019A
     name: 1,2′-O-dimethylinosine
     synonyms:
     - ξ
     identifiers:
-    - ns: modomics.short_name
-      id: m1Im
     - ns: modomics.new_nomenclature
       id: 019A
-    structure: COC1C(O)C(CO)OC1N1C=NC2=C1N=CN(C)C2=O
+    - ns: modomics.short_name
+      id: m1Im
+    structure: COC1C(O)C(OC1n1cnc2c1ncn(c2=O)C)CO
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 21
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 21
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -212,130 +222,128 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - A
   1309U:
     id: 1309U
     name: 1-methyl-3-(3-amino-3-carboxypropyl)pseudouridine
     synonyms:
     - α
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 1309U
     - ns: modomics.short_name
       id: m1acp3Y
-    structure: CN1C=C(C2OC(CO)C(O)C2O)C(=O)N(CCC([NH3+])C([O-])=O)C1=O
+    - ns: modomics.new_nomenclature
+      id: 1309U
+    structure: OCC1OC(C(C1O)O)c1cn(C)c(=O)n(c1=O)CCC(C(=O)[O-])[NH3+]
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
-    base_monomers:
-    - U
+      position: 8
   1A:
     id: 1A
     name: 1-methyladenosine
     synonyms:
     - '"'
     identifiers:
+    - ns: modomics.new_nomenclature
+      id: 1A
     - ns: modomics.short_name
       id: m1A
     - ns: pubchem.compound
       id: '27476'
-    - ns: modomics.new_nomenclature
-      id: 1A
-    structure: CN1C=NC2=C(N=CN2C2OC(CO)C(O)C2O)C1=N
+    structure: OCC1OC(C(C1O)O)n1cnc2c1ncn(c2=N)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - A
+      position: 8
   1G:
     id: 1G
     name: 1-methylguanosine
     synonyms:
     - K
     identifiers:
-    - ns: modomics.short_name
-      id: m1G
     - ns: modomics.new_nomenclature
       id: 1G
+    - ns: modomics.short_name
+      id: m1G
     - ns: pubchem.compound
       id: '96373'
-    structure: CN1C(N)=NC2=C(N=CN2C2OC(CO)C(O)C2O)C1=O
+    structure: OCC1OC(C(C1O)O)n1cnc2c1nc(N)n(c2=O)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    base_monomers:
-    - G
+      position: 8
   19A:
     id: 19A
     name: 1-methylinosine
     synonyms:
     - O
     identifiers:
-    - ns: modomics.short_name
-      id: m1I
     - ns: pubchem.compound
       id: '65095'
     - ns: modomics.new_nomenclature
       id: 19A
-    structure: CN1C=NC2=C(N=CN2C2OC(CO)C(O)C2O)C1=O
+    - ns: modomics.short_name
+      id: m1I
+    structure: OCC1OC(C(C1O)O)n1cnc2c1ncn(c2=O)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - A
+      position: 8
   19U:
     id: 19U
     name: 1-methylpseudouridine
@@ -346,25 +354,25 @@ monomers:
       id: m1Y
     - ns: modomics.new_nomenclature
       id: 19U
-    structure: CN1C=NC2=C(N=CN2C2OC(CO)C(O)C2O)C1=O
+    structure: OCC1OC(C(C1O)O)c1cn(C)c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - U
+      position: 8
   28A:
     id: 28A
     name: 2,8-dimethyladenosine
@@ -375,25 +383,25 @@ monomers:
       id: m2,8A
     - ns: modomics.new_nomenclature
       id: 28A
-    structure: CN1C=NC2=C(N=CN2C2OC(CO)C(O)C2O)C1=O
+    structure: OCC1OC(C(C1O)O)n1c(C)nc2c1nc(C)nc2N
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - A
+      position: 8
   msms2i6A:
     id: msms2i6A
     name: 2- methylthiomethylenethio-N6-isopentenyl-adenosine
@@ -402,114 +410,114 @@ monomers:
     identifiers:
     - ns: modomics.short_name
       id: msms2i6A
-    structure: CSCSC1=NC(NCC=C(C)C)=C2N=CN([C@@H]3O[C@H](CO)C(O)C3O)C2=N1
+    structure: CSCSc1nc(NCC=C(C)C)c2c(n1)n(cn2)[C@@H]1O[C@@H](C(C1O)O)CO
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 30
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
+      position: 30
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 28
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
-    base_monomers:
-    - A
+      position: 28
   21U:
     id: 21U
     name: 2-geranylthiouridine
     synonyms:
     - Γ
     identifiers:
-    - ns: modomics.short_name
-      id: ges2U
     - ns: modomics.new_nomenclature
       id: 21U
-    structure: CSCSC1=NC(NCC=C(C)C)=C2N=CN([C@@H]3O[C@H](CO)C(O)C3O)C2=N1
+    - ns: modomics.short_name
+      id: ges2U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1ccc(=O)nc1SC/C=C(/CCC=C(C)C)\C
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
-    base_monomers:
-    - U
+      position: 11
   21C:
     id: 21C
     name: 2-lysidine
     synonyms:
     - '}'
     identifiers:
-    - ns: modomics.short_name
-      id: k2C
     - ns: modomics.new_nomenclature
       id: 21C
-    structure: '[NH3+]C(CCCCNC1NC(=[NH2+])C=CN1[C@@H]1O[C@H](CO)[C@H](O)C1O)C([O-])=O'
+    - ns: modomics.short_name
+      id: k2C
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)N1C=CC(=[NH+]C1NCCCCC(C(=O)[O-])[NH3+])N
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 29
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 29
-    base_monomers:
-    - C
+      position: 11
   2A:
     id: 2A
     name: 2-methyladenosine
     synonyms:
     - /
     identifiers:
+    - ns: pubchem.compound
+      id: '261450'
     - ns: modomics.new_nomenclature
       id: 2A
     - ns: modomics.short_name
       id: m2A
-    - ns: pubchem.compound
-      id: '261450'
-    structure: CC1=NC(N)=C2N=CN(C3OC(CO)C(O)C3O)C2=N1
+    structure: OCC1OC(C(C1O)O)n1cnc2c1nc(C)nc2N
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - A
+      position: 8
   2164A:
     id: 2164A
     name: 2-methylthio cyclic N6-threonylcarbamoyladenosine
@@ -520,25 +528,25 @@ monomers:
       id: ms2ct6A
     - ns: modomics.new_nomenclature
       id: 2164A
-    structure: CSC1=NC(C2C(=O)N[C@@H]([C@@H](C)O)C2=O)=C2N=CN([C@@H]3O[C@H](CO)C(O)C3O)C2=N1
+    structure: OC[C@H]1O[C@H](C(C1O)O)n1cnc2c1nc(SC)nc2C1C(=O)N[C@H](C1=O)[C@H](O)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 28
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 28
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 30
+      position: 10
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 30
-    base_monomers:
-    - A
+      position: 10
   2160A:
     id: 2160A
     name: 2-methylthio-N6-(cis-hydroxyisopentenyl) adenosine
@@ -549,25 +557,25 @@ monomers:
       id: ms2io6A
     - ns: modomics.new_nomenclature
       id: 2160A
-    structure: CSC1=NC(NCC=C(C)CO)=C2N=CN([C@@H]3O[C@H](CO)[C@H](O)C3O)C2=N1
+    structure: OC/C(=C/CNc1nc(SC)nc2c1ncn2[C@@H]1O[C@@H]([C@@H](C1O)O)CO)/C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 29
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
+      position: 29
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 27
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
-    base_monomers:
-    - A
+      position: 27
   2163A:
     id: 2163A
     name: 2-methylthio-N6-hydroxynorvalylcarbamoyladenosine
@@ -578,56 +586,56 @@ monomers:
       id: ms2hn6A
     - ns: modomics.new_nomenclature
       id: 2163A
-    structure: CCC(O)C(NC(=O)Nc1nc(SC)nc2n(cnc12)[C@@H]1O[C@H](CO)[C@H](O)C1O)C([O-])=O
+    structure: CCC(C(C(=O)[O-])NC(=O)Nc1nc(SC)nc2c1ncn2[C@@H]1O[C@@H]([C@@H](C1O)O)CO)O
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 34
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 34
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 30
+      position: 32
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 30
-    base_monomers:
-    - A
+      position: 32
   2161A:
     id: 2161A
     name: 2-methylthio-N6-isopentenyladenosine
     synonyms:
     - '*'
     identifiers:
-    - ns: pubchem.compound
-      id: '161337'
     - ns: modomics.new_nomenclature
       id: 2161A
+    - ns: pubchem.compound
+      id: '161337'
     - ns: modomics.short_name
       id: ms2i6A
-    structure: CSC1=NC(NCC=C(C)C)=C2N=CN([C@@H]3O[C@H](CO)[C@H](O)C3O)C2=N1
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1nc(SC)nc2NCC=C(C)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 22
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 22
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 25
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 25
-    base_monomers:
-    - A
+      position: 11
   621A:
     id: 621A
     name: 2-methylthio-N6-methyladenosine
@@ -638,25 +646,25 @@ monomers:
       id: ms2m6A
     - ns: modomics.new_nomenclature
       id: 621A
-    structure: CNC1=C2N=CN([C@@H]3O[C@H](CO)[C@H](O)C3O)C2=NC(SC)=N1
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1nc(SC)nc2NC
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    base_monomers:
-    - A
+      position: 11
   2162A:
     id: 2162A
     name: 2-methylthio-N6-threonylcarbamoyladenosine
@@ -667,36 +675,38 @@ monomers:
       id: 2162A
     - ns: modomics.short_name
       id: ms2t6A
-    structure: CSC1=NC(NC(=O)NC(C(C)O)C([O-])=O)=C2N=CN([C@@H]3O[C@H](CO)[C@H](O)C3O)C2=N1
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1nc(SC)nc2NC(=O)NC(C(=O)[O-])C(O)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 30
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 30
-    base_monomers:
-    - A
+      position: 11
   20U:
     id: 20U
     name: 2-selenouridine
     synonyms:
     - ω
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 20U
     - ns: modomics.short_name
       id: se2U
-    structure: OCC1OC(C(O)C1O)N1C=CC(=O)NC1=[Se]
+    - ns: modomics.new_nomenclature
+      id: 20U
+    structure: OCC1OC(C(C1O)O)n1ccc(=O)[nH]c1=[Se]
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -708,13 +718,11 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   02U:
     id: 02U
     name: 2-thio-2′-O-methyluridine
@@ -725,15 +733,17 @@ monomers:
       id: s2Um
     - ns: modomics.new_nomenclature
       id: 02U
-    structure: COC1C(O)C(CO)OC1N1C=CC(=O)NC1=S
+    structure: COC1C(O)C(OC1n1ccc(=O)[nH]c1=S)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 19
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 19
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -742,70 +752,68 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - U
   2C:
     id: 2C
     name: 2-thiocytidine
     synonyms:
     - '%'
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2C
     - ns: modomics.short_name
       id: s2C
+    - ns: modomics.new_nomenclature
+      id: 2C
     - ns: pubchem.compound
       id: '3011746'
-    structure: COC1C(O)C(CO)OC1N1C=CC(=O)NC1=S
+    structure: OCC1OC(C(C1O)O)n1ccc([nH+]c1=S)N
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 5
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 5
-    base_monomers:
-    - C
+      position: 8
   2U:
     id: 2U
     name: 2-thiouridine
     synonyms:
     - '2'
     identifiers:
-    - ns: pubchem.compound
-      id: '3036443'
-    - ns: modomics.new_nomenclature
-      id: 2U
     - ns: modomics.short_name
       id: s2U
-    structure: COC1C(O)C(CO)OC1N1C=CC(=O)NC1=S
+    - ns: modomics.new_nomenclature
+      id: 2U
+    - ns: pubchem.compound
+      id: '3036443'
+    structure: OCC1OC(C(C1O)O)n1ccc(=O)[nH]c1=S
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 5
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 5
-    base_monomers:
-    - U
+      position: 8
   0A:
     id: 0A
     name: 2′-O-methyladenosine
@@ -816,15 +824,17 @@ monomers:
       id: 0A
     - ns: modomics.short_name
       id: Am
-    structure: COC1C(O)C(CO)OC1N1C=NC2=C(N)N=CN=C12
+    structure: COC1C(O)C(OC1n1cnc2c1ncnc2N)CO
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 20
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 20
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -833,8 +843,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - A
   0C:
     id: 0C
     name: 2′-O-methylcytidine
@@ -847,15 +855,17 @@ monomers:
       id: '150971'
     - ns: modomics.short_name
       id: Cm
-    structure: COC1C(O)C(CO)OC1N1C=CC(N)=NC1=O
+    structure: COC1C(O)C(OC1n1ccc(nc1=O)N)CO
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 18
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 18
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -864,8 +874,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - C
   0G:
     id: 0G
     name: 2′-O-methylguanosine
@@ -878,15 +886,17 @@ monomers:
       id: Gm
     - ns: modomics.new_nomenclature
       id: 0G
-    structure: COC1C(O)C(CO)OC1N1C=NC2=C1N=C(N)NC2=O
+    structure: COC1C(O)C(OC1n1cnc2c1nc(N)[nH]c2=O)CO
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 22
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 22
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -895,27 +905,27 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - G
   09A:
     id: 09A
     name: 2′-O-methylinosine
     synonyms:
     - ≤
     identifiers:
-    - ns: modomics.short_name
-      id: Im
     - ns: modomics.new_nomenclature
       id: 09A
-    structure: COC1C(O)C(CO)OC1N1C=NC2=C1N=CNC2=O
+    - ns: modomics.short_name
+      id: Im
+    structure: COC1C(O)C(OC1n1cnc2c1nc[nH]c2=O)CO
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 21
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 21
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -924,8 +934,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - A
   09U:
     id: 09U
     name: 2′-O-methylpseudouridine
@@ -936,15 +944,17 @@ monomers:
       id: 09U
     - ns: modomics.short_name
       id: Ym
-    structure: COC1C(O)C(CO)OC1C1=CNC(=O)NC1=O
+    structure: COC1C(O)C(OC1c1c[nH]c(=O)[nH]c1=O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 20
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 20
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -953,27 +963,27 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - U
   0U:
     id: 0U
     name: 2′-O-methyluridine
     synonyms:
     - J
     identifiers:
-    - ns: modomics.short_name
-      id: Um
     - ns: modomics.new_nomenclature
       id: 0U
-    structure: COC1C(O)C(CO)OC1N1C=CC(=O)NC1=O
+    - ns: modomics.short_name
+      id: Um
+    structure: COC1C(O)C(OC1n1ccc(=O)[nH]c1=O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 19
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 19
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -982,37 +992,95 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - U
   0503U:
     id: 0503U
     name: "2′-O-methyluridine 5-oxyacetic acid methyl ester\t"
     synonyms:
     - Ͽ
     identifiers:
-    - ns: modomics.short_name
-      id: mcmo5Um
     - ns: modomics.new_nomenclature
       id: 0503U
-    structure: COC1[C@@H](O)[C@@H](CO)O[C@H]1N1C=C(OCC(=O)OC)C(=O)NC1=O
+    - ns: modomics.short_name
+      id: mcmo5Um
+    structure: COC(=O)COc1cn(c(=O)[nH]c1=O)[C@@H]1O[C@@H]([C@@H](C1OC)O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 10
+      position: 28
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 28
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 6
+      position: 26
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 6
+      position: 26
+  00A:
+    id: 00A
+    name: 2′-O-ribosyladenosine (phosphate)
+    synonyms:
+    - ^
+    identifiers:
+    - ns: modomics.short_name
+      id: Ar(p)
+    - ns: modomics.new_nomenclature
+      id: 00A
+    structure: OC[C@H]1O[C@H]([C@H](C1O)O[C@@H]1O[C@@H]([C@@H](C1O)O)COP(=O)([O-])[O-])n1cnc2c1ncnc2N
     base_monomers:
-    - U
+    - A
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 11
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 11
+  00G:
+    id: 00G
+    name: 2′-O-ribosylguanosine (phosphate)
+    synonyms:
+    - ℑ
+    identifiers:
+    - ns: pubchem.compound
+      id: '131365'
+    - ns: modomics.new_nomenclature
+      id: 00G
+    - ns: modomics.short_name
+      id: Gr(p)
+    structure: OC[C@H]1O[C@H]([C@H](C1O)O[C@@H]1O[C@@H]([C@@H](C1O)O)COP(=O)([O-])[O-])n1cnc2c1nc(N)[nH]c2=O
+    base_monomers:
+    - G
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 11
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 11
   03U:
     id: 03U
     name: 3,2′-O-dimethyluridine
@@ -1023,15 +1091,17 @@ monomers:
       id: m3Um
     - ns: modomics.new_nomenclature
       id: 03U
-    structure: COC1[C@@H](O)[C@@H](CO)O[C@H]1N1C=CC(=O)N(C)C1=O
+    structure: COC1[C@@H](O)[C@H](O[C@H]1n1ccc(=O)n(c1=O)C)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 10
+      position: 22
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 22
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1040,8 +1110,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 6
-    base_monomers:
-    - U
   308U:
     id: 308U
     name: 3-(3-amino-3-carboxypropyl)-5,6-dihydrouridine
@@ -1052,25 +1120,25 @@ monomers:
       id: 308U
     - ns: modomics.short_name
       id: acp3D
-    structure: '[NH3+]C(CCN1C(=O)CCN(C2OC(CO)C(O)C2O)C1=O)C([O-])=O'
+    structure: OCC1OC(C(C1O)O)N1CCC(=O)N(C1=O)CCC(C(=O)[O-])[NH3+]
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
-    base_monomers:
-    - U
+      position: 8
   309U:
     id: 309U
     name: 3-(3-amino-3-carboxypropyl)pseudouridine
@@ -1081,25 +1149,25 @@ monomers:
       id: 309U
     - ns: modomics.short_name
       id: acp3Y
-    structure: '[NH3+]C(CCN1C(=O)CCN(C2OC(CO)C(O)C2O)C1=O)C([O-])=O'
+    structure: OCC1OC(C(C1O)O)c1c[nH]c(=O)n(c1=O)CCC(C(=O)[O-])[NH3+]
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
-    base_monomers:
-    - U
+      position: 8
   30U:
     id: 30U
     name: 3-(3-amino-3-carboxypropyl)uridine
@@ -1110,116 +1178,116 @@ monomers:
       id: 30U
     - ns: modomics.short_name
       id: acp3U
-    structure: '[NH3+]C(CCN1C(=O)CCN(C2OC(CO)C(O)C2O)C1=O)C([O-])=O'
+    structure: OCC1OC(C(C1O)O)n1ccc(=O)n(c1=O)CCC(C(=O)[O-])[NH3+]
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
-    base_monomers:
-    - U
+      position: 8
   3C:
     id: 3C
     name: 3-methylcytidine
     synonyms:
     - "'"
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 3C
     - ns: modomics.short_name
       id: m3C
     - ns: pubchem.compound
       id: '159649'
-    structure: C[N+]1=C(N)C=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C1=O
+    - ns: modomics.new_nomenclature
+      id: 3C
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1ccc([n+](c1=O)C)N
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    base_monomers:
-    - C
+      position: 11
   39U:
     id: 39U
     name: 3-methylpseudouridine
     synonyms:
     - κ
     identifiers:
-    - ns: modomics.short_name
-      id: m3Y
     - ns: modomics.new_nomenclature
       id: 39U
-    structure: CN1C(=O)NC=C(C2OC(CO)C(O)C2O)C1=O
+    - ns: modomics.short_name
+      id: m3Y
+    structure: OCC1OC(C(C1O)O)c1c[nH]c(=O)n(c1=O)C
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
-    base_monomers:
-    - U
+      position: 8
   3U:
     id: 3U
     name: 3-methyluridine
     synonyms:
     - δ
     identifiers:
-    - ns: modomics.short_name
-      id: m3U
     - ns: pubchem.compound
       id: '316991'
     - ns: modomics.new_nomenclature
       id: 3U
-    structure: CN1C(=O)C=CN(C2OC(CO)C(O)C2O)C1=O
+    - ns: modomics.short_name
+      id: m3U
+    structure: OCC1OC(C(C1O)O)n1ccc(=O)n(c1=O)C
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
-    base_monomers:
-    - U
+      position: 8
   4G:
     id: 4G
     name: 4-demethylwyosine
@@ -1228,42 +1296,44 @@ monomers:
     identifiers:
     - ns: modomics.short_name
       id: imG-14
-    - ns: modomics.new_nomenclature
-      id: 4G
     - ns: pubchem.compound
       id: '477875'
-    structure: CC1=CN2C(NC3=C(N=CN3C3OC(CO)C(O)C3O)C2=O)=N1
+    - ns: modomics.new_nomenclature
+      id: 4G
+    structure: OCC1OC(C(C1O)O)n1cnc2c1[nH]c1nc(cn1c2=O)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - G
+      position: 8
   74U:
     id: 74U
     name: 4-thiouridine
     synonyms:
     - '4'
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 74U
-    - ns: pubchem.compound
-      id: '3954028'
     - ns: modomics.short_name
       id: s4U
-    structure: OCC1OC(C(O)C1O)N1C=CC(=S)NC1=O
+    - ns: pubchem.compound
+      id: '3954028'
+    - ns: modomics.new_nomenclature
+      id: 74U
+    structure: OCC1OC(C(C1O)O)n1ccc(=S)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1275,13 +1345,11 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   05C:
     id: 05C
     name: 5,2′-O-dimethylcytidine
@@ -1292,15 +1360,17 @@ monomers:
       id: m5Cm
     - ns: modomics.new_nomenclature
       id: 05C
-    structure: COC1C(O)C(CO)OC1N1C=C(C)C(N)=NC1=O
+    structure: COC1C(O)C(OC1n1cc(C)c(nc1=O)N)CO
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 19
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 19
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1309,8 +1379,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - C
   05U:
     id: 05U
     name: 5,2′-O-dimethyluridine
@@ -1321,15 +1389,17 @@ monomers:
       id: 05U
     - ns: modomics.short_name
       id: m5Um
-    structure: COC1C(O)C(CO)OC1N1C=C(C)C(=O)NC1=O
+    structure: COC1C(O)C(OC1n1cc(C)c(=O)[nH]c1=O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 20
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 20
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1338,27 +1408,27 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - U
   0522U:
     id: 0522U
     name: 5-(carboxyhydroxymethyl)-2′-O-methyluridine methyl ester
     synonyms:
     - b
     identifiers:
-    - ns: modomics.short_name
-      id: mchm5Um
     - ns: modomics.new_nomenclature
       id: 0522U
-    structure: COC1[C@@H](O)[C@@H](CO)O[C@H]1N1C=C(C(O)C(=O)OC)C(=O)NC1=O
+    - ns: modomics.short_name
+      id: mchm5Um
+    structure: COC1[C@@H](O)[C@H](O[C@H]1n1cc(c(=O)[nH]c1=O)C(C(=O)OC)O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 10
+      position: 28
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 28
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1367,85 +1437,85 @@ monomers:
     - molecule: Monomer
       element: H
       position: 6
-    base_monomers:
-    - U
   522U:
     id: 522U
     name: 5-(carboxyhydroxymethyl)uridine methyl ester
     synonyms:
     - ','
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 522U
     - ns: modomics.short_name
       id: mchm5U
-    structure: COC(=O)C(O)C1=CN(C2OC(CO)C(O)C2O)C(=O)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 522U
+    structure: OCC1OC(C(C1O)O)n1cc(c(=O)[nH]c1=O)C(C(=O)OC)O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - U
+      position: 8
   2583U:
     id: 2583U
     name: 5-(isopentenylaminomethyl)-2-thiouridine
     synonyms:
     - ½
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2583U
     - ns: modomics.short_name
       id: inm5s2U
-    structure: CC(C)=CC[NH2+]CC1=CN(C2OC(CO)C(O)C2O)C(=S)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 2583U
+    structure: OCC1OC(C(C1O)O)n1cc(C[NH2+]CC=C(C)C)c(=O)[nH]c1=S
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
-    base_monomers:
-    - U
+      position: 8
   0583U:
     id: 0583U
     name: 5-(isopentenylaminomethyl)-2′-O-methyluridine
     synonyms:
     - ¼
     identifiers:
-    - ns: modomics.short_name
-      id: inm5Um
     - ns: modomics.new_nomenclature
       id: 0583U
-    structure: COC1C(O)C(CO)OC1N1C=C(C[NH2+]CC=C(C)C)C(=O)NC1=O
+    - ns: modomics.short_name
+      id: inm5Um
+    structure: COC1C(O)C(OC1n1cc(C[NH2+]CC=C(C)C)c(=O)[nH]c1=O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 28
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 28
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1454,8 +1524,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - U
   583U:
     id: 583U
     name: 5-(isopentenylaminomethyl)uridine
@@ -1466,54 +1534,54 @@ monomers:
       id: 583U
     - ns: modomics.short_name
       id: inm5U
-    structure: CC(C)=CC[NH2+]CC1=CN(C2OC(CO)C(O)C2O)C(=O)NC1=O
+    structure: OCC1OC(C(C1O)O)n1cc(C[NH2+]CC=C(C)C)c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
-    base_monomers:
-    - U
+      position: 8
   21510U:
     id: 21510U
     name: 5-aminomethyl-2-geranylthiouridine
     synonyms:
     - Δ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 21510U
     - ns: modomics.short_name
       id: nm5ges2U
-    structure: CC(C)=CCCC(C)=CCSC1=NC(=O)C(C[NH3+])=CN1[C@@H]1O[C@H](CO)[C@H](O)C1O
+    - ns: modomics.new_nomenclature
+      id: 21510U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH3+])c(=O)nc1SC/C=C(/CCC=C(C)C)\C
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 30
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 30
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 33
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 33
-    base_monomers:
-    - U
+      position: 11
   20510U:
     id: 20510U
     name: 5-aminomethyl-2-selenouridine
@@ -1524,83 +1592,83 @@ monomers:
       id: 20510U
     - ns: modomics.short_name
       id: nm5se2U
-    structure: '[NH3+]CC1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C(=[Se])NC1=O'
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH3+])c(=O)[nH]c1=[Se]
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - U
+      position: 11
   2510U:
     id: 2510U
     name: 5-aminomethyl-2-thiouridine
     synonyms:
     - ∫
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2510U
     - ns: modomics.short_name
       id: nm5s2U
-    structure: '[NH3+]CC1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C(=S)NC1=O'
+    - ns: modomics.new_nomenclature
+      id: 2510U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH3+])c(=O)[nH]c1=S
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - U
+      position: 11
   510U:
     id: 510U
     name: 5-aminomethyluridine
     synonyms:
     - ∪
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 510U
     - ns: modomics.short_name
       id: nm5U
-    structure: '[NH3+]CC1=CN(C2OC(CO)C(O)C2O)C(=O)NC1=O'
+    - ns: modomics.new_nomenclature
+      id: 510U
+    structure: OCC1OC(C(C1O)O)n1cc(C[NH3+])c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
-    base_monomers:
-    - U
+      position: 8
   531U:
     id: 531U
     name: 5-carbamoylhydroxymethyluridine
@@ -1611,54 +1679,54 @@ monomers:
       id: 531U
     - ns: modomics.short_name
       id: nchm5U
-    structure: NC(=O)C(O)C1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C(=O)NC1=O
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c(=O)[nH]c1=O)C(C(=O)N)O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - U
+      position: 11
   253U:
     id: 253U
     name: 5-carbamoylmethyl-2-thiouridine
     synonyms:
     - l
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 253U
     - ns: modomics.short_name
       id: ncm5s2U
-    structure: NC(=O)CC1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C(=S)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 253U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(CC(=O)N)c(=O)[nH]c1=S
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    base_monomers:
-    - U
+      position: 11
   053U:
     id: 053U
     name: 5-carbamoylmethyl-2′-O-methyluridine
@@ -1669,15 +1737,17 @@ monomers:
       id: 053U
     - ns: modomics.short_name
       id: ncm5Um
-    structure: COC1C(O)C(CO)OC1N1C=C(CC(N)=O)C(=O)NC1=O
+    structure: COC1C(O)C(OC1n1cc(CC(=O)N)c(=O)[nH]c1=O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 23
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 23
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1686,37 +1756,35 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - U
   53U:
     id: 53U
     name: 5-carbamoylmethyluridine
     synonyms:
     - '&'
     identifiers:
-    - ns: modomics.short_name
-      id: ncm5U
     - ns: modomics.new_nomenclature
       id: 53U
-    structure: NC(=O)CC1=CN(C2OC(CO)C(O)C2O)C(=O)NC1=O
+    - ns: modomics.short_name
+      id: ncm5U
+    structure: OCC1OC(C(C1O)O)n1cc(CC(=O)N)c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
-    base_monomers:
-    - U
+      position: 8
   520U:
     id: 520U
     name: 5-carboxyhydroxymethyluridine
@@ -1727,7 +1795,9 @@ monomers:
       id: chm5U
     - ns: modomics.new_nomenclature
       id: 520U
-    structure: OCC1OC(C(O)C1O)N1C=C(C(O)C([O-])=O)C(=O)NC1=O
+    structure: OCC1OC(C(C1O)O)n1cc(c(=O)[nH]c1=O)C(C(=O)[O-])O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1739,24 +1809,24 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   2540U:
     id: 2540U
     name: 5-carboxymethyl-2-thiouridine
     synonyms:
     - ℘
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2540U
     - ns: modomics.short_name
       id: cm5s2U
-    structure: OC[C@H]1O[C@H](C(O)[C@H]1O)N1C=C(CC([O-])=O)C(=O)NC1=S
+    - ns: modomics.new_nomenclature
+      id: 2540U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(CC(=O)[O-])c(=O)[nH]c1=S
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1768,53 +1838,53 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
-    base_monomers:
-    - U
+      position: 11
   2151U:
     id: 2151U
     name: 5-carboxymethylaminomethyl-2-geranylthiouridine
     synonyms:
     - f
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2151U
     - ns: modomics.short_name
       id: cmnm5ges2U
-    structure: CC(C)=CCCC(C)=CCSC1=NC(=O)C(C[NH2+]CC([O-])=O)=CN1[C@@H]1O[C@H](CO)[C@H](O)C1O
+    - ns: modomics.new_nomenclature
+      id: 2151U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH2+]CC(=O)[O-])c(=O)nc1SC/C=C(/CCC=C(C)C)\C
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 33
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 33
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 36
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 36
-    base_monomers:
-    - U
+      position: 11
   2051U:
     id: 2051U
     name: 5-carboxymethylaminomethyl-2-selenouridine
     synonyms:
     - ⊥
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2051U
     - ns: modomics.short_name
       id: cmnm5se2U
-    structure: OC[C@H]1O[C@H](C(O)[C@H]1O)N1C=C(C[NH2+]CC([O-])=O)C(=O)NC1=[Se]
+    - ns: modomics.new_nomenclature
+      id: 2051U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH2+]CC(=O)[O-])c(=O)[nH]c1=[Se]
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1826,26 +1896,26 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
-    base_monomers:
-    - U
+      position: 11
   251U:
     id: 251U
     name: 5-carboxymethylaminomethyl-2-thiouridine
     synonyms:
     - $
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 251U
     - ns: modomics.short_name
       id: cmnm5s2U
     - ns: pubchem.compound
       id: '3037867'
-    structure: OC[C@H]1O[C@H](C(O)[C@H]1O)N1C=C(C[NH2+]CC([O-])=O)C(=O)NC1=S
+    - ns: modomics.new_nomenclature
+      id: 251U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH2+]CC(=O)[O-])c(=O)[nH]c1=S
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1857,55 +1927,55 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
-    base_monomers:
-    - U
+      position: 11
   051U:
     id: 051U
     name: 5-carboxymethylaminomethyl-2′-O-methyluridine
     synonyms:
     - )
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 051U
     - ns: modomics.short_name
       id: cmnm5Um
-    structure: COC1C(O)C(CO)OC1N1C=C(C[NH2+]CC([O-])=O)C(=O)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 051U
+    structure: OCC1OC(C(C1O)OC)n1cc(C[NH2+]CC(=O)[O-])c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 5
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 5
-    base_monomers:
-    - U
+      position: 8
   51U:
     id: 51U
     name: 5-carboxymethylaminomethyluridine
     synonyms:
     - '!'
     identifiers:
-    - ns: modomics.short_name
-      id: cmnm5U
-    - ns: modomics.new_nomenclature
-      id: 51U
     - ns: pubchem.compound
       id: '194306'
-    structure: OCC1OC(C(O)C1O)N1C=C(C[NH2+]CC([O-])=O)C(=O)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 51U
+    - ns: modomics.short_name
+      id: cmnm5U
+    structure: OCC1OC(C(C1O)O)n1cc(C[NH2+]CC(=O)[O-])c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1917,26 +1987,26 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   52U:
     id: 52U
     name: 5-carboxymethyluridine
     synonyms:
     - ◊
     identifiers:
-    - ns: modomics.short_name
-      id: cm5U
     - ns: pubchem.compound
       id: '3080720'
+    - ns: modomics.short_name
+      id: cm5U
     - ns: modomics.new_nomenclature
       id: 52U
-    structure: OCC1OC(C(O)C1O)N1C=C(CC([O-])=O)C(=O)NC1=O
+    structure: OCC1OC(C(C1O)O)n1cc(CC(=O)[O-])c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1948,13 +2018,11 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   55U:
     id: 55U
     name: 5-cyanomethyluridine
@@ -1965,7 +2033,9 @@ monomers:
       id: cnm5U
     - ns: modomics.new_nomenclature
       id: 55U
-    structure: OC[C@H]1O[C@H](C(O)[C@H]1O)N1C=C(CC#N)C(=O)NC1=O
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(CC#N)c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1977,129 +2047,127 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
-    base_monomers:
-    - U
+      position: 11
   071C:
     id: 071C
     name: 5-formyl-2′-O-methylcytidine
     synonyms:
     - °
     identifiers:
-    - ns: modomics.short_name
-      id: f5Cm
     - ns: modomics.new_nomenclature
       id: 071C
-    structure: OC[C@H]1O[C@H](C(O)[C@H]1O)N1C=C(CC#N)C(=O)NC1=O
+    - ns: modomics.short_name
+      id: f5Cm
+    structure: COC1C(O)C(OC1n1cc(C=O)c(nc1=O)N)CO
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 1
+      position: 20
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
+      position: 20
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 5
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
-    base_monomers:
-    - C
+      position: 5
   71C:
     id: 71C
     name: 5-formylcytidine
     synonyms:
     - '>'
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 71C
     - ns: modomics.short_name
       id: f5C
-    structure: NC1=NC(=O)N(C=C1C=O)C1OC(CO)C(O)C1O
+    - ns: modomics.new_nomenclature
+      id: 71C
+    structure: OCC1OC(C(C1O)O)n1cc(C=O)c(nc1=O)N
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    base_monomers:
-    - C
+      position: 8
   50C:
     id: 50C
     name: 5-hydroxycytidine
     synonyms:
     - Ç
     identifiers:
-    - ns: modomics.short_name
-      id: ho5C
     - ns: modomics.new_nomenclature
       id: 50C
-    structure: NC1=NC(=O)N(C=C1O)C1OC(CO)C(O)C1O
+    - ns: modomics.short_name
+      id: ho5C
+    structure: OCC1OC(C(C1O)O)n1cc(O)c(nc1=O)N
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - C
+      position: 8
   51C:
     id: 51C
     name: 5-hydroxymethylcytidine
     synonyms:
     - ∅
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 51C
     - ns: modomics.short_name
       id: hm5C
-    structure: NC1=NC(=O)N(C=C1CO)C1OC(CO)C(O)C1O
+    - ns: modomics.new_nomenclature
+      id: 51C
+    structure: OCC1OC(C(C1O)O)n1cc(CO)c(nc1=O)N
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    base_monomers:
-    - C
+      position: 8
   50U:
     id: 50U
     name: 5-hydroxyuridine
@@ -2110,7 +2178,9 @@ monomers:
       id: ho5U
     - ns: modomics.new_nomenclature
       id: 50U
-    structure: OCC1OC(C(O)C1O)N1C=C(O)C(=O)NC1=O
+    structure: OCC1OC(C(C1O)O)n1cc(O)c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -2122,61 +2192,61 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   2521U:
     id: 2521U
     name: 5-methoxycarbonylmethyl-2-thiouridine
     synonyms:
     - '3'
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2521U
     - ns: modomics.short_name
       id: mcm5s2U
-    structure: COC(=O)CC1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C(=S)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 2521U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(CC(=O)OC)c(=O)[nH]c1=S
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - U
+      position: 11
   0521U:
     id: 0521U
     name: 5-methoxycarbonylmethyl-2′-O-methyluridine
     synonyms:
     - ∩
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 0521U
     - ns: modomics.short_name
       id: mcm5Um
-    structure: COC1C(O)C(CO)OC1N1C=C(CC(=O)OC)C(=O)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 0521U
+    structure: COC1C(O)C(OC1n1cc(CC(=O)OC)c(=O)[nH]c1=O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 24
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 24
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -2185,37 +2255,35 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - U
   521U:
     id: 521U
     name: 5-methoxycarbonylmethyluridine
     synonyms:
     - '1'
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 521U
     - ns: modomics.short_name
       id: mcm5U
-    structure: COC(=O)CC1=CN(C2OC(CO)C(O)C2O)C(=O)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 521U
+    structure: OCC1OC(C(C1O)O)n1cc(CC(=O)OC)c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
-    base_monomers:
-    - U
+      position: 8
   501U:
     id: 501U
     name: 5-methoxyuridine
@@ -2224,60 +2292,60 @@ monomers:
     identifiers:
     - ns: modomics.short_name
       id: mo5U
-    - ns: modomics.new_nomenclature
-      id: 501U
     - ns: pubchem.compound
       id: '169704'
-    structure: COC1=CN(C2OC(CO)C(O)C2O)C(=O)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 501U
+    structure: OCC1OC(C(C1O)O)n1cc(OC)c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 10
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
-    base_monomers:
-    - U
+      position: 8
   25U:
     id: 25U
     name: 5-methyl-2-thiouridine
     synonyms:
     - F
     identifiers:
-    - ns: modomics.short_name
-      id: m5s2U
-    - ns: modomics.new_nomenclature
-      id: 25U
     - ns: pubchem.compound
       id: '3035361'
-    structure: CC1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C(=S)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 25U
+    - ns: modomics.short_name
+      id: m5s2U
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C)c(=O)[nH]c1=S
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
-    base_monomers:
-    - U
+      position: 11
   21511U:
     id: 21511U
     name: 5-methylaminomethyl-2-geranylthiouridine
@@ -2288,25 +2356,25 @@ monomers:
       id: mnm5ges2U
     - ns: modomics.new_nomenclature
       id: 21511U
-    structure: C[NH2+]CC1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C(SCC=C(C)CCC=C(C)C)=NC1=O
+    structure: C[NH2+]Cc1cn(c(nc1=O)SC/C=C(/CCC=C(C)C)\C)[C@@H]1O[C@@H]([C@@H](C1O)O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 35
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 35
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 33
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - U
+      position: 33
   20511U:
     id: 20511U
     name: 5-methylaminomethyl-2-selenouridine
@@ -2319,116 +2387,116 @@ monomers:
       id: 20511U
     - ns: pubchem.compound
       id: '6336326'
-    structure: C[NH2+]CC1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C(=[Se])NC1=O
+    structure: C[NH2+]Cc1cn(c(=[Se])[nH]c1=O)[C@@H]1O[C@@H]([C@@H](C1O)O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 26
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 26
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 24
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - U
+      position: 24
   2511U:
     id: 2511U
     name: 5-methylaminomethyl-2-thiouridine
     synonyms:
     - S
     identifiers:
-    - ns: pubchem.compound
-      id: '3036488'
     - ns: modomics.short_name
       id: mnm5s2U
+    - ns: pubchem.compound
+      id: '3036488'
     - ns: modomics.new_nomenclature
       id: 2511U
-    structure: C[NH2+]CC1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C(=S)NC1=O
+    structure: C[NH2+]Cc1cn(c(=S)[nH]c1=O)[C@@H]1O[C@@H]([C@@H](C1O)O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 26
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 26
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 24
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - U
+      position: 24
   511U:
     id: 511U
     name: 5-methylaminomethyluridine
     synonyms:
     - '{'
     identifiers:
-    - ns: modomics.short_name
-      id: mnm5U
     - ns: modomics.new_nomenclature
       id: 511U
-    structure: C[NH2+]CC1=CN(C2OC(CO)C(O)C2O)C(=O)NC1=O
+    - ns: modomics.short_name
+      id: mnm5U
+    structure: C[NH2+]Cc1cn(c(=O)[nH]c1=O)C1OC(C(C1O)O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 23
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 23
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 21
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
-    base_monomers:
-    - U
+      position: 21
   5C:
     id: 5C
     name: 5-methylcytidine
     synonyms:
     - '?'
     identifiers:
-    - ns: modomics.short_name
-      id: m5C
     - ns: modomics.new_nomenclature
       id: 5C
+    - ns: modomics.short_name
+      id: m5C
     - ns: pubchem.compound
       id: '92918'
-    structure: CC1=CN(C2OC(CO)C(O)C2O)C(=O)N=C1N
+    structure: OCC1OC(C(C1O)O)n1cc(C)c(nc1=O)N
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
-    base_monomers:
-    - C
+      position: 8
   58U:
     id: 58U
     name: 5-methyldihydrouridine
@@ -2439,56 +2507,56 @@ monomers:
       id: m5D
     - ns: modomics.new_nomenclature
       id: 58U
-    structure: CC1CN(C2OC(CO)C(O)C2O)C(=O)NC1=O
+    structure: OCC1OC(C(C1O)O)N1CC(C)C(=O)NC1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
-    base_monomers:
-    - U
+      position: 8
   5U:
     id: 5U
     name: 5-methyluridine
     synonyms:
     - T
     identifiers:
+    - ns: pubchem.compound
+      id: '445408'
     - ns: modomics.new_nomenclature
       id: 5U
     - ns: modomics.short_name
       id: m5U
-    - ns: pubchem.compound
-      id: '445408'
-    structure: CC1=CN(C2OC(CO)C(O)C2O)C(=O)NC1=O
+    structure: OCC1OC(C(C1O)O)n1cc(C)c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
-    base_monomers:
-    - U
+      position: 8
   254U:
     id: 254U
     name: 5-taurinomethyl-2-thiouridine
@@ -2499,7 +2567,9 @@ monomers:
       id: tm5s2U
     - ns: modomics.new_nomenclature
       id: 254U
-    structure: OC[C@H]1O[C@H](C(O)[C@H]1O)N1C=C(C[NH2+]CCS([O-])(=O)=O)C(=O)NC1=S
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH2+]CCS(=O)(=O)[O-])c(=O)[nH]c1=S
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -2511,13 +2581,11 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
-    base_monomers:
-    - U
+      position: 11
   54U:
     id: 54U
     name: 5-taurinomethyluridine
@@ -2528,7 +2596,9 @@ monomers:
       id: 54U
     - ns: modomics.short_name
       id: tm5U
-    structure: OCC1OC(C(O)C1O)N1C=C(C[NH2+]CCS([O-])(=O)=O)C(=O)NC1=O
+    structure: OCC1OC(C(C1O)O)n1cc(C[NH2+]CCS(=O)(=O)[O-])c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -2540,42 +2610,40 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   47G:
     id: 47G
     name: 7-aminocarboxypropyl-demethylwyosine
     synonyms:
     - ¥
     identifiers:
-    - ns: modomics.short_name
-      id: yW-86
     - ns: modomics.new_nomenclature
       id: 47G
-    structure: CC1=C(CCC([NH3+])C([O-])=O)N2C(NC3=C(N=CN3[C@@H]3O[C@H](CO)[C@H](O)C3O)C2=O)=N1
+    - ns: modomics.short_name
+      id: yW-86
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1[nH]c1nc(c(n1c2=O)CCC(C(=O)[O-])[NH3+])C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 28
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 28
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 31
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 31
-    base_monomers:
-    - G
+      position: 11
   347G:
     id: 347G
     name: 7-aminocarboxypropylwyosine
@@ -2586,25 +2654,25 @@ monomers:
       id: yW-72
     - ns: modomics.new_nomenclature
       id: 347G
-    structure: CN1C2=NC(C)=C(CCC([NH3+])C([O-])=O)N2C(=O)C2=C1N(C=N2)[C@@H]1O[C@H](CO)[C@H](O)C1O
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1n(C)c1n(c2=O)c(c(n1)C)CCC(C(=O)[O-])[NH3+]
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 32
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 32
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 35
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 35
-    base_monomers:
-    - G
+      position: 11
   348G:
     id: 348G
     name: 7-aminocarboxypropylwyosine methyl ester
@@ -2615,52 +2683,52 @@ monomers:
       id: 348G
     - ns: modomics.short_name
       id: yW-58
-    structure: COC(=O)C([NH3+])CCC1=C(C)N=C2N1C(=O)C1=C(N(C=N1)[C@@H]1O[C@H](CO)[C@H](O)C1O)N2C
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1n(C)c1n(c2=O)c(c(n1)C)CCC(C(=O)OC)[NH3+]
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 31
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 31
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 34
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 34
-    base_monomers:
-    - G
+      position: 11
   101G:
     id: 101G
     name: 7-aminomethyl-7-deazaguanosine
     synonyms:
     - ∉
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 101G
     - ns: modomics.short_name
       id: preQ1tRNA
-    structure: NC1=NC2=C(C(C[NH3+])=CN2[C@@H]2O[C@H](CO)[C@H](O)C2O)C(=O)N1
+    - ns: modomics.new_nomenclature
+      id: 101G
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)C[NH3+]
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
+      position: 11
   100G:
     id: 100G
     name: 7-cyano-7-deazaguanosine
@@ -2671,23 +2739,23 @@ monomers:
       id: 100G
     - ns: modomics.short_name
       id: preQ0tRNA
-    structure: NC1=NC2=C(C(=CN2[C@@H]2O[C@H](CO)[C@H](O)C2O)C#N)C(=O)N1
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)C#N
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
+      position: 11
   7G:
     id: 7G
     name: 7-methylguanosine
@@ -2698,25 +2766,25 @@ monomers:
       id: 7G
     - ns: modomics.short_name
       id: m7G
-    structure: C[N+]1=CN([C@H]2O[C@@H](CO)[C@@H](O)C2O)C2=C1C(O)N=C(N)N2
+    structure: OC[C@@H]1O[C@@H](C([C@@H]1O)O)n1c[n+](c2c1N=C(N)NC2O)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 11
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
-    base_monomers:
-    - G
+      position: 11
   8A:
     id: 8A
     name: 8-methyladenosine
@@ -2727,54 +2795,54 @@ monomers:
       id: m8A
     - ns: modomics.new_nomenclature
       id: 8A
-    structure: CC1=NC2=C(N)N=CN=C2N1C1OC(CO)C(O)C1O
+    structure: OCC1OC(C(C1O)O)n1c(C)nc2c1ncnc2N
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - A
+      position: 8
   02G:
     id: 02G
     name: N2,2′-O-dimethylguanosine
     synonyms:
     - γ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 02G
     - ns: modomics.short_name
       id: m2Gm
-    structure: CNC1=NC2=C(N=CN2C2OC(CO)C(O)C2OC)C(=O)N1
+    - ns: modomics.new_nomenclature
+      id: 02G
+    structure: COC1C(O)C(OC1n1cnc2c1nc(NC)[nH]c2=O)CO
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 23
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 23
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 5
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - G
+      position: 5
   027G:
     id: 027G
     name: N2,7,2′-O-trimethylguanosine
@@ -2785,54 +2853,54 @@ monomers:
       id: m2,7Gm
     - ns: modomics.new_nomenclature
       id: 027G
-    structure: CNC1=NC(O)C2=C(N1)N(C=[N+]2C)[C@H]1O[C@@H](CO)[C@@H](O)C1OC
+    structure: OC[C@@H]1O[C@@H](C([C@@H]1O)OC)n1c[n+](c2c1[NH+]=C(NC)NC2O)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
-    base_monomers:
-    - G
+      position: 11
   27G:
     id: 27G
     name: N2,7-dimethylguanosine
     synonyms:
     - ∨
     identifiers:
-    - ns: modomics.short_name
-      id: m2,7G
     - ns: modomics.new_nomenclature
       id: 27G
-    structure: CNC1=NC(O)C2=C(N1)N(C=[N+]2C)[C@H]1O[C@@H](CO)[C@@H](O)C1O
+    - ns: modomics.short_name
+      id: m2,7G
+    structure: OC[C@@H]1O[C@@H](C([C@@H]1O)O)n1c[n+](c2c1[NH+]=C(NC)NC2O)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 20
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
-    base_monomers:
-    - G
+      position: 11
   022G:
     id: 022G
     name: N2,N2,2′-O-trimethylguanosine
@@ -2843,15 +2911,17 @@ monomers:
       id: 022G
     - ns: modomics.short_name
       id: m2,2Gm
-    structure: COC1C(O)C(CO)OC1N1C=NC2=C1N=C(NC2=O)N(C)C
+    structure: COC1C(O)C(OC1n1cnc2c1nc([nH]c2=O)N(C)C)CO
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 24
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 24
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -2860,8 +2930,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - G
   227G:
     id: 227G
     name: N2,N2,7-trimethylguanosine
@@ -2872,56 +2940,56 @@ monomers:
       id: 227G
     - ns: modomics.short_name
       id: m2,2,7G
-    structure: CN(C)C1=NC(O)C2=C(N1)N(C=[N+]2C)[C@H]1O[C@@H](CO)[C@@H](O)C1O
+    structure: OC[C@@H]1O[C@@H](C([C@@H]1O)O)n1c[n+](c2c1[NH+]=C(NC2O)N(C)C)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
-    base_monomers:
-    - G
+      position: 11
   22G:
     id: 22G
     name: N2,N2-dimethylguanosine
     synonyms:
     - R
     identifiers:
-    - ns: pubchem.compound
-      id: '601633'
     - ns: modomics.short_name
       id: m2,2G
+    - ns: pubchem.compound
+      id: '601633'
     - ns: modomics.new_nomenclature
       id: 22G
-    structure: CN(C)C1=NC2=C(N=CN2C2OC(CO)C(O)C2O)C(=O)N1
+    structure: OCC1OC(C(C1O)O)n1cnc2c1nc([nH]c2=O)N(C)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    base_monomers:
-    - G
+      position: 8
   2G:
     id: 2G
     name: N2-methylguanosine
@@ -2934,54 +3002,54 @@ monomers:
       id: '3035422'
     - ns: modomics.new_nomenclature
       id: 2G
-    structure: CNC1=NC2=C(N=CN2C2OC(CO)C(O)C2O)C(=O)N1
+    structure: OCC1OC(C(C1O)O)n1cnc2c1nc(NC)[nH]c2=O
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - G
+      position: 8
   04C:
     id: 04C
     name: N4,2′-O-dimethylcytidine
     synonyms:
     - λ
     identifiers:
-    - ns: modomics.short_name
-      id: m4Cm
     - ns: modomics.new_nomenclature
       id: 04C
-    structure: CNC1=NC(=O)N(C=C1)C1OC(CO)C(O)C1OC
+    - ns: modomics.short_name
+      id: m4Cm
+    structure: COC1C(O)C(OC1n1ccc(nc1=O)NC)CO
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 19
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 19
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 5
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - C
+      position: 5
   044C:
     id: 044C
     name: N4,N4,2′-O-trimethylcytidine
@@ -2992,15 +3060,17 @@ monomers:
       id: 044C
     - ns: modomics.short_name
       id: m4,4Cm
-    structure: COC1C(O)C(CO)OC1N1C=CC(=NC1=O)N(C)C
+    structure: COC1C(O)C(OC1n1ccc(nc1=O)N(C)C)CO
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 20
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 20
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3009,58 +3079,58 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - C
   44C:
     id: 44C
     name: N4,N4-dimethylcytidine
     synonyms:
     - μ
     identifiers:
+    - ns: modomics.new_nomenclature
+      id: 44C
     - ns: pubchem.compound
       id: '3082389'
     - ns: modomics.short_name
       id: m4,4C
-    - ns: modomics.new_nomenclature
-      id: 44C
-    structure: CN(C)C1=NC(=O)N(C=C1)C1OC(CO)C(O)C1O
+    structure: OCC1OC(C(C1O)O)n1ccc(nc1=O)N(C)C
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    base_monomers:
-    - C
+      position: 8
   042C:
     id: 042C
     name: N4-acetyl-2′-O-methylcytidine
     synonyms:
     - ℵ
     identifiers:
-    - ns: modomics.short_name
-      id: ac4Cm
     - ns: modomics.new_nomenclature
       id: 042C
-    structure: COC1C(O)C(CO)OC1N1C=CC(NC(C)=O)=NC1=O
+    - ns: modomics.short_name
+      id: ac4Cm
+    structure: COC1C(O)C(OC1n1ccc(nc1=O)NC(=O)C)CO
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 21
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 21
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3069,37 +3139,35 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - C
   42C:
     id: 42C
     name: N4-acetylcytidine
     synonyms:
     - M
     identifiers:
-    - ns: modomics.short_name
-      id: ac4C
     - ns: modomics.new_nomenclature
       id: 42C
-    structure: CC(=O)NC1=NC(=O)N(C=C1)C1OC(CO)C(O)C1O
+    - ns: modomics.short_name
+      id: ac4C
+    structure: OCC1OC(C(C1O)O)n1ccc(nc1=O)NC(=O)C
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - C
+      position: 8
   4C:
     id: 4C
     name: N4-methylcytidine
@@ -3110,54 +3178,54 @@ monomers:
       id: 4C
     - ns: modomics.short_name
       id: m4C
-    structure: CNC1=NC(=O)N(C=C1)C1OC(CO)C(O)C1O
+    structure: OCC1OC(C(C1O)O)n1ccc(nc1=O)NC
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - C
+      position: 8
   06A:
     id: 06A
     name: N6,2′-O-dimethyladenosine
     synonyms:
     - χ
     identifiers:
-    - ns: modomics.short_name
-      id: m6Am
     - ns: modomics.new_nomenclature
       id: 06A
-    structure: CNC1=C2N=CN(C3OC(CO)C(O)C3OC)C2=NC=N1
+    - ns: modomics.short_name
+      id: m6Am
+    structure: COC1C(O)C(OC1n1cnc2c1ncnc2NC)CO
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 21
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 21
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 5
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
-    base_monomers:
-    - A
+      position: 5
   066A:
     id: 066A
     name: N6,N6,2′-O-trimethyladenosine
@@ -3168,15 +3236,17 @@ monomers:
       id: 066A
     - ns: modomics.short_name
       id: m6,6Am
-    structure: COC1C(O)C(CO)OC1N1C=NC2=C(N=CN=C12)N(C)C
+    structure: COC1C(O)C(OC1n1cnc2c1ncnc2N(C)C)CO
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 8
+      position: 22
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 22
     right_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3185,39 +3255,37 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    base_monomers:
-    - A
   66A:
     id: 66A
     name: N6,N6-dimethyladenosine
     synonyms:
     - ζ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 66A
     - ns: pubchem.compound
       id: '72266'
     - ns: modomics.short_name
       id: m6,6A
-    structure: CN(C)C1=C2N=CN(C3OC(CO)C(O)C3O)C2=NC=N1
+    - ns: modomics.new_nomenclature
+      id: 66A
+    structure: OCC1OC(C(C1O)O)n1cnc2c1ncnc2N(C)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
-    base_monomers:
-    - A
+      position: 8
   60A:
     id: 60A
     name: N6-(cis-hydroxyisopentenyl)adenosine
@@ -3228,25 +3296,25 @@ monomers:
       id: io6A
     - ns: modomics.new_nomenclature
       id: 60A
-    structure: CC(CO)=CCNC1=C2N=CN(C3OC(CO)C(O)C3O)C2=NC=N1
+    structure: OCC(=CCNc1ncnc2c1ncn2C1OC(C(C1O)O)CO)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 24
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 24
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 22
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
-    base_monomers:
-    - A
+      position: 22
   64A:
     id: 64A
     name: N6-acetyladenosine
@@ -3257,65 +3325,67 @@ monomers:
       id: 64A
     - ns: modomics.short_name
       id: ac6A
-    structure: CC(=O)NC1=C2N=CN(C3OC(CO)C(O)C3O)C2=NC=N1
+    structure: OCC1OC(C(C1O)O)n1cnc2c1ncnc2NC(=O)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - A
+      position: 8
   67A:
     id: 67A
     name: N6-formyladenosine
     synonyms:
     - Ϩ
     identifiers:
-    - ns: modomics.short_name
-      id: f6A
     - ns: modomics.new_nomenclature
       id: 67A
-    structure: OC[C@H]1O[C@H](C(O)[C@H]1O)N1C=NC2=C(NC=O)N=CN=C12
+    - ns: modomics.short_name
+      id: f6A
+    structure: O=CNc1ncnc2c1ncn2[C@@H]1O[C@@H]([C@@H](C1O)O)CO
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 1
+      position: 24
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 1
+      position: 24
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 22
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
-    base_monomers:
-    - A
+      position: 22
   65A:
     id: 65A
     name: N6-glycinylcarbamoyladenosine
     synonyms:
     - ≡
     identifiers:
-    - ns: modomics.short_name
-      id: g6A
     - ns: modomics.new_nomenclature
       id: 65A
-    structure: OC[C@H]1O[C@H](C(O)[C@H]1O)N1C=NC2=C(NC(=O)NCC([O-])=O)N=CN=C12
+    - ns: modomics.short_name
+      id: g6A
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1ncnc2NC(=O)NCC(=O)[O-]
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3327,102 +3397,100 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
-    base_monomers:
-    - A
+      position: 11
   68A:
     id: 68A
     name: N6-hydroxymethyladenosine
     synonyms:
     - Ϫ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 68A
     - ns: modomics.short_name
       id: hm6A
-    structure: OCNC1=C2N=CN([C@@H]3O[C@H](CO)[C@H](O)C3O)C2=NC=N1
+    - ns: modomics.new_nomenclature
+      id: 68A
+    structure: OCNc1ncnc2c1ncn2[C@@H]1O[C@@H]([C@@H](C1O)O)CO
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 24
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 24
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 22
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - A
+      position: 22
   63A:
     id: 63A
     name: N6-hydroxynorvalylcarbamoyladenosine
     synonyms:
     - √
     identifiers:
-    - ns: modomics.short_name
-      id: hn6A
     - ns: modomics.new_nomenclature
       id: 63A
-    structure: CCC(O)C(NC(=O)NC1=C2N=CN(C3OC(CO)C(O)C3O)C2=NC=N1)C([O-])=O
+    - ns: modomics.short_name
+      id: hn6A
+    structure: CCC(C(C(=O)[O-])NC(=O)Nc1ncnc2c1ncn2C1OC(C(C1O)O)CO)O
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 29
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
+      position: 29
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 27
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
-    base_monomers:
-    - A
+      position: 27
   61A:
     id: 61A
     name: N6-isopentenyladenosine
     synonyms:
     - +
     identifiers:
-    - ns: pubchem.compound
-      id: '266767'
     - ns: modomics.short_name
       id: i6A
+    - ns: pubchem.compound
+      id: '266767'
     - ns: modomics.new_nomenclature
       id: 61A
-    structure: CC(C)=CCNC1=C2N=CN(C3OC(CO)C(O)C3O)C2=NC=N1
+    structure: OCC1OC(C(C1O)O)n1cnc2c1ncnc2NCC=C(C)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
-    base_monomers:
-    - A
+      position: 8
   662A:
     id: 662A
     name: N6-methyl-N6-threonylcarbamoyladenosine
@@ -3433,25 +3501,25 @@ monomers:
       id: m6t6A
     - ns: modomics.new_nomenclature
       id: 662A
-    structure: CC(O)C(NC(=O)N(C)C1=C2N=CN([C@@H]3O[C@H](CO)[C@H](O)C3O)C2=NC=N1)C([O-])=O
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1ncnc2N(C(=O)NC(C(=O)[O-])C(O)C)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
-    base_monomers:
-    - A
+      position: 11
   6A:
     id: 6A
     name: N6-methyladenosine
@@ -3462,25 +3530,25 @@ monomers:
       id: 6A
     - ns: modomics.short_name
       id: m6A
-    structure: CNC1=C2N=CN(C3OC(CO)C(O)C3O)C2=NC=N1
+    structure: OCC1OC(C(C1O)O)n1cnc2c1ncnc2NC
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 12
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
-    base_monomers:
-    - A
+      position: 8
   62A:
     id: 62A
     name: N6-threonylcarbamoyladenosine
@@ -3491,25 +3559,25 @@ monomers:
       id: t6A
     - ns: modomics.new_nomenclature
       id: 62A
-    structure: CC(O)C(N)C(=O)NC(=O)NC1=C2N=CN([C@@H]3O[C@H](CO)[C@H](O)C3O)C2=NC=N1
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1ncnc2NC(=O)NC(=O)C(C(O)C)N
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
-    base_monomers:
-    - A
+      position: 11
   20C:
     id: 20C
     name: agmatidine
@@ -3520,25 +3588,25 @@ monomers:
       id: 20C
     - ns: modomics.short_name
       id: C+
-    structure: NC(=[NH2+])NCCCCNC1=[NH+]C(=N)C=CN1C1OC(CO)C(O)C1O
+    structure: OCC1OC(C(C1O)O)n1ccc(=N)[nH+]c1NCCCCNC(=[NH2+])N
+    base_monomers:
+    - C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
-    base_monomers:
-    - C
+      position: 8
   103G:
     id: 103G
     name: archaeosine
@@ -3549,65 +3617,67 @@ monomers:
       id: G+
     - ns: modomics.new_nomenclature
       id: 103G
-    structure: NC(=[NH2+])C1=CN([C@@H]2O[C@H](CO)[C@H](O)C2O)C2=C1C(=O)NC(N)=N2
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)C(=[NH2+])N
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 18
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 18
+      position: 11
   69A:
     id: 69A
     name: cyclic N6-threonylcarbamoyladenosine
     synonyms:
     - e
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 69A
     - ns: modomics.short_name
       id: ct6A
-    structure: CC(O)C1N=C(NC2=C3N=CN([C@@H]4O[C@H](CO)[C@H](O)C4O)C3=NC=N2)OC1=O
+    - ns: modomics.new_nomenclature
+      id: 69A
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1ncnc2/N=C\1/OC(=O)C(N1)C(O)C
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 22
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 22
-    base_monomers:
-    - A
+      position: 11
   8U:
     id: 8U
     name: dihydrouridine
     synonyms:
     - D
     identifiers:
-    - ns: pubchem.compound
-      id: '94312'
     - ns: modomics.short_name
       id: D
     - ns: modomics.new_nomenclature
       id: 8U
-    structure: OCC1OC(C(O)C1O)N1CCC(=O)NC1=O
+    - ns: pubchem.compound
+      id: '94312'
+    structure: OCC1OC(C(C1O)O)N1CCC(=O)NC1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3619,13 +3689,11 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   102G:
     id: 102G
     name: epoxyqueuosine
@@ -3636,50 +3704,50 @@ monomers:
       id: oQtRNA
     - ns: modomics.new_nomenclature
       id: 102G
-    structure: NC1=NC2=C(C(CNC3C4OC4C(O)C3O)=CN2[C@@H]2O[C@H](CO)[C@H](O)C2O)C(=O)N1
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)CNC1C2OC2C(C1O)O
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 25
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 25
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 28
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 28
+      position: 11
   104G:
     id: 104G
     name: galactosyl-queuosine
     synonyms:
     - '9'
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 104G
     - ns: modomics.short_name
       id: galQtRNA
-    structure: NC1=NC2=C(C(CNC3C=CC(O)C3O[C@@H]3OC(CO)[C@H](O)[C@@H](O)C3O)=CN2[C@@H]2O[C@H](CO)C(O)[C@@H]2O)C(=O)N1
+    - ns: modomics.new_nomenclature
+      id: 104G
+    structure: OC[C@H]1O[C@H]([C@H](C1O)O)n1cc(c2c1nc(N)[nH]c2=O)CNC1C=CC(C1O[C@@H]1OC(CO)[C@@H]([C@H](C1O)O)O)O
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 38
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 38
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 40
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 40
+      position: 11
   2165A:
     id: 2165A
     name: hydroxy-N6-threonylcarbamoyladenosine
@@ -3690,67 +3758,69 @@ monomers:
       id: ht6A
     - ns: modomics.new_nomenclature
       id: 2165A
-    structure: OCC(O)C(NC(=O)NC1=C2N=CN([C@@H]3O[C@H](CO)C(O)C3O)C2=NC=N1)C([O-])=O
+    structure: OCC(C(C(=O)[O-])NC(=O)Nc1ncnc2c1ncn2[C@@H]1O[C@@H](C(C1O)O)CO)O
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 31
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 31
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 29
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
-    base_monomers:
-    - A
+      position: 29
   34830G:
     id: 34830G
     name: hydroxywybutosine
     synonyms:
     - ⊆
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 34830G
     - ns: modomics.short_name
       id: OHyW
-    structure: COC(=O)NC(C(O)CC1=C(C)N=C2N1C(=O)C1=C(N(C=N1)[C@@H]1O[C@H](CO)[C@H](O)C1O)N2C)C(=O)OC
+    - ns: modomics.new_nomenclature
+      id: 34830G
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1n(C)c1n(c2=O)c(c(n1)C)CC(C(C(=O)OC)NC(=O)OC)O
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 29
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 29
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 32
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 32
-    base_monomers:
-    - G
+      position: 11
   9A:
     id: 9A
     name: inosine
     synonyms:
     - I
     identifiers:
+    - ns: modomics.new_nomenclature
+      id: 9A
     - ns: pubchem.compound
       id: '6021'
     - ns: modomics.short_name
       id: I
-    - ns: modomics.new_nomenclature
-      id: 9A
-    structure: OCC1OC(C(O)C1O)N1C=NC2=C1N=CNC2=O
+    structure: OCC1OC(C(C1O)O)n1cnc2c1nc[nH]c2=O
+    base_monomers:
+    - A
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3762,13 +3832,11 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - A
+      position: 8
   42G:
     id: 42G
     name: isowyosine
@@ -3779,25 +3847,25 @@ monomers:
       id: imG2
     - ns: modomics.new_nomenclature
       id: 42G
-    structure: CC1=C(C)N2C(NC3=C(N=CN3C3OC(CO)C(O)C3O)C2=O)=N1
+    structure: OCC1OC(C(C1O)O)n1cnc2c1[nH]c1nc(c(n1c2=O)C)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 19
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 19
-    base_monomers:
-    - G
+      position: 8
   106G:
     id: 106G
     name: mannosyl-queuosine
@@ -3808,81 +3876,81 @@ monomers:
       id: manQtRNA
     - ns: modomics.new_nomenclature
       id: 106G
-    structure: NC1=NC2=C(C(CNC3C=CC(O)C3O[C@@H]3OC(CO)[C@@H](O)[C@@H](O)C3O)=CN2[C@@H]2O[C@H](CO)C(O)[C@@H]2O)C(=O)N1
+    structure: OC[C@H]1O[C@H]([C@H](C1O)O)n1cc(c2c1nc(N)[nH]c2=O)CNC1C=CC(C1O[C@@H]1OC(CO)[C@H]([C@H](C1O)O)O)O
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 38
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 38
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 40
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 40
+      position: 11
   3480G:
     id: 3480G
     name: methylated undermodified hydroxywybutosine
     synonyms:
     - y
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 3480G
     - ns: modomics.short_name
       id: OHyWy
-    structure: COC(=O)C(N)C(O)CC1=C(C)N=C2N1C(=O)C1=C(N(C=N1)[C@@H]1O[C@H](CO)[C@H](O)C1O)N2C
+    - ns: modomics.new_nomenclature
+      id: 3480G
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1n(C)c1n(c2=O)c(c(n1)C)CC(C(C(=O)OC)N)O
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 29
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 29
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 32
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 32
-    base_monomers:
-    - G
+      position: 11
   342G:
     id: 342G
     name: methylwyosine
     synonyms:
     - ∑
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 342G
     - ns: modomics.short_name
       id: mimG
-    structure: CN1C2=NC(C)=C(C)N2C(=O)C2=C1N(C=N2)C1OC(CO)C(O)C1O
+    - ns: modomics.new_nomenclature
+      id: 342G
+    structure: OCC1OC(C(C1O)O)n1cnc2c1n(C)c1nc(c(n1c2=O)C)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 23
-    base_monomers:
-    - G
+      position: 8
   34832G:
     id: 34832G
     name: peroxywybutosine
@@ -3893,38 +3961,40 @@ monomers:
       id: o2yW
     - ns: modomics.new_nomenclature
       id: 34832G
-    structure: COC(=O)NC(C(CC1=C(C)N=C2N1C(=O)C1=C(N(C=N1)[C@@H]1O[C@H](CO)[C@H](O)C1O)N2C)OO)C(=O)OC
+    structure: OOC(C(C(=O)OC)NC(=O)OC)Cc1c(C)nc2n1c(=O)c1c(n2C)n(cn1)[C@@H]1O[C@@H]([C@@H](C1O)O)CO
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 28
+      position: 41
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 28
+      position: 41
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 31
+      position: 39
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 31
-    base_monomers:
-    - G
+      position: 39
   9U:
     id: 9U
     name: pseudouridine
     synonyms:
     - P
     identifiers:
-    - ns: modomics.short_name
-      id: Y
-    - ns: modomics.new_nomenclature
-      id: 9U
     - ns: pubchem.compound
       id: '15047'
-    structure: OCC1OC(C(O)C1O)C1=CNC(=O)NC1=O
+    - ns: modomics.new_nomenclature
+      id: 9U
+    - ns: modomics.short_name
+      id: Y
+    structure: OCC1OC(C(C1O)O)c1c[nH]c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3936,69 +4006,67 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   10G:
     id: 10G
     name: queuosine
     synonyms:
     - Q
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 10G
     - ns: modomics.short_name
       id: QtRNA
-    structure: NC1=NC2=C(C(CNC3C=CC(O)C3O)=CN2[C@@H]2O[C@H](CO)[C@H](O)C2O)C(=O)N1
+    - ns: modomics.new_nomenclature
+      id: 10G
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)CNC1C=CC(C1O)O
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 27
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 27
+      position: 11
   3470G:
     id: 3470G
     name: undermodified hydroxywybutosine
     synonyms:
     - š
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 3470G
     - ns: modomics.short_name
       id: OHyWx
-    structure: CN1C2=NC(C)=C(CC(O)C([NH3+])C([O-])=O)N2C(=O)C2=C1N(C=N2)[C@@H]1O[C@H](CO)[C@H](O)C1O
+    - ns: modomics.new_nomenclature
+      id: 3470G
+    structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1n(C)c1n(c2=O)c(c(n1)C)CC(C(C(=O)[O-])[NH3+])O
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 33
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 33
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 36
+      position: 11
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 36
-    base_monomers:
-    - G
+      position: 11
   502U:
     id: 502U
     name: uridine 5-oxyacetic acid
@@ -4011,7 +4079,9 @@ monomers:
       id: 502U
     - ns: modomics.short_name
       id: cmo5U
-    structure: OCC1OC(C(O)C1O)N1C=C(OCC([O-])=O)C(=O)NC1=O
+    structure: OCC1OC(C(C1O)O)n1cc(OCC(=O)[O-])c(=O)[nH]c1=O
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -4023,13 +4093,11 @@ monomers:
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
-    base_monomers:
-    - U
+      position: 8
   503U:
     id: 503U
     name: uridine 5-oxyacetic acid methyl ester
@@ -4042,25 +4110,25 @@ monomers:
       id: mcmo5U
     - ns: pubchem.compound
       id: '191808'
-    structure: COC(=O)COC1=CN(C2OC(CO)C(O)C2O)C(=O)NC1=O
+    structure: COC(=O)COc1cn(c(=O)[nH]c1=O)C1OC(C(C1O)O)CO
+    base_monomers:
+    - U
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 14
+      position: 24
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 14
+      position: 24
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 22
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 16
-    base_monomers:
-    - U
+      position: 22
   3483G:
     id: 3483G
     name: wybutosine
@@ -4071,51 +4139,51 @@ monomers:
       id: 3483G
     - ns: modomics.short_name
       id: yW
-    structure: COC(=O)NC(CCC1=C(C)N=C2N1C(=O)C1=C(N(C=N1)C1OC(CO)C(O)C1O)N2C)C(=O)OC
+    structure: OCC1OC(C(C1O)O)n1cnc2c1n(C)c1n(c2=O)c(c(n1)C)CCC(C(=O)OC)NC(=O)OC
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 26
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 26
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 28
+      position: 8
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 28
-    base_monomers:
-    - G
+      position: 8
   34G:
     id: 34G
     name: wyosine
     synonyms:
     - €
     identifiers:
-    - ns: modomics.short_name
-      id: imG
     - ns: modomics.new_nomenclature
       id: 34G
-    structure: CN1C2=NC(C)=CN2C(=O)C2=C1N(C=N2)[C@@H]1O[C@H](CO)[C@@H](O)[C@H]1O
+    - ns: modomics.short_name
+      id: imG
+    structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1n(C)c1n(c2=O)cc(n1)C
+    base_monomers:
+    - G
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 22
+      position: 1
     backbone_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 22
+      position: 1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 25
+      position: 12
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 25
-    base_monomers:
-    - G
+      position: 12

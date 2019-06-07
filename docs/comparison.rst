@@ -24,6 +24,7 @@ Advantages over MODOMICS
 * `BpForms` can represent bonds between non-adjacent monomeric forms, such as crosslinks.
 * `BpForms` can capture uncertainity in the structures of biopolymers. This is essential for proteomics.
 * `BpForms` has a concrete grammar.
+* All of the monomeric forms in the `BpForms` RNA alphabet have defined structures, unlike several MODOMICS entries which have undefined `BASE` groups. This gaurantees that `BpForms` polymers specify concrete structures.
 * The `BpForms` RNA alphabet consistenty represents only nucleosides. This gaurantees that the monomeric forms are composable. In constract, MODOMICS includes both nucleosides and bases, which makes the composition of the MODOMICS monomeric forms ill-defined.
 * The `BpForms` RNA alphabet encompasses monomeric forms from both MODOMICS and the RNA Modification Database.
 * `BpForms` includes software for error checking descriptions of non-canonical biopolymers. This includes verifying that monomeric forms that only have left bonding sites (e.g. 5' caps) only appear at the first position and that monomeric forms that only have right bonding sites (e.g. 3' caps) only appear at the last position.

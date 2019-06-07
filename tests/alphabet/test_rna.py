@@ -166,22 +166,16 @@ class RnaTestCase(unittest.TestCase):
         path = os.path.join(self.dirname, 'alphabet.yml')
         session = requests.Session()
         self.assertEqual(rna.RnaAlphabetBuilder().is_valid_nucleoside(
-            '01A', 'm1Am', '1,2′-O-dimethyladenosine', Monomer(structure=(
+            Monomer(structure=(
                 'C3(OC(CO)C(O)C(O(C))3)N2C=NC1=C2N=CN(C)C1=N'))),
             True)
-        self.assertEqual(rna.RnaAlphabetBuilder().is_valid_nucleoside('100G (base)', None, None, None), False)
-        self.assertEqual(rna.RnaAlphabetBuilder().is_valid_nucleoside('79553N', None, '7-methylguanosine cap (cap 0)', None), False)
-        self.assertEqual(rna.RnaAlphabetBuilder().is_valid_nucleoside('2551N', None, 'alpha-dimethylmonophosphate cap', None), False)
-        self.assertEqual(rna.RnaAlphabetBuilder().is_valid_nucleoside('455N', 'CoA(pN)', '5′ (3′ -dephospho-CoA)', None), False)
-        self.assertEqual(rna.RnaAlphabetBuilder().is_valid_nucleoside('00A', 'Ar(p)', '2′-O-ribosyladenosine (phosphate)', None), False)
-        self.assertEqual(rna.RnaAlphabetBuilder().is_valid_nucleoside('00A', '5′-OH-N', '5′ hydroxyl end', Monomer()), False)
         self.assertEqual(rna.RnaAlphabetBuilder().is_valid_nucleoside(
-            '00A', '5′-OH-N', '5′ hydroxyl end', Monomer(structure='[O-]P([O-])=O')), False)
+            Monomer(structure='[O-]P([O-])=O')), False)
 
     def test_RnaAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
         alphabet = rna.RnaAlphabetBuilder(_max_monomers=3).run(path=path)
-        alphabet = rna.RnaAlphabetBuilder().run(path=path)
+        alphabet = rna.RnaAlphabetBuilder().run(ph=7.4, path=path)
         self.assertEqual(alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13'))
         self.assertTrue(os.path.isfile(path))
 
@@ -189,74 +183,30 @@ class RnaTestCase(unittest.TestCase):
         validate_bpform_linkages(rna.CanonicalRnaForm)
         validate_bpform_linkages(rna.RnaForm)
 
+        builder = rna.RnaAlphabetBuilder()
+
         for monomer in rna.CanonicalRnaForm().alphabet.monomers.values():
             b_atom = monomer.structure.GetAtom(monomer.backbone_bond_atoms[0].position)
             r_atom = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
-            assert self.are_atoms_valid(b_atom, r_atom)
+            assert builder.is_terminus(b_atom, r_atom)
 
         for monomer in rna.RnaForm().alphabet.monomers.values():
-            b_atom = monomer.structure.GetAtom(monomer.backbone_bond_atoms[0].position)
-            r_atom = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
-            assert self.are_atoms_valid(b_atom, r_atom)
-
-    def are_atoms_valid(self, b_atom, r_atom):
-        assert b_atom.GetAtomicNum() == 8
-        assert b_atom.GetFormalCharge() == 0
-
-        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(b_atom)]
-        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(b_atom)])
-        other_atoms += [1] * (2 - tot_bond_order)
-        other_atoms = sorted(other_atoms)
-        assert other_atoms == [1, 6]
-
-        # get first C
-        for other_atom in openbabel.OBAtomAtomIter(b_atom):
-            if other_atom.GetAtomicNum() == 6:
-                c_1 = other_atom
-        assert c_1.GetFormalCharge() == 0
-        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_1)]
-        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_1)])
-        other_atoms += [1] * (4 - tot_bond_order)
-        other_atoms = sorted(other_atoms)
-        assert other_atoms == [1, 1, 6, 8]
-
-        # get second C
-        for other_atom in openbabel.OBAtomAtomIter(c_1):
-            if other_atom.GetAtomicNum() == 6:
-                c_2 = other_atom
-        assert c_2.GetFormalCharge() == 0
-        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_2)]
-        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_2)])
-        other_atoms += [1] * (4 - tot_bond_order)
-        other_atoms = sorted(other_atoms)
-        assert other_atoms == [1, 6, 6, 8]
-
-        # get third C
-        for other_atom in openbabel.OBAtomAtomIter(c_2):
-            if other_atom.GetAtomicNum() == 6 and other_atom.GetIdx() != c_1.GetIdx():
-                c_3 = other_atom
-        assert c_3.GetFormalCharge() == 0
-        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_3)]
-        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_3)])
-        other_atoms += [1] * (4 - tot_bond_order)
-        other_atoms = sorted(other_atoms)
-        assert other_atoms == [1, 6, 6, 8]
-
-        # get second O
-        for other_atom in openbabel.OBAtomAtomIter(c_3):
-            if other_atom.GetAtomicNum() == 8:
-                r_atom_2 = other_atom
-        assert r_atom_2.GetFormalCharge() == 0
-        assert r_atom_2.GetIdx() == r_atom.GetIdx()
-        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(r_atom_2)]
-        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(r_atom_2)])
-        other_atoms += [1] * (2 - tot_bond_order)
-        other_atoms = sorted(other_atoms)
-        assert other_atoms == [1, 6]
-
-        return True
+            if monomer.backbone_bond_atoms and monomer.right_bond_atoms:
+                b_atom = monomer.structure.GetAtom(monomer.backbone_bond_atoms[0].position)
+                r_atom = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
+                assert builder.is_terminus(b_atom, r_atom)
 
     def test_validate_form(self):
         form = rna.RnaForm()
         form.from_str('ACGU')
         self.assertEqual(form.validate(), [])
+
+    def test_two_termini(self):
+        monomer1 = rna.RnaForm().from_str('A')
+        monomer2 = rna.RnaForm().from_str('A')
+
+        dimer = rna.RnaForm().from_str('AA')
+        self.assertEqual(dimer.validate(), [])
+        self.assertEqual(dimer.get_formula(), monomer1.get_formula() + monomer2.get_formula() - EmpiricalFormula('OH'))
+        self.assertEqual(dimer.get_charge(), monomer1.get_charge() + monomer2.get_charge() + 1)
+
