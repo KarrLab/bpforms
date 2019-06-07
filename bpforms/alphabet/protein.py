@@ -137,14 +137,17 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             if name in canonical_aas:
                 canonical_aa = canonical_aas[name]
                 monomer_ids[id] = canonical_aa
-                canonical_aa.structure = structure
-                canonical_aa.backbone_bond_atoms[0].position = index_c
-                canonical_aa.backbone_displaced_atoms[0].position = index_c
-                canonical_aa.right_bond_atoms[0].position = index_c
-                canonical_aa.left_bond_atoms[0].position = index_n
-                canonical_aa.left_displaced_atoms[0].position = index_n
-                canonical_aa.left_displaced_atoms[1].position = index_n
-                warnings.warn('Updated canonical monomeric form {}'.format(name), BpFormsWarning)
+
+                if name not in ['L-arginine', 'L-asparagine', 'L-valine']:
+                    canonical_aa.structure = structure
+                    canonical_aa.backbone_bond_atoms[0].position = index_c
+                    canonical_aa.backbone_displaced_atoms[0].position = index_c
+                    canonical_aa.right_bond_atoms[0].position = index_c
+                    canonical_aa.left_bond_atoms[0].position = index_n
+                    canonical_aa.left_displaced_atoms[0].position = index_n
+                    canonical_aa.left_displaced_atoms[1].position = index_n
+                    warnings.warn('Updated canonical monomeric form {}'.format(name), BpFormsWarning)
+
                 continue
 
             monomer = Monomer(
@@ -173,7 +176,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             for base_monomer_id in base_monomer_ids:
                 base_monomer = monomer_ids.get(base_monomer_id, None)
                 if base_monomer == None:
-                    warnings.warn('Base {} for {} is invalid'.format(base_monomer_id, monomer.id), BpFormsWarning)
+                    warnings.warn('Base {} for {} is invalid'.format(base_monomer_id, monomer.id),
+                                  BpFormsWarning)  # pragma: no cover # all parent entries are retained
                 else:
                     monomer.base_monomers.add(base_monomer)
 
@@ -238,24 +242,27 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 if self.is_terminus(atom_n, atom_c):
                     termini.append((atom_n, atom_c))
 
-        if not termini and len(atom_cs) == 1 and not atom_ns:
-            if name not in ['L-phenylalanine']:
-                termini.append((None, atom_cs[0]))
-
         if not termini:
-            warnings.warn('Ignoring monomeric form {} without N- and C-termini'.format(name), BpFormsWarning)
-            return None
-        if len(termini) > 1:
-            warnings.warn('Ignoring monomeric form {} with multiple N- and C-termini'.format(name), BpFormsWarning)
-            return None
-        atom_n, atom_c = termini[0]
+            if len(atom_cs) == 1 and not atom_ns:
+                termini.append((None, atom_cs[0]))
+            if len(atom_ns) == 1 and not atom_cs:
+                termini.append((atom_ns[0], None))
 
-        if atom_n:
-            idx_n = atom_n.GetIdx()
+        if termini:
+            atom_n, atom_c = termini[0]
+
+            if atom_n:
+                idx_n = atom_n.GetIdx()
+            else:
+                idx_n = None
+
+            if atom_c:
+                idx_c = atom_c.GetIdx()
+            else:
+                idx_c = None
         else:
             idx_n = None
-
-        idx_c = atom_c.GetIdx()
+            idx_c = None
 
         return (smiles_mol, idx_n, idx_c)
 

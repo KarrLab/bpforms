@@ -2435,7 +2435,7 @@ class BpForm(object):
             backbone_structure += self.backbone.structure
 
             mol += monomer_structure
-            if backbone_structure:
+            if monomer.backbone_bond_atoms and backbone_structure:
                 mol += backbone_structure
 
             monomer_atom_attrs = ['monomer', [
@@ -2446,6 +2446,9 @@ class BpForm(object):
             backbone_atom_attrs = ['backbone', [
                 ['monomer_bond_atoms', self.backbone.monomer_bond_atoms],
                 ['monomer_displaced_atoms', self.backbone.monomer_displaced_atoms]]]
+            if not monomer.backbone_bond_atoms:
+                backbone_atom_attrs[1][0][1] = []
+                backbone_atom_attrs[1][1][1] = []
 
             left_atom_attrs = ['left', [
                 ['left_bond_atoms', []],
@@ -2593,12 +2596,15 @@ class BpForm(object):
         Returns:
             :obj:`EmpiricalFormula`: chemical formula
         """
+        n_backbone = 0
         formula = EmpiricalFormula()
         for monomer, count in self.get_monomer_counts().items():
             formula += monomer.get_formula() * count
+            if monomer.backbone_bond_atoms:
+                n_backbone += count
             for atom in monomer.backbone_displaced_atoms:
                 formula[atom.element] -= count
-        return formula + self.backbone.get_formula() * len(self) + self.bond.get_formula() * (len(self) - (1 - self.circular))
+        return formula + self.backbone.get_formula() * n_backbone + self.bond.get_formula() * (len(self) - (1 - self.circular))
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -2614,14 +2620,17 @@ class BpForm(object):
         Returns:
             :obj:`int`: charge
         """
+        n_backbone = 0
         charge = 0
         for monomer, count in self.get_monomer_counts().items():
             charge += monomer.get_charge() * count
+            if monomer.backbone_bond_atoms:
+                n_backbone += count
             for atom in monomer.backbone_bond_atoms:
                 charge -= atom.charge * count
             for atom in monomer.backbone_displaced_atoms:
                 charge -= atom.charge * count
-        return charge + self.backbone.get_charge() * len(self) + self.bond.get_charge() * (len(self) - (1 - self.circular))
+        return charge + self.backbone.get_charge() * n_backbone + self.bond.get_charge() * (len(self) - (1 - self.circular))
 
     def __str__(self):
         """ Get a string representation of the biopolymer form
