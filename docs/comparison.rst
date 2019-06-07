@@ -58,5 +58,5 @@ Advantages over RESID
 """""""""""""""""""""
 
 * Each monomeric form in the `BpForms` protein alphabet has a defined structure. This gaurantees that polymers have well-defined structures. In constrast, RESID has numerous entires without defined structures.
-* The `BpForms` protein alphabet is internally consistent. Each form has at most one C-terminus and at most one N-terminus. This makes the composition of the monomeric forms into polymers well-defined. In contrast, RESID has numerous entries who composition into polymers is ill-defined. This includes entries with multiple terminii.
+* The composability of the monomeric forms in the `BpForms` protein alphabet is well-defined. Each form has at most one left-binding-terminus (C) and at most one right-binding-terminus (N). This eliminates confusion about the meaning of composition monomeric forms with multiple N and C-termini. In contrast, RESID has numerous entries with multiple N or C-termini whose composition into polymers is ill-defined.
 * The `BpForms` protein alphabet encompasses entries from additional databases.
