@@ -154,13 +154,16 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 identifiers=identifiers,
                 structure=structure,
                 comments=comments,
-                backbone_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
-                backbone_displaced_atoms=[Atom(Monomer, element='H', position=index_c)],
-                right_bond_atoms=[Atom(Monomer, element='C', position=index_c)],
-                left_bond_atoms=[Atom(Monomer, element='N', position=index_n, charge=-1)],
-                left_displaced_atoms=[Atom(Monomer, element='H', position=index_n, charge=1),
-                                       Atom(Monomer, element='H', position=index_n)],
             )
+            if index_c:
+                monomer.backbone_bond_atoms.append(Atom(Monomer, element='C', position=index_c))
+                monomer.backbone_displaced_atoms.append(Atom(Monomer, element='H', position=index_c))
+                monomer.right_bond_atoms.append(Atom(Monomer, element='C', position=index_c))
+            if index_n:
+                monomer.left_bond_atoms.append(Atom(Monomer, element='N', position=index_n, charge=-1))
+                monomer.left_displaced_atoms.append(Atom(Monomer, element='H', position=index_n, charge=1))
+                monomer.left_displaced_atoms.append(Atom(Monomer, element='H', position=index_n))
+
             alphabet.monomers[code] = monomer
 
             monomer_ids[id] = monomer
@@ -235,6 +238,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 if self.is_terminus(atom_n, atom_c):
                     termini.append((atom_n, atom_c))
 
+        if not termini and len(atom_cs) == 1 and not atom_ns:
+            if name not in ['L-phenylalanine']:
+                termini.append((None, atom_cs[0]))
+
         if not termini:
             warnings.warn('Ignoring monomeric form {} without N- and C-termini'.format(name), BpFormsWarning)
             return None
@@ -243,7 +250,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             return None
         atom_n, atom_c = termini[0]
 
-        return (smiles_mol, atom_n.GetIdx(), atom_c.GetIdx())
+        if atom_n:
+            idx_n = atom_n.GetIdx()
+        else:
+            idx_n = None
+
+        idx_c = atom_c.GetIdx()
+
+        return (smiles_mol, idx_n, idx_c)
 
     def is_n_terminus(self, atom):
         """ Determine if an atom is an N-terminus

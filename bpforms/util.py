@@ -130,7 +130,7 @@ def gen_html_viz_alphabet(bpform_type, filename):
         doc += '          <td>{}</td>\n'.format(code)
         doc += '          <td>{}</td>\n'.format(monomer.get_image(width=width, height=height, include_xml_header=False))
 
-        if monomer.structure:
+        if monomer.structure and bpform.can_monomer_bind_left(monomer) and bpform.can_monomer_bind_right(monomer):
             dimer = bpform_type()
             dimer.seq.append(monomer)
             dimer.seq.append(monomer)
@@ -247,19 +247,20 @@ def validate_bpform_linkages(form_type):
         except Exception as error:
             errors.append('Unable to create monomeric form of {}:\n    {}'.format(monomer.id, str(error)))
 
-        dimer_form = form_type(seq=[monomer, monomer])
-        try:
-            dimer_structure = dimer_form.get_structure()
-            if dimer_form.get_formula() != OpenBabelUtils.get_formula(dimer_structure):
-                errors.append('Dimer of {} has incorrect formula'.format(monomer.id))
-                continue
-            if dimer_form.get_charge() != dimer_structure.GetTotalCharge():
-                errors.append('Dimer of {} has incorrect charge'.format(monomer.id))
-                continue
-            OpenBabelUtils.export(dimer_structure, 'smiles')
-            OpenBabelUtils.export(dimer_structure, 'inchi')
-        except Exception as error:
-            errors.append('Unable to form dimer of {}:\n    {}'.format(monomer.id, str(error)))
+        if form.can_monomer_bind_left(monomer) and form.can_monomer_bind_right(monomer):
+            dimer_form = form_type(seq=[monomer, monomer])
+            try:
+                dimer_structure = dimer_form.get_structure()
+                if dimer_form.get_formula() != OpenBabelUtils.get_formula(dimer_structure):
+                    errors.append('Dimer of {} has incorrect formula'.format(monomer.id))
+                    continue
+                if dimer_form.get_charge() != dimer_structure.GetTotalCharge():
+                    errors.append('Dimer of {} has incorrect charge'.format(monomer.id))
+                    continue
+                OpenBabelUtils.export(dimer_structure, 'smiles')
+                OpenBabelUtils.export(dimer_structure, 'inchi')
+            except Exception as error:
+                errors.append('Unable to form dimer of {}:\n    {}'.format(monomer.id, str(error)))
 
     # report errors
     if errors:

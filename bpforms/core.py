@@ -2330,24 +2330,46 @@ class BpForm(object):
 
         # check that monomers 1 .. L-1 can bind to right
         for i_monomer, monomer in enumerate(self.seq[0:-1]):
-            if not monomer.right_bond_atoms and not \
-                (monomer.backbone_bond_atoms
-                 and self.backbone.monomer_bond_atoms
-                 and self.bond.right_bond_atoms
-                 and self.bond.right_bond_atoms[0].molecule == Backbone):
+            if not self.can_monomer_bind_right(monomer):
                 errors.append('Monomeric form {} must be able to bind to the right'.format(i_monomer + 1))
 
         # check that monomers 2 .. L can bind to left
         for i_monomer, monomer in enumerate(self.seq[1:]):
-            if not monomer.left_bond_atoms and not \
-                (monomer.backbone_bond_atoms
-                 and self.backbone.monomer_bond_atoms
-                 and self.bond.left_bond_atoms
-                 and self.bond.left_bond_atoms[0].molecule == Backbone):
+            if not self.can_monomer_bind_left(monomer):
                 errors.append('Monomeric form {} must be able to bind to the left'.format(i_monomer + 2))
 
         # return errors
         return errors
+
+    def can_monomer_bind_left(self, monomer):
+        """ Check if monomeric form can bind to left
+
+        Args:
+            monomer (:obj:`Monomer`): monomeric form
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the monomeric form can bind to the left
+        """
+        return monomer.left_bond_atoms or \
+            (monomer.backbone_bond_atoms
+             and self.backbone.monomer_bond_atoms
+             and self.bond.left_bond_atoms
+             and self.bond.left_bond_atoms[0].molecule == Backbone)
+
+    def can_monomer_bind_right(self, monomer):
+        """ Check if monomeric form can bind to right
+
+        Args:
+            monomer (:obj:`Monomer`): monomeric form
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the monomeric form can bind to the right
+        """
+        return monomer.right_bond_atoms or \
+            (monomer.backbone_bond_atoms
+             and self.backbone.monomer_bond_atoms
+             and self.bond.right_bond_atoms
+             and self.bond.right_bond_atoms[0].molecule == Backbone)
 
     def get_monomer_counts(self):
         """ Get the frequency of each monomeric form within the biopolymer
@@ -2426,16 +2448,24 @@ class BpForm(object):
                 ['monomer_displaced_atoms', self.backbone.monomer_displaced_atoms]]]
 
             left_atom_attrs = ['left', [
-                ['left_bond_atoms', self.bond.left_bond_atoms],
-                ['left_displaced_atoms', self.bond.left_displaced_atoms]]]
+                ['left_bond_atoms', []],
+                ['left_displaced_atoms', []]]]
+            if all(atom.position for atom in self.bond.left_bond_atoms):
+                left_atom_attrs[1][0][1] = self.bond.left_bond_atoms
+            if all(atom.position for atom in self.bond.left_displaced_atoms):
+                left_atom_attrs[1][1][1] = self.bond.left_displaced_atoms
             if monomer.left_bond_atoms:
                 left_atom_attrs[1][0][1] = monomer.left_bond_atoms
             if monomer.left_displaced_atoms:
                 left_atom_attrs[1][1][1] = monomer.left_displaced_atoms
 
             right_atom_attrs = ['right', [
-                ['right_bond_atoms', self.bond.right_bond_atoms],
-                ['right_displaced_atoms', self.bond.right_displaced_atoms]]]
+                ['right_bond_atoms', []],
+                ['right_displaced_atoms', []]]]
+            if all(atom.position for atom in self.bond.right_bond_atoms):
+                right_atom_attrs[1][0][1] = self.bond.right_bond_atoms
+            if all(atom.position for atom in self.bond.right_displaced_atoms):
+                right_atom_attrs[1][1][1] = self.bond.right_displaced_atoms
             if monomer.right_bond_atoms:
                 right_atom_attrs[1][0][1] = monomer.right_bond_atoms
             if monomer.right_displaced_atoms:
