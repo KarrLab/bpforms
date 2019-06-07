@@ -121,15 +121,3 @@ Examples
 * Protein::
 
     ARGKL[id: "AA0318" | structure: "COC(=O)[C@@H]([NH3+])CCCC[NH3+]"]YRCG[id: "AA0567" | structure: "CC=CC(=O)NCCCC[C@@H](C=O)[NH3+]"]
-
-
-Comparison to ProForma Proteoform Notation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The BpForms syntax was inspired by the `ProForma Proteoform Notation <http://www.topdownproteomics.org/resources/proforma/>`_. BpForms improves upon this syntax in several ways:
-
-* BpForms separates the representation of non-canonical biopolymers from the chemical processes which generate them.
-* BpForms can represent any modification and, therefore, is not limited to modifications that have been previously enumerated in databases and ontologies. This is necessary to represent the combinatorial complexity of non-canonical DNA, RNA, and proteins.
-* BpForms can capture additional uncertainty in the structures of biopolymers: uncertainty in the position of a non-canonical monomeric form within a sequence, and uncertainty in the chemical identity of a non-canonical monomeric form (e.g., deviation from its expected mass or charge).
-* BpForms has a concrete grammar. This enables error checking, as well as the calculation of chemical formulae, masses, and charges, which is essential for modeling and other applications.
-* We have written software tools for verifying descriptions of non-canonical biopolymers and calculating their properties

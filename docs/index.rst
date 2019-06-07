@@ -35,6 +35,7 @@ Contents
    alphabets.rst
    integrations.rst
    resources.rst
+   comparison.rst
    future.rst
    contributing.rst
    API documentation <source/modules.rst>
