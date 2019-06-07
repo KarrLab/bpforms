@@ -265,17 +265,17 @@ class ProteinTestCase(unittest.TestCase):
         self.assertEqual(form.validate(), [])
 
     def test_no_termini(self):
-        # AA0318: L-lysine methyl ester
-        form = protein.ProteinForm().from_str('{AA0318}')
+        # AA0048: N2-acetyl-L-lysine
+        form = protein.ProteinForm().from_str('{AA0048}')
         self.assertEqual(form.validate(), [])
         self.assertEqual(form.export('smiles'), form.seq[0].export('smiles'))
         self.assertEqual(form.get_formula(), form.seq[0].get_formula())
         self.assertEqual(form.get_charge(), form.seq[0].get_charge())
 
-        form = protein.ProteinForm().from_str('{AA0318}A')
+        form = protein.ProteinForm().from_str('{AA0048}A')
         self.assertNotEqual(form.validate(), [])
 
-        form = protein.ProteinForm().from_str('A{AA0318}')
+        form = protein.ProteinForm().from_str('A{AA0048}')
         self.assertNotEqual(form.validate(), [])
 
     def test_incomplete_termini(self):

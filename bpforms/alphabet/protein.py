@@ -243,9 +243,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     termini.append((atom_n, atom_c))
 
         if not termini:
-            if len(atom_cs) == 1 and not atom_ns:
+            if atom_cs and not atom_ns:
                 termini.append((None, atom_cs[0]))
-            if len(atom_ns) == 1 and not atom_cs:
+            if atom_ns and not atom_cs:
                 termini.append((atom_ns[0], None))
 
         if termini:
