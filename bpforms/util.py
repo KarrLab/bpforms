@@ -134,7 +134,8 @@ def gen_html_viz_alphabet(bpform_type, filename):
             dimer = bpform_type()
             dimer.seq.append(monomer)
             dimer.seq.append(monomer)
-            doc += '          <td>{}</td>\n'.format(draw_molecule(dimer.export('cml'), 'cml', width=width, height=height))
+            doc += '          <td>{}</td>\n'.format(draw_molecule(dimer.export('cml'), 'cml',
+                                                                  show_atom_nums=False, width=width, height=height))
         else:
             doc += '          <td>{}</td>\n'.format('')
         doc += '          <td>{}</td>\n'.format(monomer.export('smiles'))

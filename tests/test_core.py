@@ -553,6 +553,19 @@ class MonomerTestCase(unittest.TestCase):
 
         self.assertEqual(core.Monomer().get_image(), None)
 
+    def test_blend_color_opacity(self):
+        self.assertEqual(core.Monomer._blend_color_opacity(0xff0000, 255), 0xff0000)
+        self.assertEqual(core.Monomer._blend_color_opacity(0xff0000, 0), 0xffffff)
+
+        self.assertEqual(core.Monomer._blend_color_opacity(0x00ff00, 255), 0x00ff00)
+        self.assertEqual(core.Monomer._blend_color_opacity(0x00ff00, 0), 0xffffff)
+
+        self.assertEqual(core.Monomer._blend_color_opacity(0x0000ff, 255), 0x0000ff)
+        self.assertEqual(core.Monomer._blend_color_opacity(0x0000ff, 0), 0xffffff)
+
+        self.assertEqual(core.Monomer._blend_color_opacity(0x000000, 255), 0x000000)
+        self.assertEqual(core.Monomer._blend_color_opacity(0x000000, 0), 0xffffff)
+
     def test_get_fasta(self):
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer()

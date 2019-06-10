@@ -761,34 +761,37 @@ class Monomer(object):
             return self.IMAGE_URL_PATTERN.format(urllib.parse.quote(smiles))
         return None
 
-    def get_image(self, bond_label='B', displaced_label='D',
-                  backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff,
+    def get_image(self, bond_label='', displaced_label='', bond_opacity=255, displaced_opacity=127,
+                  backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff, show_atom_nums=False,
                   width=200, height=200, include_xml_header=True):
         """ Get image in SVG format
 
         Args:
             bond_label (:obj:`str`, optional): label for atoms involved in bonds
             displaced_label (:obj:`str`, optional): labels for atoms displaced by bond formation
+            bond_opacity (:obj:`int`, optional): opacity of atoms involved in bonds
+            displaced_opacity (:obj:`int`, optional): opacity of atoms dislaced by bond formation
             backbone_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with backbone
             left_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to left
             right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to right
+            show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
             width (:obj:`int`, optional): width in pixels
             height (:obj:`int`, optional): height in pixels
             include_xml_header (:obj:`bool`, optional): if :obj:`True`, include XML header at the beginning of the SVG
 
         Returns:
-            :obj:`str`: SVG image
+            :obj:`str`: SVG-encoded image
         """
         if not self.structure:
             return None
 
         atom_md_types = [
-            (self.backbone_bond_atoms, bond_label, backbone_bond_color),
-            (self.backbone_displaced_atoms, displaced_label, backbone_bond_color),
-            (self.right_bond_atoms, bond_label, left_bond_color),
-            (self.right_displaced_atoms, displaced_label, left_bond_color),
-            (self.left_bond_atoms, bond_label, right_bond_color),
-            (self.left_displaced_atoms, displaced_label, right_bond_color),
+            (self.backbone_bond_atoms, bond_label, self._blend_color_opacity(backbone_bond_color, bond_opacity)),
+            (self.backbone_displaced_atoms, displaced_label, self._blend_color_opacity(backbone_bond_color, displaced_opacity)),
+            (self.right_bond_atoms, bond_label, self._blend_color_opacity(left_bond_color, bond_opacity)),
+            (self.right_displaced_atoms, displaced_label, self._blend_color_opacity(left_bond_color, displaced_opacity)),
+            (self.left_bond_atoms, bond_label, self._blend_color_opacity(right_bond_color, bond_opacity)),
+            (self.left_displaced_atoms, displaced_label, self._blend_color_opacity(right_bond_color, displaced_opacity)),
         ]
         atom_labels = []
         atom_sets = {}
@@ -806,8 +809,30 @@ class Monomer(object):
                     atom_sets[color]['positions'].append(atom.GetIdx())
                     atom_sets[color]['elements'].append(atom_md.element)
 
-        return draw_molecule(self.export('cml'), 'cml', atom_labels=atom_labels, atom_sets=atom_sets.values(),
+        return draw_molecule(self.export('cml'), 'cml', atom_labels=atom_labels, atom_sets=atom_sets.values(), show_atom_nums=show_atom_nums,
                              width=width, height=height, include_xml_header=include_xml_header)
+
+    @staticmethod
+    def _blend_color_opacity(color, opacity):
+        """ Blend color with white to simulate opacity
+
+        Args:
+            color (:obj:`int`): color (0-0xffffff)
+            opacity (:obj:`int`): opacity (0-0xff)
+
+        Returns:
+            :obj:`int`: blended color
+        """
+        r = color >> 16
+        g = (color - r * 2**16) >> 8
+        b = color - r * 2**16 - g * 2**8
+        w = 0xff
+
+        r_opaque = round((r * opacity + w * (255 - opacity)) / 255)
+        g_opaque = round((g * opacity + w * (255 - opacity)) / 255)
+        b_opaque = round((b * opacity + w * (255 - opacity)) / 255)
+
+        return (r_opaque << 16) + (g_opaque << 8) + b_opaque
 
     def get_formula(self):
         """ Get the chemical formula

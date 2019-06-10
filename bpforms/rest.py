@@ -252,7 +252,7 @@ class MonomerResource(flask_restplus.Resource):
             return monomer_dict
 
         elif format == 'svg':
-            return flask.Response(monomer_obj.get_image(bond_label='B', displaced_label='D'), mimetype='image/svg+xml')
+            return flask.Response(monomer_obj.get_image(), mimetype='image/svg+xml')
 
         else:
             flask_restplus.abort(400, 'Invalid format "{}"'.format(format))
