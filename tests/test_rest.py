@@ -96,16 +96,21 @@ class RestTestCase(unittest.TestCase):
             rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT', ph=7.))
         self.assertEqual(rv.status_code, 200)
 
-        rv = client.post('/api/bpform/', json=dict(alphabet='dna', 
-            seq='ACGT[id: "dI" | structure: "{}" | backbone-bond-atom: Monomer / N / 10 / 0 | backbone-displaced-atom: Monomer / H / 10 / 0 ]'.format(
-                'O=C1NC=NC2=C1N=CN2'
-                )))
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna',
+                                                   seq=('ACGT[id: "dI"'
+                                                        ' | structure: "{}"'
+                                                        ' | backbone-bond-atom: Monomer / N / 10 / 0'
+                                                        ' | backbone-displaced-atom: Monomer / H / 10 / 0 ]').format(
+                                                       'O=C1NC=NC2=C1N=CN2'
+                                                   )))
         self.assertEqual(rv.status_code, 200)
 
-        rv = client.post('/api/bpform/', json=dict(alphabet='dna', 
-            seq='ACGT[id: "dI" | structure: "{}" | backbone-displaced-atom: Monomer / H / 10 / 0 ]'.format(
-                'O=C1NC=NC2=C1N=CN2'
-                )))
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna',
+                                                   seq=('ACGT[id: "dI"'
+                                                        ' | structure: "{}"'
+                                                        ' | backbone-displaced-atom: Monomer / H / 10 / 0 ]').format(
+                                                       'O=C1NC=NC2=C1N=CN2'
+                                                   )))
         self.assertEqual(rv.status_code, 400)
 
     def test_get_alphabets(self):
@@ -121,7 +126,14 @@ class RestTestCase(unittest.TestCase):
 
         rv = client.get('/api/alphabet/dna/')
         self.assertEqual(rv.status_code, 200)
-        alphabet = core.Alphabet().from_dict(rv.get_json())
+        rv_json = rv.get_json()
+        alphabet = core.Alphabet().from_dict(rv_json)
+        self.assertTrue(rv_json['monomers']['A']['binds_backbone'])
+        self.assertTrue(rv_json['monomers']['A']['binds_left'])
+        self.assertTrue(rv_json['monomers']['A']['binds_right'])
+        self.assertEqual(rv_json['monomers']['A']['mol_wt'], 135.13)
+        self.assertEqual(rv_json['monomers']['A']['formula'], {'C': 5.0, 'H': 5.0, 'N': 5.0})
+        self.assertEqual(rv_json['monomers']['A']['charge'], 0)
         self.assertTrue(dna.dna_alphabet.is_equal(alphabet))
 
         rv = client.get('/api/alphabet/lipid/')
