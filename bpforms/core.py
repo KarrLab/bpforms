@@ -2350,10 +2350,10 @@ class BpForm(object):
         Returns:
             :obj:`bool`: :obj:`True`, if the monomeric form can bind to the left
         """
-        return monomer.left_bond_atoms or \
-            (monomer.backbone_bond_atoms
-             and self.backbone.monomer_bond_atoms
-             and self.bond.left_bond_atoms
+        return len(monomer.left_bond_atoms) > 0 or \
+            (len(monomer.backbone_bond_atoms) > 0
+             and len(self.backbone.monomer_bond_atoms) > 0
+             and len(self.bond.left_bond_atoms) > 0
              and self.bond.left_bond_atoms[0].molecule == Backbone)
 
     def can_monomer_bind_right(self, monomer):
@@ -2365,10 +2365,10 @@ class BpForm(object):
         Returns:
             :obj:`bool`: :obj:`True`, if the monomeric form can bind to the right
         """
-        return monomer.right_bond_atoms or \
-            (monomer.backbone_bond_atoms
-             and self.backbone.monomer_bond_atoms
-             and self.bond.right_bond_atoms
+        return len(monomer.right_bond_atoms) > 0 or \
+            (len(monomer.backbone_bond_atoms) > 0
+             and len(self.backbone.monomer_bond_atoms) > 0
+             and len(self.bond.right_bond_atoms) > 0
              and self.bond.right_bond_atoms[0].molecule == Backbone)
 
     def get_monomer_counts(self):
