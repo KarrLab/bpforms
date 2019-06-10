@@ -188,7 +188,19 @@ class AlpabetResource(flask_restplus.Resource):
         """
         try:
             alphabet_obj = bpforms.util.get_alphabet(id)
+            form_obj = bpforms.util.get_form(id)()
         except ValueError as error:
             flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(id))
 
-        return alphabet_obj.to_dict()
+        alphabet_dict = alphabet_obj.to_dict()
+        
+        for code, monomer in alphabet_obj.monomers.items():
+            monomer_dict = alphabet_dict['monomers'][code]
+            monomer_dict['binds_backbone'] = len(monomer.backbone_bond_atoms) >= 0
+            monomer_dict['binds_left'] = form_obj.can_monomer_bind_left(monomer)
+            monomer_dict['binds_right'] = form_obj.can_monomer_bind_right(monomer)
+            monomer_dict['formula'] = dict(monomer.get_formula())
+            monomer_dict['mol_wt'] = monomer.get_mol_wt()
+            monomer_dict['charge'] = monomer.get_charge()
+        
+        return alphabet_dict
