@@ -16,6 +16,7 @@ import flask_restplus.fields
 import functools
 import math
 import methodtools
+import urllib.parse
 import warnings
 
 
@@ -237,6 +238,7 @@ class MonomerResource(flask_restplus.Resource):
         except ValueError as error:
             flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(alphabet))
 
+        monomer = urllib.parse.unquote(monomer)
         monomer_obj = alphabet_obj.monomers.get(monomer, None)
         if monomer_obj is None:
             flask_restplus.abort(400, 'Monomer "{}" not in alphabet "{}"'.format(monomer, alphabet))
@@ -252,7 +254,7 @@ class MonomerResource(flask_restplus.Resource):
             return monomer_dict
 
         elif format == 'svg':
-            return flask.Response(monomer_obj.get_image(), mimetype='image/svg+xml')
+            return flask.Response(monomer_obj.get_image(width=250, height=150), mimetype='image/svg+xml')
 
         else:
             flask_restplus.abort(400, 'Invalid format "{}"'.format(format))
