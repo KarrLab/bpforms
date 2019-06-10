@@ -1,75 +1,154 @@
 $(document).foundation()
 
 set_alphabet = function(data, status, jqXHR) {
-    var html = '<h2>' + data['name'] + ' alphabet</h2>'
-    html += '<p>' + data['description'] + '</p>'
-
-    html += '<table class="alphabet">'
-    html += '  <thead>'
-    html += '    <tr>'
-    html += '      <th>Code</th>'
-    html += '      <th>Id</th>'
-    html += '      <th>Name</th>'
-    html += '      <th>Synonyms</th>'
-    html += '      <th>Identifiers</th>'
-    html += '      <th>Structure</th>'
-    html += '    </tr>'
-    html += '  </thead>'
-    html += '  <tbody>'
-
-    for (chars in data['monomers']) {
-        monomer = data['monomers'][chars]
-        html += '<tr>'
-        html += '<td class="chars"><div>' + chars + '</div></td>'
-
-        id = monomer['id']
-        if (id == null)
-            id = ''
-        html += '<td class="id"><div>' + id + '</div></td>'
-
-        name = monomer['name']
-        if (name == null)
-            name = ''
-        html += '<td class="name"><div>' + name + '</div></td>'
-
-        synonyms = monomer['synonyms']
-        if (synonyms == null)
-            synonyms = ''
-        else
-            synonyms = '<ul><li>' + synonyms.join('</li><li>') + '</li></ul>'
-        html += '<td class="synonyms"><div>' + synonyms + '</div></td>'
-
-
-        identifiers = monomer['identifiers']
-        if (identifiers == null)
-            identifiers = ''
-        else{
-            identifiers_strs = '<ul>'
-            for (i in identifiers) {
-                identifiers_strs += '<li>' + identifiers[i]['ns'] + '/' + identifiers[i]['id'] + '</li>'
-            }
-            identifiers_strs += '</ul>'
-            identifiers = identifiers_strs
-        }
-        html += '<td class="identifiers"><div>' + identifiers + '</div></td>'
-
-        structure = monomer['structure']
-        if (structure == null) {
+    $('#alphabet_heading').html(data['name'] + ' alphabet')
+    $('#alphabet_description').html(data['description'])
+    
+    var html = ''
+    
+    for (code in data['monomers']) {
+        monomer = data['monomers'][code]
+        html += '<div class="cell monomer">'
+        
+        // code        
+        html += '<div class="code">' + code + '</div>'
+        
+        // structure
+        if (monomer['structure'] == null) {
             img = ''
         } else {
             // https://cactus.nci.nih.gov/blog/?tag=png
             img = '<img src="https://cactus.nci.nih.gov/chemical/structure/' 
-                  + encodeURI(structure)
-                  + '/image?format=gif&bgcolor=transparent&antialiasing=0" class="context-menu-one" structure="' 
-                  + encodeURI(structure) 
+                  + encodeURI(monomer['structure'])
+                  + '/image?format=gif&bgcolor=transparent&antialiasing=0&width=250&height=150&crop=0" class="context-menu-one" structure="' 
+                  + encodeURI(monomer['structure'])
                   + '"/>'
         }
-        html += '<td class="structure"><div>' + img + '</div></td>'
+        html += '<div class="structure">' + img + '</div>'        
+        
+        // show/hide details
+        html += '<div class="toggle" id="monomer_' + code + '"><a onclick="javascript: toggle_monomer_details(\'' + code + '\')">Show details</a></div>'
+        
+        /////////////////////
+        // details
+        /////////////////////
+        html += '<div id="monomer_' + code + '" class="details hide">'
+        html += '<table width="100%"><tbody>'
+        
+        // id
+        if (monomer['id'] != null)
+            html += '<tr><th>Id</th><td>' + monomer['id'] + '</td></tr>'
 
-        html += '</tr>'
+        // name
+        if (monomer['name'] != null)
+            html += '<tr><th>Name</th><td>' + monomer['name'] + '</td></tr>'
+
+        // synonyms
+        if (monomer['synonyms'] != null)
+            html += '<tr><th>Synonyms</th><td><p>' + monomer['synonyms'].join('</p><p>') + '</p></td></tr>'        
+
+        // identifiers
+        identifiers = monomer['identifiers']
+        if (monomer['identifiers'] != null) {
+            identifiers_str = ''
+            for (i in identifiers) {
+                ns_long = identifiers[i]['ns']                
+                switch (identifiers[i]['ns']){
+                    case 'cas':
+                        ns_short = 'CAS'
+                        url = 'https://www.chemicalbook.com/Search_EN.aspx?keyword=' + identifiers[i]['id']
+                        break;
+                    case 'chebi':
+                        ns_short = 'ChEBI'
+                        url = 'https://www.ebi.ac.uk/chebi/searchId.do?chebiId=' + identifiers[i]['id']
+                        break;
+                    case 'go':
+                        ns_short = 'GO'
+                        url = 'http://amigo.geneontology.org/amigo/term/' + identifiers[i]['id']
+                        break;
+                    case 'metacyc.compound':
+                        ns_short = 'MetaCyc'
+                        url = 'https://biocyc.org/compound?orgid=META&id=' + identifiers[i]['id']
+                        break;
+                    case 'mod':
+                        ns_short = 'MOD'
+                        url = 'https://www.ebi.ac.uk/ols/ontologies/mod/terms?obo_id=' + identifiers[i]['id']
+                        break;
+                    case 'modomics.short_name':
+                        ns_short = 'MODOMICS'
+                        url = 'http://modomics.genesilico.pl/modifications/' + identifiers[i]['id']
+                        break;
+                    case 'modomics.new_nomenclature':
+                        ns_short = 'MODOMICS'
+                        url = ''
+                        break;
+                    case 'pdb.ligand':
+                        ns_short = 'PDB'
+                        url = 'http://www.rcsb.org/ligand/' + identifiers[i]['id']
+                        break;
+                    case 'pubchem.compound':
+                        ns_short = 'PubChem'
+                        url = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + identifiers[i]['id']
+                        break;
+                        
+                }
+                
+                if (url)
+                    identifiers_str += '<p>' + ns_short + ': <a href="' + url + '">' + identifiers[i]['id'] + '</a></p>'
+                else
+                    identifiers_str += '<p>' + ns_short + ': ' + identifiers[i]['id'] + '</p>'
+            }
+            html += '<tr><th>Links</th><td>' + identifiers_str + '</td></tr>'
+        }
+        
+        // base
+        if (monomer['base_monomers'] != null)
+            html += '<tr><th>Base<br/>monomer(s)</th><td>' + monomer['base_monomers'].join(', ') + '</td></tr>'
+        
+        // binds backbone?
+        html += '<tr><th>Binds<br/>backbone?</th><td>' + (monomer['binds_backbone'] ? 'Yes' : 'No') + '</td></tr>'
+        
+        // binds left?
+        html += '<tr><th>Binds<br/>left?</th><td>' + (monomer['binds_left'] ? 'Yes' : 'No') + '</td></tr>'
+        
+        // binds right?
+        html += '<tr><th>Binds<br/>right?</th><td>' + (monomer['binds_right'] ? 'Yes' : 'No') + '</td></tr>'
+        
+        // structure
+        html += '<tr><th>Structure<br/>(SMILES)</th><td>' + monomer['structure'] + '</td></tr>'
+        
+        // delta mass
+        if (monomer['delta_mass'])
+            html += '<tr><th>Mass<br/>uncertainty</th><td>' + monomer['delta_mass'] + '</td></tr>'
+        
+        // delta charge
+        if (monomer['delta_charge'])
+            html += '<tr><th>Charge<br/>uncertainity</th><td>' + monomer['delta_charge'] + '</td></tr>'
+        
+        // start/end position
+        if (monomer['start_position'] || monomer['end_position'])
+            html += '<tr><th>Position<br/>uncertainty</th><td>' + monomer['start_position'] + '-' + monomer['end_position'] + '</td></tr>'
+        
+        // formula
+        formula = ''
+        for (el in monomer['formula'])
+            formula += el + '<sub>' + monomer['formula'][el] + '</sub>'
+        html += '<tr><th>Formula</th><td>' + formula + '</td></tr>'
+        
+        // molecular weight
+        html += '<tr><th>Mass</th><td>' + (Math.round(monomer['mol_wt'] * 1000) / 1000) + '</td></tr>'
+        
+        // charge
+        html += '<tr><th>Charge</th><td>' + monomer['charge'] + '</td></tr>'
+        
+        // comments
+        if (monomer['comments'])
+            html += '<tr><th>Comments</th><td>' + monomer['comments'] + '</td></tr>'
+        
+        html += '</tbody></table>'
+        html += '</div>'
+        html += '</div>'
     }
-    html += '  </tbody>'
-    html += '</table>'
 
     $("#alphabet_container").html(html)
 }
@@ -93,6 +172,16 @@ get_alphabet = function() {
 
 get_alphabet()
 window.onhashchange = get_alphabet
+
+toggle_monomer_details = function(code) {
+    details = $('#monomer_' + code + '.details')
+    details.toggleClass('hide');
+    
+    if (details.hasClass('hide'))
+        $('#monomer_' + code + '.toggle>a').html('Show details');
+    else
+        $('#monomer_' + code + '.toggle>a').html('Hide details');
+}
 
 // https://swisnl.github.io/jQuery-contextMenu
 $(function(){

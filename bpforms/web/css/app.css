@@ -8,7 +8,7 @@ tt { font-family: 'Courier New', 'Courier'; }
 
 h1, .h1 {
     color: #3bafda;
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
 }
 h2, .h2 {
@@ -47,15 +47,53 @@ label { font-weight: bold; }
 textarea { height: 100px; }
 .out input, .out textarea { background: #eee; }
 
-.alphabet thead th, .alphabet tbody td { padding: 0rem 0.25rem 0rem 0.25rem; }
-.alphabet td { font-size: 0.75rem; overflow: hidden; }
-.alphabet .chars { width: 60px; max-width: 60px; }
-.alphabet .id { width: 150px; max-width: 150px; }
-.alphabet .name { width: 150px; max-width: 150px; }
-.alphabet .synonyms { width: 250px; max-width: 250px }
-.alphabet .identifiers { width: 219px; max-width: 219px; }
-.alphabet .structure { width: 310px; max-width: 310px; }
-
 pre {
     font-size: 0.75rem;
+}
+
+/* alphabet */
+.monomer {
+    border: 1px solid #ccc;
+}
+.monomer .code {
+    background: #ccc;
+    color: #fff;
+    width: 100%;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    text-align: center;
+}
+.monomer .structure {
+    text-align: center;
+    width: 100%; 
+    height: 160px;
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.monomer .toggle {
+    font-size: 0.7em;
+    text-align: center;    
+}
+.monomer .details{
+    font-size: 0.7em;
+    overflow: hidden;
+    margin-top: 0.2rem;
+}
+.monomer .details table {
+    margin-bottom: 0;
+}
+.monomer .details table tbody th {
+    padding: 0.1rem 0.5rem 0.25rem;
+    width: 4.5rem;
+}
+.monomer .details table tbody td {
+    padding: 0.1rem 0.25rem 0.5rem;
+}
+.monomer .details table tbody td p {
+    margin: 0px;
+    padding-left: 0.5rem;
+    text-indent: -0.5rem;
 }
