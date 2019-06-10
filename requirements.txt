@@ -3,6 +3,7 @@ beautifulsoup4
 cement >= 3.0.0
 configobj
 lark_parser >= 0.6.6
+methodtools
 openbabel
 requests
 requests_cache

@@ -14,7 +14,9 @@ import flask_restplus
 import flask_restplus.errors
 import flask_restplus.fields
 import math
+import methodtools
 import warnings
+
 
 app = flask.Flask(__name__)
 
@@ -183,24 +185,58 @@ class AlpabetResource(flask_restplus.Resource):
     def get(self, id):
         """ Get an alphabet """
         """
+        Args:
+            id (:obj:`str`): id of alphabet
+
+        Returns:
+            :obj:`dict`: dictionary representation of an alphabet
+        """
+        return self._get(id)
+
+    @methodtools.lru_cache()
+    @staticmethod    
+    def _get(id):
+        """ Get an alphabet
+
+        Args:
+            id (:obj:`str`): id of alphabet
+
         Returns:
             :obj:`dict`: dictionary representation of an alphabet
         """
         try:
-            alphabet_obj = bpforms.util.get_alphabet(id)
-            form_obj = bpforms.util.get_form(id)()
+            alphabet_obj = bpforms.util.get_alphabet(id)            
         except ValueError as error:
             flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(id))
 
         alphabet_dict = alphabet_obj.to_dict()
         
         for code, monomer in alphabet_obj.monomers.items():
-            monomer_dict = alphabet_dict['monomers'][code]
-            monomer_dict['binds_backbone'] = len(monomer.backbone_bond_atoms) >= 0
-            monomer_dict['binds_left'] = form_obj.can_monomer_bind_left(monomer)
-            monomer_dict['binds_right'] = form_obj.can_monomer_bind_right(monomer)
-            monomer_dict['formula'] = dict(monomer.get_formula())
-            monomer_dict['mol_wt'] = monomer.get_mol_wt()
-            monomer_dict['charge'] = monomer.get_charge()
+            monomer_dict = alphabet_dict['monomers'][code]            
+            monomer_dict['binds_backbone'], \
+            monomer_dict['binds_left'], \
+            monomer_dict['binds_right'], \
+            monomer_dict['formula'], \
+            monomer_dict['mol_wt'], \
+            monomer_dict['charge'] = AlpabetResource._get_monomer_properties(id, monomer)
         
         return alphabet_dict
+
+    @methodtools.lru_cache(maxsize=2 ** 14)
+    @staticmethod
+    def _get_monomer_properties(alphabet_id, monomer):
+        """ Calculate properties of a monomeric form
+
+        Args:
+            alphabet_id (:obj:`str`): id of an alphabet
+            monomer (:obj:`bpforms.Monomer`): monomeric form
+        """        
+        form_obj = bpforms.util.get_form(alphabet_id)()
+        return (
+            len(monomer.backbone_bond_atoms) > 0,
+            form_obj.can_monomer_bind_left(monomer),
+            form_obj.can_monomer_bind_right(monomer),
+            dict(monomer.get_formula()),
+            monomer.get_mol_wt(),
+            monomer.get_charge(),
+            )
