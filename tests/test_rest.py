@@ -12,6 +12,7 @@ from bpforms.alphabet import dna
 from wc_utils.util.chem import EmpiricalFormula
 import bpforms
 import mock
+import os
 import unittest
 
 
@@ -127,14 +128,50 @@ class RestTestCase(unittest.TestCase):
         rv = client.get('/api/alphabet/dna/')
         self.assertEqual(rv.status_code, 200)
         rv_json = rv.get_json()
-        alphabet = core.Alphabet().from_dict(rv_json)
         self.assertTrue(rv_json['monomers']['A']['binds_backbone'])
         self.assertTrue(rv_json['monomers']['A']['binds_left'])
         self.assertTrue(rv_json['monomers']['A']['binds_right'])
         self.assertEqual(rv_json['monomers']['A']['mol_wt'], 135.13)
         self.assertEqual(rv_json['monomers']['A']['formula'], {'C': 5.0, 'H': 5.0, 'N': 5.0})
         self.assertEqual(rv_json['monomers']['A']['charge'], 0)
+        alphabet = core.Alphabet().from_dict(rv_json)
         self.assertTrue(dna.dna_alphabet.is_equal(alphabet))
 
         rv = client.get('/api/alphabet/lipid/')
+        self.assertEqual(rv.status_code, 400)
+
+    @unittest.skipIf(os.getenv('CIRCLECI', '0') in ['1', 'true'], 'Skip long test in CircleCI')
+    def test_get_alphabet_caching(self):
+        client = rest.app.test_client()
+
+        rv = client.get('/api/alphabet/protein/')
+        self.assertEqual(rv.status_code, 200)
+
+        rv = client.get('/api/alphabet/protein/')
+        self.assertEqual(rv.status_code, 200)
+
+    def test_get_monomer(self):
+        client = rest.app.test_client()
+
+        rv = client.get('/api/alphabet/dna/A/')
+        self.assertEqual(rv.status_code, 200)
+        rv_json = rv.get_json()
+        self.assertTrue(rv_json['binds_backbone'])
+        self.assertTrue(rv_json['binds_left'])
+        self.assertTrue(rv_json['binds_right'])
+        self.assertEqual(rv_json['mol_wt'], 135.13)
+        self.assertEqual(rv_json['formula'], {'C': 5.0, 'H': 5.0, 'N': 5.0})
+        self.assertEqual(rv_json['charge'], 0)
+
+        rv = client.get('/api/alphabet/dna/A/svg/')
+        self.assertEqual(rv.status_code, 200)
+        self.assertTrue(rv.data.decode('utf-8').startswith('<?xml'))
+
+        rv = client.get('/api/alphabet/lipid/A/')
+        self.assertEqual(rv.status_code, 400)
+
+        rv = client.get('/api/alphabet/dna/XXXX/')
+        self.assertEqual(rv.status_code, 400)
+
+        rv = client.get('/api/alphabet/dna/A/unknown/')
         self.assertEqual(rv.status_code, 400)
