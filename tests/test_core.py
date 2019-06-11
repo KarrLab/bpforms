@@ -1259,6 +1259,90 @@ class BpFormTestCase(unittest.TestCase):
                          * 3 - EmpiricalFormula('H').get_molecular_weight() * 4)
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() * 2 + monomer_C.get_charge() * 3 + 1 * 4)
 
+    def test_get_formula_charge_circular(self):
+        monomer_A = dna.canonical_dna_alphabet.monomers.A
+        monomer_C = dna.canonical_dna_alphabet.monomers.C
+
+        dimer = dna.CanonicalDnaForm([monomer_A, monomer_C])
+        self.assertEqual(dimer.export('smiles'), 'Nc1c2ncn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n3c(=O)nc(N)cc3)O2)[O-])C(O1)COP(=O)([O-])[O-]')
+        self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
+                         + monomer_C.get_formula()
+                         + dimer.backbone.get_formula() * 2
+                         - EmpiricalFormula('H') * 2
+                         - EmpiricalFormula('HO') * 1)
+        self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
+                         + monomer_C.get_charge()
+                         + dimer.backbone.get_charge() * 2
+                         + 1 * 1)
+
+        dimer.circular = True
+        self.assertEqual(dimer.export('smiles'), 'Nc1c2ncn(c2ncn1)C1CC2OP(=O)(OCC3C(OP(=O)(OCC2O1)[O-])CC(n1c(=O)nc(N)cc1)O3)[O-]')
+        self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
+                         + monomer_C.get_formula()
+                         + dimer.backbone.get_formula() * 2
+                         - EmpiricalFormula('H') * 2
+                         - EmpiricalFormula('HO') * 2)
+        self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
+                         + monomer_C.get_charge()
+                         + dimer.backbone.get_charge() * 2
+                         + 1 * 2)
+
+    def test_get_formula_charge_crosslinks(self):
+        monomer_A = dna.canonical_dna_alphabet.monomers.A
+        monomer_C = dna.canonical_dna_alphabet.monomers.C
+
+        dimer = dna.CanonicalDnaForm([monomer_A, monomer_C])
+        self.assertEqual(dimer.export('smiles'), 'Nc1c2ncn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n3c(=O)nc(N)cc3)O2)[O-])C(O1)COP(=O)([O-])[O-]')
+        self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
+                         + monomer_C.get_formula()
+                         + dimer.backbone.get_formula() * 2
+                         - EmpiricalFormula('H') * 2
+                         - EmpiricalFormula('HO') * 1)
+        self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
+                         + monomer_C.get_charge()
+                         + dimer.backbone.get_charge() * 2
+                         + 1 * 1)
+
+        crosslink = core.Bond(
+            right_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='N', position=4)],
+            left_bond_atoms=[core.Atom(core.Monomer, monomer=2, element='C', position=8)],
+            right_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='H', position=4, charge=2)],
+            left_displaced_atoms=[core.Atom(core.Monomer, monomer=2, element='H', position=8, charge=1)]
+        )
+        dimer.crosslinks = core.BondSet([crosslink])
+        self.assertEqual(dimer.export('smiles'), 'Nc1c2n3cn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n4c(=O)nc(N)c3c4)O2)[O-])C(O1)COP(=O)([O-])[O-]')
+        self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
+                         + monomer_C.get_formula()
+                         + dimer.backbone.get_formula() * 2
+                         - EmpiricalFormula('H') * 2
+                         - EmpiricalFormula('HO') * 1
+                         - EmpiricalFormula('H') * 2)
+        self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
+                         + monomer_C.get_charge()
+                         + dimer.backbone.get_charge() * 2
+                         + 1 * 1
+                         - 3)
+
+        crosslink = core.Bond(
+            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='N', position=4)],
+            right_bond_atoms=[core.Atom(core.Monomer, monomer=2, element='C', position=8)],
+            left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='H', position=4, charge=2)],
+            right_displaced_atoms=[core.Atom(core.Monomer, monomer=2, element='H', position=8, charge=1)]
+        )
+        dimer.crosslinks = core.BondSet([crosslink])
+        self.assertEqual(dimer.export('smiles'), 'Nc1c2n3cn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n4c(=O)nc(N)c3c4)O2)[O-])C(O1)COP(=O)([O-])[O-]')
+        self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
+                         + monomer_C.get_formula()
+                         + dimer.backbone.get_formula() * 2
+                         - EmpiricalFormula('H') * 2
+                         - EmpiricalFormula('HO') * 1
+                         - EmpiricalFormula('H') * 2)
+        self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
+                         + monomer_C.get_charge()
+                         + dimer.backbone.get_charge() * 2
+                         + 1 * 1
+                         - 3)
+
     def test_get_major_micro_species(self):
         bp_form = dna.CanonicalDnaForm([
             dna.canonical_dna_alphabet.monomers.A,
@@ -1643,6 +1727,158 @@ class BpFormTestCase(unittest.TestCase):
         form = dna.DnaForm()
         form.from_str('ACGT')
         form.bond.right_bond_atoms = []
+        self.assertNotEqual(form.validate(), [])
+
+    def test_validate_circular(self):
+        form = protein.ProteinForm()
+        form.from_str('CCC')
+        self.assertEqual(form.validate(), [])
+
+        form = protein.ProteinForm()
+        form.from_str('CCC|circular')
+        self.assertEqual(form.validate(), [])
+
+        form = protein.ProteinForm()
+        form.from_str('CC[id: "C2"'
+                      ' | structure: "SC[C@H]([NH3+])C=O"'
+                      ' | backbone-bond-atom: C9'
+                      ' | backbone-displaced-atom: H9'
+                      ' | right-bond-atom: C9'
+                      ' | left-bond-atom: N5-1'
+                      ' | left-displaced-atom: H5+1'
+                      ' | left-displaced-atom: H5'
+                      ']|circular')
+        self.assertEqual(form.validate(), [])
+
+        form = protein.ProteinForm()
+        form.from_str('[id: "C2"'
+                      ' | structure: "SC[C@H]([NH3+])C=O"'
+                      ' | backbone-bond-atom: C9'
+                      ' | backbone-displaced-atom: H9'
+                      ' | right-bond-atom: C9'
+                      ' | left-bond-atom: N5-1'
+                      ' | left-displaced-atom: H5+1'
+                      ' | left-displaced-atom: H5'
+                      ']CC|circular')
+        self.assertEqual(form.validate(), [])
+
+        # no atom for right bond
+        form = protein.ProteinForm()
+        form.from_str('CC[id: "C2"'
+                      ' | structure: "SC[C@H]([NH3+])C=O"'
+                      ' | backbone-bond-atom: C9'
+                      ' | backbone-displaced-atom: H9'
+                      ' | left-bond-atom: N5-1'
+                      ' | left-displaced-atom: H5+1'
+                      ' | left-displaced-atom: H5'
+                      ']|circular')
+        self.assertNotEqual(form.validate(), [])
+
+        # not atom for left bond
+        form = protein.ProteinForm()
+        form.from_str('[id: "C2"'
+                      ' | structure: "SC[C@H]([NH3+])C=O"'
+                      ' | backbone-bond-atom: C9'
+                      ' | backbone-displaced-atom: H9'
+                      ' | right-bond-atom: C9'
+                      ' | left-displaced-atom: H5+1'
+                      ' | left-displaced-atom: H5'
+                      ']CC|circular')
+        self.assertNotEqual(form.validate(), [])
+
+        # no structure defined
+        form = protein.ProteinForm()
+        form.from_str('[id: "C2"'
+                      ' | backbone-bond-atom: C9'
+                      ' | backbone-displaced-atom: H9'
+                      ' | right-bond-atom: C9'
+                      ' | left-bond-atom: N5-1'
+                      ' | left-displaced-atom: H5+1'
+                      ' | left-displaced-atom: H5'
+                      ']CC|circular')
+        self.assertNotEqual(form.validate(), [])
+
+        # incorrect element (C1)
+        form = protein.ProteinForm()
+        form.from_str('[id: "C2"'
+                      ' | structure: "SC[C@H]([NH3+])C=O"'
+                      ' | backbone-bond-atom: C1'
+                      ' | backbone-displaced-atom: H9'
+                      ' | right-bond-atom: C9'
+                      ' | left-bond-atom: N5-1'
+                      ' | left-displaced-atom: H5+1'
+                      ' | left-displaced-atom: H5'
+                      ']CC|circular')
+        self.assertNotEqual(form.validate(), [])
+
+    def test_validate_crosslinks(self):
+        form_str = ('AAA '
+                    ' | crosslink: [left-bond-atom: 1C5'
+                    ' | right-bond-atom: 3C5'
+                    ' | left-displaced-atom: 1H5'
+                    ' | right-displaced-atom: 3H5]')
+        form = dna.DnaForm().from_str(form_str)
+        self.assertEqual(form.validate(), [])
+
+        # invalid atom parent
+        list(form.crosslinks)[0].left_bond_atoms[0].molecule = core.Backbone
+        self.assertNotEqual(form.validate(), [])
+
+        # unmatched bond atoms
+        form = dna.DnaForm().from_str('AAA')
+        form.bond.left_bond_atoms.append(core.Atom(core.Backbone, element='O', position=1))
+        self.assertNotEqual(form.validate(), [])
+
+        form = dna.DnaForm().from_str('AAA')
+        form.backbone.monomer_bond_atoms.clear()
+        self.assertNotEqual(form.validate(), [])
+
+        form = protein.ProteinForm()
+        form.from_str('CC[id: "C2"'
+                      ' | structure: "SC[C@H]([NH3+])C=O"'
+                      ' | backbone-bond-atom: C9'
+                      ' | backbone-displaced-atom: H9'
+                      ' | right-bond-atom: C9'
+                      ' | left-bond-atom: N5-1'
+                      ' | left-bond-atom: N5-1'
+                      ' | left-displaced-atom: H5+1'
+                      ' | left-displaced-atom: H5'
+                      ']')
+        self.assertNotEqual(form.validate(), [])
+
+        form = protein.ProteinForm()
+        form.from_str('CC[id: "C2"'
+                      ' | structure: "SC[C@H]([NH3+])C=O"'
+                      ' | backbone-bond-atom: C9'
+                      ' | backbone-displaced-atom: H9'
+                      ' | right-bond-atom: C9'
+                      ' | right-bond-atom: C9'
+                      ' | left-bond-atom: N5-1'
+                      ' | left-displaced-atom: H5+1'
+                      ' | left-displaced-atom: H5'
+                      ']')
+        self.assertEqual(form.validate(), [])
+
+        form = protein.ProteinForm()
+        form.from_str('CC[id: "C2"'
+                      ' | structure: "SC[C@H]([NH3+])C=O"'
+                      ' | backbone-bond-atom: C9'
+                      ' | backbone-displaced-atom: H9'
+                      ' | right-bond-atom: C9'
+                      ' | right-bond-atom: C9'
+                      ' | left-bond-atom: N5-1'
+                      ' | left-displaced-atom: H5+1'
+                      ' | left-displaced-atom: H5'
+                      ']|circular')
+        self.assertNotEqual(form.validate(), [])
+
+        form_str = ('AAA '
+                    ' | crosslink: [left-bond-atom: 1C5'
+                    ' | right-bond-atom: 3C5'
+                    ' | right-bond-atom: 3C5'
+                    ' | left-displaced-atom: 1H5'
+                    ' | right-displaced-atom: 3H5]')
+        form = dna.DnaForm().from_str(form_str)
         self.assertNotEqual(form.validate(), [])
 
 

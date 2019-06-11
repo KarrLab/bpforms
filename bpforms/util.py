@@ -194,7 +194,7 @@ def validate_bpform_linkages(form_type):
 
                 atom = form.backbone.structure.GetAtom(atom_md.position)
                 if atom_md.element == 'H' and atom.GetAtomicNum() != 1:
-                    atom = core.get_hydrogen_atom(atom, selected_hydrogens)
+                    atom = core.get_hydrogen_atom(atom, selected_hydrogens, None)
                     if atom is None:
                         continue
 
@@ -212,7 +212,7 @@ def validate_bpform_linkages(form_type):
         'right_displaced_atoms',
         'left_displaced_atoms',
     ]
-    for monomer in form.alphabet.monomers.values():
+    for i_monomer, monomer in enumerate(form.alphabet.monomers.values()):
         for atom_type in atom_types:
             selected_hydrogens = []
             for atom_md in getattr(monomer, atom_type):
@@ -223,7 +223,7 @@ def validate_bpform_linkages(form_type):
 
                     atom = monomer.structure.GetAtom(atom_md.position)
                     if atom_md.element == 'H' and atom.GetAtomicNum() != 1:
-                        atom = core.get_hydrogen_atom(atom, selected_hydrogens)
+                        atom = core.get_hydrogen_atom(atom, selected_hydrogens, i_monomer)
                         if atom is None:
                             continue
 
