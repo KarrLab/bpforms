@@ -212,9 +212,6 @@ class AlpabetResource(flask_restplus.Resource):
 
         return alphabet_dict
 
-# monomer_ns = flask_restplus.Namespace('monomer', description='Get information about monomeric forms')
-# api.add_namespace(monomer_ns)
-
 
 @alphabet_ns.route("/<string:alphabet>/<string:monomer>/", defaults={'format': 'json'})
 @alphabet_ns.route("/<string:alphabet>/<string:monomer>/<string:format>/")
