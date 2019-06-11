@@ -1,6 +1,8 @@
 $(document).foundation()
 
 set_alphabet = function(data, status, jqXHR) {
+    alphabet_id = document.URL.substr(i_hash + 1)
+    
     $('#alphabet_heading').html(data['name'] + ' alphabet')
     $('#alphabet_description').html(data['description'])
     
@@ -17,12 +19,7 @@ set_alphabet = function(data, status, jqXHR) {
         if (monomer['structure'] == null) {
             img = ''
         } else {
-            // https://cactus.nci.nih.gov/blog/?tag=png
-            img = '<img src="https://cactus.nci.nih.gov/chemical/structure/' 
-                  + encodeURI(monomer['structure'])
-                  + '/image?format=gif&bgcolor=transparent&antialiasing=0&width=250&height=150&crop=0" class="context-menu-one" structure="' 
-                  + encodeURI(monomer['structure'])
-                  + '"/>'
+            img = '<img src="/api/alphabet/' + alphabet_id + '/' + code + '/svg/">'
         }
         html += '<div class="structure">' + img + '</div>'        
         
