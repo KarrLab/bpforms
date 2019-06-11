@@ -9,18 +9,24 @@
 from wc_utils.util.chem import OpenBabelUtils
 import bpforms
 import bpforms.util
+import diskcache
 import flask
 import flask_restplus
 import flask_restplus.errors
 import flask_restplus.fields
-import functools
 import math
-import methodtools
+import os
 import urllib.parse
 import warnings
 
-
+# setup app
 app = flask.Flask(__name__)
+
+# setup cache
+cache_dir = os.path.expanduser('~/.cache/bpforms')
+if not os.path.isdir(cache_dir):
+    os.makedirs(cache_dir)
+cache = diskcache.FanoutCache(cache_dir)
 
 
 class PrefixMiddleware(object):
@@ -184,7 +190,6 @@ class AlphabetsResource(flask_restplus.Resource):
 class AlpabetResource(flask_restplus.Resource):
     """ Get alphabets """
 
-    @methodtools.lru_cache()
     def get(self, id):
         """ Get an alphabet """
         """
@@ -194,23 +199,30 @@ class AlpabetResource(flask_restplus.Resource):
         Returns:
             :obj:`dict`: dictionary representation of an alphabet
         """
-        try:
-            alphabet_obj = bpforms.util.get_alphabet(id)
-        except ValueError as error:
-            flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(id))
+        return get_alphabet(id)
 
-        alphabet_dict = alphabet_obj.to_dict()
 
-        for code, monomer in alphabet_obj.monomers.items():
-            monomer_dict = alphabet_dict['monomers'][code]
-            monomer_dict['binds_backbone'], \
-                monomer_dict['binds_left'], \
-                monomer_dict['binds_right'], \
-                monomer_dict['formula'], \
-                monomer_dict['mol_wt'], \
-                monomer_dict['charge'] = get_monomer_properties(id, monomer)
+@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
+def get_alphabet(id):
+    """ Get an alphabet
 
-        return alphabet_dict
+    Args:
+        id (:obj:`str`): id of alphabet
+
+    Returns:
+        :obj:`dict`: dictionary representation of an alphabet
+    """
+    try:
+        alphabet_obj = bpforms.util.get_alphabet(id)
+    except ValueError as error:
+        flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(id))
+
+    alphabet_dict = alphabet_obj.to_dict()
+
+    for code, monomer in alphabet_obj.monomers.items():
+        alphabet_dict['monomers'][code] = get_monomer_properties(id, code)
+
+    return alphabet_dict
 
 
 @alphabet_ns.route("/<string:alphabet>/<string:monomer>/", defaults={'format': 'json'})
@@ -223,54 +235,66 @@ class AlpabetResource(flask_restplus.Resource):
 class MonomerResource(flask_restplus.Resource):
     """ Get information about a monomer """
 
-    @methodtools.lru_cache(maxsize=2 ** 14)
     def get(self, alphabet, monomer, format):
-        """ Get an alphabet """
+        """ Get a monomeric form """
         """
         Returns:
             :obj:`object`: dictionary representation of an monomer or SVG-encoded image of a monomer
         """
-        try:
-            alphabet_obj = bpforms.util.get_alphabet(alphabet)
-        except ValueError as error:
-            flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(alphabet))
-
-        monomer = urllib.parse.unquote(monomer)
-        monomer_obj = alphabet_obj.monomers.get(monomer, None)
-        if monomer_obj is None:
-            flask_restplus.abort(400, 'Monomer "{}" not in alphabet "{}"'.format(monomer, alphabet))
-
-        if format == 'json':
-            monomer_dict = monomer_obj.to_dict(alphabet=alphabet_obj)
-            monomer_dict['binds_backbone'], \
-                monomer_dict['binds_left'], \
-                monomer_dict['binds_right'], \
-                monomer_dict['formula'], \
-                monomer_dict['mol_wt'], \
-                monomer_dict['charge'] = get_monomer_properties(alphabet, monomer_obj)
-            return monomer_dict
-
-        elif format == 'svg':
-            return flask.Response(monomer_obj.get_image(width=250, height=150), mimetype='image/svg+xml')
-
-        else:
-            flask_restplus.abort(400, 'Invalid format "{}"'.format(format))
+        return get_monomer(alphabet, monomer, format)
 
 
-@functools.lru_cache(maxsize=2 ** 14)
-def get_monomer_properties(alphabet_id, monomer):
-    """ Calculate properties of a monomeric form
+@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
+def get_monomer(alphabet, monomer, format):
+    """ Get a monomeric form
 
     Args:
-        alphabet_id (:obj:`str`): id of an alphabet
-        monomer (:obj:`bpforms.Monomer`): monomeric form
+        alphabet (:obj:`str`): id of the alphabet
+        monomer (:obj:`str`): code of a monomeric form
+        format (:obj:`str`): output format (e.g. "json" or "svg")
+
+    Returns:
+        :obj:`object`: dictionary representation of an monomer or SVG-encoded image of a monomer
     """
-    form_obj = bpforms.util.get_form(alphabet_id)()
-    return (
-        len(monomer.backbone_bond_atoms) > 0,
-        form_obj.can_monomer_bind_left(monomer),
-        form_obj.can_monomer_bind_right(monomer),
-        dict(monomer.get_formula()),
-        monomer.get_mol_wt(),
-        monomer.get_charge(),
-    )
+    try:
+        alphabet_obj = bpforms.util.get_alphabet(alphabet)
+    except ValueError as error:
+        flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(alphabet))
+
+    monomer = urllib.parse.unquote(monomer)
+    monomer_obj = alphabet_obj.monomers.get(monomer, None)
+    if monomer_obj is None:
+        flask_restplus.abort(400, 'Monomer "{}" not in alphabet "{}"'.format(monomer, alphabet))
+
+    if format == 'json':
+        return get_monomer_properties(alphabet, monomer)
+
+    elif format == 'svg':
+        return flask.Response(monomer_obj.get_image(width=250, height=150), mimetype='image/svg+xml')
+
+    else:
+        flask_restplus.abort(400, 'Invalid format "{}"'.format(format))
+
+
+@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
+def get_monomer_properties(alphabet, monomer):
+    """ Get properties of a monomeric form
+
+    Args:
+        alphabet (:obj:`str`): id of an alphabet
+        monomer (:obj:`str`): code of monomeric form
+
+    Returns:
+        :obj:`dict`: properties of monomeric form
+    """
+    alphabet_obj = bpforms.util.get_alphabet(alphabet)
+    form_obj = bpforms.util.get_form(alphabet)()
+    monomer_obj = alphabet_obj.monomers.get(monomer, None)
+    monomer_dict = monomer_obj.to_dict(alphabet=alphabet_obj)
+    monomer_dict['binds_backbone'] = len(monomer_obj.backbone_bond_atoms) > 0
+    monomer_dict['binds_left'] = form_obj.can_monomer_bind_left(monomer_obj)
+    monomer_dict['binds_right'] = form_obj.can_monomer_bind_right(monomer_obj)
+    monomer_dict['formula'] = dict(monomer_obj.get_formula())
+    monomer_dict['mol_wt'] = monomer_obj.get_mol_wt()
+    monomer_dict['charge'] = monomer_obj.get_charge()
+    return monomer_dict
