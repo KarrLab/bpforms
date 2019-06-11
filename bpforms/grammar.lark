@@ -7,7 +7,7 @@ inline_monomer: "[" WS* inline_monomer_attr (ATTR_SEP inline_monomer_attr)* WS* 
 ?id: "id" FIELD_SEP ESCAPED_STRING
 ?name: "name" FIELD_SEP ESCAPED_STRING
 ?synonym: "synonym" FIELD_SEP ESCAPED_STRING
-?identifier: "identifier" FIELD_SEP identifier_ns IDENTIFIER_SEP identifier_id
+?identifier: "identifier" FIELD_SEP identifier_id IDENTIFIER_SEP identifier_ns
 ?identifier_ns: ESCAPED_STRING
 ?identifier_id: ESCAPED_STRING
 ?structure: "structure" FIELD_SEP "\"" SMILES "\""
@@ -34,7 +34,7 @@ inline_monomer: "[" WS* inline_monomer_attr (ATTR_SEP inline_monomer_attr)* WS* 
 ?circular: "circular"
 ATTR_SEP: WS* "|" WS*
 FIELD_SEP: WS* ":" WS*
-IDENTIFIER_SEP: WS* "/" WS*
+IDENTIFIER_SEP: WS* "@" WS*
 CHAR: /[^\[\]\{\}":| ]/
 CHARS: CHAR+
 ESCAPED_CHARS: "\"" CHARS "\""

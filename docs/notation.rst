@@ -79,9 +79,9 @@ Metadata
 * The ``identifier`` attribute describes references to entries in external databases. Each monomeric form can have multiple identifiers. The namespaces and ids of identifers must be separated by "/"::
 
     [id: "dI"
-        | identifier: "biocyc.compound" / "DEOXYINOSINE"
-        | identifier: "chebi" / "CHEBI:28997"
-        | identifier: "pubchem.compound" / "65058"
+        | identifier: "DEOXYINOSINE" @ "biocyc.compound"
+        | identifier: "CHEBI:28997" @ "chebi"
+        | identifier: "65058" @ "pubchem.compound"
         ]
 
 * The ``base-monomer`` attribute describes other monomer form(s) which the monomeric form is generated from. The value of this attribute must be the code of a monomeric form in the alphabet. Each monomeric form can have one or more bases. This annotation is needed to generate more informative FASTA sequences for `BpForms`::

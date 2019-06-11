@@ -986,7 +986,7 @@ class Monomer(object):
             els.append('synonym: "' + synonym.replace('"', '\\"') + '"')
 
         for identifier in self.identifiers:
-            els.append('identifier: "' + identifier.ns + '" / "' + identifier.id + '"')
+            els.append('identifier: "' + identifier.id + '" @ "' + identifier.ns + '"')
 
         if self.structure:
             els.append('structure: "' + self.export('smi', options=('c',)) + '"')
@@ -2960,7 +2960,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def identifier(self, *args):
-                return ('identifiers', Identifier(args[-3].value[1:-1], args[-1].value[1:-1]))
+                return ('identifiers', Identifier(args[-1].value[1:-1], args[-3].value[1:-1]))
 
             @lark.v_args(inline=True)
             def structure(self, *args):

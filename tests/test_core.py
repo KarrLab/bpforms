@@ -491,8 +491,8 @@ class MonomerTestCase(unittest.TestCase):
         self.assertIn(' | synonym: "dAMP"', str(monomer))
 
         monomer.identifiers = set([core.Identifier('chebi', 'CHEBI:58245'), core.Identifier('biocyc.compound', 'DAMP')])
-        self.assertIn(' | identifier: "chebi" / "CHEBI:58245"', str(monomer))
-        self.assertIn(' | identifier: "biocyc.compound" / "DAMP"', str(monomer))
+        self.assertIn(' | identifier: "CHEBI:58245" @ "chebi"', str(monomer))
+        self.assertIn(' | identifier: "DAMP" @ "biocyc.compound"', str(monomer))
 
         monomer.structure = dAMP_smiles
         self.assertIn(' | structure: "{}"]'.format('Nc1ncnc2c1nc[nH]2'), str(monomer))
@@ -1306,7 +1306,7 @@ class BpFormTestCase(unittest.TestCase):
         dna_form_1 = ('AA[id: "dI"'
                       + ' | name: "2\'-deoxyinosine"'
                       + ' | synonym: "2\'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"'
-                      + ' | identifier: "chebi" / "CHEBI:28997"'
+                      + ' | identifier: "CHEBI:28997" @ "chebi"'
                       + ' | structure: "' + dIMP_smiles + '"'
                       + ' | backbone-bond-atom: C1-1'
                       + ' | backbone-bond-atom: D2-2'
