@@ -47,9 +47,10 @@ class ValidateController(cement.Controller):
         type = bpforms.util.get_form(args.alphabet)
         
         try:
-            form = type(circular=args.circular).from_str(args.seq)            
+            form = type().from_str(args.seq)            
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
+        form.circular = args.circular
 
         errors = form.validate()
         if errors:
@@ -82,9 +83,10 @@ class GetPropertiesController(cement.Controller):
         type = bpforms.util.get_form(args.alphabet)
         
         try:
-            form = type(circular=args.circular).from_str(args.seq)
+            form = type().from_str(args.seq)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
+        form.circular = args.circular
 
         errors = form.validate()
         if errors:
@@ -144,9 +146,10 @@ class GetMajorMicroSpeciesController(cement.Controller):
         type = bpforms.util.get_form(args.alphabet)
         
         try:
-            form = type(circular=args.circular).from_str(args.seq)
+            form = type().from_str(args.seq)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
+        form.circular = args.circular
 
         errors = form.validate()
         if errors:

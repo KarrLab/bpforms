@@ -2814,6 +2814,21 @@ class BpForm(object):
             val += ' | circular'
 
         # todo: crosslinks
+        for crosslink in self.crosslinks:
+            atoms = []
+            for atom_type in ['left_bond_atoms', 'right_bond_atoms', 'left_displaced_atoms', 'right_displaced_atoms']:
+                for atom in getattr(crosslink, atom_type):
+                    if atom.charge:
+                        if atom.charge < 0:
+                            charge = str(atom.charge)
+                        else:
+                            charge = '+' + str(atom.charge)
+                    else:
+                        charge = ''
+                    atoms.append('{}: {}{}{}{}'.format(atom_type[0:-1].replace('_', '-'),
+                                                       atom.monomer, atom.element, atom.position, charge))
+
+            val += ' | crosslink: [{}]'.format(' | '.join(atoms))
 
         return val
 

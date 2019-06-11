@@ -1427,11 +1427,12 @@ class BpFormTestCase(unittest.TestCase):
         form = dna.DnaForm().from_str('AAA')
         self.assertEqual(form.crosslinks, core.BondSet())
 
-        form = dna.DnaForm().from_str('AAA'
-                                      '|crosslink: [left-bond-atom: 1C1] '
-                                      '| crosslink: [right-displaced-atom: 5H3+1 '
-                                      '| right-displaced-atom: 6H2+3 '
-                                      '| right-bond-atom: 8P5-2]')
+        form_str = ('AAA'
+                    '|crosslink: [left-bond-atom: 1C1] '
+                    '| crosslink: [right-displaced-atom: 5H3+1 '
+                    '| right-displaced-atom: 6H2+3 '
+                    '| right-bond-atom: 8P5-2]')
+        form = dna.DnaForm().from_str(form_str)
 
         bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='C', position=1)])
         bond_2 = core.Bond(right_displaced_atoms=[
@@ -1441,6 +1442,18 @@ class BpFormTestCase(unittest.TestCase):
         bonds = core.BondSet([bond_1, bond_2])
 
         self.assertTrue(form.crosslinks.is_equal(bonds))
+
+        form_str_1 = ('AAA'
+                      ' | crosslink: [left-bond-atom: 1C1]'
+                      ' | crosslink: [right-bond-atom: 8P5-2'
+                      ' | right-displaced-atom: 5H3+1'
+                      ' | right-displaced-atom: 6H2+3]')
+        form_str_2 = ('AAA'
+                      ' | crosslink: [right-bond-atom: 8P5-2'
+                      ' | right-displaced-atom: 5H3+1'
+                      ' | right-displaced-atom: 6H2+3]'
+                      ' | crosslink: [left-bond-atom: 1C1]')
+        self.assertIn(str(form), [form_str_1, form_str_2])
 
     def test_from_str_circular(self):
         form = dna.DnaForm().from_str('AAA')

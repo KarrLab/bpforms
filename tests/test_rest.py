@@ -63,7 +63,7 @@ class RestTestCase(unittest.TestCase):
         print(rv.get_json())
         self.assertEqual(rv.get_json(), {
             'alphabet': 'dna',
-            'seq': 'ACGT',
+            'seq': 'ACGT | circular',
             'length': 4,
             'structure': ('Nc1c2ncn(c2ncn1)C1CC2OP(=O)(OCC3C(OP(=O)(OCC4C(OP(=O)(OCC5C(OP(=O)'
                           '(OCC2O1)[O-])CC(n1cc(C)c(=O)[nH]c1=O)O5)[O-])CC(n1c2nc(N)[nH]c(=O)'
