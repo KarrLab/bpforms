@@ -761,7 +761,7 @@ class Monomer(object):
             return self.IMAGE_URL_PATTERN.format(urllib.parse.quote(smiles))
         return None
 
-    def get_image(self, bond_label='', displaced_label='', bond_opacity=255, displaced_opacity=127,
+    def get_image(self, bond_label='', displaced_label='', bond_opacity=255, displaced_opacity=192,
                   backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff, show_atom_nums=False,
                   width=200, height=200, include_xml_header=True):
         """ Get image in SVG format
