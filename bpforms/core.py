@@ -809,7 +809,8 @@ class Monomer(object):
                     atom_sets[color]['positions'].append(atom.GetIdx())
                     atom_sets[color]['elements'].append(atom_md.element)
 
-        return draw_molecule(self.export('cml'), 'cml', atom_labels=atom_labels, atom_sets=atom_sets.values(), show_atom_nums=show_atom_nums,
+        return draw_molecule(self.export('cml'), 'cml', atom_labels=atom_labels, atom_sets=atom_sets.values(),
+                             show_atom_nums=show_atom_nums,
                              width=width, height=height, include_xml_header=include_xml_header)
 
     @staticmethod
