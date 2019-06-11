@@ -17,11 +17,10 @@ inline_monomer: "[" WS* inline_monomer_attr (ATTR_SEP inline_monomer_attr)* WS* 
 ?left_bond_atom: "left-bond-atom" FIELD_SEP atom
 ?right_displaced_atom: "right-displaced-atom" FIELD_SEP atom
 ?left_displaced_atom: "left-displaced-atom" FIELD_SEP atom
-?atom: atom_molecule IDENTIFIER_SEP atom_element IDENTIFIER_SEP atom_position IDENTIFIER_SEP atom_charge
-?atom_molecule: /(Monomer|Backbone)/
+?atom: atom_element atom_position atom_charge?
 ?atom_element: /[A-Z][a-z]?/
 ?atom_position: /[0-9]+/
-?atom_charge: /[\+\-]?[0-9]+/
+?atom_charge: /[\+\-][0-9]+/
 ?delta_mass: "delta-mass" FIELD_SEP DALTON
 ?delta_charge: "delta-charge" FIELD_SEP CHARGE
 ?position: "position" FIELD_SEP START_POSITION? "-" END_POSITION?
@@ -29,9 +28,8 @@ inline_monomer: "[" WS* inline_monomer_attr (ATTR_SEP inline_monomer_attr)* WS* 
 ?comments: "comments" FIELD_SEP ESCAPED_STRING
 ?global_attr: crosslink | circular
 ?crosslink: "crosslink" FIELD_SEP "[" WS* crosslink_atom (ATTR_SEP crosslink_atom)* WS* "]"
-?crosslink_atom: crosslink_atom_type FIELD_SEP monomer_position atom_element atom_position crosslink_atom_charge?
+?crosslink_atom: crosslink_atom_type FIELD_SEP monomer_position atom_element atom_position atom_charge?
 ?crosslink_atom_type: /(left|right)/ "-" /(bond|displaced)/ "-atom"
-?crosslink_atom_charge: /[\+\-][0-9]+/
 ?monomer_position: /[0-9]+/
 ?circular: "circular"
 ATTR_SEP: WS* "|" WS*

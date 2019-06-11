@@ -498,7 +498,7 @@ class MonomerTestCase(unittest.TestCase):
         self.assertIn(' | structure: "{}"]'.format('Nc1ncnc2c1nc[nH]2'), str(monomer))
 
         monomer.backbone_bond_atoms.append(core.Atom(core.Monomer, 'C', 2, -3))
-        self.assertIn(' | backbone-bond-atom: Monomer / C / 2 / -3]', str(monomer))
+        self.assertIn(' | backbone-bond-atom: C2-3]', str(monomer))
 
         monomer.delta_mass = 1.
         monomer.delta_charge = -1
@@ -1308,13 +1308,13 @@ class BpFormTestCase(unittest.TestCase):
                       + ' | synonym: "2\'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol"'
                       + ' | identifier: "chebi" / "CHEBI:28997"'
                       + ' | structure: "' + dIMP_smiles + '"'
-                      + ' | backbone-bond-atom: Monomer / C / 1 / -1'
-                      + ' | backbone-bond-atom: Monomer / D / 2 / -2'
-                      + ' | backbone-displaced-atom: Backbone / D / 2 / -2'
-                      + ' | right-bond-atom: Monomer / E / 3 / -3'
-                      + ' | right-displaced-atom: Backbone / F / 4 / -4'
-                      + ' | left-bond-atom: Monomer / G / 5 / -5'
-                      + ' | left-displaced-atom: Backbone / H / 6 / -6'
+                      + ' | backbone-bond-atom: C1-1'
+                      + ' | backbone-bond-atom: D2-2'
+                      + ' | backbone-displaced-atom: D2-2'
+                      + ' | right-bond-atom: E3-3'
+                      + ' | right-displaced-atom: F4-4'
+                      + ' | left-bond-atom: G5-5'
+                      + ' | left-displaced-atom: H6-6'
                       + ' | delta-mass: -2.5'
                       + ' | delta-charge: 3'
                       + ' | position: 3-5'
@@ -1335,11 +1335,11 @@ class BpFormTestCase(unittest.TestCase):
                     core.Atom(core.Monomer, 'C', position=1, charge=-1),
                     core.Atom(core.Monomer, 'D', position=2, charge=-2),
                 ],
-                backbone_displaced_atoms=[core.Atom(core.Backbone, 'D', position=2, charge=-2)],
+                backbone_displaced_atoms=[core.Atom(core.Monomer, 'D', position=2, charge=-2)],
                 right_bond_atoms=[core.Atom(core.Monomer, 'E', position=3, charge=-3)],
-                right_displaced_atoms=[core.Atom(core.Backbone, 'F', position=4, charge=-4)],
+                right_displaced_atoms=[core.Atom(core.Monomer, 'F', position=4, charge=-4)],
                 left_bond_atoms=[core.Atom(core.Monomer, 'G', position=5, charge=-5)],
-                left_displaced_atoms=[core.Atom(core.Backbone, 'H', position=6, charge=-6)],
+                left_displaced_atoms=[core.Atom(core.Monomer, 'H', position=6, charge=-6)],
                 delta_mass=-2.5,
                 delta_charge=3,
                 start_position=3,

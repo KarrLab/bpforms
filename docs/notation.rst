@@ -112,7 +112,7 @@ Examples
 
 * DNA::
 
-    ACGT[id: "dI" | structure: "O=C1NC=NC2=C1N=CN2" | backbone-bond-atom: Monomer / N / 10 / 0 | backbone-displaced-atom: Monomer / H / 10 / 0]AG{m2A}
+    ACGT[id: "dI" | structure: "O=C1NC=NC2=C1N=CN2" | backbone-bond-atom: N10 | backbone-displaced-atom: H10]AG{m2A}
 
 * RNA::
 

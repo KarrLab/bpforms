@@ -73,7 +73,7 @@ class CliTestCase(unittest.TestCase):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             with __main__.App(argv=['validate', 'canonical_dna', 
                 ('ACG'
-                '[id: "dI" | structure: "{}" | backbone-bond-atom: Monomer / N / 10 / 0 | backbone-displaced-atom: Monomer / H / 10 / 0 ]'
+                '[id: "dI" | structure: "{}" | backbone-bond-atom: N10 | backbone-displaced-atom: H10 ]'
                 'T').format(dI_smiles)]) as app:
                 # run app
                 app.run()
@@ -90,7 +90,7 @@ class CliTestCase(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, '^Form is invalid'):
             with __main__.App(argv=['validate', 'canonical_dna', (
                 'ACGT'
-                '[id: "dI" | structure: "{}" | backbone-displaced-atom: Monomer / H / 10 / 0 ]'
+                '[id: "dI" | structure: "{}" | backbone-displaced-atom: H10 ]'
                 ).format(dI_smiles)]) as app:
                 # run app
                 app.run()
@@ -162,7 +162,7 @@ class CliTestCase(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, '^Form is invalid'):
             with __main__.App(argv=['get-properties', 'canonical_dna', (
                 'ACGT'
-                '[id: "dI" | structure: "{}" | backbone-displaced-atom: Monomer / H / 10 / 0 ]'
+                '[id: "dI" | structure: "{}" | backbone-displaced-atom: H10 ]'
                 ).format(dI_smiles)]) as app:
                 # run app
                 app.run()
@@ -170,8 +170,8 @@ class CliTestCase(unittest.TestCase):
     def test_get_major_micro_species(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna',
-                                    ('[id: "dI" | structure: "{0}" | backbone-bond-atom: Monomer / N / 10 / 0 | backbone-displaced-atom: Monomer / H / 10 / 0 ]'
-                                     '[id: "dI" | structure: "{0}" | backbone-bond-atom: Monomer / N / 10 / 0 | backbone-displaced-atom: Monomer / H / 10 / 0 ]').format(
+                                    ('[id: "dI" | structure: "{0}" | backbone-bond-atom: N10 | backbone-displaced-atom: H10 ]'
+                                     '[id: "dI" | structure: "{0}" | backbone-bond-atom: N10 | backbone-displaced-atom: H10 ]').format(
                     dI_smiles), '14.']) as app:
                 # run app
                 app.run()
@@ -188,7 +188,7 @@ class CliTestCase(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, '^Form is invalid'):
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna', (
                 'ACGT'
-                '[id: "dI" | structure: "{}" | backbone-displaced-atom: Monomer / H / 10 / 0 ]'
+                '[id: "dI" | structure: "{}" | backbone-displaced-atom: H10 ]'
                 ).format(dI_smiles), '7.']) as app:
                 # run app
                 app.run()

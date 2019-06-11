@@ -12,6 +12,7 @@ from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_m
 import abc
 import attrdict
 import copy
+import itertools
 import lark
 import openbabel
 import pkg_resources
@@ -997,8 +998,14 @@ class Monomer(object):
         ]
         for atom_type in atom_types:
             for atom in getattr(self, atom_type):
-                els.append('{}: {} / {} / {} / {}'.format(
-                    atom_type[:-1].replace('_', '-'), atom.molecule.__name__, atom.element, atom.position, atom.charge))
+                if atom.charge > 0:
+                    charge = '+' + str(atom.charge)
+                elif atom.charge == 0:
+                    charge = ''
+                else:
+                    charge = str(atom.charge)
+                els.append('{}: {}{}{}'.format(
+                    atom_type[:-1].replace('_', '-'), atom.element, atom.position, charge))
 
         if self.delta_mass is not None:
             els.append('delta-mass: ' + str(self.delta_mass))
@@ -2574,7 +2581,10 @@ class BpForm(object):
 
         # join molecules and get bonded and displaced atoms
         atoms = []
+        n_atoms = []
         for monomer in self.seq:
+            n_atoms.append(n_atom)
+
             monomer_structure = openbabel.OBMol()
             backbone_structure = openbabel.OBMol()
             monomer_structure += monomer.structure
@@ -2638,15 +2648,28 @@ class BpForm(object):
             if backbone_structure:
                 n_atom += backbone_structure.NumAtoms()
 
+        selected_hydrogens = []
+
         for subunit_atoms in atoms:
             for residue_atoms in subunit_atoms.values():
                 for type_atoms in residue_atoms.values():
-                    selected_hydrogens = []
                     for i_atom_el, atom_el in enumerate(type_atoms):
                         if atom_el[1] == 'H':
                             type_atoms[i_atom_el] = (get_hydrogen_atom(atom_el[0], selected_hydrogens), atom_el[2])
                         else:
                             type_atoms[i_atom_el] = (atom_el[0], atom_el[2])
+
+        crosslinks_atoms = []
+        for crosslink in self.crosslinks:
+            crosslink_atoms = {}
+            crosslinks_atoms.append(crosslink_atoms)
+            for atom_type in ['left_bond_atoms', 'right_bond_atoms', 'left_displaced_atoms', 'right_displaced_atoms']:
+                crosslink_atoms[atom_type] = []
+                for atom_md in getattr(crosslink, atom_type):
+                    atom = mol.GetAtom(n_atoms[atom_md.monomer - 1] + atom_md.position)
+                    if atom_md.element == 'H':
+                        atom = get_hydrogen_atom(atom, selected_hydrogens)
+                    crosslink_atoms[atom_type].append(atom)
 
         # bond monomeric forms to backbones
         for monomer, subunit_atoms in zip(self.seq, atoms):
@@ -2660,7 +2683,17 @@ class BpForm(object):
         if self.circular:
             self._bond_subunits(mol, atoms[-1], atoms[0])
 
-        # cross links: todo
+        # todo: crosslinks
+        for crosslink_atoms in crosslinks_atoms:
+            for l_atom, r_atom in zip(crosslink_atoms['left_bond_atoms'], crosslink_atoms['right_bond_atoms']):
+                bond = openbabel.OBBond()
+                bond.SetBegin(l_atom)
+                bond.SetEnd(r_atom)
+                bond.SetBondOrder(1)
+                assert mol.AddBond(bond)
+            for atom in itertools.chain(crosslink_atoms['left_displaced_atoms'], crosslink_atoms['right_displaced_atoms']):
+                if atom:
+                    assert mol.DeleteAtom(atom, True)
 
         # return molecule
         return mol
@@ -2754,7 +2787,10 @@ class BpForm(object):
             for atom in monomer.backbone_displaced_atoms:
                 formula[atom.element] -= count
 
-        # todo: crosslinks
+        # crosslinks
+        for crosslink in self.crosslinks:
+            for atom in itertools.chain(crosslink.left_displaced_atoms, crosslink.right_displaced_atoms):
+                formula[atom.element] -= 1
 
         return formula \
             + self.backbone.get_formula() * n_backbone  \
@@ -2785,7 +2821,10 @@ class BpForm(object):
             for atom in monomer.backbone_displaced_atoms:
                 charge -= atom.charge * count
 
-        # todo: crosslinks
+        # crosslinks
+        for crosslink in self.crosslinks:
+            for atom in itertools.chain(crosslink.left_displaced_atoms, crosslink.right_displaced_atoms):
+                charge -= atom.charge
 
         return charge \
             + self.backbone.get_charge() * n_backbone \
@@ -2813,18 +2852,17 @@ class BpForm(object):
         if self.circular:
             val += ' | circular'
 
-        # todo: crosslinks
+        # crosslinks
         for crosslink in self.crosslinks:
             atoms = []
             for atom_type in ['left_bond_atoms', 'right_bond_atoms', 'left_displaced_atoms', 'right_displaced_atoms']:
                 for atom in getattr(crosslink, atom_type):
-                    if atom.charge:
-                        if atom.charge < 0:
-                            charge = str(atom.charge)
-                        else:
-                            charge = '+' + str(atom.charge)
-                    else:
+                    if atom.charge > 0:
+                        charge = '+' + str(atom.charge)
+                    elif atom.charge == 0:
                         charge = ''
+                    else:
+                        charge = str(atom.charge)
                     atoms.append('{}: {}{}{}{}'.format(atom_type[0:-1].replace('_', '-'),
                                                        atom.monomer, atom.element, atom.position, charge))
 
@@ -2954,11 +2992,10 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def atom(self, *args):
-                if args[-7] == 'Monomer':
-                    molecule = Monomer
-                else:
-                    molecule = Backbone
-                return Atom(molecule, args[-5], position=int(float(args[-3])), charge=int(float(args[-1])))
+                atom = Atom(Monomer, args[0], position=int(float(args[1])))
+                if len(args) >= 3:
+                    atom.charge = int(float(args[2]))
+                return atom
 
             @lark.v_args(inline=True)
             def delta_mass(self, *args):
