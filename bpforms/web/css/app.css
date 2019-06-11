@@ -52,6 +52,9 @@ pre {
 }
 
 /* alphabet */
+#alphabet_container {
+    padding-top: 1rem;
+}
 .monomer {
     border: 1px solid #ccc;
 }
@@ -96,4 +99,7 @@ pre {
     margin: 0px;
     padding-left: 0.5rem;
     text-indent: -0.5rem;
+}
+.monomer-legend {
+    font-size: 0.7em;
 }
