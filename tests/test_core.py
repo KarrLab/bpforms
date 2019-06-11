@@ -986,6 +986,72 @@ class BondTestCase(unittest.TestCase):
         self.assertFalse(bond_1.is_equal(bond_6))
 
 
+class BondSetTestCase(unittest.TestCase):
+    def test_add(self):
+        bonds = core.BondSet()
+        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'O')])
+        bond_2 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'N')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'P')])
+        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'S')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'Na')])
+        bonds.add(bond_1)
+        bonds.add(bond_2)
+
+        self.assertEqual(len(bonds), 2)
+        self.assertIn(bond_1, bonds)
+        self.assertIn(bond_2, bonds)
+        self.assertNotIn(bond_3, bonds)
+
+    def test_update(self):
+        bonds = core.BondSet()
+        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'O')])
+        bond_2 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'N')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'P')])
+        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'S')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'Na')])
+        bonds.update(set([bond_1, bond_2]))
+        self.assertEqual(len(bonds), 2)
+        self.assertIn(bond_1, bonds)
+        self.assertIn(bond_2, bonds)
+        self.assertNotIn(bond_3, bonds)
+
+    def test_symmetric_difference_update(self):
+        bonds_1 = core.BondSet()
+        bonds_2 = core.BondSet()
+        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'O')])
+        bond_2 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'N')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'P')])
+        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'S')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'Na')])
+        bonds_1.update(set([bond_1, bond_2]))
+        bonds_2.update(set([bond_1, bond_3]))
+
+        bonds_1.symmetric_difference_update(bonds_2)
+        self.assertEqual(bonds_1, core.BondSet([bond_2, bond_3]))
+
+    def test_is_equal(self):
+        bonds_1 = core.BondSet()
+        bonds_2 = core.BondSet()
+        bonds_3 = core.BondSet()
+        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'O')])
+        bond_2 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'N')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'P')])
+        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'S')],
+                           right_bond_atoms=[core.Atom(core.Monomer, 'Na')])
+        bonds_1.update(set([bond_1, bond_2]))
+        bonds_2.update(set([bond_1, bond_2]))
+        bonds_3.update(set([bond_1, bond_3]))
+        self.assertTrue(bonds_1.is_equal(bonds_1))
+        self.assertTrue(bonds_1.is_equal(bonds_2))
+        self.assertTrue(bonds_2.is_equal(bonds_1))
+        self.assertFalse(bonds_1.is_equal(bonds_3))
+        self.assertFalse(bonds_3.is_equal(bonds_1))
+
+
 class BpFormTestCase(unittest.TestCase):
     def test_init(self):
         bp_form = core.BpForm()
@@ -1318,10 +1384,9 @@ class BpFormTestCase(unittest.TestCase):
         alphabet.monomers['A'] = core.Monomer()
         alphabet.monomers['AA'] = core.Monomer()
         alphabet.monomers['*'] = core.Monomer()
-        alphabet.monomers[' '] = core.Monomer()
         alphabet.monomers[' A'] = core.Monomer()
         self.assertTrue(core.BpForm(alphabet=alphabet).from_str(
-            'AAA{AA}AA{aA}{Aa}AA* { A}').is_equal(core.BpForm([
+            'AAA{AA}AA{aA}{Aa}AA*{ A}').is_equal(core.BpForm([
                 alphabet.monomers['A'], alphabet.monomers['A'], alphabet.monomers['A'],
                 alphabet.monomers['AA'],
                 alphabet.monomers['A'], alphabet.monomers['A'],
@@ -1329,7 +1394,6 @@ class BpFormTestCase(unittest.TestCase):
                 alphabet.monomers['Aa'],
                 alphabet.monomers['A'], alphabet.monomers['A'],
                 alphabet.monomers['*'],
-                alphabet.monomers[' '],
                 alphabet.monomers[' A'],
             ], alphabet=alphabet)))
 
@@ -1358,6 +1422,35 @@ class BpFormTestCase(unittest.TestCase):
         dna_form_1 = dna.DnaForm().from_str('[structure: "' + dIMP_smiles + '"]')
         dna_form_2 = dna.DnaForm().from_str('[structure: "' + dIMP_smiles + '"]')
         self.assertTrue(dna_form_1.is_equal(dna_form_2))
+
+    def test_from_str_crosslinks(self):
+        form = dna.DnaForm().from_str('AAA')
+        self.assertEqual(form.crosslinks, core.BondSet())
+
+        form = dna.DnaForm().from_str('AAA'
+                                      '|crosslink: [left-bond-atom: 1C1] '
+                                      '| crosslink: [right-displaced-atom: 5H3+1 '
+                                      '| right-displaced-atom: 6H2+3 '
+                                      '| right-bond-atom: 8P5-2]')
+
+        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='C', position=1)])
+        bond_2 = core.Bond(right_displaced_atoms=[
+            core.Atom(core.Monomer, monomer=5, element='H', position=3, charge=1),
+            core.Atom(core.Monomer, monomer=6, element='H', position=2, charge=3),
+        ], right_bond_atoms=[core.Atom(core.Monomer, monomer=8, element='P', position=5, charge=-2)])
+        bonds = core.BondSet([bond_1, bond_2])
+
+        self.assertTrue(form.crosslinks.is_equal(bonds))
+
+    def test_from_str_circular(self):
+        form = dna.DnaForm().from_str('AAA')
+        self.assertFalse(form.circular)
+
+        form = dna.DnaForm(circular=True).from_str('AAA')
+        self.assertFalse(form.circular)
+
+        form = dna.DnaForm().from_str('AAA|circular')
+        self.assertTrue(form.circular)
 
     def test__bond_monomer_backbone(self):
         form = dna.CanonicalDnaForm()
@@ -1436,19 +1529,19 @@ class BpFormTestCase(unittest.TestCase):
         form = dna.CanonicalDnaForm(circular=True)
         self.assertEqual(form.export('inchi'), None)
 
-        form = dna.CanonicalDnaForm(circular=True).from_str('A')
+        form = dna.CanonicalDnaForm(circular=True).from_str('A|circular')
         self.assertEqual(form.export('inchi'), ('InChI=1S/C10H12N5O5P'
                                                 '/c11-9-8-10(13-3-12-9)15(4-14-8)7-1-5-6(19-7)2-18-21(16,17)20-5'
                                                 '/h3-7H,1-2H2,(H,16,17)(H2,11,12,13)'
                                                 '/p-1'))
 
-        form = dna.CanonicalDnaForm(circular=True).from_str('AA')
+        form = dna.CanonicalDnaForm(circular=True).from_str('AA|circular')
         self.assertEqual(form.export('inchi'), ('InChI=1S/C20H24N10O10P2'
                                                 '/c21-17-15-19(25-5-23-17)29(7-27-15)13-1-9-11(37-13)3-35-42(33,34)'
                                                 '40-10-2-14(38-12(10)4-36-41(31,32)39-9)30-8-28-16-18(22)24-6-26-20(16)30'
                                                 '/h5-14H,1-4H2,(H,31,32)(H,33,34)(H2,21,23,25)(H2,22,24,26)/p-2'))
 
-        form = rna.CanonicalRnaForm(circular=True).from_str('AA')
+        form = rna.CanonicalRnaForm(circular=True).from_str('AA|circular')
         self.assertEqual(form.export('inchi'), ('InChI=1S/C20H24N10O12P2'
                                                 '/c21-15-9-17(25-3-23-15)29(5-27-9)19-11(31)13-7(39-19)'
                                                 '1-37-43(33,34)42-14-8(2-38-44(35,36)41-13)40-20'

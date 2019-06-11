@@ -1440,24 +1440,27 @@ class Atom(object):
     """ An atom in a compound or bond
 
     Attributes:
-        molecule (:obj:`type`): type of parent molecule
+        molecule (:obj:`type`): type of parent molecule        
         element (:obj:`str`): code for the element (e.g. 'H')
         position (:obj:`int`): SMILES position of the atom within the compound
         charge (:obj:`int`): charge of the atom
+        monomer (:obj:`int`): index of parent monomeric form within sequence
     """
 
-    def __init__(self, molecule, element, position=None, charge=0):
+    def __init__(self, molecule, element, position=None, charge=0, monomer=None):
         """
         Args:
             molecule (:obj:`type`): type of parent molecule
             element (:obj:`str`, optional): code for the element (e.g. 'H')
             position (:obj:`int`, optional): SMILES position of the atom within the compound
             charge (:obj:`int`, optional): charge of the atom
+            monomer (:obj:`int`, optional): index of parent monomeric form within sequence
         """
         self.molecule = molecule
         self.element = element
         self.position = position
         self.charge = charge
+        self.monomer = monomer
 
     @property
     def molecule(self):
@@ -1545,6 +1548,28 @@ class Atom(object):
         value = int(value)
         self._charge = value
 
+    @property
+    def monomer(self):
+        """ Get the index of the parent monomer within the sequence
+
+        Returns:
+            :obj:`int`: index of the parent monomer within the sequence
+        """
+        return self._monomer
+
+    @monomer.setter
+    def monomer(self, value):
+        """ Set the index of the parent monomer within the sequence
+
+        Args:
+            value (:obj:`int`): index of the parent monomer within the sequence
+        """
+        if value is not None:
+            if (not isinstance(value, (int, float)) or value != int(value) or value < 1):
+                raise ValueError('`monomer` must be a positive integer or None')
+            value = int(value)
+        self._monomer = value
+
     def is_equal(self, other):
         """ Determine if two atoms are semantically equal
 
@@ -1561,8 +1586,9 @@ class Atom(object):
         return self is other or (self.__class__ == other.__class__
                                  and self.molecule == other.molecule
                                  and self.element == other.element
+                                 and self.position == other.position
                                  and self.charge == other.charge
-                                 and self.position == other.position)
+                                 and self.monomer == other.monomer)
 
     def to_dict(self):
         """ Get dictionary representation
@@ -1574,10 +1600,12 @@ class Atom(object):
         if self.molecule:
             dict['molecule'] = self.molecule.__name__
         dict['element'] = self.element
-        if self.charge:
-            dict['charge'] = self.charge
         if self.position is not None:
             dict['position'] = self.position
+        if self.charge:
+            dict['charge'] = self.charge
+        if self.monomer is not None:
+            dict['monomer'] = self.monomer
         return dict
 
     def from_dict(self, dict):
@@ -1597,8 +1625,9 @@ class Atom(object):
         else:
             self.molecule = None
         self.element = dict['element']
-        self.charge = dict.get('charge', 0)
         self.position = dict.get('position', None)
+        self.charge = dict.get('charge', 0)
+        self.monomer = dict.get('monomer', None)
         return self
 
 
@@ -2060,6 +2089,71 @@ class Bond(object):
         return True
 
 
+class BondSet(set):
+    """ Set of bonds """
+
+    def add(self, bond):
+        """ Add a bond
+
+        Args:
+            bond (:obj:`Bond`): bond
+
+        Raises:
+            :obj:`ValueError`: if the `bond` is not an instance of `Bond`
+        """
+        if not isinstance(bond, Bond):
+            raise ValueError('`bond` must be an instance of `Bond`')
+        super(BondSet, self).add(bond)
+
+    def update(self, bonds):
+        """ Add a set of bonds
+
+        Args:
+            bonds (iterable of :obj:`Bond`): bonds
+        """
+        for bond in bonds:
+            self.add(bond)
+
+    def symmetric_difference_update(self, other):
+        """ Remove common elements with other and add elements from other not in self
+
+        Args:
+            other (:obj:`BondSet`): other set of bonds
+        """
+        for o in other:
+            if o in self:
+                self.remove(o)
+            else:
+                self.add(o)
+
+    def is_equal(self, other):
+        """ Check if two sets of bonds are semantically equal
+
+        Args:
+            other (:obj:`BondSet`): other set of bonds
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the bond sets are semantically equal
+        """
+        if self is other:
+            return True
+
+        if self.__class__ != other.__class__:
+            return False
+
+        o_bonds = set(other)
+        for s_bond in self:
+            match = False
+            for o_bond in set(o_bonds):
+                if s_bond.is_equal(o_bond):
+                    match = True
+                    o_bonds.remove(o_bond)
+                    break
+            if not match:
+                return False
+        return True
+
+
 class BpForm(object):
     """ Biopolymer form
 
@@ -2069,6 +2163,7 @@ class BpForm(object):
         backbone (:obj:`Backbone`): backbone that connects monomeric forms
         bond (:obj:`Bond`): bonds between (backbones of) monomeric forms
         circular (:obj:`bool`): if :obj:`True`, indicates that the biopolymer is circular
+        crosslinks (:obj:`BondSet`): crosslinking intrachain bonds
         features (:obj:`BpFormFeatureSet`): set of features
 
         _parser (:obj:`lark.Lark`): parser
@@ -2076,7 +2171,7 @@ class BpForm(object):
 
     DEFAULT_FASTA_CODE = '?'
 
-    def __init__(self, seq=None, alphabet=None, backbone=None, bond=None, circular=False):
+    def __init__(self, seq=None, alphabet=None, backbone=None, bond=None, circular=False, crosslinks=None):
         """
         Args:
             seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the biopolymer
@@ -2084,6 +2179,7 @@ class BpForm(object):
             backbone (:obj:`Backbone`, optional): backbone that connects monomeric forms
             bond (:obj:`Bond`, optional): bonds between (backbones of) monomeric forms
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
+            crosslinks (:obj:`BondSet`, optional): crosslinking intrachain bonds
         """
         if alphabet is None:
             alphabet = Alphabet()
@@ -2091,12 +2187,15 @@ class BpForm(object):
             backbone = Backbone()
         if bond is None:
             bond = Bond()
+        if crosslinks is None:
+            crosslinks = BondSet()
 
         self.seq = seq or MonomerSequence()
         self.alphabet = alphabet
         self.backbone = backbone
         self.bond = bond
         self.circular = circular
+        self.crosslinks = crosslinks
         self.features = BpFormFeatureSet(self)
 
     @property
@@ -2208,6 +2307,26 @@ class BpForm(object):
         self._circular = value
 
     @property
+    def crosslinks(self):
+        """ Get the crosslinking intrachain bonds
+
+        Returns:
+            :obj:`BondSet`: crosslinking intrachain bonds
+        """
+        return self._crosslinks
+
+    @crosslinks.setter
+    def crosslinks(self, value):
+        """ Set the crosslinking intrachain bonds
+
+        Args:
+            value (:obj:`list` of :obj:`BondSet`): crosslinking intrachain bonds
+        """
+        if not isinstance(value, BondSet):
+            raise ValueError('`crosslinks` must be an instance of `BondSet`')
+        self._crosslinks = value
+
+    @property
     def features(self):
         """ Get the features
 
@@ -2245,7 +2364,8 @@ class BpForm(object):
                                  and self.alphabet.is_equal(other.alphabet)
                                  and self.backbone.is_equal(other.backbone)
                                  and self.bond.is_equal(other.bond)
-                                 and self.circular == other.circular)
+                                 and self.circular == other.circular
+                                 and self.crosslinks.is_equal(other.crosslinks))
 
     def __getitem__(self, slice):
         """ Get monomeric form(s) at slice
@@ -2536,8 +2656,11 @@ class BpForm(object):
         for left_atoms, right_atoms in zip(atoms[0:-1], atoms[1:]):
             self._bond_subunits(mol, left_atoms, right_atoms)
 
+        # circularity
         if self.circular:
             self._bond_subunits(mol, atoms[-1], atoms[0])
+
+        # cross links: todo
 
         # return molecule
         return mol
@@ -2630,7 +2753,12 @@ class BpForm(object):
                 n_backbone += count
             for atom in monomer.backbone_displaced_atoms:
                 formula[atom.element] -= count
-        return formula + self.backbone.get_formula() * n_backbone + self.bond.get_formula() * (len(self) - (1 - self.circular))
+
+        # todo: crosslinks
+
+        return formula \
+            + self.backbone.get_formula() * n_backbone  \
+            + self.bond.get_formula() * (len(self) - (1 - self.circular))
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -2656,7 +2784,12 @@ class BpForm(object):
                 charge -= atom.charge * count
             for atom in monomer.backbone_displaced_atoms:
                 charge -= atom.charge * count
-        return charge + self.backbone.get_charge() * n_backbone + self.bond.get_charge() * (len(self) - (1 - self.circular))
+
+        # todo: crosslinks
+
+        return charge \
+            + self.backbone.get_charge() * n_backbone \
+            + self.bond.get_charge() * (len(self) - (1 - self.circular))
 
     def __str__(self):
         """ Get a string representation of the biopolymer form
@@ -2675,6 +2808,13 @@ class BpForm(object):
                     val += '{' + chars + '}'
             else:
                 val += monomer.__str__(alphabet=self.alphabet)
+
+        # circular
+        if self.circular:
+            val += ' | circular'
+
+        # todo: crosslinks
+
         return val
 
     _grammar_filename = pkg_resources.resource_filename('bpforms', 'grammar.lark')
@@ -2694,12 +2834,22 @@ class BpForm(object):
             def __init__(self, bp_form):
                 super(ParseTreeTransformer, self).__init__()
                 self.bp_form = bp_form
+                bp_form.seq.clear()
+                bp_form.crosslinks.clear()
+                bp_form.circular = False
+
+            @lark.v_args(inline=True)
+            def start(self, *args):
+                for arg_type, arg_val in args[0::2]:
+                    if arg_type in ['seq', 'circular']:
+                        setattr(self.bp_form, arg_type, arg_val)
+                    else:
+                        getattr(self.bp_form, arg_type).add(arg_val)
+                return self.bp_form
 
             @lark.v_args(inline=True)
             def seq(self, *seq):
-                self.bp_form.seq.clear()
-                self.bp_form.seq = seq
-                return self.bp_form
+                return ('seq', seq)
 
             @lark.v_args(inline=True)
             def alphabet_monomer(self, chars):
@@ -2827,6 +2977,36 @@ class BpForm(object):
             @lark.v_args(inline=True)
             def comments(self, *args):
                 return ('comments', args[-1].value[1:-1])
+
+            @lark.v_args(inline=True)
+            def crosslink(self, *args):
+                bond = Bond()
+
+                for atom_type, atom in args[1::2]:
+                    atom_type_list = getattr(bond, atom_type)
+                    atom_type_list.append(atom)
+
+                return ('crosslinks', bond)
+
+            @lark.v_args(inline=True)
+            def crosslink_atom(self, *args):
+                atom_type = args[0]
+                monomer = int(float(args[2]))
+                element = args[3]
+                position = int(float(args[4]))
+                if len(args) >= 6:
+                    charge = int(float(args[5]))
+                else:
+                    charge = 0
+                return atom_type, Atom(Monomer, monomer=monomer, element=element, position=position, charge=charge)
+
+            @lark.v_args(inline=True)
+            def crosslink_atom_type(self, *args):
+                return args[0] + '_' + args[1] + '_atoms'
+
+            @lark.v_args(inline=True)
+            def circular(self, *args):
+                return ('circular', True)
 
         tree = self._parser.parse(str)
         parse_tree_transformer = ParseTreeTransformer(self)

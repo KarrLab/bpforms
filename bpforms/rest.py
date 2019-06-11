@@ -105,9 +105,10 @@ class Bpform(flask_restplus.Resource):
         form_cls = bpforms.util.get_form(alphabet)
 
         try:
-            form = form_cls(circular=circular).from_str(seq)
+            form = form_cls().from_str(seq)
         except Exception as error:
             flask_restplus.abort(400, 'Unable to parse sequence of monomeric forms', errors={'seq': str(error)})
+        form.circular = circular
 
         errors = form.validate()
         if errors:
