@@ -500,6 +500,12 @@ class MonomerTestCase(unittest.TestCase):
         monomer.backbone_bond_atoms.append(core.Atom(core.Monomer, 'C', 2, -3))
         self.assertIn(' | backbone-bond-atom: C2-3]', str(monomer))
 
+        monomer.backbone_bond_atoms.append(core.Atom(core.Monomer, 'C', 2, +3))
+        self.assertIn(' | backbone-bond-atom: C2+3]', str(monomer))
+
+        monomer.backbone_bond_atoms.append(core.Atom(core.Monomer, 'C', 2, 0))
+        self.assertIn(' | backbone-bond-atom: C2]', str(monomer))
+
         monomer.delta_mass = 1.
         monomer.delta_charge = -1
         self.assertIn(' | delta-mass: 1', str(monomer))
@@ -727,6 +733,25 @@ class AtomTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             atom.charge = 2.5
 
+    def test_monomer_setter(self):
+        atom = core.Atom(core.Monomer, 'C')
+
+        atom.monomer = 2
+        self.assertEqual(atom.monomer, 2)
+
+        atom.monomer = 2.
+        self.assertEqual(atom.monomer, 2)
+
+        atom.monomer = None
+        self.assertEqual(atom.monomer, None)
+
+        with self.assertRaises(ValueError):
+            atom.monomer = 'a'
+        with self.assertRaises(ValueError):
+            atom.monomer = 2.5
+        with self.assertRaises(ValueError):
+            atom.monomer = -1
+
     def test_is_equal(self):
         atom_1 = core.Atom(core.Monomer, 'C', position=2, charge=-3)
         self.assertTrue(atom_1.is_equal(atom_1))
@@ -758,6 +783,12 @@ class AtomTestCase(unittest.TestCase):
         atom_1 = core.Atom(None, 'C', position=2, charge=-3)
         atom_1_dict = atom_1.to_dict()
         self.assertEqual(atom_1_dict, {'element': 'C', 'charge': -3, 'position': 2})
+        atom_2 = core.Atom(None, '').from_dict(atom_1.to_dict())
+        self.assertTrue(atom_1.is_equal(atom_2))
+
+        atom_1 = core.Atom(None, 'C', position=2, charge=-3, monomer=5)
+        atom_1_dict = atom_1.to_dict()
+        self.assertEqual(atom_1_dict, {'element': 'C', 'charge': -3, 'position': 2, 'monomer': 5})
         atom_2 = core.Atom(None, '').from_dict(atom_1.to_dict())
         self.assertTrue(atom_1.is_equal(atom_2))
 
@@ -1003,6 +1034,9 @@ class BondSetTestCase(unittest.TestCase):
         self.assertIn(bond_2, bonds)
         self.assertNotIn(bond_3, bonds)
 
+        with self.assertRaisesRegex(ValueError, '`bond` must be an instance of `Bond`'):
+            bonds.add(None)
+
     def test_update(self):
         bonds = core.BondSet()
         bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')],
@@ -1050,6 +1084,7 @@ class BondSetTestCase(unittest.TestCase):
         self.assertTrue(bonds_2.is_equal(bonds_1))
         self.assertFalse(bonds_1.is_equal(bonds_3))
         self.assertFalse(bonds_3.is_equal(bonds_1))
+        self.assertFalse(bonds_1.is_equal(set()))
 
 
 class BpFormTestCase(unittest.TestCase):
@@ -1119,6 +1154,14 @@ class BpFormTestCase(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             bp_form.circular = None
+
+    def test_set_crosslinks(self):
+        bp_form = core.BpForm()
+
+        bp_form.crosslinks = core.BondSet()
+
+        with self.assertRaises(ValueError):
+            bp_form.crosslinks = None
 
     def test_is_equal(self):
         bp_form_1 = core.BpForm(seq=core.MonomerSequence(
@@ -1343,6 +1386,32 @@ class BpFormTestCase(unittest.TestCase):
                          + 1 * 1
                          - 3)
 
+        crosslink = core.Bond(
+            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='C', position=2)],
+            right_bond_atoms=[core.Atom(core.Monomer, monomer=2, element='N', position=1)],
+            left_displaced_atoms=[
+                core.Atom(core.Monomer, monomer=1, element='N', position=1, charge=0),
+                core.Atom(core.Monomer, monomer=1, element='H', position=1, charge=0),
+                core.Atom(core.Monomer, monomer=1, element='H', position=1, charge=0),
+                ],
+            right_displaced_atoms=[
+                core.Atom(core.Monomer, monomer=2, element='H', position=1, charge=0),
+                ]
+        )
+        dimer.crosslinks = core.BondSet([crosslink])
+        self.assertEqual(dimer.export('smiles'), 'c12c3ncn(c3ncn1)C1CC(OP(=O)(OCC3C(O)CC(n4c(=O)nc(N2)cc4)O3)[O-])C(O1)COP(=O)([O-])[O-]')
+        self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
+                         + monomer_C.get_formula()
+                         + dimer.backbone.get_formula() * 2
+                         - EmpiricalFormula('H') * 2
+                         - EmpiricalFormula('HO') * 1
+                         - EmpiricalFormula('NH3'))
+        self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
+                         + monomer_C.get_charge()
+                         + dimer.backbone.get_charge() * 2
+                         + 1 * 1
+                         - 0)
+
     def test_get_major_micro_species(self):
         bp_form = dna.CanonicalDnaForm([
             dna.canonical_dna_alphabet.monomers.A,
@@ -1548,6 +1617,7 @@ class BpFormTestCase(unittest.TestCase):
 
         form = dna.DnaForm().from_str('AAA|circular')
         self.assertTrue(form.circular)
+        self.assertEqual(str(form), 'AAA | circular')
 
     def test__bond_monomer_backbone(self):
         form = dna.CanonicalDnaForm()

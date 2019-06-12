@@ -11,12 +11,20 @@ from bpforms import rest
 from bpforms.alphabet import dna
 from wc_utils.util.chem import EmpiricalFormula
 import bpforms
+import importlib
 import mock
 import os
+import shutil
 import unittest
+import warnings
 
 
 class RestTestCase(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        shutil.rmtree(rest.cache_dir)
+        importlib.reload(rest)
+
     def tearDown(self):
         dna.dna_alphabet.from_yaml(dna.filename)
 
@@ -73,6 +81,33 @@ class RestTestCase(unittest.TestCase):
             'charge': -4,
             'warnings': None,
         })
+
+    def test_get_bpform_properties_no_structure(self):
+        client = rest.app.test_client()
+        with mock.patch.object(core.BpForm, 'get_structure', return_value=None):
+            rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT'))
+        self.assertEqual(rv.status_code, 200)
+        self.assertEqual(rv.get_json(), {
+            'alphabet': 'dna',
+            'seq': 'ACGT',
+            'length': 4,
+            'structure': None,
+            'formula': dict(EmpiricalFormula('C39H46O25N15P4')),
+            'mol_wt': 1248.772047992,
+            'charge': -5,
+            'warnings': None,
+        })
+
+    def test_get_bpform_properties_warnings(self):
+        client = rest.app.test_client()
+
+        def side_effect(*args):
+            warnings.warn('My warning', UserWarning)
+            return None
+        with mock.patch.object(core.BpForm, 'get_structure', side_effect=side_effect):
+            rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT'))
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn('My warning', rv.get_json()['warnings'])
 
     def test_get_bpform_properties_errors(self):
         client = rest.app.test_client()
