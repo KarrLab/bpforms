@@ -11,14 +11,11 @@ from ruamel import yaml
 from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_molecule, OpenBabelUtils
 import abc
 import attrdict
-import copy
 import itertools
 import lark
 import openbabel
 import pkg_resources
 import re
-import subprocess
-import time
 import urllib.parse
 import warnings
 
