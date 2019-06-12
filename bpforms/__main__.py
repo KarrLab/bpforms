@@ -45,9 +45,9 @@ class ValidateController(cement.Controller):
     def _default(self):
         args = self.app.pargs
         type = bpforms.util.get_form(args.alphabet)
-        
+
         try:
-            form = type().from_str(args.seq)            
+            form = type().from_str(args.seq)
         except Exception as error:
             raise SystemExit('Form is invalid: {}'.format(str(error)))
         form.circular = args.circular
@@ -81,7 +81,7 @@ class GetPropertiesController(cement.Controller):
     def _default(self):
         args = self.app.pargs
         type = bpforms.util.get_form(args.alphabet)
-        
+
         try:
             form = type().from_str(args.seq)
         except Exception as error:
@@ -108,7 +108,7 @@ class GetPropertiesController(cement.Controller):
                     formula = OpenBabelUtils.get_formula(structure)
                     mol_wt = formula.get_molecular_weight()
                     charge = structure.GetTotalCharge()
-            
+
             if structure is None:
                 smiles = None
             else:
@@ -144,7 +144,7 @@ class GetMajorMicroSpeciesController(cement.Controller):
     def _default(self):
         args = self.app.pargs
         type = bpforms.util.get_form(args.alphabet)
-        
+
         try:
             form = type().from_str(args.seq)
         except Exception as error:
@@ -174,12 +174,15 @@ class BuildAlphabetsController(cement.Controller):
                                         help='If set, calculate the major tautomer')),
             (['--max-monomers'], dict(type=float, default=float('inf'),
                                       help='Maximum number of monomeric forms to build. Used for testing')),
+            (['--alphabet'], dict(type=str, default=None, dest='alphabets', action='append',
+                                  help='Id of alphabet to build. Defualt: build all alphabets')),
         ]
 
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        bpforms.util.build_alphabets(ph=args.ph, major_tautomer=args.major_tautomer, _max_monomers=args.max_monomers)
+        bpforms.util.build_alphabets(ph=args.ph, major_tautomer=args.major_tautomer, _max_monomers=args.max_monomers,
+                                     alphabets=args.alphabets)
         print('Alphabets successfully built')
 
 
