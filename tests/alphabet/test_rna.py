@@ -149,18 +149,18 @@ class RnaTestCase(unittest.TestCase):
 
     def test_RnaAlphabetBuilder_list_monomers(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
-        with mock.patch.object(rna.RnaAlphabetBuilder, 'get_nucleoside_details', return_value=(None, IdentifierSet())):
+        with mock.patch.object(rna.RnaAlphabetBuilder, 'get_nucleoside_details_from_modomics', return_value=(None, IdentifierSet())):
             alphabet = rna.RnaAlphabetBuilder().run(path=path)
         self.assertEqual(alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13'))
         self.assertTrue(os.path.isfile(path))
 
-    def test_RnaAlphabetBuilder_get_nucleoside_details(self):
+    def test_RnaAlphabetBuilder_get_nucleoside_details_from_modomics(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
         session = requests.Session()
-        self.assertEqual(rna.RnaAlphabetBuilder().get_nucleoside_details('A', session)[1],
+        self.assertEqual(rna.RnaAlphabetBuilder().get_nucleoside_details_from_modomics('A', session)[1],
                          IdentifierSet([Identifier('pubchem.compound', '60961')]))
-        self.assertEqual(rna.RnaAlphabetBuilder().get_nucleoside_details('(pN)2′3′>p', session), (None, IdentifierSet()))
-        self.assertEqual(rna.RnaAlphabetBuilder().get_nucleoside_details('Xm', session), (None, IdentifierSet()))
+        self.assertEqual(rna.RnaAlphabetBuilder().get_nucleoside_details_from_modomics('(pN)2′3′>p', session), (None, IdentifierSet()))
+        self.assertEqual(rna.RnaAlphabetBuilder().get_nucleoside_details_from_modomics('Xm', session), (None, IdentifierSet()))
 
     def test_RnaAlphabetBuilder_is_valid_nucleoside(self):
         path = os.path.join(self.dirname, 'alphabet.yml')

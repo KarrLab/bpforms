@@ -48,6 +48,20 @@ Advantages over `ProForma Proteoform Notation <http://www.topdownproteomics.org/
 * `BpForms` includes software for interpreting descriptions of non-canonical biopolymers. This enables calculations of properties such as chemical formulae, masses, and charges, which is essential for modeling and other applications.
 
 
+Advantages over RESID
+^^^^^^^^^^^^^^^^^^^^^
+
+* Each monomeric form in the `BpForms` protein alphabet has a defined structure. This gaurantees that polymers have well-defined structures. In constrast, RESID has numerous entires without defined structures.
+* The composability of the monomeric forms in the `BpForms` protein alphabet is well-defined. Each form has at most one left-binding-terminus (C) and at most one right-binding-terminus (N). This eliminates confusion about the meaning of composition monomeric forms with multiple N and C-termini. In contrast, RESID has numerous entries with multiple N or C-termini whose composition into polymers is ill-defined.
+* The `BpForms` protein alphabet encompasses entries from additional databases.
+
+
+Advantages over the RNA Modification Database
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Each monomeric form in the `BpForms` protein alphabet has a machine-readable structure. This gaurantees that polymers have well-defined structures. In constrast, RESID has numerous entires without defined structures. In contrast, the RNA Modification Database only provides images and CAS ids, neither or which can easily be converted into SMILES.
+
+
 Advantages over the Synthetic Biology Open Language (SBOL)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -56,11 +70,3 @@ Advantages over the Synthetic Biology Open Language (SBOL)
 * `BpForms` can capture uncertainity in the structures of biopolymers. This is essential for proteomics.
 * `BpForms` is easier to embed into other files such as SBML-encoded models.
 * `BpForms` includes software for interpreting descriptions of non-canonical biopolymers. This enables calculations of properties such as chemical formulae, masses, and charges, which is essential for modeling and other applications.
-
-
-Advantages over RESID
-^^^^^^^^^^^^^^^^^^^^^
-
-* Each monomeric form in the `BpForms` protein alphabet has a defined structure. This gaurantees that polymers have well-defined structures. In constrast, RESID has numerous entires without defined structures.
-* The composability of the monomeric forms in the `BpForms` protein alphabet is well-defined. Each form has at most one left-binding-terminus (C) and at most one right-binding-terminus (N). This eliminates confusion about the meaning of composition monomeric forms with multiple N and C-termini. In contrast, RESID has numerous entries with multiple N or C-termini whose composition into polymers is ill-defined.
-* The `BpForms` protein alphabet encompasses entries from additional databases.

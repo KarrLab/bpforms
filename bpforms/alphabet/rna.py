@@ -16,6 +16,7 @@ import io
 import openbabel
 import os.path
 import pkg_resources
+import re
 import requests
 import requests_cache
 import warnings
@@ -32,9 +33,11 @@ canonical_rna_alphabet = Alphabet().from_yaml(canonical_filename)
 class RnaAlphabetBuilder(AlphabetBuilder):
     """ Build RNA alphabet from MODOMICS """
 
-    INDEX_ENDPOINT = 'http://modomics.genesilico.pl/modifications/'
-    INDEX_ASCII_ENDPOINT = 'http://modomics.genesilico.pl/modifications/?base=all&type=all&display_ascii=Display+as+ASCII'
-    ENTRY_ENDPOINT = 'http://modomics.genesilico.pl/modifications/{}/'
+    MODOMICS_INDEX_ENDPOINT = 'http://modomics.genesilico.pl/modifications/'
+    MODOMICS_INDEX_ASCII_ENDPOINT = 'http://modomics.genesilico.pl/modifications/?base=all&type=all&display_ascii=Display+as+ASCII'
+    MODOMICS_ENTRY_ENDPOINT = 'http://modomics.genesilico.pl/modifications/{}/'
+    RNA_MOD_DB_INDEX_ENDPOINT = 'https://mods.rna.albany.edu/mods/modifications/search'
+    RNA_MOD_DB_ENTRY_ENDPOINT = 'https://mods.rna.albany.edu/mods/modifications/view/{}'
     MAX_RETRIES = 5
 
     def run(self, ph=None, major_tautomer=False, path=filename):
@@ -75,8 +78,24 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
         session.mount('http://', requests.adapters.HTTPAdapter(max_retries=self.MAX_RETRIES))
 
+        # build from databases
+        self.build_modomics(alphabet, session, ph=ph, major_tautomer=major_tautomer)
+        self.build_rna_mod_db(alphabet, session, ph=ph, major_tautomer=major_tautomer)
+
+        # return alphabet
+        return alphabet
+
+    def build_modomics(self, alphabet, session, ph=None, major_tautomer=False):
+        """ Build alphabet from MODOMICS
+
+        Args:
+            alphabet (:obj:`Alphabet`): alphabet
+            session (:obj:`requests_cache.core.CachedSession`): request cache session
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+        """
         # get originating monomeric forms
-        ascii_response = session.get(self.INDEX_ASCII_ENDPOINT)
+        ascii_response = session.get(self.MODOMICS_INDEX_ASCII_ENDPOINT)
         ascii_response.raise_for_status()
         stream = io.StringIO(ascii_response.text)
         stream.readline()
@@ -92,7 +111,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             base_monomer_short_names[short_name] = monomer[i + 2]
 
         # get index of nucleosides
-        response = session.get(self.INDEX_ENDPOINT)
+        response = session.get(self.MODOMICS_INDEX_ENDPOINT)
         response.raise_for_status()
 
         # get individual nucleosides and create monomeric forms
@@ -127,7 +146,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if new_nomenclature:
                 identifiers.add(Identifier('modomics.new_nomenclature', new_nomenclature))
 
-            structure, more_identifiers = self.get_nucleoside_details(id, session)
+            structure, more_identifiers = self.get_nucleoside_details_from_modomics(id, session)
             identifiers.update(more_identifiers)
 
             monomer = Monomer(
@@ -190,7 +209,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         # return alphabet
         return alphabet
 
-    def get_nucleoside_details(self, id, session):
+    def get_nucleoside_details_from_modomics(self, id, session):
         """ Get the structure of a nucleoside in the MODOMICS database
 
         Args:
@@ -200,7 +219,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             :obj:`openbabel.OBMol`: structure
             :obj:`IdentifierSet`: identifiers
         """
-        response = session.get(self.ENTRY_ENDPOINT.format(id))
+        response = session.get(self.MODOMICS_ENTRY_ENDPOINT.format(id))
         response.raise_for_status()
 
         doc = bs4.BeautifulSoup(response.text, 'html.parser')
@@ -229,6 +248,210 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 identifiers.add(Identifier('pubchem.compound', link.text))
 
         return mol, identifiers
+
+    def build_rna_mod_db(self, alphabet, session, ph=None, major_tautomer=False):
+        """ Build alphabet from the RNA Modification Database
+
+        Args:
+            alphabet (:obj:`Alphabet`): alphabet
+            session (:obj:`requests_cache.core.CachedSession`): request cache session
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+        """
+        ########################################
+        # get information from the RNA Modification Database
+
+        # parse index
+        response = session.get(self.RNA_MOD_DB_INDEX_ENDPOINT)
+        response.raise_for_status()
+        doc = bs4.BeautifulSoup(response.text, 'html.parser')
+        table = doc.find('table', {'class': 'searchresult'})
+        entry_ids = []
+        for row in table.find_all('tr')[1:]:
+            entry_ids.append(row.find('td').find('a').get('href').partition('/mods/modifications/view/')[2])
+
+        # parse entries
+        monomers = []
+        for entry_id in entry_ids:
+            response = session.get(self.RNA_MOD_DB_ENTRY_ENDPOINT.format(entry_id))
+            response.raise_for_status()
+
+            id = None
+            name = None
+            identifiers = IdentifierSet([Identifier('rnamods', str(entry_id))])
+            comments = []
+
+            doc = bs4.BeautifulSoup(response.text, 'html.parser')
+            div = doc.find('div', {'class': 'modView'})
+
+            dl = div.find('dl')
+            key = None
+            for child in dl.children:
+                if isinstance(child, bs4.element.Tag):
+                    if child.name == 'dt':
+                        key = child.text[0:-1]
+                    elif child.name == 'dd':
+                        if key == 'Symbol':
+                            id = child.text
+                        elif key == 'Common name':
+                            name = child.text
+                        elif key == 'CA registry numbers' and child.text.startswith('ribonucleoside '):
+                            cas_id = child.text[len('ribonucleoside '):].strip()
+                            if cas_id:
+                                identifiers.add(Identifier('cas', cas_id))
+
+            # comment
+            for p in div.find_all('p'):
+                label = p.find('span', {'class': 'refLabel'}).text
+                if label == 'Comment:':
+                    comments.append('<p>{}</p>'.format(re.sub(' \[\d+\]', '', p.text.partition('Comment:')[2].strip())))
+
+            # phylogenetic prevalance
+            table = div.find('table', {'class': 'phylotable'})
+            if table:
+                rows = table.find_all('tr')
+
+                domains = []
+                for cell in rows[1].find_all('th'):
+                    domains.append(cell.text.strip())
+
+                domain_dist = []
+                for row in rows[2:]:
+                    rna_type_obj = row.find('th')
+                    if rna_type_obj:
+                        rna_type = rna_type_obj.text.strip()
+                        assert rna_type.endswith('RNA')
+                        for domain, cell in zip(domains, row.find_all('td')):
+                            if cell.text:
+                                domain_dist.append(domain + ' ' + rna_type)
+
+                comments.append('<p>Phylogenetic distribution<ul><li>{}</li></ul></p>'.format(
+                    '</li><li>'.join(domain_dist)))
+
+            monomers.append(Monomer(id=id, name=name, identifiers=identifiers,
+                                    comments=' '.join(comments)))
+
+        ########################################
+        # corrections to the RNA Modification Database: incorrect or missing CAS ids
+        for monomer in monomers:
+            # incorrect ids
+            for identifier in monomer.identifiers:
+                if identifier.ns == 'cas':
+                    if identifier.id == '577773-09-02':
+                        identifier.id = '577773-09-2'
+
+                    elif identifier.id == '-56973-12-7':
+                        identifier.id = '56973-12-7'
+
+                    elif monomer.id == 'C+':
+                        identifier.id = '1221169-70-5'
+
+            # missing ids
+            if monomer.id == 'cnm5U':
+                monomer.identifiers.add(Identifier('cas', '58479-73-5'))
+
+            elif monomer.id == 'gcmnm5s2U':
+                monomer.identifiers.add(Identifier('cas', '1401688-11-6'))
+
+            elif monomer.id == 'gmnm5s2U':
+                monomer.identifiers.add(Identifier('cas', '1401688-10-5'))
+
+        ########################################
+        # get structures for entries from SciFinder
+
+        # save list of CAS ids to search for in SciFinder
+        rnamods_dirname = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rnamods'))
+        if not os.path.isdir(rnamods_dirname):
+            os.makedirs(rnamods_dirname) # pragma: no cover # already created to store .mol files
+
+        with open(os.path.join(rnamods_dirname, 'index.tsv'), 'w') as file:
+            csv_writer = csv.writer(file, dialect='excel-tab', quoting=csv.QUOTE_MINIMAL)
+            csv_writer.writerow(['RNA Modification Database Id', 'RNA Modification Database Symbol', 'Name', 'CAS Id', 'Comments'])
+            for monomer in monomers:
+                rnamods_id = ''
+                cas_id = ''
+                for identifier in monomer.identifiers:
+                    if identifier.ns == 'rnamods':
+                        rnamods_id = identifier.id
+                    elif identifier.ns == 'cas':
+                        cas_id = identifier.id
+                csv_writer.writerow([rnamods_id, monomer.id, monomer.name, cas_id, monomer.comments])
+
+        # Get structures from SciFinder and save to file (done manually at https://scifinder.cas.org)
+        # 1. Use `Substance Identifier` to find compounds by their CAS id
+        # 2. Select `Explore by Structure` > `Chemical Structure` in the context menu for the compound
+        # 3. Open the `Non-Java` structure viewer
+        # 4. Click the save icon
+        # 5. Save the structure in .mol format with the name equal to the CAS id
+
+        # Read structures from file
+        mol_conv = openbabel.OBConversion()
+        assert mol_conv.SetInFormat('mol'), 'Unable to set format to MOL'
+
+        smiles_conv = openbabel.OBConversion()
+        assert smiles_conv.SetInFormat('smi'), 'Unable to set format to SMILES'
+        assert smiles_conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
+        smiles_conv.SetOptions('c', smiles_conv.OUTOPTIONS)
+
+        for monomer in monomers:
+            for identifier in monomer.identifiers:
+                if identifier.ns == 'cas':
+                    cas_id = identifier.id
+                    break
+
+            # read .mol file
+            mol_filename = os.path.join(rnamods_dirname, cas_id + '.mol')
+            assert os.path.isfile(mol_filename)
+            mol = openbabel.OBMol()
+            mol_conv.ReadFile(mol, mol_filename)
+            smiles = smiles_conv.WriteString(mol)
+
+            # get major microspecies
+            if ph:
+                smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
+
+            # sanitize SMILES
+            mol = openbabel.OBMol()
+            smiles_conv.ReadString(mol, smiles)
+            smiles = smiles_conv.WriteString(mol)
+
+            mol = openbabel.OBMol()
+            smiles_conv.ReadString(mol, smiles)
+            smiles = smiles_conv.WriteString(mol)
+
+            # set structure
+            monomer.structure = smiles
+
+        ########################################
+        # Determine valid monomers and find 3' and 5' sites
+        for monomer in list(monomers):
+            assert self.is_valid_nucleoside(monomer), "Monomer {} does not appear to be a valid nucleoside".format(monomer.id)
+
+        ########################################
+        # merge monomers with alphabet
+        for monomer in monomers:
+            inchi = monomer.export('inchi').partition('/h')[0]
+            same_monomer = None
+            for test_monomer in alphabet.monomers.values():
+                if test_monomer.export('inchi').partition('/h')[0] == inchi and monomer.id != 'manQ':
+                    same_monomer = test_monomer
+                    break
+
+            if same_monomer:
+                if monomer.id not in [same_monomer.id, same_monomer.name]:
+                    same_monomer.synonyms.add(monomer.id)
+
+                if monomer.name not in [same_monomer.id, same_monomer.name]:
+                    same_monomer.synonyms.add(monomer.name)
+
+                same_monomer.identifiers.update(monomer.identifiers)
+
+                assert not same_monomer.comments, "Comments must be merged, which isn't implemented"
+                same_monomer.comments = monomer.comments
+            else:
+                code = monomer.id
+                assert code not in alphabet.monomers, "Code already used. Another code must be chosen."                
+                alphabet.monomers[code] = monomer
 
     def is_valid_nucleoside(self, monomer):
         """ Determine if nucleoside should be included in alphabet
@@ -261,7 +484,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         if termini:
             atom_b_idx = termini[0][0].GetIdx()
             atom_r_idx = termini[0][1].GetIdx()
-        else:
+        else: # pragma no cover: case not used by MODOMICS or the RNA Modification Database
             if atom_bs and not atom_rs:
                 atom_b_idx = atom_bs[0].GetIdx()
                 atom_r_idx = None
@@ -293,10 +516,10 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         """
         r_atom_2 = self.is_backbone_atom(b_atom)
         if not r_atom_2:
-            return False
+            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
         if not self.is_right_bond_atom(r_atom):
-            return False
+            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
         return r_atom_2.GetIdx() == r_atom.GetIdx()
 
@@ -326,7 +549,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if other_atom.GetAtomicNum() == 6:
                 c_1 = other_atom
         if c_1.GetFormalCharge() != 0:
-            return False
+            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
         other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_1)]
         tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_1)])
         other_atoms += [1] * (4 - tot_bond_order)
@@ -339,7 +562,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if other_atom.GetAtomicNum() == 6:
                 c_2 = other_atom
         if c_2.GetFormalCharge() != 0:
-            return False
+            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
         other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_2)]
         tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_2)])
         other_atoms += [1] * (4 - tot_bond_order)
@@ -352,7 +575,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if other_atom.GetAtomicNum() == 6 and other_atom.GetIdx() != c_1.GetIdx():
                 c_3 = other_atom
         if c_3.GetFormalCharge() != 0:
-            return False
+            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
         other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_3)]
         tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_3)])
         other_atoms += [1] * (4 - tot_bond_order)
@@ -365,7 +588,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if other_atom.GetAtomicNum() == 8:
                 r_atom_2 = other_atom
         if r_atom_2.GetFormalCharge() != 0:
-            return False
+            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
         return r_atom_2
 
