@@ -40,13 +40,45 @@ We recommend defining this attribute for each monomeric form. Theis attribute mu
 Linkages
 ^^^^^^^^
 
-The ``backbone-bond-atom``, ``backbone-displaced-atom``, ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe the linkages between the monomeric form and the backbone and between successive monomeric forms::
+The ``backbone-bond-atom``, ``backbone-displaced-atom``, ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe the linkages between the monomeric form and the backbone and between successive monomeric forms. The values of these attributes represent (i) the element in the monomeric form involved in the bond, (ii) the atom index of the element in the monomeric form involved in the bond, and (iii) the charge of atom involved in the bond.::
 
-    [id: "dI" |
-        structure: "O=C1NC=NC2=C1N=CN2"
+    [id: "dI"
+        | structure: "O=C1NC=NC2=C1N=CN2"
+        | backbone-bond-atom: N10
+        | backbone-displaced-atom: H10
         ]
 
 We recommend defining these attributes for each monomeric form. These attributes must be defined to calculate the structure, formula, molecular weight, and charge of the biopolymer.
+
+
+Circular topology
+^^^^^^^^^^^^^^^^^
+
+The ``circular`` attribute indicates that a biopolymer has a cicular topology::
+
+    AAA | circular
+
+
+Intrachain crosslinks
+^^^^^^^^^^^^^^^^^^^^^
+
+The ``crosslink``,  ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe additional covalent bonds between non-adjacent monomeric forms, such as DNA crosslinks caused chemotherapeutics and disulfide bonds between cysteines in proteins. The values of the ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes indicate the atoms involved in or displaced by the formation of each covalent bond. The values of these attributes represent (i) the index of the monomeric form involved in the bond, (ii) the element in the monomeric form involved in the bond, (iii) the atom index of the element in the monomeric form involved in the bond, and (iv) the charge of atom involved in the bond.::
+  
+  AC | crosslink: [
+    right-bond-atom: 1N4 |
+    left-bond-atom: 2C8 |
+    right-displaced-atom: 1H4+2 |
+    left-displaced-atom: 2H8+1
+    ]
+
+  AC | crosslink: [
+    left-bond-atom: 1C2 |
+    right-bond-atom: 2N1 |
+    left-displaced-atom: 1N1 |
+    left-displaced-atom: 1H1 |
+    left-displaced-atom: 1H1 |
+    right-displaced-atom: 2H1
+    ]
 
 
 Uncertainty
@@ -121,3 +153,7 @@ Examples
 * Protein::
 
     ARGKL[id: "AA0318" | structure: "COC(=O)[C@@H]([NH3+])CCCC[NH3+]"]YRCG[id: "AA0567" | structure: "CC=CC(=O)NCCCC[C@@H](C=O)[NH3+]"]
+
+* Cicular DNA::
+
+    ACGT | circular
