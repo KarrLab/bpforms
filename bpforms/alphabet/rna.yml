@@ -9,12 +9,12 @@ monomers:
     synonyms:
     - A
     identifiers:
+    - ns: modomics.new_nomenclature
+      id: A
     - ns: modomics.short_name
       id: A
     - ns: pubchem.compound
       id: '60961'
-    - ns: modomics.new_nomenclature
-      id: A
     structure: OCC1OC(C(C1O)O)n1cnc2c1ncnc2N
     backbone_bond_atoms:
     - molecule: Monomer
@@ -40,9 +40,9 @@ monomers:
     identifiers:
     - ns: pubchem.compound
       id: '6175'
-    - ns: modomics.new_nomenclature
-      id: C
     - ns: modomics.short_name
+      id: C
+    - ns: modomics.new_nomenclature
       id: C
     structure: OCC1OC(C(C1O)O)n1ccc(nc1=O)N
     backbone_bond_atoms:
@@ -67,12 +67,12 @@ monomers:
     synonyms:
     - G
     identifiers:
-    - ns: pubchem.compound
-      id: '6802'
     - ns: modomics.new_nomenclature
       id: G
     - ns: modomics.short_name
       id: G
+    - ns: pubchem.compound
+      id: '6802'
     structure: OCC1OC(C(C1O)O)n1cnc2c1nc(N)[nH]c2=O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -96,10 +96,10 @@ monomers:
     synonyms:
     - U
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: U
     - ns: pubchem.compound
       id: '6029'
+    - ns: modomics.new_nomenclature
+      id: U
     - ns: modomics.short_name
       id: U
     structure: OCC1OC(C(C1O)O)n1ccc(=O)[nH]c1=O
@@ -127,17 +127,17 @@ monomers:
       synthesis was carried out.</p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
     - m1Am
-    - œ
     - 1,2'-O-dimethyladenosine
+    - œ
     identifiers:
+    - ns: modomics.new_nomenclature
+      id: 01A
+    - ns: cas
+      id: 91101-00-7
     - ns: modomics.short_name
       id: m1Am
     - ns: rnamods
       id: '97'
-    - ns: cas
-      id: 91101-00-7
-    - ns: modomics.new_nomenclature
-      id: 01A
     structure: COC1C(O)C(OC1n1cnc2c1ncn(c2=N)C)CO
     base_monomers:
     - A
@@ -166,14 +166,14 @@ monomers:
     - 1,2'-O-dimethylguanosine
     - ε
     identifiers:
-    - ns: cas
-      id: 73667-71-7
-    - ns: modomics.short_name
-      id: m1Gm
-    - ns: modomics.new_nomenclature
-      id: 01G
     - ns: rnamods
       id: '96'
+    - ns: cas
+      id: 73667-71-7
+    - ns: modomics.new_nomenclature
+      id: 01G
+    - ns: modomics.short_name
+      id: m1Gm
     structure: COC1C(O)C(OC1n1cnc2c1nc(N)n(c2=O)C)CO
     base_monomers:
     - G
@@ -198,16 +198,16 @@ monomers:
     name: 1,2′-O-dimethylinosine
     comments: <p></p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li></ul></p>
     synonyms:
-    - m1Im
     - 1,2'-O-dimethylinosine
     - ξ
+    - m1Im
     identifiers:
+    - ns: rnamods
+      id: '19'
     - ns: modomics.new_nomenclature
       id: 019A
     - ns: modomics.short_name
       id: m1Im
-    - ns: rnamods
-      id: '19'
     - ns: cas
       id: 65150-69-8
     structure: COC1C(O)C(OC1n1cnc2c1ncn(c2=O)C)CO
@@ -235,17 +235,17 @@ monomers:
     comments: <p></p> <p>Phylogenetic distribution<ul><li>eukarya rRNA</li></ul></p>
     synonyms:
     - m1acp3Y
-    - α
     - 1-methyl-3-(3-amino-3-carboxypropyl) pseudouridine
+    - α
     identifiers:
+    - ns: modomics.new_nomenclature
+      id: 1309U
+    - ns: cas
+      id: 52777-29-4
     - ns: rnamods
       id: '86'
     - ns: modomics.short_name
       id: m1acp3Y
-    - ns: cas
-      id: 52777-29-4
-    - ns: modomics.new_nomenclature
-      id: 1309U
     structure: OCC1OC(C(C1O)O)c1cn(C)c(=O)n(c1=O)CCC(C(=O)[O-])[NH3+]
     base_monomers:
     - U
@@ -277,14 +277,14 @@ monomers:
     identifiers:
     - ns: cas
       id: 15763-06-1
-    - ns: rnamods
-      id: '1'
     - ns: modomics.new_nomenclature
       id: 1A
-    - ns: pubchem.compound
-      id: '27476'
     - ns: modomics.short_name
       id: m1A
+    - ns: pubchem.compound
+      id: '27476'
+    - ns: rnamods
+      id: '1'
     structure: OCC1OC(C(C1O)O)n1cnc2c1ncn(c2=N)C
     base_monomers:
     - A
@@ -316,14 +316,14 @@ monomers:
     - m1G
     - K
     identifiers:
+    - ns: pubchem.compound
+      id: '96373'
     - ns: modomics.short_name
       id: m1G
     - ns: rnamods
       id: '29'
     - ns: cas
       id: 2140-65-0
-    - ns: pubchem.compound
-      id: '96373'
     - ns: modomics.new_nomenclature
       id: 1G
     structure: OCC1OC(C(C1O)O)n1cnc2c1nc(N)n(c2=O)C
@@ -354,14 +354,14 @@ monomers:
     - m1I
     - O
     identifiers:
-    - ns: modomics.short_name
-      id: m1I
     - ns: pubchem.compound
       id: '65095'
     - ns: cas
       id: 2140-73-0
     - ns: modomics.new_nomenclature
       id: 19A
+    - ns: modomics.short_name
+      id: m1I
     - ns: rnamods
       id: '18'
     structure: OCC1OC(C(C1O)O)n1cnc2c1ncn(c2=O)C
@@ -389,17 +389,17 @@ monomers:
     comments: <p></p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li><li>eukarya
       rRNA</li></ul></p>
     synonyms:
-    - m1Y
     - ']'
+    - m1Y
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 19U
-    - ns: modomics.short_name
-      id: m1Y
-    - ns: rnamods
-      id: '55'
     - ns: cas
       id: 13860-38-3
+    - ns: modomics.short_name
+      id: m1Y
+    - ns: modomics.new_nomenclature
+      id: 19U
+    - ns: rnamods
+      id: '55'
     structure: OCC1OC(C(C1O)O)c1cn(C)c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -425,10 +425,10 @@ monomers:
     synonyms:
     - ±
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 28A
     - ns: modomics.short_name
       id: m2,8A
+    - ns: modomics.new_nomenclature
+      id: 28A
     structure: OCC1OC(C(C1O)O)n1c(C)nc2c1nc(C)nc2N
     base_monomers:
     - A
@@ -507,13 +507,28 @@ monomers:
   21C:
     id: 21C
     name: 2-lysidine
+    comments: <p>The registry number and Chemical Abstracts Index Name listed are
+      for the chloride salt. The registry number (144796-96-3) and Chemical Abstracts
+      Index Name (L-Lysine, N6-(1,4-dihydro-4-imino- 1-b-D-ribofuranosyl-2-pyrimidinyl)-)
+      assigned to the neutral nucleoside are less effective in retrieval of lysidine
+      literature. Alternate symbols are L and acp2C. The latter symbol is not recommended
+      because the notation acp has a different structural definition, and is more
+      commonly used in nucleoside acp3U. The common name "lysidine" was previously
+      assigned to 4,5-dihydro-2-methyl-1H-imidazole (registry number 534-26-9).</p>
+      <p>Phylogenetic distribution<ul><li>bacteria tRNA</li></ul></p>
     synonyms:
+    - k2C
+    - lysidine
     - '}'
     identifiers:
-    - ns: modomics.short_name
-      id: k2C
     - ns: modomics.new_nomenclature
       id: 21C
+    - ns: modomics.short_name
+      id: k2C
+    - ns: cas
+      id: 116120-47-9
+    - ns: rnamods
+      id: '28'
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)N1C=CC(=[NH+]C1NCCCCC(C(=O)[O-])[NH3+])N
     base_monomers:
     - C
@@ -544,16 +559,16 @@ monomers:
     - m2A
     - /
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2A
-    - ns: cas
-      id: 16526-56-0
-    - ns: pubchem.compound
-      id: '261450'
-    - ns: modomics.short_name
-      id: m2A
     - ns: rnamods
       id: '2'
+    - ns: pubchem.compound
+      id: '261450'
+    - ns: modomics.new_nomenclature
+      id: 2A
+    - ns: modomics.short_name
+      id: m2A
+    - ns: cas
+      id: 16526-56-0
     structure: OCC1OC(C(C1O)O)n1cnc2c1nc(C)nc2N
     base_monomers:
     - A
@@ -579,10 +594,10 @@ monomers:
     synonyms:
     - ÿ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2164A
     - ns: modomics.short_name
       id: ms2ct6A
+    - ns: modomics.new_nomenclature
+      id: 2164A
     structure: OC[C@H]1O[C@H](C(C1O)O)n1cnc2c1nc(SC)nc2C1C(=O)N[C@H](C1=O)[C@H](O)C
     base_monomers:
     - A
@@ -607,17 +622,17 @@ monomers:
     name: 2-methylthio-N6-(cis-hydroxyisopentenyl) adenosine
     comments: <p></p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - ms2io6A
     - ≠
+    - ms2io6A
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2160A
     - ns: cas
       id: 52049-48-6
-    - ns: modomics.short_name
-      id: ms2io6A
     - ns: rnamods
       id: '9'
+    - ns: modomics.short_name
+      id: ms2io6A
+    - ns: modomics.new_nomenclature
+      id: 2160A
     structure: OC/C(=C/CNc1nc(SC)nc2c1ncn2[C@@H]1O[C@@H]([C@@H](C1O)O)CO)/C
     base_monomers:
     - A
@@ -643,18 +658,18 @@ monomers:
     comments: <p></p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li><li>bacteria
       tRNA</li></ul></p>
     synonyms:
-    - ms2hn6A
     - ≈
     - 2-methylthio-N6-hydroxynorvalyl carbamoyladenosine
+    - ms2hn6A
     identifiers:
-    - ns: rnamods
-      id: '15'
     - ns: modomics.short_name
       id: ms2hn6A
-    - ns: cas
-      id: 146426-21-3
     - ns: modomics.new_nomenclature
       id: 2163A
+    - ns: cas
+      id: 146426-21-3
+    - ns: rnamods
+      id: '15'
     structure: CCC(C(C(=O)[O-])NC(=O)Nc1nc(SC)nc2c1ncn2[C@@H]1O[C@@H]([C@@H](C1O)O)CO)O
     base_monomers:
     - A
@@ -683,14 +698,14 @@ monomers:
     - ms2i6A
     - '*'
     identifiers:
-    - ns: pubchem.compound
-      id: '161337'
-    - ns: rnamods
-      id: '7'
     - ns: modomics.short_name
       id: ms2i6A
     - ns: modomics.new_nomenclature
       id: 2161A
+    - ns: pubchem.compound
+      id: '161337'
+    - ns: rnamods
+      id: '7'
     - ns: cas
       id: 20859-00-1
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1nc(SC)nc2NCC=C(C)C
@@ -719,13 +734,13 @@ monomers:
       without details. Source of tRNA: Thermodesulfobacterium commune.</p> <p>Phylogenetic
       distribution<ul><li>bacteria tRNA</li></ul></p>'
     synonyms:
-    - ∞
     - ms2m6A
+    - ∞
     identifiers:
-    - ns: modomics.short_name
-      id: ms2m6A
     - ns: modomics.new_nomenclature
       id: 621A
+    - ns: modomics.short_name
+      id: ms2m6A
     - ns: cas
       id: 13406-51-4
     - ns: rnamods
@@ -759,14 +774,14 @@ monomers:
     - 2-methylthio-N6-threonyl carbamoyladenosine
     - '['
     identifiers:
+    - ns: modomics.new_nomenclature
+      id: 2162A
+    - ns: modomics.short_name
+      id: ms2t6A
     - ns: rnamods
       id: '12'
     - ns: cas
       id: 70333-82-3
-    - ns: modomics.short_name
-      id: ms2t6A
-    - ns: modomics.new_nomenclature
-      id: 2162A
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1nc(SC)nc2NC(=O)NC(C(=O)[O-])C(O)C
     base_monomers:
     - A
@@ -792,10 +807,10 @@ monomers:
     synonyms:
     - ω
     identifiers:
-    - ns: modomics.short_name
-      id: se2U
     - ns: modomics.new_nomenclature
       id: 20U
+    - ns: modomics.short_name
+      id: se2U
     structure: OCC1OC(C(C1O)O)n1ccc(=O)[nH]c1=[Se]
     base_monomers:
     - U
@@ -821,18 +836,18 @@ monomers:
     comments: <p>Preliminary communication of structural characterization and chemical
       synthesis is given in.</p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li></ul></p>
     synonyms:
-    - s2Um
-    - ∏
     - 2-thio-2'-O-methyluridine
+    - ∏
+    - s2Um
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 02U
-    - ns: rnamods
-      id: '60'
-    - ns: cas
-      id: 113886-72-9
     - ns: modomics.short_name
       id: s2Um
+    - ns: modomics.new_nomenclature
+      id: 02U
+    - ns: cas
+      id: 113886-72-9
+    - ns: rnamods
+      id: '60'
     structure: COC1C(O)C(OC1n1ccc(=O)[nH]c1=S)CO
     base_monomers:
     - U
@@ -859,19 +874,19 @@ monomers:
       derivation of a final structure.</p> <p>Phylogenetic distribution<ul><li>archaea
       tRNA</li><li>bacteria tRNA</li></ul></p>
     synonyms:
-    - '%'
     - s2C
+    - '%'
     identifiers:
+    - ns: cas
+      id: 13239-97-9
+    - ns: rnamods
+      id: '23'
     - ns: pubchem.compound
       id: '3011746'
     - ns: modomics.short_name
       id: s2C
-    - ns: cas
-      id: 13239-97-9
     - ns: modomics.new_nomenclature
       id: 2C
-    - ns: rnamods
-      id: '23'
     structure: OCC1OC(C(C1O)O)n1ccc([nH+]c1=S)N
     base_monomers:
     - C
@@ -897,19 +912,19 @@ monomers:
     comments: <p></p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li><li>bacteria
       tRNA</li><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - s2U
     - '2'
+    - s2U
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2U
-    - ns: cas
-      id: 20235-78-3
     - ns: modomics.short_name
       id: s2U
-    - ns: pubchem.compound
-      id: '3036443'
+    - ns: cas
+      id: 20235-78-3
     - ns: rnamods
       id: '57'
+    - ns: pubchem.compound
+      id: '3036443'
+    - ns: modomics.new_nomenclature
+      id: 2U
     structure: OCC1OC(C(C1O)O)n1ccc(=O)[nH]c1=S
     base_monomers:
     - U
@@ -938,18 +953,18 @@ monomers:
       rRNA</li><li>bacteria rRNA</li><li>eukarya rRNA</li><li>eukarya mRNA</li><li>eukarya
       snRNA</li></ul></p>
     synonyms:
-    - ':'
-    - 2'-O-methyladenosine
     - Am
+    - 2'-O-methyladenosine
+    - ':'
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 0A
     - ns: rnamods
       id: '4'
     - ns: cas
       id: 2140-79-6
     - ns: modomics.short_name
       id: Am
+    - ns: modomics.new_nomenclature
+      id: 0A
     structure: COC1C(O)C(OC1n1cnc2c1ncnc2N)CO
     base_monomers:
     - A
@@ -978,8 +993,8 @@ monomers:
       rRNA</li><li>eukarya rRNA</li><li>eukarya mRNA</li><li>eukarya snRNA</li></ul></p>
     synonyms:
     - Cm
-    - 2'-O-methylcytidine
     - B
+    - 2'-O-methylcytidine
     identifiers:
     - ns: modomics.short_name
       id: Cm
@@ -987,10 +1002,10 @@ monomers:
       id: 0C
     - ns: pubchem.compound
       id: '150971'
-    - ns: cas
-      id: 2140-72-9
     - ns: rnamods
       id: '22'
+    - ns: cas
+      id: 2140-72-9
     structure: COC1C(O)C(OC1n1ccc(nc1=O)N)CO
     base_monomers:
     - C
@@ -1018,20 +1033,20 @@ monomers:
       tRNA</li><li>eukarya tRNA</li><li>archaea rRNA</li><li>bacteria rRNA</li><li>eukarya
       rRNA</li><li>eukarya mRNA</li><li>eukarya snRNA</li></ul></p>
     synonyms:
-    - '#'
-    - 2'-O-methylguanosine
     - Gm
+    - 2'-O-methylguanosine
+    - '#'
     identifiers:
-    - ns: rnamods
-      id: '32'
-    - ns: cas
-      id: 2140-71-8
     - ns: pubchem.compound
       id: '188959'
-    - ns: modomics.short_name
-      id: Gm
+    - ns: rnamods
+      id: '32'
     - ns: modomics.new_nomenclature
       id: 0G
+    - ns: modomics.short_name
+      id: Gm
+    - ns: cas
+      id: 2140-71-8
     structure: COC1C(O)C(OC1n1cnc2c1nc(N)[nH]c2=O)CO
     base_monomers:
     - G
@@ -1057,18 +1072,18 @@ monomers:
     comments: <p>More thorough characterization is reported in.</p> <p>Phylogenetic
       distribution<ul><li>eukarya rRNA</li></ul></p>
     synonyms:
-    - Im
     - 2'-O-methylinosine
     - ≤
+    - Im
     identifiers:
-    - ns: cas
-      id: 3881-21-8
-    - ns: rnamods
-      id: '81'
     - ns: modomics.new_nomenclature
       id: 09A
+    - ns: cas
+      id: 3881-21-8
     - ns: modomics.short_name
       id: Im
+    - ns: rnamods
+      id: '81'
     structure: COC1C(O)C(OC1n1cnc2c1nc[nH]c2=O)CO
     base_monomers:
     - A
@@ -1094,18 +1109,18 @@ monomers:
     comments: <p></p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li><li>eukarya
       tRNA</li><li>eukarya rRNA</li><li>eukarya snRNA</li></ul></p>
     synonyms:
-    - Ym
     - 2'-O-methylpseudouridine
     - Z
+    - Ym
     identifiers:
     - ns: rnamods
       id: '56'
     - ns: cas
       id: 2140-68-3
-    - ns: modomics.new_nomenclature
-      id: 09U
     - ns: modomics.short_name
       id: Ym
+    - ns: modomics.new_nomenclature
+      id: 09U
     structure: COC1C(O)C(OC1c1c[nH]c(=O)[nH]c1=O)CO
     base_monomers:
     - U
@@ -1134,17 +1149,17 @@ monomers:
       rRNA</li><li>eukarya mRNA</li><li>eukarya snRNA</li></ul></p>
     synonyms:
     - 2'-O-methyluridine
-    - J
     - Um
+    - J
     identifiers:
     - ns: cas
       id: 2140-76-3
     - ns: modomics.new_nomenclature
       id: 0U
-    - ns: modomics.short_name
-      id: Um
     - ns: rnamods
       id: '53'
+    - ns: modomics.short_name
+      id: Um
     structure: COC1C(O)C(OC1n1ccc(=O)[nH]c1=O)CO
     base_monomers:
     - U
@@ -1170,10 +1185,10 @@ monomers:
     synonyms:
     - Ͽ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 0503U
     - ns: modomics.short_name
       id: mcmo5Um
+    - ns: modomics.new_nomenclature
+      id: 0503U
     structure: COC(=O)COc1cn(c(=O)[nH]c1=O)[C@@H]1O[C@@H]([C@@H](C1OC)O)CO
     base_monomers:
     - U
@@ -1204,18 +1219,18 @@ monomers:
       \ Abstracts Index Name: Adenosine, 2'-O-b-D-ribofuranosyl-.</p> <p>Phylogenetic\
       \ distribution<ul><li>eukarya tRNA</li></ul></p>"
     synonyms:
+    - 2'-O-ribosyladenosine (phosphate)
     - Ar(p)
     - ^
-    - 2'-O-ribosyladenosine (phosphate)
     identifiers:
+    - ns: modomics.new_nomenclature
+      id: 00A
     - ns: cas
       id: 28050-13-7
     - ns: modomics.short_name
       id: Ar(p)
     - ns: rnamods
       id: '16'
-    - ns: modomics.new_nomenclature
-      id: 00A
     structure: OC[C@H]1O[C@H]([C@H](C1O)O[C@@H]1O[C@@H]([C@@H](C1O)O)COP(=O)([O-])[O-])n1cnc2c1ncnc2N
     base_monomers:
     - A
@@ -1243,20 +1258,20 @@ monomers:
       \ Index Name: Guanosine, 2'-O-b-D-ribofuranosyl-.</p> <p>Phylogenetic distribution<ul><li>eukarya\
       \ tRNA</li></ul></p>"
     synonyms:
+    - ℑ
     - 2'-O-ribosylguanosine (phosphate)
     - Gr(p)
-    - ℑ
     identifiers:
-    - ns: cas
-      id: 131293-20-4
-    - ns: pubchem.compound
-      id: '131365'
+    - ns: rnamods
+      id: '36'
     - ns: modomics.short_name
       id: Gr(p)
     - ns: modomics.new_nomenclature
       id: 00G
-    - ns: rnamods
-      id: '36'
+    - ns: pubchem.compound
+      id: '131365'
+    - ns: cas
+      id: 131293-20-4
     structure: OC[C@H]1O[C@H]([C@H](C1O)O[C@@H]1O[C@@H]([C@@H](C1O)O)COP(=O)([O-])[O-])n1cnc2c1nc(N)[nH]c2=O
     base_monomers:
     - G
@@ -1281,18 +1296,18 @@ monomers:
     name: 3,2′-O-dimethyluridine
     comments: <p></p> <p>Phylogenetic distribution<ul><li>eukarya mRNA</li></ul></p>
     synonyms:
-    - σ
-    - m3Um
     - 3,2'-O-dimethyluridine
+    - m3Um
+    - σ
     identifiers:
+    - ns: rnamods
+      id: '92'
+    - ns: cas
+      id: 7103-27-7
     - ns: modomics.new_nomenclature
       id: 03U
     - ns: modomics.short_name
       id: m3Um
-    - ns: cas
-      id: 7103-27-7
-    - ns: rnamods
-      id: '92'
     structure: COC1[C@@H](O)[C@H](O[C@H]1n1ccc(=O)n(c1=O)C)CO
     base_monomers:
     - U
@@ -1318,10 +1333,10 @@ monomers:
     synonyms:
     - Ð
     identifiers:
-    - ns: modomics.short_name
-      id: acp3D
     - ns: modomics.new_nomenclature
       id: 308U
+    - ns: modomics.short_name
+      id: acp3D
     structure: OCC1OC(C(C1O)O)N1CCC(=O)N(C1=O)CCC(C(=O)[O-])[NH3+]
     base_monomers:
     - U
@@ -1378,17 +1393,17 @@ monomers:
       discouraged.</p> <p>Phylogenetic distribution<ul><li>bacteria tRNA</li><li>archaea
       rRNA</li></ul></p>
     synonyms:
-    - acp3U
     - X
+    - acp3U
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 30U
     - ns: modomics.short_name
       id: acp3U
-    - ns: rnamods
-      id: '61'
     - ns: cas
       id: 52745-94-5
+    - ns: modomics.new_nomenclature
+      id: 30U
+    - ns: rnamods
+      id: '61'
     structure: OCC1OC(C(C1O)O)n1ccc(=O)n(c1=O)CCC(C(=O)[O-])[NH3+]
     base_monomers:
     - U
@@ -1417,14 +1432,14 @@ monomers:
     - m3C
     - "'"
     identifiers:
-    - ns: modomics.short_name
-      id: m3C
     - ns: rnamods
       id: '20'
-    - ns: cas
-      id: 2140-64-9
     - ns: modomics.new_nomenclature
       id: 3C
+    - ns: modomics.short_name
+      id: m3C
+    - ns: cas
+      id: 2140-64-9
     - ns: pubchem.compound
       id: '159649'
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1ccc([n+](c1=O)C)N
@@ -1457,14 +1472,14 @@ monomers:
     - m3Y
     - κ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 39U
+    - ns: modomics.short_name
+      id: m3Y
     - ns: rnamods
       id: '94'
     - ns: cas
       id: 81691-06-7
-    - ns: modomics.short_name
-      id: m3Y
+    - ns: modomics.new_nomenclature
+      id: 39U
     structure: OCC1OC(C(C1O)O)c1c[nH]c(=O)n(c1=O)C
     base_monomers:
     - U
@@ -1496,16 +1511,16 @@ monomers:
     - δ
     - m3U
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 3U
     - ns: rnamods
       id: '85'
-    - ns: modomics.short_name
-      id: m3U
-    - ns: pubchem.compound
-      id: '316991'
     - ns: cas
       id: 2140-69-4
+    - ns: pubchem.compound
+      id: '316991'
+    - ns: modomics.new_nomenclature
+      id: 3U
+    - ns: modomics.short_name
+      id: m3U
     structure: OCC1OC(C(C1O)O)n1ccc(=O)n(c1=O)C
     base_monomers:
     - U
@@ -1535,16 +1550,16 @@ monomers:
     - †
     - imG-14
     identifiers:
+    - ns: modomics.new_nomenclature
+      id: 4G
+    - ns: pubchem.compound
+      id: '477875'
     - ns: rnamods
       id: '100'
     - ns: cas
       id: 59327-60-5
     - ns: modomics.short_name
       id: imG-14
-    - ns: pubchem.compound
-      id: '477875'
-    - ns: modomics.new_nomenclature
-      id: 4G
     structure: OCC1OC(C(C1O)O)n1cnc2c1[nH]c1nc(cn1c2=O)C
     base_monomers:
     - G
@@ -1573,16 +1588,16 @@ monomers:
     - '4'
     - s4U
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 74U
-    - ns: modomics.short_name
-      id: s4U
     - ns: rnamods
       id: '58'
-    - ns: cas
-      id: 13957-31-8
     - ns: pubchem.compound
       id: '3954028'
+    - ns: modomics.short_name
+      id: s4U
+    - ns: modomics.new_nomenclature
+      id: 74U
+    - ns: cas
+      id: 13957-31-8
     structure: OCC1OC(C(C1O)O)n1ccc(=S)[nH]c1=O
     base_monomers:
     - U
@@ -1612,14 +1627,14 @@ monomers:
     - m5Cm
     - 5,2'-O-dimethylcytidine
     identifiers:
-    - ns: rnamods
-      id: '26'
     - ns: cas
       id: 113886-70-7
-    - ns: modomics.new_nomenclature
-      id: 05C
     - ns: modomics.short_name
       id: m5Cm
+    - ns: rnamods
+      id: '26'
+    - ns: modomics.new_nomenclature
+      id: 05C
     structure: COC1C(O)C(OC1n1cc(C)c(nc1=O)N)CO
     base_monomers:
     - C
@@ -1649,12 +1664,12 @@ monomers:
     - m5Um
     - 5,2'-O-dimethyluridine
     identifiers:
-    - ns: modomics.short_name
-      id: m5Um
     - ns: cas
       id: 55486-09-4
     - ns: modomics.new_nomenclature
       id: 05U
+    - ns: modomics.short_name
+      id: m5Um
     - ns: rnamods
       id: '54'
     structure: COC1C(O)C(OC1n1cc(C)c(=O)[nH]c1=O)CO
@@ -1682,10 +1697,10 @@ monomers:
     synonyms:
     - b
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 0522U
     - ns: modomics.short_name
       id: mchm5Um
+    - ns: modomics.new_nomenclature
+      id: 0522U
     structure: COC1[C@@H](O)[C@H](O[C@H]1n1cc(c(=O)[nH]c1=O)C(C(=O)OC)O)CO
     base_monomers:
     - U
@@ -1710,13 +1725,13 @@ monomers:
     name: 5-(carboxyhydroxymethyl)uridine methyl ester
     comments: <p></p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - ','
     - mchm5U
+    - ','
     identifiers:
-    - ns: cas
-      id: 89665-83-8
     - ns: modomics.new_nomenclature
       id: 522U
+    - ns: cas
+      id: 89665-83-8
     - ns: modomics.short_name
       id: mchm5U
     - ns: rnamods
@@ -1748,16 +1763,16 @@ monomers:
       Hashizume, T., Crain, P.F., Widdel, F.</p> <p>Phylogenetic distribution<ul><li>bacteria
       tRNA</li></ul></p>'
     synonyms:
-    - inm5s2U
-    - ½
     - 5-(isopentenylaminomethyl)- 2-thiouridine
+    - ½
+    - inm5s2U
     identifiers:
     - ns: rnamods
       id: '104'
-    - ns: modomics.new_nomenclature
-      id: 2583U
     - ns: modomics.short_name
       id: inm5s2U
+    - ns: modomics.new_nomenclature
+      id: 2583U
     - ns: cas
       id: 872710-78-6
     structure: OCC1OC(C(C1O)O)n1cc(C[NH2+]CC=C(C)C)c(=O)[nH]c1=S
@@ -1787,18 +1802,18 @@ monomers:
       Hashizume, T., Crain, P.F., Widdel, F.</p> <p>Phylogenetic distribution<ul><li>bacteria
       tRNA</li></ul></p>'
     synonyms:
-    - 5-(isopentenylaminomethyl)- 2'-O-methyluridine
     - ¼
     - inm5Um
+    - 5-(isopentenylaminomethyl)- 2'-O-methyluridine
     identifiers:
     - ns: modomics.short_name
       id: inm5Um
+    - ns: cas
+      id: 872710-80-0
     - ns: modomics.new_nomenclature
       id: 0583U
     - ns: rnamods
       id: '105'
-    - ns: cas
-      id: 872710-80-0
     structure: COC1C(O)C(OC1n1cc(C[NH2+]CC=C(C)C)c(=O)[nH]c1=O)CO
     base_monomers:
     - U
@@ -1826,17 +1841,17 @@ monomers:
       Hashizume, T., Crain, P.F., Widdel, F.</p> <p>Phylogenetic distribution<ul><li>bacteria
       tRNA</li></ul></p>'
     synonyms:
-    - ¾
     - inm5U
+    - ¾
     identifiers:
     - ns: rnamods
       id: '103'
     - ns: cas
       id: 872710-76-4
-    - ns: modomics.new_nomenclature
-      id: 583U
     - ns: modomics.short_name
       id: inm5U
+    - ns: modomics.new_nomenclature
+      id: 583U
     structure: OCC1OC(C(C1O)O)n1cc(C[NH2+]CC=C(C)C)c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -1862,10 +1877,10 @@ monomers:
     synonyms:
     - Δ
     identifiers:
-    - ns: modomics.short_name
-      id: nm5ges2U
     - ns: modomics.new_nomenclature
       id: 21510U
+    - ns: modomics.short_name
+      id: nm5ges2U
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH3+])c(=O)nc1SC/C=C(/CCC=C(C)C)\C
     base_monomers:
     - U
@@ -1922,15 +1937,15 @@ monomers:
       means. No chemical synthesis reported.</p> <p>Phylogenetic distribution<ul><li>bacteria
       tRNA</li></ul></p>
     synonyms:
-    - ∫
     - nm5s2U
+    - ∫
     identifiers:
+    - ns: rnamods
+      id: '71'
     - ns: cas
       id: 109666-14-0
     - ns: modomics.new_nomenclature
       id: 2510U
-    - ns: rnamods
-      id: '71'
     - ns: modomics.short_name
       id: nm5s2U
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH3+])c(=O)[nH]c1=S
@@ -1958,10 +1973,10 @@ monomers:
     synonyms:
     - ∪
     identifiers:
-    - ns: modomics.short_name
-      id: nm5U
     - ns: modomics.new_nomenclature
       id: 510U
+    - ns: modomics.short_name
+      id: nm5U
     structure: OCC1OC(C(C1O)O)n1cc(C[NH3+])c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -1987,10 +2002,10 @@ monomers:
     synonyms:
     - r
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 531U
     - ns: modomics.short_name
       id: nchm5U
+    - ns: modomics.new_nomenclature
+      id: 531U
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c(=O)[nH]c1=O)C(C(=O)N)O
     base_monomers:
     - U
@@ -2016,10 +2031,10 @@ monomers:
     synonyms:
     - l
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 253U
     - ns: modomics.short_name
       id: ncm5s2U
+    - ns: modomics.new_nomenclature
+      id: 253U
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(CC(=O)N)c(=O)[nH]c1=S
     base_monomers:
     - U
@@ -2047,17 +2062,17 @@ monomers:
       of ncm5Um is reported in.</p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
     - ncm5Um
-    - 5-carbamoylmethyl-2'-O-methyluridine
     - '~'
+    - 5-carbamoylmethyl-2'-O-methyluridine
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 053U
-    - ns: modomics.short_name
-      id: ncm5Um
     - ns: rnamods
       id: '76'
+    - ns: modomics.short_name
+      id: ncm5Um
     - ns: cas
       id: 60197-30-0
+    - ns: modomics.new_nomenclature
+      id: 053U
     structure: COC1C(O)C(OC1n1cc(CC(=O)N)c(=O)[nH]c1=O)CO
     base_monomers:
     - U
@@ -2082,17 +2097,17 @@ monomers:
     name: 5-carbamoylmethyluridine
     comments: <p></p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - ncm5U
     - '&'
+    - ncm5U
     identifiers:
+    - ns: cas
+      id: 29569-30-0
+    - ns: modomics.new_nomenclature
+      id: 53U
     - ns: modomics.short_name
       id: ncm5U
     - ns: rnamods
       id: '75'
-    - ns: modomics.new_nomenclature
-      id: 53U
-    - ns: cas
-      id: 29569-30-0
     structure: OCC1OC(C(C1O)O)n1cc(CC(=O)N)c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -2123,14 +2138,14 @@ monomers:
     - chm5U
     - ≥
     identifiers:
-    - ns: modomics.short_name
-      id: chm5U
+    - ns: rnamods
+      id: '66'
     - ns: modomics.new_nomenclature
       id: 520U
     - ns: cas
       id: 89708-80-5
-    - ns: rnamods
-      id: '66'
+    - ns: modomics.short_name
+      id: chm5U
     structure: OCC1OC(C(C1O)O)n1cc(c(=O)[nH]c1=O)C(C(=O)[O-])O
     base_monomers:
     - U
@@ -2184,18 +2199,18 @@ monomers:
     name: 5-carboxymethylaminomethyl-2-geranylthiouridine
     comments: <p>None</p> <p>Phylogenetic distribution<ul><li></li></ul></p>
     synonyms:
-    - f
-    - geranylated 5-carboxymethylaminomethyl-2-thiouridine
     - gcmnm5s2U
+    - geranylated 5-carboxymethylaminomethyl-2-thiouridine
+    - f
     identifiers:
     - ns: rnamods
       id: '119'
+    - ns: cas
+      id: 1401688-11-6
     - ns: modomics.short_name
       id: cmnm5ges2U
     - ns: modomics.new_nomenclature
       id: 2151U
-    - ns: cas
-      id: 1401688-11-6
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH2+]CC(=O)[O-])c(=O)nc1SC/C=C(/CCC=C(C)C)\C
     base_monomers:
     - U
@@ -2221,10 +2236,10 @@ monomers:
     synonyms:
     - ⊥
     identifiers:
-    - ns: modomics.short_name
-      id: cmnm5se2U
     - ns: modomics.new_nomenclature
       id: 2051U
+    - ns: modomics.short_name
+      id: cmnm5se2U
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH2+]CC(=O)[O-])c(=O)[nH]c1=[Se]
     base_monomers:
     - U
@@ -2250,19 +2265,19 @@ monomers:
     comments: <p>Alternate symbol is cmam5s2U.</p> <p>Phylogenetic distribution<ul><li>bacteria
       tRNA</li></ul></p>
     synonyms:
-    - $
     - cmnm5s2U
+    - $
     identifiers:
-    - ns: modomics.short_name
-      id: cmnm5s2U
-    - ns: pubchem.compound
-      id: '3037867'
     - ns: modomics.new_nomenclature
       id: 251U
-    - ns: rnamods
-      id: '79'
+    - ns: pubchem.compound
+      id: '3037867'
     - ns: cas
       id: 78173-95-2
+    - ns: modomics.short_name
+      id: cmnm5s2U
+    - ns: rnamods
+      id: '79'
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH2+]CC(=O)[O-])c(=O)[nH]c1=S
     base_monomers:
     - U
@@ -2292,18 +2307,18 @@ monomers:
       presented. A recent and more rigorous structural characterization is reported
       in.</p> <p>Phylogenetic distribution<ul><li>bacteria tRNA</li></ul></p>
     synonyms:
+    - 5-carboxymethylaminomethyl- 2'-O-methyluridine
     - )
     - cmnm5Um
-    - 5-carboxymethylaminomethyl- 2'-O-methyluridine
     identifiers:
-    - ns: cas
-      id: 110419-13-1
-    - ns: modomics.short_name
-      id: cmnm5Um
-    - ns: modomics.new_nomenclature
-      id: 051U
     - ns: rnamods
       id: '78'
+    - ns: modomics.short_name
+      id: cmnm5Um
+    - ns: cas
+      id: 110419-13-1
+    - ns: modomics.new_nomenclature
+      id: 051U
     structure: OCC1OC(C(C1O)OC)n1cc(C[NH2+]CC(=O)[O-])c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -2334,14 +2349,14 @@ monomers:
     identifiers:
     - ns: cas
       id: 69181-26-6
-    - ns: modomics.short_name
-      id: cmnm5U
-    - ns: rnamods
-      id: '77'
-    - ns: modomics.new_nomenclature
-      id: 51U
     - ns: pubchem.compound
       id: '194306'
+    - ns: modomics.short_name
+      id: cmnm5U
+    - ns: modomics.new_nomenclature
+      id: 51U
+    - ns: rnamods
+      id: '77'
     structure: OCC1OC(C(C1O)O)n1cc(C[NH2+]CC(=O)[O-])c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -2377,12 +2392,12 @@ monomers:
       id: '87'
     - ns: pubchem.compound
       id: '3080720'
-    - ns: cas
-      id: 20964-06-1
-    - ns: modomics.short_name
-      id: cm5U
     - ns: modomics.new_nomenclature
       id: 52U
+    - ns: modomics.short_name
+      id: cm5U
+    - ns: cas
+      id: 20964-06-1
     structure: OCC1OC(C(C1O)O)n1cc(CC(=O)[O-])c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -2407,18 +2422,18 @@ monomers:
     name: 5-cyanomethyluridine
     comments: <p>None</p> <p>Phylogenetic distribution<ul><li></li></ul></p>
     synonyms:
-    - cnm5U
-    - Ѷ
     - 5-cyanomethyl-uridine
+    - Ѷ
+    - cnm5U
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 55U
     - ns: rnamods
       id: '120'
-    - ns: modomics.short_name
-      id: cnm5U
+    - ns: modomics.new_nomenclature
+      id: 55U
     - ns: cas
       id: 58479-73-5
+    - ns: modomics.short_name
+      id: cnm5U
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(CC#N)c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -2443,18 +2458,18 @@ monomers:
     name: 5-formyl-2′-O-methylcytidine
     comments: <p></p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - °
-    - f5Cm
     - 5-formyl-2'-O-methylcytidine
+    - f5Cm
+    - °
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 071C
     - ns: rnamods
       id: '95'
-    - ns: cas
-      id: 176858-79-0
     - ns: modomics.short_name
       id: f5Cm
+    - ns: cas
+      id: 176858-79-0
+    - ns: modomics.new_nomenclature
+      id: 071C
     structure: COC1C(O)C(OC1n1cc(C=O)c(nc1=O)N)CO
     base_monomers:
     - C
@@ -2484,12 +2499,12 @@ monomers:
     identifiers:
     - ns: modomics.short_name
       id: f5C
-    - ns: modomics.new_nomenclature
-      id: 71C
-    - ns: cas
-      id: 148608-53-1
     - ns: rnamods
       id: '25'
+    - ns: cas
+      id: 148608-53-1
+    - ns: modomics.new_nomenclature
+      id: 71C
     structure: OCC1OC(C(C1O)O)n1cc(C=O)c(nc1=O)N
     base_monomers:
     - C
@@ -2515,10 +2530,10 @@ monomers:
     synonyms:
     - Ç
     identifiers:
-    - ns: modomics.short_name
-      id: ho5C
     - ns: modomics.new_nomenclature
       id: 50C
+    - ns: modomics.short_name
+      id: ho5C
     structure: OCC1OC(C(C1O)O)n1cc(O)c(nc1=O)N
     base_monomers:
     - C
@@ -2583,17 +2598,17 @@ monomers:
     comments: <p></p> <p>Phylogenetic distribution<ul><li>bacteria tRNA</li><li>eukarya
       tRNA</li></ul></p>
     synonyms:
-    - ho5U
     - ∝
+    - ho5U
     identifiers:
     - ns: rnamods
       id: '62'
-    - ns: modomics.new_nomenclature
-      id: 50U
-    - ns: modomics.short_name
-      id: ho5U
     - ns: cas
       id: 957-77-7
+    - ns: modomics.short_name
+      id: ho5U
+    - ns: modomics.new_nomenclature
+      id: 50U
     structure: OCC1OC(C(C1O)O)n1cc(O)c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -2623,12 +2638,12 @@ monomers:
     identifiers:
     - ns: modomics.short_name
       id: mcm5s2U
-    - ns: modomics.new_nomenclature
-      id: 2521U
-    - ns: rnamods
-      id: '70'
     - ns: cas
       id: 20299-15-4
+    - ns: rnamods
+      id: '70'
+    - ns: modomics.new_nomenclature
+      id: 2521U
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(CC(=O)OC)c(=O)[nH]c1=S
     base_monomers:
     - U
@@ -2653,18 +2668,18 @@ monomers:
     name: 5-methoxycarbonylmethyl-2′-O-methyluridine
     comments: <p></p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - 5-methoxycarbonylmethyl-2'-O-methyluridine
     - ∩
+    - 5-methoxycarbonylmethyl-2'-O-methyluridine
     - mcm5Um
     identifiers:
-    - ns: cas
-      id: 60197-31-1
     - ns: modomics.short_name
       id: mcm5Um
-    - ns: modomics.new_nomenclature
-      id: 0521U
     - ns: rnamods
       id: '69'
+    - ns: modomics.new_nomenclature
+      id: 0521U
+    - ns: cas
+      id: 60197-31-1
     structure: COC1C(O)C(OC1n1cc(CC(=O)OC)c(=O)[nH]c1=O)CO
     base_monomers:
     - U
@@ -2696,10 +2711,10 @@ monomers:
       id: 521U
     - ns: rnamods
       id: '68'
-    - ns: modomics.short_name
-      id: mcm5U
     - ns: cas
       id: 29428-50-0
+    - ns: modomics.short_name
+      id: mcm5U
     structure: OCC1OC(C(C1O)O)n1cc(CC(=O)OC)c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -2727,16 +2742,16 @@ monomers:
     - '5'
     - mo5U
     identifiers:
-    - ns: rnamods
-      id: '63'
-    - ns: cas
-      id: 35542-01-9
+    - ns: pubchem.compound
+      id: '169704'
     - ns: modomics.new_nomenclature
       id: 501U
     - ns: modomics.short_name
       id: mo5U
-    - ns: pubchem.compound
-      id: '169704'
+    - ns: rnamods
+      id: '63'
+    - ns: cas
+      id: 35542-01-9
     structure: OCC1OC(C(C1O)O)n1cc(OC)c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -2766,14 +2781,14 @@ monomers:
     - m5s2U
     - F
     identifiers:
-    - ns: modomics.short_name
-      id: m5s2U
-    - ns: pubchem.compound
-      id: '3035361'
-    - ns: modomics.new_nomenclature
-      id: 25U
     - ns: rnamods
       id: '59'
+    - ns: modomics.short_name
+      id: m5s2U
+    - ns: modomics.new_nomenclature
+      id: 25U
+    - ns: pubchem.compound
+      id: '3035361'
     - ns: cas
       id: 32738-09-3
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C)c(=O)[nH]c1=S
@@ -2800,16 +2815,16 @@ monomers:
     name: 5-methylaminomethyl-2-geranylthiouridine
     comments: <p>None</p> <p>Phylogenetic distribution<ul><li></li></ul></p>
     synonyms:
-    - h
     - gmnm5s2U
     - geranylated 5-methylaminomethyl-2-thiouridine
+    - h
     identifiers:
+    - ns: rnamods
+      id: '118'
     - ns: modomics.new_nomenclature
       id: 21511U
     - ns: modomics.short_name
       id: mnm5ges2U
-    - ns: rnamods
-      id: '118'
     - ns: cas
       id: 1401688-10-5
     structure: C[NH2+]Cc1cn(c(nc1=O)SC/C=C(/CCC=C(C)C)\C)[C@@H]1O[C@@H]([C@@H](C1O)O)CO
@@ -2840,19 +2855,19 @@ monomers:
       for example, in eukaryotic tRNA.</p> <p>Phylogenetic distribution<ul><li>archaea
       tRNA</li><li>bacteria tRNA</li></ul></p>
     synonyms:
-    - mnm5se2U
     - ≅
+    - mnm5se2U
     identifiers:
     - ns: modomics.short_name
       id: mnm5se2U
-    - ns: pubchem.compound
-      id: '6336326'
-    - ns: rnamods
-      id: '74'
-    - ns: modomics.new_nomenclature
-      id: 20511U
     - ns: cas
       id: 89314-80-7
+    - ns: rnamods
+      id: '74'
+    - ns: pubchem.compound
+      id: '6336326'
+    - ns: modomics.new_nomenclature
+      id: 20511U
     structure: C[NH2+]Cc1cn(c(=[Se])[nH]c1=O)[C@@H]1O[C@@H]([C@@H](C1O)O)CO
     base_monomers:
     - U
@@ -2881,16 +2896,16 @@ monomers:
     - mnm5s2U
     - S
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 2511U
     - ns: rnamods
       id: '73'
+    - ns: cas
+      id: 32860-54-1
+    - ns: modomics.new_nomenclature
+      id: 2511U
     - ns: pubchem.compound
       id: '3036488'
     - ns: modomics.short_name
       id: mnm5s2U
-    - ns: cas
-      id: 32860-54-1
     structure: C[NH2+]Cc1cn(c(=S)[nH]c1=O)[C@@H]1O[C@@H]([C@@H](C1O)O)CO
     base_monomers:
     - U
@@ -2916,17 +2931,17 @@ monomers:
     comments: <p>Alternate symbol is mam5U. More thorough characterization in.</p>
       <p>Phylogenetic distribution<ul><li>bacteria tRNA</li></ul></p>
     synonyms:
-    - mnm5U
     - '{'
+    - mnm5U
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 511U
-    - ns: rnamods
-      id: '72'
     - ns: cas
       id: 72667-55-1
+    - ns: modomics.new_nomenclature
+      id: 511U
     - ns: modomics.short_name
       id: mnm5U
+    - ns: rnamods
+      id: '72'
     structure: C[NH2+]Cc1cn(c(=O)[nH]c1=O)C1OC(C(C1O)O)CO
     base_monomers:
     - U
@@ -2956,16 +2971,16 @@ monomers:
     - '?'
     - m5C
     identifiers:
-    - ns: cas
-      id: 2140-61-6
     - ns: pubchem.compound
       id: '92918'
+    - ns: cas
+      id: 2140-61-6
+    - ns: modomics.new_nomenclature
+      id: 5C
     - ns: modomics.short_name
       id: m5C
     - ns: rnamods
       id: '21'
-    - ns: modomics.new_nomenclature
-      id: 5C
     structure: OCC1OC(C(C1O)O)n1cc(C)c(nc1=O)N
     base_monomers:
     - C
@@ -2996,17 +3011,17 @@ monomers:
       the authentic nucleoside was not made.</p> <p>Phylogenetic distribution<ul><li>eukarya
       chromosomal RNA</li></ul></p>
     synonyms:
-    - m5D
     - ρ
+    - m5D
     identifiers:
-    - ns: modomics.short_name
-      id: m5D
-    - ns: rnamods
-      id: '93'
-    - ns: cas
-      id: 23067-10-9
     - ns: modomics.new_nomenclature
       id: 58U
+    - ns: modomics.short_name
+      id: m5D
+    - ns: cas
+      id: 23067-10-9
+    - ns: rnamods
+      id: '93'
     structure: OCC1OC(C(C1O)O)N1CC(C)C(=O)NC1=O
     base_monomers:
     - U
@@ -3038,16 +3053,16 @@ monomers:
     - m5U
     - T
     identifiers:
-    - ns: rnamods
-      id: '52'
-    - ns: pubchem.compound
-      id: '445408'
-    - ns: modomics.short_name
-      id: m5U
     - ns: modomics.new_nomenclature
       id: 5U
+    - ns: modomics.short_name
+      id: m5U
+    - ns: rnamods
+      id: '52'
     - ns: cas
       id: 1463-10-1
+    - ns: pubchem.compound
+      id: '445408'
     structure: OCC1OC(C(C1O)O)n1cc(C)c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -3073,17 +3088,17 @@ monomers:
     comments: <p>Alternate symbol is taum5s2U. See also</p> <p>Phylogenetic distribution<ul><li>eukarya
       tRNA</li></ul></p>
     synonyms:
-    - ∃
     - tm5s2U
+    - ∃
     identifiers:
-    - ns: cas
-      id: 497258-54-5
-    - ns: modomics.short_name
-      id: tm5s2U
-    - ns: rnamods
-      id: '99'
     - ns: modomics.new_nomenclature
       id: 254U
+    - ns: cas
+      id: 497258-54-5
+    - ns: rnamods
+      id: '99'
+    - ns: modomics.short_name
+      id: tm5s2U
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(C[NH2+]CCS(=O)(=O)[O-])c(=O)[nH]c1=S
     base_monomers:
     - U
@@ -3109,17 +3124,17 @@ monomers:
     comments: <p>Alternate symbol is tau5U. See also</p> <p>Phylogenetic distribution<ul><li>eukarya
       tRNA</li></ul></p>
     synonyms:
-    - Ê
     - tm5U
+    - Ê
     identifiers:
     - ns: rnamods
       id: '98'
-    - ns: modomics.short_name
-      id: tm5U
-    - ns: cas
-      id: 497258-53-4
     - ns: modomics.new_nomenclature
       id: 54U
+    - ns: cas
+      id: 497258-53-4
+    - ns: modomics.short_name
+      id: tm5U
     structure: OCC1OC(C(C1O)O)n1cc(C[NH2+]CCS(=O)(=O)[O-])c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -3145,10 +3160,10 @@ monomers:
     synonyms:
     - ¥
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 47G
     - ns: modomics.short_name
       id: yW-86
+    - ns: modomics.new_nomenclature
+      id: 47G
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1[nH]c1nc(c(n1c2=O)CCC(C(=O)[O-])[NH3+])C
     base_monomers:
     - G
@@ -3203,10 +3218,10 @@ monomers:
     synonyms:
     - ⇑
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 348G
     - ns: modomics.short_name
       id: yW-58
+    - ns: modomics.new_nomenclature
+      id: 348G
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1n(C)c1n(c2=O)c(c(n1)C)CCC(C(=O)OC)[NH3+]
     base_monomers:
     - G
@@ -3235,14 +3250,14 @@ monomers:
     - ∉
     - preQ1
     identifiers:
-    - ns: cas
-      id: 66048-70-2
+    - ns: modomics.new_nomenclature
+      id: 101G
     - ns: modomics.short_name
       id: preQ1tRNA
     - ns: rnamods
       id: '48'
-    - ns: modomics.new_nomenclature
-      id: 101G
+    - ns: cas
+      id: 66048-70-2
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)C[NH3+]
     backbone_bond_atoms:
     - molecule: Monomer
@@ -3269,12 +3284,12 @@ monomers:
     - φ
     - preQ0
     identifiers:
-    - ns: modomics.short_name
-      id: preQ0tRNA
     - ns: modomics.new_nomenclature
       id: 100G
     - ns: cas
       id: 61210-21-7
+    - ns: modomics.short_name
+      id: preQ0tRNA
     - ns: rnamods
       id: '47'
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)C#N
@@ -3297,13 +3312,22 @@ monomers:
   7G:
     id: 7G
     name: 7-methylguanosine
+    comments: <p>First characterized as the base and later as the monoribonucleotide.</p>
+      <p>Phylogenetic distribution<ul><li>archaea tRNA</li><li>bacteria tRNA</li><li>eukarya
+      tRNA</li><li>archaea rRNA</li><li>bacteria rRNA</li><li>eukarya rRNA</li><li>eukarya
+      mRNA</li></ul></p>
     synonyms:
     - '7'
+    - m7G
     identifiers:
-    - ns: modomics.short_name
-      id: m7G
+    - ns: cas
+      id: 20244-86-4
     - ns: modomics.new_nomenclature
       id: 7G
+    - ns: modomics.short_name
+      id: m7G
+    - ns: rnamods
+      id: '31'
     structure: OC[C@@H]1O[C@@H](C([C@@H]1O)O)n1c[n+](c2c1N=C(N)NC2O)C
     base_monomers:
     - G
@@ -3331,14 +3355,14 @@ monomers:
     - â
     - m8A
     identifiers:
-    - ns: cas
-      id: 56973-12-7
-    - ns: modomics.new_nomenclature
-      id: 8A
-    - ns: modomics.short_name
-      id: m8A
     - ns: rnamods
       id: '114'
+    - ns: cas
+      id: 56973-12-7
+    - ns: modomics.short_name
+      id: m8A
+    - ns: modomics.new_nomenclature
+      id: 8A
     structure: OCC1OC(C(C1O)O)n1c(C)nc2c1ncnc2N
     base_monomers:
     - A
@@ -3368,14 +3392,14 @@ monomers:
     - N2,2'-O-dimethylguanosine
     - γ
     identifiers:
+    - ns: rnamods
+      id: '34'
+    - ns: modomics.new_nomenclature
+      id: 02G
     - ns: modomics.short_name
       id: m2Gm
     - ns: cas
       id: 135023-21-1
-    - ns: modomics.new_nomenclature
-      id: 02G
-    - ns: rnamods
-      id: '34'
     structure: COC1C(O)C(OC1n1cnc2c1nc(NC)[nH]c2=O)CO
     base_monomers:
     - G
@@ -3398,13 +3422,23 @@ monomers:
   027G:
     id: 027G
     name: N2,7,2′-O-trimethylguanosine
+    comments: '<p>Sources of tRNA: Aeropyrum pernix, Stetteria hydrogenophila. See
+      also: Noon, K.R. et al. (2003) J. Bacteriol., 185, 5483-5490. Coauthors for
+      this work: Van Wagoner, R.M., Hashizume, T., Nomura, M., Sako, Y.</p> <p>Phylogenetic
+      distribution<ul><li>archaea tRNA</li></ul></p>'
     synonyms:
+    - N2,7,2'-O-trimethylguanosine
+    - m2,7Gm
     - æ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 027G
     - ns: modomics.short_name
       id: m2,7Gm
+    - ns: rnamods
+      id: '106'
+    - ns: modomics.new_nomenclature
+      id: 027G
+    - ns: cas
+      id: 872710-82-2
     structure: OC[C@@H]1O[C@@H](C([C@@H]1O)OC)n1c[n+](c2c1[NH+]=C(NC)NC2O)C
     base_monomers:
     - G
@@ -3427,13 +3461,20 @@ monomers:
   27G:
     id: 27G
     name: N2,7-dimethylguanosine
+    comments: <p>This 5'-cap nucleoside is joined to the RNA through a unique 3'-triphosphate
+      bridge (GpppN...).</p> <p>Phylogenetic distribution<ul><li>eukarya mRNA</li></ul></p>
     synonyms:
     - ∨
+    - m2,7G
     identifiers:
     - ns: modomics.short_name
       id: m2,7G
     - ns: modomics.new_nomenclature
       id: 27G
+    - ns: rnamods
+      id: '90'
+    - ns: cas
+      id: 62122-07-0
     structure: OC[C@@H]1O[C@@H](C([C@@H]1O)O)n1c[n+](c2c1[NH+]=C(NC)NC2O)C
     base_monomers:
     - G
@@ -3461,18 +3502,18 @@ monomers:
       tRNAiMet was postulated to be m22Gm in, without experimental evidence.</p> <p>Phylogenetic
       distribution<ul><li>archaea tRNA</li></ul></p>
     synonyms:
-    - N2,N2,2'-O-trimethylguanosine
     - '|'
+    - N2,N2,2'-O-trimethylguanosine
     - m22Gm
     identifiers:
-    - ns: modomics.short_name
-      id: m2,2Gm
-    - ns: cas
-      id: 113886-73-0
     - ns: rnamods
       id: '35'
     - ns: modomics.new_nomenclature
       id: 022G
+    - ns: cas
+      id: 113886-73-0
+    - ns: modomics.short_name
+      id: m2,2Gm
     structure: COC1C(O)C(OC1n1cnc2c1nc([nH]c2=O)N(C)C)CO
     base_monomers:
     - G
@@ -3495,13 +3536,23 @@ monomers:
   227G:
     id: 227G
     name: N2,N2,7-trimethylguanosine
+    comments: <p>The structure was first assigned using material from 2-10S RNA from
+      Chinese hamster ovary cells, and later from snRNA from Novikoff hepatoma ascites
+      cells. More rigorous characterization of the synthetic nucleoside used for comparison
+      is given in.</p> <p>Phylogenetic distribution<ul><li>eukarya mRNA</li><li>eukarya
+      snRNA</li></ul></p>
     synonyms:
     - ∠
+    - m2,2,7G
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 227G
     - ns: modomics.short_name
       id: m2,2,7G
+    - ns: cas
+      id: 40027-70-1
+    - ns: modomics.new_nomenclature
+      id: 227G
+    - ns: rnamods
+      id: '91'
     structure: OC[C@@H]1O[C@@H](C([C@@H]1O)O)n1c[n+](c2c1[NH+]=C(NC2O)N(C)C)C
     base_monomers:
     - G
@@ -3527,17 +3578,17 @@ monomers:
     comments: <p></p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li><li>eukarya
       tRNA</li><li>bacteria rRNA</li><li>eukarya rRNA</li></ul></p>
     synonyms:
-    - m22G
     - R
+    - m22G
     identifiers:
-    - ns: rnamods
-      id: '33'
     - ns: modomics.new_nomenclature
       id: 22G
-    - ns: modomics.short_name
-      id: m2,2G
+    - ns: rnamods
+      id: '33'
     - ns: pubchem.compound
       id: '601633'
+    - ns: modomics.short_name
+      id: m2,2G
     - ns: cas
       id: 2140-67-2
     structure: OCC1OC(C(C1O)O)n1cnc2c1nc([nH]c2=O)N(C)C
@@ -3571,14 +3622,14 @@ monomers:
     identifiers:
     - ns: cas
       id: 2140-77-4
-    - ns: modomics.short_name
-      id: m2G
+    - ns: modomics.new_nomenclature
+      id: 2G
     - ns: pubchem.compound
       id: '3035422'
     - ns: rnamods
       id: '30'
-    - ns: modomics.new_nomenclature
-      id: 2G
+    - ns: modomics.short_name
+      id: m2G
     structure: OCC1OC(C(C1O)O)n1cnc2c1nc(NC)[nH]c2=O
     base_monomers:
     - G
@@ -3604,18 +3655,18 @@ monomers:
     comments: <p>More thorough characterization is reported in.</p> <p>Phylogenetic
       distribution<ul><li>bacteria rRNA</li></ul></p>
     synonyms:
+    - λ
     - N4,2'-O-dimethylcytidine
     - m4Cm
-    - λ
     identifiers:
     - ns: modomics.new_nomenclature
       id: 04C
-    - ns: modomics.short_name
-      id: m4Cm
-    - ns: cas
-      id: 13048-95-8
     - ns: rnamods
       id: '83'
+    - ns: cas
+      id: 13048-95-8
+    - ns: modomics.short_name
+      id: m4Cm
     structure: COC1C(O)C(OC1n1ccc(nc1=O)NC)CO
     base_monomers:
     - C
@@ -3642,18 +3693,18 @@ monomers:
       cannot be rigorously excluded.</p> <p>Phylogenetic distribution<ul><li>archaea
       tRNA</li></ul></p>
     synonyms:
-    - N4,N4,2'-O-trimethylcytidine
     - m42Cm
+    - N4,N4,2'-O-trimethylcytidine
     - β
     identifiers:
-    - ns: modomics.short_name
-      id: m4,4Cm
-    - ns: modomics.new_nomenclature
-      id: 044C
-    - ns: cas
-      id: 34218-81-0
     - ns: rnamods
       id: '107'
+    - ns: cas
+      id: 34218-81-0
+    - ns: modomics.new_nomenclature
+      id: 044C
+    - ns: modomics.short_name
+      id: m4,4Cm
     structure: COC1C(O)C(OC1n1ccc(nc1=O)N(C)C)CO
     base_monomers:
     - C
@@ -3679,10 +3730,10 @@ monomers:
     synonyms:
     - μ
     identifiers:
-    - ns: pubchem.compound
-      id: '3082389'
     - ns: modomics.short_name
       id: m4,4C
+    - ns: pubchem.compound
+      id: '3082389'
     - ns: modomics.new_nomenclature
       id: 44C
     structure: OCC1OC(C(C1O)O)n1ccc(nc1=O)N(C)C
@@ -3711,18 +3762,18 @@ monomers:
       synthesis is given in.</p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li><li>archaea
       rRNA</li></ul></p>
     synonyms:
-    - ac4Cm
-    - N4-acetyl-2'-O-methylcytidine
     - ℵ
+    - N4-acetyl-2'-O-methylcytidine
+    - ac4Cm
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 042C
-    - ns: modomics.short_name
-      id: ac4Cm
-    - ns: rnamods
-      id: '27'
     - ns: cas
       id: 113886-71-8
+    - ns: modomics.short_name
+      id: ac4Cm
+    - ns: modomics.new_nomenclature
+      id: 042C
+    - ns: rnamods
+      id: '27'
     structure: COC1C(O)C(OC1n1ccc(nc1=O)NC(=O)C)CO
     base_monomers:
     - C
@@ -3748,17 +3799,17 @@ monomers:
     comments: <p></p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li><li>bacteria
       tRNA</li><li>eukarya tRNA</li><li>archaea rRNA</li><li>eukarya rRNA</li></ul></p>
     synonyms:
-    - M
     - ac4C
+    - M
     identifiers:
-    - ns: rnamods
-      id: '24'
-    - ns: cas
-      id: 3768-18-1
-    - ns: modomics.short_name
-      id: ac4C
     - ns: modomics.new_nomenclature
       id: 42C
+    - ns: rnamods
+      id: '24'
+    - ns: modomics.short_name
+      id: ac4C
+    - ns: cas
+      id: 3768-18-1
     structure: OCC1OC(C(C1O)O)n1ccc(nc1=O)NC(=O)C
     base_monomers:
     - C
@@ -3790,12 +3841,12 @@ monomers:
     identifiers:
     - ns: modomics.short_name
       id: m4C
-    - ns: modomics.new_nomenclature
-      id: 4C
     - ns: rnamods
       id: '82'
     - ns: cas
       id: 10578-79-7
+    - ns: modomics.new_nomenclature
+      id: 4C
     structure: OCC1OC(C(C1O)O)n1ccc(nc1=O)NC
     base_monomers:
     - C
@@ -3825,14 +3876,14 @@ monomers:
     - m6Am
     - N6,2'-O-dimethyladenosine
     identifiers:
-    - ns: cas
-      id: 57817-83-1
+    - ns: modomics.short_name
+      id: m6Am
     - ns: modomics.new_nomenclature
       id: 06A
     - ns: rnamods
       id: '88'
-    - ns: modomics.short_name
-      id: m6Am
+    - ns: cas
+      id: 57817-83-1
     structure: COC1C(O)C(OC1n1cnc2c1ncnc2NC)CO
     base_monomers:
     - A
@@ -3859,18 +3910,18 @@ monomers:
       data, but it was not chemically characterized.</p> <p>Phylogenetic distribution<ul><li>eukarya
       mRNA</li></ul></p>
     synonyms:
-    - η
     - m62Am
+    - η
     - N6,N6,2'-O-trimethyladenosine
     identifiers:
-    - ns: cas
-      id: 30891-53-3
-    - ns: rnamods
-      id: '89'
-    - ns: modomics.short_name
-      id: m6,6Am
     - ns: modomics.new_nomenclature
       id: 066A
+    - ns: modomics.short_name
+      id: m6,6Am
+    - ns: rnamods
+      id: '89'
+    - ns: cas
+      id: 30891-53-3
     structure: COC1C(O)C(OC1n1cnc2c1ncnc2N(C)C)CO
     base_monomers:
     - A
@@ -3896,9 +3947,11 @@ monomers:
     comments: <p></p> <p>Phylogenetic distribution<ul><li>archaea rRNA</li><li>bacteria
       rRNA</li><li>eukarya rRNA</li></ul></p>
     synonyms:
-    - m62A
     - ζ
+    - m62A
     identifiers:
+    - ns: rnamods
+      id: '80'
     - ns: cas
       id: 2620-62-4
     - ns: modomics.short_name
@@ -3907,8 +3960,6 @@ monomers:
       id: 66A
     - ns: pubchem.compound
       id: '72266'
-    - ns: rnamods
-      id: '80'
     structure: OCC1OC(C(C1O)O)n1cnc2c1ncnc2N(C)C
     base_monomers:
     - A
@@ -3935,17 +3986,17 @@ monomers:
       refers to the trans-isomer, a cytokinin (registry number 6025-53-2).</p> <p>Phylogenetic
       distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - '`'
     - io6A
+    - '`'
     identifiers:
     - ns: rnamods
       id: '8'
+    - ns: modomics.new_nomenclature
+      id: 60A
     - ns: cas
       id: 15896-46-5
     - ns: modomics.short_name
       id: io6A
-    - ns: modomics.new_nomenclature
-      id: 60A
     structure: OCC(=CCNc1ncnc2c1ncn2C1OC(C(C1O)O)CO)C
     base_monomers:
     - A
@@ -3970,17 +4021,17 @@ monomers:
     name: N6-acetyladenosine
     comments: <p></p> <p>Phylogenetic distribution<ul><li>archaea tRNA</li></ul></p>
     synonyms:
-    - ac6A
     - ⇓
+    - ac6A
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 64A
-    - ns: cas
-      id: 16265-37-5
     - ns: modomics.short_name
       id: ac6A
+    - ns: cas
+      id: 16265-37-5
     - ns: rnamods
       id: '102'
+    - ns: modomics.new_nomenclature
+      id: 64A
     structure: OCC1OC(C(C1O)O)n1cnc2c1ncnc2NC(=O)C
     base_monomers:
     - A
@@ -4006,10 +4057,10 @@ monomers:
     synonyms:
     - Ϩ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 67A
     - ns: modomics.short_name
       id: f6A
+    - ns: modomics.new_nomenclature
+      id: 67A
     structure: O=CNc1ncnc2c1ncn2[C@@H]1O[C@@H]([C@@H](C1O)O)CO
     base_monomers:
     - A
@@ -4034,15 +4085,15 @@ monomers:
     name: N6-glycinylcarbamoyladenosine
     comments: <p></p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - ≡
     - g6A
+    - ≡
     identifiers:
-    - ns: rnamods
-      id: '10'
     - ns: modomics.new_nomenclature
       id: 65A
     - ns: cas
       id: 29902-55-4
+    - ns: rnamods
+      id: '10'
     - ns: modomics.short_name
       id: g6A
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1ncnc2NC(=O)NCC(=O)[O-]
@@ -4102,14 +4153,14 @@ monomers:
     - hn6A
     - √
     identifiers:
-    - ns: rnamods
-      id: '14'
     - ns: cas
       id: 146426-20-2
-    - ns: modomics.new_nomenclature
-      id: 63A
     - ns: modomics.short_name
       id: hn6A
+    - ns: rnamods
+      id: '14'
+    - ns: modomics.new_nomenclature
+      id: 63A
     structure: CCC(C(C(=O)[O-])NC(=O)Nc1ncnc2c1ncn2C1OC(C(C1O)O)CO)O
     base_monomers:
     - A
@@ -4137,19 +4188,19 @@ monomers:
       in early literature is IPA.</p> <p>Phylogenetic distribution<ul><li>bacteria
       tRNA</li><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - +
     - i6A
+    - +
     identifiers:
-    - ns: modomics.short_name
-      id: i6A
-    - ns: rnamods
-      id: '6'
-    - ns: modomics.new_nomenclature
-      id: 61A
     - ns: cas
       id: 7724-76-7
     - ns: pubchem.compound
       id: '266767'
+    - ns: modomics.short_name
+      id: i6A
+    - ns: modomics.new_nomenclature
+      id: 61A
+    - ns: rnamods
+      id: '6'
     structure: OCC1OC(C(C1O)O)n1cnc2c1ncnc2NCC=C(C)C
     base_monomers:
     - A
@@ -4180,12 +4231,12 @@ monomers:
     identifiers:
     - ns: modomics.short_name
       id: m6t6A
-    - ns: modomics.new_nomenclature
-      id: 662A
     - ns: rnamods
       id: '13'
     - ns: cas
       id: 39667-81-7
+    - ns: modomics.new_nomenclature
+      id: 662A
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1ncnc2N(C(=O)NC(C(=O)[O-])C(O)C)C
     base_monomers:
     - A
@@ -4217,12 +4268,12 @@ monomers:
     identifiers:
     - ns: rnamods
       id: '3'
-    - ns: modomics.new_nomenclature
-      id: 6A
     - ns: cas
       id: 1867-73-8
     - ns: modomics.short_name
       id: m6A
+    - ns: modomics.new_nomenclature
+      id: 6A
     structure: OCC1OC(C(C1O)O)n1cnc2c1ncnc2NC
     base_monomers:
     - A
@@ -4245,13 +4296,21 @@ monomers:
   62A:
     id: 62A
     name: N6-threonylcarbamoyladenosine
+    comments: <p>[1] reports characterization of the base of this nucleoside. The
+      L configuration for threonine in t6A was established in.</p> <p>Phylogenetic
+      distribution<ul><li>archaea tRNA</li><li>bacteria tRNA</li><li>eukarya tRNA</li></ul></p>
     synonyms:
+    - t6A
     - '6'
     identifiers:
-    - ns: modomics.short_name
-      id: t6A
+    - ns: rnamods
+      id: '11'
     - ns: modomics.new_nomenclature
       id: 62A
+    - ns: cas
+      id: 24719-82-2
+    - ns: modomics.short_name
+      id: t6A
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cnc2c1ncnc2NC(=O)NC(=O)C(C(O)C)N
     base_monomers:
     - A
@@ -4279,12 +4338,12 @@ monomers:
     - C+
     - ¿
     identifiers:
-    - ns: rnamods
-      id: '113'
-    - ns: modomics.short_name
-      id: C+
     - ns: modomics.new_nomenclature
       id: 20C
+    - ns: modomics.short_name
+      id: C+
+    - ns: rnamods
+      id: '113'
     - ns: cas
       id: 1221169-70-5
     structure: OCC1OC(C(C1O)O)n1ccc(=N)[nH+]c1NCCCCNC(=[NH2+])N
@@ -4322,12 +4381,12 @@ monomers:
     identifiers:
     - ns: modomics.short_name
       id: G+
-    - ns: modomics.new_nomenclature
-      id: 103G
     - ns: cas
       id: 148608-52-0
     - ns: rnamods
       id: '49'
+    - ns: modomics.new_nomenclature
+      id: 103G
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)C(=[NH2+])N
     backbone_bond_atoms:
     - molecule: Monomer
@@ -4383,16 +4442,16 @@ monomers:
     synonyms:
     - D
     identifiers:
+    - ns: rnamods
+      id: '51'
     - ns: cas
       id: 5627-05-4
+    - ns: modomics.new_nomenclature
+      id: 8U
     - ns: pubchem.compound
       id: '94312'
     - ns: modomics.short_name
       id: D
-    - ns: modomics.new_nomenclature
-      id: 8U
-    - ns: rnamods
-      id: '51'
     structure: OCC1OC(C(C1O)O)N1CCC(=O)NC1=O
     base_monomers:
     - U
@@ -4422,12 +4481,12 @@ monomers:
     identifiers:
     - ns: modomics.new_nomenclature
       id: 102G
-    - ns: modomics.short_name
-      id: oQtRNA
-    - ns: rnamods
-      id: '44'
     - ns: cas
       id: 107865-20-3
+    - ns: rnamods
+      id: '44'
+    - ns: modomics.short_name
+      id: oQtRNA
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)CNC1C2OC2C(C1O)O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -4451,17 +4510,17 @@ monomers:
     comments: <p>Symbol Q* is also used for either manQ, galQ, or a mixture of the
       two.</p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - galQ
     - '9'
+    - galQ
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 104G
     - ns: rnamods
       id: '45'
-    - ns: modomics.short_name
-      id: galQtRNA
+    - ns: modomics.new_nomenclature
+      id: 104G
     - ns: cas
       id: 60426-58-6
+    - ns: modomics.short_name
+      id: galQtRNA
     structure: OC[C@H]1O[C@H]([C@H](C1O)O)n1cc(c2c1nc(N)[nH]c2=O)CNC1C=CC(C1O[C@@H]1OC(CO)[C@@H]([C@H](C1O)O)O)O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -4511,9 +4570,19 @@ monomers:
   34830G:
     id: 34830G
     name: hydroxywybutosine
+    comments: <p>Nomenclature for the yW family of nucleosides is discussed in and.
+      Structural characterization was made from the acid-liberated base. A Chemical
+      Abstracts registry number was then assigned to the corresponding ribonucleoside.
+      Common name for the corresponding base is hydroxy-Y.</p> <p>Phylogenetic distribution<ul><li>eukarya
+      tRNA</li></ul></p>
     synonyms:
     - ⊆
+    - OHyW
     identifiers:
+    - ns: rnamods
+      id: '39'
+    - ns: cas
+      id: 84270-21-3
     - ns: modomics.new_nomenclature
       id: 34830G
     - ns: modomics.short_name
@@ -4547,14 +4616,14 @@ monomers:
     synonyms:
     - I
     identifiers:
-    - ns: modomics.new_nomenclature
-      id: 9A
-    - ns: cas
-      id: 58-63-9
-    - ns: modomics.short_name
-      id: I
     - ns: rnamods
       id: '17'
+    - ns: cas
+      id: 58-63-9
+    - ns: modomics.new_nomenclature
+      id: 9A
+    - ns: modomics.short_name
+      id: I
     - ns: pubchem.compound
       id: '6021'
     structure: OCC1OC(C(C1O)O)n1cnc2c1nc[nH]c2=O
@@ -4590,10 +4659,10 @@ monomers:
       id: 42G
     - ns: rnamods
       id: '101'
-    - ns: cas
-      id: 577773-09-2
     - ns: modomics.short_name
       id: imG2
+    - ns: cas
+      id: 577773-09-2
     structure: OCC1OC(C(C1O)O)n1cnc2c1[nH]c1nc(c(n1c2=O)C)C
     base_monomers:
     - G
@@ -4675,13 +4744,13 @@ monomers:
     comments: <p>Nomenclature for the yW family of nucleosides is discussed in and.</p>
       <p>Phylogenetic distribution<ul><li>archaea tRNA</li></ul></p>
     synonyms:
-    - mimG
     - ∑
+    - mimG
     identifiers:
-    - ns: rnamods
-      id: '42'
     - ns: modomics.short_name
       id: mimG
+    - ns: rnamods
+      id: '42'
     - ns: modomics.new_nomenclature
       id: 342G
     - ns: cas
@@ -4717,17 +4786,17 @@ monomers:
       the confusing use of Yr as a symbol for the base of hydroxywybutosine in.</p>
       <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - W
     - o2yW
+    - W
     identifiers:
-    - ns: rnamods
-      id: '38'
-    - ns: cas
-      id: 78355-49-4
-    - ns: modomics.short_name
-      id: o2yW
     - ns: modomics.new_nomenclature
       id: 34832G
+    - ns: modomics.short_name
+      id: o2yW
+    - ns: cas
+      id: 78355-49-4
+    - ns: rnamods
+      id: '38'
     structure: OOC(C(C(=O)OC)NC(=O)OC)Cc1c(C)nc2n1c(=O)c1c(n2C)n(cn1)[C@@H]1O[C@@H]([C@@H](C1O)O)CO
     base_monomers:
     - G
@@ -4758,19 +4827,19 @@ monomers:
       rRNA</li><li>bacteria rRNA</li><li>eukarya rRNA</li><li>bacteria tmRNA</li><li>eukarya
       snRNA</li></ul></p>
     synonyms:
-    - P
     - Y
+    - P
     identifiers:
-    - ns: modomics.short_name
-      id: Y
-    - ns: rnamods
-      id: '50'
-    - ns: pubchem.compound
-      id: '15047'
-    - ns: cas
-      id: 1445-07-4
     - ns: modomics.new_nomenclature
       id: 9U
+    - ns: rnamods
+      id: '50'
+    - ns: modomics.short_name
+      id: Y
+    - ns: cas
+      id: 1445-07-4
+    - ns: pubchem.compound
+      id: '15047'
     structure: OCC1OC(C(C1O)O)c1c[nH]c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -4799,14 +4868,14 @@ monomers:
     synonyms:
     - Q
     identifiers:
-    - ns: rnamods
-      id: '43'
+    - ns: modomics.new_nomenclature
+      id: 10G
     - ns: modomics.short_name
       id: QtRNA
     - ns: cas
       id: 57072-36-3
-    - ns: modomics.new_nomenclature
-      id: 10G
+    - ns: rnamods
+      id: '43'
     structure: OC[C@H]1O[C@H](C([C@H]1O)O)n1cc(c2c1nc(N)[nH]c2=O)CNC1C=CC(C1O)O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -4862,16 +4931,16 @@ monomers:
     - V
     - cmo5U
     identifiers:
-    - ns: modomics.short_name
-      id: cmo5U
     - ns: pubchem.compound
       id: '193091'
-    - ns: rnamods
-      id: '64'
     - ns: cas
       id: 28144-25-4
+    - ns: rnamods
+      id: '64'
     - ns: modomics.new_nomenclature
       id: 502U
+    - ns: modomics.short_name
+      id: cmo5U
     structure: OCC1OC(C(C1O)O)n1cc(OCC(=O)[O-])c(=O)[nH]c1=O
     base_monomers:
     - U
@@ -4897,19 +4966,19 @@ monomers:
     comments: <p>Alternate commonly used symbol is mV.</p> <p>Phylogenetic distribution<ul><li>bacteria
       tRNA</li></ul></p>
     synonyms:
-    - mcmo5U
     - υ
+    - mcmo5U
     identifiers:
-    - ns: cas
-      id: 66536-81-0
     - ns: pubchem.compound
       id: '191808'
+    - ns: modomics.new_nomenclature
+      id: 503U
     - ns: rnamods
       id: '65'
     - ns: modomics.short_name
       id: mcmo5U
-    - ns: modomics.new_nomenclature
-      id: 503U
+    - ns: cas
+      id: 66536-81-0
     structure: COC(=O)COc1cn(c(=O)[nH]c1=O)C1OC(C(C1O)O)CO
     base_monomers:
     - U
@@ -4942,14 +5011,14 @@ monomers:
     - yW
     - Y
     identifiers:
-    - ns: rnamods
-      id: '37'
-    - ns: modomics.short_name
-      id: yW
     - ns: modomics.new_nomenclature
       id: 3483G
+    - ns: modomics.short_name
+      id: yW
     - ns: cas
       id: 55196-46-8
+    - ns: rnamods
+      id: '37'
     structure: OCC1OC(C(C1O)O)n1cnc2c1n(C)c1n(c2=O)c(c(n1)C)CCC(C(=O)OC)NC(=O)OC
     base_monomers:
     - G
@@ -4978,141 +5047,20 @@ monomers:
       Symbol for the corresponding base is Yt.</p> <p>Phylogenetic distribution<ul><li>archaea
       tRNA</li><li>eukarya tRNA</li></ul></p>
     synonyms:
-    - imG
     - €
+    - imG
     identifiers:
     - ns: modomics.short_name
       id: imG
-    - ns: rnamods
-      id: '41'
-    - ns: modomics.new_nomenclature
-      id: 34G
     - ns: cas
       id: 52662-10-9
+    - ns: modomics.new_nomenclature
+      id: 34G
+    - ns: rnamods
+      id: '41'
     structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1n(C)c1n(c2=O)cc(n1)C
     base_monomers:
     - G
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    right_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 12
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 12
-  t6A:
-    id: t6A
-    name: N6-threonylcarbamoyladenosine
-    comments: <p>[1] reports characterization of the base of this nucleoside. The
-      L configuration for threonine in t6A was established in.</p> <p>Phylogenetic
-      distribution<ul><li>archaea tRNA</li><li>bacteria tRNA</li><li>eukarya tRNA</li></ul></p>
-    identifiers:
-    - ns: rnamods
-      id: '11'
-    - ns: cas
-      id: 24719-82-2
-    structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1ncnc2NC(=O)N[C@H](C(=O)[O-])[C@H](O)C
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    right_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 12
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 12
-  k2C:
-    id: k2C
-    name: lysidine
-    comments: <p>The registry number and Chemical Abstracts Index Name listed are
-      for the chloride salt. The registry number (144796-96-3) and Chemical Abstracts
-      Index Name (L-Lysine, N6-(1,4-dihydro-4-imino- 1-b-D-ribofuranosyl-2-pyrimidinyl)-)
-      assigned to the neutral nucleoside are less effective in retrieval of lysidine
-      literature. Alternate symbols are L and acp2C. The latter symbol is not recommended
-      because the notation acp has a different structural definition, and is more
-      commonly used in nucleoside acp3U. The common name "lysidine" was previously
-      assigned to 4,5-dihydro-2-methyl-1H-imidazole (registry number 534-26-9).</p>
-      <p>Phylogenetic distribution<ul><li>bacteria tRNA</li></ul></p>
-    identifiers:
-    - ns: rnamods
-      id: '28'
-    - ns: cas
-      id: 116120-47-9
-    structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1ccc(n/c/1=[NH+]\CCCC[C@@H](C(=O)[O-])[NH3+])N
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    right_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 12
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 12
-  m7G:
-    id: m7G
-    name: 7-methylguanosine
-    comments: <p>First characterized as the base and later as the monoribonucleotide.</p>
-      <p>Phylogenetic distribution<ul><li>archaea tRNA</li><li>bacteria tRNA</li><li>eukarya
-      tRNA</li><li>archaea rRNA</li><li>bacteria rRNA</li><li>eukarya rRNA</li><li>eukarya
-      mRNA</li></ul></p>
-    identifiers:
-    - ns: rnamods
-      id: '31'
-    - ns: cas
-      id: 20244-86-4
-    structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)[n+]1cn(c2c1nc(N)[nH]c2=O)C
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    right_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 12
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 12
-  OHyW:
-    id: OHyW
-    name: hydroxywybutosine
-    comments: <p>Nomenclature for the yW family of nucleosides is discussed in and.
-      Structural characterization was made from the acid-liberated base. A Chemical
-      Abstracts registry number was then assigned to the corresponding ribonucleoside.
-      Common name for the corresponding base is hydroxy-Y.</p> <p>Phylogenetic distribution<ul><li>eukarya
-      tRNA</li></ul></p>
-    identifiers:
-    - ns: rnamods
-      id: '39'
-    - ns: cas
-      id: 84270-21-3
-    structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1c(=O)n1c(CC(C(C(=O)OC)NC(=O)OC)O)c(nc1n2C)C
     backbone_bond_atoms:
     - molecule: Monomer
       element: O
@@ -5137,10 +5085,10 @@ monomers:
       number was then assigned to the corresponding ribonucleoside. Symbol for the
       corresponding base is Ye.</p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     identifiers:
-    - ns: rnamods
-      id: '40'
     - ns: cas
       id: 84270-20-2
+    - ns: rnamods
+      id: '40'
     structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cnc2c1c(=O)n1c(CC(C(C(=O)[O-])[NH3+])O)c(nc1n2C)C
     backbone_bond_atoms:
     - molecule: Monomer
@@ -5158,102 +5106,16 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
-  m2,7G:
-    id: m2,7G
-    name: N2,7-dimethylguanosine
-    comments: <p>This 5'-cap nucleoside is joined to the RNA through a unique 3'-triphosphate
-      bridge (GpppN...).</p> <p>Phylogenetic distribution<ul><li>eukarya mRNA</li></ul></p>
-    identifiers:
-    - ns: cas
-      id: 62122-07-0
-    - ns: rnamods
-      id: '90'
-    structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)[n+]1cn(c2c1nc(NC)[nH]c2=O)C
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    right_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 12
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 12
-  m2,2,7G:
-    id: m2,2,7G
-    name: N2,N2,7-trimethylguanosine
-    comments: <p>The structure was first assigned using material from 2-10S RNA from
-      Chinese hamster ovary cells, and later from snRNA from Novikoff hepatoma ascites
-      cells. More rigorous characterization of the synthetic nucleoside used for comparison
-      is given in.</p> <p>Phylogenetic distribution<ul><li>eukarya mRNA</li><li>eukarya
-      snRNA</li></ul></p>
-    identifiers:
-    - ns: rnamods
-      id: '91'
-    - ns: cas
-      id: 40027-70-1
-    structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)[n+]1cn(c2c1nc([nH]c2=O)N(C)C)C
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    right_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 12
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 12
-  m2,7Gm:
-    id: m2,7Gm
-    name: N2,7,2'-O-trimethylguanosine
-    comments: '<p>Sources of tRNA: Aeropyrum pernix, Stetteria hydrogenophila. See
-      also: Noon, K.R. et al. (2003) J. Bacteriol., 185, 5483-5490. Coauthors for
-      this work: Van Wagoner, R.M., Hashizume, T., Nomura, M., Sako, Y.</p> <p>Phylogenetic
-      distribution<ul><li>archaea tRNA</li></ul></p>'
-    identifiers:
-    - ns: cas
-      id: 872710-82-2
-    - ns: rnamods
-      id: '106'
-    structure: CO[C@@H]1[C@H](O)[C@H](O[C@H]1n1c[n+](c2c1[nH]c(NC)nc2=O)C)CO
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 28
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 28
-    right_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 7
-    right_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 7
   manQ:
     id: manQ
     name: mannosyl-queuosine
     comments: <p>Symbol Q* is also used for either manQ, galQ, or a mixture of the
       two.</p> <p>Phylogenetic distribution<ul><li>eukarya tRNA</li></ul></p>
     identifiers:
-    - ns: rnamods
-      id: '46'
     - ns: cas
       id: 60398-20-1
+    - ns: rnamods
+      id: '46'
     structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)n1cc(c2c1[nH]c(N)nc2=O)CN[C@H]1C=C[C@@H]([C@@H]1O[C@@H]1O[C@H](CO)[C@H]([C@@H]([C@@H]1O)O)O)O
     backbone_bond_atoms:
     - molecule: Monomer

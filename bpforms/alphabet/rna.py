@@ -362,7 +362,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         # save list of CAS ids to search for in SciFinder
         rnamods_dirname = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rnamods'))
         if not os.path.isdir(rnamods_dirname):
-            os.makedirs(rnamods_dirname) # pragma: no cover # already created to store .mol files
+            os.makedirs(rnamods_dirname)  # pragma: no cover # already created to store .mol files
 
         with open(os.path.join(rnamods_dirname, 'index.tsv'), 'w') as file:
             csv_writer = csv.writer(file, dialect='excel-tab', quoting=csv.QUOTE_MINIMAL)
@@ -433,7 +433,19 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             inchi = monomer.export('inchi').partition('/h')[0]
             same_monomer = None
             for test_monomer in alphabet.monomers.values():
-                if test_monomer.export('inchi').partition('/h')[0] == inchi and monomer.id != 'manQ':
+                if monomer.id == 'manQ':
+                    break
+
+                modomics_short_name = None
+                for identifier in test_monomer.identifiers:
+                    if identifier.ns == 'modomics.short_name':
+                        modomics_short_name = identifier.id
+                        break
+                if monomer.id == modomics_short_name:
+                    same_monomer = test_monomer
+                    break
+
+                if test_monomer.export('inchi').partition('/h')[0] == inchi:
                     same_monomer = test_monomer
                     break
 
@@ -450,7 +462,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 same_monomer.comments = monomer.comments
             else:
                 code = monomer.id
-                assert code not in alphabet.monomers, "Code already used. Another code must be chosen."                
+                assert code not in alphabet.monomers, "Code already used. Another code must be chosen."
                 alphabet.monomers[code] = monomer
 
     def is_valid_nucleoside(self, monomer):
@@ -484,7 +496,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         if termini:
             atom_b_idx = termini[0][0].GetIdx()
             atom_r_idx = termini[0][1].GetIdx()
-        else: # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+        else:  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
             if atom_bs and not atom_rs:
                 atom_b_idx = atom_bs[0].GetIdx()
                 atom_r_idx = None
@@ -516,10 +528,10 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         """
         r_atom_2 = self.is_backbone_atom(b_atom)
         if not r_atom_2:
-            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
         if not self.is_right_bond_atom(r_atom):
-            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
         return r_atom_2.GetIdx() == r_atom.GetIdx()
 
@@ -549,7 +561,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if other_atom.GetAtomicNum() == 6:
                 c_1 = other_atom
         if c_1.GetFormalCharge() != 0:
-            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
         other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_1)]
         tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_1)])
         other_atoms += [1] * (4 - tot_bond_order)
@@ -562,7 +574,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if other_atom.GetAtomicNum() == 6:
                 c_2 = other_atom
         if c_2.GetFormalCharge() != 0:
-            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
         other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_2)]
         tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_2)])
         other_atoms += [1] * (4 - tot_bond_order)
@@ -575,7 +587,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if other_atom.GetAtomicNum() == 6 and other_atom.GetIdx() != c_1.GetIdx():
                 c_3 = other_atom
         if c_3.GetFormalCharge() != 0:
-            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
         other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_3)]
         tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_3)])
         other_atoms += [1] * (4 - tot_bond_order)
@@ -588,7 +600,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             if other_atom.GetAtomicNum() == 8:
                 r_atom_2 = other_atom
         if r_atom_2.GetFormalCharge() != 0:
-            return False # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
         return r_atom_2
 
