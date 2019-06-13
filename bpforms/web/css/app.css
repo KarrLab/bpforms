@@ -58,6 +58,11 @@ pre {
 .monomer {
     border: 1px solid #ccc;
 }
+.monomer img {
+    width: 250px; 
+    height: 150px; 
+    display: block;
+}
 .monomer .code {
     background: #ccc;
     color: #fff;

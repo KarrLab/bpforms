@@ -22,9 +22,9 @@ set_alphabet = function(data, status, jqXHR) {
         if (monomer['structure'] == null) {
             img = ''
         } else {
-            img = '<img src="/api/alphabet/' + alphabet_id + '/' + code + '/png/">'
+            img = '<img class="lazy" data-src="/img/alphabet/' + alphabet_id + '/' + code + '.png">'
         }
-        html += '<div class="structure">' + img + '</div>'        
+        html += '<div class="structure">' + img + '</div>'
         
         // show/hide details
         html += '<div class="toggle" id="monomer_' + i_monomer.toString() + '_toggle">'
@@ -88,9 +88,17 @@ set_alphabet = function(data, status, jqXHR) {
                         ns_short = 'PDB'
                         url = 'http://www.rcsb.org/ligand/' + identifiers[i]['id']
                         break;
+                    case 'pdb-ccd':
+                        ns_short = 'PDB'
+                        url = 'http://www.rcsb.org/ligand/' + identifiers[i]['id']
+                        break;
                     case 'pubchem.compound':
                         ns_short = 'PubChem'
                         url = 'https://pubchem.ncbi.nlm.nih.gov/compound/' + identifiers[i]['id']
+                        break;
+                    case 'resid':
+                        ns_short = 'RESID'
+                        url = 'https://annotation.dbi.udel.edu/cgi-bin/resid?id=' + identifiers[i]['id']
                         break;
                         
                 }
@@ -153,6 +161,9 @@ set_alphabet = function(data, status, jqXHR) {
     }
 
     $("#alphabet_container").html(html)
+    $(function() {
+        $('.lazy').Lazy();
+    });
 }
 
 get_alphabet_error = function( jqXHR, textStatus, errorThrown ) {
