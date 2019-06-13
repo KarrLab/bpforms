@@ -8,7 +8,7 @@ set_alphabet = function(data, status, jqXHR) {
     
     var html = ''
     
-    codes = data['monomers'].keys()
+    codes = Object.keys(data['monomers'])
     codes.sort()
     for (code in codes) {
         monomer = data['monomers'][code]
