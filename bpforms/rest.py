@@ -252,7 +252,7 @@ def get_monomer(alphabet, monomer, format):
     Args:
         alphabet (:obj:`str`): id of the alphabet
         monomer (:obj:`str`): code of a monomeric form
-        format (:obj:`str`): output format (e.g. "json" or "svg")
+        format (:obj:`str`): output format ("emf", "eps", "jpeg", "json", "msbmp", "pdf", "png" or "svg")
 
     Returns:
         :obj:`object`: dictionary representation of an monomer or SVG-encoded image of a monomer
@@ -270,8 +270,24 @@ def get_monomer(alphabet, monomer, format):
     if format == 'json':
         return get_monomer_properties(alphabet, monomer)
 
-    elif format == 'svg':
-        return flask.Response(monomer_obj.get_image(width=250, height=150), mimetype='image/svg+xml')
+    elif format in ['emf', 'eps', 'jpeg', 'msbmp', 'png', 'pdf', 'svg']:
+        if format == 'emf':
+            mimetype = 'image/emf'
+        elif format == 'eps':
+            mimetype = 'application/postscript'
+        elif format == 'jpeg':
+            mimetype = 'image/jpeg'
+        elif format == 'msbmp':
+            mimetype = 'image/bmp'
+        elif format == 'png':
+            mimetype = 'image/png'
+        elif format == 'pdf':
+            mimetype = 'application/pdf'
+        elif format == 'svg':
+            mimetype = 'image/svg+xml'
+
+        return flask.Response(monomer_obj.get_image(image_format=format, width=250, height=150), 
+            mimetype=mimetype)
 
     else:
         flask_restplus.abort(400, 'Invalid format "{}"'.format(format))
