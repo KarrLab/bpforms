@@ -14,6 +14,7 @@ from ftplib import FTP
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils, get_major_micro_species
 from xml.etree.ElementTree import ElementTree
 import glob
+import jnius
 import openbabel
 import os.path
 import pkg_resources
@@ -332,7 +333,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     continue  # pragma: no cover # element is always present
 
                 if ph:
-                    smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
+                    try:
+                        smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
+                    except jnius.JavaException:
+                        continue
 
                 mol = openbabel.OBMol()
                 conv.ReadString(mol, smiles)
