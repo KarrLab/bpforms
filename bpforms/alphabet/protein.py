@@ -257,8 +257,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
             dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         """
-        filename = pkg_resources.resource_filename('bpforms',
-                                                   os.path.join('alphabet', 'PDB', 'components-pub-xml.tar.gz'))
+        dirname = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'PDB'))
+        if not os.path.isdir(dirname):
+            os.makedirs(dirname)
+        filename = os.path.join(dirname, 'components-pub-xml.tar.gz')
         if not os.path.isfile(filename):
             response = requests.get('http://ligand-expo.rcsb.org/dictionaries/components-pub-xml.tar.gz')
             response.raise_for_status()
