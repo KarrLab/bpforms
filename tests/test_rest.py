@@ -11,10 +11,12 @@ from bpforms import rest
 from bpforms.alphabet import dna
 from wc_utils.util.chem import EmpiricalFormula
 import bpforms
+import imghdr
 import importlib
 import mock
 import os
 import shutil
+import tempfile
 import unittest
 import warnings
 
@@ -201,6 +203,15 @@ class RestTestCase(unittest.TestCase):
         rv = client.get('/api/alphabet/dna/A/svg/')
         self.assertEqual(rv.status_code, 200)
         self.assertTrue(rv.data.decode('utf-8').startswith('<?xml'))
+
+        rv = client.get('/api/alphabet/dna/A/png/')
+        self.assertEqual(rv.status_code, 200)
+        png_file, png_filename = tempfile.mkstemp()
+        os.close(png_file)
+        with open(png_filename, 'wb') as file:
+            file.write(rv.data)
+        self.assertEqual(imghdr.what(png_filename), 'png')
+        os.remove(png_filename)
 
         rv = client.get('/api/alphabet/lipid/A/')
         self.assertEqual(rv.status_code, 400)

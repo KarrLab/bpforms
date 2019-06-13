@@ -12,6 +12,7 @@ from bpforms.alphabet import protein
 from bpforms.alphabet import rna
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
 import copy
+import imghdr
 import lark.exceptions
 import mock
 import openbabel
@@ -558,6 +559,14 @@ class MonomerTestCase(unittest.TestCase):
         self.assertTrue(svg.startswith('<svg'))
 
         self.assertEqual(core.Monomer().get_image(), None)
+
+        png = dna.dna_alphabet.monomers.A.get_image(image_format='png', width=250, height=150)
+        tempdir = tempfile.mkdtemp()
+        tmpfile = os.path.join(tempdir, 'test.png')
+        with open(tmpfile, 'wb') as file:
+            file.write(png)
+        self.assertEqual(imghdr.what(tmpfile), 'png')
+        shutil.rmtree(tempdir)
 
     def test_blend_color_opacity(self):
         self.assertEqual(core.Monomer._blend_color_opacity(0xff0000, 255), 0xff0000)
