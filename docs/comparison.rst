@@ -22,6 +22,7 @@ Advantages over MODOMICS
 
 * `BpForms` can represent DNA, RNA, and proteins including the diversity of ids of monomeric forms used by MODOMICS, RESID, and other databases.
 * `BpForms` can represent any modification, and is not limited to the modifications catalogued in MODOMICS.
+* `BpForms` concretely captures the bonds between adjacent monomeric forms, avoiding ambiguity about how monomeric forms are composed into polymers. This is particularly important for monomeric forms that have multiple 3' and 5' sites.
 * `BpForms` can represent bonds between non-adjacent monomeric forms, such as crosslinks.
 * `BpForms` can represent circular biopolymers.
 * `BpForms` can capture uncertainity in the structures of biopolymers. This is essential for proteomics.
@@ -38,6 +39,7 @@ Advantages over `ProForma Proteoform Notation <http://www.topdownproteomics.org/
 
 * `BpForms` can represent DNA, RNA, and proteins.
 * `BpForms` can represent any modification and, therefore, is not limited to modifications that have been previously enumerated in databases and ontologies. This is necessary to represent the combinatorial complexity of non-canonical DNA, RNA, and proteins.
+* `BpForms` concretely captures the bonds between adjacent monomeric forms, avoiding ambiguity about how monomeric forms are composed into polymers. This is particularly important for monomeric forms that have multiple C and N termini, which affects numerous entries in RESID.
 * `BpForms` can represent monomeric forms which can only bind to the right and left or which don't have backbones such as 3' and 5' caps.
 * `BpForms` can represent bonds between non-adjacent monomeric forms, such as disulfide bonds.
 * `BpForms` can represent circular biopolymers.
