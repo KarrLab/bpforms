@@ -35,29 +35,32 @@ canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
 
 
 class ProteinAlphabetBuilder(AlphabetBuilder):
-    """ Build protein alphabet from `RESID <https://proteininformationresource.org/resid/>`_ """
+    """ Build protein alphabet from the `PDB Chemical Component Dictionary <http://www.wwpdb.org/data/ccd>` and 
+    `RESID <https://proteininformationresource.org/resid/>`_ """
 
     MAX_RETRIES = 5
 
-    def run(self, ph=None, major_tautomer=False, path=filename):
+    def run(self, ph=None, major_tautomer=False, dearomatize=False, path=filename):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
             ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
             path (:obj:`str`, optional): path to save alphabet
 
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
+        return super(ProteinAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize, path=path)
 
-    def build(self, ph=None, major_tautomer=False):
+    def build(self, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet
 
         Args:
             ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
 
         Returns:
             :obj:`Alphabet`: alphabet
@@ -68,25 +71,26 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # load canonical monomeric forms
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'protein'
-        alphabet.name = 'protein residues'
+        alphabet.name = 'Protein residues'
         alphabet.description = ('The 20 canonical protein residues, plus the non-canonical protein residues in the '
                                 '<a href="http://www.wwpdb.org/data/ccd">PDB Chemical Component Dictionary</a> '
                                 'and <a href="https://pir.georgetown.edu/resid">RESID</a>')
 
         # build from sources
-        self.build_from_resid(alphabet, ph=ph, major_tautomer=major_tautomer)
-        self.build_from_pdb(alphabet, ph=ph, major_tautomer=major_tautomer)
+        self.build_from_resid(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+        self.build_from_pdb(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
         # return alphabet
         return alphabet
 
-    def build_from_resid(self, alphabet, ph=None, major_tautomer=False):
+    def build_from_resid(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet from RESID
 
         Args:
             alphabet (:obj:`Alphabet`): alphabet
             ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         """
         # get amino acid names from canonical list
         canonical_aas = {}
@@ -139,7 +143,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         names.append(part2)
             name = ''.join(names)
 
-            result = self.get_resid_monomer_structure(name, file, ph=ph, major_tautomer=major_tautomer)
+            result = self.get_resid_monomer_structure(name, file, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
             if result is None:
                 warnings.warn('Ignoring monomeric form {} that has no structure'.format(id), BpFormsWarning)
                 continue
@@ -196,7 +200,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 else:
                     monomer.base_monomers.add(base_monomer)
 
-    def get_resid_monomer_structure(self, name, pdb_filename, ph=None, major_tautomer=False):
+    def get_resid_monomer_structure(self, name, pdb_filename, ph=None, major_tautomer=False, dearomatize=False):
         """ Get the structure of an amino acid from a PDB file
 
         Args:
@@ -204,6 +208,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             pdb_filename (:obj:`str`): path to PDB file with structure
             ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
 
         Returns:
             :obj:`openbabel.OBMol`: structure
@@ -230,7 +235,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         conv.SetOptions('c', conv.OUTOPTIONS)
         smiles = conv.WriteString(pdb_mol).partition('\t')[0]
         if ph is not None:
-            smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
+            smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
         smiles_mol = openbabel.OBMol()
         assert conv.SetInFormat('smi')
         conv.ReadString(smiles_mol, smiles)
@@ -243,13 +248,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return self.get_termini(smiles_mol)
 
-    def build_from_pdb(self, alphabet, ph=None, major_tautomer=False):
+    def build_from_pdb(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet from `PDB Chemical Component Dictionary <http://www.wwpdb.org/data/ccd>`_
 
         Args:
             alphabet (:obj:`Alphabet`): alphabet
             ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         """
         filename = pkg_resources.resource_filename('bpforms',
                                                    os.path.join('alphabet', 'PDB', 'components-pub-xml.tar.gz'))
@@ -260,19 +266,51 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 file.write(response.content)
 
         smiles_to_monomer = {}
+        pdb_ligand_to_monomer = {}
+        name_to_monomer = {}
+        ambiguous_names = []
         for monomer in alphabet.monomers.values():
             smiles_to_monomer[monomer.export('smiles')] = monomer
 
-        conv = openbabel.OBConversion()
-        assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
-        assert conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
-        conv.SetOptions('c', conv.OUTOPTIONS)
+            for identifier in monomer.identifiers:
+                if identifier.ns == 'pdb.ligand':
+                    pdb_ligand_to_monomer[identifier.id] = monomer
+                    break
+
+            if monomer.name is not None:
+                if monomer.name in name_to_monomer:
+                    ambiguous_names.append(monomer.name.lower())
+                name_to_monomer[monomer.name.lower()] = monomer
+            for synonym in monomer.synonyms:
+                if synonym in name_to_monomer:
+                    ambiguous_names.append(synonym.lower())
+                name_to_monomer[synonym.lower()] = monomer
+
+        for name in ambiguous_names:
+            if name in name_to_monomer:
+                name_to_monomer.pop(name)
+
+        smiles_conv = openbabel.OBConversion()
+        assert smiles_conv.SetInFormat('smi'), 'Unable to set format to SMILES'
+        assert smiles_conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
+        smiles_conv.SetOptions('c', smiles_conv.OUTOPTIONS)
+
+        inchi_conv = openbabel.OBConversion()
+        assert inchi_conv.SetInFormat('smi'), 'Unable to set format to SMILES'
+        assert inchi_conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
 
         ns = '{http://pdbml.pdb.org/schema/pdbx-v40.xsd}'
         with tarfile.open(filename, 'r:gz') as tar_file:
             i_file = 0
             n_files = len(tar_file.getmembers())
             n_monomers = 0
+            base_monomers = {}
+            same_structures = []
+            same_pdb_ids = []
+            same_names = []
+            potential_incorrect_merges = []
+            new_monomers = []
+            pdb_ccd_id_to_monomers = {}
             for file_info in tar_file:
                 i_file += 1
                 if i_file % 100 == 1:
@@ -287,12 +325,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 if xml_group is None:
                     continue  # pragma: no cover # element is always present
 
+                # get id
                 xml_comp = xml_group.find(ns + 'chem_comp')
                 if xml_comp is None:
                     continue  # pragma: no cover # element is always present
                 id = xml_comp.get('id')
                 identifiers = IdentifierSet([Identifier('pdb-ccd', id)])
 
+                # check that compound has been released, is an amino acid, and is no ambiguous
                 xml_el = xml_comp.find(ns + 'pdbx_release_status')
                 if xml_el is None or xml_el.text != 'REL':
                     continue
@@ -307,12 +347,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 if xml_el is None or xml_el.text != 'N':
                     continue  # pragma: no cover # element is always present
 
+                # get name
                 xml_el = xml_comp.find(ns + 'name')
                 if xml_el is None:
                     name = None  # pragma: no cover # element is always present
                 else:
                     name = xml_el.text.lower()
 
+                # retrieve synonyms
                 synonyms = SynonymSet()
                 xml_el = xml_comp.find(ns + 'one_letter_code')
                 if xml_el is not None:
@@ -323,6 +365,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         if xml_subgroup.get('type') == 'SYSTEMATIC NAME':
                             synonyms.add(xml_subgroup.find(ns + 'identifier').text)
 
+                xml_el = xml_comp.find(ns + 'mon_nstd_parent_comp_id')
+                if xml_el is not None:
+                    base_monomers[id] = xml_el.text
+
+                # retrieve structure
                 smiles = None
                 for xml_group in xml_root.findall(ns + 'pdbx_chem_comp_descriptorCategory'):
                     for xml_subgroup in xml_group.findall(ns + 'pdbx_chem_comp_descriptor'):
@@ -332,25 +379,80 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 if smiles is None:
                     continue  # pragma: no cover # element is always present
 
+                # discard entries with coordinating metals
+                mol = openbabel.OBMol()
+                inchi_conv.ReadString(mol, smiles)
+                inchi = inchi_conv.WriteString(mol)
+                formula = inchi.split('/')[1]
+                if '.' in formula:
+                    continue
+
+                # correct to residue
+                mol = openbabel.OBMol()
+                smiles_conv.ReadString(mol, smiles)
+                self.get_termini(mol, residue=False)
+                smiles = smiles_conv.WriteString(mol).partition('\t')[0]
+
+                # correct structure for pH
                 if ph:
                     try:
-                        smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
+                        smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph,
+                                                         major_tautomer=major_tautomer, dearomatize=dearomatize)
                     except jnius.JavaException:
                         continue
 
                 mol = openbabel.OBMol()
-                conv.ReadString(mol, smiles)
-                smiles = conv.WriteString(mol).partition('\t')[0]
+                smiles_conv.ReadString(mol, smiles)
+                smiles = smiles_conv.WriteString(mol).partition('\t')[0]
 
                 mol = openbabel.OBMol()
-                conv.ReadString(mol, smiles)
-                smiles = conv.WriteString(mol).partition('\t')[0]
+                smiles_conv.ReadString(mol, smiles)
+                smiles = smiles_conv.WriteString(mol).partition('\t')[0]
 
-                monomer = smiles_to_monomer.get(smiles, None)
+                # exclude from alphabet because entry minus O- is equivalent to another entry
+                if id in ['5XU', 'GND', 'PHA', 'RGL', 'TYB']:
+                    continue
+
+                # merge into alphabet
+                monomer = None
+                if id not in ['ABA']:
+                    monomer = smiles_to_monomer.get(smiles, None)
+
+                if monomer is None:
+                    monomer = pdb_ligand_to_monomer.get(id, None)
+                    if monomer is None:
+                        if id not in ['HSK', 'MTY']:
+                            names = list(synonyms)
+                            if name is not None:
+                                names.append(name)
+
+                            for n in names:
+                                monomer = name_to_monomer.get(n.lower(), None)
+                                if monomer is not None:
+                                    same_names.append((id, monomer.id, n))
+                                    break
+
+                        if monomer is None:
+                            new_monomers.append(id)
+                    else:
+                        same_pdb_ids.append((id, smiles, monomer.export('smiles')))
+                else:
+                    resid_id = ''
+                    pdb_ligand_id = ''
+                    for identifier in monomer.identifiers:
+                        if identifier.ns == 'resid':
+                            resid_id = identifier.id
+                        if identifier.ns == 'pdb.ligand':
+                            pdb_ligand_id = identifier.id
+                    same_structures.append((id, resid_id, pdb_ligand_id))
+
                 n_monomers += 1
                 if monomer is not None:
                     monomer.synonyms.add(name)
                     monomer.synonyms.update(synonyms)
+                    for identifier in monomer.identifiers:
+                        if identifier.ns == 'pdb-ccd':
+                            potential_incorrect_merges.append((id, identifier.id))
                     monomer.identifiers.update(identifiers)
                 else:
                     monomer = Monomer(id=id, name=name, synonyms=synonyms,
@@ -369,14 +471,51 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     assert id not in alphabet.monomers
                     alphabet.monomers[id] = monomer
 
+                pdb_ccd_id_to_monomers[id] = monomer
+
                 if n_monomers == self._max_monomers:
                     break
 
-    def get_termini(self, mol):
+            # set base monomers
+            for monomer_id, base_id in base_monomers.items():
+                monomer = pdb_ccd_id_to_monomers.get(monomer_id, None)
+                base = pdb_ccd_id_to_monomers.get(base_id, None)
+                if monomer is not None and base is not None:
+                    monomer.base_monomers.add(base)
+
+            # save summary of merging
+            filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'PDB', 'merge-report.txt'))
+            with open(filename, 'w') as file:
+                file.write(('{} monomers were merged into the alphabet because they have the same structures (SMILES):\n'
+                            '  PDB-CCD ID\tRESID ID\tPDB Ligand RESID ID\n'
+                            '  {}\n\n').format(
+                    len(same_structures), '\n  '.join(sorted('\t'.join(n) for n in same_structures))))
+
+                file.write(('{} monomers were merged into the alphabet because they have the same PDB ids (ligand / CCD), '
+                            'but different structures (e.g., different stereochemistry or bond order):\n'
+                            '  PDB-CCD ID\tPDB-CCD SMILES\tRESID SMILES\n'
+                            '  {}\n\n').format(
+                    len(same_pdb_ids), '\n  '.join(sorted('\t'.join(n) for n in same_pdb_ids))))
+
+                file.write(('{} monomers were merged into the alphabet because they have the same names:\n'
+                            '  PDB-CCD ID\tRESID ID\tName\n'
+                            '  {}\n\n').format(
+                    len(same_names), '\n  '.join(sorted('\t'.join(n) for n in same_names))))
+
+                file.write(('{} monomers were potentially merged incorrectly:\n'
+                            '  PDB-CCD ID-1\tPDB-CCD ID-2\n'
+                            '  {}\n\n').format(
+                    len(potential_incorrect_merges), '\n  '.join(sorted('\t'.join(n) for n in potential_incorrect_merges))))
+
+                file.write('{} monomers were added to the alphabet:\n  {}\n'.format(
+                    len(new_monomers), '\n  '.join(sorted(new_monomers))))
+
+    def get_termini(self, mol, residue=True):
         """ Get indices of atoms of N and C termini
 
         Args:
             mol (:obj:`openbabel.OBMol`): molecule
+            residue (:obj:`bool`, optional): if :obj:`True`, search for a residue (H instead of O- at C terminus)
 
         Returns:
             :obj:`openbabel.OBMol`: structure
@@ -388,9 +527,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         atom_cs = []
         for i_atom in range(1, mol.NumAtoms() + 1):
             atom = mol.GetAtom(i_atom)
-            if self.is_n_terminus(atom):
+            if self.is_n_terminus(mol, atom):
                 atom_ns.append(atom)
-            elif self.is_c_terminus(atom):
+            elif self.is_c_terminus(mol, atom, residue=residue):
                 atom_cs.append(atom)
 
         termini = []
@@ -415,6 +554,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
             if atom_c:
                 idx_c = atom_c.GetIdx()
+                if not residue:
+                    self.is_c_terminus(mol, atom_c, residue=residue, convert_to_residue=True)
             else:
                 idx_c = None
         else:
@@ -423,10 +564,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return (mol, idx_n, idx_c)
 
-    def is_n_terminus(self, atom):
+    def is_n_terminus(self, mol, atom):
         """ Determine if an atom is an N-terminus
 
         Args:
+            mol (:obj:`openbabel.OBMol`): molecule
             atom (:obj:`openbabel.OBAtom`): atom
 
         Returns:
@@ -464,11 +606,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # return True
         return True
 
-    def is_c_terminus(self, atom):
+    def is_c_terminus(self, mol, atom, residue=True, convert_to_residue=False):
         """ Determine if an atom is an C-terminus
 
         Args:
+            mol (:obj:`openbabel.OBMol`): molecule
             atom (:obj:`openbabel.OBAtom`): atom
+            residue (:obj:`bool`, optional): if :obj:`True`, search for a residue (H instead of O- at C terminus)
+            convert_to_residue (:obj:`bool`, optional): if :obj:`True`, convert O- to H
 
         Returns:
             :obj:`bool`: :obj:`True` if the atom is an C-terminus
@@ -476,7 +621,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         if atom is None:
             return False
 
-        # check atom is hydrogen
+        # check atom is carbon
         if atom.GetAtomicNum() != 6:
             return False
 
@@ -484,24 +629,53 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         if atom.GetFormalCharge() != 0:
             return False
 
-        # check atom is bonded to 1 oxygen, 1 carbon, and 1 hydrogen atom
+        # check atom is bonded to 1 oxygen, 1 carbon, and 1 hydrogen atom (residue=True) or 1 oxygen (residue=False) atom
         other_atoms = sorted([other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(atom)])
         if set(other_atoms).difference(set([1, 6, 8])):
             return False
         if 6 not in other_atoms or 8 not in other_atoms:
             return False
-        if len(other_atoms) > 2 and other_atoms[-2] != 1:
+        if residue and len(other_atoms) > 2 and other_atoms[-2] != 1:
+            return False
+        if not residue and (len(other_atoms) != 3 or other_atoms[1] != 8):
             return False
 
         # check bonds to carbon and hydrogen are single bonds and bond to oxygen is a double bond
+        o_single_bonds = []
+        o_double_bonds = []
         for bond in openbabel.OBAtomBondIter(atom):
             other_atom = bond.GetBeginAtom()
             if other_atom == atom:
                 other_atom = bond.GetEndAtom()
-            if other_atom.GetAtomicNum() != 8 and bond.GetBondOrder() != 1:
+            if other_atom.GetAtomicNum() == 8:
+                if bond.GetBondOrder() == 1:
+                    o_single_bonds.append((bond, other_atom))
+                elif bond.GetBondOrder() == 2:
+                    o_double_bonds.append((bond, other_atom))
+                else:
+                    return False
+            elif bond.GetBondOrder() != 1:
                 return False
-            if other_atom.GetAtomicNum() == 8 and bond.GetBondOrder() != 2:
-                return False
+
+        if residue and (len(o_single_bonds) != 0 or len(o_double_bonds) != 1):
+            return False
+        if not residue and (len(o_single_bonds) != 1 or len(o_double_bonds) != 1):
+            return False
+
+        # if not residue, check that single oxygen is bound to H
+        if not residue:
+            oxygen_atom = o_single_bonds[0][1]
+            for bond in openbabel.OBAtomBondIter(oxygen_atom):
+                other_atom = bond.GetBeginAtom()
+                if other_atom == oxygen_atom:
+                    other_atom = bond.GetEndAtom()
+                if other_atom.GetIdx() != atom.GetIdx() and other_atom.GetAtomicNum() != 1:
+                    return False
+
+        # correct amino acid to residue
+        if convert_to_residue:
+            other_atom = o_single_bonds[0][1]
+            other_atom.SetAtomicNum(1)
 
         # return True
         return True
@@ -570,6 +744,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 synonyms.add(systematic_name.strip())
 
             # ChEBI id and HETATM name
+            identifiers.add(Identifier('resid', id))
+
             if 'Cross-references: ' in text:
                 l = re.split("[:;]", text.strip())[1:]
                 l2 = list(map(lambda x: x.strip(), l))

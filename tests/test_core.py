@@ -2105,7 +2105,7 @@ class AlphabetBuilderTestCase(unittest.TestCase):
 
     def test(self):
         class AlphabetBuilder(core.AlphabetBuilder):
-            def build(self, ph=None, major_tautomer=False):
+            def build(self, ph=None, major_tautomer=False, dearomatize=False):
                 return core.Alphabet()
         alphabet = AlphabetBuilder().run()
         self.assertIsInstance(alphabet, core.Alphabet)

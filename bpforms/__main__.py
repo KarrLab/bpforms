@@ -75,6 +75,8 @@ class GetPropertiesController(cement.Controller):
                             help='pH at which calculate major protonation state of each monomeric form')),
             (['--major-tautomer'], dict(action='store_true', default=False,
                                         help='If set, calculate the major tautomer')),
+            (['--dearomatize'], dict(action='store_true', default=False,
+                                     help='If set, dearomatize molecule')),
         ]
 
     @cement.ex(hide=True)
@@ -103,7 +105,7 @@ class GetPropertiesController(cement.Controller):
                 charge = form.get_charge()
                 structure = form.get_structure()
             else:
-                structure = form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
+                structure = form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer, dearomatize=args.dearomatize)
                 if structure is not None:
                     formula = OpenBabelUtils.get_formula(structure)
                     mol_wt = formula.get_molecular_weight()
@@ -138,6 +140,8 @@ class GetMajorMicroSpeciesController(cement.Controller):
             (['ph'], dict(type=float, help='pH')),
             (['--major-tautomer'], dict(action='store_true', default=False,
                                         help='If set, calculate the major tautomer')),
+            (['--dearomatize'], dict(action='store_true', default=False,
+                                     help='If set, dearomatize molecule')),
         ]
 
     @cement.ex(hide=True)
@@ -155,16 +159,18 @@ class GetMajorMicroSpeciesController(cement.Controller):
         if errors:
             raise SystemExit('Form is invalid:\n  {}'.format('\n  '.join(errors)))
 
-        structure = form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer)
+        structure = form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer, dearomatize=args.dearomatize)
         print(OpenBabelUtils.export(structure, 'smiles'))
 
 
 class BuildAlphabetsController(cement.Controller):
-    """ Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, and RESID """
+    """ Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, the PDB Chemical Component Dictionary, RESID,
+    and the RNA Modification Database """
 
     class Meta:
         label = 'build-alphabets'
-        description = 'Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, and RESID'
+        description = ('Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, '
+                       'the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database')
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
@@ -172,6 +178,8 @@ class BuildAlphabetsController(cement.Controller):
                             help='pH at which calculate major protonation state of each monomeric form')),
             (['--major-tautomer'], dict(action='store_true', default=False,
                                         help='If set, calculate the major tautomer')),
+            (['--dearomatize'], dict(action='store_true', default=False,
+                                     help='If set, dearomatize molecule')),
             (['--max-monomers'], dict(type=float, default=float('inf'),
                                       help='Maximum number of monomeric forms to build. Used for testing')),
             (['--alphabet'], dict(type=str, default=None, dest='alphabets', action='append',
@@ -181,8 +189,8 @@ class BuildAlphabetsController(cement.Controller):
     @cement.ex(hide=True)
     def _default(self):
         args = self.app.pargs
-        bpforms.util.build_alphabets(ph=args.ph, major_tautomer=args.major_tautomer, _max_monomers=args.max_monomers,
-                                     alphabets=args.alphabets)
+        bpforms.util.build_alphabets(ph=args.ph, major_tautomer=args.major_tautomer, dearomatize=args.dearomatize,
+                                     _max_monomers=args.max_monomers, alphabets=args.alphabets)
         print('Alphabets successfully built')
 
 

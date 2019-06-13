@@ -714,16 +714,17 @@ class Monomer(object):
 
         return roots
 
-    def get_major_micro_species(self, ph, major_tautomer=False):
+    def get_major_micro_species(self, ph, major_tautomer=False, dearomatize=False):
         """ Update to the major protonation and tautomerization state at the pH
 
         Args:
             ph (:obj:`float`): pH
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         """
         if self.structure:
             structure = get_major_micro_species(self.export('smi', options=('c',)),
-                                                'smiles', 'smiles', ph=ph, major_tautomer=major_tautomer)
+                                                'smiles', 'smiles', ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
             conv = openbabel.OBConversion()
             assert conv.SetInFormat('smi')
             assert conv.ReadString(self.structure, structure)
@@ -1269,12 +1270,13 @@ class Alphabet(object):
                 return code
         raise ValueError('Monomer {} is not in alphabet'.format(monomer.id))
 
-    def get_major_micro_species(self, ph, major_tautomer=False):
+    def get_major_micro_species(self, ph, major_tautomer=False, dearomatize=False):
         """ Calculate the major protonation and tautomerization of each monomeric form
 
         Args:
             ph (:obj:`float`): pH
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         """
         monomers = list(filter(lambda monomer: monomer.structure is not None, self.monomers.values()))
 
@@ -1284,7 +1286,7 @@ class Alphabet(object):
             structures.append(structure)
 
         new_structures = get_major_micro_species(structures, 'smiles', 'smiles',
-                                                 ph=ph, major_tautomer=major_tautomer)
+                                                 ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
         for monomer, new_structure in zip(monomers, new_structures):
             conv = openbabel.OBConversion()
@@ -1394,44 +1396,47 @@ class AlphabetBuilder(abc.ABC):
         """
         self._max_monomers = _max_monomers
 
-    def run(self, ph=None, major_tautomer=False, path=None):
+    def run(self, ph=None, major_tautomer=False, dearomatize=False, path=None):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
             ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
             path (:obj:`str`, optional): path to save alphabet
 
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        alphabet = self.build(ph=ph, major_tautomer=major_tautomer)
+        alphabet = self.build(ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
         if path:
             self.save(alphabet, path)
         return alphabet
 
     @abc.abstractmethod
-    def build(self, ph=None, major_tautomer=False):
+    def build(self, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet
 
         Args:
             ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
 
         Returns:
             :obj:`Alphabet`: alphabet
         """
         pass  # pragma: no cover
 
-    def get_major_micro_species(self, alphabet, ph=None, major_tautomer=False):
+    def get_major_micro_species(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
         """ Get major microspecies for monomeric forms in alphabet
 
         Args:
             ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         """
         if ph is not None:
-            alphabet.get_major_micro_species(ph, major_tautomer=major_tautomer)
+            alphabet.get_major_micro_species(ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
     def save(self, alphabet, path):
         """ Save alphabet to YAML file
@@ -2607,12 +2612,13 @@ class BpForm(object):
         """
         return self.seq.get_monomer_counts()
 
-    def get_major_micro_species(self, ph, major_tautomer=False):
+    def get_major_micro_species(self, ph, major_tautomer=False, dearomatize=False):
         """ Get the major protonation and tautomerization state
 
         Args:
             ph (:obj:`float`): pH
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
 
         Returns:
             :obj:`openbabel.OBMol`: major protonation and tautomerization state
@@ -2630,7 +2636,7 @@ class BpForm(object):
 
         smiles = self.export('smiles')
         smiles = get_major_micro_species(smiles, 'smiles', 'smiles',
-                                         ph=ph, major_tautomer=major_tautomer)
+                                         ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
         mol = openbabel.OBMol()
         conv = openbabel.OBConversion()
         assert conv.SetInFormat('smiles')

@@ -95,25 +95,27 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         session = Session()
         return session
 
-    def run(self, ph=None, major_tautomer=False, path=filename):
+    def run(self, ph=None, major_tautomer=False, dearomatize=False, path=filename):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
             ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
             path (:obj:`str`, optional): path to save alphabet
 
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        return super(DnaAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
+        return super(DnaAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize, path=path)
 
-    def build(self, ph=None, major_tautomer=False):
+    def build(self, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet
 
         Args:
             ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
 
         Returns:
             :obj:`Alphabet`: alphabet
@@ -124,7 +126,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         # create canonical monomeric forms
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'dna'
-        alphabet.name = 'DNAmod DNA nucleobases'
+        alphabet.name = 'DNA nucleobases'
         alphabet.description = ('The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
                                 '<a href="https://dnamod.hoffmanlab.org">DNAmod</a>')
 
@@ -225,7 +227,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
             '\n- '.join(invalid_nucleobases)), BpFormsWarning)
 
         # get major microspecies for each monomeric form
-        self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer)
+        self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
         # return alphabet
         return alphabet

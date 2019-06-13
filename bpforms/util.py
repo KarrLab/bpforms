@@ -73,22 +73,23 @@ def get_form(alphabet):
     raise ValueError('Alphabet "{}" must be "dna", "rna", or "protein"'.format(alphabet))
 
 
-def build_alphabets(ph=None, major_tautomer=False, _max_monomers=float('inf'), alphabets=None):
+def build_alphabets(ph=None, major_tautomer=False, dearomatize=False, _max_monomers=float('inf'), alphabets=None):
     """ Build DNA, RNA, and protein alphabets
 
     Args:
         ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
         major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+        dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         _max_monomers (:obj:`float`, optional): maximum number of monomeric forms to build; used for testing
         alphabets (:obj:`list` of :obj:`str` or :obj:`None`, optional): ids of alphabets to build. If :obj:`None`,
             build all alphabets
     """
     if alphabets is None or 'dna' in alphabets:
-        dna.DnaAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer)
+        dna.DnaAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
     if alphabets is None or 'rna' in alphabets:
-        rna.RnaAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer)
+        rna.RnaAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
     if alphabets is None or 'protein' in alphabets:
-        protein.ProteinAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer)
+        protein.ProteinAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
 
 def gen_html_viz_alphabet(bpform_type, filename):

@@ -92,51 +92,51 @@ class ProteinTestCase(unittest.TestCase):
 
         for i_atom in range(mol.NumAtoms()):
             if i_atom + 1 == 4:
-                self.assertTrue(builder.is_n_terminus(mol.GetAtom(i_atom + 1)))
+                self.assertTrue(builder.is_n_terminus(mol, mol.GetAtom(i_atom + 1)))
             else:
-                self.assertFalse(builder.is_n_terminus(mol.GetAtom(i_atom + 1)))
+                self.assertFalse(builder.is_n_terminus(mol, mol.GetAtom(i_atom + 1)))
 
             if i_atom + 1 == 8:
-                self.assertTrue(builder.is_c_terminus(mol.GetAtom(i_atom + 1)))
+                self.assertTrue(builder.is_c_terminus(mol, mol.GetAtom(i_atom + 1)))
             else:
-                self.assertFalse(builder.is_c_terminus(mol.GetAtom(i_atom + 1)))
+                self.assertFalse(builder.is_c_terminus(mol, mol.GetAtom(i_atom + 1)))
 
-        self.assertFalse(builder.is_n_terminus(None))
+        self.assertFalse(builder.is_n_terminus(mol, None))
 
         conv.ReadString(mol, 'N')
         atom = mol.GetAtom(1)
-        self.assertFalse(builder.is_n_terminus(atom))
+        self.assertFalse(builder.is_n_terminus(mol, atom))
 
         conv.ReadString(mol, '[NH3+]O')
         atom = mol.GetAtom(1)
-        self.assertFalse(builder.is_n_terminus(atom))
+        self.assertFalse(builder.is_n_terminus(mol, atom))
 
         conv.ReadString(mol, '[NH4+]')
         atom = mol.GetAtom(1)
-        self.assertFalse(builder.is_n_terminus(atom))
+        self.assertFalse(builder.is_n_terminus(mol, atom))
 
         conv.ReadString(mol, 'C[NH+](C)C')
         atom = mol.GetAtom(2)
-        self.assertFalse(builder.is_n_terminus(atom))
+        self.assertFalse(builder.is_n_terminus(mol, atom))
 
-        self.assertFalse(builder.is_c_terminus(None))
+        self.assertFalse(builder.is_c_terminus(mol, None))
 
         conv.ReadString(mol, 'C[C@H]([NH3+])C=O')
         atom = mol.GetAtom(8)
         atom.SetFormalCharge(1)
-        self.assertFalse(builder.is_c_terminus(atom))
+        self.assertFalse(builder.is_c_terminus(mol, atom))
 
         conv.ReadString(mol, 'CC(C)O')
         atom = mol.GetAtom(2)
-        self.assertFalse(builder.is_c_terminus(atom))
+        self.assertFalse(builder.is_c_terminus(mol, atom))
 
         conv.ReadString(mol, 'CCO')
         atom = mol.GetAtom(2)
-        self.assertFalse(builder.is_c_terminus(atom))
+        self.assertFalse(builder.is_c_terminus(mol, atom))
 
         conv.ReadString(mol, 'C=C=O')
         atom = mol.GetAtom(2)
-        self.assertFalse(builder.is_c_terminus(atom))
+        self.assertFalse(builder.is_c_terminus(mol, atom))
 
     def test_ProteinAlphabetBuilder_is_termini_2(self):
         builder = protein.ProteinAlphabetBuilder()
@@ -147,7 +147,7 @@ class ProteinTestCase(unittest.TestCase):
         conv.ReadString(mol, 'O=C[C@H](CCCCNC(=O)[C@H](CCCC[NH3+])[NH3+])[NH3+]')
 
         atom = mol.GetAtom(26)
-        self.assertTrue(builder.is_n_terminus(atom))
+        self.assertTrue(builder.is_n_terminus(mol, atom))
 
     def test_test_ProteinAlphabetBuilder_is_terminus(self):
         builder = protein.ProteinAlphabetBuilder()
@@ -172,7 +172,8 @@ class ProteinTestCase(unittest.TestCase):
             Identifier('mod', 'MOD:00046'),
             Identifier('go', 'GO:0018105'),
             Identifier('cas', '407-41-0'),
-            Identifier('chebi', 'CHEBI:45522')
+            Identifier('chebi', 'CHEBI:45522'),
+            Identifier('resid', 'AA0037'),
         ])
         self.assertEqual(identifiers, identifiers_test)
 
@@ -216,12 +217,12 @@ class ProteinTestCase(unittest.TestCase):
         for monomer in alphabet.monomers.values():
             if monomer.left_bond_atoms:
                 atom_n = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
-                if not builder.is_n_terminus(atom_n):
+                if not builder.is_n_terminus(monomer.structure, atom_n):
                     errors.append('Monomer {} does not have a N-terminus'.format(monomer.id))
 
             if monomer.right_bond_atoms:
                 atom_c = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
-                if not builder.is_c_terminus(atom_c):
+                if not builder.is_c_terminus(monomer.structure, atom_c):
                     errors.append('Monomer {} does not have a C-terminus'.format(monomer.id))
 
             if monomer.left_bond_atoms and monomer.right_bond_atoms:

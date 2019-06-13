@@ -79,6 +79,10 @@ bpforms_model = bpform_ns.model('BpForm', {
                                                     title='Calculate major tautomer',
                                                     description='If true, calculate the major tautomer',
                                                     example=True),
+    'dearomatize': flask_restplus.fields.Boolean(default=False, required=False,
+                                                    title='Dearomatize the molecule',
+                                                    description='If true, calculate dearomatize the molecule',
+                                                    example=True),
 })
 
 
@@ -101,6 +105,7 @@ class Bpform(flask_restplus.Resource):
         circular = args.get('circular', False)
         ph = args.get('ph', float('NaN'))
         major_tautomer = args.get('major_tautomer', False)
+        dearomatize = args.get('dearomatize', False)
 
         form_cls = bpforms.util.get_form(alphabet)
 
@@ -128,7 +133,7 @@ class Bpform(flask_restplus.Resource):
                     charge = form.get_charge()
                     structure = form.get_structure()
                 else:
-                    structure = form.get_major_micro_species(ph, major_tautomer=major_tautomer)
+                    structure = form.get_major_micro_species(ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
                     if structure is not None:
                         formula = OpenBabelUtils.get_formula(structure)
                         mol_wt = formula.get_molecular_weight()

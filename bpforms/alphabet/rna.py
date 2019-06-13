@@ -31,7 +31,7 @@ canonical_rna_alphabet = Alphabet().from_yaml(canonical_filename)
 
 
 class RnaAlphabetBuilder(AlphabetBuilder):
-    """ Build RNA alphabet from MODOMICS """
+    """ Build RNA alphabet from MODOMICS and the RNA Modification Database """
 
     MODOMICS_INDEX_ENDPOINT = 'http://modomics.genesilico.pl/modifications/'
     MODOMICS_INDEX_ASCII_ENDPOINT = 'http://modomics.genesilico.pl/modifications/?base=all&type=all&display_ascii=Display+as+ASCII'
@@ -40,25 +40,27 @@ class RnaAlphabetBuilder(AlphabetBuilder):
     RNA_MOD_DB_ENTRY_ENDPOINT = 'https://mods.rna.albany.edu/mods/modifications/view/{}'
     MAX_RETRIES = 5
 
-    def run(self, ph=None, major_tautomer=False, path=filename):
+    def run(self, ph=None, major_tautomer=False, dearomatize=False, path=filename):
         """ Build alphabet and, optionally, save to YAML file
 
         Args:
             ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
             path (:obj:`str`, optional): path to save alphabet
 
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        return super(RnaAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, path=path)
+        return super(RnaAlphabetBuilder, self).run(ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize, path=path)
 
-    def build(self, ph=None, major_tautomer=False):
+    def build(self, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet
 
         Args:
             ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
 
         Returns:
             :obj:`Alphabet`: alphabet
@@ -80,13 +82,13 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         session.mount('http://', requests.adapters.HTTPAdapter(max_retries=self.MAX_RETRIES))
 
         # build from databases
-        self.build_modomics(alphabet, session, ph=ph, major_tautomer=major_tautomer)
-        self.build_rna_mod_db(alphabet, session, ph=ph, major_tautomer=major_tautomer)
+        self.build_modomics(alphabet, session, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+        self.build_rna_mod_db(alphabet, session, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
         # return alphabet
         return alphabet
 
-    def build_modomics(self, alphabet, session, ph=None, major_tautomer=False):
+    def build_modomics(self, alphabet, session, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet from MODOMICS
 
         Args:
@@ -94,6 +96,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             session (:obj:`requests_cache.core.CachedSession`): request cache session
             ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         """
         # get originating monomeric forms
         ascii_response = session.get(self.MODOMICS_INDEX_ASCII_ENDPOINT)
@@ -178,7 +181,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
             smiles = conv.WriteString(monomer.structure).partition('\t')[0]
             if ph is not None:
-                smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
+                smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
             smiles_mol = openbabel.OBMol()
             conv.ReadString(smiles_mol, smiles)
 
@@ -205,7 +208,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 monomer.base_monomers.add(base_monomer)
 
         # get major microspecies for each monomeric form
-        self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer)
+        self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
         # return alphabet
         return alphabet
@@ -250,7 +253,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         return mol, identifiers
 
-    def build_rna_mod_db(self, alphabet, session, ph=None, major_tautomer=False):
+    def build_rna_mod_db(self, alphabet, session, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet from the RNA Modification Database
 
         Args:
@@ -258,6 +261,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             session (:obj:`requests_cache.core.CachedSession`): request cache session
             ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         """
         ########################################
         # get information from the RNA Modification Database
@@ -409,7 +413,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
             # get major microspecies
             if ph:
-                smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
+                smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
             # sanitize SMILES
             mol = openbabel.OBMol()
@@ -430,6 +434,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         ########################################
         # merge monomers with alphabet
+        additional_monomers = []
         for monomer in monomers:
             inchi = monomer.export('inchi').partition('/h')[0]
             same_monomer = None
@@ -465,6 +470,11 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 code = monomer.id
                 assert code not in alphabet.monomers, "Code already used. Another code must be chosen."
                 alphabet.monomers[code] = monomer
+                additional_monomers.append(code)
+
+            if additional_monomers:
+                print('{} monomeric forms were added to the alphabet:\n  {}'.format(
+                    len(additional_monomers), '\n  '.join(additional_monomers)))
 
     def is_valid_nucleoside(self, monomer):
         """ Determine if nucleoside should be included in alphabet
