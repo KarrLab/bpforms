@@ -16,6 +16,7 @@ import flask_restplus.errors
 import flask_restplus.fields
 import math
 import os
+import pkg_resources
 import urllib.parse
 import warnings
 
@@ -80,9 +81,9 @@ bpforms_model = bpform_ns.model('BpForm', {
                                                     description='If true, calculate the major tautomer',
                                                     example=True),
     'dearomatize': flask_restplus.fields.Boolean(default=False, required=False,
-                                                    title='Dearomatize the molecule',
-                                                    description='If true, calculate dearomatize the molecule',
-                                                    example=True),
+                                                 title='Dearomatize the molecule',
+                                                 description='If true, calculate dearomatize the molecule',
+                                                 example=True),
 })
 
 
@@ -225,8 +226,14 @@ def get_alphabet(id):
 
     alphabet_dict = alphabet_obj.to_dict()
 
+    img_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'img', 'alphabet', id))
+    if not os.path.isdir(img_dir):
+        os.makedirs(img_dir)
     for code, monomer in alphabet_obj.monomers.items():
         alphabet_dict['monomers'][code] = get_monomer_properties(id, code)
+
+        with open(os.path.join(img_dir, code + '.png'), 'wb') as file:
+            file.write(monomer.get_image(image_format='png', width=250, height=150))
 
     return alphabet_dict
 
@@ -291,8 +298,8 @@ def get_monomer(alphabet, monomer, format):
         elif format == 'svg':
             mimetype = 'image/svg+xml'
 
-        return flask.Response(monomer_obj.get_image(image_format=format, width=250, height=150), 
-            mimetype=mimetype)
+        return flask.Response(monomer_obj.get_image(image_format=format, width=250, height=150),
+                              mimetype=mimetype)
 
     else:
         flask_restplus.abort(400, 'Invalid format "{}"'.format(format))

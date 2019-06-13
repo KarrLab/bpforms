@@ -181,10 +181,10 @@ class RestTestCase(unittest.TestCase):
     def test_get_alphabet_caching(self):
         client = rest.app.test_client()
 
-        rv = client.get('/api/alphabet/protein/')
+        rv = client.get('/api/alphabet/dna/')
         self.assertEqual(rv.status_code, 200)
 
-        rv = client.get('/api/alphabet/protein/')
+        rv = client.get('/api/alphabet/dna/')
         self.assertEqual(rv.status_code, 200)
 
     def test_get_monomer(self):
