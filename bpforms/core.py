@@ -760,8 +760,9 @@ class Monomer(object):
         return None
 
     def get_image(self, bond_label='', displaced_label='', bond_opacity=255, displaced_opacity=192,
-                  backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff, show_atom_nums=False,
-                  width=200, height=200, include_xml_header=True):
+                  backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff,
+                  show_atom_nums=False,
+                  width=200, height=200, image_format='svg', include_xml_header=True):
         """ Get image in SVG format
 
         Args:
@@ -775,6 +776,7 @@ class Monomer(object):
             show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
             width (:obj:`int`, optional): width in pixels
             height (:obj:`int`, optional): height in pixels
+            image_format (:obj:`str`, optional): format of generated image {emf, eps, jpeg, msbmp, pdf, png, or svg}
             include_xml_header (:obj:`bool`, optional): if :obj:`True`, include XML header at the beginning of the SVG
 
         Returns:
@@ -807,7 +809,8 @@ class Monomer(object):
                     atom_sets[color]['positions'].append(atom.GetIdx())
                     atom_sets[color]['elements'].append(atom_md.element)
 
-        return draw_molecule(self.export('cml'), 'cml', atom_labels=atom_labels, atom_sets=atom_sets.values(),
+        return draw_molecule(self.export('cml'), 'cml', image_format=image_format,
+                             atom_labels=atom_labels, atom_sets=atom_sets.values(),
                              show_atom_nums=show_atom_nums,
                              width=width, height=height, include_xml_header=include_xml_header)
 
@@ -2548,7 +2551,8 @@ class BpForm(object):
 
         for i_monomer, monomer in enumerate(self.seq):
             if len(self.backbone.monomer_bond_atoms) < len(monomer.backbone_bond_atoms):
-                errors.append('Number of monomer-backbone atoms for monomer {} must be less than or equal to the number of backbone-monomer atoms'.format(i_monomer + 1))
+                errors.append(
+                    'Number of monomer-backbone atoms for monomer {} must be less than or equal to the number of backbone-monomer atoms'.format(i_monomer + 1))
 
         for i_monomer, (monomer_l, monomer_r) in enumerate(zip(self.seq[0:-1], self.seq[1:])):
             if len(monomer_l.right_bond_atoms) + n_bond_right_atoms != len(monomer_r.left_bond_atoms) + n_bond_left_atoms:
