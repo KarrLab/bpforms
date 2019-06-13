@@ -12,6 +12,7 @@ from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, B
 from bs4 import BeautifulSoup
 from ftplib import FTP
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils, get_major_micro_species
+from xml.etree.ElementTree import ElementTree
 import glob
 import openbabel
 import os.path
@@ -19,6 +20,7 @@ import pkg_resources
 import re
 import requests
 import requests_cache
+import tarfile
 import warnings
 import zipfile
 
@@ -248,7 +250,123 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
         """
-        pass
+        filename = pkg_resources.resource_filename('bpforms',
+                                                   os.path.join('alphabet', 'PDB', 'components-pub-xml.tar.gz'))
+        if not os.path.isfile(filename):
+            response = requests.get('http://ligand-expo.rcsb.org/dictionaries/components-pub-xml.tar.gz')
+            response.raise_for_status()
+            with open(filename, 'wb') as file:
+                file.write(response.content)
+
+        smiles_to_monomer = {}
+        for monomer in alphabet.monomers.values():
+            smiles_to_monomer[monomer.export('smiles')] = monomer
+
+        conv = openbabel.OBConversion()
+        assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
+        assert conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
+        conv.SetOptions('c', conv.OUTOPTIONS)
+
+        ns = '{http://pdbml.pdb.org/schema/pdbx-v40.xsd}'
+        with tarfile.open(filename, 'r:gz') as tar_file:
+            i_file = 0
+            n_files = len(tar_file.getmembers())
+            n_monomers = 0
+            for file_info in tar_file:
+                i_file += 1
+                if i_file % 100 == 1:
+                    print('Processing file {} of {}'.format(i_file, n_files))
+
+                if os.path.splitext(file_info.name)[-1] != '.xml':
+                    continue
+
+                xml_file = tar_file.extractfile(file_info)
+                xml_root = ElementTree().parse(xml_file)
+                xml_group = xml_root.find(ns + 'chem_compCategory')
+                if xml_group is None:
+                    continue  # pragma: no cover # element is always present
+
+                xml_comp = xml_group.find(ns + 'chem_comp')
+                if xml_comp is None:
+                    continue  # pragma: no cover # element is always present
+                id = xml_comp.get('id')
+                identifiers = IdentifierSet([Identifier('pdb-ccd', id)])
+
+                xml_el = xml_comp.find(ns + 'pdbx_release_status')
+                if xml_el is None or xml_el.text != 'REL':
+                    continue
+
+                xml_el = xml_comp.find(ns + 'type')
+                if xml_el is None or xml_el.text not in ['L-peptide linking',
+                                                         'L-peptide COOH carboxy terminus',
+                                                         'L-peptide NH3 amino terminus']:
+                    continue
+
+                xml_el = xml_comp.find(ns + 'pdbx_ambiguous_flag')
+                if xml_el is None or xml_el.text != 'N':
+                    continue  # pragma: no cover # element is always present
+
+                xml_el = xml_comp.find(ns + 'name')
+                if xml_el is None:
+                    name = None  # pragma: no cover # element is always present
+                else:
+                    name = xml_el.text.lower()
+
+                synonyms = SynonymSet()
+                xml_el = xml_comp.find(ns + 'one_letter_code')
+                if xml_el is not None:
+                    synonyms.add(xml_el.text)
+
+                for xml_group in xml_root.findall(ns + 'pdbx_chem_comp_identifierCategory'):
+                    for xml_subgroup in xml_group.findall(ns + 'pdbx_chem_comp_identifier'):
+                        if xml_subgroup.get('type') == 'SYSTEMATIC NAME':
+                            synonyms.add(xml_subgroup.find(ns + 'identifier').text)
+
+                smiles = None
+                for xml_group in xml_root.findall(ns + 'pdbx_chem_comp_descriptorCategory'):
+                    for xml_subgroup in xml_group.findall(ns + 'pdbx_chem_comp_descriptor'):
+                        if xml_subgroup.get('type') == 'SMILES_CANONICAL' and \
+                                xml_subgroup.get('program') == 'OpenEye OEToolkits':
+                            smiles = xml_subgroup.find(ns + 'descriptor').text
+                if smiles is None:
+                    continue  # pragma: no cover # element is always present
+
+                if ph:
+                    smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer)
+
+                mol = openbabel.OBMol()
+                conv.ReadString(mol, smiles)
+                smiles = conv.WriteString(mol).partition('\t')[0]
+
+                mol = openbabel.OBMol()
+                conv.ReadString(mol, smiles)
+                smiles = conv.WriteString(mol).partition('\t')[0]
+
+                monomer = smiles_to_monomer.get(smiles, None)
+                n_monomers += 1
+                if monomer is not None:
+                    monomer.synonyms.add(name)
+                    monomer.synonyms.update(synonyms)
+                    monomer.identifiers.update(identifiers)
+                else:
+                    monomer = Monomer(id=id, name=name, synonyms=synonyms,
+                                      identifiers=identifiers, structure=smiles)
+
+                    _, i_n, i_c = self.get_termini(monomer.structure)
+                    if i_c:
+                        monomer.backbone_bond_atoms.append(Atom(Monomer, element='C', position=i_c))
+                        monomer.backbone_displaced_atoms.append(Atom(Monomer, element='H', position=i_c))
+                        monomer.right_bond_atoms.append(Atom(Monomer, element='C', position=i_c))
+                    if i_n:
+                        monomer.left_bond_atoms.append(Atom(Monomer, element='N', position=i_n, charge=-1))
+                        monomer.left_displaced_atoms.append(Atom(Monomer, element='H', position=i_n, charge=1))
+                        monomer.left_displaced_atoms.append(Atom(Monomer, element='H', position=i_n))
+
+                    assert id not in alphabet.monomers
+                    alphabet.monomers[id] = monomer
+
+                if n_monomers == self._max_monomers:
+                    break
 
     def get_termini(self, mol):
         """ Get indices of atoms of N and C termini

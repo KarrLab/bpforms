@@ -196,7 +196,7 @@ class ProteinTestCase(unittest.TestCase):
 
         path = os.path.join(self.dirname, 'alphabet.yml')
 
-        alphabet = protein.ProteinAlphabetBuilder().run(ph=7.4, path=path)
+        alphabet = protein.ProteinAlphabetBuilder(_max_monomers=10).run(ph=7.4, path=path)
         self.assertEqual(alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H12NO'))
 
         self.assertTrue(os.path.isfile(path))
