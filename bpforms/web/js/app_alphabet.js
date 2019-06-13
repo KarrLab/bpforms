@@ -10,8 +10,8 @@ set_alphabet = function(data, status, jqXHR) {
     
     codes = Object.keys(data['monomers'])
     codes.sort()
-    for (i_code in codes) {
-        code = codes[i_code]
+    for (i_monomer in codes) {
+        code = codes[i_monomer]
         monomer = data['monomers'][code]
         html += '<div class="cell monomer">'
         
@@ -27,12 +27,14 @@ set_alphabet = function(data, status, jqXHR) {
         html += '<div class="structure">' + img + '</div>'        
         
         // show/hide details
-        html += '<div class="toggle" id="monomer_' + code + '"><a onclick="javascript: toggle_monomer_details(\'' + code + '\')">Show details</a></div>'
+        html += '<div class="toggle" id="monomer_' + i_monomer.toString() + '_toggle">'
+        html += '<a onclick="javascript: toggle_monomer_details(\'' + i_monomer.toString() + '\')">Show details</a>'
+        html += '</div>'
         
         /////////////////////
         // details
         /////////////////////
-        html += '<div id="monomer_' + code + '" class="details hide">'
+        html += '<div id="monomer_' + i_monomer.toString() + '_details" class="details hide">'
         html += '<table width="100%"><tbody>'
         
         // id
@@ -173,14 +175,14 @@ get_alphabet = function() {
 get_alphabet()
 window.onhashchange = get_alphabet
 
-toggle_monomer_details = function(code) {
-    details = $('#monomer_' + code + '.details')
+toggle_monomer_details = function(i_monomer) {
+    details = $('#monomer_' + i_monomer + '_details')
     details.toggleClass('hide');
     
     if (details.hasClass('hide'))
-        $('#monomer_' + code + '.toggle>a').html('Show details');
+        $('#monomer_' + i_monomer + '_toggle>a').html('Show details');
     else
-        $('#monomer_' + code + '.toggle>a').html('Hide details');
+        $('#monomer_' + i_monomer + '_toggle>a').html('Hide details');
 }
 
 // https://swisnl.github.io/jQuery-contextMenu
