@@ -231,7 +231,7 @@ def get_alphabet(id):
 @alphabet_ns.doc(params={
     'alphabet': 'Id of the alphabet of the biopolymer form (e.g. "dna", "rna", or "protein")',
     'monomer': 'Code of the monomeric form (e.g. "C" or "m2C")',
-    'format': 'Output format (e.g. "json" or "svg")',
+    'format': 'Output format ("emf", "eps", "jpeg", "json", "msbmp", "pdf", "png" or "svg")',
 })
 class MonomerResource(flask_restplus.Resource):
     """ Get information about a monomer """
