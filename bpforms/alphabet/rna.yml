@@ -1,7 +1,8 @@
 id: rna
-name: MODOMICS RNA nucleosides
+name: RNA nucleosides
 description: The four canonical RNA nucleosides, plus the non-canonical RNA nucleosides
-  in <a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>
+  in <a href="http://modomics.genesilico.pl/modifications">MODOMICS</a> and the
+  <a href="https://mods.rna.albany.edu/mods/">RNA Modification Database</a>
 monomers:
   A:
     id: A

@@ -69,9 +69,10 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         # create canonical monomeric forms
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'rna'
-        alphabet.name = 'MODOMICS RNA nucleosides'
+        alphabet.name = 'RNA nucleosides'
         alphabet.description = ('The four canonical RNA nucleosides, plus the non-canonical RNA nucleosides in '
-                                '<a href="http://modomics.genesilico.pl/modifications">MODOMICS</a>')
+                                '<a href="http://modomics.genesilico.pl/modifications">MODOMICS</a> and '
+                                'the <a href="https://mods.rna.albany.edu/mods/">RNA Modification Database</a>')
 
         # create requests session
         cache_name = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna'))
