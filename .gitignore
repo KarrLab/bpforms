@@ -56,7 +56,7 @@ Thumbs.db
 # temporary files for building alphabets
 bpforms/alphabet/DNAmod.sqlite
 bpforms/alphabet/rna.sqlite
-bpforms/alphabet/rnamods/
+# bpforms/alphabet/rnamods/
 bpforms/alphabet/protein.pdb/
 bpforms/alphabet/protein.sqlite
 
