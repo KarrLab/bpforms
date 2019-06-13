@@ -32,7 +32,7 @@ canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
 
 
 class ProteinAlphabetBuilder(AlphabetBuilder):
-    """ Build protein alphabet from RESID """
+    """ Build protein alphabet from `RESID <https://proteininformationresource.org/resid/>`_ """
 
     MAX_RETRIES = 5
 
@@ -65,10 +65,26 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # load canonical monomeric forms
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'protein'
-        alphabet.name = 'RESID protein residues'
-        alphabet.description = ('The 20 canonical protein residues, plus the non-canonical protein residues in '
-                                '<a href="https://pir.georgetown.edu/resid">RESID</a>')
+        alphabet.name = 'protein residues'
+        alphabet.description = ('The 20 canonical protein residues, plus the non-canonical protein residues in the '
+                                '<a href="http://www.wwpdb.org/data/ccd">PDB Chemical Component Dictionary</a> '
+                                'and <a href="https://pir.georgetown.edu/resid">RESID</a>')
 
+        # build from sources
+        self.build_from_resid(alphabet, ph=ph, major_tautomer=major_tautomer)
+        self.build_from_pdb(alphabet, ph=ph, major_tautomer=major_tautomer)
+
+        # return alphabet
+        return alphabet
+
+    def build_from_resid(self, alphabet, ph=None, major_tautomer=False):
+        """ Build alphabet from RESID
+
+        Args:
+            alphabet (:obj:`Alphabet`): alphabet
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+        """
         # get amino acid names from canonical list
         canonical_aas = {}
         for monomer in alphabet.monomers.values():
@@ -120,13 +136,13 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         names.append(part2)
             name = ''.join(names)
 
-            result = self.get_monomer_structure(name, file, ph=ph, major_tautomer=major_tautomer)
+            result = self.get_resid_monomer_structure(name, file, ph=ph, major_tautomer=major_tautomer)
             if result is None:
                 warnings.warn('Ignoring monomeric form {} that has no structure'.format(id), BpFormsWarning)
                 continue
             structure, index_n, index_c = result
 
-            code, synonyms, identifiers, base_monomer_ids, comments = self.get_monomer_details(id, session)
+            code, synonyms, identifiers, base_monomer_ids, comments = self.get_resid_monomer_details(id, session)
             if code is None or code in alphabet.monomers:
                 code = id
 
@@ -177,9 +193,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 else:
                     monomer.base_monomers.add(base_monomer)
 
-        return alphabet
-
-    def get_monomer_structure(self, name, pdb_filename, ph=None, major_tautomer=False):
+    def get_resid_monomer_structure(self, name, pdb_filename, ph=None, major_tautomer=False):
         """ Get the structure of an amino acid from a PDB file
 
         Args:
@@ -190,6 +204,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         Returns:
             :obj:`openbabel.OBMol`: structure
+            :obj:`int`: index of atom of N terminus
+            :obj:`int`: index of atom of C terminus
         """
         pdb_mol = openbabel.OBMol()
         conv = openbabel.OBConversion()
@@ -222,11 +238,34 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
         conv.ReadString(smiles_mol, smiles)
 
+        return self.get_termini(smiles_mol)
+
+    def build_from_pdb(self, alphabet, ph=None, major_tautomer=False):
+        """ Build alphabet from `PDB Chemical Component Dictionary <http://www.wwpdb.org/data/ccd>`_
+
+        Args:
+            alphabet (:obj:`Alphabet`): alphabet
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+        """
+        pass
+
+    def get_termini(self, mol):
+        """ Get indices of atoms of N and C termini
+
+        Args:
+            mol (:obj:`openbabel.OBMol`): molecule
+
+        Returns:
+            :obj:`openbabel.OBMol`: structure
+            :obj:`int`: index of atom of N terminus
+            :obj:`int`: index of atom of C terminus
+        """
         # find N and C termini
         atom_ns = []
         atom_cs = []
-        for i_atom in range(1, smiles_mol.NumAtoms() + 1):
-            atom = smiles_mol.GetAtom(i_atom)
+        for i_atom in range(1, mol.NumAtoms() + 1):
+            atom = mol.GetAtom(i_atom)
             if self.is_n_terminus(atom):
                 atom_ns.append(atom)
             elif self.is_c_terminus(atom):
@@ -260,7 +299,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             idx_n = None
             idx_c = None
 
-        return (smiles_mol, idx_n, idx_c)
+        return (mol, idx_n, idx_c)
 
     def is_n_terminus(self, atom):
         """ Determine if an atom is an N-terminus
@@ -365,7 +404,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
         return False
 
-    def get_monomer_details(self, id, session):
+    def get_resid_monomer_details(self, id, session):
         """ Get the CHEBI ID and synonyms of an amino acid from its RESID webpage
 
         Args:

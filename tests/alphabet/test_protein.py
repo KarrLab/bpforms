@@ -160,13 +160,13 @@ class ProteinTestCase(unittest.TestCase):
         self.assertTrue(builder.is_terminus(mol.GetAtom(26), mol.GetAtom(2)))
         self.assertFalse(builder.is_terminus(mol.GetAtom(26), mol.GetAtom(10)))
 
-    def test_ProteinAlphabetBuilder_get_monomer_details(self):
+    def test_ProteinAlphabetBuilder_get_resid_monomer_details(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
         session = requests.Session()
-        self.assertEqual(protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[0], 'S')
-        self.assertEqual(protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[3], {'AA0016'})
+        self.assertEqual(protein.ProteinAlphabetBuilder().get_resid_monomer_details('AA0037', session)[0], 'S')
+        self.assertEqual(protein.ProteinAlphabetBuilder().get_resid_monomer_details('AA0037', session)[3], {'AA0016'})
 
-        identifiers = protein.ProteinAlphabetBuilder().get_monomer_details('AA0037', session)[2]
+        identifiers = protein.ProteinAlphabetBuilder().get_resid_monomer_details('AA0037', session)[2]
         identifiers_test = set([
             Identifier('pdb.ligand', 'SEP'),
             Identifier('mod', 'MOD:00046'),
@@ -176,10 +176,10 @@ class ProteinTestCase(unittest.TestCase):
         ])
         self.assertEqual(identifiers, identifiers_test)
 
-    def test_ProteinAlphabetBuilder_get_monomer_structure(self):
+    def test_ProteinAlphabetBuilder_get_resid_monomer_structure(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
 
-        structure, index_n, index_c = protein.ProteinAlphabetBuilder().get_monomer_structure(
+        structure, index_n, index_c = protein.ProteinAlphabetBuilder().get_resid_monomer_structure(
             'AA0005', self.tmp_pdbfile, ph=7.4, major_tautomer=True)
 
         # check if correct index for N and C atoms

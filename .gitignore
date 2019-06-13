@@ -59,6 +59,7 @@ bpforms/alphabet/rna.sqlite
 # bpforms/alphabet/rnamods/
 bpforms/alphabet/protein.pdb/
 bpforms/alphabet/protein.sqlite
+bpforms/alphabet/PDB/
 
 # Paul's temporary work
 paulTmpTests
