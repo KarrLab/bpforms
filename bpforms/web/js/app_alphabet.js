@@ -19,7 +19,7 @@ set_alphabet = function(data, status, jqXHR) {
         if (monomer['structure'] == null) {
             img = ''
         } else {
-            img = '<img src="/api/alphabet/' + alphabet_id + '/' + code + '/svg/">'
+            img = '<img src="/api/alphabet/' + alphabet_id + '/' + code + '/png/">'
         }
         html += '<div class="structure">' + img + '</div>'        
         
