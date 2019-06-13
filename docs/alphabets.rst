@@ -7,8 +7,8 @@ Alphabets
 * Canonical RNA: The four canonical RNA nucleosides.
 * Canonical protein: The 20 canonical protein residues.
 * DNA: The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in `DNAmod <https://dnamod.hoffmanlab.org>`_.
-* RNA: The four canonical RNA nucleosides, plus the non-canonical RNA nucleosides in `MODOMICS <http://modomics.genesilico.pl/modifications/>`_.
-* Protein: The 20 canonical protein residues, plus the non-canonical protein residues in `RESID <https://pir.georgetown.edu/resid/>`_.
+* RNA: The four canonical RNA nucleosides, plus the non-canonical RNA nucleosides in `MODOMICS <http://modomics.genesilico.pl/modifications/>`_ and the `RNA Modification Database <https://mods.rna.albany.edu/mods/>`_.
+* Protein: The 20 canonical protein residues, plus the non-canonical protein residues in the `PDB Chemical Component Dictionary <http://www.wwpdb.org/data/ccd>`_ and `RESID <https://pir.georgetown.edu/resid/>`_.
 
 To support compatibility with the entries in these and other databases, `BpForms` represents biopolymers as sequence of ``monomeric forms`` linked together via a ``backbone``. For compatibility with DNAmod, the monomeric forms form the DNA alphabets are nucleobases and the backbones for the DNA alphabets is deoxyribose 5-phosphate. For compatibility with MODOMICS, the monomeric forms of the RNA alphabets are nucleosides and the backbones for the RNA alphabets is hydrogen phosphate. For compatibility with RESID, the monomeric forms of the protein alphabets are amino acid stubs and the backbones of the protein alphabets is hydroxide.
 
