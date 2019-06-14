@@ -1483,6 +1483,12 @@ class BpFormTestCase(unittest.TestCase):
                       + ' | base-monomer: "A"'
                       + ' | comments: "A purine 2\'-deoxyribonucleoside that is inosine ..."]A')
         dna_form_2 = dna.DnaForm().from_str(dna_form_1)
+        self.assertIsInstance(dna_form_2.seq[2].left_bond_atoms[0].element, str)
+        self.assertEqual(dna_form_2.seq[2].left_bond_atoms[0].element, 'G')
+        self.assertEqual(dna_form_2.seq[2].left_bond_atoms[0].position, 5)
+        self.assertEqual(dna_form_2.seq[2].left_bond_atoms[0].charge, -5)
+        self.assertEqual(list(dna_form_2.seq[2].base_monomers)[0].id, 'adenine')
+        self.assertIn(dna_form_2.seq[2].export('smiles'), [dIMP_smiles, 'OCC1OC(CC1O)n1cnc2c1ncnc2O'])
         dna_form_3 = dna.DnaForm([
             dna.canonical_dna_alphabet.monomers.A,
             dna.canonical_dna_alphabet.monomers.A,

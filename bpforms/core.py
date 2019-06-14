@@ -2955,11 +2955,11 @@ class BpForm(object):
     with open(_grammar_filename, 'r') as file:
         _parser = lark.Lark(file.read())
 
-    def from_str(self, str):
+    def from_str(self, string):
         """ Create biopolymer form its string representation
 
         Args:
-            str (:obj:`str`): string representation of the biopolymer
+            string (:obj:`str`): string representation of the biopolymer
 
         Returns:
             :obj:`BpForm`: biopolymer form
@@ -2987,6 +2987,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def alphabet_monomer(self, chars):
+                chars = chars.value
                 if chars[0] == '{' and chars[-1] == '}':
                     chars = chars[1:-1]
                 monomer = self.bp_form.alphabet.monomers.get(chars, None)
@@ -3045,7 +3046,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def structure(self, *args):
-                return ('structure', args[-1])
+                return ('structure', args[-1].value)
 
             @lark.v_args(inline=True)
             def backbone_bond_atom(self, *args):
@@ -3073,9 +3074,9 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def atom(self, *args):
-                atom = Atom(Monomer, args[0], position=int(float(args[1])))
+                atom = Atom(Monomer, args[0].value, position=int(float(args[1].value)))
                 if len(args) >= 3:
-                    atom.charge = int(float(args[2]))
+                    atom.charge = int(float(args[2].value))
                 return atom
 
             @lark.v_args(inline=True)
@@ -3100,6 +3101,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def base_monomer(self, separator, chars):
+                chars = chars.value
                 if chars[0] == '"' and chars[-1] == '"':
                     chars = chars[1:-1]
                 monomer = self.bp_form.alphabet.monomers.get(chars, None)
@@ -3124,24 +3126,24 @@ class BpForm(object):
             @lark.v_args(inline=True)
             def crosslink_atom(self, *args):
                 atom_type = args[0]
-                monomer = int(float(args[2]))
-                element = args[3]
-                position = int(float(args[4]))
+                monomer = int(float(args[2].value))
+                element = args[3].value
+                position = int(float(args[4].value))
                 if len(args) >= 6:
-                    charge = int(float(args[5]))
+                    charge = int(float(args[5].value))
                 else:
                     charge = 0
                 return atom_type, Atom(Monomer, monomer=monomer, element=element, position=position, charge=charge)
 
             @lark.v_args(inline=True)
             def crosslink_atom_type(self, *args):
-                return args[0] + '_' + args[1] + '_atoms'
+                return args[0].value + '_' + args[1].value + '_atoms'
 
             @lark.v_args(inline=True)
             def circular(self, *args):
                 return ('circular', True)
 
-        tree = self._parser.parse(str)
+        tree = self._parser.parse(string)
         parse_tree_transformer = ParseTreeTransformer(self)
         return parse_tree_transformer.transform(tree)
 
