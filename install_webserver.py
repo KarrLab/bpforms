@@ -73,3 +73,7 @@ def build(alphabet_ids=None):
     restart_filename = os.path.join('..', 'tmp', 'restart')
     if os.path.isfile(restart_filename):
         pathlib.Path(restart_filename).touch()
+
+
+if __name__ == "__main__":
+    build()
