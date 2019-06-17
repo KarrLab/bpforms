@@ -225,15 +225,9 @@ def get_alphabet(id):
         flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(id))
 
     alphabet_dict = alphabet_obj.to_dict()
-
-    img_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'img', 'alphabet', id))
-    if not os.path.isdir(img_dir):
-        os.makedirs(img_dir)
+    
     for code, monomer in alphabet_obj.monomers.items():
         alphabet_dict['monomers'][code] = get_monomer_properties(id, code)
-
-        with open(os.path.join(img_dir, code + '.png'), 'wb') as file:
-            file.write(monomer.get_image(image_format='png', width=250, height=150))
 
     return alphabet_dict
 
