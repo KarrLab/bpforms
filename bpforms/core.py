@@ -2643,8 +2643,11 @@ class BpForm(object):
         assert conv.ReadString(mol, smiles)
         return mol
 
-    def get_structure(self):
+    def get_structure(self, set_atom_ids=False):
         """ Get an OpenBabel molecule of the structure
+
+        Args:
+            set_atom_ids (:obj:`bool`, optional): if :obj:`True`, set the ids of the atoms
 
         Returns:
             :obj:`openbabel.OBMol`: OpenBabel molecule of the structure
@@ -2682,10 +2685,11 @@ class BpForm(object):
                                     n_atom + monomer.structure.NumAtoms()))
             i_backbone_atoms.append((n_atom + monomer.structure.NumAtoms() + 1,
                                      n_atom + monomer.structure.NumAtoms() + self.backbone.structure.NumAtoms()))
-            for atom in openbabel.OBMolAtomIter(monomer_structure):
-                atom.SetId(n_atom + atom.GetIdx())
-            for atom in openbabel.OBMolAtomIter(backbone_structure):
-                atom.SetId(n_atom + monomer.structure.NumAtoms() + atom.GetIdx())
+            if set_atom_ids:
+                for atom in openbabel.OBMolAtomIter(monomer_structure):
+                    atom.SetId(n_atom + atom.GetIdx())
+                for atom in openbabel.OBMolAtomIter(backbone_structure):
+                    atom.SetId(n_atom + monomer.structure.NumAtoms() + atom.GetIdx())
 
             mol += monomer_structure
 
@@ -3240,7 +3244,8 @@ class BpForm(object):
         Returns:
             :obj:`object`: image
         """
-        mol, i_monomer_atoms, i_backbone_atoms, _, i_left_right_bond_atoms, i_crosslinks_bond_atoms = self.get_structure()
+        mol, i_monomer_atoms, i_backbone_atoms, _, i_left_right_bond_atoms, i_crosslinks_bond_atoms = self.get_structure(
+            set_atom_ids=True)
         el_table = openbabel.OBElementTable()
 
         atom_labels = []

@@ -24,7 +24,8 @@ import warnings
 class RestTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        shutil.rmtree(rest.cache_dir)
+        if os.path.isdir(rest.cache_dir):
+            shutil.rmtree(rest.cache_dir)
         importlib.reload(rest)
 
     def tearDown(self):
