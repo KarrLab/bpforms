@@ -61,6 +61,7 @@ bpforms/alphabet/protein.pdb/
 bpforms/alphabet/protein.sqlite
 bpforms/alphabet/PDB/
 bpforms/web/img/alphabet/
+bpforms/web/img/example/
 
 # Paul's temporary work
 paulTmpTests

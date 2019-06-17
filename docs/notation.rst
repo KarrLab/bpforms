@@ -22,7 +22,7 @@ The `BpForms` notation unambiguously represents the primary structure of biopoly
   * ``ACGC{dI}``: represents alphabet defined hypoxanthine at the last position
   * ``AC[id: "c1" | name: "custom_1"]GC``: represents inline defined custom_1 at the third position
 
-Sections 2.1.1 - 2.1.3 describe the attributes of monomeric forms.
+Sections 2.1.1 - 2.1.6 describe the attributes of monomeric forms.
 
 
 Structure

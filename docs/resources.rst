@@ -26,4 +26,10 @@ The following are valuable resources for reconstructing DNA, RNA, and protein mo
     * `PSIMOD <https://bioportal.bioontology.org/ontologies/PSIMOD>`_: Ontology of modified amino acids
     * `RESID <https://pir.georgetown.edu/resid/>`_: Database of modified protein residues
     * `UniMod <http://www.unimod.org/>`_: Database of modified amino acids
+    * `UniProt <https://www.uniprot.org/>`_: Database of modified amino acids in proteins
     * `UniProt Controlled Vocabulary of Posttranslational Modifications <https://www.uniprot.org/docs/ptmlist>`_: Database of modified amino acids
+
+* Drawing structures of monomeric forms
+
+    * `ChemAxon Marvin <https://chemaxon.com/products/marvin>`_: Software for drawing structures of monomeric forms
+    * `OpenBabel <http://openbabel.org/wiki/Category:Installation>`_: Software for calculating the numbers of the atoms in monomeric forms

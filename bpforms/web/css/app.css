@@ -1,5 +1,11 @@
 h1, h2, h3, div, p { font-family: 'Raleway', sans-serif; }
-tt { font-family: 'Courier New', 'Courier'; }
+tt { 
+    font-family: 'Courier New', 'Courier'; 
+}
+tt.atttribute {
+    color: #3bafda;
+    font-weight: bold;
+}
         
 .grid-container {
     padding-top: 2rem;
@@ -47,7 +53,20 @@ label { font-weight: bold; }
 textarea { height: 100px; }
 .out input, .out textarea { background: #eee; }
 
+.notation p.before_list {
+    margin-bottom: 0px;
+}
+.example .syntax pre {
+    font-size: 0.9rem;
+}
+.example .image {
+    text-align: center;
+}
+
 pre {
+    font-family: 'Courier New', 'Courier';
+}
+pre.small {
     font-size: 0.75rem;
 }
 
