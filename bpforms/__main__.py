@@ -103,7 +103,7 @@ class GetPropertiesController(cement.Controller):
                 formula = form.get_formula()
                 mol_wt = form.get_mol_wt()
                 charge = form.get_charge()
-                structure = form.get_structure()
+                structure = form.get_structure()[0]
             else:
                 structure = form.get_major_micro_species(args.ph, major_tautomer=args.major_tautomer, dearomatize=args.dearomatize)
                 if structure is not None:

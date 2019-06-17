@@ -61,7 +61,7 @@ class LargeBpFormsTestCase(unittest.TestCase):
         end1 = time.time()
         uss1 = process.memory_full_info().uss
 
-        structure = form.get_structure()
+        structure = form.get_structure()[0]
         if structure is not None:
             self.assertEqual(OpenBabelUtils.get_formula(structure), formula)
             self.assertEqual(structure.GetTotalCharge(), charge)

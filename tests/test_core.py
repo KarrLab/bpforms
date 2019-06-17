@@ -1402,10 +1402,10 @@ class BpFormTestCase(unittest.TestCase):
                 core.Atom(core.Monomer, monomer=1, element='N', position=1, charge=0),
                 core.Atom(core.Monomer, monomer=1, element='H', position=1, charge=0),
                 core.Atom(core.Monomer, monomer=1, element='H', position=1, charge=0),
-                ],
+            ],
             right_displaced_atoms=[
                 core.Atom(core.Monomer, monomer=2, element='H', position=1, charge=0),
-                ]
+            ]
         )
         dimer.crosslinks = core.BondSet([crosslink])
         self.assertEqual(dimer.export('smiles'), 'c12c3ncn(c3ncn1)C1CC(OP(=O)(OCC3C(O)CC(n4c(=O)nc(N2)cc4)O3)[O-])C(O1)COP(=O)([O-])[O-]')
@@ -1702,7 +1702,7 @@ class BpFormTestCase(unittest.TestCase):
 
         form = protein.CanonicalProteinForm().from_str('AA')
         self.assertEqual(form.export('inchi'),
-                         'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)/t3-,4?/m0/s1')
+                         'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)')
 
         form = dna.CanonicalDnaForm()
         self.assertEqual(form.export('inchi'), None)
@@ -1965,6 +1965,25 @@ class BpFormTestCase(unittest.TestCase):
                     ' | right-displaced-atom: 3H5]')
         form = dna.DnaForm().from_str(form_str)
         self.assertNotEqual(form.validate(), [])
+
+    def test_get_image(self):
+        form_str = ('AAA '
+                    ' | crosslink: [left-bond-atom: 1C5'
+                    ' | right-bond-atom: 3C5'
+                    ' | left-displaced-atom: 1H5'
+                    ' | right-displaced-atom: 3H5]')
+        form = dna.DnaForm().from_str(form_str)
+        assert form.validate() == []
+        img = form.get_image(image_format='svg', width=800, height=600)
+        # with open('test1.svg', 'w') as file:
+        #    file.write(img)
+
+        form_str = ('AAA | circular')
+        form = dna.DnaForm().from_str(form_str)
+        assert form.validate() == []
+        img = form.get_image(image_format='svg', width=800, height=600)
+        # with open('test2.svg', 'w') as file:
+        #     file.write(img)
 
 
 class AlphabetTestCase(unittest.TestCase):

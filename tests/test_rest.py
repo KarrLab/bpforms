@@ -86,7 +86,7 @@ class RestTestCase(unittest.TestCase):
 
     def test_get_bpform_properties_no_structure(self):
         client = rest.app.test_client()
-        with mock.patch.object(core.BpForm, 'get_structure', return_value=None):
+        with mock.patch.object(core.BpForm, 'get_structure', return_value=(None, )):
             rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT'))
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(rv.get_json(), {
@@ -105,7 +105,7 @@ class RestTestCase(unittest.TestCase):
 
         def side_effect(*args):
             warnings.warn('My warning', UserWarning)
-            return None
+            return (None, )
         with mock.patch.object(core.BpForm, 'get_structure', side_effect=side_effect):
             rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT'))
         self.assertEqual(rv.status_code, 200)

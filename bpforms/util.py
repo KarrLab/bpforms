@@ -242,7 +242,7 @@ def validate_bpform_linkages(form_type):
     for monomer in form.alphabet.monomers.values():
         monomer_form = form_type(seq=[monomer])
         try:
-            monomer_structure = monomer_form.get_structure()
+            monomer_structure = monomer_form.get_structure()[0]
             if monomer_form.get_formula() != OpenBabelUtils.get_formula(monomer_structure):
                 errors.append('Monomeric form of {} has incorrect formula'.format(monomer.id))
                 continue
@@ -257,7 +257,7 @@ def validate_bpform_linkages(form_type):
         if form.can_monomer_bind_left(monomer) and form.can_monomer_bind_right(monomer):
             dimer_form = form_type(seq=[monomer, monomer])
             try:
-                dimer_structure = dimer_form.get_structure()
+                dimer_structure = dimer_form.get_structure()[0]
                 if dimer_form.get_formula() != OpenBabelUtils.get_formula(dimer_structure):
                     errors.append('Dimer of {} has incorrect formula'.format(monomer.id))
                     continue
