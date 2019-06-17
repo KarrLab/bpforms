@@ -2,7 +2,7 @@ h1, h2, h3, div, p { font-family: 'Raleway', sans-serif; }
 tt { 
     font-family: 'Courier New', 'Courier'; 
 }
-tt.atttribute {
+tt.attribute {
     color: #3bafda;
     font-weight: bold;
 }

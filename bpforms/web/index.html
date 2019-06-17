@@ -101,7 +101,20 @@
 
         <div class="large-5 cell notation">
           <h3>Overview</h3>
-          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined monomeric forms delimited by curly brackets and (b) user-defined monomeric forms described in square brackets by one or more attributes separated by "|". The <tt class="attribute">structure</tt>, <tt class="attribute">backbone-bond-atom</tt>, <tt class="attribute">backbone-displaced-atom</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> monomeric form attributes are required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
+          <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined monomeric forms delimited by curly brackets, (b) user-defined monomeric forms described in square brackets by one or more attributes separated by "|", and (b) additional attributes that can be used to represent circularity and crosslinks.</p>
+          <p>The <tt class="attribute">structure</tt>, <tt class="attribute">backbone-bond-atom</tt>, <tt class="attribute">backbone-displaced-atom</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> monomeric form attributes are required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>          
+        </div>
+        <div class="large-7 cell example">
+          <h3>Examples</h3>
+          <ul>
+          <li><tt>[id: "dI" | name: "deoxyinosine"]ACGC</tt>: represents deoxyinosine at the first position</li>
+          <li><tt>AC[id: "dI" | name: "deoxyinosine"]GC</tt>: represents deoxyinosine at the third position</li>
+          <li><tt>AC{2mG}C[id: "dI" | name: "deoxyinosine"]</tt>: represents guanosine methylation at the third position and deoxyinosine at the last position</li>
+          </ul>
+        </div>
+
+        <div class="large-5 cell notation">
+          <h3>Alphabets</h3>
           <p style="margin-bottom: 0px;"><i>BpForms</i> has several pre-built alphabets.</p>
           <ul id="alphabet_descriptions">          
           </ul>
@@ -109,9 +122,9 @@
         <div class="large-7 cell example">
           <h3>Examples</h3>
           <ul>
-          <li><tt>[id: "dI" | name: "deoxyinosine"]ACGC</tt>: represents deoxyinosine at the first position</li>
-          <li><tt>AC[id: "dI" | name: "deoxyinosine"]GC</tt>: represents deoxyinosine at the third position</li>
-          <li><tt>AC{2mG}C[id: "dI" | name: "deoxyinosine"]</tt>: represents guanosine methylation at the second position and deoxyinosine at the last position</li>
+          <li>DNA: <tt>{dI}ACGC</tt> represents deoxyinosine at the first position</li>
+          <li>RNA: <tt>AC{9A}GC</tt> represents deoxyinosine at the third position</li>
+          <li>Protein: <tt>ACUC</tt> represents selenocysteine at the third position</li>
           </ul>
         </div>
 
