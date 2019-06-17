@@ -3169,7 +3169,12 @@ class BpForm(object):
             def crosslink(self, *args):
                 bond = Bond()
 
-                for atom_type, atom in args[1::2]:
+                if isinstance(args[1], tuple):
+                    args = args[1::2]
+                else:
+                    args = args[2::2]
+
+                for atom_type, atom in args:
                     atom_type_list = getattr(bond, atom_type)
                     atom_type_list.append(atom)
 
@@ -3215,7 +3220,7 @@ class BpForm(object):
 
         return seq
 
-    def get_image(self, monomer_color=0xff0000, backbone_color=0xff0000,
+    def get_image(self, monomer_color=0x000000, backbone_color=0xff0000,
                   left_right_bond_color=0x00ff00, crosslink_bond_color=0x0000ff,
                   show_atom_nums=False,
                   width=200, height=200, image_format='svg', include_xml_header=True):
