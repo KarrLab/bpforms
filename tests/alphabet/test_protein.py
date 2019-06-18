@@ -204,7 +204,7 @@ class ProteinTestCase(unittest.TestCase):
         alphabet = Alphabet().from_yaml(path)
         self.assertEqual(alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H12NO'))
 
-    def test_validate_canonical_linkages(self):
+    def test_validate_linkages(self):
         validate_bpform_linkages(protein.CanonicalProteinForm)
         validate_bpform_linkages(protein.ProteinForm)
 
@@ -225,9 +225,9 @@ class ProteinTestCase(unittest.TestCase):
                 if not builder.is_c_terminus(monomer.structure, atom_c):
                     errors.append('Monomer {} does not have a C-terminus'.format(monomer.id))
 
-            if monomer.left_bond_atoms and monomer.right_bond_atoms:
-                if not builder.is_terminus(atom_n, atom_c):
-                    errors.append('Monomer {} does not have termini'.format(monomer.id))
+            # if monomer.left_bond_atoms and monomer.right_bond_atoms:
+            #    if not builder.is_terminus(atom_n, atom_c):
+            #        errors.append('Monomer {} does not have termini'.format(monomer.id))
         if errors:
             raise ValueError('Alphabet has invalid monomer(s):\n  {}'.format('\n  '.join(
                 errors)))
@@ -238,55 +238,61 @@ class ProteinTestCase(unittest.TestCase):
         self.assertEqual(form.validate(), [])
 
     def test_n_terminus_only(self):
-        # AA0084: L-aspartic acid 1-amide
-        form = protein.ProteinForm().from_str('{AA0084}')
+        # AA0318
+        form = protein.ProteinForm().from_str('{AA0318}')
         self.assertEqual(form.validate(), [])
         self.assertEqual(form.export('smiles'), form.seq[0].export('smiles'))
         self.assertEqual(form.get_formula(), form.seq[0].get_formula())
         self.assertEqual(form.get_charge(), form.seq[0].get_charge())
 
-        form = protein.ProteinForm().from_str('A{AA0084}')
+        form = protein.ProteinForm().from_str('A{AA0318}')
         self.assertEqual(form.validate(), [])
 
-        form = protein.ProteinForm().from_str('{AA0084}A')
+        form = protein.ProteinForm().from_str('{AA0318}A')
         self.assertNotEqual(form.validate(), [])
 
     def test_c_terminus_only(self):
-        # AA0421: N4-glucosyl-L-asparagine
-        form = protein.ProteinForm().from_str('{AA0421}')
+        # AA0062
+        form = protein.ProteinForm().from_str('{AA0062}')
         self.assertEqual(form.validate(), [])
         self.assertNotEqual(form.export('smiles'), form.seq[0].export('smiles'))
         self.assertEqual(form.get_formula(), form.seq[0].get_formula() + EmpiricalFormula('O') - EmpiricalFormula('H'))
         self.assertEqual(form.get_charge(), form.seq[0].get_charge() - 1)
 
-        form = protein.ProteinForm().from_str('A{AA0421}')
+        form = protein.ProteinForm().from_str('A{AA0062}')
         self.assertNotEqual(form.validate(), [])
 
-        form = protein.ProteinForm().from_str('{AA0421}A')
+        form = protein.ProteinForm().from_str('{AA0062}A')
         self.assertEqual(form.validate(), [])
 
     def test_no_termini(self):
-        # AA0048: N2-acetyl-L-lysine
-        form = protein.ProteinForm().from_str('{AA0048}')
+        # AA0344
+        monomer = Monomer(structure='OC[C@H](N1SC[C@@H](C1=O)[NH3+])C=O')
+        form = protein.ProteinForm()
+        form.seq.append(monomer)
         self.assertEqual(form.validate(), [])
         self.assertEqual(form.export('smiles'), form.seq[0].export('smiles'))
         self.assertEqual(form.get_formula(), form.seq[0].get_formula())
         self.assertEqual(form.get_charge(), form.seq[0].get_charge())
 
-        form = protein.ProteinForm().from_str('{AA0048}A')
+        form = protein.ProteinForm()
+        form.seq.append(monomer)
+        form.seq.append(protein.protein_alphabet.monomers.A)
         self.assertNotEqual(form.validate(), [])
 
-        form = protein.ProteinForm().from_str('A{AA0048}')
+        form = protein.ProteinForm()
+        form.seq.append(protein.protein_alphabet.monomers.A)
+        form.seq.append(monomer)
         self.assertNotEqual(form.validate(), [])
 
     def test_incomplete_termini(self):
-        monomer1 = protein.ProteinForm().from_str('{AA0421}')
-        monomer2 = protein.ProteinForm().from_str('{AA0084}')
+        monomer1 = protein.ProteinForm().from_str('{AA0062}')
+        monomer2 = protein.ProteinForm().from_str('{AA0318}')
 
-        dimer = protein.ProteinForm().from_str('{AA0421}{AA0084}')
+        dimer = protein.ProteinForm().from_str('{AA0062}{AA0318}')
         self.assertEqual(dimer.validate(), [])
         self.assertEqual(dimer.get_formula(), monomer1.get_formula() + monomer2.get_formula() - EmpiricalFormula('OH2'))
         self.assertEqual(dimer.get_charge(), monomer1.get_charge() + monomer2.get_charge())
 
-        dimer = protein.ProteinForm().from_str('{AA0084}{AA0421}')
+        dimer = protein.ProteinForm().from_str('{AA0318}{AA0062}')
         self.assertNotEqual(dimer.validate(), [])

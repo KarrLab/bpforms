@@ -1298,14 +1298,14 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge())
 
         bp_form = core.BpForm([monomer_A, monomer_C],
-                              bond=core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'H', charge=-1, position=None)]))
+                              bond=core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'H', charge=-1, position=1)]))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() + monomer_C.get_formula() - EmpiricalFormula('H'))
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() + monomer_C.get_mol_wt() -
                          EmpiricalFormula('H').get_molecular_weight())
         self.assertEqual(bp_form.get_charge(), monomer_A.get_charge() + monomer_C.get_charge() + 1)
 
         bp_form = core.BpForm([monomer_A, monomer_A, monomer_C, monomer_C, monomer_C],
-                              bond=core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'H', charge=-1, position=None)]))
+                              bond=core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'H', charge=-1, position=1)]))
         self.assertEqual(bp_form.get_formula(), monomer_A.get_formula() * 2 + monomer_C.get_formula() * 3 - EmpiricalFormula('H') * 4)
         self.assertEqual(bp_form.get_mol_wt(), monomer_A.get_mol_wt() * 2 + monomer_C.get_mol_wt()
                          * 3 - EmpiricalFormula('H').get_molecular_weight() * 4)

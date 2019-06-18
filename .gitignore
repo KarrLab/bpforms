@@ -59,6 +59,7 @@ bpforms/alphabet/rna.sqlite
 # bpforms/alphabet/rnamods/
 bpforms/alphabet/protein.pdb/
 bpforms/alphabet/protein.sqlite
+bpforms/alphabet/protein.report.txt
 bpforms/alphabet/PDB/
 bpforms/web/data/
 bpforms/web/img/alphabet/

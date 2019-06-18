@@ -2042,42 +2042,57 @@ class Bond(object):
             value = AtomList(value)
         self._right_displaced_atoms = value
 
-    def get_formula(self):
+    def get_formula(self, none_position=True):
         """ Get the formula
+
+        Args:
+            none_position (:obj:`bool`, optional): include atoms whose position is :obj:`None`
 
         Returns:
             :obj:`EmpiricalFormula`: formula
         """
         formula = EmpiricalFormula()
         for atom in self.left_displaced_atoms:
-            formula[atom.element] -= 1
+            if atom.position is not None or none_position:
+                formula[atom.element] -= 1
         for atom in self.right_displaced_atoms:
-            formula[atom.element] -= 1
+            if atom.position is not None or none_position:
+                formula[atom.element] -= 1
         return formula
 
-    def get_mol_wt(self):
+    def get_mol_wt(self, none_position=True):
         """ Get the molecular weight
+
+        Args:
+            none_position (:obj:`bool`, optional): include atoms whose position is :obj:`None`
 
         Returns:
             :obj:`float`: molecular weight
         """
-        return self.get_formula().get_molecular_weight()
+        return self.get_formula(none_position=none_position).get_molecular_weight()
 
-    def get_charge(self):
+    def get_charge(self, none_position=True):
         """ Get the charge
+
+        Args:
+            none_position (:obj:`bool`, optional): include atoms whose position is :obj:`None`
 
         Returns:
             :obj:`int`: charge
         """
         charge = 0
         for atom in self.left_bond_atoms:
-            charge -= atom.charge
+            if atom.position is not None or none_position:
+                charge -= atom.charge
         for atom in self.left_displaced_atoms:
-            charge -= atom.charge
+            if atom.position is not None or none_position:
+                charge -= atom.charge
         for atom in self.right_bond_atoms:
-            charge -= atom.charge
+            if atom.position is not None or none_position:
+                charge -= atom.charge
         for atom in self.right_displaced_atoms:
-            charge -= atom.charge
+            if atom.position is not None or none_position:
+                charge -= atom.charge
         return charge
 
     def is_equal(self, other):
@@ -2924,14 +2939,26 @@ class BpForm(object):
             for atom in monomer.backbone_displaced_atoms:
                 formula[atom.element] -= count
 
+        for monomer in self.seq[0:-1]:
+            for atom in monomer.right_displaced_atoms:
+                formula[atom.element] -= 1
+        for monomer in self.seq[1:]:
+            for atom in monomer.left_displaced_atoms:
+                formula[atom.element] -= 1
+        if self.circular:
+            for atom in self.seq[-1].right_displaced_atoms:
+                formula[atom.element] -= 1
+            for atom in self.seq[0].left_displaced_atoms:
+                formula[atom.element] -= 1
+
         # crosslinks
         for crosslink in self.crosslinks:
             for atom in itertools.chain(crosslink.left_displaced_atoms, crosslink.right_displaced_atoms):
                 formula[atom.element] -= 1
 
         return formula \
-            + self.backbone.get_formula() * n_backbone  \
-            + self.bond.get_formula() * (len(self.seq) - (1 - self.circular))
+            + self.backbone.get_formula() * n_backbone \
+            + self.bond.get_formula(none_position=False) * (len(self.seq) - (1 - self.circular))
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -2958,6 +2985,18 @@ class BpForm(object):
             for atom in monomer.backbone_displaced_atoms:
                 charge -= atom.charge * count
 
+        for monomer in self.seq[0:-1]:
+            for atom in monomer.right_displaced_atoms:
+                charge -= atom.charge
+        for monomer in self.seq[1:]:
+            for atom in monomer.left_displaced_atoms:
+                charge -= atom.charge
+        if self.circular:
+            for atom in self.seq[-1].right_displaced_atoms:
+                charge -= atom.charge
+            for atom in self.seq[0].left_displaced_atoms:
+                charge -= atom.charge
+
         # crosslinks
         for crosslink in self.crosslinks:
             for atom in itertools.chain(crosslink.left_displaced_atoms, crosslink.right_displaced_atoms):
@@ -2965,7 +3004,7 @@ class BpForm(object):
 
         return charge \
             + self.backbone.get_charge() * n_backbone \
-            + self.bond.get_charge() * (len(self.seq) - (1 - self.circular))
+            + self.bond.get_charge(none_position=False) * (len(self.seq) - (1 - self.circular))
 
     def __str__(self):
         """ Get a string representation of the biopolymer form
