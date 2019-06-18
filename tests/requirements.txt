@@ -1,3 +1,4 @@
+biopython
 capturer # to capture standard output in tests
 hurry.filesize
 jupyter
