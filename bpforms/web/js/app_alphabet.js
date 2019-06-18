@@ -22,7 +22,7 @@ set_alphabet = function(data, status, jqXHR) {
         if (monomer['structure'] == null) {
             img = ''
         } else {
-            img = '<img class="lazy" data-src="/img/alphabet/' + alphabet_id + '/' + code + '.png">'
+            img = '<img class="lazy" data-src="img/alphabet/' + alphabet_id + '/' + code + '.png">'
         }
         html += '<div class="structure">' + img + '</div>'
         
@@ -176,7 +176,8 @@ get_alphabet = function() {
     }else{
         hash = document.URL.substr(i_hash + 1)
         $.ajax({
-          url: '/api/alphabet/' + hash,
+          url: 'data/alphabet/' + hash + '.json',
+          dataType: 'json',
           success: set_alphabet
         })
         .fail(get_alphabet_error);

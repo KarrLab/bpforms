@@ -8,6 +8,7 @@
 
 import bpforms.rest
 import bpforms.util
+import importlib
 import os.path
 import pathlib
 import pkg_resources
@@ -32,6 +33,12 @@ def build(alphabet_ids=None):
         alphabet_ids (:obj:`list` of :obj:`str`): list of ids of alphabets to cache; if :obj:`None`, 
             cache all alphabets
     """
+    rest_client = bpforms.rest.app.test_client()
+
+    if alphabet_ids is None:
+        alphabets = bpforms.util.get_alphabets().values()
+    else:
+        alphabets = [bpforms.util.get_alphabet(alphabet_id) for alphabet_id in alphabet_ids]
 
     # pull from GitHub
     p = subprocess.Popen(['git', 'pull'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -45,15 +52,29 @@ def build(alphabet_ids=None):
     cache_dirname = os.path.join(os.path.expanduser('~'), '.cache', 'bpforms')
     if os.path.isdir(cache_dirname):
         shutil.rmtree(cache_dirname)
+    importlib.reload(bpforms.rest)
+
+    # cache alphabet REST queries and save JSON files for HTML pages
+    data_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'data'))
+    alphabet_data_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'data', 'alphabet'))
+    if not os.path.isdir(data_dir):
+        os.makedirs(data_dir)
+    if not os.path.isdir(alphabet_data_dir):
+        os.makedirs(alphabet_data_dir)
+
+    rv = rest_client.get('/api/alphabet/')
+    assert rv.status_code == 200
+    with open(os.path.join(data_dir, 'alphabets.json'), 'wb') as file:
+        file.write(rv.data)
+
+    for alphabet in alphabets:
+        rv = rest_client.get('/api/alphabet/' + alphabet.id + '/')
+        assert rv.status_code == 200
+        with open(os.path.join(alphabet_data_dir, alphabet.id + '.json'), 'wb') as file:
+            file.write(rv.data)
 
     # build images of monomers for alphabet web pages
-    # cache alphabet REST queries
     img_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'img', 'alphabet'))
-
-    if alphabet_ids is None:
-        alphabets = bpforms.util.get_alphabets().values()
-    else:
-        alphabets = [bpforms.util.get_alphabet(alphabet_id) for alphabet_id in alphabet_ids]
 
     for alphabet in alphabets:
         alphabet_img_dir = os.path.join(img_dir, alphabet.id)
@@ -63,8 +84,6 @@ def build(alphabet_ids=None):
         for code, monomer in alphabet.monomers.items():
             with open(os.path.join(alphabet_img_dir, code + '.png'), 'wb') as file:
                 file.write(monomer.get_image(image_format='png', width=250, height=150))
-
-        bpforms.rest.get_alphabet(alphabet.id)
 
     # build examples
     build_examples.build()

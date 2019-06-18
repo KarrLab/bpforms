@@ -1,6 +1,7 @@
 $(document).foundation()
 
 set_alphabets = function(data, status, jqXHR) {
+    console.log(data)
     for (alphabet_id in data) {
         alphabet = data[alphabet_id]
         $("#alphabet").append('<option value="' + alphabet['id'] + '">' + alphabet['name'] + '</option>')
@@ -13,8 +14,9 @@ get_alphabets_error = function( jqXHR, textStatus, errorThrown ) {
 }
 
  $.ajax({
-  url: '/api/alphabet/',
-  success: set_alphabets
+    url: 'data/alphabets.json',
+    dataType: 'json',
+    success: set_alphabets
 })
 .fail(get_alphabets_error);
 

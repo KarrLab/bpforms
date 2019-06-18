@@ -60,6 +60,7 @@ bpforms/alphabet/rna.sqlite
 bpforms/alphabet/protein.pdb/
 bpforms/alphabet/protein.sqlite
 bpforms/alphabet/PDB/
+bpforms/web/data/
 bpforms/web/img/alphabet/
 bpforms/web/img/example/
 
