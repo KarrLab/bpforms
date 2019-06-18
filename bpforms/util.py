@@ -244,10 +244,12 @@ def validate_bpform_linkages(form_type):
         try:
             monomer_structure = monomer_form.get_structure()[0]
             if monomer_form.get_formula() != OpenBabelUtils.get_formula(monomer_structure):
-                errors.append('Monomeric form of {} has incorrect formula'.format(monomer.id))
+                errors.append('Monomeric form of {} has incorrect formula: {} != {}'.format(
+                    monomer.id, str(monomer_form.get_formula()), str(OpenBabelUtils.get_formula(monomer_structure))))
                 continue
             if monomer_form.get_charge() != monomer_structure.GetTotalCharge():
-                errors.append('Monomeric form of {} has incorrect charge'.format(monomer.id))
+                errors.append('Monomeric form of {} has incorrect charge: {} != {}'.format(
+                    monomer.id, monomer_form.get_charge(), monomer_structure.GetTotalCharge()))
                 continue
             OpenBabelUtils.export(monomer_structure, 'smiles')
             OpenBabelUtils.export(monomer_structure, 'inchi')
@@ -259,10 +261,12 @@ def validate_bpform_linkages(form_type):
             try:
                 dimer_structure = dimer_form.get_structure()[0]
                 if dimer_form.get_formula() != OpenBabelUtils.get_formula(dimer_structure):
-                    errors.append('Dimer of {} has incorrect formula'.format(monomer.id))
+                    errors.append('Dimer of {} has incorrect formula: {} != {}'.format(
+                        monomer.id, str(dimer_form.get_formula()), str(OpenBabelUtils.get_formula(dimer_structure))))
                     continue
                 if dimer_form.get_charge() != dimer_structure.GetTotalCharge():
-                    errors.append('Dimer of {} has incorrect charge'.format(monomer.id))
+                    errors.append('Dimer of {} has incorrect charge: {} != {}'.format(
+                        monomer.id, dimer_form.get_charge(), dimer_structure.GetTotalCharge()))
                     continue
                 OpenBabelUtils.export(dimer_structure, 'smiles')
                 OpenBabelUtils.export(dimer_structure, 'inchi')
