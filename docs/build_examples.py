@@ -148,10 +148,10 @@ def draw_polymer(Form, polymer, dirname, filename, show_atom_nums=False,
     print('''<p class="form-properties">
         Length: {}<br/>
         Formula: {}<br/>
-        Molecular weight: {}<br/>
+        Molecular weight: {:.1f}<br/>
         Charge: {}
         </p>'''.format(
         len(form.seq),
-        ''.join('{:.2f}<sub>{}</sub>'.format(el, int(count)) for el, count in form.get_formula().items()),
+        ''.join('{}<sub>{}</sub>'.format(el, int(count)) for el, count in form.get_formula().items()),
         form.get_mol_wt(),
         form.get_charge()))
