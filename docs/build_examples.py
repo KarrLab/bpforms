@@ -25,6 +25,13 @@ def build(dirname=default_dirname):
         os.makedirs(dirname)
 
     # save images
+    draw_polymer(bpforms.DnaForm, '{dI}ACGC', dirname, 'form-DNA',
+                 show_atom_nums=False, width=203)
+    draw_polymer(bpforms.RnaForm, 'AC{9A}GC', dirname, 'form-RNA',
+                 show_atom_nums=False, width=203)
+    draw_polymer(bpforms.ProteinForm, 'ACUC', dirname, 'form-Protein',
+                 show_atom_nums=False, width=203)
+
     draw_monomer(bpforms.DnaForm, '''
         [id: "dI" 
             | name: "hypoxanthine"
@@ -80,7 +87,8 @@ def build(dirname=default_dirname):
         ]''', dirname, 'crosslink-protein-sulfide-bond', show_atom_nums=False)
 
 
-def draw_monomer(Form, monomer, dirname, filename, show_atom_nums=False, format='svg'):
+def draw_monomer(Form, monomer, dirname, filename, show_atom_nums=False,
+                 width=250, format='svg'):
     """ Generate and save an image of a monomer for an example
 
     Args:
@@ -89,6 +97,7 @@ def draw_monomer(Form, monomer, dirname, filename, show_atom_nums=False, format=
         dirname (:obj:`str`): directory to save image
         filename (:obj:`str`): filename to save image
         show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
+        width (:obj:`int`, optional): width of image
         format (:obj:`str`, optional): format for image
     """
     monomer = monomer.replace('\n', '').strip()
@@ -99,11 +108,12 @@ def draw_monomer(Form, monomer, dirname, filename, show_atom_nums=False, format=
     else:
         mode = 'wb'
     with open(os.path.join(dirname, filename + '.' + format), mode) as file:
-        img = form.seq[0].get_image(width=250, height=150, image_format=format, show_atom_nums=show_atom_nums)
+        img = form.seq[0].get_image(width=width, height=150, image_format=format, show_atom_nums=show_atom_nums)
         file.write(img)
 
 
-def draw_polymer(Form, polymer, dirname, filename, show_atom_nums=False, format='svg'):
+def draw_polymer(Form, polymer, dirname, filename, show_atom_nums=False,
+                 width=250, format='svg'):
     """ Generate and save an image of a polymer for an example
 
     Args:
@@ -112,6 +122,7 @@ def draw_polymer(Form, polymer, dirname, filename, show_atom_nums=False, format=
         dirname (:obj:`str`): directory to save image
         filename (:obj:`str`): filename to save image
         show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
+        width (:obj:`int`, optional): width of image
         format (:obj:`str`, optional): format for image
     """
     polymer = polymer.replace('\n', '').strip()
@@ -122,5 +133,5 @@ def draw_polymer(Form, polymer, dirname, filename, show_atom_nums=False, format=
     else:
         mode = 'wb'
     with open(os.path.join(dirname, filename + '.' + format), mode) as file:
-        img = form.get_image(width=250, height=150, image_format=format, show_atom_nums=show_atom_nums)
+        img = form.get_image(width=width, height=150, image_format=format, show_atom_nums=show_atom_nums)
         file.write(img)

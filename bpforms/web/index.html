@@ -106,11 +106,29 @@
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
-          <ul>
-          <li><tt>[id: "dI" | name: "deoxyinosine"]ACGC</tt>: represents deoxyinosine at the first position</li>
-          <li><tt>AC[id: "dI" | name: "deoxyinosine"]GC</tt>: represents deoxyinosine at the third position</li>
-          <li><tt>AC{2mG}C[id: "dI" | name: "deoxyinosine"]</tt>: represents guanosine methylation at the third position and deoxyinosine at the last position</li>
-          </ul>
+          <div class="grid-x grid-padding-x">
+            <div class="large-4 cell">
+              <h4>DNA</h4>
+              <p style="text-align: center;"><tt>{dI}ACGC</tt></p>
+              <img src="img/example/form-DNA.svg"
+                style="margin-bottom: 0.5rem;"/>
+              <p>Deoxyinosine at the first position</p>
+            </div>
+            <div class="large-4 cell">
+              <h4>RNA</h4>
+              <p style="text-align: center;"><tt>AC{9A}GC</tt></p>
+              <img src="img/example/form-RNA.svg"
+                style="margin-bottom: 0.5rem;"/>
+              <p>Deoxyinosine at the third position</p>
+            </div>
+            <div class="large-4 cell">
+              <h4>Protein</h4>
+              <p style="text-align: center;"><tt>ACU[id: "U"]C</tt></p>
+              <img src="img/example/form-Protein.svg" 
+                style="margin-bottom: 0.5rem;"/>
+              <p>Selenocysteine at the third position</p>
+            </div>
+          </div>          
         </div>
 
         <div class="large-5 cell notation">

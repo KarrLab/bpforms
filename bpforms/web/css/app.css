@@ -34,6 +34,14 @@ h3, .h3 {
     text-align: center;
     font-weight: bold;
 }
+h4, .h4 {
+    font-size: 1.0rem;
+    margin-top: 0rem;
+    margin-bottom: 0.2em;
+    text-align: center;
+    font-weight: bold;
+}
+
 
 .blue h2{ background: #3bafda;}
 .blue h3{ color: #3bafda; border-bottom: 2px solid #3bafda;}
