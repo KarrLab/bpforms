@@ -424,45 +424,100 @@
         <div class="large-12 cell">
           <h2>Integrating BpForms into pathway databases, models, and <i>in silico</i> designs</h2>
         </div>
-        <div class="large-6 cell">
-          <h3>Pathway databases (BioPAX <a href="https://www.biopax.org/"><i class="fi-link"></i></a>)</h3>
-          <p>We are exploring a recommended best practice for encoding BpForms in BioPAX.
+        <div class="large-4 cell">
+          <h3>Knowledge (BioPAX <a href="https://www.biopax.org/"><i class="fi-link"></i></a>)</h3>
+          <p><i>BpForms</i> can be embedded into <tt>sequence</tt> children of instances of <tt>DNAReference</tt>, <tt>RNAReference</tt>, and <tt>ProteinReference</tt>.
+          </p>
         </div>
-        <div class="large-6 cell example">
-          <h3>Example</h3>
-          Coming soon.
+        <div class="large-8 cell example">
+          <h3>Examples</h3>
+          <h4>DNA: <span style="font-weight: normal;"><i>E. coli</i> K-12 MG1655 Dam 6-methyladenine sites (701..914) involved in host recognition <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3"><i class="fi-link"></i></a></span></h4>
+          <pre class="small">...
+  &lt;bp:DNA&gt;
+    &lt;bp:entityReference&gt;
+      &lt;bp:DNAReference&gt;
+        &lt;bp:sequence 
+          rdf:datatype="http://www.w3.org/2001/XMLSchema#string" 
+          rdf:about="http://edamontology.org/format_3909#dna"&gt;
+          <span class="bpform">...
+          TGATTTGCCGTGGCGAGAAAATGTCG<span class="modification">{a}</span>TCGCCATTATGGCCGGCGTATTAGAAGCGCGCGGTCACAAC
+          GTTACTGTTATCG<span class="modification">{a}</span>TCCGGTCGAAAAACTGCTGGCAGTGGGGCATTACCTCGAATCTACCGTCGATAT
+          TGCTGAGTCCACCCGCCGTATTGCGGCAAGCCGCATTCCGGCTG<span class="modification">{a}</span>TCACATGGTGCTGATGGCAGGTT
+          ...</span>
+        &lt;/bp:sequence&gt;
+      &lt;/bp:DNAReference&gt;
+    &lt;/bp:entityReference&gt;
+  &lt;/bp:DNA&gt;
+...
+</pre>
+
+          <h4>RNA: <span style="font-weight: normal;">Modifications of <i>B. subtilis</i> tRNA<sup>UGC</sup> involved in stability <a href="http://modomics.genesilico.pl/sequences/list/?type_field=tRNA&subtype=Ala&species=4&display=Display&nomenclature=abbrev"><i class="fi-link"></i></a></span></h4>
+          <pre class="small">...
+  &lt;bp:RNA&gt;
+    &lt;bp:entityReference&gt;
+      &lt;bp:RNAReference&gt;
+        &lt;bp:sequence
+          rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+          rdf:about="http://edamontology.org/format_3909#rna"&gt;
+          <span class="bpform">GGAGCCUUAGCUCAGC<span class="modification">{8U}</span>GGGAGAGCGCCUGCUU<span class="modification">{501U}</span>GC<span class="modification">{6A}</span>CGCAGGAG<span class="modification">{7G}</span>UCAGCGG<span class="modification">{5U}</span><span class="modification">{9U}</span>CGAUCCCGCUAGGCUCCA
+          CCA</span>
+        &lt;/bp:sequence&gt;
+      &lt;/bp:RNAReference&gt;
+    &lt;/bp:entityReference&gt;
+  &lt;/bp:RNA&gt;
+...</pre>
+
+          <h4>Protein: <span style="font-weight: normal;">Modifications of <i>H. sapiens</i> MAPK3 involved in signaling <a href="https://www.uniprot.org/uniprot/P27361#ptm_processing"><i class="fi-link"></i></a></span></h4>
+          <pre class="small">...
+  &lt;bp:Protein&gt;
+    &lt;bp:entityReference&gt;
+      &lt;bp:ProteinReference&gt;
+        &lt;bp:sequence
+          rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+          rdf:about="http://edamontology.org/format_3909#protein"&gt;
+          <span class="bpform">M<span class="modification">{AA0041}</span>AAAAQGGGGGEPRRTEGVGPGVPGEVEMVKGQPFDVGPRYTQLQYIGEGAYGMVSSAYDHVRKTRVAIKKISPFEHQTYCQRTL
+          REIQILLRFRHENVIGIRDILRASTLEAMRDVYIVQDLMETDLYKLLKSQQLSNDHICYFLYQILRGLKYIHSANVLHRDLKPSNLLINTTCD
+          LKICDFGLARIADPEHDH<span class="modification">{AA0038}</span>GFL<span class="modification">{AA0038}</span>E<span class="modification">{AA0039}</span>VA<span class="modification">{AA0038}</span>RWYRAPEIMLNSKGYTKSIDIWSVGCILAEMLSNRPI
+          FPGKHYLDQLNHILGILGSPSQEDLNCIINMKARNYLQSLPSKTKVAWAKLFPKSDSKALDLLDRMLTFNPNKRITVEEALAHPYLEQYYDPT
+          DEPVAEEPFTFAMELDDLPKERLKELIFQETARFQPGVLEAP</span>
+        &lt;/bp:sequence&gt;
+      &lt;/bp:ProteinReference&gt;
+    &lt;/bp:entityReference&gt;
+  &lt;/bp:Protein&gt;
+...</pre>
+
         </div>
 
-        <div class="large-6 cell">
+        <div class="large-4 cell">
           <h3>Models (SBML <a href="https://sbml.org"><i class="fi-link"></i></a>)</h3>
           <p>The <tt class="attribute">annotation</tt> attribute of <tt class="attribute">species</tt> can be used to describe species with BpForms.</p>
         </div>
-        <div class="large-6 cell example">
+        <div class="large-8 cell example">
           <h3>Example</h3>
-<pre class="small">
-&lt;species&gt;
+<pre class="small">...
+  &lt;species&gt;
     &lt;annotation&gt;
       &lt;bpforms:bpform xmlns:bpforms="https://www.bpforms.org/ns"&gt;
         &lt;bpforms:alphabet&gt;dna&lt;/bpforms:alphabet&gt;
         &lt;bpforms:sequence&gt;A{m2C}GT&lt;/bpforms:sequence&gt;
-      &lt;/bpforms:BpForm&gt;
+      &lt;/bpforms:bpform&gt;
     &lt;/annotation&gt;
-&lt;/species&gt;
-</pre>
+  &lt;/species&gt;
+...</pre>
         </div>
 
-        <div class="large-6 cell">
+        <div class="large-4 cell">
           <h3><i>In silico</i> designs (SBOL <a href="http://sbolstandard.org/"><i class="fi-link"></i></a>)</h3>
           <p>This encoding URI can be used to describe components in <i>in silico</i> designs: <a href="http://edamontology.org/format_3909">http://edamontology.org/format_3909</a></p>
         </div>
-        <div class="large-6 cell example">
+        <div class="large-8 cell example">
           <h3>Example</h3>
-<pre class="small">
-&lt;sbol:Sequence&gt;
+<pre class="small">...
+  &lt;sbol:Sequence&gt;
     &lt;sbol:encoding rdf:resource="http://edamontology.org/format_3909"/&gt;
-    &lt;sbol:elements>A{m2C}GT&lt;/sbol:elements&gt;
-&lt;/sbol:Sequence&gt;
-</pre>
+    &lt;sbol:elements&gt;A{m2C}GT&lt;/sbol:elements&gt;
+  &lt;/sbol:Sequence&gt;
+...</pre>
         </div>
       </div>
 

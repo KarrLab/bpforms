@@ -40,7 +40,7 @@ h3, .h3 {
 }
 h4, .h4 {
     font-size: 1.0rem;
-    margin-top: 0rem;
+    margin-top: 1.0rem;
     margin-bottom: 0.2em;
     text-align: center;
     font-weight: bold;
@@ -80,13 +80,23 @@ textarea { height: 100px; }
 
 pre {
     font-family: 'Courier New', 'Courier';
-    background: #efefef;
+    background: #f6f6f6;
     padding: 0.5rem;
     overflow: visible;
     border-radius: 0.3rem;
+    margin-top: 0rem;
 }
 pre.small {
     font-size: 0.75rem;
+}
+
+pre .bpform {
+    color: #3bafda;
+}
+
+pre .modification {
+    color: #da3baf;
+    font-weight: bold;
 }
 
 /* alphabet */
