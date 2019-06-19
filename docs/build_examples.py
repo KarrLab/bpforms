@@ -32,6 +32,13 @@ def build(dirname=default_dirname):
     draw_polymer(bpforms.ProteinForm, 'ACUC', dirname, 'form-Protein',
                  show_atom_nums=False, width=203)
 
+    draw_polymer(bpforms.DnaForm, 'C{m2A}G{m2C}', dirname, 'alphabet-DNA',
+                 show_atom_nums=False, width=203)
+    draw_polymer(bpforms.RnaForm, 'A{21C}GC', dirname, 'alphabet-RNA',
+                 show_atom_nums=False, width=203)
+    draw_polymer(bpforms.ProteinForm, '{AA0037}E{AA0038}', dirname, 'alphabet-Protein',
+                 show_atom_nums=False, width=203)
+
     draw_monomer(bpforms.DnaForm, '''
         [id: "dI" 
             | name: "hypoxanthine"
@@ -135,3 +142,16 @@ def draw_polymer(Form, polymer, dirname, filename, show_atom_nums=False,
     with open(os.path.join(dirname, filename + '.' + format), mode) as file:
         img = form.get_image(width=width, height=150, image_format=format, show_atom_nums=show_atom_nums)
         file.write(img)
+
+    # print properties
+    print(str(form))
+    print('''<p class="form-properties">
+        Length: {}<br/>
+        Formula: {}<br/>
+        Molecular weight: {}<br/>
+        Charge: {}
+        </p>'''.format(
+        len(form.seq),
+        ''.join('{:.2f}<sub>{}</sub>'.format(el, int(count)) for el, count in form.get_formula().items()),
+        form.get_mol_wt(),
+        form.get_charge()))

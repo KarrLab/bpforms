@@ -1,10 +1,14 @@
-h1, h2, h3, div, p { font-family: 'Raleway', sans-serif; }
+h1, h2, h3, h4, h5, div, p { font-family: 'Raleway', sans-serif; }
 tt { 
     font-family: 'Courier New', 'Courier'; 
+    background: #efefef;
+    padding: 2px;
 }
 tt.attribute {
+    /* 
     color: #3bafda;
     font-weight: bold;
+    */
 }
         
 .grid-container {
@@ -29,7 +33,7 @@ h2, .h2 {
 h3, .h3 {
     font-size: 1.25rem;
     margin-top: 1.0rem;
-    margin-bottom: 1.0em;
+    margin-bottom: 0.5em;
     padding: 0.2rem;
     text-align: center;
     font-weight: bold;
@@ -70,9 +74,16 @@ textarea { height: 100px; }
 .example .image {
     text-align: center;
 }
+.form-properties {
+    font-size: 0.8rem;
+}
 
 pre {
     font-family: 'Courier New', 'Courier';
+    background: #efefef;
+    padding: 0.5rem;
+    overflow: visible;
+    border-radius: 0.3rem;
 }
 pre.small {
     font-size: 0.75rem;

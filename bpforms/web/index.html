@@ -30,6 +30,7 @@
             <h2><i>BpForms</i> calculator</h2>
         </div>
         <div class="large-6 cell">
+            <a name="form"></a>
             <h3>Enter a biopolymer form</h3>
             <form>
             <label>Select alphabet
@@ -61,7 +62,7 @@
                 </select>
             </label>
 
-            
+
             <div id="warnings" style="color: #da663b;">
             </div>
 
@@ -95,6 +96,7 @@
       </div>
 
       <div class="grid-x grid-padding-x orange">
+        <a name="notation"></a>
         <div class="large-12 cell">
             <h2><i>BpForms</i> notation</h2>
         </div>
@@ -102,7 +104,7 @@
         <div class="large-5 cell notation">
           <h3>Overview</h3>
           <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined monomeric forms delimited by curly brackets, (b) user-defined monomeric forms described in square brackets by one or more attributes separated by "|", and (b) additional attributes that can be used to represent circularity and crosslinks.</p>
-          <p>The <tt class="attribute">structure</tt>, <tt class="attribute">backbone-bond-atom</tt>, <tt class="attribute">backbone-displaced-atom</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> monomeric form attributes are required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>          
+          <p>The <tt class="attribute">structure</tt>, <tt class="attribute">backbone-bond-atom</tt>, <tt class="attribute">backbone-displaced-atom</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> monomeric form attributes are required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
@@ -112,6 +114,12 @@
               <p style="text-align: center;"><tt>{dI}ACGC</tt></p>
               <img src="img/example/form-DNA.svg"
                 style="margin-bottom: 0.5rem;"/>
+              <p class="form-properties">
+                Length: 5<br/>
+                Formula: C<sub>48</sub>H<sub>55</sub>N<sub>20</sub>O<sub>30</sub>P<sub>5</sub><br/>
+                Molecular weight: 1546.9<br/>
+                Charge: -6
+              </p>
               <p>Deoxyinosine at the first position</p>
             </div>
             <div class="large-4 cell">
@@ -119,31 +127,80 @@
               <p style="text-align: center;"><tt>AC{9A}GC</tt></p>
               <img src="img/example/form-RNA.svg"
                 style="margin-bottom: 0.5rem;"/>
-              <p>Deoxyinosine at the third position</p>
+              <p class="form-properties">
+                Length: 5<br/>
+                Formula: C<sub>48</sub>H<sub>55</sub>N<sub>20</sub>O<sub>35</sub>P<sub>5</sub><br/>
+                Molecular weight: 1626.9<br/>
+                Charge: -6
+              </p>
+              <p>Inosine at the third position</p>
             </div>
             <div class="large-4 cell">
               <h4>Protein</h4>
               <p style="text-align: center;"><tt>ACU[id: "U"]C</tt></p>
-              <img src="img/example/form-Protein.svg" 
+              <img src="img/example/form-Protein.svg"
                 style="margin-bottom: 0.5rem;"/>
-              <p>Selenocysteine at the third position</p>
+              <p class="form-properties">
+                Length: 4<br/>
+                Formula: C<sub>12</sub>H<sub>22</sub>N<sub>4</sub>O<sub>5</sub>S<sub>2</sub>Se<sub>1</sub><br/>
+                Molecular weight: 445.4<br/>
+                Charge: 0
+              </p>
+              <p>L-selenocysteine at the third position</p>
             </div>
-          </div>          
+          </div>
         </div>
 
         <div class="large-5 cell notation">
+          <a name="alphabets"></a>
           <h3>Alphabets</h3>
           <p style="margin-bottom: 0px;"><i>BpForms</i> has several pre-built alphabets.</p>
-          <ul id="alphabet_descriptions">          
+          <ul id="alphabet_descriptions">
           </ul>
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
-          <ul>
-          <li>DNA: <tt>{dI}ACGC</tt> represents deoxyinosine at the first position</li>
-          <li>RNA: <tt>AC{9A}GC</tt> represents deoxyinosine at the third position</li>
-          <li>Protein: <tt>ACUC</tt> represents selenocysteine at the third position</li>
-          </ul>
+          <div class="grid-x grid-padding-x">
+            <div class="large-4 cell">
+              <h4>DNA</h4>
+              <p style="text-align: center;"><tt>C{m2A}G{m2C}</tt></p>
+              <img src="img/example/alphabet-DNA.svg"
+                style="margin-bottom: 0.5rem;"/>
+              <p class="form-properties">
+                Length: 4<br/>
+                Formula: C<sub>39</sub>H<sub>50</sub>N<sub>17</sub>O<sub>24</sub>P<sub>4</sub><br/>
+                Molecular weight: 1264.8<br/>
+                Charge: -5
+              </p>
+              <p>2-methyladenine at the second position and 2-methylcytosine at the fourth position</p>
+            </div>
+            <div class="large-4 cell">
+              <h4>RNA</h4>
+              <p style="text-align: center;"><tt>A{21C}GC</tt></p>
+              <img src="img/example/alphabet-RNA.svg"
+                style="margin-bottom: 0.5rem;"/>
+              <p class="form-properties">
+                Length: 4<br/>
+                Formula: C<sub>44</sub>H<sub>60</sub>N<sub>18</sub>O<sub>29</sub>P<sub>4</sub><br/>
+                Molecular weight: 1429.0<br/>
+                Charge: -4
+              </p>
+              <p>2-lysidine at the second position</p>
+            </div>
+            <div class="large-4 cell">
+              <h4>Protein</h4>
+              <p style="text-align: center;"><tt>{AA0037}E{AA0038}</tt></p>
+              <img src="img/example/alphabet-Protein.svg"
+                style="margin-bottom: 0.5rem;"/>
+              <p class="form-properties">
+                Length: 3<br/>
+                Formula: C<sub>12</sub>H<sub>18</sub>N<sub>3</sub>O<sub>14</sub>P<sub>2</sub><br/>
+                Molecular weight: 490.2<br/>
+                Charge: -5
+              </p>
+              <p>O-phospho-L-serine at the first position and O-phospho-L-threonine at the third position</p>
+            </div>
+          </div>
         </div>
 
         <div class="large-5 cell notation">
@@ -154,10 +211,10 @@
           <h3>Example</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              The text below illustrates how describe the modified DNA nucleobase hypoxanthine, and the image below illustrates the molecule that the text specifies. The atom labels indicate the numbers of the atoms within the molecule. These numbers can be generated with OpenBabel <a href="http://openbabel.org/wiki/Category:Installation"><i class="fi-link"></i></a>.
+              <p>The text below illustrates how describe the modified DNA nucleobase hypoxanthine, and the image below illustrates the molecule that the text specifies. The atom labels indicate the numbers of the atoms within the molecule. These numbers can be generated with OpenBabel <a href="http://openbabel.org/wiki/Category:Installation"><i class="fi-link"></i></a>.</p>
             </div>
-            <div class="large-8 cell syntax">              
-              <pre>[id: "dI" 
+            <div class="large-8 cell syntax">
+              <pre>[id: "dI"
     | name: "hypoxanthine"
     | structure: "O=C1NC=NC2=C1N=CN2"
     ]</pre>
@@ -176,10 +233,10 @@
           <h3>Example</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              The example below illustrates how to describe the modified DNA nucleotide deoxyinosine monophosphate. The red atoms in the image indicate the sugar-phosphate backbone.
+              <p>The example below illustrates how to describe the modified DNA nucleotide deoxyinosine monophosphate. The red atoms in the image indicate the sugar-phosphate backbone.</p>
             </div>
             <div class="large-8 cell syntax">
-              <pre>[id: "dI" 
+              <pre>[id: "dI"
     | name: "hypoxanthine"
     | structure: "O=C1NC=NC2=C1N=CN2"
     | backbone-bond-atom: N10
@@ -200,10 +257,10 @@
           <h3>Example</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              The example below illustrates how to describe the modified protein residue N<sup>5</sup>-methyl-L-arginine. The green atoms indicate the C terminus. The blue atoms indicate N terminus.
+              <p>The example below illustrates how to describe the modified protein residue N<sup>5</sup>-methyl-L-arginine. The green atoms indicate the C terminus. The blue atoms indicate N terminus.</p>
             </div>
             <div class="large-8 cell syntax">
-              <pre>[id: "AA0305" 
+              <pre>[id: "AA0305"
     | name: "N5-methyl-L-arginine"
     | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
     | backbone-bond-atom: C2
@@ -218,10 +275,10 @@
               <img src="img/example/left-right-bonds-AA0305.svg"/>
             </div>
             <div class="large-12 cell" style="margin-top:1rem;">
-              The example below illustrates how to describe a polymer with N<sup>5</sup>-methyl-L-arginine at the third position. The green lines indicate the bonds between the successive monomeric forms. The black labels indicate the positions of monomeric forms within the sequence.
+              <p>The example below illustrates how to describe a polymer with N<sup>5</sup>-methyl-L-arginine at the third position. The green lines indicate the bonds between the successive monomeric forms. The black labels indicate the positions of monomeric forms within the sequence.</p>
             </div>
             <div class="large-8 cell syntax">
-              <pre>A[id: "AA0305" 
+              <pre>A[id: "AA0305"
     | name: "N5-methyl-L-arginine"
     | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
     | backbone-bond-atom: C2
@@ -246,7 +303,7 @@
           <h3>Example</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              The example below illustrates how to describe the circular DNA dimer of the DNA nucleotides deoxyadenosine monophosphaate and dexocytosine monophosphate. The red atoms indicates the sugar-phosphate backbones. The green lines indicate the bonds between successive sugar-phosphate backbones. The black labels indicate the positions of monomeric forms within the sequence.
+              <p>The example below illustrates how to describe the circular DNA dimer of the DNA nucleotides deoxyadenosine monophosphaate and dexocytosine monophosphate. The red atoms indicates the sugar-phosphate backbones. The green lines indicate the bonds between successive sugar-phosphate backbones. The black labels indicate the positions of monomeric forms within the sequence.</p>
             </div>
             <div class="large-8 cell syntax">
               <pre>AC | circular</pre>
@@ -265,7 +322,7 @@
           <h3>Example</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              The example below illustrates how to describe a tripeptide with a disulfide bond. The blue line indicates the disulfide bond (crosslink). The green lines indicate the bonds between the successive residues. The black labels indicate the positions of monomeric forms within the sequence.
+              <p>The example below illustrates how to describe a tripeptide with a disulfide bond. The blue line indicates the disulfide bond (crosslink). The green lines indicate the bonds between the successive residues. The black labels indicate the positions of monomeric forms within the sequence.</p>
             </div>
             <div class="large-8 cell syntax">
               <pre>CAC | crosslink: [
@@ -311,15 +368,15 @@
         <div class="large-7 cell example">
           <h3>Examples</h3>
           <ul>
-          <li><tt>[id: "dI" | name: "deoxyinosine"]</tt></li>
-          <li><tt>[id: "dI" | synonym: "deoxyinosine" | synonym: "2'-deoxyinosine"]</tt></li>
-          <li><tt>[id: "dI" | identifier: "CHEBI:28997" @ "chebi" | identifier: "65058" @ "pubchem.compound"]</tt></li>
-          <li><tt>[id: "dI" | comments: "A purine 2'-deoxyribonucleoside that is inosine ..."]</tt></li>
+          <li><tt>[id: "dI" | name: "deoxyinosine"]</tt>: represents the id and name of deoxyinosine.</li>
+          <li><tt>[id: "dI" | synonym: "deoxyinosine" | synonym: "2'-deoxyinosine"]</tt>: represents multiple synonyms of deoxyinosine.</li>
+          <li><tt>[id: "dI" | identifier: "CHEBI:28997" @ "chebi" | identifier: "65058" @ "pubchem.compound"]</tt>: represents equivalent entries in ChEBI and PubChem to deoxyinosine.</li>
+          <li><tt>[id: "dI" | comments: "A purine 2'-deoxyribonucleoside that is inosine ..."]</tt>: represents comments about deoxyinosine.</li>
           </ul>
         </div>
       </div>
 
-      <div class="grid-x grid-padding-x red">
+      <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
           <h2>Resources for reconstructing biopolymer forms</h2>
         </div>
@@ -363,7 +420,7 @@
         </div>
       </div>
 
-      <div class="grid-x grid-padding-x green">
+      <div class="grid-x grid-padding-x orange">
         <div class="large-12 cell">
           <h2>Integrating BpForms into pathway databases, models, and <i>in silico</i> designs</h2>
         </div>
@@ -392,11 +449,11 @@
     &lt;/annotation&gt;
 &lt;/species&gt;
 </pre>
-        </div>        
+        </div>
 
         <div class="large-6 cell">
           <h3><i>In silico</i> designs (SBOL <a href="http://sbolstandard.org/"><i class="fi-link"></i></a>)</h3>
-          <p>This encoding URI can be used to describe components in <i>in silico</i> designs: <a href="http://edamontology.org/format_3909">http://edamontology.org/format_3909</a></p>          
+          <p>This encoding URI can be used to describe components in <i>in silico</i> designs: <a href="http://edamontology.org/format_3909">http://edamontology.org/format_3909</a></p>
         </div>
         <div class="large-6 cell example">
           <h3>Example</h3>
@@ -409,53 +466,105 @@
         </div>
       </div>
 
-      <div class="grid-x grid-padding-x purple">
+      <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
           <h2><i>BpForm</i> interfaces</h2>
         </div>
-        <div class="large-3 cell">
-          <h3>Python package</h3>
-          The <i>BpForms</i> Python package is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
+        <div class="large-4 cell">
+          <h3>Webform</h3>
+          The webform above <a href="#form"><i class="fi-link"></i></a> can be used to validate BpForms and calculate their properties.
         </div>
-        <div class="large-3 cell">
-          <h3>Command line interface</h3>
-          The <i>BpForms</i> command line interface is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
-        </div>
-        <div class="large-3 cell">
+        <div class="large-4 cell">
           <h3>JSON REST API</h3>
           The <i>BpForms</i> JSON REST API is available at <a href="https://bpforms.org/api">https://bpforms.org/api</a>.
         </div>
-        <div class="large-3 cell">
+        <div class="large-4 cell">
+          <h3>Command line interface</h3>
+          The <i>BpForms</i> command line interface is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-4 cell">
+          <h3>Python package</h3>
+          The <i>BpForms</i> Python package is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-4 cell">
           <h3>Source code</h3>
           <i>BpForms</i> is available open-source from GitHub <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a>.
         </div>
-        <div class="large-3 cell">
-          <h3>Documentation</h3>
-          Please see <i>BpForms</i> documentation <a href="https://docs.karrlab.org/bpforms"><i class="fi-link"></i></a>.
+      </div>
+
+      <div class="grid-x grid-padding-x orange">
+        <div class="large-12 cell">
+          <h2>Tutorials, documentation, and help</h2>
         </div>
-        <div class="large-3 cell">
-          <h3>License</h3>
-          <i>BpForms</i> is released under the MIT license <a href="https://github.com/KarrLab/bpforms/blob/master/LICENSE"><i class="fi-link"></i></a>.
+        <div class="large-6 cell">
+          <h3>Documentation for the notation</h3>
+          Documentation for the notation is available above <a href="#notation"><i class="fi-link"></i></a>. The grammar for the notation is available at GitHub <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i></a>
+        </div>
+        <div class="large-6 cell">
+          <h3>Definitions of the monomeric forms in the alphabets</h3>
+          Documentation for the alphabets is available above <a href="#alphabets"><i class="fi-link"></i></a>. This includes images and detailed information about each monomeric form in each alphabet.
+        </div>
+        <div class="large-6 cell">
+          <h3>Query builder for the REST API</h3>
+          A visual interface for building REST queries is available at bpforms.org/api <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-6 cell">
+          <h3>Documentation for the REST API</h3>
+          Documentation for the REST API is available at bpforms.org/api <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-6 cell">
+          <h3>Documentation for the command line program</h3>
+          Documentation for the command line program is available inline by running <tt>bpforms --help</tt>.
+        </div>
+        <div class="large-6 cell">
+          <h3>Tutorial for the Python API</h3>
+          A Jupyter notebook with an interactive tutorial is available at sandbox.karrlab.org <a href="http://sandbox.karrlab.org/tree/bpforms"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-6 cell">
+          <h3>Documentation for the Python API</h3>
+          Detailed documentation for the Python API is available at docs.karrlab.org <a href="https://docs.karrlab.org/bpforms"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-6 cell">
+          <h3>Questions</h3>
+          Please contact the Karr Lab <a href="mailto:karr@mssm.edu"><i class="fi-mail"></i></a> with any questions.
         </div>
       </div>
 
       <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
+          <h2>Contributing to <i>BpForms</i></h2>
+        </div>
+        <div class="large-6 cell">
+          <h3>Contributing to the alphabets</h3>
+          The alphabets are defined by YAML files (see GitHub <a href="https://github.com/KarrLab/bpforms/tree/master/bpforms/alphabet"><i class="fi-link"></i></a>). To contribute to the alphabets or to contribute a new alphabet, please edit or create a YAML file and submit your changes via a Git pull request.
+        </div>
+        <div class="large-6 cell">
+          <h3>Contributing to the software</h3>
+          To contribute to the software, please submit a Git pull request.
+        </div>
+      </div>
+
+      <div class="grid-x grid-padding-x orange">
+        <div class="large-12 cell">
           <h2>About <i>BpForms</i></h2>
         </div>
-        <div class="large-3 cell">
+        <div class="large-4 cell">
           <h3>Citing <i>BpForms</i></h3>
           Lang PF, Chebaro Y &amp; Jonathan R. Karr. BpForms: a toolkit for concretely describing modified DNA, RNA and proteins. arXiv:1903.10042 <a href="https://arxiv.org/abs/1903.10042"><i class="fi-link"></i></a>
         </div>
-        <div class="large-3 cell">
+        <div class="large-4 cell">
           <h3>Team</h3>
           <i>BpForms</i> was developed by Jonathan Karr <a href="https://www.karrlab.org/"><i class="fi-link"></i></a> <a href="https://www.linkedin.com/in/jonrkarr/"><i class="fi-social-linkedin"></i></a>, Yassmine Chebaro <a href="https://www.linkedin.com/in/yassmine-chebaro-6bb8a05/"><i class="fi-social-linkedin"></i></a>, and Paul Lang <a href="http://www.dtc.ox.ac.uk/people/17/langp/"><i class="fi-link"></i></a> in the Karr Lab <a href="https://www.karrlab.org"><i class="fi-link"></i></a> at the Icahn School of Medicine at Mount Sinai <a href="https://www.mssm.edu/"><i class="fi-link"></i></a> in New York, USA.
         </div>
-        <div class="large-3 cell">
+        <div class="large-4 cell">
           <h3>Acknowledgements</h3>
           <i>BpForms</i> was supported by a National Institute of Health P41 award <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9460251"><i class="fi-link"></i></a>, a National Institute of Health MIRA R35 award <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9509480"><i class="fi-link"></i></a>, and a National Science Foundation INSPIRE award <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649014"><i class="fi-link"></i></a>.
         </div>
-        <div class="large-3 cell">
+        <div class="large-4 cell">
+          <h3>License</h3>
+          <i>BpForms</i> is released under the MIT license <a href="https://github.com/KarrLab/bpforms/blob/master/LICENSE"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-4 cell">
           <h3>Questions/comments</h3>
           Please contact Jonathan Karr <a href="mailto:karr@mssm.edu"><i class="fi-mail"></i></a> with any questions or comments.
         </div>
