@@ -27,7 +27,7 @@
 
       <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
-            <h2><i>BpForms</i> calculator</h2>
+            <h2><i>BpForms</i> verifier/calculator</h2>
         </div>
         <div class="large-6 cell">
             <a name="form"></a>
@@ -407,9 +407,11 @@
             <li><i>dbPTM</i> <a href="http://dbptm.mbc.nctu.edu.tw/"><i class="fi-link"></i></a>: Database of non-canonical amino acids</li>
             <li><i>Delta Mass</i> <a href="https://abrf.org/delta-mass"><i class="fi-link"></i></a>: Database of modified amino acids</li>
             <li><i>FindMod</i> <a href="https://web.expasy.org/findmod/findmod_masses.html"><i class="fi-link"></i></a>: Database of post-translational modifications</li>
+            <li><i>iPTMnet</i> <a href="https://research.bioinformatics.udel.edu/iptmnet"><i class="fi-link"></i></a>: Database of post-translational modifications</li>
             <li><i>ProForma</i> <a href="https://www.topdownproteomics.org/resources/proforma/"><i class="fi-link"></i></a>: Notation for protein forms.  Note, this notation is not unambiguous. This limits its abiltiy to facilitate data integration and the calculation of properties of protein forms.</li>
             <li><i>PDB Chemical Components</i> <a href="http://www.wwpdb.org/data/ccd"><i class="fi-link"></i></a>: Database of modified amino acids</li>
             <li><i>PDB in Europe Chemical Components</i> <a href="https://www.ebi.ac.uk/pdbe/pdb-component-library/index.html>"><i class="fi-link"></i></a>: Database of modified amino acids</li>
+            <li><i>PhosphoSitePlus</i> <a href="https://www.phosphosite.org"><i class="fi-link"></i></a>: Database of protein phosphorylations</li>
             <li><i>Protein Ontology</i> <a href="https://pir.georgetown.edu/pro/"><i class="fi-link"></i></a>: Database of modified proteins</li>
             <li><i>PSIMOD</i> <a href="https://bioportal.bioontology.org/ontologies/PSIMOD"><i class="fi-link"></i></a>: Ontology of non-canonical amino acids</li>
             <li><i>RESID</i> <a href="https://pir.georgetown.edu/resid/"><i class="fi-link"></i></a>: Database of non-canonical protein residues</li>
@@ -422,16 +424,16 @@
 
       <div class="grid-x grid-padding-x orange">
         <div class="large-12 cell">
-          <h2>Integrating BpForms into pathway databases, models, and <i>in silico</i> designs</h2>
+          <h2>Integrating BpForms into descriptions of pathways, kinetic models, and synthetic parts</h2>
         </div>
         <div class="large-4 cell">
-          <h3>Knowledge (BioPAX <a href="https://www.biopax.org/"><i class="fi-link"></i></a>)</h3>
-          <p><i>BpForms</i> can be embedded into <tt>sequence</tt> children of instances of <tt>DNAReference</tt>, <tt>RNAReference</tt>, and <tt>ProteinReference</tt>.
+          <h3>Knowledge of pathways (BioPAX)</h3>
+          <p><i>BpForms</i> can be used with the <tt>sequence</tt> child of <tt>DNAReference</tt>, <tt>RNAReference</tt>, and <tt>ProteinReference</tt> objects of the BioPAX format <a href="https://www.biopax.org/"><i class="fi-link"></i></a> to concretely describe all of the DNA, RNA, and proteins involved in pathways.
           </p>
         </div>
         <div class="large-8 cell example">
           <h3>Examples</h3>
-          <h4>DNA: <span style="font-weight: normal;"><i>E. coli</i> K-12 MG1655 Dam 6-methyladenine sites (701..914) involved in host recognition <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3"><i class="fi-link"></i></a></span></h4>
+          <p style="margin-bottom: 0.5rem;"><b>DNA:</b> <i>E. coli</i> K-12 MG1655 Dam 6-methyladenine sites (701..914) involved in host recognition <a href="https://www.ncbi.nlm.nih.gov/nuccore/NC_000913.3"><i class="fi-link"></i></a></p>
           <pre class="small">...
   &lt;bp:DNA&gt;
     &lt;bp:entityReference&gt;
@@ -451,7 +453,7 @@
 ...
 </pre>
 
-          <h4>RNA: <span style="font-weight: normal;">Modifications of <i>B. subtilis</i> tRNA<sup>UGC</sup> involved in stability <a href="http://modomics.genesilico.pl/sequences/list/?type_field=tRNA&subtype=Ala&species=4&display=Display&nomenclature=abbrev"><i class="fi-link"></i></a></span></h4>
+          <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><b>RNA:</b> Modifications of <i>B. subtilis</i> tRNA<sup>UGC</sup> involved in stability <a href="http://modomics.genesilico.pl/sequences/list/?type_field=tRNA&subtype=Ala&species=4&display=Display&nomenclature=abbrev"><i class="fi-link"></i></a></p>
           <pre class="small">...
   &lt;bp:RNA&gt;
     &lt;bp:entityReference&gt;
@@ -467,7 +469,7 @@
   &lt;/bp:RNA&gt;
 ...</pre>
 
-          <h4>Protein: <span style="font-weight: normal;">Modifications of <i>H. sapiens</i> MAPK3 involved in signaling <a href="https://www.uniprot.org/uniprot/P27361#ptm_processing"><i class="fi-link"></i></a></span></h4>
+          <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><b>Protein:</b> Modifications of <i>H. sapiens</i> MAPK3 involved in signaling <a href="https://www.uniprot.org/uniprot/P27361#ptm_processing"><i class="fi-link"></i></a></p>
           <pre class="small">...
   &lt;bp:Protein&gt;
     &lt;bp:entityReference&gt;
@@ -485,37 +487,113 @@
     &lt;/bp:entityReference&gt;
   &lt;/bp:Protein&gt;
 ...</pre>
-
         </div>
 
         <div class="large-4 cell">
-          <h3>Models (SBML <a href="https://sbml.org"><i class="fi-link"></i></a>)</h3>
-          <p>The <tt class="attribute">annotation</tt> attribute of <tt class="attribute">species</tt> can be used to describe species with BpForms.</p>
+          <h3>Kinetic models (SBML)</h3>
+          <p><i>BpForms</i> can be used with the <tt class="attribute">annotation</tt> element of <tt class="attribute">species</tt> objects of the Systems Biology Markup Language (SBML) <a href="https://sbml.org"><i class="fi-link"></i></a> to concretely describe the meaning of each species in a model.</p>
         </div>
         <div class="large-8 cell example">
-          <h3>Example</h3>
-<pre class="small">...
-  &lt;species&gt;
+          <h3>Examples</h3>
+
+          <p style="margin-bottom: 0.5rem;"><b>Protein:</b> Phosphorylated Cdc2 and Cdc12 in the yeast cell cycle (DOI: 10.1073/pnas.88.16.7328 <a href="https://doi.org/10.1073/pnas.88.16.7328"><i class="fi-link"></i></a>, BioModels: BIOMD0000000005 <a href="https://www.ebi.ac.uk/biomodels/BIOMD0000000005"><i class="fi-link"></i></a>). See complete SBML file <a href="https://github.com/KarrLab/bpforms/blob/master/examples/BIOMD0000000005.xml"><i class="fi-link"></i></a>.</p>
+          <pre class="small">...
+  &lt;species name="cdc2k-p" metaid="cdc2k"&gt;
     &lt;annotation&gt;
-      &lt;bpforms:bpform xmlns:bpforms="https://www.bpforms.org/ns"&gt;
-        &lt;bpforms:alphabet&gt;dna&lt;/bpforms:alphabet&gt;
-        &lt;bpforms:sequence&gt;A{m2C}GT&lt;/bpforms:sequence&gt;
-      &lt;/bpforms:bpform&gt;
+      &lt;rdf:RDF 
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+        &lt;rdf:Description rdf:about="#cdc2k-p"&gt;
+          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt; 
+            <span class="bpform">MENYQKVEKIGEG<span class="modification">{AA0038}</span>span&gt;<span class="modification">{AA0039}</span>GVVYKARHKLSGRIVAMKKIRLEDESEGVPSTAIREISLLKEVNDENNRSNCVRLLDI
+            LHAESKLYLVFEFLDMDLKKYMDRISETGATSLDPRLVQKFTYQLVNGVNFCHSRRIIHRDLKPQNLLIDKEGNLKLADFGLARSFGVPLRN
+            Y<span class="modification">{AA0038}</span>HEIVTLWYRAPEVLLGSRHYSTGVDIWSVGCIFAEMIRRSPLFPGDSEIDEIFKIFQVLGTPNEEVWPGVTLLQDYKSTFPRW
+            KRMDLHKVVPNGEEDAIELLSAMLVYDPAHRISAKRALQQNYLRDFH</span>
+          &lt;/bpforms:seq&gt;
+        &lt;/rdf:Description&gt;
+      &lt;/rdf:RDF&gt;
+    &lt;/annotation&gt;
+  &lt;/species&gt;
+...</pre>
+
+          <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><b>Protein:</b> Phosphorylated Mos/Raf1, Mek1, and Erk2 in the eukaryote MAPK cascade (DOI: 10.1046/j.1432-1327.2000.01197.x <a href="https://doi.org/10.1046/j.1432-1327.2000.01197.x"><i class="fi-link"></i></a>, BioModels: BIOMD0000000010 <a href="https://www.ebi.ac.uk/biomodels/BIOMD0000000010"><i class="fi-link"></i></a>). See complete SBML file <a href="https://github.com/KarrLab/bpforms/blob/master/examples/BIOMD0000000010.xml"><i class="fi-link"></i></a>.</p>
+          <pre class="small">...
+  &lt;species name="Erk2-PP" metaid="_584615"&gt;
+    &lt;annotation&gt;
+      &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+        &lt;rdf:Description rdf:about="#_584615"&gt;
+          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt; 
+            <span class="bpform">MAAAGAASNPGGGPEMVRGQAFDVGPRYINLAYIGEGAYGMVCSAHDNVNKVRVAIKKISPFEHQTYCQRTLREIKILLRFKHENIIGINDI
+            IRAPTIEQMKDVYIVQDLMETDLYKLLKTQHLSNDHICYFLYQILRGLKYIHSANVLHRDLKPSNLLLNTTCDLKICDFGLARVADPDHDHT
+            GFL<span class="modification">{AA0038}</span>E<span class="modification">{AA0039}</span>VATRWYRAPEIMLNSKGYTKSIDIWSVGCILAEMLSNRPIFPGKHYLDQLNHILGILGSPSQEDLNCIINLK
+            ARNYLLSLPHKNKVPWNRLFPNADPKALDLLDKMLTFNPHKRIEVEAALAHPYLEQYYDPSDEPVAEAPFKFEMELDDLPKETLKELIFEET
+            ARFQPGY</span>
+          &lt;/bpforms:seq&gt;
+        &lt;/rdf:Description&gt;
+      &lt;/rdf:RDF&gt;
     &lt;/annotation&gt;
   &lt;/species&gt;
 ...</pre>
         </div>
 
         <div class="large-4 cell">
-          <h3><i>In silico</i> designs (SBOL <a href="http://sbolstandard.org/"><i class="fi-link"></i></a>)</h3>
-          <p>This encoding URI can be used to describe components in <i>in silico</i> designs: <a href="http://edamontology.org/format_3909">http://edamontology.org/format_3909</a></p>
+          <h3>Kinetic models (CellML)</h3>
+          <p style="margin-bottom: 0.5rem;"><i>BpForms</i> can be used with the <tt class="attribute">RDF</tt> element of <tt class="attribute">component</tt> objects to concretely describe the meaning of each component with BpForms in CellML <a href="https://www.cellml.org/"><i class="fi-link"></i></a>.</p>
         </div>
         <div class="large-8 cell example">
           <h3>Example</h3>
+          <p style="margin-bottom: 0.5rem;"><b>Protein:</b> Phosphorylated Erk and Mek in signal transduction (DOI: 10.1038/msb.2009.4 <a href="https://doi.org/10.1038/msb.2009.4"><i class="fi-link"></i></a>, Physiome Model Repository <a href="https://models.physiomeproject.org/e/31"><i class="fi-link"></i></a>). See complete CellML file <a href="https://github.com/KarrLab/bpforms/blob/master/examples/wang_cirit_haugh_2009.cellml"><i class="fi-link"></i></a>.</p>
+
 <pre class="small">...
+  &lt;component cmeta:id="ypp" name="ypp"&gt;
+      &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+        &lt;rdf:Description rdf:about="#ypp"&gt;
+          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt; 
+            <span class="bpform">MPKKKPTPIQLNPAPDGSAVNGTSSAETNLEALQKKLEELELDEQQRKRLEAFLTQKQKVGELKDDDFEKISELGAGNGGVVFKVSHKPSG
+            LVMARKLIHLEIKPAIRNQIIRELQVLHECNSPYIVGFYGAFYSDGEISICMEHMDGGSLDQVLKKAGRIPEQILGKVSIAVIKGLTYLRE
+            KHKIMHRDVKPSNILVNSRGEIKLCDFGVSGQLID<span class="modification">{AA0037}</span>MAN<span class="modification">{AA0037}</span>FVGTRSYMSPERLQGTHYSVQSDIWSMGLSLVEMAVG
+            RYPIPPPDAKELELMFGCQVEGDAAETPPRPRTPGRPLSSYGMDSRPPMAIFELLDYIVNEPPPKLPSGVFSLEFQDFVNKCLIKNPAERA
+            DLKQLMVHAFIKRSDAEEVDFAGWLCSTIGLNQPSTPTHAAGV</span>
+          &lt;/bpforms:seq&gt;
+        &lt;/rdf:Description&gt;
+      &lt;/rdf:RDF&gt;
+    &lt;/component&gt;
+...</pre>
+        </div>
+
+        <div class="large-4 cell">
+          <h3>Designs for synthetic parts (SBOL)</h3>
+          <p><i>BpForms</i> can be used with the <tt>elements</tt> attribute of <tt>Sequence</tt> objects to concretely describe the meaning of each DNA, RNA, and protein molecule in genetic designs encoded in the Synthetic Biology Open Language (SBOL) <a href="http://sbolstandard.org/"><i class="fi-link"></i></a>.</p>
+          <p style="margin-bottom: 0rem;">The following URIs should to indicate the encodings for DNA, RNA, and protein molecules.</p>
+          <ul>
+            <li>DNA: http://edamontology.org/format_3909#dna</li>
+            <li>RNA: http://edamontology.org/format_3909#rna</li>
+            <li>Protein: http://edamontology.org/format_3909#protein</li>
+          </ul>
+        </div>
+        <div class="large-8 cell example">
+          <h3>Examples</h3>
+          
+          <p style="margin-bottom: 0.5rem;"><b>RNA:</b> Modified <i>B. subtilis</i> tRNA<sup>ILE</sup> 69 (SynBioHub: BO_28687 <a href="https://synbiohub.org/public/bsu/BO_28687"><i class="fi-link"></i></a>). See complete SBOL file <a href="https://github.com/KarrLab/bpforms/blob/master/examples/BO_28687.xml"><i class="fi-link"></i></a>.</p>
+          <pre class="small">...
   &lt;sbol:Sequence&gt;
-    &lt;sbol:encoding rdf:resource="http://edamontology.org/format_3909"/&gt;
-    &lt;sbol:elements&gt;A{m2C}GT&lt;/sbol:elements&gt;
+    &lt;sbol:elements>
+      <span class="bpform">GGGCCUGUAGCUCAGC<span class="modification">{8U}</span>GG<span class="modification">{8U}</span><span class="modification">{8U}</span>AGAGCGCACGCCUGAU<span class="modification">{62A}</span>AGCGUGAG<span class="modification">{7G}</span>UCGAUGG<span class="modification">{5U}</span><span class="modification">{9U}</span>CGAGUCCAUUCAGGCCCACCA</span>
+    &lt;/sbol:elements&gt;
+    &lt;sbol:encoding rdf:resource="http://edamontology.org/format_3909#rna"/&gt;
+  &lt;/sbol:Sequence&gt;
+...</pre>
+
+          <p style="margin-top: 1rem; margin-bottom: 0.5rem;"><b>Protein:</b> Lipoate-ligated acetyltransferase component PdhC of <i>B. subtilis</i> pyruvate dehydrogenase complex (SynBioHub: BO_32431 <a href="https://synbiohub.org/public/bsu/BO_32431"><i class="fi-link"></i></a>). See complete SBOL file <a href="https://github.com/KarrLab/bpforms/blob/master/examples/BO_32431.xml"><i class="fi-link"></i></a>.</p>
+          <pre class="small">...
+  &lt;sbol:Sequence&gt;
+    &lt;sbol:elements>
+      <span class="bpform">MAFEFKLPDIGEGIHEGEIVKWFVKPNDEVDEDDVLAEVQND<span class="modification">{AA0118}</span>AVVEIPSPVKGKVLELKVEEGTVATVGQTIITFDAPGYEDLQFKGSDE
+      SDDAKTEAQVQSTAEAGQDVAKEEQAQEPAKATGAGQQDQAEVDPNKRVIAMPSVRKYAREKGVDIRKVTGSGNNGRVVKEDIDSFVNGGAQEAAPQE
+      TAAPQETAAKPAAAPAPEGEFPETREKMSGIRKAIAKAMVNSKHTAPHVTLMDEVDVTNLVAHRKQFKQVAADQGIKLTYLPYVVKALTSALKKFPVL
+      NTSIDDKTDEVIQKHYFNIGIAADTEKGLLVPVVKNADRKSVFEISDEINGLATKAREGKLAPAEMKGASCTITNIGSAGGQWFTPVINHPEVAILGI
+      GRIAEKAIVRDGEIVAAPVLALSLSFDHRMIDGATAQNALNHIKRLLNDPQLILMEA</span>
+    &lt;/sbol:elements&gt;
+    &lt;sbol:encoding rdf:resource="http://edamontology.org/format_3909#protein"/&gt;
   &lt;/sbol:Sequence&gt;
 ...</pre>
         </div>

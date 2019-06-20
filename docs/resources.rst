@@ -20,6 +20,7 @@ The following are valuable resources for reconstructing DNA, RNA, and protein mo
     * `dbPTM <http://dbptm.mbc.nctu.edu.tw/>`_: Database of modified amino acids and proteins
     * `Delta Mass <https://abrf.org/delta-mass>`_: Database of modified amino acids
     * `FindMod <https://web.expasy.org/findmod/findmod_masses.html>`_: Database of post-translational modifications
+    * `iPTMnet <https://research.bioinformatics.udel.edu/iptmnet>`_: Database of post-translational modifications
     * `PDB Chemical Components <http://www.wwpdb.org/data/ccd>`_: Database of modified amino acids
     * `PDB in Europe Chemical Components <https://www.ebi.ac.uk/pdbe-srv/pdbechem/>`_: Database of modified amino acids
     * `Protein Ontology <https://pir.georgetown.edu/pro/>`_: Database of modified proteins

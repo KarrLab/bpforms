@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:sbol="http://sbols.org/v2#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#dateTime/" xmlns:om="http://www.ontology-of-units-of-measure.org/resource/om-2/" xmlns:synbiohub="http://synbiohub.org#" xmlns:sbh="http://wiki.synbiohub.org/wiki/Terms/synbiohub#" xmlns:sybio="http://www.sybio.ncl.ac.uk#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:ncbi="http://www.ncbi.nlm.nih.gov#" xmlns:igem="http://wiki.synbiohub.org/wiki/Terms/igem#" xmlns:genbank="http://www.ncbi.nlm.nih.gov/genbank#" xmlns:gbconv="http://sbols.org/genBankConversion#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:obo="http://purl.obolibrary.org/obo/" xmlns:ns0="http://identifiers.org/edam/">
+  <sbol:ComponentDefinition rdf:about="https://synbiohub.org/public/bsu/BO_32431/1">
+    <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/bsu/BO_32431"/>
+    <sbol:displayId>BO_32431</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="https://synbiohub.org/public/bsu/SyBiOntKB2sbol/1"/>
+    <dcterms:title>pdhC</dcterms:title>
+    <rdfs:label>branched-chain alpha-keto acid dehydrogenase subunit E2</rdfs:label>
+    <rdfs:label>pdhC</rdfs:label>
+    <rdfs:label>BSU14600</rdfs:label>
+    <ns0:data_1179 rdf:resource="http://identifiers.org/taxonomy/1423"/>
+    <ns0:data_1179 rdf:resource="http://identifiers.org/taxonomy/224308"/>
+    <obo:OBI_0002110>10.1145/2631921</obo:OBI_0002110>
+    <sbh:topLevel rdf:resource="https://synbiohub.org/public/bsu/BO_32431/1"/>
+    <sbh:ownedBy rdf:resource="https://synbiohub.org/user/myers"/>
+    <obo:OBI_0001617>23571273</obo:OBI_0001617>
+    <obo:OBI_0001617>27110921</obo:OBI_0001617>
+    <sbol:type rdf:resource="http://www.biopax.org/release/biopax-level3.owl#DnaRegion"/>
+    <sbol:role rdf:resource="http://identifiers.org/so/SO:0000316"/>
+    <sbol:sequence rdf:resource="https://synbiohub.org/public/bsu/BO_32431_seq/1"/>
+  </sbol:ComponentDefinition>
+  <sbol:Sequence rdf:about="https://synbiohub.org/public/bsu/BO_32431_seq/1">
+    <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/bsu/BO_32431_seq"/>
+    <sbol:displayId>BO_32431_seq</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <prov:wasGeneratedBy rdf:resource="https://synbiohub.org/public/bsu/SyBiOntKB2sbol/1"/>
+    <obo:OBI_0002110>10.1145/2631921</obo:OBI_0002110>
+    <sbh:topLevel rdf:resource="https://synbiohub.org/public/bsu/BO_32431_seq/1"/>
+    <sbh:ownedBy rdf:resource="https://synbiohub.org/user/myers"/>
+    <obo:OBI_0001617>23571273</obo:OBI_0001617>
+    <obo:OBI_0001617>27110921</obo:OBI_0001617>
+    <sbol:elements>MAFEFKLPDIGEGIHEGEIVKWFVKPNDEVDEDDVLAEVQND{AA0118}AVVEIPSPVKGKVLELKVEEGTVATVGQTIITFDAPGYEDLQFKGSDESDDAKTEAQVQSTAEAGQDVAKEEQAQEPAKATGAGQQDQAEVDPNKRVIAMPSVRKYAREKGVDIRKVTGSGNNGRVVKEDIDSFVNGGAQEAAPQETAAPQETAAKPAAAPAPEGEFPETREKMSGIRKAIAKAMVNSKHTAPHVTLMDEVDVTNLVAHRKQFKQVAADQGIKLTYLPYVVKALTSALKKFPVLNTSIDDKTDEVIQKHYFNIGIAADTEKGLLVPVVKNADRKSVFEISDEINGLATKAREGKLAPAEMKGASCTITNIGSAGGQWFTPVINHPEVAILGIGRIAEKAIVRDGEIVAAPVLALSLSFDHRMIDGATAQNALNHIKRLLNDPQLILMEA</sbol:elements>
+    <sbol:encoding rdf:resource="http://edamontology.org/format_3909#protein"/>
+  </sbol:Sequence>
+  <prov:Activity rdf:about="https://synbiohub.org/public/bsu/SyBiOntKB2sbol/1">
+    <sbol:persistentIdentity rdf:resource="https://synbiohub.org/public/bsu/SyBiOntKB2sbol"/>
+    <sbol:displayId>SyBiOntKB2sbol</sbol:displayId>
+    <sbol:version>1</sbol:version>
+    <dcterms:title>SyBiOntKB to SBOL conversion</dcterms:title>
+    <dcterms:description>Conversion of the Synthetic Biology Ontology knowledge base to SBOL 2.1</dcterms:description>
+    <dcterms:creator>Goksel Misirli</dcterms:creator>
+    <sbh:topLevel rdf:resource="https://synbiohub.org/public/bsu/SyBiOntKB2sbol/1"/>
+    <sbh:ownedBy rdf:resource="https://synbiohub.org/user/myers"/>
+    <obo:OBI_0001617>23571273</obo:OBI_0001617>
+    <obo:OBI_0001617>27110921</obo:OBI_0001617>
+    <prov:endedAtTime rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2017-04-03T15:58:46.354Z</prov:endedAtTime>
+  </prov:Activity>
+</rdf:RDF>
