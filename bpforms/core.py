@@ -1026,16 +1026,16 @@ class Monomer(object):
 
         return '[' + ' | '.join(els) + ']'
 
-    def get_fasta(self, monomer_codes, default_code='?'):
-        """ Get FASTA representation of a monomeric form using the character code
-        of its parent monomer (e.g. methyl-2-adenosine is represented by 'A')
+    def get_canonical_code(self, monomer_codes, default_code='?'):
+        """ Get IUPAC/IUBMB representation of a monomeric form using the character code
+        of its parent monomer (e.g. 'methyl-2-adenosine' is represented by 'A')
 
         Args:
             monomer_codes (:obj:`dict`): dictionary that maps monomeric forms to codes
             default_code (:obj:`str`): default code
 
         Returns:
-            :obj:`str`: FASTA representation of monomeric form
+            :obj:`str`: IUPAC/IUBMB representation of monomeric form
         """
         roots = self.get_root_monomers()
         root_codes = list(set(monomer_codes.get(root, default_code) for root in roots))
@@ -3247,19 +3247,19 @@ class BpForm(object):
         parse_tree_transformer = ParseTreeTransformer(self)
         return parse_tree_transformer.transform(tree)
 
-    def get_fasta(self):
-        """ Get FASTA representation of a polymer with bases represented by the character codes
+    def get_canonical_seq(self):
+        """ Get IUPAC/IUBMB representation of a polymer with bases represented by the character codes
         of their parent monomers (e.g. methyl-2-adenosine is represented by 'A')
 
         Returns:
-            :obj:`str`: FASTA representation of a polymer
+            :obj:`str`: IUPAC/IUBMB representation of a polymer
         """
 
         monomer_codes = {monomer: code for code, monomer in self.alphabet.monomers.items()}
 
         seq = ''
         for monomer in self.seq:
-            seq += monomer.get_fasta(default_code=self.DEFAULT_FASTA_CODE, monomer_codes=monomer_codes)
+            seq += monomer.get_canonical_code(default_code=self.DEFAULT_FASTA_CODE, monomer_codes=monomer_codes)
 
         return seq
 

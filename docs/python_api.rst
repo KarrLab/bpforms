@@ -78,12 +78,12 @@ Use these commands to calculate the length, formula, molecular weight, and charg
         => -7
 
 
-Generating FASTA sequences for `BpForms`
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Generating IUPAC/IUBMB sequences for `BpForms`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``get_fasta`` method generates FASTA representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomeric forms using the code for their root (e.g. m2A is represented as "A"). Monomeric forms that don't have their base annotated are represented as "N" and "X" for nucleic acids and proteins, respectively::
+The ``get_canonical_seq`` method generates IUPAC/IUBMB representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomeric forms using the code for their root (e.g. m2A is represented as "A"). Monomeric forms that don't have their base annotated are represented as "N" and "X" for nucleic acids and proteins, respectively::
 
-    dna_form.get_fasta()
+    dna_form.get_canonical_seq()
         => ACGAAC
 
 

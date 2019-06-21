@@ -595,19 +595,19 @@ class MonomerTestCase(unittest.TestCase):
 
         monomer_codes = {monomer: code for code, monomer in alphabet.monomers.items()}
 
-        self.assertEqual(alphabet.monomers.A.get_fasta(monomer_codes), 'A')
-        self.assertEqual(alphabet.monomers.C.get_fasta(monomer_codes), 'C')
-        self.assertEqual(alphabet.monomers.G.get_fasta(monomer_codes), 'G')
-        self.assertEqual(alphabet.monomers.T.get_fasta(monomer_codes), 'T')
-        self.assertEqual(alphabet.monomers.m2A.get_fasta(monomer_codes), 'A')
-        self.assertEqual(alphabet.monomers.m22A.get_fasta(monomer_codes), 'A')
-        self.assertEqual(alphabet.monomers.m222A.get_fasta(monomer_codes), 'A')
-        self.assertEqual(alphabet.monomers.m2222A.get_fasta(monomer_codes), 'A')
-        self.assertEqual(alphabet.monomers.m2222C.get_fasta(monomer_codes), '?')
-        self.assertEqual(alphabet.monomers.m2222C.get_fasta(monomer_codes, default_code='X'), 'X')
+        self.assertEqual(alphabet.monomers.A.get_canonical_code(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.C.get_canonical_code(monomer_codes), 'C')
+        self.assertEqual(alphabet.monomers.G.get_canonical_code(monomer_codes), 'G')
+        self.assertEqual(alphabet.monomers.T.get_canonical_code(monomer_codes), 'T')
+        self.assertEqual(alphabet.monomers.m2A.get_canonical_code(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.m22A.get_canonical_code(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.m222A.get_canonical_code(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.m2222A.get_canonical_code(monomer_codes), 'A')
+        self.assertEqual(alphabet.monomers.m2222C.get_canonical_code(monomer_codes), '?')
+        self.assertEqual(alphabet.monomers.m2222C.get_canonical_code(monomer_codes, default_code='X'), 'X')
 
-        self.assertEqual(core.Monomer().get_fasta(monomer_codes), '?')
-        self.assertEqual(core.Monomer().get_fasta(monomer_codes, default_code='X'), 'X')
+        self.assertEqual(core.Monomer().get_canonical_code(monomer_codes), '?')
+        self.assertEqual(core.Monomer().get_canonical_code(monomer_codes, default_code='X'), 'X')
 
 
 class MonomerSequenceTestCase(unittest.TestCase):
@@ -1756,7 +1756,7 @@ class BpFormTestCase(unittest.TestCase):
             alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A,
             alphabet.monomers.m2222A, alphabet.monomers.m2222C,
         ])
-        self.assertEqual(bpform.get_fasta(), 'ACGTAAAA?')
+        self.assertEqual(bpform.get_canonical_seq(), 'ACGTAAAA?')
 
         class CustomBpForm(core.BpForm):
             DEFAULT_FASTA_CODE = 'X'
@@ -1765,7 +1765,7 @@ class BpFormTestCase(unittest.TestCase):
             alphabet.monomers.m2A, alphabet.monomers.m22A, alphabet.monomers.m222A,
             alphabet.monomers.m2222A, alphabet.monomers.m2222C,
         ])
-        self.assertEqual(bpform.get_fasta(), 'ACGTAAAAX')
+        self.assertEqual(bpform.get_canonical_seq(), 'ACGTAAAAX')
 
     def test_validate(self):
         form = dna.DnaForm()

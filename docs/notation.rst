@@ -3,7 +3,7 @@
 `BpForms` notation
 ------------------
 
-The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomeric forms using (a) a syntax similar to FASTA and (b) extended alphabets for DNA, RNA, and proteins to describe monomeric forms. `BpForms` contains three pre-built canonical DNA, RNA and protein alphabets and three extended DNA, RNA, and protein alphabets curated from DNAmod, MODOMICS, the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database. Users can also create additional custom alphabets. These alphabets are associated with their corresponding biopolyer form, which allows `BpForms` to calculate the chemical structure (e.g. in SMILES format), chemical formula, molecular weight, and charge of a biopolymer.
+The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomeric forms using (a) a syntax similar to IUPAC/IUBMB and (b) extended alphabets for DNA, RNA, and proteins to describe monomeric forms. `BpForms` contains three pre-built canonical DNA, RNA and protein alphabets and three extended DNA, RNA, and protein alphabets curated from DNAmod, MODOMICS, the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database. Users can also create additional custom alphabets. These alphabets are associated with their corresponding biopolyer form, which allows `BpForms` to calculate the chemical structure (e.g. in SMILES format), chemical formula, molecular weight, and charge of a biopolymer.
 
 * Monomeric forms that are present in the alphabet are indicated by a single character or multiple characters delimited by curly brackets.
 * Monomeric forms that are not in the alphabet are defined "inline" with one or more attributes separated by vertical pipes ("|") inside square brackets.
@@ -116,7 +116,7 @@ Metadata
         | identifier: "65058" @ "pubchem.compound"
         ]
 
-* The ``base-monomer`` attribute describes other monomer form(s) which the monomeric form is generated from. The value of this attribute must be the code of a monomeric form in the alphabet. Each monomeric form can have one or more bases. This annotation is needed to generate more informative FASTA sequences for `BpForms`::
+* The ``base-monomer`` attribute describes other monomer form(s) which the monomeric form is generated from. The value of this attribute must be the code of a monomeric form in the alphabet. Each monomeric form can have one or more bases. This annotation can be used to generate canonical IUPAC/IUBMB sequences for `BpForms`::
 
     [id: "m2A"
         | base-monomer: "A"
