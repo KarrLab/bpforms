@@ -4405,6 +4405,8 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
+    base_monomers:
+      - G
   69A:
     id: 69A
     name: cyclic N6-threonylcarbamoyladenosine
@@ -4505,6 +4507,8 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
+    base_monomers:
+      - 10G
   104G:
     id: 104G
     name: galactosyl-queuosine
@@ -4539,6 +4543,8 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
+    base_monomers:
+      - 10G
   2165A:
     id: 2165A
     name: hydroxy-N6-threonylcarbamoyladenosine
@@ -4710,6 +4716,8 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
+    base_monomers:
+      - 10G
   3480G:
     id: 3480G
     name: methylated undermodified hydroxywybutosine
@@ -4894,6 +4902,8 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
+    base_monomers:
+      - G
   3470G:
     id: 3470G
     name: undermodified hydroxywybutosine
@@ -5134,3 +5144,5 @@ monomers:
     - molecule: Monomer
       element: H
       position: 12
+    base_monomers:
+      - 10G

@@ -85,6 +85,14 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         self.build_modomics(alphabet, session, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
         self.build_rna_mod_db(alphabet, session, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
+        # add missing parent/child information
+        alphabet.monomers.get('10G').base_monomers.add(alphabet.monomers.get('G'))
+        alphabet.monomers.get('manQ').base_monomers.add(alphabet.monomers.get('10G'))
+        alphabet.monomers.get('102G').base_monomers.add(alphabet.monomers.get('10G'))
+        alphabet.monomers.get('103G').base_monomers.add(alphabet.monomers.get('G'))
+        alphabet.monomers.get('104G').base_monomers.add(alphabet.monomers.get('10G'))
+        alphabet.monomers.get('106G').base_monomers.add(alphabet.monomers.get('10G'))
+
         # return alphabet
         return alphabet
 
