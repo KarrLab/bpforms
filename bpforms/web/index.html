@@ -105,6 +105,8 @@
           <h3>Overview</h3>
           <p>The <i>BpForms</i> notation represents biopolymers as FASTA sequences augmented with (a) multiple-letter alphabet-defined monomeric forms delimited by curly brackets, (b) user-defined monomeric forms described in square brackets by one or more attributes separated by "|", and (b) additional attributes that can be used to represent circularity and crosslinks.</p>
           <p>The <tt class="attribute">structure</tt>, <tt class="attribute">backbone-bond-atom</tt>, <tt class="attribute">backbone-displaced-atom</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> monomeric form attributes are required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
+          <p>The definition of the <i>BpForms</i> grammar is available at GitHub <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i></a>. The grammar is defined in Lark syntax <a href="https://lark-parser.readthedocs.io"><i class="fi-link"></i></a>, which is based on EBNF syntax <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form"><i class="fi-link"></i></a>.
+          </p>
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
@@ -328,8 +330,8 @@
               <pre>CAC | crosslink: [
     left-bond-atom: 1S1 |
     left-displaced-atom: 1H1 |
-    right-bond-atom: 1S1 |
-    right-displaced-atom: 1H1
+    right-bond-atom: 3S1 |
+    right-displaced-atom: 3H1
 ]</pre>
             </div>
             <div class="large-4 cell image">
