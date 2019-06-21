@@ -1,5 +1,6 @@
 attrdict
 beautifulsoup4
+biopython
 cement >= 3.0.0
 configobj
 diskcache

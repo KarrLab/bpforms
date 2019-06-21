@@ -10,6 +10,9 @@ from . import core
 from .alphabet import dna
 from .alphabet import rna
 from .alphabet import protein
+from Bio import SeqIO
+from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
 from wc_utils.util.chem import draw_molecule, OpenBabelUtils
 import openbabel
 
@@ -276,3 +279,35 @@ def validate_bpform_linkages(form_type):
     # report errors
     if errors:
         raise ValueError('BpForm {} is invalid:\n  {}'.format(form_type.__name__, '\n  '.join(errors)))
+
+
+def write_to_fasta(forms, filename):
+    """ Write BpForms to a FASTA-formatted file
+
+    Args:
+        forms (:obj:`dict`): dictionary which maps the ids of molecules to their BpForms-encoded
+            sequences
+        filename (:obj:`str`): path to FASTA-formatted file
+    """
+    seqs = (SeqRecord(id=id, seq=Seq(str(form))) for id, form in forms.items())
+    SeqIO.write(seqs, filename, "fasta")
+
+
+def read_from_fasta(filename, alphabet):
+    """ Read BpForms from a FASTA-formatted file
+
+    Args:
+        filename (:obj:`str`): path to FASTA-formatted file
+        alphabet (:obj:`str`): alphabet of BpForms in file
+
+    Returns:
+        :obj:`dict`: dictionary which maps the ids of molecules to their BpForms-encoded
+            sequences
+    """
+    Form = get_form(alphabet)
+
+    forms = {}
+    for record in SeqIO.parse(filename, "fasta"):
+        forms[record.id] = Form().from_str(str(record.seq))
+
+    return forms

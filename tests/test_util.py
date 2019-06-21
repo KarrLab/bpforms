@@ -237,3 +237,17 @@ class UtilTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             with mock.patch.object(core.BpForm, 'get_charge', side_effect=[-2, -100]):
                 util.validate_bpform_linkages(TestDnaForm)
+
+    def test_write_read_to_from_fasta(self):
+        Form = dna.DnaForm
+        forms = {
+            'form_1': Form().from_str(500 * 'ACGT'),
+            'form_2': Form().from_str(500 * '{m2A}{m2C}GT'),
+            'form_3': Form().from_str(500 * 'AC{1mG}{diHT}'),
+        }
+        filename = os.path.join(self.tempdir, 'test.fasta')
+        util.write_to_fasta(forms, filename)
+        forms2 = util.read_from_fasta(filename, 'dna')
+        self.assertEqual(forms.keys(), forms2.keys())
+        for id in forms.keys():
+            self.assertTrue(forms2[id].is_equal(forms[id]))
