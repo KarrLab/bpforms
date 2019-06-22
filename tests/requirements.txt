@@ -1,6 +1,7 @@
 capturer # to capture standard output in tests
 hurry.filesize
 jupyter
+lxml
 matplotlib
 mock
 numpy
