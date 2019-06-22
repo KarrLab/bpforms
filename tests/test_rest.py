@@ -71,7 +71,6 @@ class RestTestCase(unittest.TestCase):
         client = rest.app.test_client()
         rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT', circular=True))
         self.assertEqual(rv.status_code, 200)
-        print(rv.get_json())
         self.assertEqual(rv.get_json(), {
             'alphabet': 'dna',
             'seq': 'ACGT | circular',
