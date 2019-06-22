@@ -65,7 +65,7 @@ label { font-weight: bold; }
 textarea { height: 100px; }
 .out input, .out textarea { background: #eee; }
 
-.notation p.before_list {
+p.before_list {
     margin-bottom: 0px;
 }
 .example .syntax pre {

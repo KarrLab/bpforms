@@ -17,7 +17,9 @@ import subprocess
 import sys
 
 sys.path.append('docs')
+sys.path.append('examples')
 import build_examples
+import modomics
 
 
 def build(alphabet_ids=None):
@@ -87,6 +89,7 @@ def build(alphabet_ids=None):
 
     # build examples
     build_examples.build()
+    modomics.run()
 
     # restart server
     restart_filename = os.path.join('..', 'tmp', 'restart')

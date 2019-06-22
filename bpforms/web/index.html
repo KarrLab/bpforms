@@ -426,7 +426,72 @@
 
       <div class="grid-x grid-padding-x orange">
         <div class="large-12 cell">
-          <h2>Integrating BpForms into descriptions of pathways, kinetic models, and synthetic parts</h2>
+          <h2>Uses cases for epigenomics, proteomics, systems biology, synthetic biology, and proteomics</h2>
+        </div>
+
+        <div class="large-4 cell">
+          <a name="epigenomics"></a>
+          <h3>Epigenomics</h3>
+          <p></p>
+        </div>
+        <div class="large-8 cell">
+          <h3>Example</h3>
+          <p></p>
+        </div>
+
+        <div class="large-4 cell">
+          <a name="proteomics"></a>
+          <h3>Proteomics</h3>
+          <p></p>
+        </div>
+        <div class="large-8 cell">
+          <h3>Example</h3>
+          <p></p>
+        </div>
+
+        <div class="large-4 cell">
+          <a name="sys-bio"></a>
+          <h3>Systems biology</h3>
+          <p></p>
+        </div>
+        <div class="large-8 cell">
+          <h3>Example</h3>
+          <p></p>
+        </div>
+
+        <div class="large-4 cell">
+          <a name="syn-bio"></a>
+          <h3>Synthetic biology</h3>
+          <p></p>
+        </div>
+        <div class="large-8 cell">
+          <h3>Example</h3>
+          <p></p>
+        </div>
+
+        <div class="large-4 cell">
+          <a name="transcriptomics"></a>
+          <h3>Transcriptomics</h3>
+          <p><i>BpForms</i> can help researchers precisely communicate the sequences of rRNA, tRNA, and other non-coding RNA; analyze RNA modifications; and improve the quality of reported sequences by identifying errors in the descriptions of modified RNA such as undefined monomeric forms and inconsistent bonds (e.g., 3' caps that are not located at the 3' position).
+          </p>
+        </div>
+        <div class="large-8 cell">
+          <h3>Example: Analysis of the rRNA and tRNA in MODOMICS</h3>
+          <p>MODOMICS contains 732 curated sequences of rRNA and tRNA <a href="http://modomics.genesilico.pl/sequences/"><i class="fi-link"></i></a>. We used <i>BpForms</i> together with MODOMICS to assess the metabolic cost of RNA modification in <i>Escherichia coli</i>. We found that <i>E. coli</i> tRNA have 7.8 &plusmn;- 2.2 modifications that increase their mass by 177.5 &plusmn; 108.0 Da and charge by 0.62 &plusmn; 0.76. This analysis also led us to add missing information about the origin of several of the monomeric forms derived from MODOMICS and correct three types of errors errors in the MODOMICS RNA sequences. The code is available at GitHub <a href="https://github.com/KarrLab/bpforms/blob/master/examples/modomics.py"><i class="fi-link"></i></a>.</p>
+          <!-- <ol>
+            <li>We added missing information about origin of several monomeric forms.</li>
+            <li>We corrected three types of errors in the sequences. (a) Lower case codes which do not correspond to a monomeric form, and which could be confused with descriptions of repetitive elements. (b) Trailing spaces which could be confused with monomeric forms. (c) Underscores used to represent insertions that were not described as a part of the MODOMICS syntax, and which could be confused with monomeric forms.</li>
+            <li>involving 7.8 &plusmn; 4.4 carbon atoms, 
+              18.3 &plusmn; 8.6 hydrogen atoms, 1.9 &plusmn; 1.2 nitrogen atoms, 1.8 &plusmn; 2.5 oxygen atoms, and 1.7 &plusmn; 0.7 sulfur atoms.</li>
+          </ol> -->
+
+          <img src="img/example/modomics.trna.code-freq.svg" style="margin-bottom: 0.5rem;" />
+        </div>        
+      </div>
+
+      <div class="grid-x grid-padding-x blue">
+        <div class="large-12 cell">
+          <h2>Integrating <i>BpForms</i> into the BioPAX, CellML, SBML, and SBOL standards</h2>
         </div>
         <div class="large-4 cell">
           <a name="biopax"></a>
@@ -542,7 +607,7 @@
         <div class="large-4 cell">
           <a name="cellml"></a>
           <h3>Kinetic models (CellML)</h3>
-          <p style="margin-bottom: 0.5rem;"><i>BpForms</i> can be used with the <tt class="attribute">RDF</tt> element of <tt class="attribute">component</tt> objects to concretely describe the meaning of each component with BpForms in CellML <a href="https://www.cellml.org/"><i class="fi-link"></i></a>.</p>
+          <p style="margin-bottom: 0.5rem;"><i>BpForms</i> can be used with the <tt class="attribute">RDF</tt> element of <tt class="attribute">component</tt> objects to concretely describe the meaning of each component with <i>BpForms</i> in CellML <a href="https://www.cellml.org/"><i class="fi-link"></i></a>.</p>
         </div>
         <div class="large-8 cell example">
           <h3>Example</h3>
@@ -575,6 +640,7 @@
             <li>RNA: http://edamontology.org/format_3909#rna</li>
             <li>Protein: http://edamontology.org/format_3909#protein</li>
           </ul>
+          <p>See SBOL SEP 033 <a href="https://github.com/SynBioDex/SEPs/blob/master/sep_033.md"></a> and issue 77 <a href="https://github.com/SynBioDex/SEPs/issues/77"><i class="fi-link"></i></a> for more information.</p>
         </div>
         <div class="large-8 cell example">
           <h3>Examples</h3>
@@ -605,13 +671,13 @@
         </div>
       </div>
 
-      <div class="grid-x grid-padding-x blue">
+      <div class="grid-x grid-padding-x orange">
         <div class="large-12 cell">
           <h2><i>BpForm</i> interfaces</h2>
         </div>
         <div class="large-4 cell">
           <h3>Webform</h3>
-          The webform above <a href="#form"><i class="fi-link"></i></a> can be used to validate BpForms and calculate their properties.
+          The webform above <a href="#form"><i class="fi-link"></i></a> can be used to validate <i>BpForms</i> and calculate their properties.
         </div>
         <div class="large-4 cell">
           <h3>JSON REST API</h3>
@@ -631,7 +697,7 @@
         </div>
       </div>
 
-      <div class="grid-x grid-padding-x orange">
+      <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
           <h2>Tutorials, documentation, and help</h2>
         </div>
@@ -669,7 +735,7 @@
         </div>
       </div>
 
-      <div class="grid-x grid-padding-x blue">
+      <div class="grid-x grid-padding-x orange">
         <div class="large-12 cell">
           <h2>Contributing to <i>BpForms</i></h2>
         </div>
@@ -683,7 +749,7 @@
         </div>
       </div>
 
-      <div class="grid-x grid-padding-x orange">
+      <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
           <h2>About <i>BpForms</i></h2>
         </div>
