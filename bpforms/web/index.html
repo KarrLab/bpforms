@@ -449,21 +449,20 @@
           <p></p>
         </div>
 
-        <div class="large-4 cell">
+        <div class="large-6 cell">
           <a name="sys-bio"></a>
           <h3>Systems biology</h3>
-          <p></p>
+          <p><i>BpForms</i> can help modelers describe the semantic meaning of models by precisely describing the species in models. Importantly, this precision makes it easier for other researchers to understand, reuse, extend, and compose models for other studies. <i>BpForms</i> can also help modelers build more comprehensive models by helping identify gaps in models such as missing intermediate modification states of proteins and missing interactions between modification states. In particular, <i>BpForms</i> can help modelers identify the full combinatorial complexity of biochemistry that needs to be modeled. In addition, <i>BpForms</i> can help researchers increase the quality of models by helping identify errors such as element  imbalances.</p>
         </div>
-        <div class="large-8 cell">
+        <div class="large-6 cell">
           <h3>Example</h3>
-          <p></p>
+          <p>The Kholodenko model of the eukaryotic MAPK signaling cascade (DOI: 10.1046/j.1432-1327.2000.01197.x <a href="https://doi.org/10.1046/j.1432-1327.2000.01197.x"><i class="fi-link"></i></a>, BioModels: BIOMD0000000010 <a href="https://www.ebi.ac.uk/biomodels/BIOMD0000000010"><i class="fi-link"></i></a>) represents the biphosporylation of Mek1/MAPKK by Mos/MAPKKK and the biphosporylation of Erk2/MAPK by Mek1/MAPKK. Annotating the structures of the species in the model with <i>BpForms</i>, enabled us to identify two gaps in the model: two additional intermediate phosphorylation forms of Mek1 and Erk2 and the reactions involving these species. <i>BpForms</i> also enabled us to identify several unbalanced reactions due to the lack of representation of phosphate donors.</p>
         </div>
 
         <div class="large-4 cell">
           <a name="syn-bio"></a>
           <h3>Synthetic biology</h3>
-          <p><i>BpForms</i> can help engineers precisely represent and communciate the structures of parts for synthetic organisms. In addition, <i>BpForms</i> could help engineers identify the dependencies and interfaces of parts which, in turn, could help engineers more reliably use parts in alternative hosts, compose parts, and share parts.
-          </p>
+          <p><i>BpForms</i> can help engineers precisely represent and communicate the structures of parts for synthetic organisms. In addition, <i>BpForms</i> could help engineers identify the dependencies and interfaces of parts which, in turn, could help engineers more reliably use parts in alternative hosts, compose parts, and share parts.</p>
         </div>
         <div class="large-8 cell">
           <h3>Example</h3>
@@ -482,12 +481,12 @@
           <!-- <ol>
             <li>We added missing information about origin of several monomeric forms.</li>
             <li>We corrected three types of errors in the sequences. (a) Lower case codes which do not correspond to a monomeric form, and which could be confused with descriptions of repetitive elements. (b) Trailing spaces which could be confused with monomeric forms. (c) Underscores used to represent insertions that were not described as a part of the MODOMICS syntax, and which could be confused with monomeric forms.</li>
-            <li>involving 7.8 &plusmn; 4.4 carbon atoms, 
+            <li>involving 7.8 &plusmn; 4.4 carbon atoms,
               18.3 &plusmn; 8.6 hydrogen atoms, 1.9 &plusmn; 1.2 nitrogen atoms, 1.8 &plusmn; 2.5 oxygen atoms, and 1.7 &plusmn; 0.7 sulfur atoms.</li>
           </ol> -->
 
           <img src="img/example/modomics.trna.code-freq.svg" style="margin-bottom: 0.5rem;" />
-        </div>        
+        </div>
       </div>
 
       <div class="grid-x grid-padding-x blue">
@@ -507,8 +506,8 @@
   &lt;bp:DNA&gt;
     &lt;bp:entityReference&gt;
       &lt;bp:DNAReference&gt;
-        &lt;bp:sequence 
-          rdf:datatype="http://www.w3.org/2001/XMLSchema#string" 
+        &lt;bp:sequence
+          rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
           rdf:about="http://edamontology.org/format_3909#dna"&gt;
           <span class="bpform">...
           TGATTTGCCGTGGCGAGAAAATGTCG<span class="modification">{a}</span>TCGCCATTATGGCCGGCGTATTAGAAGCGCGCGGTCACAAC
@@ -570,10 +569,10 @@
           <pre class="small">...
   &lt;species name="cdc2k-p" metaid="cdc2k"&gt;
     &lt;annotation&gt;
-      &lt;rdf:RDF 
+      &lt;rdf:RDF
         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
         &lt;rdf:Description rdf:about="#cdc2k-p"&gt;
-          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt; 
+          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt;
             <span class="bpform">MENYQKVEKIGEG<span class="modification">{AA0038}</span>span&gt;<span class="modification">{AA0039}</span>GVVYKARHKLSGRIVAMKKIRLEDESEGVPSTAIREISLLKEVNDENNRSNCVRLLDI
             LHAESKLYLVFEFLDMDLKKYMDRISETGATSLDPRLVQKFTYQLVNGVNFCHSRRIIHRDLKPQNLLIDKEGNLKLADFGLARSFGVPLRN
             Y<span class="modification">{AA0038}</span>HEIVTLWYRAPEVLLGSRHYSTGVDIWSVGCIFAEMIRRSPLFPGDSEIDEIFKIFQVLGTPNEEVWPGVTLLQDYKSTFPRW
@@ -591,7 +590,7 @@
     &lt;annotation&gt;
       &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
         &lt;rdf:Description rdf:about="#_584615"&gt;
-          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt; 
+          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt;
             <span class="bpform">MAAAGAASNPGGGPEMVRGQAFDVGPRYINLAYIGEGAYGMVCSAHDNVNKVRVAIKKISPFEHQTYCQRTLREIKILLRFKHENIIGINDI
             IRAPTIEQMKDVYIVQDLMETDLYKLLKTQHLSNDHICYFLYQILRGLKYIHSANVLHRDLKPSNLLLNTTCDLKICDFGLARVADPDHDHT
             GFL<span class="modification">{AA0038}</span>E<span class="modification">{AA0039}</span>VATRWYRAPEIMLNSKGYTKSIDIWSVGCILAEMLSNRPIFPGKHYLDQLNHILGILGSPSQEDLNCIINLK
@@ -618,7 +617,7 @@
   &lt;component cmeta:id="ypp" name="ypp"&gt;
       &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
         &lt;rdf:Description rdf:about="#ypp"&gt;
-          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt; 
+          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt;
             <span class="bpform">MPKKKPTPIQLNPAPDGSAVNGTSSAETNLEALQKKLEELELDEQQRKRLEAFLTQKQKVGELKDDDFEKISELGAGNGGVVFKVSHKPSG
             LVMARKLIHLEIKPAIRNQIIRELQVLHECNSPYIVGFYGAFYSDGEISICMEHMDGGSLDQVLKKAGRIPEQILGKVSIAVIKGLTYLRE
             KHKIMHRDVKPSNILVNSRGEIKLCDFGVSGQLID<span class="modification">{AA0037}</span>MAN<span class="modification">{AA0037}</span>FVGTRSYMSPERLQGTHYSVQSDIWSMGLSLVEMAVG
@@ -645,7 +644,7 @@
         </div>
         <div class="large-8 cell example">
           <h3>Examples</h3>
-          
+
           <p style="margin-bottom: 0.5rem;"><b>RNA:</b> Modified <i>B. subtilis</i> tRNA<sup>ILE</sup> 69 (SynBioHub: BO_28687 <a href="https://synbiohub.org/public/bsu/BO_28687"><i class="fi-link"></i></a>). See complete SBOL file <a href="https://github.com/KarrLab/bpforms/blob/master/examples/BO_28687.xml"><i class="fi-link"></i></a>.</p>
           <pre class="small">...
   &lt;sbol:Sequence&gt;
