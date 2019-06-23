@@ -125,7 +125,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         alphabet = Alphabet()
 
         # create canonical monomeric forms
-        if os.path.isfile(filename)
+        if os.path.isfile(filename):
             alphabet.from_yaml(filename)
         else:
             alphabet.from_yaml(canonical_filename)
