@@ -177,7 +177,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
             if not monomer.structure:
                 continue
-            if '*' in monomer.export('smiles'):
+            if '*' in monomer.export('smiles', options=('c',)):
                 continue
             if ' (base)' in new_nomenclature:
                 continue

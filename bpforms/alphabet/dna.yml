@@ -1,7 +1,7 @@
 id: dna
 name: DNA nucleobases
 description: The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases
-  in <a href="https://dnamod.hoffmanlab.org">DNAmod</a>
+  in <a href="https://dnamod.hoffmanlab.org">DNAmod</a> and <a href="http://repairtoire.genesilico.pl/damage/">REPAIRtoire</a>
 monomers:
   A:
     id: adenine
@@ -97,6 +97,8 @@ monomers:
       id: URACIL
     - ns: pubchem.compound
       id: '1174'
+    - ns: repairtoire
+      id: dU
     structure: O=C1NC=CC(=O)N1
     backbone_bond_atoms:
     - molecule: Monomer
@@ -106,6 +108,10 @@ monomers:
     - molecule: Monomer
       element: H
       position: 3
+    comments: Cysteine spontaneously loses an amine group, which is replaced 
+      by a keto group at the C4-atom. This reaction occurs spontaneously and 
+      all the time, and is the reason why T is used in DNA. This way, dU and 
+      T can be distinguished from each other.
   dI:
     id: hypoxanthine
     name: hypoxanthine
@@ -198,6 +204,8 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:74029
+    - ns: repairtoire
+      id: 3eC
     structure: CCN1C(N)=CC=NC1=O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -209,12 +217,15 @@ monomers:
     id: 3-methylcytosine
     name: 6-amino-1-methylpyrimidin-2(1H)-one
     comments: A pyrimidone that is cytosine in which the hydrogen attached to the
-      nitrogen at position 3 is substituted by a methyl group.
+      nitrogen at position 3 is substituted by a methyl group. Occurs sparsely. 
+      Repaired by a direct repair (DR) mechanism. Also repaired in RNA.
     synonyms:
     - n3-methylcytosine
     identifiers:
     - ns: chebi
       id: CHEBI:39992
+    - ns: repairtoire
+      id: 3mC
     structure: CN1C(N)=CC=NC1=O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -254,6 +265,8 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:29147
+    - ns: repairtoire
+      id: 3,N4-ethenoC
     structure: O=C1NC=CC2=NC=CN12
     backbone_bond_atoms:
     - molecule: Monomer
@@ -287,12 +300,15 @@ monomers:
     id: N(4)-methylcytosine
     name: 4-(methylamino)pyrimidin-2(1H)-one
     comments: A pyrimidone that is cytosine bearing an N(4)-methyl substituent.
+      Repaired by a direct repair (DR) mechanism.
     synonyms:
     - n(4)-methylcytosine
     - 4-methylamino-1h-pyrimidin-2-one
     identifiers:
     - ns: chebi
       id: CHEBI:21839
+    - ns: repairtoire
+      id: 4mC
     structure: CNC1=NC(=O)NC=C1
     backbone_bond_atoms:
     - molecule: Monomer
@@ -401,12 +417,14 @@ monomers:
     id: 3,5-dimethyluracil
     name: 3,5-dimethylpyrimidine-2,4(1H,3H)-dione
     comments: A pyrimidone that is uracil with methyl group substituents at positions
-      3 and 5.
+      3 and 5. Repaired by a direct repair (DR) mechanism.
     synonyms:
     - 3-methylthymine
     identifiers:
     - ns: chebi
       id: CHEBI:74766
+    - ns: repairtoire
+      id: 3mT
     structure: CN1C(=O)NC=C(C)C1=O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -544,12 +562,15 @@ monomers:
   1mA:
     id: 1-methyladenine
     name: 1-methyl-1H-purin-6-amine
-    comments: Adenine substituted with a methyl group at position N-1.
+    comments: Adenine substituted with a methyl group at position N-1. Occurs sparsely. 
+      Repaired by a direct repair (DR) mechanism. Also repaired in RNA.
     synonyms:
     - n1-methyladenine
     identifiers:
     - ns: chebi
       id: CHEBI:18083
+    - ns: repairtoire
+      id: 1mA
     structure: CN1C=NC2=NC=NC2=C1N
     backbone_bond_atoms:
     - molecule: Monomer
@@ -561,7 +582,8 @@ monomers:
     id: 3-methyladenine
     name: 3-methyl-3H-purin-6-amine, 3-methyladenine
     comments: A  methyladenine that is adenine substituted with a methyl group at
-      position N-3.
+      position N-3. Occurs frequently. Repaired by direct repair (DR) mechanisms. 
+      AlkB activity not confirmed. Also repaired by the BER pathway.
     synonyms:
     - 3-methyl-3h-purin-6-ylamine
     - 6-amino-3-methylpurine
@@ -569,6 +591,8 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:38635
+    - ns: repairtoire
+      id: 3mA
     structure: CN1C=NC(N)=C2N=CN=C12
     backbone_bond_atoms:
     - molecule: Monomer
@@ -595,9 +619,12 @@ monomers:
     id: 7-methyladenine
     name: 7-methyl-7H-purin-6-amine
     comments: Adenine substituted with a methyl group at position N-7.
+      Occurs sparsely. AlkB activity not confirmed.
     identifiers:
     - ns: chebi
       id: CHEBI:28921
+    - ns: repairtoire
+      id: 7mA
     structure: CN1C=NC2=NC=NC(N)=C12
     backbone_bond_atoms:
     - molecule: Monomer
@@ -670,6 +697,8 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:21803
+    - ns: repairtoire
+      id: 1mG
     structure: CN1C(N)=NC2=C(N=CN2)C1=O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -681,6 +710,7 @@ monomers:
       position: 10
     base_monomers:
     - G
+    comments: Repaired by a direct repair (DR) mechanism.
   2mG:
     id: N(2)-methylguanine
     name: 2-(methylamino)-1,7-dihydro-6H-purin-6-one
@@ -721,6 +751,8 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:20689
+    - ns: repairtoire
+      id: 2mG
     structure: CNC1=NC2=C(N=CN2)C(=O)N1
     backbone_bond_atoms:
     - molecule: Monomer
@@ -774,3 +806,300 @@ monomers:
       position: 5
     base_monomers:
     - U
+  N(2),3-ɛG:
+    id: N(2),3-ethenoguanine
+    name: 1H-imidazo(2,1-b)purin-4(5H)-one
+    comments: A nucleobase analogue obtained by addition of an etheno group across
+      positions N2 and 3 of guanine.
+    synonyms:
+    - n(2),3-epsilong
+    identifiers:
+    - ns: chebi
+      id: CHEBI:134095
+    structure: O=c1[nH]c2nccn2c2c1nc[nH]2
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 14
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 14
+    base_monomers:
+    - G
+  1,N(2)-ɛG:
+    id: 1,N(2)-ethenoguanine
+    name: 1,4-dihydro-9H-imidazo[1,2-a]purin-9-one
+    comments: A nucleobase analogue obtained by addition of an etheno group across
+      positions 1 and N2 of guanine.
+    synonyms:
+    - 1,n(2)-epsilong
+    - 1,n(2)-ethenoguanine
+    identifiers:
+    - ns: chebi
+      id: CHEBI:134096
+    structure: O=c1n2ccnc2[nH]c2c1nc[nH]2
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 14
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 14
+    base_monomers:
+    - G
+  1,N2-ethenoG:
+    id: 1,N2-ethenoG
+    name: 1,N2-etheno-2'-deoxyguanosine-5'-monophosphate
+    comments: Arise as side products of lipid peroxidation under oxidative stress.
+      exocyclic adducts are repaired with an epoxide intermediate, that is hydrolyzed
+      to the repaired base + CHO-CHO.
+    identifiers:
+    - ns: repairtoire
+      id: 1,N2-ethenoG
+    structure: O=c1n2cc[nH]c2nc2c1nc[nH]2
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 14
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 14
+  1,N6-ethenoA:
+    id: 1,N6-ethenoA
+    name: 1,N6-etheno-2'-deoxyadenosine-5'-monophosphate
+    identifiers:
+    - ns: repairtoire
+      id: 1,N6-ethenoA
+    structure: c1[nH]c2=NCn3c(=c2n1)[nH]cc3
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 2
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 2
+  1eA:
+    id: 1eA
+    name: 1-ethyl-2'-deoxyadenosine-5'-monophosphate
+    identifiers:
+    - ns: repairtoire
+      id: 1eA
+    structure: CCN1CN=c2c(=C1N)nc[nH]2
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 12
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 12
+  1heA:
+    id: 1heA
+    name: 1-hydroxyethyl-2'-deoxyadenosine-5'-monophosphate
+    identifiers:
+    - ns: repairtoire
+      id: 1heA
+    structure: NC1=c2nc[nH]c2=NCN1CCO
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 6
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 6
+  1hpA:
+    id: 1hpA
+    name: 1-hydroxypropyl-2'-deoxyadenosine-5'-monophosphate
+    identifiers:
+    - ns: repairtoire
+      id: 1hpA
+    structure: NC1=c2nc[nH]c2=NCN1CCCO
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 6
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 6
+  1pA:
+    id: 1pA
+    name: 1-propyl-2'-deoxyadenosine-5'-monophosphate
+    identifiers:
+    - ns: repairtoire
+      id: 1pA
+    structure: CCCN1CN=c2c(=C1N)nc[nH]2
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 13
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 13
+  3heC:
+    id: 3heC
+    name: 3-hydroxyethyl-2'-deoxycytidine-5'-monophosphate
+    identifiers:
+    - ns: repairtoire
+      id: 3heC
+    structure: NC1C=CNC(=O)N1CCO
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 5
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 5
+  3hpC:
+    id: 3hpC
+    name: 3-hydroxypropyl-2'-deoxycytidine-5'-monophosphate
+    identifiers:
+    - ns: repairtoire
+      id: 3hpC
+    structure: NC1C=CNC(=O)N1CCCO
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 5
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 5
+  3mG:
+    id: 3mG
+    name: 3-methyl-2'-deoxyguanosine-5'-monophosphate
+    comments: Occurs sparsely.
+    identifiers:
+    - ns: repairtoire
+      id: 3mG
+    structure: Cn1c(N)nc(=O)c2c1[nH]cn2
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 10
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 10
+  3pC:
+    id: 3pC
+    name: 3-propyl-2'-deoxycytidine-5'-monophosphate
+    identifiers:
+    - ns: repairtoire
+      id: 3pC
+    structure: CCCN1C(N)C=CNC1=O
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 9
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 9
+  thymidine glycol:
+    id: thymidine glycol
+    name: 5,6-dihydroxy-5,6-dihydrothymidine-5'-monophosphate
+    comments: One of the principal DNA lesions induced by oxidation and ionizing radiation,
+      has been investigated in Escherichia coli. Thymine glycol was positioned at
+      a unique site in the single-stranded genome of a bacteriophage M13mp19 derivative.
+      Replication of the genome in E. coli yielded targeted mutations at a frequency
+      of 0.3%; the mutations were exclusively T to C transitions.
+    identifiers:
+    - ns: repairtoire
+      id: thymidine glycol
+    structure: O=C1N[C@H](O)[C@@](C(=O)N1)(C)O
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 3
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 3
+  7mG:
+    id: 7mG
+    name: 7-methyl-2'-deoxyguanosine-5'-monophosphate
+    comments: Occurs frequently.
+    identifiers:
+    - ns: repairtoire
+      id: 7mG
+    structure: CN1CNc2c1c(=O)[nH]c(n2)N
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 4
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 4
+  8mG:
+    id: 8mG
+    name: 8-methyl-2'-deoxyguanosine-5'-monophosphate
+    comments: Repaired by a direct repair (DR) mechanism.
+    identifiers:
+    - ns: repairtoire
+      id: 8mG
+    structure: Cc1[nH]c2c(n1)c(=O)[nH]c(n2)N
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 3
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 3
+  O2mT:
+    id: O2mT
+    name: O2-methyl-2'-deoxythymidine-5'-monophosphate
+    comments: AlkB activity not confirmed.
+    identifiers:
+    - ns: repairtoire
+      id: O2mT
+    structure: CO[C@H]1NC=C(C(=O)N1)C
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 5
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 5
+  O4mT:
+    id: O4mT
+    name: O4-methyl-2'-deoxythymidine-5'-monophosphate
+    comments: Occurs sparsely. Repaired by the NER pathway.
+    identifiers:
+    - ns: repairtoire
+      id: O4mT
+    structure: CO[C@@H]1NC(=O)NC=C1C
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 8
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 8
+  O6mG:
+    id: O6mG
+    name: O6-methyl-2'-deoxyguanosine-5'-monophosphate
+    comments: Occurs frequently. Repaired by a direct repair (DR) mechanism.
+    identifiers:
+    - ns: repairtoire
+      id: O6mG
+    structure: CO[C@@H]1NC(=Nc2c1nc[nH]2)N
+    backbone_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 12
+    backbone_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 12

@@ -12,6 +12,7 @@ from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, B
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from wc_utils.util.chem import EmpiricalFormula
+import csv
 import math
 import openbabel
 import os
@@ -124,12 +125,35 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         alphabet = Alphabet()
 
         # create canonical monomeric forms
-        alphabet.from_yaml(canonical_filename)
+        if os.path.isfile(filename)
+            alphabet.from_yaml(filename)
+        else:
+            alphabet.from_yaml(canonical_filename)
         alphabet.id = 'dna'
         alphabet.name = 'DNA nucleobases'
         alphabet.description = ('The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
-                                '<a href="https://dnamod.hoffmanlab.org">DNAmod</a>')
+                                '<a href="https://dnamod.hoffmanlab.org">DNAmod</a> and '
+                                '<a href="http://repairtoire.genesilico.pl/damage/">REPAIRtoire</a>')
 
+        # build from sources
+        self.build_dnamod(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+        self.build_repairtoire(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+
+        # return alphabet
+        return alphabet
+
+    def build_dnamod(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
+        """ Build monomeric forms from DNAmod
+
+        Args:
+            alphabet (:obj:`Alphabet`): alphabet
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
+
+        Returns:
+            :obj:`Alphabet`: alphabet
+        """
         # get individual nucleobases and create monomeric forms
         session = self.load_session()
         with_smiles = session.query(self.Names).filter(self.Names.smiles != '[]')
@@ -143,16 +167,11 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         for item in with_smiles.all():
             row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
             if row is None:
-                chars = 'base'
-            elif row.Symbol:
+                continue
+            if row.Symbol:
                 chars = row.Symbol
             else:
                 chars = row.Abbreviation
-            idx = 0
-            tmp = chars
-            while chars in alphabet.monomers:
-                idx += 1
-                chars = tmp + '-' + str(idx)
 
             id = item.chebiname
 
@@ -195,14 +214,13 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 assert conv.SetInFormat('inchi')
                 assert conv.ReadString(structure, inchi)
 
-            monomer = Monomer(
-                id=id,
-                name=name,
-                synonyms=synonyms,
-                identifiers=identifiers,
-                structure=structure,
-                comments=comments,
-            )
+            monomer = alphabet.monomers.get(chars, Monomer())
+            monomer.id = id
+            monomer.name = name
+            monomer.synonyms = synonyms
+            monomer.identifiers = identifiers
+            monomer.structure = structure
+            monomer.comments = comments
 
             if not self.is_nucleobase_valid(monomer):
                 invalid_nucleobases.append(id)
@@ -229,8 +247,76 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         # get major microspecies for each monomeric form
         self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
-        # return alphabet
-        return alphabet
+    def build_repairtoire(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
+        """ Build monomeric forms from DNAmod
+
+        Args:
+            alphabet (:obj:`Alphabet`): alphabet
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
+
+        Returns:
+            :obj:`Alphabet`: alphabet
+        """
+        monomer_smiles = {}
+        for monomer in alphabet.monomers.values():
+            monomer_smiles[monomer.export('smiles', options=('c',))] = monomer
+
+        filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'repairtoire.csv'))
+        conv = openbabel.OBConversion()
+        conv.SetInFormat('smiles')
+        conv.SetOutFormat('smiles')
+        conv.SetOptions('c', conv.OUTOPTIONS)
+        merged_monomers = []
+        new_monomers = []
+        with open(filename, 'r') as file:
+            reader = csv.DictReader(file, dialect='excel')
+            for row in reader:
+                id = row['Id']
+                name = row['Name']
+                smiles = row['Base SMILES (cleaned)']
+                i_backbone_bond_atom = int(float(row['Backbone bond atom']))
+                comments = row['Comments']
+
+                # mol = openbabel.OBMol()
+                # conv.ReadString(mol, smiles)
+                # smiles = conv.WriteString(mol)
+
+                # mol = openbabel.OBMol()
+                # conv.ReadString(mol, smiles)
+                # smiles = conv.WriteString(mol)
+
+                monomer = monomer_smiles.get(smiles, None)
+                if monomer is None:
+                    monomer = alphabet.monomers.get(id, None)
+
+                if monomer is not None:
+                    monomer.synonyms.add(id)
+                    monomer.synonyms.add(name)
+                    monomer.identifiers.add(Identifier('repairtoire', id))
+                    if comments:
+                        if monomer.comments:
+                            monomer.comments += ' ' + comments
+                        else:
+                            monomer.comments = comments
+
+                    merged_monomers.append((id, monomer.id))
+
+                else:
+                    monomer = Monomer(
+                        id=id, name=name,
+                        identifiers=[Identifier('repairtoire', id)],
+                        structure=smiles,
+                        backbone_bond_atoms=[Atom(Monomer, element='N', position=i_backbone_bond_atom)],
+                        backbone_displaced_atoms=[Atom(Monomer, element='H', position=i_backbone_bond_atom)],
+                        comments=comments or None)
+                    alphabet.monomers[id] = monomer
+
+                    new_monomers.append(id)
+
+        print('Merged monomers\n  {}'.format('\n  '.join('\t'.join(ids) for ids in merged_monomers)))
+        print('New monomers\n  {}'.format('\n  '.join(new_monomers)))
 
     def is_nucleobase_valid(self, monomer):
         """ Determine if monomeric form should be included in alphabet

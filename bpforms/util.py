@@ -151,7 +151,7 @@ def gen_html_viz_alphabet(bpform_type, filename):
                                                                   show_atom_nums=False, width=width, height=height))
         else:
             doc += '          <td>{}</td>\n'.format('')
-        doc += '          <td>{}</td>\n'.format(monomer.export('smiles'))
+        doc += '          <td>{}</td>\n'.format(monomer.export('smiles', options=('c',)))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
                                                           for atom in monomer.backbone_bond_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
@@ -226,6 +226,7 @@ def validate_bpform_linkages(form_type):
         'left_displaced_atoms',
     ]
     for i_monomer, monomer in enumerate(form.alphabet.monomers.values()):
+        print(monomer.id)
         for atom_type in atom_types:
             selected_hydrogens = []
             for atom_md in getattr(monomer, atom_type):
@@ -247,6 +248,7 @@ def validate_bpform_linkages(form_type):
 
     # validate monomeric forms and dimers
     for monomer in form.alphabet.monomers.values():
+        print(monomer.id)
         monomer_form = form_type(seq=[monomer])
         try:
             monomer_structure = monomer_form.get_structure()[0]

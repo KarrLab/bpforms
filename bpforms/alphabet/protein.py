@@ -86,11 +86,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         no_termini = []
         for code, monomer in alphabet.monomers.items():
             if monomer.left_bond_atoms and not monomer.right_bond_atoms:
-                n_only.append((code, monomer.export('smiles')))
+                n_only.append((code, monomer.export('smiles', options=('c',))))
             elif not monomer.left_bond_atoms and monomer.right_bond_atoms:
-                c_only.append((code, monomer.export('smiles')))
+                c_only.append((code, monomer.export('smiles', options=('c',))))
             elif not monomer.left_bond_atoms and not monomer.right_bond_atoms:
-                no_termini.append((code, monomer.export('smiles')))
+                no_termini.append((code, monomer.export('smiles', options=('c',))))
         n_only.sort()
         c_only.sort()
         no_termini.sort()
@@ -317,7 +317,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         name_to_monomer = {}
         ambiguous_names = []
         for monomer in alphabet.monomers.values():
-            smiles_to_monomer[monomer.export('smiles')] = monomer
+            smiles_to_monomer[monomer.export('smiles', options=('c',))] = monomer
 
             for identifier in monomer.identifiers:
                 if identifier.ns == 'pdb.ligand':
@@ -492,7 +492,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         if monomer is None:
                             new_monomers.append(id)
                     else:
-                        same_pdb_ids.append((id, smiles, monomer.export('smiles')))
+                        same_pdb_ids.append((id, smiles, monomer.export('smiles', options=('c',))))
                 else:
                     resid_id = ''
                     pdb_ligand_id = ''
