@@ -14,7 +14,9 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from wc_utils.util.chem import draw_molecule, OpenBabelUtils
+import importlib
 import openbabel
+import shutil
 
 
 def get_alphabets():
@@ -87,6 +89,8 @@ def build_alphabets(ph=None, major_tautomer=False, dearomatize=False, _max_monom
         alphabets (:obj:`list` of :obj:`str` or :obj:`None`, optional): ids of alphabets to build. If :obj:`None`,
             build all alphabets
     """
+    core.cache.clear()
+
     if alphabets is None or 'dna' in alphabets:
         dna.DnaAlphabetBuilder(_max_monomers=_max_monomers).run(ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
     if alphabets is None or 'rna' in alphabets:

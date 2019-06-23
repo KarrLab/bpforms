@@ -11,15 +11,23 @@ from ruamel import yaml
 from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_molecule, OpenBabelUtils
 import abc
 import attrdict
+import diskcache
 import itertools
 import lark
 import openbabel
+import os
 import pkg_resources
 import re
 import urllib.parse
 import warnings
 
 config = get_config()['bpforms']
+
+# setup cache
+cache_dir = os.path.expanduser('~/.cache/bpforms')
+if not os.path.isdir(cache_dir):
+    os.makedirs(cache_dir)
+cache = diskcache.FanoutCache(cache_dir)
 
 
 class Identifier(object):
@@ -1376,10 +1384,23 @@ class Alphabet(object):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        yaml_reader = yaml.YAML()
-        with open(path, 'rb') as file:
-            self.from_dict(yaml_reader.load(file))
+        self.from_dict(parse_yaml(path))
         return self
+
+
+@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
+def parse_yaml(path):
+    """ Read a YAML file
+
+    Args:
+        path (:obj:`str`): path to YAML file which defines alphabet
+
+    Returns:
+        :obj:`object`: content of file
+    """
+    yaml_reader = yaml.YAML()
+    with open(path, 'rb') as file:
+        return yaml_reader.load(file)
 
 
 class AlphabetBuilder(abc.ABC):

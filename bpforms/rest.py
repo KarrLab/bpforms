@@ -8,8 +8,8 @@
 
 from wc_utils.util.chem import OpenBabelUtils
 import bpforms
+import bpforms.core
 import bpforms.util
-import diskcache
 import flask
 import flask_restplus
 import flask_restplus.errors
@@ -22,12 +22,6 @@ import warnings
 
 # setup app
 app = flask.Flask(__name__)
-
-# setup cache
-cache_dir = os.path.expanduser('~/.cache/bpforms')
-if not os.path.isdir(cache_dir):
-    os.makedirs(cache_dir)
-cache = diskcache.FanoutCache(cache_dir)
 
 
 class PrefixMiddleware(object):
@@ -209,7 +203,7 @@ class AlpabetResource(flask_restplus.Resource):
         return get_alphabet(id)
 
 
-@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
+@bpforms.core.cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
 def get_alphabet(id):
     """ Get an alphabet
 
@@ -225,7 +219,7 @@ def get_alphabet(id):
         flask_restplus.abort(400, 'Invalid alphabet "{}"'.format(id))
 
     alphabet_dict = alphabet_obj.to_dict()
-    
+
     for code, monomer in alphabet_obj.monomers.items():
         alphabet_dict['monomers'][code] = get_monomer_properties(id, code)
 
@@ -251,7 +245,7 @@ class MonomerResource(flask_restplus.Resource):
         return get_monomer(alphabet, monomer, format)
 
 
-@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
+@bpforms.core.cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
 def get_monomer(alphabet, monomer, format):
     """ Get a monomeric form
 
@@ -299,7 +293,7 @@ def get_monomer(alphabet, monomer, format):
         flask_restplus.abort(400, 'Invalid format "{}"'.format(format))
 
 
-@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
+@bpforms.core.cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
 def get_monomer_properties(alphabet, monomer):
     """ Get properties of a monomeric form
 

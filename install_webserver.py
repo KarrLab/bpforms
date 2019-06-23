@@ -1,3 +1,5 @@
+import modomics
+import build_examples
 """ Install website
 
 :Author: Jonathan Karr <karr@mssm.edu>
@@ -6,6 +8,7 @@
 :License: MIT
 """
 
+import bpforms.core
 import bpforms.rest
 import bpforms.util
 import importlib
@@ -18,8 +21,6 @@ import sys
 
 sys.path.append('docs')
 sys.path.append('examples')
-import build_examples
-import modomics
 
 
 def build(alphabet_ids=None):
@@ -51,10 +52,7 @@ def build(alphabet_ids=None):
         print(err, file=sys.stderr)
 
     # clear cache
-    cache_dirname = os.path.join(os.path.expanduser('~'), '.cache', 'bpforms')
-    if os.path.isdir(cache_dirname):
-        shutil.rmtree(cache_dirname)
-    importlib.reload(bpforms.rest)
+    bpforms.core.cache.clear()
 
     # cache alphabet REST queries and save JSON files for HTML pages
     data_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'data'))
