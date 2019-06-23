@@ -1,5 +1,3 @@
-import modomics
-import build_examples
 """ Install website
 
 :Author: Jonathan Karr <karr@mssm.edu>
@@ -21,7 +19,8 @@ import sys
 
 sys.path.append('docs')
 sys.path.append('examples')
-
+import build_examples
+import modomics
 
 def build(alphabet_ids=None):
     """ Install website
