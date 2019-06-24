@@ -57,7 +57,9 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         '9-{2,5-anhydro-4-[(phosphonooxy)methyl]-alpha-L-lyxofuranosyl}-9H-purin-6-amine',
         'oxetanocin',
         'adefovir', '5-amino-6-(5-phospho-beta-D-ribosylamino)uracil',
-        "2'-deoxyinosine",
+        "2'-deoxyinosine", '4-amino-1-methylpyrimidin-2(1H)-one', '1,5-dimethylpyrimidine-2,4(1H,3H)-dione',
+        '9-methyl-9H-purin-6-amine',
+        '2-amino-4-oxo-7-beta-D-ribofuranosyl-4,7-dihydro-1H-pyrrolo[2,3-d]pyrimidine-5-carboxamide',
     )
 
     class Names(DeclarativeBase):
