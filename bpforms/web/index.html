@@ -443,17 +443,28 @@
         <div class="large-4 cell">
           <a name="proteomics"></a>
           <h3>Proteomics</h3>
-          <p></p>
+          <p><i>BpForms</i> can help researchers precisely communicate the sequences of proteoforms, analyze modifications, and improve the quality of reported sequences by identifying errors in the descriptions of proteoforms such as monomeric forms that are inconsistent with the unmodified sequence (e.g., selenocysteine modification of a non-cysteine residue) and inconsistent bonds (e.g., N,N,N-trimethyl-L-alanine, which has not N-terminus, located in the middle of a peptide).
+          </p>
         </div>
         <div class="large-8 cell">
-          <h3>Example</h3>
-          <p></p>
+          <h3>Example: Analysis of the metabolic load of protein modification in humans</h3>
+          <p>PRO contains curated modifications of 2312 human proteins <a href="https://proconsortium.org/"><i class="fi-link"></i></a>. We used <i>BpForms</i> together with PRO to assess the metabolic cost of protein modification in humans. We found that human proteins have 1.7 &plusmn;1.6 modifications that increase their mass by 146.4 &plusmn; 154.3 Da and decrease their charge by 3.05 &plusmn; 3.30. This analysis also led us to improve PRO by correcting four types of errors in the curated modifications. The code is available at GitHub <a href="https://github.com/KarrLab/bpforms/blob/master/examples/pro.py"><i class="fi-link"></i></a>.</p>
+          <!-- 
+          <ol>
+            <li>Identified 1 entry with a obsolete UniProt ids.</li>
+            <li>Identified 3 entries with processing positions that are longer than the length of the sequence.</li>
+            <li>Identified 58 entries with modifications whose positions and residues are inconsistent.</li>
+            <li>Identified 4 entries with multiple modifications annotated for the same position.</li>
+          </ol>
+          -->
+
+          <img src="img/example/pro_nonreasoned.svg" style="margin-bottom: 0.5rem;" />
         </div>
 
         <div class="large-6 cell">
           <a name="sys-bio"></a>
           <h3>Systems biology</h3>
-          <p><i>BpForms</i> can help modelers describe the semantic meaning of models by precisely describing the species in models. Importantly, this precision makes it easier for other researchers to understand, reuse, extend, and compose models for other studies. <i>BpForms</i> can also help modelers build more comprehensive models by helping identify gaps in models such as missing intermediate modification states of proteins and missing interactions between modification states. In particular, <i>BpForms</i> can help modelers identify the full combinatorial complexity of biochemistry that needs to be modeled. In addition, <i>BpForms</i> can help researchers increase the quality of models by helping identify errors such as element  imbalances.</p>
+          <p><i>BpForms</i> can help modelers describe the semantic meaning of models by precisely describing the species in models. Importantly, this precision makes it easier for other researchers to understand, reuse, extend, and compose models for other studies. <i>BpForms</i> can also help modelers build more comprehensive models by helping identify gaps in models such as missing intermediate modification states of proteins and missing interactions between modification states. In particular, <i>BpForms</i> can help modelers identify the full combinatorial complexity of biochemistry that needs to be modeled. In addition, <i>BpForms</i> can help researchers increase the quality of models by helping identify errors such as element imbalances.</p>
         </div>
         <div class="large-6 cell">
           <h3>Example</h3>
@@ -477,8 +488,8 @@
           </p>
         </div>
         <div class="large-8 cell">
-          <h3>Example: Analysis of the rRNA and tRNA in MODOMICS</h3>
-          <p>MODOMICS contains 732 curated sequences of rRNA and tRNA <a href="http://modomics.genesilico.pl/sequences/"><i class="fi-link"></i></a>. We used <i>BpForms</i> together with MODOMICS to assess the metabolic cost of RNA modification in <i>Escherichia coli</i>. We found that <i>E. coli</i> tRNA have 7.8 &plusmn;- 2.2 modifications that increase their mass by 177.5 &plusmn; 108.0 Da and charge by 0.62 &plusmn; 0.76. This analysis also led us to add missing information about the origin of several of the monomeric forms derived from MODOMICS and correct three types of errors errors in the MODOMICS RNA sequences. The code is available at GitHub <a href="https://github.com/KarrLab/bpforms/blob/master/examples/modomics.py"><i class="fi-link"></i></a>.</p>
+          <h3>Example: Analysis of the metabolic load of rRNA and tRNA modification in <i>E. coli</i></h3>
+          <p>MODOMICS contains 732 curated sequences of rRNA and tRNA <a href="http://modomics.genesilico.pl/sequences/"><i class="fi-link"></i></a>. We used <i>BpForms</i> together with MODOMICS to assess the metabolic cost of RNA modification in <i>Escherichia coli</i>. We found that <i>E. coli</i> tRNA have 7.8 &plusmn; 2.2 modifications that increase their mass by 177.5 &plusmn; 108.0 Da and charge by 0.62 &plusmn; 0.76. This analysis also led us to add missing information about the origin of several of the monomeric forms derived from MODOMICS and correct three types of errors in the MODOMICS RNA sequences. The code is available at GitHub <a href="https://github.com/KarrLab/bpforms/blob/master/examples/modomics.py"><i class="fi-link"></i></a>.</p>
           <!-- <ol>
             <li>We added missing information about origin of several monomeric forms.</li>
             <li>We corrected three types of errors in the sequences. (a) Lower case codes which do not correspond to a monomeric form, and which could be confused with descriptions of repetitive elements. (b) Trailing spaces which could be confused with monomeric forms. (c) Underscores used to represent insertions that were not described as a part of the MODOMICS syntax, and which could be confused with monomeric forms.</li>

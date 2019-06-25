@@ -12,7 +12,9 @@ import json
 import nbconvert.preprocessors
 import nbformat
 import os
+import shutil
 import sys
+import tempfile
 import unittest
 
 
@@ -27,6 +29,12 @@ class ExamplesTestCase(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         sys.path.remove('examples')
+
+    def setUp(self):
+        self.dirname = tempfile.mkdtemp()
+
+    def tearDown(self):
+        shutil.rmtree(self.dirname)
 
     def test_jupyter(self):
         for filename in itertools.chain(glob.glob('examples/*.ipynb'), glob.glob('examples/**/*.ipynb')):
@@ -52,5 +60,19 @@ class ExamplesTestCase(unittest.TestCase):
 
     def test_pro(self):
         import pro
-        pro.run()
-        self.assertTrue(os.path.isfile(pro.OUT_TSV_FILENAME))
+
+        in_pkl_filename = os.path.join(self.dirname, 'in.pkl')
+        out_pickle_filename = os.path.join(self.dirname, 'out.pkl')
+        out_pickle_filename_2 = os.path.join(self.dirname, 'out.2.pkl')
+        out_tsv_filename = os.path.join(self.dirname, 'out.tsv')
+        out_fasta_filename = os.path.join(self.dirname, 'out.fasta')
+        out_fig_filename = os.path.join(self.dirname, 'out.svg')
+
+        pro.run(in_pkl_filename=in_pkl_filename, max_num_proteins=100,
+                out_pickle_filename=out_pickle_filename, 
+                out_pickle_filename_2=out_pickle_filename_2, 
+                out_tsv_filename=out_tsv_filename, out_fasta_filename=out_fasta_filename,
+                out_fig_filename=out_fig_filename,
+                )
+
+        self.assertTrue(os.path.isfile(out_tsv_filename))
