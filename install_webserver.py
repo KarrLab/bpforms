@@ -23,7 +23,7 @@ import build_examples
 import modomics
 import pro
 
-def build(alphabet_ids=None):
+def build(alphabet_ids=None, pro_max_num_proteins=None):
     """ Install website
 
     * Clear REST cache
@@ -35,6 +35,7 @@ def build(alphabet_ids=None):
     Args:
         alphabet_ids (:obj:`list` of :obj:`str`): list of ids of alphabets to cache; if :obj:`None`, 
             cache all alphabets
+        max_num_proteins (:obj:`int`, optional): maximum number of proteins in PRO to analyze
     """
     rest_client = bpforms.rest.app.test_client()
 
@@ -86,9 +87,10 @@ def build(alphabet_ids=None):
                 file.write(monomer.get_image(image_format='png', width=250, height=150))
 
     # build examples
-    build_examples.build()
+    build_examples.build()    
     modomics.run()
-    pro.run()
+    if pro_max_num_proteins is not None and pro_max_num_proteins:
+        pro.run(max_num_proteins=pro_max_num_proteins)
 
     # restart server
     restart_filename = os.path.join('..', 'tmp', 'restart')

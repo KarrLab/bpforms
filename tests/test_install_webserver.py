@@ -21,4 +21,4 @@ class InstallServerTestCase(unittest.TestCase):
 
     def test(self):
         import install_webserver
-        install_webserver.build(['dna'])
+        install_webserver.build(['dna'], pro_max_num_proteins=0)
