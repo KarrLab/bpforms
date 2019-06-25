@@ -21,6 +21,7 @@ sys.path.append('docs')
 sys.path.append('examples')
 import build_examples
 import modomics
+import pro
 
 def build(alphabet_ids=None):
     """ Install website
@@ -87,6 +88,7 @@ def build(alphabet_ids=None):
     # build examples
     build_examples.build()
     modomics.run()
+    pro.run()
 
     # restart server
     restart_filename = os.path.join('..', 'tmp', 'restart')

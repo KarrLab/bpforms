@@ -79,6 +79,21 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # build from sources
         self.build_from_resid(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
         self.build_from_pdb(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+        self.build_from_mod(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+
+        # corrections
+        alphabet.monomers.R.identifiers.add(Identifier('chebi', 'CHEBI:29952'))
+        alphabet.monomers.D.identifiers.add(Identifier('chebi', 'CHEBI:29958'))
+        alphabet.monomers.C.identifiers.add(Identifier('chebi', 'CHEBI:29950'))
+        alphabet.monomers.H.identifiers.add(Identifier('chebi', 'CHEBI:29979'))
+        alphabet.monomers.AA0431.identifiers.add(Identifier('mod', 'MOD:00160'))
+        alphabet.monomers.AA0560.identifiers.remove(Identifier('pdb.ligand', 'NAG'))
+        alphabet.monomers.AA0027.identifiers.remove(Identifier('cas', '17576'))
+        alphabet.monomers.AA0232.identifiers.remove(Identifier('pdb.ligand', 'OTD'))
+        for monomer in alphabet.monomers.values():
+            for identifier in list(monomer.identifiers):
+                if identifier.ns == 'pdb.ligand' and identifier.id == 'ACE':
+                    monomer.identifiers.remove(identifier)
 
         # save report
         n_only = []
@@ -559,6 +574,24 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
                 file.write('{} monomers were added to the alphabet:\n  {}\n'.format(
                     len(new_monomers), '\n  '.join(sorted(new_monomers))))
+
+    def build_from_mod(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
+        """ Build alphabet from PSI-MI ontology
+
+        Args:
+            alphabet (:obj:`Alphabet`): alphabet
+            ph (:obj:`float`, optional): pH at which calculate major protonation state of each monomeric form
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
+        """
+        alphabet.monomers['SGergerOMeCys'] = Monomer(
+            id='SGergerOMeCys',
+            name='S-geranylgeranyl-L-cysteine methyl ester',
+            identifiers=IdentifierSet([Identifier('mod', 'MOD:01119')]),
+            base_monomers=[alphabet.monomers.C],
+            structure='COC(=O)[C@@H](N)CSC\C=C(/C)CC\C=C(/C)CC\C=C(/C)CCC=C(C)C',
+            left_bond_atoms=[Atom(Monomer, element='N', position=7, charge=-1)],
+            left_displaced_atoms=[Atom(Monomer, element='H', position=7)])
 
     def set_termini(self, mol, monomer, i_n, i_c):
         """ Set the C and N terminal bond atoms of a monomer

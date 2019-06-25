@@ -47,5 +47,10 @@ class ExamplesTestCase(unittest.TestCase):
     def test_modomics(self):
         import modomics
         modomics.run()
-        out_filename = os.path.join('examples', 'modomics.ssu-rrna.tsv')
-        self.assertTrue(os.path.isfile(out_filename))
+        filename = os.path.join('examples', 'modomics.ssu-rrna.tsv')
+        self.assertTrue(os.path.isfile(filename))
+
+    def test_pro(self):
+        import pro
+        pro.run()
+        self.assertTrue(os.path.isfile(pro.OUT_TSV_FILENAME))

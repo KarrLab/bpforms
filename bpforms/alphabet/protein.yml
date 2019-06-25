@@ -72,6 +72,8 @@ monomers:
       id: AA0002
     - ns: chebi
       id: CHEBI:16467
+    - ns: chebi
+      id: CHEBI:29952
     - ns: metacyc.compound
       id: ARG
     - ns: pdb-ccd
@@ -179,6 +181,8 @@ monomers:
       id: '5960'
     - ns: chebi
       id: CHEBI:17053
+    - ns: chebi
+      id: CHEBI:29958
     - ns: resid
       id: AA0004
     structure: O=C[C@H](CC(=O)[O-])[NH3+]
@@ -232,6 +236,8 @@ monomers:
       id: CYS
     - ns: chebi
       id: CHEBI:17561
+    - ns: chebi
+      id: CHEBI:29950
     - ns: resid
       id: AA0005
     structure: SC[C@H]([NH3+])C=O
@@ -426,6 +432,8 @@ monomers:
       id: AA0009
     - ns: chebi
       id: CHEBI:15971
+    - ns: chebi
+      id: CHEBI:29979
     - ns: metacyc.compound
       id: HIS
     - ns: pubchem.compound
@@ -1290,6 +1298,8 @@ monomers:
     identifiers:
     - ns: mod
       id: MOD:00833
+    - ns: mod
+      id: MOD:00160
     - ns: resid
       id: AA0421
     structure: O=C[C@H](CC(=O)N[C@H]1O[C@H](CO)[C@H]([C@@H]([C@H]1O)O)O)N
@@ -1327,8 +1337,6 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:61631
-    - ns: pdb.ligand
-      id: NAG
     - ns: resid
       id: AA0560
     - ns: mod
@@ -2818,8 +2826,6 @@ monomers:
     - alpha-acetylamino-delta-guanidinovaleric acid
     - N(alpha)-acetylarginine
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: go
       id: GO:0048275
     - ns: resid
@@ -4229,8 +4235,6 @@ monomers:
     - n~2~-acetyl-l-glutamine
     - 2-acetylamino-5-amino-5-oxopentanoic acid
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: go
       id: GO:0017192
     - ns: mod
@@ -5610,8 +5614,6 @@ monomers:
     - 1-acetylproline
     - (2~{S})-1-ethanoylpyrrolidine-2-carboxylic acid
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: chebi
       id: CHEBI:21560
     - ns: pdb-ccd
@@ -9135,8 +9137,6 @@ monomers:
     identifiers:
     - ns: cas
       id: 10036-64-3
-    - ns: pdb.ligand
-      id: NAG
     - ns: mod
       id: MOD:00805
     - ns: resid
@@ -11486,8 +11486,6 @@ monomers:
     - (2S)-2-(acetamido)pentanedioic acid
     - acetylglutamic acid
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: go
       id: GO:0018002
     - ns: mod
@@ -13453,8 +13451,6 @@ monomers:
     - 2-acetylamino-4-(methylsulfanyl)butanoic acid
     - acetylmethionine
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: chebi
       id: CHEBI:21557
     - ns: resid
@@ -14034,8 +14030,6 @@ monomers:
     - N-acetylserine
     - N-acetyl-L-serine
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: cas
       id: 16354-58-8
     - ns: resid
@@ -14505,8 +14499,6 @@ monomers:
     - 2-(acetylamino)propanoic acid
     - 2-(acetylazanyl)propanoic acid
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: chebi
       id: CHEBI:61920
     - ns: resid
@@ -18523,8 +18515,6 @@ monomers:
     - 2-acetylazanyl-3-methylbutanoic acid
     - (2S)-2-acetamido-3-methylbutanoic acid
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: go
       id: GO:0018001
     - ns: resid
@@ -18951,8 +18941,6 @@ monomers:
     - n-acetyl-l-tyrosine
     - N-acetyl-L-tyrosine
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: chebi
       id: CHEBI:21563
     - ns: pdb-ccd
@@ -19391,8 +19379,6 @@ monomers:
     - N-acetyl-L-threonine
     - (2S,3R)-2-acetamido-3-hydroxy-butanoic acid
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: resid
       id: AA0052
     - ns: pdb-ccd
@@ -20399,8 +20385,6 @@ monomers:
     - D
     - 2-azanyl-3-hydroxybutanedioic acid
     identifiers:
-    - ns: cas
-      id: '17576'
     - ns: pdb.ligand
       id: BH2
     - ns: pdb-ccd
@@ -22199,8 +22183,6 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: 0TD
-    - ns: pdb.ligand
-      id: OTD
     - ns: mod
       id: MOD:00237
     - ns: cas
@@ -22759,8 +22741,6 @@ monomers:
     - 2-(acetylamino)butanedioic acid
     - 2-(acetylazanyl)butanedioic acid
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: go
       id: GO:0017190
     - ns: mod
@@ -23252,8 +23232,6 @@ monomers:
     - aceturic acid
     - 2-(acetamido)ethanoic acid
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: cas
       id: 543-24-8
     - ns: go
@@ -23725,8 +23703,6 @@ monomers:
     identifiers:
     - ns: mod
       id: MOD:00831
-    - ns: pdb.ligand
-      id: NAG
     - ns: go
       id: GO:0006487
     - ns: resid
@@ -24378,8 +24354,6 @@ monomers:
     - (2R)-2-acetamido-3-sulfanylpropanoic acid
     - 2-acetylamino-3-mercaptopropanoic acid
     identifiers:
-    - ns: pdb.ligand
-      id: ACE
     - ns: resid
       id: AA0043
     - ns: chebi
@@ -56283,3 +56257,21 @@ monomers:
       element: H
       position: 9
       charge: 1
+  SGergerOMeCys:
+    id: SGergerOMeCys
+    name: S-geranylgeranyl-L-cysteine methyl ester
+    identifiers:
+    - ns: mod
+      id: MOD:01119
+    structure: COC(=O)[C@@H](N)CSC\C=C(/C)CC\C=C(/C)CC\C=C(/C)CCC=C(C)C
+    base_monomers:
+    - C
+    left_bond_atoms:
+    - molecule: Monomer
+      element: N
+      position: 7
+      charge: -1
+    left_displaced_atoms:
+    - molecule: Monomer
+      element: H
+      position: 7
