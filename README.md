@@ -56,7 +56,6 @@
 
     * Install the latest revision from GitHub:
       ```
-      pip install git+https://github.com/KarrLab/log.git#egg=log
       pip install git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils[all]
       pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms
       ```
