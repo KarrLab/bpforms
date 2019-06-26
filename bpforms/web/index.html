@@ -290,7 +290,8 @@
 
         <div class="large-5 cell notation">
           <h3>Bonds between inline monomers and backbones</h3>
-          <p>The <tt class="attribute">backbone-bond-atom</tt> and <tt class="attribute">backbone-displaced-atom</tt> attributes describe the bonds between inline monomeric forms and their backbones. Each monomeric form can form multiple bonds with the backbone and multiple atoms can be displaced. These attributes are required to calculate the structure of the BpForm.</p>
+          <p>The <tt class="attribute">backbone-bond-atom</tt> and <tt class="attribute">backbone-displaced-atom</tt> attributes describe the bonds between inline monomeric forms and their backbones. The values of these attributes are the element of the atom and the position of the atom within the monomeric form (e.g. <tt>N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
+          <p>Each monomeric form can form multiple bonds with the backbone and multiple atoms can be displaced. These attributes are required to calculate the structure of the BpForm.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
@@ -314,7 +315,8 @@
 
         <div class="large-5 cell notation">
           <h3>Bonds between inline and adjacent monomers</h3>
-          <p>The <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes describe the bonds between successive monomeric forms. Each monomeric form can have multiple bonds and multiple displaced atoms. These attributes are required to calculate the structure of the BpForm.</p>
+          <p>The <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes describe the bonds between successive monomeric forms. The values of these attributes are the element of the atom and the position of the atom within the monomeric form (e.g. <tt>N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
+          <p>Each monomeric form can have multiple bonds and multiple displaced atoms. These attributes are required to calculate the structure of the BpForm.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
@@ -416,7 +418,8 @@
 
         <div class="large-5 cell notation">
           <h3>Crosslinks between non-adjacent monomers</h3>
-          <p>The <tt class="attribute">crosslink</tt> polymer attribute indicates that there is a bond between two non-adjacent monomeric forms. Polymers can have zero, one, or more crosslinks. This attribute can be used to describe intrastran crosslinks in DNA, disulfide bonds between cysteines in proteins, and other bonds.</p>
+          <p>The <tt class="attribute">crosslink</tt> polymer attribute indicates that there is a bond between two non-adjacent monomeric forms. This attribute can be used to describe intrastrand crosslinks in DNA, disulfide bonds between cysteines in proteins, and other bonds. The values of these attributes are the position of the monomeric form within the sequence, the element of the atom, and the position of the atom within the monomeric form (e.g. <tt>8N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
+          <p>Polymers can have zero, one, or more crosslinks.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
