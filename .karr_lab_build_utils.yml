@@ -1,11 +1,12 @@
 downstream_dependencies:
   - datanator
   - h1_hesc
-  - mycoplasma_pneumoniae  
+  - mycoplasma_pneumoniae
   - rand_wc_model_gen
   - wc_kb
   - wc_kb_gen
   - wc_lang
   - wc_model_gen
+  - bcforms
 email_notifications:
   - karr@mssm.edu
