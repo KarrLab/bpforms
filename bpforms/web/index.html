@@ -20,8 +20,9 @@
 
       <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
-          <p><i>BpForms</i> is a toolkit for unambiguously representing the primary sequence of forms of biopolymers. By concretely representing the primary sequence of biopolymers, <i>BpForms</i> aims to facilitate concrete discussion about DNA modification, post-transcriptional processing, and post-translational processing; facilitate the determination of the structures of biopolymer forms; facilitate the integration of data about DNA modification, post-transcriptional processing, and post-translational processing; and enable whole-cell models <a href="https://www.wholecell.org"><i class="fi-link"></i></a> that represent DNA modification, post-transcriptional processing, and post-translational processing and the functions of modified DNA, RNA, and proteins.</p>
-          <p><i>BpForms</i> includes a notation for describing biopolymer forms, as well as this website, a JSON REST API, a command line interface, and a Python API for calculating properties of biopolymer forms. These tools are available open-source under the MIT license.</p>
+          <p><i>BpForms</i> is a toolkit for unambiguously describing the primary sequence of DNA, RNA, and proteins, including non-canonical monomeric forms, circular topologies, and crosslinks. By concretely describing the primary sequence of biopolymers, <i>BpForms</i> aims to help epigenomics, transcriptomics, proteomics, systems biology, and synthetic biology researchers share and integrate information about DNA modification, post-transcriptional modification, post-translational modification, expanded genetic codes, and synthetic parts. In particular, <i>BpForms</i> aims to help researchers collaboratively develop whole-cell computational models <a href="https://www.wholecell.org"><i class="fi-link"></i></a>.</p>
+
+          <p><i>BpForms</i> includes a notation for describing biopolymer forms and three consensus alphabets of non-canonical monomeric forms of DNA nucleobases, RNA nucleosides, and protein residues. <i>BpForms</i> also includes four software tools for verifying descriptions of biopolymer forms and calculating properties such as their atomic structure, formula, molecular weight, and charge: this website, a JSON REST API, a command line interface, and a Python API. <i>BpForms</i> is available open-source under the MIT license.</p>
         </div>
      </div>
 
@@ -33,29 +34,29 @@
             <a name="form"></a>
             <h3>Enter a biopolymer form</h3>
             <form>
-            <label>Select alphabet
+            <label>Select an alphabet
                 <select id="alphabet">
                 </select>
             </label>
 
-            <label>Enter sequence of monomeric forms
+            <label>Enter a sequence of monomeric forms and, optionally, a set of crosslinks. See the documentation below for more information about the syntax.
                 <textarea
                     id="monomer_seq_in"
                     placeholder='AC{m2A}CC[id: dI | structure: "O=C1NC=NC2=C1N=CN2"]G'></textarea>
             </label>
 
-            <label>Select circularity
+            <label>Select the topology
                 <select id="circular">
-                  <option value=1>Yes</option>
-                  <option value=0 selected>No</option>
+                  <option value=1>Circular</option>
+                  <option value=0 selected>Linear</option>
                 </select>
             </label>
 
-            <label>Optionally, enter a pH to correct the protonation
+            <label>Optionally, enter a pH at which to calculate the major the protonation state
                 <input type="number" id="ph" placeholder="7.4"/>
             </label>
 
-            <label>Optionally, calculate the major tautomer when correcting the protonation
+            <label>Optionally, calculate the major tautomer state at the entered pH
                 <select id="major_tautomer">
                   <option value=1>Yes</option>
                   <option value=0 selected>No</option>
@@ -73,7 +74,7 @@
             </form>
         </div>
         <div class="large-6 cell">
-            <h3>Computed properties of the biopolymer form</h3>
+            <h3>Calculated properties of the biopolymer form</h3>
             <form class="out">
                 <div id="structure-img" style="text-align: center;"></div>
                 <label>Length
@@ -103,32 +104,32 @@
 
         <div class="large-5 cell notation">
           <h3>Overview</h3>
-          <p class="before_list">The <i>Bpforms</i> notation extends the IUPAC/IUBMB notation used to represent unmodified DNA, RNA, and proteins in five ways:</p>
+          <p class="before_list">The <i>BpForms</i> notation extends the IUPAC/IUBMB notation commonly used to represent unmodified DNA, RNA, and proteins to represent non-canonical forms of DNA, RNA, and proteins:</p>
           <ul>
             <li><i>BpForms</i> can represent a wider range of monomeric forms, including monomeric forms that are not described in pre-defined alphabets.</li>
             <li><i>BpForms</i> can capture left and right caps such as 3' poly A tails.</li>
-            <li><i>BpForms</i> can capture variation in the backbones of DNA, RNA, and proteins.</li>
-            <li><i>BpForms</i> can capture the linear/circular topology of polmers, and</li>
+            <li><i>BpForms</i> can capture modifications to the backbones of DNA, RNA, and proteins.</li>
+            <li><i>BpForms</i> can capture linear and circular topologies of polymers.</li>
             <li><i>BpForms</i> can capture crosslinks (additional bonds between non-adjacent monomeric forms).</li>
           </ul>
 
-          <p class="before_list">The <i>BpForms</i> notation consists of three parts separated by pipes, "|":</p>
+          <p class="before_list">The <i>BpForms</i> notation consists of three parts separated by pipes ("|") (e.g., <tt>A{pSer}Y | circular | crosslink: [...]</tt>):</p>
           <ul>
-            <li>A sequence of strings that indicate monomeric forms of an alphabet bonded together via backbone motifs. As described below, <i>BpForms</i> includes six alphabets of hundreds of monomeric forms of DNA, RNA, and proteins, and users can define additional alphabets. Each alphabet also includes a backbone.</li>
-            <li>An optional attribute for indicating that the polymer is circular (see below).</li>
-            <li>An optional set of crosslinks (see below).</li>
+            <li>A sequence of strings that indicate monomeric forms of an alphabet bonded together via backbone motifs (e.g, <tt>A{pSer}Y</tt>. As described below, <i>BpForms</i> includes six alphabets of hundreds of monomeric forms of DNA, RNA, and proteins, and users can define additional alphabets. Each alphabet also includes a backbone. See additional information below.</li>
+            <li>An optional attribute for indicating that the polymer is circular (e.g., <tt>circular</tt>). See additional information below.</li>
+            <li>An optional set of crosslinks (e.g., <tt>crosslink: [...]</tt>). See additional information below.</li>
           </ul>
 
           <p class="before_list">The monomeric forms in the sequence of monomeric forms can be described in three ways:</p>
           <ul>
             <li>Individual characters (e.g, <tt>A</tt>) can be used to indicate monomeric forms in defined alphabets that have single character codes.</li>
-            <li>Multiple characters delimited by curly brackets (e.g., <tt>{m2A}</tt>) can be used to indicate monomeric forms in defined alphabets that have multi-character codes.</li>
-            <li>Monomeric forms which are not defined in the alphabets can be defined "inline" using multiple attributes delimited by square brackets (e.g., <tt>[id: "m2A" | ...]</tt>). See below for more information.</li>
+            <li>Multiple characters delimited by curly brackets (e.g., <tt>{pSer}</tt>) can be used to indicate monomeric forms in defined alphabets that have multi-character codes.</li>
+            <li>Monomeric forms which are not defined in the alphabets can be defined "inline" using multiple attributes delimited by square brackets (e.g., <tt>[id: "m2A" | ...]</tt>). See additional information below.</li>
           </ul>
 
-          <p>In addition to defining monomeric forms, each alphabet also defines the backbone motif involved in the bonds between successive monomeric forms. <i>BpForms</i> distinguishes between monomeric forms and backbones to enable the DNA, RNA, and protein alphabets to be maximally consistent with DNAmod, MODOMICS, the RNA Modification Database, the PDB-CCD, and RESID.</p>
+          <p>In addition to defining monomeric forms, each alphabet also defines the backbone motif involved in the bonds between successive monomeric forms. <i>BpForms</i> distinguishes between monomeric forms and backbones to enable consistency between the DNA, RNA, and protein alphabets and DNAmod, MODOMICS, the RNA Modification Database, and RESID.</p>
 
-          <p>The <i>BpForms</i> grammar is defined in Lark syntax <a href="https://lark-parser.readthedocs.io"><i class="fi-link"></i></a>, which is based on EBNF syntax <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form"><i class="fi-link"></i></a>. The grammar is available at GitHub <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i></a>.</p>
+          <p>The <i>BpForms</i> grammar <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i></a> is defined in Lark syntax <a href="https://lark-parser.readthedocs.io"><i class="fi-link"></i></a>, which is based on EBNF syntax <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form"><i class="fi-link"></i></a>.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
@@ -182,7 +183,7 @@
           <ul id="alphabet_descriptions">
           </ul>
           <p>The backbone for the DNA alphabets is a deoxyribose monophosphate. The backbone for the RNA alphabets is phosphate. The backbone for the protein alphabets is hydroxide (in COOH).</p>
-          <p>As described above, monomeric forms with single characters codes can be indicated by their codes and monomeric forms with multi-character codes can be indicated by their codes delimited by curly brackets.</p>
+          <p>As described above, monomeric forms with single characters codes can be indicated by their codes (e.g., <tt>C</tt>) and monomeric forms with multi-character codes can be indicated by their codes delimited by curly brackets (e.g., <tt>{m2A}</tt>).</p>
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
@@ -231,22 +232,22 @@
 
         <div class="large-5 cell notation">
           <h3>"Inline" monomeric forms</h3>
-          <p>Monomeric forms which are not defined in the alphabet can be defined "inline".</p>
+          <p>Monomeric forms which are not defined in the alphabet can be defined "inline" within the sequence of monomeric forms.</p>
 
-          <p>Inline monomeric forms are defined using multiple attributes separated by pipes ("|") and enclosed in square brackets (e.g., <tt>[id: "a-short-name" | name: "a long name " | ...]</tt>).</p>
+          <p>Inline monomeric forms can be defined by enclosing multiple attributes separated by pipes ("|") in square brackets (e.g., <tt>[id: "a-short-name" | name: "a long name " | ...]</tt>).</p>
 
-          <p class="before_list"><i>BpForms</i> supports seven types of attributes for inline monomeric forms. See below for more information about each attribute.</p>
+          <p class="before_list">The inline monomeric forms support seven types of attributes. See below for more information about each attribute.</p>
           <ul>
             <li><tt>id</tt>, <tt>name</tt>, <tt>synonym</tt>: These attributes indicate human readable names for the monomeric form.</li>
-            <li><tt>structure</tt>: This attribute indicates the atom/bond structure of the monomeric form.</li>
-            <li><tt>backbone-bond-atom</tt>, <tt>backbone-displaced-atom</tt>: These attributes indicate atoms in the structure that participate in bonds with its backbone and atoms in the structure which are displaced by the formation of bonds between the monomeric form and its backbone.</li>
-            <li><tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, <tt>right-displaced-atom</tt>: These attributes indicate atoms in the structure that participate in bonds with the preceeding and following monomeric forms in the sequences and atoms athat are displaced by the formation of these bonds.</li>
+            <li><tt>structure</tt>: This attribute indicates the atomic structure of the monomeric form.</li>
+            <li><tt>backbone-bond-atom</tt>, <tt>backbone-displaced-atom</tt>: These attributes indicate the atoms in the structure that participate in bonds with its backbone and the atoms in the structure which are displaced by forming bonds between the monomeric form and its backbone.</li>
+            <li><tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, <tt>right-displaced-atom</tt>: These attributes indicate the atoms in the structure that participate in bonds with the preceeding and following monomeric forms in the sequence and the atoms that are displaced by the formation of these bonds.</li>
             <li><tt>delta-mass</tt>, <tt>delta-charge</tt>, <tt>position</tt>: These attributes can be used to describe uncertainty in the structure and location of the monomeric form.</li>
             <li><tt>identifier</tt>: This attribute indicates an entry in a database or ontology which is equivalent to the monomeric form.</li>
-            <li><tt>comment</tt>: This attribute can be used to store additional comments about monomeric forms.</li>
+            <li><tt>comment</tt>: This attribute can be used to store comments about monomeric forms.</li>
           </ul>
 
-          <p>The <tt class="attribute">structure</tt>, <tt class="attribute">backbone-bond-atom</tt>, <tt class="attribute">backbone-displaced-atom</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> monomeric form attributes are required to calculate the structures, chemical formulae, molecular weights, and charges of polymers. The other attributes are optional.</p>
+          <p>All of these attributes are optional. However, the <tt class="attribute">structure</tt>, <tt class="attribute">backbone-bond-atom</tt>, <tt class="attribute">backbone-displaced-atom</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes are required to calculate the atomic structure, chemical formula, molecular weight, and charge of the polymer.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
@@ -263,18 +264,19 @@
     | left-bond-atom: N15-1
     | left-displaced-atom: H15+1
     | left-displaced-atom: H15+1
+    | comments: "Methylated form of L-arginine"
     ]</pre>
         </div>
 
         <div class="large-5 cell notation">
-          <h3>Structures of inline monomeric forms</h3>
-          <p>The <tt class="attribute">structure</tt> attribute describes the chemical structure of inline monomeric forms (excluding the backbone). This attribute is a SMILES-encoded string. Each monomeric form can only have one structure. This attribute is required to calculate the structure of the BpForm.</p>
+          <h3>Atomic structures of inline monomeric forms</h3>
+          <p>The <tt class="attribute">structure</tt> attribute describes the atomic structure of the monomeric form (excluding its backbone). This attribute must be a SMILES-encoded string. Each monomeric form can only have one structure attribute. This attribute is required to calculate the structure of the polymer.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              <p>The text below illustrates how describe the modified DNA nucleobase hypoxanthine, and the image below illustrates the molecule that the text specifies. The atom labels indicate the numbers of the atoms within the molecule. These numbers can be generated with OpenBabel <a href="http://openbabel.org/wiki/Category:Installation"><i class="fi-link"></i></a>.</p>
+              <p>The text below illustrates how to describe the modified DNA nucleobase hypoxanthine, and the image below illustrates the molecule that the text specifies. The atom labels indicate the numbers of the atoms within the molecule. These numbers can be generated with OpenBabel <a href="http://openbabel.org/wiki/Category:Installation"><i class="fi-link"></i></a>.</p>
             </div>
             <div class="large-8 cell syntax">
               <pre>[id: "dI"
@@ -291,7 +293,7 @@
         <div class="large-5 cell notation">
           <h3>Bonds between inline monomers and backbones</h3>
           <p>The <tt class="attribute">backbone-bond-atom</tt> and <tt class="attribute">backbone-displaced-atom</tt> attributes describe the bonds between inline monomeric forms and their backbones. The values of these attributes are the element of the atom and the position of the atom within the monomeric form (e.g. <tt>N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
-          <p>Each monomeric form can form multiple bonds with the backbone and multiple atoms can be displaced. These attributes are required to calculate the structure of the BpForm.</p>
+          <p>Each monomeric form can form one or more bonds with the backbone and multiple atoms can be displaced. These attributes are required to calculate the structure of the polymer.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
@@ -316,13 +318,13 @@
         <div class="large-5 cell notation">
           <h3>Bonds between inline and adjacent monomers</h3>
           <p>The <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes describe the bonds between successive monomeric forms. The values of these attributes are the element of the atom and the position of the atom within the monomeric form (e.g. <tt>N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
-          <p>Each monomeric form can have multiple bonds and multiple displaced atoms. These attributes are required to calculate the structure of the BpForm.</p>
+          <p>Each monomeric form can have one or more bonds and displaced atoms with the preceding and following monomeric forms. These attributes are required to calculate the structure of the polymer.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              <p>The example below illustrates how to describe the modified protein residue N<sup>5</sup>-methyl-L-arginine. The green atoms indicate the C terminus. The blue atoms indicate N terminus.</p>
+              <p>The example below illustrates how to describe the modified protein residue N<sup>5</sup>-methyl-L-arginine. The green atoms indicate the C terminus. The blue atoms indicate the N terminus.</p>
             </div>
             <div class="large-8 cell syntax">
               <pre>[id: "AA0305"
@@ -362,10 +364,10 @@
 
         <div class="large-5 cell notation">
           <h3>Uncertainty about inline monomeric forms</h3>
-          <p class="before_list">Through the inline monomeric forms, <i>BpForms</i> can represent two types of uncertainty in the primary sequences of biopolymer forms:</p>
+          <p class="before_list">Through the inline monomeric forms, <i>BpForms</i> can represent two types of uncertainty in the primary sequences of forms of biopolymers:</p>
           <ul>
-          <li>The <tt class="attribute">delta-mass</tt> <tt class="attribute">delta-charge</tt> monomeric form attributes describe uncertainty in the chemical identity of the monomeric form.</li>
-          <li>The <tt class="attribute">position</tt> monomeric form attribute describes uncertainty in the position of the monomeric form within the sequence.</i>
+          <li>The <tt class="attribute">delta-mass</tt> <tt class="attribute">delta-charge</tt>  attributes can describe uncertainty in the atomic structure of the monomeric form.</li>
+          <li>The <tt class="attribute">position</tt> attribute can describe uncertainty in the position of the monomeric form within the sequence.</i>
           </ul>
         </div>
         <div class="large-7 cell example">
@@ -381,10 +383,10 @@
           <h3>Metadata about monomeric forms</h3>
           <p class="before_list"><i>BpForms</i> can represent several types of metadata about inline monomeric forms:</p>
           <ul>
-            <li>The <tt class="attribute">id</tt> and <tt class="attribute">name</tt> attributes are human-readable labels for monomeric forms. The id attribute should be used to represent a comparatively short label. Only one id and one name is allowed per monomeric form.</li>
+            <li>The <tt class="attribute">id</tt> and <tt class="attribute">name</tt> attributes are human-readable labels for monomeric forms. The id attribute should be used to represent a short label. Only one id and one name is allowed per monomeric form.</li>
             <li>The <tt class="attribute">synonym</tt> attribute is an additional human-readable label. Monomeric forms can have multiple synonyms.</li>
-            <li>The <tt class="attribute">identifier</tt> attribute indicates entries in databases and ontologies which are equivalent to the monomeric form. Monomeric forms can have multiple identifiers. The namespace and id of each identifer must be separated by a "@".</li>
-            <li>The <tt class="attribute">comments</tt> attribute describes additional information about the monomeric form. Monomeric forms can only have one comment.</li>
+            <li>The <tt class="attribute">identifier</tt> attribute indicates entries in namespaces (e.g., databases and ontologies) which are equivalent to the monomeric form. The value of this attribute should be an id within a namespace and the prefix of the namespaces as registered at Identifiers.org <a href="https://identifiers.org/"><i class="fi-link"></i></a> separated by "@" (e.g., <tt>"CHEBI:28997" @ "chebi"</tt>). Monomeric forms can have multiple identifiers.</li>
+            <li>The <tt class="attribute">comments</tt> attribute can describe additional information about the monomeric form. Monomeric forms can only have one comment.</li>
           </ul>
         </div>
         <div class="large-7 cell example">
@@ -398,14 +400,14 @@
         </div>
 
         <div class="large-5 cell notation">
-          <h3>Circular topology</h3>
-          <p>The <tt class="attribute">circular</tt> polymer attribute indicates that there is a bond between the last and first monomeric forms, creating a circular polymer.</p>
+          <h3>Circular and linear topologies</h3>
+          <p>By default, <i>BpForms</i> describes linear polymers. The <tt class="attribute">circular</tt> polymer attribute can be used to indicate that the polymer is circular (there is a bond between the last and first monomeric forms).</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              <p>The example below illustrates how to describe the circular DNA dimer of the DNA nucleotides deoxyadenosine monophosphaate and dexocytosine monophosphate. The red atoms indicates the sugar-phosphate backbones. The green lines indicate the bonds between successive sugar-phosphate backbones. The black labels indicate the positions of monomeric forms within the sequence.</p>
+              <p>The example below illustrates how to describe the circular DNA dimer of the DNA nucleotides deoxyadenosine monophosphate and dexocytosine monophosphate. The red atoms indicates the sugar-phosphate backbones. The green lines indicate the bonds between successive sugar-phosphate backbones. The black labels indicate the positions of monomeric forms within the sequence.</p>
             </div>
             <div class="large-8 cell syntax">
               <pre>AC | circular</pre>
@@ -418,7 +420,7 @@
 
         <div class="large-5 cell notation">
           <h3>Crosslinks between non-adjacent monomers</h3>
-          <p>The <tt class="attribute">crosslink</tt> polymer attribute indicates that there is a bond between two non-adjacent monomeric forms. This attribute can be used to describe intrastrand crosslinks in DNA, disulfide bonds between cysteines in proteins, and other bonds. The values of these attributes are the position of the monomeric form within the sequence, the element of the atom, and the position of the atom within the monomeric form (e.g. <tt>8N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
+          <p>The <tt class="attribute">crosslink</tt> polymer attribute can be used to indicate bonds between non-adjacent monomeric forms. For example, this attribute can be used to describe intrastrand crosslinks in DNA and disulfide bonds between cysteines in proteins. The values of these attributes are the position of the monomeric form within the sequence, the element of the atom, and the position of the atom within the monomeric form (e.g. <tt>8N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
           <p>Polymers can have zero, one, or more crosslinks.</p>
         </div>
         <div class="large-7 cell example">
@@ -444,10 +446,11 @@
 
       <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
-          <h2>Resources for reconstructing biopolymer forms</h2>
+          <h2>Resources for determining the sequences of biopolymer forms</h2>
+          <p class="before_list">Below are several resources which can be helpful for determining the sequences of natural biopolymers and designing the sequences of synthetic biopolymers.</p>
         </div>
         <div class="large-6 cell">
-          <h3>DNA resources</h3>
+          <h3>DNA</h3>
           <ul>
             <li><i>DNAMod</i> <a href="https://dnamod.hoffmanlab.org/"><i class="fi-link"></i></a>: Database of non-canonical DNA nucleobases</li>
             <li><i>MethDB</i> <a href="http://www.methdb.net/"><i class="fi-link"></i></a>: Database of non-canonical DNA</li>
@@ -455,7 +458,7 @@
             <li><i>REPAIRtoire</i> <a href="http://repairtoire.genesilico.pl/damage/"><i class="fi-link"></i></a>: Database of DNA damages</li>
           </ul>
 
-          <h3>RNA resources</h3>
+          <h3>RNA</h3>
           <ul>
             <li><i>MODOMICS</i> <a href="http://modomics.genesilico.pl/modifications/"><i class="fi-link"></i></a>: Database of non-canonical RNA nucleosides</li>
             <li><i>RMBase</i> <a href="http://rna.sysu.edu.cn/rmbase/"><i class="fi-link"></i></a>: Database of modified RNA</li>
@@ -469,7 +472,7 @@
           </ul>
         </div>
         <div class="large-6 cell">
-          <h3>Protein resources</h3>
+          <h3>Proteins</h3>
           <ul>
             <li><i>dbPTM</i> <a href="http://dbptm.mbc.nctu.edu.tw/"><i class="fi-link"></i></a>: Database of non-canonical amino acids</li>
             <li><i>Delta Mass</i> <a href="https://abrf.org/delta-mass"><i class="fi-link"></i></a>: Database of modified amino acids</li>
@@ -492,26 +495,27 @@
       <div class="grid-x grid-padding-x orange">
         <div class="large-12 cell">
           <h2>Uses cases for epigenomics, proteomics, systems biology, synthetic biology, and proteomics</h2>
+          <p class="before_list">By concretely capturing the primary structure of biopolymers, <i>BpForms</i> can help facilitate a wide range of epigenomics, proteomics, proteomics systems biology, and synthetic biology research.</p>
         </div>
 
         <div class="large-4 cell">
           <a name="epigenomics"></a>
           <h3>Epigenomics</h3>
-          <p><i>BpForms</i> can help researchers precisely communicate the structures of modified DNA such as methylations that bacteria use to distinguish self from non-self DNA. We anticipate that this will be increasingly important as researchers continue to discover new types of modifications and begin to investigate their impact on the interactions of proteins with DNA.</p>
+          <p><i>BpForms</i> can help researchers precisely communicate the structures of modified DNA, such as methylations, that bacteria use to distinguish self from non-self DNA. We anticipate that this will be increasingly important as researchers continue to discover new types of modifications and begin to investigate their impact on the interactions of proteins with DNA.</p>
         </div>
         <div class="large-8 cell">
           <h3>Example</h3>
-          <p>Several chemotherapeutics, such as cisplatin, have toxic side effects due to damaging the DNA of healthy cells. Cells have several pathways with overlapping functions to repair DNA damage. This includes direct repair, base excision repair, nucleotide excision repair, and homologous recombination. Because chemotherapeutics cause a wide range of damage and because cells have several pathways to repair DNA damage, it remains difficult to assemble an integrated understanding of the repair of DNA damage caused by chemotherapeutics. <i>BpForms</i> could help researchers develop an integrated understanding of DNA repair by helping researchers concretely communicate the damage caused by each chemotherapeutic and the types of damage repaired by each pathway.</p>
+          <p>Several chemotherapeutics, such as cisplatin, cause toxic side effects by damaging the DNA of healthy cells. Cells have several pathways with overlapping functions to repair DNA damage. This includes direct repair, base excision repair, nucleotide excision repair, and homologous recombination. Because chemotherapeutics cause a wide range of damage and because cells have several pathways to repair DNA damage, it is challenging to assemble an integrated understanding of the repair of DNA damage caused by chemotherapeutics. <i>BpForms</i> could help researchers develop an integrated understanding of DNA repair by helping researchers concretely communicate the damage caused by each chemotherapeutic and the types of damage repaired by each pathway.</p>
         </div>
 
         <div class="large-4 cell">
           <a name="proteomics"></a>
           <h3>Proteomics</h3>
-          <p><i>BpForms</i> can help researchers precisely communicate the sequences of proteoforms, analyze modifications, and improve the quality of reported sequences by identifying errors in the descriptions of proteoforms such as monomeric forms that are inconsistent with the unmodified sequence (e.g., selenocysteine modification of a non-cysteine residue) and inconsistent bonds (e.g., N,N,N-trimethyl-L-alanine, which has not N-terminus, located in the middle of a peptide).</p>
+          <p><i>BpForms</i> can help researchers precisely communicate the sequences of proteoforms, analyze modifications, and improve the quality of reported sequences by identifying errors in the descriptions of proteoforms, such as monomeric forms that are inconsistent with the unmodified sequence (e.g., selenocysteine modification of a non-cysteine residue) and inconsistent bonds (e.g., N,N,N-trimethyl-L-alanine, which has not N-terminus, located in the middle of a peptide).</p>
         </div>
         <div class="large-8 cell">
           <h3>Example: Analysis of the metabolic load of protein modification in humans</h3>
-          <p>PRO contains curated modifications of 2312 human proteins <a href="https://proconsortium.org/"><i class="fi-link"></i></a>. We used <i>BpForms</i> together with PRO to assess the metabolic cost of protein modification in humans. We found that human proteins have 1.7 &plusmn;1.6 modifications that increase their mass by 146.4 &plusmn; 154.3 Da and decrease their charge by 3.05 &plusmn; 3.30. This analysis also led us to improve PRO by correcting four types of errors in the curated modifications. The code is available at GitHub <a href="https://github.com/KarrLab/bpforms/blob/master/examples/pro.py"><i class="fi-link"></i></a>.</p>
+          <p>PRO contains curated modifications of 2,312 human proteins <a href="https://proconsortium.org/"><i class="fi-link"></i></a>. We used <i>BpForms</i> together with PRO to assess the metabolic cost of protein modification in humans. We found that human proteins have 1.7 &plusmn;1.6 modifications that increase their mass by 146.4 &plusmn; 154.3 Da and decrease their charge by 3.05 &plusmn; 3.30. This analysis also led us to improve PRO by correcting four types of errors in the curated modifications. The code is available at GitHub <a href="https://github.com/KarrLab/bpforms/blob/master/examples/pro.py"><i class="fi-link"></i></a>.</p>
           <!-- 
           <ol>
             <li>Identified 1 entry with a obsolete UniProt ids.</li>
@@ -527,17 +531,17 @@
         <div class="large-6 cell">
           <a name="sys-bio"></a>
           <h3>Systems biology</h3>
-          <p><i>BpForms</i> can help modelers describe the semantic meaning of models by precisely describing the species in models. Importantly, this precision makes it easier for other researchers to understand, reuse, extend, and compose models for other studies. <i>BpForms</i> can also help modelers build more comprehensive models by helping identify gaps in models such as missing intermediate modification states of proteins and missing interactions between modification states. In particular, <i>BpForms</i> can help modelers identify the full combinatorial complexity of biochemistry that needs to be modeled. In addition, <i>BpForms</i> can help researchers increase the quality of models by helping identify errors such as element imbalances.</p>
+          <p><i>BpForms</i> can help modelers describe the semantic meaning of models by precisely describing the species in models. Importantly, this precision makes it easier for other researchers to understand, reuse, extend, and compose models for other studies. <i>BpForms</i> can also help modelers build more comprehensive models by helping identify gaps in models such as missing intermediate modification states of proteins and missing interactions between modification states. In particular, <i>BpForms</i> can help modelers identify the full combinatorial complexity of biochemistry that should be modeled. In addition, <i>BpForms</i> can help researchers increase the quality of models by helping identify errors such as element imbalances.</p>
         </div>
         <div class="large-6 cell">
           <h3>Example</h3>
-          <p>The Kholodenko model of the eukaryotic MAPK signaling cascade (DOI: 10.1046/j.1432-1327.2000.01197.x <a href="https://doi.org/10.1046/j.1432-1327.2000.01197.x"><i class="fi-link"></i></a>, BioModels: BIOMD0000000010 <a href="https://www.ebi.ac.uk/biomodels/BIOMD0000000010"><i class="fi-link"></i></a>) represents the biphosporylation of Mek1/MAPKK by Mos/MAPKKK and the biphosporylation of Erk2/MAPK by Mek1/MAPKK. Annotating the structures of the species in the model with <i>BpForms</i>, enabled us to identify two gaps in the model: two additional intermediate phosphorylation forms of Mek1 and Erk2 and the reactions involving these species. <i>BpForms</i> also enabled us to identify several unbalanced reactions due to the lack of representation of phosphate donors.</p>
+          <p>The Kholodenko model of the eukaryotic MAPK signaling cascade (DOI: 10.1046/j.1432-1327.2000.01197.x <a href="https://doi.org/10.1046/j.1432-1327.2000.01197.x"><i class="fi-link"></i></a>, BioModels: BIOMD0000000010 <a href="https://www.ebi.ac.uk/biomodels/BIOMD0000000010"><i class="fi-link"></i></a>) represents the biphosporylation of Mek1/MAPKK by Mos/MAPKKK and the biphosporylation of Erk2/MAPK by Mek1/MAPKK. Annotating the structures of the species in the model with <i>BpForms</i>, enabled us to identify two gaps in the model: two additional intermediate phosphorylation forms of Mek1 and Erk2 and the reactions involving these species. <i>BpForms</i> also enabled us to identify several unbalanced reactions that do not capture phosphate donors.</p>
         </div>
 
         <div class="large-4 cell">
           <a name="syn-bio"></a>
           <h3>Synthetic biology</h3>
-          <p><i>BpForms</i> can help engineers precisely represent and communicate the structures of parts for synthetic organisms. In addition, <i>BpForms</i> could help engineers identify the dependencies and interfaces of parts which, in turn, could help engineers more reliably use parts in alternative hosts, compose parts, and share parts.</p>
+          <p><i>BpForms</i> can help engineers precisely represent and communicate the structures of parts for synthetic organisms. In addition, <i>BpForms</i> could help engineers identify the dependencies and interfaces of parts which, in turn, could help engineers use parts in alternative hosts, compose parts, and share parts more reliably.</p>
         </div>
         <div class="large-8 cell">
           <h3>Example</h3>
@@ -566,13 +570,14 @@
 
       <div class="grid-x grid-padding-x blue">
         <div class="large-12 cell">
-          <h2>Integrating <i>BpForms</i> into the BioPAX, CellML, SBML, and SBOL standards</h2>
+          <h2>Integrating <i>BpForms</i> into the BioPAX, CellML, FASTA, PDB, SBML, and SBOL standards</h2>
+          <p class="before_list"><i>BpForms</i> can be used in conjunction with several commonly used standards in genomics, transcriptomics, proteomics, systems biology, and synthetic biology. In addition, <i>BpForms</i> can easily be embedded within other documents such as Excel workbooks and comma-separated tables.</p>
         </div>
+
         <div class="large-4 cell">
           <a name="biopax"></a>
-          <h3>Knowledge of pathways (BioPAX)</h3>
-          <p><i>BpForms</i> can be used with the <tt>sequence</tt> child of <tt>DNAReference</tt>, <tt>RNAReference</tt>, and <tt>ProteinReference</tt> objects of the BioPAX format <a href="https://www.biopax.org/"><i class="fi-link"></i></a> to concretely describe all of the DNA, RNA, and proteins involved in pathways.
-          </p>
+          <h3>BioPAX: Knowledge of pathways</h3>
+          <p><i>BpForms</i> can be used to concretely describe all of the DNA, RNA, and proteins involved in pathways encoded in BioPAX <a href="https://www.biopax.org/"><i class="fi-link"></i></a>. <i>BpForms</i> can be used with the <tt>sequence</tt> child of <tt>DNAReference</tt>, <tt>RNAReference</tt>, and <tt>ProteinReference</tt> objects.</p>
         </div>
         <div class="large-8 cell example">
           <h3>Examples</h3>
@@ -633,9 +638,78 @@
         </div>
 
         <div class="large-4 cell">
+          <a name="cellml"></a>
+          <h3>CellML: Kinetic models</h3>
+          <p style="margin-bottom: 0.5rem;"><i>BpForms</i> can be used to concretely describe the meaning of each component of a model encoded in CellML <a href="https://www.cellml.org/"><i class="fi-link"></i></a>. <i>BpForms</i> can be used with the <tt class="attribute">RDF</tt> element of <tt class="attribute">component</tt> objects.</p>
+        </div>
+        <div class="large-8 cell example">
+          <h3>Example</h3>
+          <p style="margin-bottom: 0.5rem;"><b>Protein:</b> Phosphorylated Erk and Mek in signal transduction (DOI: 10.1038/msb.2009.4 <a href="https://doi.org/10.1038/msb.2009.4"><i class="fi-link"></i></a>, Physiome Model Repository <a href="https://models.physiomeproject.org/e/31"><i class="fi-link"></i></a>). See complete CellML file <a href="https://github.com/KarrLab/bpforms/blob/master/examples/wang_cirit_haugh_2009.cellml"><i class="fi-link"></i></a>.</p>
+
+<pre class="small">...
+  &lt;component cmeta:id="ypp" name="ypp"&gt;
+      &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+        &lt;rdf:Description rdf:about="#ypp"&gt;
+          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt;
+            <span class="bpform">MPKKKPTPIQLNPAPDGSAVNGTSSAETNLEALQKKLEELELDEQQRKRLEAFLTQKQKVGELKDDDFEKISELGAGNGGVVFKVSHKPSG
+            LVMARKLIHLEIKPAIRNQIIRELQVLHECNSPYIVGFYGAFYSDGEISICMEHMDGGSLDQVLKKAGRIPEQILGKVSIAVIKGLTYLRE
+            KHKIMHRDVKPSNILVNSRGEIKLCDFGVSGQLID<span class="modification">{AA0037}</span>MAN<span class="modification">{AA0037}</span>FVGTRSYMSPERLQGTHYSVQSDIWSMGLSLVEMAVG
+            RYPIPPPDAKELELMFGCQVEGDAAETPPRPRTPGRPLSSYGMDSRPPMAIFELLDYIVNEPPPKLPSGVFSLEFQDFVNKCLIKNPAERA
+            DLKQLMVHAFIKRSDAEEVDFAGWLCSTIGLNQPSTPTHAAGV</span>
+          &lt;/bpforms:seq&gt;
+        &lt;/rdf:Description&gt;
+      &lt;/rdf:RDF&gt;
+    &lt;/component&gt;
+...</pre>
+        </div>
+
+        <div class="large-4 cell">
+          <a name="fasta"></a>
+          <h3>FASTA: Sets of sequences</h3>
+          <p>Sets of <i>BpForms</i> can be encoded in FASTA files. Such files can be written with the <tt>bpforms.util.write_to_fasta</tt> function or packages such as BioPython <a href="https://biopython.org/wiki/SeqIO"><i class="fi-link"></i></a>.</p>
+        </div>
+        <div class="large-8 cell example">
+          <h3>Example</h3>
+          <p style="margin-bottom: 0.5rem;"><b>Protein:</b> multiple phosphorylated forms of <i>H. sapiens</i> MAPK <a href="https://www.uniprot.org/uniprot/Q02750"><i class="fi-link"></i></a></p>
+          <pre class="small">&gt; y | MEK | Q02750
+<span class="bpform">MPKKKPTPIQLNPAPDGSAVNGTSSAETNLEALQKKLEELELDEQQRKRLEAFLTQKQKVGELKDDDFEKISELGAGNGGVVFKVSHKPSGLVMARKLIH
+LEIKPAIRNQIIRELQVLHECNSPYIVGFYGAFYSDGEISICMEHMDGGSLDQVLKKAGRIPEQILGKVSIAVIKGLTYLREKHKIMHRDVKPSNILVNS
+RGEIKLCDFGVSGQLIDSMANSFVGTRSYMSPERLQGTHYSVQSDIWSMGLSLVEMAVGRYPIPPPDAKELELMFGCQVEGDAAETPPRPRTPGRPLSSY
+GMDSRPPMAIFELLDYIVNEPPPKLPSGVFSLEFQDFVNKCLIKNPAERADLKQLMVHAFIKRSDAEEVDFAGWLCSTIGLNQPSTPTHAAGV</span>
+
+&gt; yp | phosphorylated MEK | Q02750 | pS218
+<span class="bpform">MPKKKPTPIQLNPAPDGSAVNGTSSAETNLEALQKKLEELELDEQQRKRLEAFLTQKQKVGELKDDDFEKISELGAGNGGVVFKVSHKPSGLVMARKLIH
+LEIKPAIRNQIIRELQVLHECNSPYIVGFYGAFYSDGEISICMEHMDGGSLDQVLKKAGRIPEQILGKVSIAVIKGLTYLREKHKIMHRDVKPSNILVNS
+RGEIKLCDFGVSGQLID<span class="modification">{AA0037}</span>MANSFVGTRSYMSPERLQGTHYSVQSDIWSMGLSLVEMAVGRYPIPPPDAKELELMFGCQVEGDAAETPPRPRTP
+GRPLSSYGMDSRPPMAIFELLDYIVNEPPPKLPSGVFSLEFQDFVNKCLIKNPAERADLKQLMVHAFIKRSDAEEVDFAGWLCSTIGLNQPSTPTHAAGV</span></pre>
+        </div>
+
+        <div class="large-4 cell">
+          <a name="pdb"></a>
+          <h3>PDB: Macromolecule 3D structures</h3>
+          <p><i>BpForms</i> can be used to provide human readable annotations of protein structures encoded in PDB files <a href="http://www.wwpdb.org/documentation/file-format"><i class="fi-link"></i></a>. <i>BpForms</i> can be embedded within <tt>REMARK</tt> records.
+          </p>
+        </div>
+        <div class="large-8 cell example">
+          <h3>Example</h3>
+          <p style="margin-bottom: 0.5rem;"><b>Protein:</b> <i>Bos taurus</i> selenocysteine synthase Gpx1 <a href="https://www.rcsb.org/structure/1gp1"><i class="fi-link"></i></a></p>
+          <pre class="small">...
+REMARK   1                                                                      
+REMARK   1 >1GP1:A
+REMARK   1 <span class="bpform">AAALAAAAPRTVYAFSARPLAGGEPFNLSSLRGKVLLIENVASL<span class="modification">{SE7}</span>GTTVRDYTQMNDLQRRLGPRGLVVLGFPCNQFGHQENAKNEEIL</span>
+REMARK   1 <span class="bpform">NCLKYVRPGGGFEPNFMLFEKCEVNGEKAHPLFAFLREVLPTPSDDATALMTDPKFITWSPVCRNDVSWNFEKFLVGPDGVPVRRYSRRFLTI</span>
+REMARK   1 <span class="bpform">DIEPDIETLLSQGASA</span>
+REMARK   1 >1GP1:B
+REMARK   1 <span class="bpform">AAALAAAAPRTVYAFSARPLAGGEPFNLSSLRGKVLLIENVASL<span class="modification">{SE7}</span>GTTVRDYTQMNDLQRRLGPRGLVVLGFPCNQFGHQENAKNEEIV</span>
+REMARK   1 <span class="bpform">VLGFPCNQFGHQENAKNEEILNCLKYVRPGGGFEPNFMLFEKCEVNGEKAHPLFAFLREVLPTPSDDATALMTDPKFITWSPVCRNDVSWNFE</span>
+REMARK   1 <span class="bpform">KFLVGPDGVPVRRYSRRFLTIDIEPDIETLLSQGASA</span>
+...</pre>
+        </div>
+
+        <div class="large-4 cell">
           <a name="sbml"></a>
-          <h3>Kinetic models (SBML)</h3>
-          <p><i>BpForms</i> can be used with the <tt class="attribute">annotation</tt> element of <tt class="attribute">species</tt> objects of the Systems Biology Markup Language (SBML) <a href="https://sbml.org"><i class="fi-link"></i></a> to concretely describe the meaning of each species in a model.</p>
+          <h3>SBML: Kinetic models</h3>
+          <p><i>BpForms</i> can be used to concretely describe the meaning of each species in a model encoded in Systems Biology Markup Language (SBML) <a href="https://sbml.org"><i class="fi-link"></i></a>. <i>BpForms</i> can be used with the <tt class="attribute">annotation</tt> element of <tt class="attribute">species</tt> objects.</p>
         </div>
         <div class="large-8 cell example">
           <h3>Examples</h3>
@@ -680,35 +754,9 @@
         </div>
 
         <div class="large-4 cell">
-          <a name="cellml"></a>
-          <h3>Kinetic models (CellML)</h3>
-          <p style="margin-bottom: 0.5rem;"><i>BpForms</i> can be used with the <tt class="attribute">RDF</tt> element of <tt class="attribute">component</tt> objects to concretely describe the meaning of each component with <i>BpForms</i> in CellML <a href="https://www.cellml.org/"><i class="fi-link"></i></a>.</p>
-        </div>
-        <div class="large-8 cell example">
-          <h3>Example</h3>
-          <p style="margin-bottom: 0.5rem;"><b>Protein:</b> Phosphorylated Erk and Mek in signal transduction (DOI: 10.1038/msb.2009.4 <a href="https://doi.org/10.1038/msb.2009.4"><i class="fi-link"></i></a>, Physiome Model Repository <a href="https://models.physiomeproject.org/e/31"><i class="fi-link"></i></a>). See complete CellML file <a href="https://github.com/KarrLab/bpforms/blob/master/examples/wang_cirit_haugh_2009.cellml"><i class="fi-link"></i></a>.</p>
-
-<pre class="small">...
-  &lt;component cmeta:id="ypp" name="ypp"&gt;
-      &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
-        &lt;rdf:Description rdf:about="#ypp"&gt;
-          &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt;
-            <span class="bpform">MPKKKPTPIQLNPAPDGSAVNGTSSAETNLEALQKKLEELELDEQQRKRLEAFLTQKQKVGELKDDDFEKISELGAGNGGVVFKVSHKPSG
-            LVMARKLIHLEIKPAIRNQIIRELQVLHECNSPYIVGFYGAFYSDGEISICMEHMDGGSLDQVLKKAGRIPEQILGKVSIAVIKGLTYLRE
-            KHKIMHRDVKPSNILVNSRGEIKLCDFGVSGQLID<span class="modification">{AA0037}</span>MAN<span class="modification">{AA0037}</span>FVGTRSYMSPERLQGTHYSVQSDIWSMGLSLVEMAVG
-            RYPIPPPDAKELELMFGCQVEGDAAETPPRPRTPGRPLSSYGMDSRPPMAIFELLDYIVNEPPPKLPSGVFSLEFQDFVNKCLIKNPAERA
-            DLKQLMVHAFIKRSDAEEVDFAGWLCSTIGLNQPSTPTHAAGV</span>
-          &lt;/bpforms:seq&gt;
-        &lt;/rdf:Description&gt;
-      &lt;/rdf:RDF&gt;
-    &lt;/component&gt;
-...</pre>
-        </div>
-
-        <div class="large-4 cell">
           <a name="sbol"></a>
-          <h3>Designs for synthetic parts (SBOL)</h3>
-          <p><i>BpForms</i> can be used with the <tt>elements</tt> attribute of <tt>Sequence</tt> objects to concretely describe the meaning of each DNA, RNA, and protein molecule in genetic designs encoded in the Synthetic Biology Open Language (SBOL) <a href="http://sbolstandard.org/"><i class="fi-link"></i></a>.</p>
+          <h3>SBOL: Designs for synthetic parts</h3>
+          <p><i>BpForms</i> can be used to describe the meaning of each DNA, RNA, and protein molecule in genetic designs encoded in the Synthetic Biology Open Language (SBOL) <a href="http://sbolstandard.org/"><i class="fi-link"></i></a>. <i>BpForms</i> can be used with the <tt>elements</tt> attribute of <tt>Sequence</tt> objects.</p>
           <p style="margin-bottom: 0rem;">The following URIs should be used to indicate the encodings for the sequences of DNA, RNA, and protein molecules.</p>
           <ul>
             <li>DNA: http://edamontology.org/format_3909#dna</li>
@@ -749,26 +797,23 @@
       <div class="grid-x grid-padding-x orange">
         <div class="large-12 cell">
           <h2><i>BpForm</i> interfaces</h2>
+          <p class="before_list"><i>BpForms</i> includes four software interfaces for verifying descriptions of biopolymers and calculating properties such as their atomic structures, formulae, molecular weights, and charges.</p>
         </div>
-        <div class="large-4 cell">
+        <div class="large-3 cell">
           <h3>Webform</h3>
           The webform above <a href="#form"><i class="fi-link"></i></a> can be used to validate <i>BpForms</i> and calculate their properties.
         </div>
-        <div class="large-4 cell">
+        <div class="large-3 cell">
           <h3>JSON REST API</h3>
-          The <i>BpForms</i> JSON REST API is available at <a href="https://bpforms.org/api">https://bpforms.org/api</a>.
+          A JSON REST API is available at <a href="https://bpforms.org/api">https://bpforms.org/api</a>.
         </div>
-        <div class="large-4 cell">
+        <div class="large-3 cell">
           <h3>Command line interface</h3>
-          The <i>BpForms</i> command line interface is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
+          A command line interface is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
         </div>
-        <div class="large-4 cell">
-          <h3>Python package</h3>
-          The <i>BpForms</i> Python package is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
-        </div>
-        <div class="large-4 cell">
-          <h3>Source code</h3>
-          <i>BpForms</i> is available open-source from GitHub <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a>.
+        <div class="large-3 cell">
+          <h3>Python library</h3>
+          A Python library is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
         </div>
       </div>
 
@@ -829,6 +874,14 @@
           <h2>About <i>BpForms</i></h2>
         </div>
         <div class="large-4 cell">
+          <h3>Source code</h3>
+          <i>BpForms</i> is available open-source from GitHub <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a>.
+        </div>
+        <div class="large-4 cell">
+          <h3>License</h3>
+          <i>BpForms</i> is released under the MIT license <a href="https://github.com/KarrLab/bpforms/blob/master/LICENSE"><i class="fi-link"></i></a>.
+        </div>
+        <div class="large-4 cell">
           <h3>Citing <i>BpForms</i></h3>
           Lang PF, Chebaro Y &amp; Jonathan R. Karr. BpForms: a toolkit for concretely describing modified DNA, RNA and proteins. arXiv:1903.10042 <a href="https://arxiv.org/abs/1903.10042"><i class="fi-link"></i></a>
         </div>
@@ -839,11 +892,7 @@
         <div class="large-4 cell">
           <h3>Acknowledgements</h3>
           <i>BpForms</i> was supported by a National Institute of Health P41 award <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9460251"><i class="fi-link"></i></a>, a National Institute of Health MIRA R35 award <a href="https://projectreporter.nih.gov/project_info_details.cfm?aid=9509480"><i class="fi-link"></i></a>, and a National Science Foundation INSPIRE award <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1649014"><i class="fi-link"></i></a>.
-        </div>
-        <div class="large-4 cell">
-          <h3>License</h3>
-          <i>BpForms</i> is released under the MIT license <a href="https://github.com/KarrLab/bpforms/blob/master/LICENSE"><i class="fi-link"></i></a>.
-        </div>
+        </div>        
         <div class="large-4 cell">
           <h3>Questions/comments</h3>
           Please contact Jonathan Karr <a href="mailto:karr@mssm.edu"><i class="fi-mail"></i></a> with any questions or comments.
