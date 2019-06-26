@@ -103,10 +103,32 @@
 
         <div class="large-5 cell notation">
           <h3>Overview</h3>
-          <p>The <i>BpForms</i> notation represents biopolymers as IUPAC/IUBMB sequences augmented with (a) multiple-letter alphabet-defined monomeric forms delimited by curly brackets, (b) user-defined monomeric forms described in square brackets by one or more attributes separated by "|", and (b) additional attributes that can be used to represent circularity and crosslinks.</p>
-          <p>The <tt class="attribute">structure</tt>, <tt class="attribute">backbone-bond-atom</tt>, <tt class="attribute">backbone-displaced-atom</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> monomeric form attributes are required to calculate the chemical formula, molecular weight, and charge. All other attributes are optional.</p>
-          <p>The definition of the <i>BpForms</i> grammar is available at GitHub <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i></a>. The grammar is defined in Lark syntax <a href="https://lark-parser.readthedocs.io"><i class="fi-link"></i></a>, which is based on EBNF syntax <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form"><i class="fi-link"></i></a>.
-          </p>
+          <p class="before_list">The <i>Bpforms</i> notation extends the IUPAC/IUBMB notation used to represent unmodified DNA, RNA, and proteins in five ways:</p>
+          <ul>
+            <li><i>BpForms</i> can represent a wider range of monomeric forms, including monomeric forms that are not described in pre-defined alphabets.</li>
+            <li><i>BpForms</i> can capture left and right caps such as 3' poly A tails.</li>
+            <li><i>BpForms</i> can capture variation in the backbones of DNA, RNA, and proteins.</li>
+            <li><i>BpForms</i> can capture the linear/circular topology of polmers, and</li>
+            <li><i>BpForms</i> can capture crosslinks (additional bonds between non-adjacent monomeric forms).</li>
+          </ul>
+
+          <p class="before_list">The <i>BpForms</i> notation consists of three parts separated by pipes, "|":</p>
+          <ul>
+            <li>A sequence of strings that indicate monomeric forms of an alphabet bonded together via backbone motifs. As described below, <i>BpForms</i> includes six alphabets of hundreds of monomeric forms of DNA, RNA, and proteins, and users can define additional alphabets. Each alphabet also includes a backbone.</li>
+            <li>An optional attribute for indicating that the polymer is circular (see below).</li>
+            <li>An optional set of crosslinks (see below).</li>
+          </ul>
+
+          <p class="before_list">The monomeric forms in the sequence of monomeric forms can be described in three ways:</p>
+          <ul>
+            <li>Individual characters (e.g, <tt>A</tt>) can be used to indicate monomeric forms in defined alphabets that have single character codes.</li>
+            <li>Multiple characters delimited by curly brackets (e.g., <tt>{m2A}</tt>) can be used to indicate monomeric forms in defined alphabets that have multi-character codes.</li>
+            <li>Monomeric forms which are not defined in the alphabets can be defined "inline" using multiple attributes delimited by square brackets (e.g., <tt>[id: "m2A" | ...]</tt>). See below for more information.</li>
+          </ul>
+
+          <p>In addition to defining monomeric forms, each alphabet also defines the backbone motif involved in the bonds between successive monomeric forms. <i>BpForms</i> distinguishes between monomeric forms and backbones to enable the DNA, RNA, and protein alphabets to be maximally consistent with DNAmod, MODOMICS, the RNA Modification Database, the PDB-CCD, and RESID.</p>
+
+          <p>The <i>BpForms</i> grammar is defined in Lark syntax <a href="https://lark-parser.readthedocs.io"><i class="fi-link"></i></a>, which is based on EBNF syntax <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form"><i class="fi-link"></i></a>. The grammar is available at GitHub <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i></a>.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
@@ -156,9 +178,11 @@
         <div class="large-5 cell notation">
           <a name="alphabets"></a>
           <h3>Alphabets</h3>
-          <p style="margin-bottom: 0px;"><i>BpForms</i> has several pre-built alphabets.</p>
+          <p style="margin-bottom: 0px;"><i>BpForms</i> includes several alphabets. Each alphabet includes a backbone motif and hundreds of monomeric monomers.</p>
           <ul id="alphabet_descriptions">
           </ul>
+          <p>The backbone for the DNA alphabets is a deoxyribose monophosphate. The backbone for the RNA alphabets is phosphate. The backbone for the protein alphabets is hydroxide (in COOH).</p>
+          <p>As described above, monomeric forms with single characters codes can be indicated by their codes and monomeric forms with multi-character codes can be indicated by their codes delimited by curly brackets.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
@@ -206,8 +230,45 @@
         </div>
 
         <div class="large-5 cell notation">
-          <h3>Structures of monomeric forms</h3>
-          <p>The <tt class="attribute">structure</tt> monomeric form attribute describes the chemical structure of the inline monomeric form. This attribute is a SMILES-encoded string. Each monomeric form can only have one structure. This attribute is required to calculate the structure of the BpForm.</p>
+          <h3>"Inline" monomeric forms</h3>
+          <p>Monomeric forms which are not defined in the alphabet can be defined "inline".</p>
+
+          <p>Inline monomeric forms are defined using multiple attributes separated by pipes ("|") and enclosed in square brackets (e.g., <tt>[id: "a-short-name" | name: "a long name " | ...]</tt>).</p>
+
+          <p class="before_list"><i>BpForms</i> supports seven types of attributes for inline monomeric forms. See below for more information about each attribute.</p>
+          <ul>
+            <li><tt>id</tt>, <tt>name</tt>, <tt>synonym</tt>: These attributes indicate human readable names for the monomeric form.</li>
+            <li><tt>structure</tt>: This attribute indicates the atom/bond structure of the monomeric form.</li>
+            <li><tt>backbone-bond-atom</tt>, <tt>backbone-displaced-atom</tt>: These attributes indicate atoms in the structure that participate in bonds with its backbone and atoms in the structure which are displaced by the formation of bonds between the monomeric form and its backbone.</li>
+            <li><tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, <tt>right-displaced-atom</tt>: These attributes indicate atoms in the structure that participate in bonds with the preceeding and following monomeric forms in the sequences and atoms athat are displaced by the formation of these bonds.</li>
+            <li><tt>delta-mass</tt>, <tt>delta-charge</tt>, <tt>position</tt>: These attributes can be used to describe uncertainty in the structure and location of the monomeric form.</li>
+            <li><tt>identifier</tt>: This attribute indicates an entry in a database or ontology which is equivalent to the monomeric form.</li>
+            <li><tt>comment</tt>: This attribute can be used to store additional comments about monomeric forms.</li>
+          </ul>
+
+          <p>The <tt class="attribute">structure</tt>, <tt class="attribute">backbone-bond-atom</tt>, <tt class="attribute">backbone-displaced-atom</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> monomeric form attributes are required to calculate the structures, chemical formulae, molecular weights, and charges of polymers. The other attributes are optional.</p>
+        </div>
+        <div class="large-7 cell example">
+          <h3>Examples</h3>
+          <pre>[id: "dI"
+    | name: "hypoxanthine"
+    | structure: "O=C1NC=NC2=C1N=CN2"
+    ]</pre><br/>
+          <pre>[id: "AA0305"
+    | name: "N5-methyl-L-arginine"
+    | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
+    | backbone-bond-atom: C2
+    | backbone-displaced-atom: H2
+    | right-bond-atom: C2
+    | left-bond-atom: N15-1
+    | left-displaced-atom: H15+1
+    | left-displaced-atom: H15+1
+    ]</pre>
+        </div>
+
+        <div class="large-5 cell notation">
+          <h3>Structures of inline monomeric forms</h3>
+          <p>The <tt class="attribute">structure</tt> attribute describes the chemical structure of inline monomeric forms (excluding the backbone). This attribute is a SMILES-encoded string. Each monomeric form can only have one structure. This attribute is required to calculate the structure of the BpForm.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
@@ -228,8 +289,8 @@
         </div>
 
         <div class="large-5 cell notation">
-          <h3>Bonds between monomeric forms and backbones</h3>
-          <p>The <tt class="attribute">backbone-bond-atom</tt> and <tt class="attribute">backbone-displaced-atom</tt> monomeric form attributes describe the bonds between monomeric forms and their backbone. Each monomeric form can form multiple bonds with the backbone and multiple atoms can be displaced. These attributes are required to calculate the structure of the BpForm.</p>
+          <h3>Bonds between inline monomers and backbones</h3>
+          <p>The <tt class="attribute">backbone-bond-atom</tt> and <tt class="attribute">backbone-displaced-atom</tt> attributes describe the bonds between inline monomeric forms and their backbones. Each monomeric form can form multiple bonds with the backbone and multiple atoms can be displaced. These attributes are required to calculate the structure of the BpForm.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
@@ -252,8 +313,8 @@
         </div>
 
         <div class="large-5 cell notation">
-          <h3>Bonds between adjacent monomeric forms</h3>
-          <p>The <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> monomeric form attributes describe the bonds between successive monomeric forms. Each monomeric form can have multiple bonds and multiple displaced atoms. These attributes are required to calculate the structure of the BpForm.</p>
+          <h3>Bonds between inline and adjacent monomers</h3>
+          <p>The <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes describe the bonds between successive monomeric forms. Each monomeric form can have multiple bonds and multiple displaced atoms. These attributes are required to calculate the structure of the BpForm.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
@@ -298,7 +359,44 @@
         </div>
 
         <div class="large-5 cell notation">
-          <h3>Bonds that create circular polymers</h3>
+          <h3>Uncertainty about inline monomeric forms</h3>
+          <p class="before_list">Through the inline monomeric forms, <i>BpForms</i> can represent two types of uncertainty in the primary sequences of biopolymer forms:</p>
+          <ul>
+          <li>The <tt class="attribute">delta-mass</tt> <tt class="attribute">delta-charge</tt> monomeric form attributes describe uncertainty in the chemical identity of the monomeric form.</li>
+          <li>The <tt class="attribute">position</tt> monomeric form attribute describes uncertainty in the position of the monomeric form within the sequence.</i>
+          </ul>
+        </div>
+        <div class="large-7 cell example">
+          <h3>Examples</h3>
+          <ul>
+          <li><tt>[id: "dAMP" | delta-mass: 1 | delta-charge: 1]</tt>: indicates the presence of an additional proton whose exact location is not known.</li>
+          <li><tt>[id: "dI" | position: 2-3]</tt>: indicates that deoxyinosine may occur anywhere between the second and third position.</li>
+          </ul>
+        </div>
+
+
+        <div class="large-5 cell notation">
+          <h3>Metadata about monomeric forms</h3>
+          <p class="before_list"><i>BpForms</i> can represent several types of metadata about inline monomeric forms:</p>
+          <ul>
+            <li>The <tt class="attribute">id</tt> and <tt class="attribute">name</tt> attributes are human-readable labels for monomeric forms. The id attribute should be used to represent a comparatively short label. Only one id and one name is allowed per monomeric form.</li>
+            <li>The <tt class="attribute">synonym</tt> attribute is an additional human-readable label. Monomeric forms can have multiple synonyms.</li>
+            <li>The <tt class="attribute">identifier</tt> attribute indicates entries in databases and ontologies which are equivalent to the monomeric form. Monomeric forms can have multiple identifiers. The namespace and id of each identifer must be separated by a "@".</li>
+            <li>The <tt class="attribute">comments</tt> attribute describes additional information about the monomeric form. Monomeric forms can only have one comment.</li>
+          </ul>
+        </div>
+        <div class="large-7 cell example">
+          <h3>Examples</h3>
+          <ul>
+          <li><tt>[id: "dI" | name: "deoxyinosine"]</tt>: represents the id and name of deoxyinosine.</li>
+          <li><tt>[id: "dI" | synonym: "deoxyinosine" | synonym: "2'-deoxyinosine"]</tt>: represents multiple synonyms of deoxyinosine.</li>
+          <li><tt>[id: "dI" | identifier: "CHEBI:28997" @ "chebi" | identifier: "65058" @ "pubchem.compound"]</tt>: represents equivalent entries in ChEBI and PubChem to deoxyinosine.</li>
+          <li><tt>[id: "dI" | comments: "A purine 2'-deoxyribonucleoside that is inosine ..."]</tt>: represents comments about deoxyinosine.</li>
+          </ul>
+        </div>
+
+        <div class="large-5 cell notation">
+          <h3>Circular topology</h3>
           <p>The <tt class="attribute">circular</tt> polymer attribute indicates that there is a bond between the last and first monomeric forms, creating a circular polymer.</p>
         </div>
         <div class="large-7 cell example">
@@ -317,7 +415,7 @@
         </div>
 
         <div class="large-5 cell notation">
-          <h3>Crosslinks between monomeric forms</h3>
+          <h3>Crosslinks between non-adjacent monomers</h3>
           <p>The <tt class="attribute">crosslink</tt> polymer attribute indicates that there is a bond between two non-adjacent monomeric forms. Polymers can have zero, one, or more crosslinks. This attribute can be used to describe intrastran crosslinks in DNA, disulfide bonds between cysteines in proteins, and other bonds.</p>
         </div>
         <div class="large-7 cell example">
@@ -338,43 +436,6 @@
               <img src="img/example/crosslink-protein-sulfide-bond.svg"/>
             </div>
           </div>
-        </div>
-
-        <div class="large-5 cell notation">
-          <h3>Uncertainty about the primary sequence</h3>
-          <p class="before_list"><i>BpForms</i> can represent two types of uncertainty in the primary sequences of biopolymer forms.</p>
-          <ul>
-          <li>The <tt class="attribute">delta-mass</tt> <tt class="attribute">delta-charge</tt> monomeric form attributes describe uncertainty in the chemical identity of the monomeric form.</li>
-          <li>The <tt class="attribute">position</tt> monomeric form attribute describes uncertainty in the position of the monomeric form within the sequence.</i>
-          </ul>
-        </div>
-        <div class="large-7 cell example">
-          <h3>Examples</h3>
-          <ul>
-          <li><tt>[id: "dAMP" | delta-mass: 1 | delta-charge: 1]</tt>: indicates the presence of an additional proton whose exact location is not known.</li>
-          <li><tt>[id: "dI" | position: 2-3]</tt>: indicates that deoxyinosine may occur anywhere between the second and third position.</li>
-          </ul>
-        </div>
-
-
-        <div class="large-5 cell notation">
-          <h3>Metadata about monomeric forms</h3>
-          <p class="before_list"><i>BpForms</i> can represent several types of metadata about monomeric forms.</p>
-          <ul>
-            <li>The <tt class="attribute">id</tt> and <tt class="attribute">name</tt> monomeric form attributes are human-readable labels for monomeric forms. Only one id and one name is allowed per monomeric form.</li>
-            <li>The <tt class="attribute">synonym</tt> monomeric form attribute is an additional human-readable label. Monomeric forms can have multiple synonyms.</li>
-            <li>The <tt class="attribute">identifier</tt> monomeric form attribute indicates entries in databases and ontologies which are equivalent to the monomeric form. Monomeric forms can have multiple identifiers. The namespace and id of each identifer must be separated by a "/".</li>
-            <li>The <tt class="attribute">comments</tt> monomeric form attribute describes additional information about the monomeric form. Monomeric forms can only have one comment.</li>
-          </ul>
-        </div>
-        <div class="large-7 cell example">
-          <h3>Examples</h3>
-          <ul>
-          <li><tt>[id: "dI" | name: "deoxyinosine"]</tt>: represents the id and name of deoxyinosine.</li>
-          <li><tt>[id: "dI" | synonym: "deoxyinosine" | synonym: "2'-deoxyinosine"]</tt>: represents multiple synonyms of deoxyinosine.</li>
-          <li><tt>[id: "dI" | identifier: "CHEBI:28997" @ "chebi" | identifier: "65058" @ "pubchem.compound"]</tt>: represents equivalent entries in ChEBI and PubChem to deoxyinosine.</li>
-          <li><tt>[id: "dI" | comments: "A purine 2'-deoxyribonucleoside that is inosine ..."]</tt>: represents comments about deoxyinosine.</li>
-          </ul>
         </div>
       </div>
 
@@ -443,8 +504,7 @@
         <div class="large-4 cell">
           <a name="proteomics"></a>
           <h3>Proteomics</h3>
-          <p><i>BpForms</i> can help researchers precisely communicate the sequences of proteoforms, analyze modifications, and improve the quality of reported sequences by identifying errors in the descriptions of proteoforms such as monomeric forms that are inconsistent with the unmodified sequence (e.g., selenocysteine modification of a non-cysteine residue) and inconsistent bonds (e.g., N,N,N-trimethyl-L-alanine, which has not N-terminus, located in the middle of a peptide).
-          </p>
+          <p><i>BpForms</i> can help researchers precisely communicate the sequences of proteoforms, analyze modifications, and improve the quality of reported sequences by identifying errors in the descriptions of proteoforms such as monomeric forms that are inconsistent with the unmodified sequence (e.g., selenocysteine modification of a non-cysteine residue) and inconsistent bonds (e.g., N,N,N-trimethyl-L-alanine, which has not N-terminus, located in the middle of a peptide).</p>
         </div>
         <div class="large-8 cell">
           <h3>Example: Analysis of the metabolic load of protein modification in humans</h3>
