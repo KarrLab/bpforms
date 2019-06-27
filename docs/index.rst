@@ -30,6 +30,7 @@ Contents
    :maxdepth: 3
    :numbered:
 
+   use_cases.rst
    installation.rst
    tutorial.rst
    alphabets.rst

@@ -33,6 +33,31 @@ Advantages over MODOMICS
 * `BpForms` includes software for error checking descriptions of non-canonical biopolymers. This includes verifying that monomeric forms that only have left bonding sites (e.g. 5' caps) only appear at the first position and that monomeric forms that only have right bonding sites (e.g. 3' caps) only appear at the last position.
 * `BpForms` includes software for interpreting descriptions of non-canonical biopolymers. This enables calculations of properties such as chemical formulae, masses, and charges, which is essential for modeling and other applications.
 
+Advantages over the `PDB Chemical Component Dictionary/Ligand <http://www.rcsb.org/pdb/ligand/chemAdvSearch.do>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `BpForms` protein alphabet includes numerous additional monomeric forms from RESID.
+* The `BpForms` protein alphabet consistently represents the C termini as COH. In constrast, the PDB CCD represents C termini as both COOH and COH.
+* The composition of `BpForms` monomeric forms into sequences is well defined. The `BpForms` protein alphabet explicitly describes the location of the C and N termini of each monomeric form. This enables the `BpForms` software to verify that BpForms describe valid atomic structures. The semantics for combining PDB CCD monomeric forms into sequences is unclear. Consequently, sequences of PDB CCD monomeric forms cannot be validated. In particular, monomeric forms with multiple C and N termini have ambiguous bonding becuase the PDB CCD monomeric forms do not capture the left and right bonding sites.
+
+
+Advantages over `PDB format <http://www.wwpdb.org/documentation/file-format>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* `BpForms` is a more compact, human readable description of the primary structure of biopolymers.
+* It is easier to compose monomeric forms into `BpForms` than the PDB format.
+* `BpForms` is easier to embed into other standards and formats.
+
+
+Advantages over `PDB SEQRES annotations <http://www.wwpdb.org/documentation/file-format>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* `BpForms` can capture any monomeric form, including monomeric forms which are not part of the PDB Chemical Component Dictionary.
+* `BpForms` concretely captures the bonds between successive monomeric forms. PDB SEQRES annotations are ambiguous for monomeric forms with multiple C and N termini.
+* `BpForms` can capture circularity.
+* `BpForms` can capture crosslinks.
+* There is no defined semantics for generating atomic structures from PDB SEQRES annotations.
+* The `BpForms` software can verify that `BpForms` describe valid atomic structures. PDB SEQRES annotations cannot be verified because there is no defined semantics for generating atomic structures from these annotations.
 
 Advantages over `ProForma Proteoform Notation <http://www.topdownproteomics.org/resources/proforma/>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
