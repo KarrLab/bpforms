@@ -318,7 +318,8 @@
         <div class="large-5 cell notation">
           <h3>Bonds between inline and adjacent monomers</h3>
           <p>The <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes describe the bonds between successive monomeric forms. The values of these attributes are the element of the atom and the position of the atom within the monomeric form (e.g. <tt>N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
-          <p>Each monomeric form can have one or more bonds and displaced atoms with the preceding and following monomeric forms. These attributes are required to calculate the structure of the polymer.</p>
+          
+          <p>Each monomeric form can have one or more bonds and displaced atoms with the preceding and following monomeric forms. In addition, the number of left bond atoms must be equal to the number of right bond atoms for the preceding monomeric form, and the number of right bond atoms must be equal to the number of left bond atoms for the following monomeric form. The <i>BpForms</i> software verifies these constraints. These attributes are required to calculate the structure of the polymer.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
@@ -420,8 +421,17 @@
 
         <div class="large-5 cell notation">
           <h3>Crosslinks between non-adjacent monomers</h3>
-          <p>The <tt class="attribute">crosslink</tt> polymer attribute can be used to indicate bonds between non-adjacent monomeric forms. For example, this attribute can be used to describe intrastrand crosslinks in DNA and disulfide bonds between cysteines in proteins. The values of these attributes are the position of the monomeric form within the sequence, the element of the atom, and the position of the atom within the monomeric form (e.g. <tt>8N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
-          <p>Polymers can have zero, one, or more crosslinks.</p>
+          <p>The <tt class="attribute">crosslink</tt> polymer attribute can be used to indicate a bond between non-adjacent monomeric forms. For example, this attribute can be used to describe intrastrand crosslinks in DNA and disulfide bonds between cysteines in proteins.</p>
+
+          <p>Crosslinks can be described by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., "<tt>| crosslink: [left-bond-atom: 1C1 | right-bond-atom: 3C2 | ...]</tt>").</p>
+
+          <p class="before_list">Crosslinks can be described with four types of attributes:</p>
+          <ul>
+            <li><tt>left-bond-atom</tt> and <tt>right-bond-atom</tt>: These attributes indicate the atoms involved in the bond. The values of these attributes are the position of the monomeric form within the sequence, the element of the atom, and the position of the atom within the monomeric form (e.g. <tt>8N3</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</li>
+            <li><tt>left-displaced-atom</tt> and <tt>right-displaced-atom</tt>: These attributes indicate the atoms displaced by the formation of the bond. The values of these attributes are also the position of the monomeric form within the sequence, the element of the atom, and the position of the atom within the monomeric form.</li>
+          </ul>
+
+          <p>Polymers can have zero, one, or more crosslinks. Each crosslink can have one or more left and right bond atoms and zero or more left and right displaced atoms. Furthermore, each crosslink must have the same number of left and right bond atoms.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
