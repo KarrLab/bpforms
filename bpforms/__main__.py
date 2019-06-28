@@ -18,6 +18,7 @@ class BaseController(cement.Controller):
     class Meta:
         label = 'base'
         description = "bpforms"
+        help = "bpforms"
         arguments = [
             (['-v', '--version'], dict(action='version', version=bpforms.__version__)),
         ]
@@ -33,6 +34,7 @@ class ValidateController(cement.Controller):
     class Meta:
         label = 'validate'
         description = 'Validate a biopolymer form'
+        help = 'Validate a biopolymer form'
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
@@ -65,6 +67,7 @@ class GetPropertiesController(cement.Controller):
     class Meta:
         label = 'get-properties'
         description = 'Calculate physical properties such as length, chemical formula, molecular weight, and charge'
+        help = 'Calculate physical properties such as length, chemical formula, molecular weight, and charge'
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
@@ -131,6 +134,7 @@ class GetMajorMicroSpeciesController(cement.Controller):
     class Meta:
         label = 'get-major-micro-species'
         description = 'Calculate the major protonation and tautomerization state of a biopolymer form to a specific pH'
+        help = 'Calculate the major protonation and tautomerization state of a biopolymer form to a specific pH'
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
@@ -171,6 +175,8 @@ class BuildAlphabetsController(cement.Controller):
         label = 'build-alphabets'
         description = ('Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, '
                        'the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database')
+        help = ('Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, '
+                       'the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database')
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
@@ -200,6 +206,7 @@ class VizAlphabetController(cement.Controller):
     class Meta:
         label = 'viz-alphabet'
         description = 'Visualize an alphabet'
+        help = 'Visualize an alphabet'
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
