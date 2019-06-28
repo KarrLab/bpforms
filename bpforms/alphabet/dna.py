@@ -133,7 +133,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
             alphabet.from_yaml(canonical_filename)
         alphabet.id = 'dna'
         alphabet.name = 'DNA nucleobases'
-        alphabet.description = ('The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
+        alphabet.description = ('The canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
                                 '<a href="https://dnamod.hoffmanlab.org">DNAmod</a> and '
                                 '<a href="http://repairtoire.genesilico.pl/damage/">REPAIRtoire</a>')
 

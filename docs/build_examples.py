@@ -29,7 +29,7 @@ def build(dirname=default_dirname):
                  show_atom_nums=False, width=203)
     draw_polymer(bpforms.RnaForm, 'AC{9A}GC', dirname, 'form-RNA',
                  show_atom_nums=False, width=203)
-    draw_polymer(bpforms.ProteinForm, 'ACUC', dirname, 'form-Protein',
+    draw_polymer(bpforms.ProteinForm, 'AC{U}C', dirname, 'form-Protein',
                  show_atom_nums=False, width=203)
 
     draw_polymer(bpforms.DnaForm, 'C{m2A}G{m2C}', dirname, 'alphabet-DNA',

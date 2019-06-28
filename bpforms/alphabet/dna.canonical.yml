@@ -1,6 +1,6 @@
 id: canonical_dna
 name: Canonical DNA nucleobases
-description: The four canonical DNA nucleobases
+description: The canonical DNA nucleobases
 monomers:
   A:
     id: adenine

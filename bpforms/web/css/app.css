@@ -20,6 +20,7 @@ h1, .h1 {
     color: #3bafda;
     font-size: 1.8rem;
     font-weight: bold;
+    padding-bottom: 1rem;
 }
 h2, .h2 {
     color: #fff;
@@ -97,6 +98,35 @@ pre .bpform {
 pre .modification {
     color: #da3baf;
     font-weight: bold;
+}
+
+/* table of contents */
+.toc h3 {
+    color: #f6bb42;
+    font-size: 1.0rem;
+    margin: 0px;    
+    padding: 0px;
+    margin-bottom: 0.2rem;
+    padding-bottom: 0.2rem;
+    border-color: #f6bb42;
+}
+.toc a {
+    color: #333;
+}
+.toc ul li{
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+    line-height: 120%;
+}
+.toc ul ul li {
+    margin-top: 0rem;
+    font-size: 0.85rem;
+    line-height: 120%;
+}
+.toc ul ul ul li {
+    margin-top: 0rem;
+    font-size: 0.80rem;
+    line-height: 120%;
 }
 
 /* alphabet */

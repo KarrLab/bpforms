@@ -1,6 +1,6 @@
 id: dna
 name: DNA nucleobases
-description: The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases
+description: The canonical DNA nucleobases, plus the non-canonical DNA nucleobases
   in <a href="https://dnamod.hoffmanlab.org">DNAmod</a> and <a href="http://repairtoire.genesilico.pl/damage/">REPAIRtoire</a>
 monomers:
   A:

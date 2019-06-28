@@ -1,6 +1,6 @@
 id: canonical_rna
 name: Canonical RNA nucleosides
-description: The four canonical RNA nucleosides
+description: The canonical RNA nucleosides
 monomers:
   A:
     id: adenosine
