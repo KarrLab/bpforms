@@ -11,7 +11,6 @@ from ruamel import yaml
 from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_molecule, OpenBabelUtils
 import abc
 import attrdict
-import diskcache
 import itertools
 import lark
 import openbabel
@@ -20,6 +19,7 @@ import pkg_resources
 import re
 import urllib.parse
 import warnings
+import wc_utils.cache
 
 config = get_config()['bpforms']
 
@@ -27,7 +27,7 @@ config = get_config()['bpforms']
 cache_dir = os.path.expanduser('~/.cache/bpforms')
 if not os.path.isdir(cache_dir):
     os.makedirs(cache_dir)
-cache = diskcache.FanoutCache(cache_dir)
+cache = wc_utils.cache.Cache(directory=cache_dir)
 
 
 class Identifier(object):
@@ -1388,7 +1388,7 @@ class Alphabet(object):
         return self
 
 
-@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)
+@cache.memoize(typed=False, expire=30 * 24 * 60 * 60, filename_args=[0])
 def parse_yaml(path):
     """ Read a YAML file
 
