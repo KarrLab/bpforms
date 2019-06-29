@@ -7,8 +7,9 @@
     <title>BpForms: a toolkit for concretely describing non-canonical DNA, RNA, and proteins</title>
     <link rel="stylesheet" href="css/foundation-icons.css">
     <link rel="stylesheet" href="css/foundation.css">
-    <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
     <div class="grid-container">
@@ -39,7 +40,7 @@
                     </li>
                     <li><a href="#inline-monomers">Inline monomeric forms</a>
                       <ul>  
-                        <li><a href="#structure">molecular structure</a></li>
+                        <li><a href="#molecular-structure">Molecular structure</a></li>
                         <li><a href="#backbone-bonds">Bond with backbones</a></li>
                         <li><a href="#adjacent-bonds">Bonds with adjacent monomers</a></li>
                         <li><a href="#uncertainty">Uncertainty</a></li>
@@ -71,7 +72,7 @@
                     <li><a href="#syn-bio">Synthetic biology</a></li>
                   </ul>
                 </li>
-                <li><a href="#use-cases">Integration with standards</a>
+                <li><a href="#integration">Integration with standards</a>
                   <ul>
                     <li><a href="#biopax">BioPAX</a></li>
                     <li><a href="#fasta">FASTA</a></li>
@@ -200,10 +201,13 @@
           <h3>Examples</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-4 cell">
-              <h4>DNA</h4>
+              <h5>DNA</h5>
               <p style="text-align: center;"><tt>{dI}ACGC</tt></p>
-              <img src="img/example/form-DNA.svg"
-                style="margin-bottom: 0.5rem;"/>
+              <a data-fancybox="gallery" 
+                href="img/example/form-DNA.svg"
+                data-width="600">
+                <img src="img/example/form-DNA.svg" style="margin-bottom: 0.5rem;"/>
+              </a>
               <p class="form-properties">
                 Length: 5<br/>
                 Formula: C<sub>48</sub>H<sub>55</sub>N<sub>20</sub>O<sub>30</sub>P<sub>5</sub><br/>
@@ -213,10 +217,14 @@
               <p>Deoxyinosine at the first position</p>
             </div>
             <div class="large-4 cell">
-              <h4>RNA</h4>
+              <h5>RNA</h5>
               <p style="text-align: center;"><tt>AC{9A}GC</tt></p>
-              <img src="img/example/form-RNA.svg"
-                style="margin-bottom: 0.5rem;"/>
+              <a data-fancybox="gallery" 
+                href="img/example/form-RNA.svg"
+                data-width="600">
+                <img src="img/example/form-RNA.svg"
+                  style="margin-bottom: 0.5rem;"/>
+              </a>
               <p class="form-properties">
                 Length: 5<br/>
                 Formula: C<sub>48</sub>H<sub>55</sub>N<sub>20</sub>O<sub>35</sub>P<sub>5</sub><br/>
@@ -226,10 +234,14 @@
               <p>Inosine at the third position</p>
             </div>
             <div class="large-4 cell">
-              <h4>Protein</h4>
+              <h5>Protein</h5>
               <p style="text-align: center;"><tt>AC[id: "U" | structure: "N[C@H](C=O)C[SeH]" | ... ]C</tt></p>
-              <img src="img/example/form-Protein.svg"
-                style="margin-bottom: 0.5rem;"/>
+              <a data-fancybox="gallery" 
+                href="img/example/form-Protein.svg"
+                data-width="600">
+                <img src="img/example/form-Protein.svg"
+                  style="margin-bottom: 0.5rem;"/>
+              </a>
               <p class="form-properties">
                 Length: 4<br/>
                 Formula: C<sub>12</sub>H<sub>22</sub>N<sub>4</sub>O<sub>5</sub>S<sub>2</sub>Se<sub>1</sub><br/>
@@ -253,33 +265,44 @@
           <h3>Examples</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-4 cell">
-              <h4>DNA: m2A</h4>
-              <img src="img/alphabet/dna/m2A.png"
-                style="margin-bottom: 0.5rem;"/>
-              <p style="text-align: center;">2-methyladenine</p>
-              <p class="form-properties">
+              <h5>DNA: 56 nucleobases</h5>
+              <a data-fancybox="gallery" 
+                href="img/example/dna-m2A.svg"
+                data-width="600">
+                <img src="img/example/dna-m2A.svg"
+                  style="margin-bottom: 0.5rem;"/>
+              </a>
+              <p style="text-align: center; margin-bottom: 0.0rem;">m2A: 2-methyladenine</p>
+              <p style="text-align: center;" class="form-properties">
                 Formula: C<sub>5</sub>H<sub>6</sub>N<sub>6</sub><br/>
                 Molecular weight: 150.145<br/>
                 Charge: 0
               </p>              
             </div>
             <div class="large-4 cell">
-              <h4>RNA: 21C</h4>
-              <img src="img/alphabet/rna/21C.png"
-                style="margin-bottom: 0.5rem;"/>
-              <p style="text-align: center;">2-lysidine</p>
-              <p class="form-properties">
+              <h5>RNA: 144 nucleosides</h5>
+              <a data-fancybox="gallery" 
+                href="img/example/rna-21C.svg"
+                data-width="600">
+                <img src="img/example/rna-21C.svg" style="margin-bottom: 0.5rem;"/>
+              </a>
+              <p style="text-align: center; margin-bottom: 0rem;">21C: 2-lysidine</p>
+              <p style="text-align: center;" class="form-properties">
                 Formula: C<sub>15</sub>H<sub>28</sub>N<sub>5</sub>O<sub>6</sub><br/>
                 Molecular weight: 374.418<br/>
                 Charge: 1
               </p>              
             </div>
             <div class="large-4 cell">
-              <h4>Protein: AA0037</h4>
-              <img src="img/alphabet/protein/AA0037.png"
-                style="margin-bottom: 0.5rem;"/>
-              <p style="text-align: center;">O-phospho-L-serine</p>
-              <p class="form-properties">
+              <h5>Protein: 1,448 residues</h5>
+              <a data-fancybox="gallery" 
+                href="img/example/protein-AA0037.svg"
+                data-width="600">
+                <img src="img/example/protein-AA0037.svg"
+                  style="margin-bottom: 0.5rem;"/>
+              </a>
+              <p style="text-align: center; margin-bottom: 0rem;">AA0037: phosphoserine</p>
+              <p style="text-align: center;" class="form-properties">
                 Formula: C<sub>3</sub>H<sub>7</sub>N<sub>1</sub>O<sub>5</sub>P<sub>1</sub><br/>
                 Molecular weight: 168.065<br/>
                 Charge: -1
@@ -290,25 +313,43 @@
 
         <div class="large-5 cell notation">
           <a name="backbones"></a>
-          <h3>Backbones</h3>
+          <h4>Backbones</h4>
           <p>The backbone for the DNA alphabets is a deoxyribose monophosphate. The backbone for the RNA alphabets is phosphate. The backbone for the protein alphabets is hydroxide (in COOH).</p>
         </div>
         <div class="large-7 cell example">
-          <h3>Examples</h3>
+          <h4>Examples</h4>
           <div class="grid-x grid-padding-x">
             <div class="large-4 cell">
-              <h4>DNA</h4>
-              <!--<img src="img/example/backbone-DNA.svg" style="margin-bottom: 0.5rem;"/>-->
+              <h5>DNA</h5>
+              <div style="height: 100px; margin-bottom: 0.5rem;" class="img-container">
+                <a data-fancybox="gallery" 
+                href="img/example/backbone-dna.svg"
+                data-width="600">
+                  <img src="img/example/backbone-dna.svg"/>
+                </a>
+              </div>
               <p style="text-align: center;">deoxyribose monophosphate</p>
             </div>
             <div class="large-4 cell">
-              <h4>RNA</h4>
-              <!--<img src="img/example/backbone-RNA.svg" style="margin-bottom: 0.5rem;"/>-->
+              <h5>RNA</h5>
+              <div style="height: 100px; margin-bottom: 0.5rem;" class="img-container">
+                <a data-fancybox="gallery" 
+                href="img/example/backbone-rna.svg"
+                data-width="600">
+                  <img src="img/example/backbone-rna.svg"/>
+                </a>
+              </div>
               <p style="text-align: center;">phosphate</p>
             </div>
             <div class="large-4 cell">
-              <h4>Protein</h4>
-              <!--<img src="img/example/backbone-protein.svg" style="margin-bottom: 0.5rem;"/>-->
+              <h5>Protein</h5>
+              <div style="height: 100px; margin-bottom: 0.5rem;" class="img-container">
+                <a data-fancybox="gallery" 
+                href="img/example/backbone-protein.svg"
+                data-width="600">
+                  <img src="img/example/backbone-protein.svg" />
+                </a>
+              </div>
               <p style="text-align: center;">hydroxide</p>
             </div>
           </div>
@@ -338,7 +379,7 @@
           <h3>Examples</h3>
           <pre>[id: "dI"
     | name: "hypoxanthine"
-    | structure: "O=C1NC=NC2=C1N=CN2"
+    | structure: "O=C1NC=NC2=C1N=CN2O=C1NC=NC2=C1N=CN2"
     ]</pre><br/>
           <pre>[id: "AA0305"
     | name: "N5-methyl-L-arginine"
@@ -354,12 +395,12 @@
         </div>
 
         <div class="large-5 cell notation">
-          <a name="structure"></a>
-          <h3>Molecular structures of inline monomeric forms</h3>
+          <a name="molecular-structure"></a>
+          <h4>Molecular structure</h4>
           <p>The <tt class="attribute">structure</tt> attribute describes the molecular structure of the monomeric form (excluding its backbone). This attribute must be a SMILES-encoded string. Each monomeric form can only have one structure attribute. This attribute is required to calculate the molecular structure of the polymer.</p>
         </div>
         <div class="large-7 cell example">
-          <h3>Example</h3>
+          <h4>Example</h4>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
               <p>The text below illustrates how to describe the modified DNA nucleobase hypoxanthine, and the image below illustrates the molecule that the text specifies. The atom labels indicate the numbers of the atoms within the molecule. These numbers can be generated with OpenBabel <a href="http://openbabel.org/wiki/Category:Installation"><i class="fi-link"></i></a>.</p>
@@ -371,46 +412,54 @@
     ]</pre>
             </div>
             <div class="large-4 cell image">
-              <img src="img/example/structure-dI.svg"/>
+              <a data-fancybox="gallery" 
+                href="img/example/structure-dI.svg"
+                data-width="600">
+                <img src="img/example/structure-dI.svg"/>
+              </a>
             </div>
           </div>
         </div>
 
         <div class="large-5 cell notation">
           <a name="backbone-bonds"></a>
-          <h3>Bonds between inline monomers and backbones</h3>
+          <h4>Bond with backbone</h4>
           <p>The <tt class="attribute">backbone-bond-atom</tt> and <tt class="attribute">backbone-displaced-atom</tt> attributes describe the bonds between inline monomeric forms and their backbones. The values of these attributes are the element of the atom, the position of the atom within the monomeric form, and the charge of the atom (e.g., <tt>N3+1</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
           <p>Each monomeric form can form one or more bonds with the backbone and multiple atoms can be displaced. These attributes are required to calculate the molecular structure of the polymer.</p>
         </div>
         <div class="large-7 cell example">
-          <h3>Example</h3>
+          <h4>Example</h4>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
               <p>The example below illustrates how to describe the modified DNA nucleotide deoxyinosine monophosphate. The red atoms in the image indicate the sugar-phosphate backbone.</p>
             </div>
             <div class="large-8 cell syntax">
-              <pre>[id: "dI"
-    | name: "hypoxanthine"
-    | structure: "O=C1NC=NC2=C1N=CN2"
-    | backbone-bond-atom: N10
-    | backbone-displaced-atom: H10
+              <pre>[id: "f"
+    | name: "5-formylcytosine"
+    | structure: "NC1=NC(=O)NC=C1C=O"
+    | backbone-bond-atom: N6
+    | backbone-displaced-atom: H6
     ]</pre>
             </div>
             <div class="large-4 cell image">
-              <img src="img/example/monomer-backbone-bonds-dI.svg"/>
+              <a data-fancybox="gallery" 
+                href="img/example/monomer-backbone-bonds-f.svg"
+                data-width="600">
+                <img src="img/example/monomer-backbone-bonds-f.svg"/>
+              </a>
             </div>
           </div>
         </div>
 
         <div class="large-5 cell notation">
-          <a href="adjacent-bonds"></a>
-          <h3>Bonds between inline and adjacent monomers</h3>
+          <a name="adjacent-bonds"></a>
+          <h4>Bonds with adjacent monomers</h4>
           <p>The <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes describe the bonds between successive monomeric forms. The values of these attributes are the element of the atom, the position of the atom within the monomeric form, and the charge of the atom (e.g., <tt>N3+1</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
           
           <p>Each monomeric form can have one or more bonds and displaced atoms with the preceding and following monomeric forms. In addition, the number of left bond atoms must be equal to the number of right bond atoms for the preceding monomeric form, and the number of right bond atoms must be equal to the number of left bond atoms for the following monomeric form. The <i>BpForms</i> software verifies these constraints. These attributes are required to calculate the molecular structure of the polymer.</p>
         </div>
         <div class="large-7 cell example">
-          <h3>Example</h3>
+          <h4>Example</h4>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
               <p>The example below illustrates how to describe the modified protein residue N<sup>5</sup>-methyl-L-arginine. The green atoms indicate the atoms (C terminus) involved in left bonds to preceding monomeric forms. The dark green C atom indicates the atom which bonds with preceding monomeric forms; the light green H atom (not shown) indicates atoms which are displaced by the formation of these bonds. When the monomeric form is at the beginning of the polymer, the dark blue C atom binds with the backbone, displacing the light blue H atom which is not shown. The blue atoms indicate atoms (N terminus) involved in right bonds to following monomeric forms; the dark blue N atom indicates the atom which bonds with following monomeric forms; the light blue H atom indicates atoms displaced by the formation of these bonds.</p>
@@ -428,14 +477,18 @@
   ]</pre>
             </div>
             <div class="large-4 cell image">
-              <img src="img/example/left-right-bonds-AA0305.svg"/>
+              <a data-fancybox="gallery" 
+                href="img/example/left-right-bonds-AA0305.svg"
+                data-width="600">
+                <img src="img/example/left-right-bonds-AA0305.svg"/>
+              </a>
             </div>            
           </div>
         </div>
 
         <div class="large-5 cell notation">
           <a name="uncertainty"></a>
-          <h3>Uncertainty about inline monomeric forms</h3>
+          <h4>Structure and positional uncertainty</h4>
           <p class="before_list">Through the inline monomeric forms, <i>BpForms</i> can represent two types of uncertainty in the molecular structure of forms of biopolymers:</p>
           <ul>
           <li>The <tt class="attribute">delta-mass</tt> and <tt class="attribute">delta-charge</tt> attributes can describe additional mass and charge beyond that of the canonical monomeric form which have been observed, but which cannot be resolved to a specific molecular structure. The value of <tt class="attribute">delta-mass</tt> attribute must be a float. The value of the <tt class="attribute">delta-charge</tt> attribute must be an integer. Such mass and charge uncertainty can arise from mass spectrometry studies which often cannot resolve the exact molecular structure of each monomeric form.</li>
@@ -443,7 +496,7 @@
           </ul>
         </div>
         <div class="large-7 cell example">
-          <h3>Examples</h3>
+          <h4>Examples</h4>
           <ul>
           <li><tt>[id: "dAMP" | delta-mass: -18 | delta-charge: 0]</tt>: indicates the dehydration of dAMP whose exact location is not known.</li>
           <li><tt>[id: "dI" | position: 2-3]</tt>: indicates that deoxyinosine may occur anywhere between the second and third position.</li>
@@ -453,7 +506,7 @@
 
         <div class="large-5 cell notation">
           <a name="metadata"></a>
-          <h3>Metadata about monomeric forms</h3>
+          <h4>Metadata</h4>
           <p class="before_list"><i>BpForms</i> can represent several types of metadata about inline monomeric forms:</p>
           <ul>
             <li>The <tt class="attribute">id</tt> and <tt class="attribute">name</tt> attributes are human-readable labels for monomeric forms. The id attribute should be used to represent a short label. Only one id and one name are allowed per monomeric form.</li>
@@ -463,7 +516,7 @@
           </ul>
         </div>
         <div class="large-7 cell example">
-          <h3>Examples</h3>
+          <h4>Examples</h4>
           <ul>
           <li><tt>[id: "dI" | name: "deoxyinosine"]</tt>: represents the id and name of deoxyinosine.</li>
           <li><tt>[id: "dI" | synonym: "deoxyinosine" | synonym: "2'-deoxyinosine"]</tt>: represents multiple synonyms of deoxyinosine.</li>
@@ -487,7 +540,11 @@
               <pre>AC | circular</pre>
             </div>
             <div class="large-4 cell image">
-              <img src="img/example/circular-DNA-AC.svg"/>
+              <a data-fancybox="gallery" 
+                href="img/example/circular-DNA-AC.svg"
+                data-width="600">
+                <img src="img/example/circular-DNA-AC.svg"/>
+              </a>
             </div>
           </div>
         </div>
@@ -522,7 +579,11 @@
 ]</pre>
             </div>
             <div class="large-4 cell image">
-              <img src="img/example/crosslink-protein-sulfide-bond.svg"/>
+              <a data-fancybox="gallery" 
+                href="img/example/crosslink-protein-sulfide-bond.svg"
+                data-width="600">
+                <img src="img/example/crosslink-protein-sulfide-bond.svg"/>
+              </a>
             </div>
           </div>
         </div>
@@ -588,7 +649,11 @@
               18.3 &plusmn; 8.6 hydrogen atoms, 1.9 &plusmn; 1.2 nitrogen atoms, 1.8 &plusmn; 2.5 oxygen atoms, and 1.7 &plusmn; 0.7 sulfur atoms.</li>
           </ol> -->
 
-          <img src="img/example/modomics.trna.code-freq.svg" style="margin-bottom: 0.5rem;" />
+          <a data-fancybox="gallery" 
+                href="img/example/modomics.trna.code-freq.svg"
+                data-width="1200">
+            <img src="img/example/modomics.trna.code-freq.svg" style="margin-bottom: 0.5rem;" />
+          </a>
         </div>
 
         <div class="large-4 cell">
@@ -608,7 +673,11 @@
           </ol>
           -->
 
-          <img src="img/example/pro_nonreasoned.svg" style="margin-bottom: 0.5rem;" />
+          <a data-fancybox="gallery" 
+                href="img/example/pro_nonreasoned.svg"
+                data-width="1200">            
+            <img src="img/example/pro_nonreasoned.svg" style="margin-bottom: 0.5rem;" />
+          </a>
         </div>
 
         <div class="large-6 cell">
@@ -633,6 +702,7 @@
       </div>
 
       <div class="grid-x grid-padding-x blue">
+        <a name="integration"></a>
         <div class="large-12 cell">
           <h2>Integrating <i>BpForms</i> into the BioPAX, CellML, FASTA, PDB, SBML, and SBOL standards</h2>
           <p class="before_list"><i>BpForms</i> can be used in conjunction with several commonly used standards in genomics, transcriptomics, proteomics, systems biology, and synthetic biology. In addition, <i>BpForms</i> can easily be embedded within other documents such as Excel workbooks and comma-separated tables.</p>
@@ -947,6 +1017,7 @@ REMARK   1 <span class="bpform">KFLVGPDGVPVRRYSRRFLTIDIEPDIETLLSQGASA</span>
       </div>
 
       <div class="grid-x grid-padding-x orange">
+        <a name="contributing"></a>
         <div class="large-12 cell">
           <h2>Contributing to <i>BpForms</i></h2>
         </div>
@@ -961,6 +1032,7 @@ REMARK   1 <span class="bpform">KFLVGPDGVPVRRYSRRFLTIDIEPDIETLLSQGASA</span>
       </div>
 
       <div class="grid-x grid-padding-x blue">
+        <a name="about"></a>
         <div class="large-12 cell">
           <h2>About <i>BpForms</i></h2>
         </div>
@@ -991,6 +1063,8 @@ REMARK   1 <span class="bpform">KFLVGPDGVPVRRYSRRFLTIDIEPDIETLLSQGASA</span>
       </div>
 
     <script src="js/vendor/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <script src="js/vendor/what-input.js"></script>
     <script src="js/vendor/foundation.js"></script>
     <script src="js/app.js"></script>

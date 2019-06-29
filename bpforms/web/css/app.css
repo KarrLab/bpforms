@@ -39,7 +39,7 @@ h3, .h3 {
     text-align: center;
     font-weight: bold;
 }
-h4, .h4 {
+h4, .h4, h5, .h5 {
     font-size: 1.0rem;
     margin-top: 1.0rem;
     margin-bottom: 0.2em;
@@ -56,6 +56,7 @@ h4, .h4 {
 .purple h3{ color: #da3baf; border-bottom: 2px solid #da3baf; }
 .orange h2{ background: #f6bb42; }
 .orange h3{ color: #f6bb42; border-bottom: 2px solid #f6bb42; }
+.orange h4{ color: #f6bb42;}
 .red h2 { background: #fe174b; }
 .red h3 { color: #fe174b; border-bottom: 2px solid #fe174b; }
 
@@ -101,20 +102,29 @@ pre .modification {
 }
 
 /* table of contents */
+.toc {
+    background: #f6f6f6;
+    border-radius: 0.3rem;
+    border: 1px solid #ccc;
+}
 .toc h3 {
-    color: #f6bb42;
+    color: #333;
     font-size: 1.0rem;
     margin: 0px;    
     padding: 0px;
+    margin-top: 0.5rem;
     margin-bottom: 0.2rem;
     padding-bottom: 0.2rem;
-    border-color: #f6bb42;
+    border-color: #333;
 }
 .toc a {
     color: #333;
 }
+.toc a:hover {
+    color: #3bafda;
+}
 .toc ul li{
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
     font-size: 0.9rem;
     line-height: 120%;
 }
@@ -127,6 +137,16 @@ pre .modification {
     margin-top: 0rem;
     font-size: 0.80rem;
     line-height: 120%;
+}
+
+/* example images */
+.img-container {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+.fancybox-image {
+    background: #fff;
 }
 
 /* alphabet */

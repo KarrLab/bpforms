@@ -43,10 +43,15 @@ set_properties = function(data, status, jqXHR){
     if (data['structure'] != null && data['structure'] != '') {
         structure = data['structure']
         if (data['length'] <= 20) {
-            img = '<img src="https://cactus.nci.nih.gov/chemical/structure/'
+            img = '<a data-fancybox="gallery"'
+                  + '   href="https://cactus.nci.nih.gov/chemical/structure/'
+                  + encodeURI(data['structure'])
+                  + '/image?format=gif&bgcolor=transparent&antialiasing=0&width=1000&height=600" class="context-menu-one">'
+                  + '  <img src="https://cactus.nci.nih.gov/chemical/structure/'
                   + encodeURI(data['structure'])
                   + '/image?format=gif&bgcolor=transparent&antialiasing=0" class="context-menu-one"'
                   + '/>'
+                  + '</a>'
         } else {
             if (warnings == '') {
                 warnings = 'Warning: '

@@ -9,6 +9,7 @@
 import bpforms
 import os
 import pkg_resources
+import wc_utils.util.chem
 
 
 default_dirname = pkg_resources.resource_filename('bpforms', os.path.join('web', 'img', 'example'))
@@ -39,6 +40,28 @@ def build(dirname=default_dirname):
     draw_polymer(bpforms.ProteinForm, '{AA0037}E{AA0038}', dirname, 'alphabet-Protein',
                  show_atom_nums=False, width=203)
 
+    draw_monomer(bpforms.DnaForm, '{m2A}', dirname, 'dna-m2A',
+                 show_atom_nums=False, width=203)
+    draw_monomer(bpforms.RnaForm, '{21C}', dirname, 'rna-21C',
+                 show_atom_nums=False, width=203)
+    draw_monomer(bpforms.ProteinForm, '{AA0037}', dirname, 'protein-AA0037',
+                 show_atom_nums=False, width=203)
+
+    form = bpforms.DnaForm()    
+    backbone = wc_utils.util.chem.OpenBabelUtils.get_smiles(form.backbone.structure)
+    draw_monomer(bpforms.DnaForm, '[structure: "{}"]'.format(backbone), dirname, 'backbone-dna',
+                 show_atom_nums=False, width=203, height=100)
+    
+    form = bpforms.RnaForm()    
+    backbone = wc_utils.util.chem.OpenBabelUtils.get_smiles(form.backbone.structure)
+    draw_monomer(bpforms.RnaForm, '[structure: "{}"]'.format(backbone), dirname, 'backbone-rna',
+                 show_atom_nums=False, width=203, height=100)
+    
+    form = bpforms.ProteinForm()    
+    backbone = wc_utils.util.chem.OpenBabelUtils.get_smiles(form.backbone.structure)
+    draw_monomer(bpforms.ProteinForm, '[structure: "{}"]'.format(backbone), dirname, 'backbone-protein',
+                 show_atom_nums=False, width=203, height=25)    
+
     draw_monomer(bpforms.DnaForm, '''
         [id: "dI" 
             | name: "hypoxanthine"
@@ -48,12 +71,12 @@ def build(dirname=default_dirname):
 
     draw_polymer(bpforms.DnaForm, '''
         [id: "dI" 
-            | name: "hypoxanthine"
-            | structure: "O=C1NC=NC2=C1N=CN2"
-            | backbone-bond-atom: N10
-            | backbone-displaced-atom: H10
+            | name: "5-formylcytosine"
+            | structure: "NC1=NC(=O)NC=C1C=O"
+            | backbone-bond-atom: N6
+            | backbone-displaced-atom: H6
             ]
-        ''', dirname, 'monomer-backbone-bonds-dI', show_atom_nums=True)
+        ''', dirname, 'monomer-backbone-bonds-f', show_atom_nums=True)
 
     draw_monomer(bpforms.ProteinForm, '''
         [id: "AA0305" 
@@ -95,7 +118,7 @@ def build(dirname=default_dirname):
 
 
 def draw_monomer(Form, monomer, dirname, filename, show_atom_nums=False,
-                 width=250, format='svg'):
+                 width=250, height=150, format='svg'):
     """ Generate and save an image of a monomer for an example
 
     Args:
@@ -105,6 +128,7 @@ def draw_monomer(Form, monomer, dirname, filename, show_atom_nums=False,
         filename (:obj:`str`): filename to save image
         show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
         width (:obj:`int`, optional): width of image
+        height (:obj:`int`, optional): height of image
         format (:obj:`str`, optional): format for image
     """
     monomer = monomer.replace('\n', '').strip()
@@ -115,12 +139,12 @@ def draw_monomer(Form, monomer, dirname, filename, show_atom_nums=False,
     else:
         mode = 'wb'
     with open(os.path.join(dirname, filename + '.' + format), mode) as file:
-        img = form.seq[0].get_image(width=width, height=150, image_format=format, show_atom_nums=show_atom_nums)
+        img = form.seq[0].get_image(width=width, height=height, image_format=format, show_atom_nums=show_atom_nums)
         file.write(img)
 
 
 def draw_polymer(Form, polymer, dirname, filename, show_atom_nums=False,
-                 width=250, format='svg'):
+                 width=250, height=150, format='svg'):
     """ Generate and save an image of a polymer for an example
 
     Args:
@@ -130,6 +154,7 @@ def draw_polymer(Form, polymer, dirname, filename, show_atom_nums=False,
         filename (:obj:`str`): filename to save image
         show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
         width (:obj:`int`, optional): width of image
+        height (:obj:`int`, optional): height of image
         format (:obj:`str`, optional): format for image
     """
     polymer = polymer.replace('\n', '').strip()
@@ -140,7 +165,7 @@ def draw_polymer(Form, polymer, dirname, filename, show_atom_nums=False,
     else:
         mode = 'wb'
     with open(os.path.join(dirname, filename + '.' + format), mode) as file:
-        img = form.get_image(width=width, height=150, image_format=format, show_atom_nums=show_atom_nums)
+        img = form.get_image(width=width, height=height, image_format=format, show_atom_nums=show_atom_nums)
         file.write(img)
 
     # print properties
