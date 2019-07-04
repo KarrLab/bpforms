@@ -1200,17 +1200,19 @@ class MonomerSequence(list):
 class MonomerDict(attrdict.AttrDict):
     """ Dictionary for monomeric forms """
 
-    def __setitem__(self, chars, monomer):
-        """ Set monomeric form with chars
+    def __setitem__(self, code, monomer):
+        """ Set monomeric form with code
 
         Args:
-            chars (:obj:`str`): characters for monomeric form
+            code (:obj:`str`): characters for monomeric form
             monomer (:obj:`Monomer`): monomeric form
         """
-        if not re.match(r'^[^\[\]\{\}]+$', chars):
-            raise ValueError(f'`chars` "{chars}" must be at least one character, excluding '
+        if not re.match(r'^[^\[\]\{\}]+$', code):
+            raise ValueError(f'`code` "{code}" must be at least one character, excluding '
                              'square brackets and curly brackets')
-        super(MonomerDict, self).__setitem__(chars, monomer)
+        if re.match(r'^[ \t\f\r\n]+$', code):
+            raise ValueError(f'`code` "{code}" cannot be a sequence of whitespace characters')
+        super(MonomerDict, self).__setitem__(code, monomer)
 
 
 class Alphabet(object):
@@ -1319,8 +1321,8 @@ class Alphabet(object):
                 return False
         if len(self.monomers) != len(other.monomers):
             return False
-        for chars, self_monomer in self.monomers.items():
-            if not self_monomer.is_equal(other.monomers.get(chars, None)):
+        for code, self_monomer in self.monomers.items():
+            if not self_monomer.is_equal(other.monomers.get(code, None)):
                 return False
         return True
 
@@ -1338,8 +1340,8 @@ class Alphabet(object):
                 dict[attr] = val
 
         dict['monomers'] = {}
-        for chars, monomer in self.monomers.items():
-            dict['monomers'][chars] = monomer.to_dict(alphabet=self)
+        for code, monomer in self.monomers.items():
+            dict['monomers'][code] = monomer.to_dict(alphabet=self)
 
         return dict
 
@@ -1357,10 +1359,10 @@ class Alphabet(object):
             setattr(self, attr, val)
 
         self.monomers.clear()
-        for chars, monomer in dict['monomers'].items():
-            self.monomers[chars] = Monomer().from_dict(monomer)
-        for chars, monomer in dict['monomers'].items():
-            self.monomers[chars].from_dict(monomer, alphabet=self)
+        for code, monomer in dict['monomers'].items():
+            self.monomers[code] = Monomer().from_dict(monomer)
+        for code, monomer in dict['monomers'].items():
+            self.monomers[code].from_dict(monomer, alphabet=self)
 
         return self
 
@@ -3033,15 +3035,15 @@ class BpForm(object):
         Returns:
             :obj:`str`: string representation of the biopolymer form
         """
-        alphabet_monomers = {monomer: chars for chars, monomer in self.alphabet.monomers.items()}
+        alphabet_monomers = {monomer: code for code, monomer in self.alphabet.monomers.items()}
         val = ''
         for monomer in self.seq:
-            chars = alphabet_monomers.get(monomer, None)
-            if chars:
-                if len(chars) == 1:
-                    val += chars
+            code = alphabet_monomers.get(monomer, None)
+            if code:
+                if len(code) == 1:
+                    val += code
                 else:
-                    val += '{' + chars + '}'
+                    val += '{' + code + '}'
             else:
                 val += monomer.__str__(alphabet=self.alphabet)
 
@@ -3099,16 +3101,20 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def seq(self, *seq):
-                return ('seq', seq)
+                monomer_seq = []
+                for monomer in seq:
+                    if isinstance(monomer, Monomer):
+                        monomer_seq.append(monomer)
+                return ('seq', monomer_seq)
 
             @lark.v_args(inline=True)
-            def alphabet_monomer(self, chars):
-                chars = chars.value
-                if chars[0] == '{' and chars[-1] == '}':
-                    chars = chars[1:-1]
-                monomer = self.bp_form.alphabet.monomers.get(chars, None)
+            def alphabet_monomer(self, code):
+                code = code.value
+                if code[0] == '{' and code[-1] == '}':
+                    code = code[1:-1]
+                monomer = self.bp_form.alphabet.monomers.get(code, None)
                 if monomer is None:
-                    raise ValueError('"{}" not in alphabet'.format(chars))
+                    raise ValueError('"{}" not in alphabet'.format(code))
                 return monomer
 
             @lark.v_args(inline=True)
@@ -3216,13 +3222,13 @@ class BpForm(object):
                 return ('position', (start_position, end_position))
 
             @lark.v_args(inline=True)
-            def base_monomer(self, separator, chars):
-                chars = chars.value
-                if chars[0] == '"' and chars[-1] == '"':
-                    chars = chars[1:-1]
-                monomer = self.bp_form.alphabet.monomers.get(chars, None)
+            def base_monomer(self, separator, code):
+                code = code.value
+                if code[0] == '"' and code[-1] == '"':
+                    code = code[1:-1]
+                monomer = self.bp_form.alphabet.monomers.get(code, None)
                 if monomer is None:
-                    raise ValueError('"{}" not in alphabet'.format(chars))
+                    raise ValueError('"{}" not in alphabet'.format(code))
                 return ('base_monomers', monomer)
 
             @lark.v_args(inline=True)

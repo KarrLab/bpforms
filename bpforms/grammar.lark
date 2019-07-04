@@ -1,5 +1,5 @@
 start: seq (ATTR_SEP global_attr)*
-seq: monomer+
+seq: (WS|monomer)+
 ?monomer: alphabet_monomer | inline_monomer
 alphabet_monomer: CHAR | DELIMITED_CHARS
 inline_monomer: "[" WS* inline_monomer_attr (ATTR_SEP inline_monomer_attr)* WS* "]"

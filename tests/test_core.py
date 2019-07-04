@@ -2009,10 +2009,16 @@ class AlphabetTestCase(unittest.TestCase):
         alphabet.monomers['aA'] = core.Monomer(structure=dAMP_smiles)
         alphabet.monomers['Aa'] = core.Monomer(structure=dAMP_smiles)
         alphabet.monomers['*'] = core.Monomer(structure=dAMP_smiles)
+        alphabet.monomers['* '] = core.Monomer(structure=dAMP_smiles)
+        alphabet.monomers['\n*'] = core.Monomer(structure=dAMP_smiles)
         with self.assertRaises(ValueError):
             alphabet.monomers['{aa'] = core.Monomer(structure=dAMP_smiles)
         with self.assertRaises(ValueError):
             alphabet.monomers['A]'] = core.Monomer(structure=dAMP_smiles)
+        with self.assertRaises(ValueError):
+            alphabet.monomers[' '] = core.Monomer(structure=dAMP_smiles)
+        with self.assertRaises(ValueError):
+            alphabet.monomers['\n '] = core.Monomer(structure=dAMP_smiles)
 
     def test_get_monomer_code(self):
         alphabet = dna.canonical_dna_alphabet
