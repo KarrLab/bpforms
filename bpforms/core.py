@@ -2138,6 +2138,30 @@ class Bond(object):
             return False
         return True
 
+    def __str__(self):
+        """ Generate string representation of bond
+
+        Returns:
+            :obj:`str`: string representation of bond
+        """
+        atoms = []
+        for atom_type in ['left_bond_atoms', 'right_bond_atoms', 
+                        'left_displaced_atoms',  'right_displaced_atoms']:
+            for atom in getattr(self, atom_type):
+                if atom.charge > 0:
+                    charge = '+' + str(atom.charge)
+                elif atom.charge < 0:
+                    charge = str(atom.charge)
+                else:
+                    charge = ''
+                
+                atoms.append('{}: {}{}{}{}'.format(atom_type[0:-1].replace('_', '-'), 
+                    atom.monomer or '',
+                    atom.element,
+                    atom.position or '',
+                    charge))
+        return "[{}]".format(' | '.join(atoms))
+
 
 class BondSet(set):
     """ Set of bonds """
@@ -2608,6 +2632,12 @@ class BpForm(object):
         for i_crosslink, crosslink in enumerate(self.crosslinks):
             if len(crosslink.left_bond_atoms) != len(crosslink.right_bond_atoms):
                 errors.append('Number of right and left bond atoms must be equal for crosslink {}'.format(i_crosslink + 1))
+
+        crosslinks = list(self.crosslinks)
+        for crosslink in crosslinks:
+            for other_crosslink in crosslinks[1:]:
+                if crosslink.is_equal(other_crosslink):
+                    errors.append('Crosslink {} cannot be repeated'.format(str(crosslink)))
 
         # return errors
         return errors
@@ -3096,7 +3126,12 @@ class BpForm(object):
                     if arg_type in ['seq', 'circular']:
                         setattr(self.bp_form, arg_type, arg_val)
                     else:
-                        getattr(self.bp_form, arg_type).add(arg_val)
+                        set_val = getattr(self.bp_form, arg_type)
+                        for other in set_val:
+                            if arg_val.is_equal(other):
+                                str_arg_val = str(arg_val)
+                                raise ValueError(f'`{arg_type}` cannot contain {str_arg_val} multiple times')
+                        set_val.add(arg_val)
                 return self.bp_form
 
             @lark.v_args(inline=True)

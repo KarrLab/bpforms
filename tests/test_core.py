@@ -1025,6 +1025,16 @@ class BondTestCase(unittest.TestCase):
         self.assertFalse(bond_1.is_equal(bond_5))
         self.assertFalse(bond_1.is_equal(bond_6))
 
+    def test_str(self):
+        bond = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        self.assertEqual(str(bond), '[left-bond-atom: H]')
+
+        bond = core.Bond(right_bond_atoms=[core.Atom(core.Monomer, 'H', position=2, charge=-3)])
+        self.assertEqual(str(bond), '[right-bond-atom: H2-3]')
+
+        bond = core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'C', position=3, charge=4)])
+        self.assertEqual(str(bond), '[right-displaced-atom: C3+4]')
+
 
 class BondSetTestCase(unittest.TestCase):
     def test_add(self):
@@ -1623,6 +1633,14 @@ class BpFormTestCase(unittest.TestCase):
                       ' | crosslink: [left-bond-atom: 1C1]')
         self.assertIn(str(form), [form_str_1, form_str_2])
 
+        xlink = (' | crosslink: [right-bond-atom: 8P5-2'
+                 ' | right-displaced-atom: 5H3+1'
+                 ' | right-displaced-atom: 6H2+3]'
+                 ' | crosslink: [left-bond-atom: 1C1]')
+        form = dna.DnaForm().from_str('AAA' + xlink)
+        with self.assertRaisesRegex(lark.exceptions.VisitError, 'multiple times'):
+            form = dna.DnaForm().from_str('AAA' + xlink + xlink)
+
     def test_from_str_circular(self):
         form = dna.DnaForm().from_str('AAA')
         self.assertFalse(form.circular)
@@ -1964,6 +1982,20 @@ class BpFormTestCase(unittest.TestCase):
                     ' | left-displaced-atom: 1H5'
                     ' | right-displaced-atom: 3H5]')
         form = dna.DnaForm().from_str(form_str)
+        self.assertNotEqual(form.validate(), [])
+
+        crosslink = (' | crosslink: [left-bond-atom: 1C5'
+                     ' | right-bond-atom: 3C5'
+                     ' | left-displaced-atom: 1H5'
+                     ' | right-displaced-atom: 3H5]')
+        form = dna.DnaForm().from_str('AAA ' + crosslink)
+        self.assertEqual(form.validate(), [])
+        form.crosslinks.add(core.Bond(
+            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='C', position=5)],
+            right_bond_atoms=[core.Atom(core.Monomer, monomer=3, element='C', position=5)],
+            left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='H', position=5)],
+            right_displaced_atoms=[core.Atom(core.Monomer, monomer=3, element='H', position=5)],
+            ))
         self.assertNotEqual(form.validate(), [])
 
     def test_get_image(self):
