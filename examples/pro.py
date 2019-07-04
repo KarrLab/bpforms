@@ -13,6 +13,7 @@ from Bio.SeqRecord import SeqRecord
 from matplotlib import pyplot
 from xml.etree import ElementTree
 import bpforms
+import copy
 import csv
 import matplotlib
 import numpy
@@ -154,7 +155,7 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_mon
             if protein['pro_errors']:
                 continue
 
-            processed_form = gen_bpform(protein, monomers, apply_modifications=False)
+            processed_form = gen_bpform(protein, monomers, monomer_codes, apply_modifications=False)
             protein['processed_seq'] = str(processed_form)
             if not processed_form.validate():
                 processed_formula = processed_form.get_formula()
@@ -165,7 +166,7 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_mon
             if not protein['modifications']:
                 continue
 
-            modified_form = gen_bpform(protein, monomers)
+            modified_form = gen_bpform(protein, monomers, monomer_codes)
             protein['modified_seq'] = str(modified_form)
             if not modified_form.validate():
                 modified_formula = modified_form.get_formula()
@@ -439,13 +440,14 @@ def parse_protein(protein):
     }
 
 
-def gen_bpform(protein, pro_ids_to_bpform_monomers, apply_modifications=True):
+def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modifications=True):
     """ Generate BpForm for a modified protein in PRO
 
     Args:
         protein (:obj:`dict`): term for modified protein
         pro_ids_to_bpform_monomers (:obj:`dict`): dictionary which maps ids of monomeric forms
             used by PRO to monomeric forms in the BpForms protein alphabet
+        monomer_codes (:obj:`dict`): dictionary that maps monomers to their codes in the alphabet
         apply_modifications (:obj:`bool`, optional): if :obj:`True`, include modifications in proteoform
 
     Returns:
@@ -458,22 +460,48 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, apply_modifications=True):
     for base in protein['seq']:
         form.seq.append(monomers[base])
 
+    # apply processing
+    modifications = copy.deepcopy(protein['modifications'])
+    seq = protein['seq']
+    if protein['processing']:
+        procesed_seq = []
+        seq = ''
+        for processing in protein['processing']:
+            procesed_seq.extend(form.seq[processing['start']-1:processing['end']])
+            seq += protein['seq'][processing['start']-1:processing['end']]
+        form.seq = procesed_seq
+
+        for modification in modifications:
+            modification['processed_positions'] = []
+            for position in modification['positions']:
+                for processing in protein['processing']:
+                    processed_position = None
+                    seq_len = 0
+                    if position >= processing['start'] and position <= processing['end']:
+                        processed_position = seq_len + position - processing['start'] + 1
+                        seq_len += processing['end'] - processing['start'] + 1
+                        break
+                    if processed_position:
+                        modification['processed_positions'].append(processed_position)
+    else:
+        for modification in modifications:
+            modification['processed_positions'] = modification['positions']
+
     # apply modifications
     if apply_modifications:
         concrete = True
         protein['modified_errors'] = []
-        for modification in protein['modifications']:
+        for modification in modifications:
             monomer = pro_ids_to_bpform_monomers[modification['monomer']]
             if monomer is None:
                 concrete = False
-                monomer = bpforms.Monomer(
-                    id=modification['monomer'])
+                monomer = bpforms.Monomer(id=modification['monomer'])
                 if modification['residue']:
                     monomer.base_monomers.add(monomers[modification['residue']])
 
             if modification['positions']:
-                for position in modification['positions']:
-                    if form.seq[position - 1] == monomers[protein['seq'][position - 1]]:
+                for position in modification['processed_positions']:
+                    if form.seq[position - 1] == monomers[seq[position - 1]]:
                         form.seq[position - 1] = monomer
                     else:
                         protein['modified_errors'].append('Unable to set monomeric form at position {}'.format(
@@ -481,36 +509,48 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, apply_modifications=True):
 
             elif modification['residue']:
                 concrete = False
-                monomer.start_position = protein['seq'].find(modification['residue']) + 1
-                monomer.end_position = protein['seq'].rfind(modification['residue']) + 1
-                form.seq[monomer.start_position - 1] = monomer
+
+                monomer = bpforms.Monomer(id=monomer.id)
+
+                monomer.start_position = seq.find(modification['residue']) + 1
+                monomer.end_position = seq.rfind(modification['residue']) + 1
                 set_monomer = False
                 for i_monomer in range(monomer.start_position, monomer.end_position + 1):
-                    if form.seq[i_monomer - 1] == monomers[protein['seq'][i_monomer - 1]]:
+                    if form.seq[i_monomer - 1] == monomers[seq[i_monomer - 1]]:
                         set_monomer = True
-                        form.seq[i_monomer] = monomer
+                        form.seq[i_monomer - 1] = monomer
                         break
                 if not set_monomer:
                     protein['modified_errors'].append('Unable to set monomeric form')
             else:
                 concrete = False
-                monomer.start_position = 1
-                monomer.end_position = len(protein['seq'])
-                set_monomer = False
-                for i_monomer in range(monomer.start_position, monomer.end_position + 1):
-                    if form.seq[i_monomer - 1] == monomers[protein['seq'][i_monomer - 1]]:
-                        form.seq[i_monomer] = monomer
-                        set_monomer = True
-                        break
-                if not set_monomer:
-                    protein['modified_errors'].append('Unable to set monomeric form')
 
-    # apply processing
-    if protein['processing']:
-        procesed_seq = []
-        for processing in protein['processing']:
-            procesed_seq.extend(form.seq[processing['start']-1:processing['end']])
-        form.seq = procesed_seq
+                canonical_code = monomer.get_canonical_code(monomer_codes)
+                monomer = bpforms.Monomer(id=monomer.id)
+
+                if canonical_code and canonical_code != '?':
+                    start_position = seq.find(canonical_code) + 1
+                    end_position = seq.rfind(canonical_code) + 1
+                    if start_position == 0:
+                        protein['modified_errors'].append('Sequence does not contain residue {} for modification {}'.format(
+                            canonical_code, monomer.id))
+                    else:
+                        monomer.start_position = start_position
+                        monomer.end_position = end_position
+
+                else:
+                    monomer.start_position = 1
+                    monomer.end_position = len(seq)
+
+                if monomer.start_position:
+                    set_monomer = False
+                    for i_monomer in range(monomer.start_position, monomer.end_position + 1):
+                        if form.seq[i_monomer - 1] == monomers[seq[i_monomer - 1]]:
+                            form.seq[i_monomer - 1] = monomer
+                            set_monomer = True
+                            break
+                    if not set_monomer:
+                        protein['modified_errors'].append('Unable to set monomeric form')
 
     # validate
     if apply_modifications:
