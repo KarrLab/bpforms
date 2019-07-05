@@ -454,7 +454,9 @@
         <div class="large-5 cell notation">
           <a name="adjacent-bonds"></a>
           <h4>Bonds with adjacent monomers</h4>
-          <p>The <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes describe the bonds between successive monomeric forms. The values of these attributes are the element of the atom, the position of the atom within the monomeric form, and the charge of the atom (e.g., <tt>N3+1</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
+          <p>The <tt class="attribute">left-bond-atom</tt> and <tt class="attribute">left-displaced-atom</tt> attributes describe bonds with preceding monomeric forms; the <tt class="attribute">right-bond-atom</tt> and <tt class="attribute">right-displaced-atom</tt> attributes describe bonds with succeeding monomeric forms.</p>
+
+          <p>The values of these attributes are the element of the atom, the position of the atom within the monomeric form, and the charge of the atom (e.g., <tt>N3+1</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
           
           <p>Each monomeric form can have one or more bonds and displaced atoms with the preceding and following monomeric forms. In addition, the number of left bond atoms must be equal to the number of right bond atoms for the preceding monomeric form, and the number of right bond atoms must be equal to the number of left bond atoms for the following monomeric form. The <i>BpForms</i> software verifies these constraints. These attributes are required to calculate the molecular structure of the polymer.</p>
         </div>
@@ -462,7 +464,13 @@
           <h4>Example</h4>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              <p>The example below illustrates how to describe the modified protein residue N<sup>5</sup>-methyl-L-arginine. The green atoms indicate the atoms (C terminus) involved in left bonds to preceding monomeric forms. The dark green C atom indicates the atom which bonds with preceding monomeric forms; the light green H atom (not shown) indicates atoms which are displaced by the formation of these bonds. When the monomeric form is at the beginning of the polymer, the dark blue C atom binds with the backbone, displacing the light blue H atom which is not shown. The blue atoms indicate atoms (N terminus) involved in right bonds to following monomeric forms; the dark blue N atom indicates the atom which bonds with following monomeric forms; the light blue H atom indicates atoms displaced by the formation of these bonds.</p>
+              <p>The example below illustrates how to describe the modified protein residue N<sup>5</sup>-methyl-L-arginine.</p>
+
+              <p>The blue atoms indicate atoms (N terminus) involved in left bonds to preceding monomeric forms; the dark blue N atom indicates the atom which bonds with preceding monomeric forms; the light blue H atom indicates atoms displaced by the formation of these bonds.</p>
+              
+              <p>The green atoms indicate the atoms (C terminus) involved in right bonds to succeeding monomeric forms. The dark green C atom indicates the atom which bonds with succeeding monomeric forms; the light green H atom (not shown) indicates atoms which are displaced by the formation of these bonds.</p>
+
+              <p>When the monomeric form is at the beginning of the polymer, the dark green C atom binds with the backbone, displacing the light green H atom (not shown).</p>
             </div>
             <div class="large-8 cell syntax">
               <pre>[id: "AA0305"
@@ -470,10 +478,10 @@
   | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
   | backbone-bond-atom: C2
   | backbone-displaced-atom: H2
-  | right-bond-atom: C2
   | left-bond-atom: N15-1
   | left-displaced-atom: H15+1
   | left-displaced-atom: H15+1
+  | right-bond-atom: C2
   ]</pre>
             </div>
             <div class="large-4 cell image">
