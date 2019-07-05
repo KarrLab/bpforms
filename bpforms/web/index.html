@@ -366,7 +366,7 @@
           <ul>
             <li><tt>id</tt>, <tt>name</tt>, <tt>synonym</tt>: These attributes indicate human-readable names for the monomeric form.</li>
             <li><tt>structure</tt>: This attribute indicates the molecular structure of the monomeric form.</li>
-            <li><tt>backbone-bond-atom</tt>, <tt>backbone-displaced-atom</tt>: These attributes indicate the atoms in the structure that participate in bonds with its backbone and the atoms in the structure which are displaced by the formation of these bonds.</li>
+            <li><tt>backbone-bond-atom</tt>, <tt>backbone-displaced-atom</tt>: These attributes indicate the atoms in the structure that participate in bonds with its backbone and the atoms in the structure which are displaced by the formation of these bonds. For example, for the DNA alphabet whose monomeric forms represents DNA nucleobases, the backbone of each monomeric form is deoxyribose monophosphate, <tt>backbone-bond-atom</tt> indicates the nitrogen which bonds with the deoxyribose monophosphate backbone to form a nucleotide monophosphate, and <tt>backbone-displaced-atom</tt> indicates the hydrogen bound to the nitrogen in the nucleobase which is displaced by the formation of the bond between the nitrogen and the backbone.</li>
             <li><tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, <tt>right-displaced-atom</tt>: These attributes indicate the atoms in the structure that participate in bonds with the preceding and following monomeric forms in the sequence and the atoms that are displaced by the formation of these bonds.</li>
             <li><tt>delta-mass</tt>, <tt>delta-charge</tt>, <tt>position</tt>: These attributes can be used to describe uncertainty in the structure and location of the monomeric form.</li>
             <li><tt>identifier</tt>: This attribute indicates an entry in a database or ontology which is equivalent to the monomeric form.</li>
@@ -403,19 +403,19 @@
           <h4>Example</h4>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              <p>The text below illustrates how to describe the modified DNA nucleobase hypoxanthine, and the image below illustrates the molecule that the text specifies. The atom labels indicate the numbers of the atoms within the molecule. These numbers can be generated with OpenBabel <a href="http://openbabel.org/wiki/Category:Installation"><i class="fi-link"></i></a>.</p>
+              <p>The text below illustrates how to describe the modified DNA nucleobase 2-O-methylcytosine, and the image below illustrates the molecule that the text specifies. The atom labels indicate the numbers of the atoms within the molecule. These numbers can be generated with OpenBabel <a href="http://openbabel.org/wiki/Category:Installation"><i class="fi-link"></i></a>.</p>
             </div>
             <div class="large-8 cell syntax">
-              <pre>[id: "dI"
-    | name: "hypoxanthine"
-    | structure: "O=C1NC=NC2=C1N=CN2"
+              <pre>[id: "m2C"
+    | name: "2-O-methylcytosine"
+    | structure: "COC1=NC(N)=CC=N1"
     ]</pre>
             </div>
             <div class="large-4 cell image">
               <a data-fancybox="gallery" 
-                href="img/example/structure-dI.svg"
+                href="img/example/structure-m2C.svg"
                 data-width="600">
-                <img src="img/example/structure-dI.svg"/>
+                <img src="img/example/structure-m2C.svg"/>
               </a>
             </div>
           </div>
@@ -856,7 +856,7 @@ REMARK   1 <span class="bpform">KFLVGPDGVPVRRYSRRFLTIDIEPDIETLLSQGASA</span>
         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
         &lt;rdf:Description rdf:about="#cdc2k-p"&gt;
           &lt;bpforms:seq xmlns:bpforms="https://bpforms.org/protein"&gt;
-            <span class="bpform">MENYQKVEKIGEG<span class="modification">{AA0038}</span>span&gt;<span class="modification">{AA0039}</span>GVVYKARHKLSGRIVAMKKIRLEDESEGVPSTAIREISLLKEVNDENNRSNCVRLLDI
+            <span class="bpform">MENYQKVEKIGEG<span class="modification">{AA0038}</span><span class="modification">{AA0039}</span>GVVYKARHKLSGRIVAMKKIRLEDESEGVPSTAIREISLLKEVNDENNRSNCVRLLDI
             LHAESKLYLVFEFLDMDLKKYMDRISETGATSLDPRLVQKFTYQLVNGVNFCHSRRIIHRDLKPQNLLIDKEGNLKLADFGLARSFGVPLRN
             Y<span class="modification">{AA0038}</span>HEIVTLWYRAPEVLLGSRHYSTGVDIWSVGCIFAEMIRRSPLFPGDSEIDEIFKIFQVLGTPNEEVWPGVTLLQDYKSTFPRW
             KRMDLHKVVPNGEEDAIELLSAMLVYDPAHRISAKRALQQNYLRDFH</span>

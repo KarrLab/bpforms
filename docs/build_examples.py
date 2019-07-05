@@ -63,11 +63,11 @@ def build(dirname=default_dirname):
                  show_atom_nums=False, width=203, height=25)    
 
     draw_monomer(bpforms.DnaForm, '''
-        [id: "dI" 
-            | name: "hypoxanthine"
-            | structure: "O=C1NC=NC2=C1N=CN2"
+        [id: "m2C" 
+            | name: "2-O-methylcytosine"
+            | structure: "COC1=NC(N)=CC=N1"
             ]
-        ''', dirname, 'structure-dI', show_atom_nums=True)
+        ''', dirname, 'structure-m2C', show_atom_nums=True)
 
     draw_polymer(bpforms.DnaForm, '''
         [id: "dI" 
