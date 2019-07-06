@@ -1,6 +1,7 @@
 $(document).foundation()
 
 set_alphabet = function(data, status, jqXHR) {
+    i_hash = document.URL.indexOf('#')
     alphabet_id = document.URL.substr(i_hash + 1)
     
     $('#alphabet_heading').html(data['name'] + ' alphabet')
