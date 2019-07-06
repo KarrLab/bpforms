@@ -770,7 +770,7 @@ class Monomer(object):
 
     def get_image(self, bond_label='', displaced_label='', bond_opacity=255, displaced_opacity=31,
                   backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff,
-                  show_all_hydrogens=True, show_atom_nums=False,
+                  include_all_hydrogens=True, show_atom_nums=False,
                   width=200, height=200, image_format='svg', include_xml_header=True):
         """ Get image
 
@@ -782,7 +782,7 @@ class Monomer(object):
             backbone_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with backbone
             left_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to left
             right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to right
-            show_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, show all hydrogens
+            include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, show all hydrogens
             show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
             width (:obj:`int`, optional): width in pixels
             height (:obj:`int`, optional): height in pixels
@@ -808,7 +808,7 @@ class Monomer(object):
         
         mol = openbabel.OBMol()
         mol += self.structure
-        if show_all_hydrogens:
+        if include_all_hydrogens:
             mol.AddHydrogens()
         
         for atom_mds, label, color in atom_md_types:
@@ -2720,10 +2720,12 @@ class BpForm(object):
         assert conv.ReadString(mol, smiles)
         return mol
 
-    def get_structure(self, set_atom_ids=False):
+    def get_structure(self, include_all_hydrogens=False, set_atom_ids=False):
         """ Get an OpenBabel molecule of the structure
 
         Args:
+            include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, explicitly include all
+                hydrogens
             set_atom_ids (:obj:`bool`, optional): if :obj:`True`, set the ids of the atoms
 
         Returns:
@@ -2869,6 +2871,10 @@ class BpForm(object):
         for crosslink_atoms in crosslinks_atoms:
             i_crosslinks_bond_atoms.append(self._form_crosslink(mol, crosslink_atoms))
 
+        # include all hydrogens
+        if include_all_hydrogens:
+            mol.AddHydrogens()
+
         # return molecule
         return mol, i_monomer_atoms, i_backbone_atoms, i_monomer_backbone_bond_atoms, i_left_right_bond_atoms, i_crosslinks_bond_atoms
 
@@ -2970,17 +2976,19 @@ class BpForm(object):
 
         return i_bond_atoms
 
-    def export(self, format, options=()):
+    def export(self, format, include_all_hydrogens=False, options=()):
         """ Export structure to format
 
         Args:
             format (:obj:`str`): format
+            include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, explicitly 
+                include all hydrogens
             options (:obj:`list` of :obj:`str`, optional): export options
 
         Returns:
             :obj:`str`: format representation of structure
         """
-        structure = self.get_structure()[0]
+        structure = self.get_structure(include_all_hydrogens=include_all_hydrogens)[0]
         if structure is None:
             return None
         else:
@@ -3336,7 +3344,7 @@ class BpForm(object):
 
     def get_image(self, monomer_color=0x000000, backbone_color=0xff0000,
                   left_right_bond_color=0x00ff00, crosslink_bond_color=0x0000ff,
-                  show_atom_nums=False,
+                  include_all_hydrogens=True, show_atom_nums=False,
                   width=200, height=200, image_format='svg', include_xml_header=True):
         """ Get image
 
@@ -3345,6 +3353,7 @@ class BpForm(object):
             backbone_color (:obj:`int`, optional): color to paint atoms involved in backbones
             left_right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to left
             crosslink_bond_color (:obj:`int`, optional): color to paint atoms involved in crosslinks
+            include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, show all hydrogens
             show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
             width (:obj:`int`, optional): width in pixels
             height (:obj:`int`, optional): height in pixels
@@ -3355,7 +3364,7 @@ class BpForm(object):
             :obj:`object`: image
         """
         mol, i_monomer_atoms, i_backbone_atoms, _, i_left_right_bond_atoms, i_crosslinks_bond_atoms = self.get_structure(
-            set_atom_ids=True)
+            include_all_hydrogens=include_all_hydrogens, set_atom_ids=True)
         el_table = openbabel.OBElementTable()
 
         atom_labels = []
@@ -3404,8 +3413,10 @@ class BpForm(object):
         if not bond_sets[crosslink_bond_color]['positions']:
             bond_sets.pop(crosslink_bond_color)
 
+        cml = OpenBabelUtils.export(mol, 'cml')
+
         # draw molecule
-        return draw_molecule(self.export('cml'), 'cml', image_format=image_format,
+        return draw_molecule(cml, 'cml', image_format=image_format,
                              atom_labels=atom_labels, atom_sets=atom_sets.values(), bond_sets=bond_sets.values(),
                              show_atom_nums=show_atom_nums,
                              width=width, height=height, include_xml_header=include_xml_header)
