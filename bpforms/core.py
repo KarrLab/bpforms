@@ -768,9 +768,9 @@ class Monomer(object):
             return self.IMAGE_URL_PATTERN.format(urllib.parse.quote(smiles))
         return None
 
-    def get_image(self, bond_label='', displaced_label='', bond_opacity=255, displaced_opacity=192,
+    def get_image(self, bond_label='', displaced_label='', bond_opacity=255, displaced_opacity=31,
                   backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff,
-                  show_atom_nums=False,
+                  show_all_hydrogens=True, show_atom_nums=False,
                   width=200, height=200, image_format='svg', include_xml_header=True):
         """ Get image
 
@@ -782,6 +782,7 @@ class Monomer(object):
             backbone_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with backbone
             left_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to left
             right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to right
+            show_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, show all hydrogens
             show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
             width (:obj:`int`, optional): width in pixels
             height (:obj:`int`, optional): height in pixels
@@ -804,10 +805,16 @@ class Monomer(object):
         ]
         atom_labels = []
         atom_sets = {}
+        
+        mol = openbabel.OBMol()
+        mol += self.structure
+        if show_all_hydrogens:
+            mol.AddHydrogens()
+        
         for atom_mds, label, color in atom_md_types:
             bonding_hydrogens = []
             for atom_md in atom_mds:
-                atom = self.structure.GetAtom(atom_md.position)
+                atom = mol.GetAtom(atom_md.position)
                 if atom_md.element == 'H' and atom.GetAtomicNum() != 1:
                     atom = get_hydrogen_atom(atom, bonding_hydrogens, 0)
 
@@ -818,7 +825,9 @@ class Monomer(object):
                     atom_sets[color]['positions'].append(atom.GetIdx())
                     atom_sets[color]['elements'].append(atom_md.element)
 
-        return draw_molecule(self.export('cml'), 'cml', image_format=image_format,
+        cml = OpenBabelUtils.export(mol, 'cml')
+
+        return draw_molecule(cml, 'cml', image_format=image_format,
                              atom_labels=atom_labels, atom_sets=atom_sets.values(),
                              show_atom_nums=show_atom_nums,
                              width=width, height=height, include_xml_header=include_xml_header)

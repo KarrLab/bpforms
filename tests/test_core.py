@@ -552,8 +552,11 @@ class MonomerTestCase(unittest.TestCase):
         self.assertEqual(core.Monomer().get_image_url(), None)
 
     def test_get_image(self):
+        smi = dna.dna_alphabet.monomers.A.export('smi')
         svg = dna.dna_alphabet.monomers.A.get_image()
         self.assertTrue(svg.startswith('<?xml'))
+        smi2 = dna.dna_alphabet.monomers.A.export('smi')
+        self.assertEqual(smi2, smi)
 
         svg = dna.dna_alphabet.monomers.A.get_image(include_xml_header=False)
         self.assertTrue(svg.startswith('<svg'))
@@ -1995,7 +1998,7 @@ class BpFormTestCase(unittest.TestCase):
             right_bond_atoms=[core.Atom(core.Monomer, monomer=3, element='C', position=5)],
             left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='H', position=5)],
             right_displaced_atoms=[core.Atom(core.Monomer, monomer=3, element='H', position=5)],
-            ))
+        ))
         self.assertNotEqual(form.validate(), [])
 
     def test_get_image(self):
