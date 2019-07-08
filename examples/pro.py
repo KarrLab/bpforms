@@ -166,8 +166,10 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_mon
             if not protein['modifications']:
                 continue
 
-            modified_form = gen_bpform(protein, monomers, monomer_codes)
+            modified_form = gen_bpform(protein, monomers, monomer_codes, include_annotations=False)
             protein['modified_seq'] = str(modified_form)
+
+            modified_form = gen_bpform(protein, monomers, monomer_codes)
             if not modified_form.validate():
                 modified_formula = modified_form.get_formula()
                 protein['modified_formula'] = str(modified_formula)
@@ -401,8 +403,6 @@ def parse_protein(protein):
 
         if ', ' in modification:
             residue_positions, _, monomer = modification.partition(', ')
-            if monomer == 'PR:000026291':  # unmodified monomer
-                continue
 
             residue_codes = set()
             positions = []
@@ -440,7 +440,7 @@ def parse_protein(protein):
     }
 
 
-def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modifications=True):
+def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modifications=True, include_annotations=True):
     """ Generate BpForm for a modified protein in PRO
 
     Args:
@@ -449,6 +449,7 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
             used by PRO to monomeric forms in the BpForms protein alphabet
         monomer_codes (:obj:`dict`): dictionary that maps monomers to their codes in the alphabet
         apply_modifications (:obj:`bool`, optional): if :obj:`True`, include modifications in proteoform
+        include_annotations (:obj:`bool`, optional): if :obj:`True`, include metadata about modified monomers
 
     Returns:
         :obj:`bpforms.ProteinForm`: BpForm for a term in PRO
@@ -474,15 +475,15 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
         for modification in modifications:
             modification['processed_positions'] = []
             for position in modification['positions']:
+                seq_len = 0
+                processed_position = None
                 for processing in protein['processing']:
-                    processed_position = None
-                    seq_len = 0
                     if position >= processing['start'] and position <= processing['end']:
                         processed_position = seq_len + position - processing['start'] + 1
-                        seq_len += processing['end'] - processing['start'] + 1
                         break
-                    if processed_position:
-                        modification['processed_positions'].append(processed_position)
+                    seq_len += processing['end'] - processing['start'] + 1
+                if processed_position is not None:
+                    modification['processed_positions'].append(processed_position)
     else:
         for modification in modifications:
             modification['processed_positions'] = modification['positions']
@@ -491,12 +492,24 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
     if apply_modifications:
         concrete = True
         protein['modified_errors'] = []
+
         for modification in modifications:
             monomer = pro_ids_to_bpform_monomers[modification['monomer']]
-            if monomer is None:
+            if modification['monomer'] == 'PR:000026291':
+                if include_annotations:
+                    monomer = copy.copy(monomers[modification['residue']])
+                    monomer.base_monomers.add(monomers[modification['residue']])
+                else:
+                    monomer = bpforms.Monomer(id=modification['residue'])
+                monomer.name = None
+                monomer.synonyms = []
+                monomer.identifiers = [bpforms.Identifier('pro', modification['monomer'])]
+                monomer.comments = None
+
+            elif monomer is None:
                 concrete = False
                 monomer = bpforms.Monomer(id=modification['monomer'])
-                if modification['residue']:
+                if include_annotations and modification['residue']:
                     monomer.base_monomers.add(monomers[modification['residue']])
 
             if modification['positions']:
