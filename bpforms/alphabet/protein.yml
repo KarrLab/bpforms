@@ -23,6 +23,8 @@ monomers:
       id: L-ALPHA-ALANINE
     - ns: chebi
       id: CHEBI:16977
+    - ns: chebi
+      id: CHEBI:46217
     - ns: pdb-ccd
       id: ALA
     - ns: resid
@@ -134,6 +136,8 @@ monomers:
       id: '6267'
     - ns: chebi
       id: CHEBI:17196
+    - ns: chebi
+      id: CHEBI:50347
     structure: NC(=O)C[C@H]([NH3+])C=O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -288,6 +292,8 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:18050
+    - ns: chebi
+      id: CHEBI:30011
     - ns: resid
       id: AA0007
     - ns: metacyc.compound
@@ -344,6 +350,8 @@ monomers:
       id: GLU
     - ns: chebi
       id: CHEBI:16015
+    - ns: chebi
+      id: CHEBI:29972
     - ns: resid
       id: AA0006
     structure: O=C[C@H](CCC(=O)[O-])[NH3+]
@@ -393,6 +401,8 @@ monomers:
       id: GLZ
     - ns: chebi
       id: CHEBI:15428
+    - ns: chebi
+      id: CHEBI:29947
     structure: C([NH3+])C=O
     backbone_bond_atoms:
     - molecule: Monomer
@@ -482,6 +492,8 @@ monomers:
       id: ILE
     - ns: chebi
       id: CHEBI:17191
+    - ns: chebi
+      id: CHEBI:30009
     - ns: pubchem.compound
       id: '6306'
     - ns: resid
@@ -537,6 +549,8 @@ monomers:
       id: '6106'
     - ns: chebi
       id: CHEBI:15603
+    - ns: chebi
+      id: CHEBI:30006
     structure: O=C[C@H](CC(C)C)[NH3+]
     backbone_bond_atoms:
     - molecule: Monomer
@@ -582,6 +596,8 @@ monomers:
       id: LEU
     - ns: chebi
       id: CHEBI:18019
+    - ns: chebi
+      id: CHEBI:29967
     structure: O=C[C@H](CCCC[NH3+])[NH3+]
     backbone_bond_atoms:
     - molecule: Monomer
@@ -625,6 +641,8 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:16643
+    - ns: chebi
+      id: CHEBI:16044
     - ns: resid
       id: AA0013
     - ns: pubchem.compound
@@ -676,6 +694,8 @@ monomers:
       id: AA0014
     - ns: chebi
       id: CHEBI:17295
+    - ns: chebi
+      id: CHEBI:29997
     - ns: pdb-ccd
       id: PHE
     - ns: metacyc.compound
@@ -737,6 +757,8 @@ monomers:
       id: PRO
     - ns: chebi
       id: CHEBI:17203
+    - ns: chebi
+      id: CHEBI:50342
     structure: O=C[C@@H]1CCC[NH2+]1
     backbone_bond_atoms:
     - molecule: Monomer
@@ -790,6 +812,8 @@ monomers:
       id: SER
     - ns: chebi
       id: CHEBI:17115
+    - ns: chebi
+      id: CHEBI:29999
     - ns: resid
       id: AA0016
     structure: OC[C@H]([NH3+])C=O
@@ -836,6 +860,8 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:16857
+    - ns: chebi
+      id: CHEBI:30013
     - ns: resid
       id: AA0017
     - ns: pdb-ccd
@@ -888,6 +914,8 @@ monomers:
       id: '6305'
     - ns: chebi
       id: CHEBI:16828
+    - ns: chebi
+      id: CHEBI:29954
     - ns: metacyc.compound
       id: TRP
     - ns: resid
@@ -940,6 +968,8 @@ monomers:
       id: '6057'
     - ns: chebi
       id: CHEBI:17895
+    - ns: chebi
+      id: CHEBI:46858
     - ns: metacyc.compound
       id: TYR
     - ns: pdb-ccd
@@ -994,6 +1024,8 @@ monomers:
       id: '6287'
     - ns: chebi
       id: CHEBI:16414
+    - ns: chebi
+      id: CHEBI:30015
     - ns: resid
       id: AA0020
     structure: CC(C)C([NH3+])C=O
@@ -9324,8 +9356,6 @@ monomers:
     identifiers:
     - ns: resid
       id: AA0230
-    - ns: pdb.ligand
-      id: NO
     - ns: cas
       id: 51209-75-7
     - ns: mod

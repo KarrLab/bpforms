@@ -26,15 +26,16 @@ import requests_cache
 IN_URL = 'https://proconsortium.org/download/current/pro_nonreasoned.obo'
 IN_OBO_FILENAME = os.path.join('examples', 'pro_nonreasoned.obo')
 IN_PKL_FILENAME = os.path.join('examples', 'pro_nonreasoned.pkl')
-IN_MONOMERS_FILENAME = os.path.join('examples', 'pro_nonreasoned.monomers.csv')
+IN_TSV_FILELANE = os.path.join('examples', 'pro_input.in.tsv') # from Darren Natale
+IN_MONOMERS_FILENAME = os.path.join('examples', 'pro.monomers.csv')
 UNIPROT_SEQ_ENDPOINT = 'https://www.uniprot.org/uniprot/{}.fasta'
 UNIPROT_XML_ENDPOINT = 'https://www.uniprot.org/uniprot/{}.xml'
 
-OUT_PICKLE_FILENAME = os.path.join('examples', 'pro_nonreasoned.out.pkl')
-OUT_PICKLE_FILENAME_2 = os.path.join('examples', 'pro_nonreasoned.out.2.pkl')
-OUT_TSV_FILENAME = os.path.join('examples', 'pro_nonreasoned.tsv')
-OUT_FASTA_FILENAME = os.path.join('examples', 'pro_nonreasoned.fasta')
-OUT_FIG_FILENAME = os.path.join('examples', 'pro_nonreasoned.svg')
+OUT_PICKLE_FILENAME = os.path.join('examples', 'pro_input.out.pkl')
+OUT_PICKLE_FILENAME_2 = os.path.join('examples', 'pro_input.out.2.pkl')
+OUT_TSV_FILENAME = os.path.join('examples', 'pro_input.out.tsv')
+OUT_FASTA_FILENAME = os.path.join('examples', 'pro_input.fasta')
+OUT_FIG_FILENAME = os.path.join('examples', 'pro_input.svg')
 
 cache_name = os.path.join('examples', 'pro')
 session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
@@ -64,7 +65,8 @@ AA_CHARS_TO_CODES = {
 }
 
 
-def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_monomers_filename=IN_MONOMERS_FILENAME,
+def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv_filename=IN_TSV_FILELANE,
+        in_monomers_filename=IN_MONOMERS_FILENAME,
         max_num_proteins=None,
         out_pickle_filename=OUT_PICKLE_FILENAME, out_pickle_filename_2=OUT_PICKLE_FILENAME_2,
         out_tsv_filename=OUT_TSV_FILENAME, out_fasta_filename=OUT_FASTA_FILENAME,
@@ -74,6 +76,7 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_mon
     Args:
         in_obo_filename (:obj:`str`, optional): path to save/read PRO ontology in OBO format
         in_pkl_filename (:obj:`str`, optional): path to save/read parsed content of PRO ontology
+        in_tsv_filename (:obj:`str`, optional): path to read PRO entries in TSV format
         in_monomers_filename (:obj:`str`, optional): path to list of ids of monomeric forms used 
             by PRO and their alphabet code in tab-separated format
         max_num_proteins (:obj:`int`, optional): maximum number of proteins to analyze
@@ -87,13 +90,16 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_mon
         :obj:`list` of :obj:`dict`: proteoforms encoded with BpForms
     """
     # get the PRO ontology and extract the modified proteins from the ontology
-    proteins = get_pro(obo_filename=in_obo_filename, pkl_filename=in_pkl_filename, max_num_proteins=max_num_proteins)
+    # proteins = get_pro_from_obo(obo_filename=in_obo_filename, pkl_filename=in_pkl_filename, max_num_proteins=max_num_proteins)
+    proteins = get_pro_from_tsv(in_tsv_filename, max_num_proteins=max_num_proteins)
 
     # parse the modified proteins and retrieve their sequences
     if not os.path.isfile(out_pickle_filename):
         # parse the modified proteins and retrieve their sequences
         parsed_proteins = []
-        for protein in proteins:
+        for i_protein, protein in enumerate(proteins):
+            if i_protein % 100 == 0:
+                print('Parsing protein {} of {}'.format(i_protein + 1, len(proteins)))
             parsed_proteins.append(parse_protein(protein))
 
         # save the parsed proteins in pickle format
@@ -139,7 +145,7 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_mon
                 if monomer and monomer.get_canonical_code(monomer_codes) != modification['residue']:
                     msg = 'Modified monomeric form {} potentially inconsistent with residue {} != {}'.format(
                         modification['monomer'], modification['residue'], monomer.get_canonical_code(monomer_codes))
-                    print(protein['id'] + ': ' + msg)
+                    # print(protein['id'] + ': ' + msg)
 
     # generate BpForms for each protein
     if not os.path.isfile(out_pickle_filename_2):
@@ -247,7 +253,7 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_mon
     return proteins, parsed_proteins
 
 
-def get_pro(obo_filename=IN_OBO_FILENAME, pkl_filename=IN_PKL_FILENAME, max_num_proteins=None):
+def get_pro_from_obo(obo_filename=IN_OBO_FILENAME, pkl_filename=IN_PKL_FILENAME, max_num_proteins=None):
     """ Get the PRO ontology and extract the modified proteins from the ontology
 
     Args:
@@ -304,6 +310,32 @@ def get_pro(obo_filename=IN_OBO_FILENAME, pkl_filename=IN_PKL_FILENAME, max_num_
     return proteins
 
 
+def get_pro_from_tsv(filename, max_num_proteins=None):
+    """ Extract PRO entries from TSV file
+
+    Args:
+        obo_filename (:obj:`str`, optional): filename to save PRO in OBO format
+        max_num_proteins (:obj:`int`, optional): maximum number of proteins to analyze
+
+    Returns:
+        :obj:`list` of :obj:`dict`: list of PRO ontology terms for modified proteins
+    """
+    proteins = []
+    with open(filename, 'r') as file:
+        reader = csv.DictReader(file, fieldnames=('id', 'category', 'synonym_type', 'seq'), dialect='excel-tab')
+        for row in reader:
+            proteins.append({
+                'id': [row['id']],
+                'category': [row['category']],
+                'synonym': ['"{}" {} PRO-proteoform-std'.format(row['seq'], row['synonym_type'])],
+                })
+
+            if max_num_proteins is not None and len(proteins) >= max_num_proteins:
+                break
+
+    return proteins
+
+
 def parse_protein(protein):
     """ Parse the modification information from a term for a modified protein
 
@@ -319,7 +351,7 @@ def parse_protein(protein):
 
     seq_synonyms = []
     for synonym in protein.get('synonym', []):
-        if synonym.startswith('"UniProtKB:') and '" EXACT PRO-proteoform-std ' in synonym:
+        if synonym.startswith('"UniProtKB:') and ' PRO-proteoform-std' in synonym:
             seq_synonyms.append(synonym)
     if not seq_synonyms:
         errors.append('No synonym which defines a modified sequence')
@@ -387,7 +419,12 @@ def parse_protein(protein):
             processing_modifications = processing_modifications[len(match.group(0)):]
         else:
             break
-    if processing_modifications:
+    if processing_modifications.startswith('which') \
+        or processing_modifications.startswith('with') \
+        or 'MOD:00046 OR Thr-163, MOD:00047' in processing_modifications:
+        modifications_str = []
+        errors.append('Unable to parse sequence')
+    elif processing_modifications:
         modifications_str = processing_modifications.split('|')
     else:
         modifications_str = []
@@ -410,7 +447,9 @@ def parse_protein(protein):
                 residue_chars, _, position = residue_position.partition('-')
                 residue_code = AA_CHARS_TO_CODES[residue_chars]
                 position = int(float(position))
-                if seq[position - 1] != residue_code:
+                if position > len(seq):
+                    errors.append('Position {} is greater than the sequence length {}'.format(position, len(seq))) 
+                elif seq[position - 1] != residue_code:
                     errors.append('Position {} != {}'.format(position, residue_code))
                 residue_codes.add(residue_code)
                 positions.append(position)
@@ -497,7 +536,9 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
             monomer = pro_ids_to_bpform_monomers[modification['monomer']]
             if modification['monomer'] == 'PR:000026291':
                 if include_annotations:
-                    monomer = copy.copy(monomers[modification['residue']])
+                    monomer = bpforms.Monomer().from_dict(monomers[modification['residue']].to_dict(
+                        alphabet=bpforms.protein_alphabet),
+                        alphabet=bpforms.protein_alphabet)
                     monomer.base_monomers.add(monomers[modification['residue']])
                 else:
                     monomer = bpforms.Monomer(id=modification['residue'])
