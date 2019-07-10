@@ -115,18 +115,26 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
     with open(in_monomers_filename, 'r') as file:
         reader = csv.DictReader(file, dialect='excel')
         for row in reader:
-            monomers[row['PRO id']] = bpforms.protein_alphabet.monomers.get(row['BpForms code'], None)
+            monomers[row['PRO id']] = {
+                'mod': bpforms.protein_alphabet.monomers.get(row['BpForms code'], None),
+                'origin': [],
+                }
+            if row['Base monomer']:
+                monomers[row['PRO id']]['origin'] = row['Base monomer'].split(', ')
 
     # generate list of modified monomeric forms
     for protein in parsed_proteins:
         for modification in protein['modifications']:
             if modification['monomer'] not in monomers:
-                monomers[modification['monomer']] = None
+                monomers[modification['monomer']] = {
+                    'mod': None,
+                    'origin': [],
+                }
 
     # print list of unmapped monomers
     unmapped_monomers = []
     for monomer, code in monomers.items():
-        if not code:
+        if not code['mod']:
             unmapped_monomers.append(monomer)
     unmapped_monomers.sort()
     if unmapped_monomers:
@@ -142,10 +150,15 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
         for modification in protein.get('modifications', []):
             if modification['residue'] and modification['monomer']:
                 monomer = monomers.get(modification['monomer'], None)
-                if monomer and monomer.get_canonical_code(monomer_codes) != modification['residue']:
+                if (monomer['mod'] and monomer['mod'].get_canonical_code(monomer_codes) != modification['residue']) \
+                    or (monomer['origin'] and modification['residue'] not in monomer['origin']):
+                    codes = set(monomer['origin'])
+                    if monomer['mod']:
+                        codes.add(monomer['mod'].get_canonical_code(monomer_codes))                    
                     msg = 'Modified monomeric form {} potentially inconsistent with residue {} != {}'.format(
-                        modification['monomer'], modification['residue'], monomer.get_canonical_code(monomer_codes))
-                    # print(protein['id'] + ': ' + msg)
+                        modification['monomer'], modification['residue'], 
+                        ', '.join(codes))
+                    print(protein['id'] + ': ' + msg)
 
     # generate BpForms for each protein
     if not os.path.isfile(out_pickle_filename_2):
@@ -533,10 +546,12 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
         protein['modified_errors'] = []
 
         for modification in modifications:
-            monomer = pro_ids_to_bpform_monomers[modification['monomer']]
+            monomer = pro_ids_to_bpform_monomers[modification['monomer']]['mod']
+            origin = pro_ids_to_bpform_monomers[modification['monomer']]['origin']
             if modification['monomer'] == 'PR:000026291':
                 if include_annotations:
-                    monomer = bpforms.Monomer().from_dict(monomers[modification['residue']].to_dict(
+                    monomer = bpforms.Monomer().from_dict(
+                        monomers[modification['residue']].to_dict(
                         alphabet=bpforms.protein_alphabet),
                         alphabet=bpforms.protein_alphabet)
                     monomer.base_monomers.add(monomers[modification['residue']])
@@ -550,8 +565,10 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
             elif monomer is None:
                 concrete = False
                 monomer = bpforms.Monomer(id=modification['monomer'])
-                if include_annotations and modification['residue']:
+                if modification['residue']:
                     monomer.base_monomers.add(monomers[modification['residue']])
+                else:
+                    monomer.base_monomers.update(monomers[base] for base in origin)
 
             if modification['positions']:
                 for position in modification['processed_positions']:
@@ -564,7 +581,11 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
             elif modification['residue']:
                 concrete = False
 
-                monomer = bpforms.Monomer(id=monomer.id)
+                if pro_ids_to_bpform_monomers[modification['monomer']]['mod'] is None:
+                    base_monomers = monomer.base_monomers
+                else:
+                    base_monomers = set()
+                monomer = bpforms.Monomer(id=monomer.id, base_monomers=base_monomers)
 
                 monomer.start_position = seq.find(modification['residue']) + 1
                 monomer.end_position = seq.rfind(modification['residue']) + 1
@@ -580,7 +601,11 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
                 concrete = False
 
                 canonical_code = monomer.get_canonical_code(monomer_codes)
-                monomer = bpforms.Monomer(id=monomer.id)
+                if pro_ids_to_bpform_monomers[modification['monomer']]['mod'] is None:
+                    base_monomers = monomer.base_monomers
+                else:
+                    base_monomers = set()
+                monomer = bpforms.Monomer(id=monomer.id, base_monomers=base_monomers)
 
                 if canonical_code and canonical_code != '?':
                     start_position = seq.find(canonical_code) + 1
@@ -588,6 +613,25 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
                     if start_position == 0:
                         protein['modified_errors'].append('Sequence does not contain residue {} for modification {}'.format(
                             canonical_code, monomer.id))
+                    else:
+                        monomer.start_position = start_position
+                        monomer.end_position = end_position
+
+                elif origin:
+                    start_position = float('inf')
+                    end_position = -float('inf')
+                    for base in origin:
+                        start_pos = seq.find(base) + 1
+                        if start_pos > 0:
+                              start_position = min(start_position, start_pos)
+
+                        end_pos = seq.rfind(base) + 1
+                        if end_pos > 0:
+                            end_position = max(end_position, end_pos)
+
+                    if numpy.isinf(start_position):
+                        protein['modified_errors'].append('Sequence does not contain residues {} for modification {}'.format(
+                            ', '.join(origin), monomer.id))
                     else:
                         monomer.start_position = start_position
                         monomer.end_position = end_position

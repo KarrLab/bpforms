@@ -3,7 +3,7 @@ CHEBI:29950,C,L-cysteine residue,,,,SC[C@H]([NH3+])C=O,AA0005,CYS,,,8146405,,
 CHEBI:29952,R,L-arginine residue,,,,O=C[C@H](CCCNC(=[NH2+])N)[NH3+],AA0002,ARG,,,8146403,,
 CHEBI:29958,D,L-aspartic acid residue,,,,O=C[C@H](CC(=O)[O-])[NH3+],AA0004,ASP,,,8146397,,
 CHEBI:29979,H,L-histidine residue,,,,C(c1cnc[nH]1)[C@H]([NH3+])C=O,AA0009,HIS,,,8146377,,
-MOD:00006,,N-glycosylated residue,NGlycoRes,,class of modifications,,,,MOD:00006,,,,
+MOD:00006,,N-glycosylated residue,NGlycoRes,"N, R, W",class of modifications,,,,MOD:00006,,,,
 MOD:00036,AA0027 ,"(2S,3R)-3-hydroxyaspartic acid",(3R)3HyAsp,D,,O=C[C@H]([C@H](C(=O)[O-])O)[NH3+],AA0027 ,BH2,MOD:00036,,,,
 MOD:00037,AA0028,5-hydroxy-L-lysine,5HyLys,K,,[NH3+]C[C@@H](CC[C@@H](C=O)[NH3+])O,AA0028,LYZ,MOD:00037,CHEBI:18040,,1190-94-9,
 MOD:00038,AA0029,3-hydroxy-L-proline,,P,,O=C[C@H]1[NH2+]CC[C@@H]1O,AA0029,HY3,MOD:00038,CHEBI:16889,,4298-08-2,
@@ -75,7 +75,7 @@ MOD:01399,AA0476,N6-(ADP-ribosyl)-L-lysine,,K,,O=C[C@H](CCCC[NH2+][C@H]1O[C@@H](
 MOD:01684,,palmitoylated-L-cysteine,PamCys,C,class of modifications,,,,MOD:01684,,,,
 MOD:01786,AA0537,3'-nitro-L-tyrosine,,Y,,O=C[C@H](Cc1ccc(c(c1)N(=O)=O)[O-])[NH3+],AA0537,NIY,MOD:01786,CHEBI:44454,,3604-79-3,
 PR:000026291,,unmodified amino-acid residue,,,class of modifications,,,,,,,,
-PR:000044772,,K63-polyubiquitinylated lysine,K63polyUbiqLys,ubiquitinylated lysine,crosslink,,,,,,,,"A ubiquitinylated lysine in which the crosslink is to a polymer of ubiquitin chains, each crosslinked at the Lys-63 position with the C-terminal glycine of the succeeding chain. [PRO:DAN]"
+PR:000044772,,K63-polyubiquitinylated lysine,K63polyUbiqLys,K,crosslink,,,,,,,,"A ubiquitinylated lysine in which the crosslink is to a polymer of ubiquitin chains, each crosslinked at the Lys-63 position with the C-terminal glycine of the succeeding chain. [PRO:DAN]"
 CHEBI:16044,M,L-methionine residue,,M,,CSCC[C@H]([NH3+])C=O,AA0013,MET,,CHEBI:16044,6137,,
 CHEBI:29947,G,glycine residue,,G,,C([NH3+])C=O,AA0008,GLZ,,CHEBI:29947,750,,
 CHEBI:29954,W,L-tryptophan residue,,W,,O=C[C@H](Cc1c[nH]c2c1cccc2)[NH3+],AA0018,TRP,,CHEBI:29954,6305,,
