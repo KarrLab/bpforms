@@ -2738,7 +2738,7 @@ class BpForm(object):
                 * :obj:`list`: atoms involved in or displaced by crosslinks
                 * :obj:`list` of :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of monomeric forms
                 * :obj:`list` of :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of backbones
-                * :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of crosslinks                
+                * :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of crosslinks
         """
         if not self.seq:
             return (None, None, None, None, None, None, None)
@@ -2998,7 +2998,7 @@ class BpForm(object):
 
         Args:
             format (:obj:`str`): format
-            include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, explicitly 
+            include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, explicitly
                 include all hydrogens
             options (:obj:`list` of :obj:`str`, optional): export options
 

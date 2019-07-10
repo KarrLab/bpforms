@@ -5,7 +5,7 @@
 
 `BpForms` emcompasses five tools:
 
-* A notation for concretely describing the primary structures of non-canonical biopolymers. See :numref:`notation` for detailed information. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomeric form at the fourth position:  
+* A notation for concretely describing the primary structures of non-canonical biopolymers. See :numref:`notation` for detailed information. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomeric form at the fourth position:
   ::
 
     ACG[
@@ -15,7 +15,7 @@
   This concrete representation enables the `BpForms` software tools to calculate properties of non-canonical biopolymers.
 
 * Tools for calculating properties of non-canonical biopolymers including their chemical formulae, molecular weights, charges, and major protonation and tautomerization states.
-  
+
   * A web-based graphical interface: See `https://bpforms.org <https://bpforms.org>`_ and :numref:`graphical_web_interface`.
   * A JSON REST API: See `https://bpforms.org/api <https://bpforms.org/api>`_ and :numref:`rest_api`.
   * A command line interface: See :numref:`cli`.

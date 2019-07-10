@@ -58,10 +58,10 @@ set_properties = function(data, status, jqXHR){
                 warnings += ' Visualizations are limited to polymers with length <= 20.'
                 warnings += ' Please download <i>BpForms</i> to calculate properties of longer biopolymers.'
             } else {
-                warnings = 'Warning: ' 
-                    + data['warnings'] 
+                warnings = 'Warning: '
+                    + data['warnings']
                     + '. Visualizations are limited to polymers with length <= 20'
-                    + '. Please download <i>BpForms</i> to calculate properties of longer biopolymers.'                
+                    + '. Please download <i>BpForms</i> to calculate properties of longer biopolymers.'
             }
             $("#warnings").html(warnings)
             $("#warnings").css('padding-bottom', '16px')

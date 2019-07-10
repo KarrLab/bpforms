@@ -3,7 +3,7 @@ $(document).foundation()
 set_alphabet = function(data, status, jqXHR) {
     i_hash = document.URL.indexOf('#')
     alphabet_id = document.URL.substr(i_hash + 1)
-    
+
     $('#alphabet_heading').html(data['name'] + ' alphabet')
     $('#alphabet_description').html(data['description'])
 
@@ -13,23 +13,23 @@ set_alphabet = function(data, status, jqXHR) {
     if (alphabet_id == 'dna' || alphabet_id == 'canonical_dna') {
         $('#monomer-legend-left').addClass('hide')
         $('#monomer-legend-right').addClass('hide')
-    }    
+    }
     if (alphabet_id == 'rna' || alphabet_id == 'canonical_rna') {
         $('#monomer-legend-left').addClass('hide')
     }
-    
+
     var html = ''
-    
+
     codes = Object.keys(data['monomers'])
     codes.sort()
     for (i_monomer in codes) {
         code = codes[i_monomer]
         monomer = data['monomers'][code]
         html += '<div class="cell monomer">'
-        
-        // code        
+
+        // code
         html += '<div class="code">' + code + '</div>'
-        
+
         // structure
         if (monomer['structure'] == null) {
             img = ''
@@ -37,18 +37,18 @@ set_alphabet = function(data, status, jqXHR) {
             img = '<img class="lazy" data-src="img/alphabet/' + alphabet_id + '/' + code + '.png">'
         }
         html += '<div class="structure">' + img + '</div>'
-        
+
         // show/hide details
         html += '<div class="toggle" id="monomer_' + i_monomer.toString() + '_toggle">'
         html += '<a onclick="javascript: toggle_monomer_details(\'' + i_monomer.toString() + '\')">Show details</a>'
         html += '</div>'
-        
+
         /////////////////////
         // details
         /////////////////////
         html += '<div id="monomer_' + i_monomer.toString() + '_details" class="details hide">'
         html += '<table width="100%"><tbody>'
-        
+
         // id
         if (monomer['id'] != null)
             html += '<tr><th>Id</th><td>' + monomer['id'] + '</td></tr>'
@@ -59,14 +59,14 @@ set_alphabet = function(data, status, jqXHR) {
 
         // synonyms
         if (monomer['synonyms'] != null)
-            html += '<tr><th>Synonyms</th><td><p>' + monomer['synonyms'].join('</p><p>') + '</p></td></tr>'        
+            html += '<tr><th>Synonyms</th><td><p>' + monomer['synonyms'].join('</p><p>') + '</p></td></tr>'
 
         // identifiers
         identifiers = monomer['identifiers']
         if (monomer['identifiers'] != null) {
             identifiers_str = ''
             for (i in identifiers) {
-                ns_long = identifiers[i]['ns']                
+                ns_long = identifiers[i]['ns']
                 switch (identifiers[i]['ns']){
                     case 'cas':
                         ns_short = 'CAS'
@@ -112,9 +112,9 @@ set_alphabet = function(data, status, jqXHR) {
                         ns_short = 'RESID'
                         url = 'https://annotation.dbi.udel.edu/cgi-bin/resid?id=' + identifiers[i]['id']
                         break;
-                        
+
                 }
-                
+
                 if (url)
                     identifiers_str += '<p>' + ns_short + ': <a href="' + url + '">' + identifiers[i]['id'] + '</a></p>'
                 else
@@ -122,51 +122,51 @@ set_alphabet = function(data, status, jqXHR) {
             }
             html += '<tr><th>Links</th><td>' + identifiers_str + '</td></tr>'
         }
-        
+
         // base
         if (monomer['base_monomers'] != null)
             html += '<tr><th>Base<br/>monomer(s)</th><td>' + monomer['base_monomers'].join(', ') + '</td></tr>'
-        
+
         // binds backbone?
         html += '<tr><th>Binds<br/>backbone?</th><td>' + (monomer['binds_backbone'] ? 'Yes' : 'No') + '</td></tr>'
-        
+
         // binds left?
         html += '<tr><th>Binds<br/>left?</th><td>' + (monomer['binds_left'] ? 'Yes' : 'No') + '</td></tr>'
-        
+
         // binds right?
         html += '<tr><th>Binds<br/>right?</th><td>' + (monomer['binds_right'] ? 'Yes' : 'No') + '</td></tr>'
-        
+
         // structure
         html += '<tr><th>Structure<br/>(SMILES)</th><td>' + monomer['structure'] + '</td></tr>'
-        
+
         // delta mass
         if (monomer['delta_mass'])
             html += '<tr><th>Mass<br/>uncertainty</th><td>' + monomer['delta_mass'] + '</td></tr>'
-        
+
         // delta charge
         if (monomer['delta_charge'])
             html += '<tr><th>Charge<br/>uncertainity</th><td>' + monomer['delta_charge'] + '</td></tr>'
-        
+
         // start/end position
         if (monomer['start_position'] || monomer['end_position'])
             html += '<tr><th>Position<br/>uncertainty</th><td>' + monomer['start_position'] + '-' + monomer['end_position'] + '</td></tr>'
-        
+
         // formula
         formula = ''
         for (el in monomer['formula'])
             formula += el + '<sub>' + monomer['formula'][el] + '</sub>'
         html += '<tr><th>Formula</th><td>' + formula + '</td></tr>'
-        
+
         // molecular weight
         html += '<tr><th>Mass</th><td>' + (Math.round(monomer['mol_wt'] * 1000) / 1000) + '</td></tr>'
-        
+
         // charge
         html += '<tr><th>Charge</th><td>' + monomer['charge'] + '</td></tr>'
-        
+
         // comments
         if (monomer['comments'])
             html += '<tr><th>Comments</th><td>' + monomer['comments'] + '</td></tr>'
-        
+
         html += '</tbody></table>'
         html += '</div>'
         html += '</div>'
@@ -202,7 +202,7 @@ window.onhashchange = get_alphabet
 toggle_monomer_details = function(i_monomer) {
     details = $('#monomer_' + i_monomer + '_details')
     details.toggleClass('hide');
-    
+
     if (details.hasClass('hide'))
         $('#monomer_' + i_monomer + '_toggle>a').html('Show details');
     else

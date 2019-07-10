@@ -69,8 +69,8 @@ class ExamplesTestCase(unittest.TestCase):
         out_fig_filename = os.path.join(self.dirname, 'out.svg')
 
         pro.run(in_pkl_filename=in_pkl_filename, max_num_proteins=100,
-                out_pickle_filename=out_pickle_filename, 
-                out_pickle_filename_2=out_pickle_filename_2, 
+                out_pickle_filename=out_pickle_filename,
+                out_pickle_filename_2=out_pickle_filename_2,
                 out_tsv_filename=out_tsv_filename, out_fasta_filename=out_fasta_filename,
                 out_fig_filename=out_fig_filename,
                 )

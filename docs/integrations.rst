@@ -7,5 +7,5 @@ Please see `https://www.bpforms.org` for information about integrating BpForms w
 * `CellML <https://www.cellml.org>`_: kinetic models
 * `FASTA <https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp>`_: sets of sequences
 * `PDB <http://www.wwpdb.org/documentation/file-format>`_: 3D structures of macromolecules
-* `SBML <https://sbml.org>`_: kinetic models, and 
+* `SBML <https://sbml.org>`_: kinetic models, and
 * `SBOL <http://sbolstandard.org/>`_: in silico designs.

@@ -268,12 +268,12 @@ def plot_codes(code_freq, monomer_codes, title, axis, ignore_canonical=False):
     axis.set_xticks(y_pos)
     axis.set_xticklabels(x_tick_labels, rotation=270, fontsize=6, fontfamily='Raleway')
     axis.set_ylabel('Frequency (%)', fontdict={
-        'fontsize': 10, 
+        'fontsize': 10,
         'fontweight': 'regular',
         'fontfamily': 'Raleway',
         })
     axis.set_title(title, fontdict={
-        'fontsize': 10, 
+        'fontsize': 10,
         'fontweight': 'regular',
         'fontfamily': 'Raleway',
         })

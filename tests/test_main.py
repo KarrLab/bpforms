@@ -71,7 +71,7 @@ class CliTestCase(unittest.TestCase):
                 self.assertEqual(captured.stderr.get_text(), '')
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['validate', 'canonical_dna', 
+            with __main__.App(argv=['validate', 'canonical_dna',
                 ('ACG'
                 '[id: "dI" | structure: "{}" | backbone-bond-atom: N10 | backbone-displaced-atom: H10 ]'
                 'T').format(dI_smiles)]) as app:

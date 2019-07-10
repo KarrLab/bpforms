@@ -77,7 +77,7 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
         in_obo_filename (:obj:`str`, optional): path to save/read PRO ontology in OBO format
         in_pkl_filename (:obj:`str`, optional): path to save/read parsed content of PRO ontology
         in_tsv_filename (:obj:`str`, optional): path to read PRO entries in TSV format
-        in_monomers_filename (:obj:`str`, optional): path to list of ids of monomeric forms used 
+        in_monomers_filename (:obj:`str`, optional): path to list of ids of monomeric forms used
             by PRO and their alphabet code in tab-separated format
         max_num_proteins (:obj:`int`, optional): maximum number of proteins to analyze
         out_pickle_filename (:obj:`str`, optional): path to save results in pickle format
@@ -154,9 +154,9 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
                     or (monomer['origin'] and modification['residue'] not in monomer['origin']):
                     codes = set(monomer['origin'])
                     if monomer['mod']:
-                        codes.add(monomer['mod'].get_canonical_code(monomer_codes))                    
+                        codes.add(monomer['mod'].get_canonical_code(monomer_codes))
                     msg = 'Modified monomeric form {} potentially inconsistent with residue {} != {}'.format(
-                        modification['monomer'], modification['residue'], 
+                        modification['monomer'], modification['residue'],
                         ', '.join(codes))
                     print(protein['id'] + ': ' + msg)
 
@@ -461,7 +461,7 @@ def parse_protein(protein):
                 residue_code = AA_CHARS_TO_CODES[residue_chars]
                 position = int(float(position))
                 if position > len(seq):
-                    errors.append('Position {} is greater than the sequence length {}'.format(position, len(seq))) 
+                    errors.append('Position {} is greater than the sequence length {}'.format(position, len(seq)))
                 elif seq[position - 1] != residue_code:
                     errors.append('Position {} != {}'.format(position, residue_code))
                 residue_codes.add(residue_code)

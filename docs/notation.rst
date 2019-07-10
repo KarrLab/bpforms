@@ -63,7 +63,7 @@ Intrachain crosslinks
 ^^^^^^^^^^^^^^^^^^^^^
 
 The ``crosslink``,  ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe additional covalent bonds between non-adjacent monomeric forms, such as DNA crosslinks caused chemotherapeutics and disulfide bonds between cysteines in proteins. The values of the ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes indicate the atoms involved in or displaced by the formation of each covalent bond. The values of these attributes represent (i) the index of the monomeric form involved in the bond, (ii) the element in the monomeric form involved in the bond, (iii) the atom index of the element in the monomeric form involved in the bond, and (iv) the charge of atom involved in the bond.::
-  
+
   AC | crosslink: [
     right-bond-atom: 1N4 |
     left-bond-atom: 2C8 |

@@ -35,7 +35,7 @@ canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
 
 
 class ProteinAlphabetBuilder(AlphabetBuilder):
-    """ Build protein alphabet from the `PDB Chemical Component Dictionary <http://www.wwpdb.org/data/ccd>` and 
+    """ Build protein alphabet from the `PDB Chemical Component Dictionary <http://www.wwpdb.org/data/ccd>` and
     `RESID <https://proteininformationresource.org/resid/>`_ """
 
     MAX_RETRIES = 5

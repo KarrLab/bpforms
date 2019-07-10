@@ -33,7 +33,7 @@ def build(alphabet_ids=None, pro_max_num_proteins=None):
     * Restart server
 
     Args:
-        alphabet_ids (:obj:`list` of :obj:`str`): list of ids of alphabets to cache; if :obj:`None`, 
+        alphabet_ids (:obj:`list` of :obj:`str`): list of ids of alphabets to cache; if :obj:`None`,
             cache all alphabets
         max_num_proteins (:obj:`int`, optional): maximum number of proteins in PRO to analyze
     """
@@ -87,7 +87,7 @@ def build(alphabet_ids=None, pro_max_num_proteins=None):
                 file.write(monomer.get_image(image_format='png', width=250, height=150))
 
     # build examples
-    build_examples.build()    
+    build_examples.build()
     modomics.run()
     if pro_max_num_proteins is not None and pro_max_num_proteins:
         pro.run(max_num_proteins=pro_max_num_proteins)
