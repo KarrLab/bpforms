@@ -805,12 +805,12 @@ class Monomer(object):
         ]
         atom_labels = []
         atom_sets = {}
-        
+
         mol = openbabel.OBMol()
         mol += self.structure
         if include_all_hydrogens:
             mol.AddHydrogens()
-        
+
         for atom_mds, label, color in atom_md_types:
             bonding_hydrogens = []
             for atom_md in atom_mds:
@@ -2154,8 +2154,8 @@ class Bond(object):
             :obj:`str`: string representation of bond
         """
         atoms = []
-        for atom_type in ['left_bond_atoms', 'right_bond_atoms', 
-                        'left_displaced_atoms',  'right_displaced_atoms']:
+        for atom_type in ['left_bond_atoms', 'right_bond_atoms',
+                          'left_displaced_atoms',  'right_displaced_atoms']:
             for atom in getattr(self, atom_type):
                 if atom.charge > 0:
                     charge = '+' + str(atom.charge)
@@ -2163,12 +2163,12 @@ class Bond(object):
                     charge = str(atom.charge)
                 else:
                     charge = ''
-                
-                atoms.append('{}: {}{}{}{}'.format(atom_type[0:-1].replace('_', '-'), 
-                    atom.monomer or '',
-                    atom.element,
-                    atom.position or '',
-                    charge))
+
+                atoms.append('{}: {}{}{}{}'.format(atom_type[0:-1].replace('_', '-'),
+                                                   atom.monomer or '',
+                                                   atom.element,
+                                                   atom.position or '',
+                                                   charge))
         return "[{}]".format(' | '.join(atoms))
 
 
@@ -2729,25 +2729,30 @@ class BpForm(object):
             set_atom_ids (:obj:`bool`, optional): if :obj:`True`, set the ids of the atoms
 
         Returns:
-            :obj:`openbabel.OBMol`: OpenBabel molecule of the structure
-            :obj:`list`: atoms involved in or displaced by bond formation
-            :obj:`list`: atoms involved in or displaced by crosslinks
-            :obj:`list` of :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of monomeric forms
-            :obj:`list` of :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of backbones
-            :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of crosslinks
+            :obj:`tuple`:
+                * :obj:`openbabel.OBMol`: OpenBabel molecule of the structure
+                * :obj:`dict` of :obj:`dict`: dictionary which maps indices (1-based) of monomeric forms
+                    to dictionaries which map types of components of monomeric forms ('monomer' or 'backbone')
+                    to dictionaries which map indices (1-based) of atoms to atoms (instances of :obj:`openbabel.OBAtom`)
+                * :obj:`list`: atoms involved in or displaced by bond formation
+                * :obj:`list`: atoms involved in or displaced by crosslinks
+                * :obj:`list` of :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of monomeric forms
+                * :obj:`list` of :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of backbones
+                * :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of crosslinks                
         """
         if not self.seq:
-            return (None, None, None, None, None, None)
+            return (None, None, None, None, None, None, None)
 
         if len(self.seq) > config['max_len_get_structure']:
             warnings.warn('Structure calculations are limited to forms with length <= {}'.format(
                 config['max_len_get_structure']), BpFormsWarning)
-            return (None, None, None, None, None, None)
+            return (None, None, None, None, None, None, None)
 
         mol = openbabel.OBMol()
         n_atom = 0
 
         # join molecules and get bonded and displaced atoms
+        atom_map = {}
         atoms = []
         n_atoms = []
         i_monomer_atoms = []
@@ -2774,6 +2779,13 @@ class BpForm(object):
 
             if monomer.backbone_bond_atoms and backbone_structure:
                 mol += backbone_structure
+
+            atom_map[i_monomer + 1] = {
+                'monomer': {i_atom + 1: mol.GetAtom(n_atom + i_atom + 1)
+                            for i_atom in range(monomer.structure.NumAtoms())},
+                'backbone': {i_atom + 1: mol.GetAtom(n_atom + monomer.structure.NumAtoms() + i_atom + 1)
+                             for i_atom in range(backbone_structure.NumAtoms())},
+            }
 
             monomer_atom_attrs = ['monomer', [
                 ['backbone_bond_atoms', monomer.backbone_bond_atoms],
@@ -2876,7 +2888,12 @@ class BpForm(object):
             mol.AddHydrogens()
 
         # return molecule
-        return mol, i_monomer_atoms, i_backbone_atoms, i_monomer_backbone_bond_atoms, i_left_right_bond_atoms, i_crosslinks_bond_atoms
+        return (mol, atom_map,
+                i_monomer_atoms,
+                i_backbone_atoms,
+                i_monomer_backbone_bond_atoms,
+                i_left_right_bond_atoms,
+                i_crosslinks_bond_atoms)
 
     def _bond_monomer_backbone(self, mol, subunit_atoms):
         """ Bond a monomeric form to a backbone
@@ -3363,7 +3380,7 @@ class BpForm(object):
         Returns:
             :obj:`object`: image
         """
-        mol, i_monomer_atoms, i_backbone_atoms, _, i_left_right_bond_atoms, i_crosslinks_bond_atoms = self.get_structure(
+        mol, _, i_monomer_atoms, i_backbone_atoms, _, i_left_right_bond_atoms, i_crosslinks_bond_atoms = self.get_structure(
             include_all_hydrogens=include_all_hydrogens, set_atom_ids=True)
         el_table = openbabel.OBElementTable()
 

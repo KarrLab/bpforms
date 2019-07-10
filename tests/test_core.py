@@ -1655,6 +1655,18 @@ class BpFormTestCase(unittest.TestCase):
         self.assertTrue(form.circular)
         self.assertEqual(str(form), 'AAA | circular')
 
+    def test_get_structure_atom_map(self):
+        form = dna.DnaForm().from_str('ACG')
+        atom_map = form.get_structure()[1]
+        self.assertEqual(sorted(atom_map.keys()), [1, 2, 3])
+        self.assertEqual(sorted(atom_map[2].keys()), ['backbone', 'monomer'])
+        self.assertEqual(sorted(atom_map[2]['monomer'].keys())[0], 1)
+        self.assertEqual(sorted(atom_map[2]['monomer'].keys())[-1],
+                         dna.dna_alphabet.monomers.C.structure.NumAtoms())
+        for i_atom in range(dna.dna_alphabet.monomers.C.structure.NumAtoms()):
+            self.assertEqual(atom_map[2]['monomer'][i_atom + 1].GetAtomicNum(),
+                             dna.dna_alphabet.monomers.C.structure.GetAtom(i_atom + 1).GetAtomicNum())
+
     def test__bond_monomer_backbone(self):
         form = dna.CanonicalDnaForm()
 
