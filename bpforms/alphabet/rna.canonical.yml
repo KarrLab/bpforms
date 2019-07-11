@@ -1,6 +1,6 @@
 id: canonical_rna
-name: Canonical RNA nucleosides
-description: The canonical RNA nucleosides
+name: Canonical RNA nucleotide monophosphates
+description: The canonical RNA nucleotide monophosphates
 monomers:
   A:
     id: adenosine
@@ -16,23 +16,24 @@ monomers:
       id: A
     - ns: modomics.short_name
       id: A
-    structure: NC1=C2N=CN(C3OC(CO)C(O)C3O)C2=NC=N1
-    backbone_bond_atoms:
+    structure: OC1C(O)C(OC1n1cnc2c1ncnc2N)COP(=O)([O-])[O-]
+    left_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 20
+    left_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 11
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 11
+      position: 23
+      charge: -1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 13
+      position: 4
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 13
+      position: 4
   C:
     id: cytidine
     name: cytidine
@@ -47,23 +48,24 @@ monomers:
       id: C
     - ns: modomics.short_name
       id: C
-    structure: NC1=NC(=O)N(C=C1)C1OC(CO)C(O)C1O
-    backbone_bond_atoms:
+    structure: OC1C(O)C(OC1n1ccc(nc1=O)N)COP(=O)([O-])[O-]
+    left_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 18
+    left_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 13
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 13
+      position: 21
+      charge: -1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 4
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 4
   G:
     id: guanosine
     name: guanosine
@@ -78,23 +80,24 @@ monomers:
       id: G
     - ns: modomics.short_name
       id: G
-    structure: NC1=NC2=C(N=CN2C2OC(CO)C(O)C2O)C(=O)N1
-    backbone_bond_atoms:
+    structure: OC1C(O)C(OC1n1cnc2c1nc(N)[nH]c2=O)COP(=O)([O-])[O-]
+    left_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 22
+    left_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 13
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 13
+      position: 25
+      charge: -1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 4
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 15
+      position: 4
   U:
     id: uridine
     name: uridine
@@ -109,20 +112,21 @@ monomers:
       id: U
     - ns: modomics.short_name
       id: U
-    structure: OCC1OC(C(O)C1O)N1C=CC(=O)NC1=O
-    backbone_bond_atoms:
+    structure: OC1C(O)C(OC1n1ccc(=O)[nH]c1=O)COP(=O)([O-])[O-]
+    left_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 19
+    left_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 1
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
+      position: 22
+      charge: -1
     right_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 9
+      position: 4
     right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 9
+      position: 4

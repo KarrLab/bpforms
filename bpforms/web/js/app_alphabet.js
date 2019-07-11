@@ -76,6 +76,10 @@ set_alphabet = function(data, status, jqXHR) {
                         ns_short = 'ChEBI'
                         url = 'https://www.ebi.ac.uk/chebi/searchId.do?chebiId=' + identifiers[i]['id']
                         break;
+                    case 'dnamod':
+                        ns_short = 'DNAmod'
+                        url = 'https://dnamod.hoffmanlab.org/' + identifiers[i]['id'] + '.html'
+                        break;
                     case 'go':
                         ns_short = 'GO'
                         url = 'http://amigo.geneontology.org/amigo/term/' + identifiers[i]['id']

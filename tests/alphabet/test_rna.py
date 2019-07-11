@@ -58,15 +58,15 @@ class RnaTestCase(unittest.TestCase):
         shutil.rmtree(self.dirname)
 
     def test_rna_alphabet(self):
-        self.assertEqual(rna.rna_alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13'))
-        self.assertEqual(rna.rna_alphabet.monomers.C.get_formula(), EmpiricalFormula('C9O5N3H13'))
-        self.assertEqual(rna.rna_alphabet.monomers.G.get_formula(), EmpiricalFormula('C10O5N5H13'))
-        self.assertEqual(rna.rna_alphabet.monomers.U.get_formula(), EmpiricalFormula('C9O6N2H12'))
+        self.assertEqual(rna.rna_alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13') + EmpiricalFormula('PO3H-1'))
+        self.assertEqual(rna.rna_alphabet.monomers.C.get_formula(), EmpiricalFormula('C9O5N3H13') + EmpiricalFormula('PO3H-1'))
+        self.assertEqual(rna.rna_alphabet.monomers.G.get_formula(), EmpiricalFormula('C10O5N5H13') + EmpiricalFormula('PO3H-1'))
+        self.assertEqual(rna.rna_alphabet.monomers.U.get_formula(), EmpiricalFormula('C9O6N2H12') + EmpiricalFormula('PO3H-1'))
 
-        self.assertEqual(rna.canonical_rna_alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13'))
-        self.assertEqual(rna.canonical_rna_alphabet.monomers.C.get_formula(), EmpiricalFormula('C9O5N3H13'))
-        self.assertEqual(rna.canonical_rna_alphabet.monomers.G.get_formula(), EmpiricalFormula('C10O5N5H13'))
-        self.assertEqual(rna.canonical_rna_alphabet.monomers.U.get_formula(), EmpiricalFormula('C9O6N2H12'))
+        self.assertEqual(rna.canonical_rna_alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13') + EmpiricalFormula('PO3H-1'))
+        self.assertEqual(rna.canonical_rna_alphabet.monomers.C.get_formula(), EmpiricalFormula('C9O5N3H13') + EmpiricalFormula('PO3H-1'))
+        self.assertEqual(rna.canonical_rna_alphabet.monomers.G.get_formula(), EmpiricalFormula('C10O5N5H13') + EmpiricalFormula('PO3H-1'))
+        self.assertEqual(rna.canonical_rna_alphabet.monomers.U.get_formula(), EmpiricalFormula('C9O6N2H12') + EmpiricalFormula('PO3H-1'))
 
     def test_RnaForm_init(self):
         rna.RnaForm()
@@ -96,15 +96,14 @@ class RnaTestCase(unittest.TestCase):
         self.assertEqual(form.export('inchi'), ump_inchi)
 
         form = rna.CanonicalRnaForm().from_str('AA')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('H-1O3P') * 2 + EmpiricalFormula('OH') * -1
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -1
                          + monomers.A.get_formula() * 2)
         self.assertEqual(form.get_formula(), EmpiricalFormula('C20H23N10O13P2'))
         self.assertEqual(form.get_charge(), -3)
-        print(form.export('inchi'))
         self.assertEqual(form.export('inchi'), di_amp_inchi)
 
         form = rna.CanonicalRnaForm().from_str('AC')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('H-1O3P') * 2 + EmpiricalFormula('OH') * -1
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -1
                          + monomers.A.get_formula()
                          + monomers.C.get_formula())
         self.assertEqual(form.get_formula(), EmpiricalFormula('C19H23O14N8P2'))
@@ -112,7 +111,7 @@ class RnaTestCase(unittest.TestCase):
         self.assertEqual(form.export('inchi'), AC_inchi)
 
         form = rna.CanonicalRnaForm().from_str('ACG')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('H-1O3P') * 3 + EmpiricalFormula('OH') * -2
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -2
                          + monomers.A.get_formula()
                          + monomers.C.get_formula()
                          + monomers.G.get_formula())
@@ -121,7 +120,7 @@ class RnaTestCase(unittest.TestCase):
         self.assertEqual(form.export('inchi'), ACG_inchi)
 
         form = rna.RnaForm().from_str('ACG')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('H-1O3P') * 3 + EmpiricalFormula('OH') * -2
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -2
                          + monomers.A.get_formula()
                          + monomers.C.get_formula()
                          + monomers.G.get_formula())
@@ -130,7 +129,7 @@ class RnaTestCase(unittest.TestCase):
         self.assertEqual(form.export('inchi'), ACG_inchi)
 
         form = rna.CanonicalRnaForm().from_str('ACGU')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('H-1O3P') * 4 + EmpiricalFormula('OH') * -3
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -3
                          + monomers.A.get_formula()
                          + monomers.C.get_formula()
                          + monomers.G.get_formula()
@@ -139,20 +138,13 @@ class RnaTestCase(unittest.TestCase):
         self.assertEqual(form.get_charge(), -5)
 
         form = rna.RnaForm().from_str('ACGU')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('H-1O3P') * 4 + EmpiricalFormula('OH') * -3
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -3
                          + monomers.A.get_formula()
                          + monomers.C.get_formula()
                          + monomers.G.get_formula()
                          + monomers.U.get_formula())
         self.assertEqual(form.get_formula(), EmpiricalFormula('C38H44O29N15P4'))
         self.assertEqual(form.get_charge(), -5)
-
-    def test_RnaAlphabetBuilder_list_monomers(self):
-        path = os.path.join(self.dirname, 'alphabet.yml')
-        with mock.patch.object(rna.RnaAlphabetBuilder, 'get_nucleoside_details_from_modomics', return_value=(None, IdentifierSet())):
-            alphabet = rna.RnaAlphabetBuilder().run(path=path)
-        self.assertEqual(alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13'))
-        self.assertTrue(os.path.isfile(path))
 
     def test_RnaAlphabetBuilder_get_nucleoside_details_from_modomics(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
@@ -176,7 +168,8 @@ class RnaTestCase(unittest.TestCase):
         path = os.path.join(self.dirname, 'alphabet.yml')
         alphabet = rna.RnaAlphabetBuilder(_max_monomers=3).run(path=path)
         alphabet = rna.RnaAlphabetBuilder().run(ph=7.4, path=path)
-        self.assertEqual(alphabet.monomers.A.get_formula(), EmpiricalFormula('C10O4N5H13'))
+        self.assertEqual(alphabet.monomers.A.get_formula(),
+                         EmpiricalFormula('C10O4N5H13') + EmpiricalFormula('PO3H-1'))
         self.assertTrue(os.path.isfile(path))
 
     def test_validate_linkages(self):
@@ -186,15 +179,15 @@ class RnaTestCase(unittest.TestCase):
         builder = rna.RnaAlphabetBuilder()
 
         for monomer in rna.CanonicalRnaForm().alphabet.monomers.values():
-            b_atom = monomer.structure.GetAtom(monomer.backbone_bond_atoms[0].position)
+            l_atom = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
             r_atom = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
-            assert builder.is_terminus(b_atom, r_atom)
+            assert builder.is_nucleotide_terminus(l_atom, r_atom)
 
         for monomer in rna.RnaForm().alphabet.monomers.values():
-            if monomer.backbone_bond_atoms and monomer.right_bond_atoms:
-                b_atom = monomer.structure.GetAtom(monomer.backbone_bond_atoms[0].position)
+            if monomer.left_bond_atoms and monomer.right_bond_atoms:
+                l_atom = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
                 r_atom = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
-                assert builder.is_terminus(b_atom, r_atom)
+                assert builder.is_nucleotide_terminus(l_atom, r_atom)
 
     def test_validate_form(self):
         form = rna.RnaForm()
@@ -209,4 +202,3 @@ class RnaTestCase(unittest.TestCase):
         self.assertEqual(dimer.validate(), [])
         self.assertEqual(dimer.get_formula(), monomer1.get_formula() + monomer2.get_formula() - EmpiricalFormula('OH'))
         self.assertEqual(dimer.get_charge(), monomer1.get_charge() + monomer2.get_charge() + 1)
-

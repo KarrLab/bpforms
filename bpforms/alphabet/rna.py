@@ -23,11 +23,11 @@ import warnings
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna.yml'))
 rna_alphabet = Alphabet().from_yaml(filename)
-# :obj:`Alphabet`: Alphabet for RNA nucleosides
+# :obj:`Alphabet`: Alphabet for RNA nucleotide monophosphates
 
 canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'rna.canonical.yml'))
 canonical_rna_alphabet = Alphabet().from_yaml(canonical_filename)
-# :obj:`Alphabet`: Alphabet for canonical RNA nucleosides
+# :obj:`Alphabet`: Alphabet for canonical RNA nucleotide monophosphates
 
 
 class RnaAlphabetBuilder(AlphabetBuilder):
@@ -67,12 +67,10 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         """
         # initialize alphabet
         alphabet = Alphabet()
-
-        # create canonical monomeric forms
-        alphabet.from_yaml(canonical_filename)
         alphabet.id = 'rna'
-        alphabet.name = 'RNA nucleosides'
-        alphabet.description = ('The canonical RNA nucleosides, plus the non-canonical RNA nucleosides in '
+        alphabet.name = 'RNA nucleotide monophosphates'
+        alphabet.description = ('The canonical RNA nucleotide monophosphates, '
+                                'plus non-canonical RNA nucleotide monophosphates based on '
                                 '<a href="http://modomics.genesilico.pl/modifications">MODOMICS</a> and '
                                 'the <a href="https://mods.rna.albany.edu/mods/">RNA Modification Database</a>')
 
@@ -98,6 +96,101 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             alphabet.monomers['104G'].base_monomers.add(alphabet.monomers['10G'])
         if '106G' in alphabet.monomers and '10G' in alphabet.monomers:
             alphabet.monomers['106G'].base_monomers.add(alphabet.monomers['10G'])
+
+        # convert to nucleosides to nucleotide monophosphates
+        conv = openbabel.OBConversion()
+        assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
+        assert conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
+        conv.SetOptions('c', conv.OUTOPTIONS)
+
+        pi_smiles = 'OP([O-])([O-])=O'
+
+        for monomer in alphabet.monomers.values():
+            # add PI to molecule
+            monomer_structure = openbabel.OBMol(monomer.structure)
+            n_monomer_atoms = monomer_structure.NumAtoms()
+
+            pi = openbabel.OBMol()
+            conv.ReadString(pi, pi_smiles)
+
+            mol = openbabel.OBMol()
+            mol += monomer_structure
+            mol += pi
+
+            # get atom references
+            monomer_backbone_o = mol.GetAtom(monomer.backbone_bond_atoms[0].position)
+            assert monomer_backbone_o.GetAtomicNum() == 8
+
+            monomer_backbone_h = None
+            for other_atom in openbabel.OBAtomAtomIter(monomer_backbone_o):
+                if other_atom.GetAtomicNum() == 1:
+                    monomer_backbone_h = other_atom
+                    break
+
+            pi_p = mol.GetAtom(n_monomer_atoms + 2)
+            pi_o = mol.GetAtom(n_monomer_atoms + 4)
+            pi_oh = mol.GetAtom(n_monomer_atoms + 1)
+
+            # form bond with PI
+            bond = openbabel.OBBond()
+            bond.SetBegin(monomer_backbone_o)
+            bond.SetEnd(pi_p)
+            bond.SetBondOrder(1)
+            assert mol.AddBond(bond)
+
+            # remove displaced atoms
+            mol.DeleteAtom(pi_oh, True)
+            if monomer_backbone_h is not None:
+                mol.DeleteAtom(monomer_backbone_h, True)
+
+            # canonicalize atom indices
+            smiles = conv.WriteString(mol).partition('\t')[0]
+
+            mol2 = openbabel.OBMol()
+            conv.ReadString(mol2, smiles)
+            smiles = conv.WriteString(mol2).partition('\t')[0]
+
+            mol2 = openbabel.OBMol()
+            conv.ReadString(mol2, smiles)
+            smiles = conv.WriteString(mol2).partition('\t')[0]
+
+            # get indices of termini
+            atom_ls = []
+            atom_rs = []
+            for i_atom in range(1, mol2.NumAtoms() + 1):
+                atom = mol2.GetAtom(i_atom)
+                if self.is_left_atom(atom):
+                    atom_ls.append(atom)
+                elif self.is_right_bond_atom(atom):
+                    atom_rs.append(atom)
+
+            i_left_p = None
+            i_right_o = None
+            i_left_o = None
+
+            for atom_l in atom_ls:
+                for atom_r in atom_rs:
+                    if self.is_nucleotide_terminus(atom_l, atom_r):
+                        i_left_p = atom_l.GetIdx()
+                        i_right_o = atom_r.GetIdx()
+                        break
+
+            for other_atom in openbabel.OBAtomAtomIter(atom_l):
+                if other_atom.GetFormalCharge() == -1:
+                    i_left_o = other_atom.GetIdx()
+
+            # update properties of monomer
+            monomer.structure = smiles
+            monomer.backbone_bond_atoms = []
+            monomer.backbone_displaced_atoms = []
+            monomer.left_bond_atoms = [Atom(Monomer, element='P', position=i_left_p)]
+            monomer.left_displaced_atoms = [Atom(Monomer, element='O', position=i_left_o, charge=-1)]
+            monomer.right_bond_atoms = [Atom(Monomer, element='O', position=i_right_o)]
+            monomer.right_displaced_atoms = [Atom(Monomer, element='H', position=i_right_o)]
+
+            assert monomer.structure.GetAtom(i_right_o).GetAtomicNum() == 8
+            assert monomer.structure.GetAtom(i_left_p).GetAtomicNum() == 15
+            assert monomer.structure.GetAtom(i_left_o).GetAtomicNum() == 8
 
         # return alphabet
         return alphabet
@@ -190,7 +283,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
             conv = openbabel.OBConversion()
             assert conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
-            assert conv.SetInFormat('smi')
+            assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
             conv.SetOptions('c', conv.OUTOPTIONS)
 
             smiles = conv.WriteString(monomer.structure).partition('\t')[0]
@@ -220,9 +313,6 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             base_monomer = monomer_short_names.get(base_monomer_short_names.get(short_name, None), None)
             if base_monomer:
                 monomer.base_monomers.add(base_monomer)
-
-        # get major microspecies for each monomeric form
-        self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
         # return alphabet
         return alphabet
@@ -560,6 +650,25 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         return r_atom_2.GetIdx() == r_atom.GetIdx()
 
+    def is_nucleotide_terminus(self, l_atom, r_atom):
+        """ Determine if a pair of atoms is a valid pair of linkage sites
+
+        Args:
+            l_atom (:obj:`openbabel.OBAtom`): potential left atom
+            r_atom (:obj:`openbabel.OBAtom`): potential right bond atom
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the atoms are a valid pair of linkage sites
+        """
+        r_atom_2 = self.is_left_atom(l_atom)
+        if not r_atom_2:
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+
+        if not self.is_right_bond_atom(r_atom):
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+
+        return r_atom_2.GetIdx() == r_atom.GetIdx()
+
     def is_backbone_atom(self, b_atom):
         """ Determine if an atom is a valid backbone linkage site
 
@@ -585,6 +694,91 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         for other_atom in openbabel.OBAtomAtomIter(b_atom):
             if other_atom.GetAtomicNum() == 6:
                 c_1 = other_atom
+        if c_1.GetFormalCharge() != 0:
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_1)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_1)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        if other_atoms != [1, 1, 6, 8]:
+            return False
+
+        # get second C
+        for other_atom in openbabel.OBAtomAtomIter(c_1):
+            if other_atom.GetAtomicNum() == 6:
+                c_2 = other_atom
+        if c_2.GetFormalCharge() != 0:
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_2)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_2)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        if other_atoms != [1, 6, 6, 8]:
+            return False
+
+        # get third C
+        for other_atom in openbabel.OBAtomAtomIter(c_2):
+            if other_atom.GetAtomicNum() == 6 and other_atom.GetIdx() != c_1.GetIdx():
+                c_3 = other_atom
+        if c_3.GetFormalCharge() != 0:
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_3)]
+        tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(c_3)])
+        other_atoms += [1] * (4 - tot_bond_order)
+        other_atoms = sorted(other_atoms)
+        if other_atoms != [1, 6, 6, 8]:
+            return False
+
+        # get second O
+        for other_atom in openbabel.OBAtomAtomIter(c_3):
+            if other_atom.GetAtomicNum() == 8:
+                r_atom_2 = other_atom
+        if r_atom_2.GetFormalCharge() != 0:
+            return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
+
+        return r_atom_2
+
+    def is_left_atom(self, l_atom):
+        """ Determine if an atom is a valid left linkage site
+
+        Args:
+            l_atom (:obj:`openbabel.OBAtom`): potential left atom
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the atom is a valid left linkage site
+        """
+        if l_atom.GetAtomicNum() != 15:
+            return False
+        if l_atom.GetFormalCharge() != 0:
+            return False
+
+        other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(l_atom)]
+        if other_atoms != [8, 8, 8, 8]:
+            return False
+        bonds = sorted([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(l_atom)])
+        if bonds != [1, 1, 1, 2]:
+            return False
+        c_1 = None
+        o_minus = 0
+        for bond in openbabel.OBAtomBondIter(l_atom):
+            other_atom = bond.GetBeginAtom()
+            if other_atom == l_atom:
+                other_atom = bond.GetEndAtom()
+
+            if other_atom.GetFormalCharge() == -1 and len(list(openbabel.OBAtomAtomIter(other_atom))) == 1:
+                o_minus += 1
+                continue
+
+            for other_other_atom in openbabel.OBAtomAtomIter(other_atom):
+                if other_other_atom.GetAtomicNum() == 6:
+                    c_1 = other_other_atom
+                    break
+        if o_minus != 2:
+            return False
+        if c_1 is None:
+            return False
+
+        # get first C
         if c_1.GetFormalCharge() != 0:
             return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
         other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(c_1)]
@@ -661,15 +855,12 @@ class RnaForm(BpForm):
         """
         super(RnaForm, self).__init__(
             seq=seq, alphabet=rna_alphabet,
-            backbone=Backbone(
-                structure='OP([O-])([O-])=O',
-                monomer_bond_atoms=[Atom(Backbone, element='P', position=2)],
-                monomer_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
+            backbone=None,
             bond=Bond(
                 right_bond_atoms=[Atom(Monomer, element='O', position=None)],
-                left_bond_atoms=[Atom(Backbone, element='P', position=2)],
+                left_bond_atoms=[Atom(Monomer, element='P', position=None)],
                 right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                left_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]),
+                left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)
 
 
@@ -686,13 +877,10 @@ class CanonicalRnaForm(BpForm):
         """
         super(CanonicalRnaForm, self).__init__(
             seq=seq, alphabet=canonical_rna_alphabet,
-            backbone=Backbone(
-                structure='OP([O-])([O-])=O',
-                monomer_bond_atoms=[Atom(Backbone, element='P', position=2)],
-                monomer_displaced_atoms=[Atom(Backbone, element='O', position=1), Atom(Backbone, element='H', position=1)]),
+            backbone=None,
             bond=Bond(
                 right_bond_atoms=[Atom(Monomer, element='O', position=None)],
-                left_bond_atoms=[Atom(Backbone, element='P', position=2)],
+                left_bond_atoms=[Atom(Monomer, element='P', position=None)],
                 right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                left_displaced_atoms=[Atom(Backbone, element='O', position=3, charge=-1)]),
+                left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)
