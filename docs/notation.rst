@@ -40,7 +40,7 @@ We recommend defining this attribute for each monomeric form. Theis attribute mu
 Linkages
 ^^^^^^^^
 
-The ``backbone-bond-atom``, ``backbone-displaced-atom``, ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe the linkages between the monomeric form and the backbone and between successive monomeric forms. The values of these attributes represent (i) the element in the monomeric form involved in the bond, (ii) the atom index of the element in the monomeric form involved in the bond, and (iii) the charge of atom involved in the bond.::
+The ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe the linkages between successive monomeric forms. The values of these attributes represent (i) the element in the monomeric form involved in the bond, (ii) the atom index of the element in the monomeric form involved in the bond, and (iii) the charge of atom involved in the bond.::
 
     [id: "dI"
         | structure: "O=C1NC=NC2=C1N=CN2"
@@ -125,7 +125,7 @@ Metadata
 * The ``comments`` attribute describes additional information about each monomeric form. Each monomeric form can only have one comment::
 
     [id: "dI"
-        | comments: "A purine 2'-deoxyribonucleoside that is inosine in which the
+        | comments: "A purine 2'-deoxyribonucleotide monophosphate that is inosine in which the
                      hydroxy group at position 2' is replaced by a hydrogen."
         ]
 

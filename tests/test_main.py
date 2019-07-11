@@ -20,6 +20,8 @@ import unittest
 
 dI_smiles = 'O=C1NC=NC2=C1N=CN2'
 dI_smiles_ph_14 = 'O=c1[n-]cnc2c1nc[n-]2'
+dIMP_smiles = 'OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O'
+dIMP_smiles_ph_14 = 'OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O'
 
 
 class CliTestCase(unittest.TestCase):
@@ -72,9 +74,14 @@ class CliTestCase(unittest.TestCase):
 
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             with __main__.App(argv=['validate', 'canonical_dna',
-                ('ACG'
-                '[id: "dI" | structure: "{}" | backbone-bond-atom: N10 | backbone-displaced-atom: H10 ]'
-                'T').format(dI_smiles)]) as app:
+                                    ('ACG'
+                                     '[id: "dI" | structure: "{}"'
+                                     ' | left-bond-atom: P30'
+                                     ' | left-displaced-atom: O33-1'
+                                     ' | right-bond-atom: O34'
+                                     ' | right-displaced-atom: H34'
+                                     ' ]'
+                                     'T').format(dIMP_smiles)]) as app:
                 # run app
                 app.run()
 
@@ -90,8 +97,8 @@ class CliTestCase(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, '^Form is invalid'):
             with __main__.App(argv=['validate', 'canonical_dna', (
                 'ACGT'
-                '[id: "dI" | structure: "{}" | backbone-displaced-atom: H10 ]'
-                ).format(dI_smiles)]) as app:
+                '[id: "dI" | structure: "{}" | left-displaced-atom: O33-1 ]'
+            ).format(dIMP_smiles)]) as app:
                 # run app
                 app.run()
 
@@ -163,22 +170,36 @@ class CliTestCase(unittest.TestCase):
             with __main__.App(argv=['get-properties', 'canonical_dna', (
                 'ACGT'
                 '[id: "dI" | structure: "{}" | backbone-displaced-atom: H10 ]'
-                ).format(dI_smiles)]) as app:
+            ).format(dI_smiles)]) as app:
                 # run app
                 app.run()
 
     def test_get_major_micro_species(self):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna',
-                                    ('[id: "dI" | structure: "{0}" | backbone-bond-atom: N10 | backbone-displaced-atom: H10 ]'
-                                     '[id: "dI" | structure: "{0}" | backbone-bond-atom: N10 | backbone-displaced-atom: H10 ]').format(
-                    dI_smiles), '14.']) as app:
+                                    ('[id: "dI" | structure: "{0}"'
+                                        ' | left-bond-atom: P30'
+                                        ' | left-displaced-atom: O33-1'
+                                        ' | right-bond-atom: O34'
+                                        ' | right-displaced-atom: H34'
+                                        ' ]'
+                                     '[id: "dI" | structure: "{0}"'
+                                        ' | left-bond-atom: P30'
+                                        ' | left-displaced-atom: O33-1'
+                                        ' | right-bond-atom: O34'
+                                        ' | right-displaced-atom: H34'
+                                        ' ]').format(
+                    dIMP_smiles), '14.']) as app:
                 # run app
                 app.run()
 
                 # test that the CLI produced the correct output
                 smiles = captured.stdout.get_text()
-                self.assertEqual(captured.stdout.get_text(), '[O-]C1CC(OC1COP(=O)([O-])OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc[n-]c2=O)n1cnc2c1nc[n-]c2=O')
+                self.assertEqual(captured.stdout.get_text(),
+                                 ('OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[n-]'
+                                  'c2=O)C1CC([O-])C(COP(=O)([O-])OC2CC(OC2COP(=O)'
+                                  '([O-])[O-])[N+]2(C=Nc3c2nc[n-]c3=O)[C@H]2C[C@H]'
+                                  '(O)[C@@H](CO)O2)O1'))
 
         with self.assertRaises(SystemExit):
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna', 'ACGT[', '7.']) as app:
@@ -188,8 +209,8 @@ class CliTestCase(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, '^Form is invalid'):
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna', (
                 'ACGT'
-                '[id: "dI" | structure: "{}" | backbone-displaced-atom: H10 ]'
-                ).format(dI_smiles), '7.']) as app:
+                '[id: "dI" | structure: "{}" | left-displaced-atom: O33-1 ]'
+            ).format(dI_smiles), '7.']) as app:
                 # run app
                 app.run()
 

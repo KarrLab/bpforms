@@ -47,44 +47,20 @@ def build(dirname=default_dirname):
     draw_monomer(bpforms.ProteinForm, '{AA0037}', dirname, 'protein-AA0037',
                  show_atom_nums=False, width=203)
 
-    form = bpforms.DnaForm()
-    backbone = wc_utils.util.chem.OpenBabelUtils.get_smiles(form.backbone.structure)
-    draw_monomer(bpforms.DnaForm, '[structure: "{}"]'.format(backbone), dirname, 'backbone-dna',
-                 show_atom_nums=False, width=203, height=100)
-
-    form = bpforms.RnaForm()
-    backbone = wc_utils.util.chem.OpenBabelUtils.get_smiles(form.backbone.structure)
-    draw_monomer(bpforms.RnaForm, '[structure: "{}"]'.format(backbone), dirname, 'backbone-rna',
-                 show_atom_nums=False, width=203, height=100)
-
-    form = bpforms.ProteinForm()
-    backbone = wc_utils.util.chem.OpenBabelUtils.get_smiles(form.backbone.structure)
-    draw_monomer(bpforms.ProteinForm, '[structure: "{}"]'.format(backbone), dirname, 'backbone-protein',
-                 show_atom_nums=False, width=203, height=25)
-
     draw_monomer(bpforms.DnaForm, '''
         [id: "m2C"
             | name: "2-O-methylcytosine"
-            | structure: "COC1=NC(N)=CC=N1"
+            | structure: "COC1=NC(=CCN1C1CC(C(O1)COP(=O)([O-])[O-])O)N"
             ]
         ''', dirname, 'structure-m2C', show_atom_nums=True)
-
-    draw_polymer(bpforms.DnaForm, '''
-        [id: "dI"
-            | name: "5-formylcytosine"
-            | structure: "NC1=NC(=O)NC=C1C=O"
-            | backbone-bond-atom: N6
-            | backbone-displaced-atom: H6
-            ]
-        ''', dirname, 'monomer-backbone-bonds-f', show_atom_nums=True)
 
     draw_monomer(bpforms.ProteinForm, '''
         [id: "AA0305"
             | name: "N5-methyl-L-arginine"
             | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
+            | right-bond-atom: C2
             | backbone-bond-atom: C2
             | backbone-displaced-atom: H2
-            | right-bond-atom: C2
             | left-bond-atom: N15-1
             | left-displaced-atom: H15+1
             | left-displaced-atom: H15+1
@@ -95,9 +71,9 @@ def build(dirname=default_dirname):
         A[id: "AA0305"
             | name: "N5-methyl-L-arginine"
             | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
+            | right-bond-atom: C2
             | backbone-bond-atom: C2
             | backbone-displaced-atom: H2
-            | right-bond-atom: C2
             | left-bond-atom: N15-1
             | left-displaced-atom: H15+1
             | left-displaced-atom: H15+1

@@ -40,9 +40,10 @@ class RestTestCase(unittest.TestCase):
             'alphabet': 'dna',
             'seq': 'ACGT',
             'length': 4,
-            'structure': ('Nc1c2ncn(c2ncn1)C1CC(OP(=O)(OCC2C(OP(=O)(OCC3C(OP(=O)(OCC4C(O)CC(n5cc(C)c(=O)'
-                          '[nH]c5=O)O4)[O-])CC(n4c5nc(N)[nH]c(=O)c5nc4)O3)[O-])CC(n3c(=O)nc(N)cc3)O2)[O-])'
-                          'C(O1)COP(=O)([O-])[O-]'),
+            'structure': ('O(C1CC(OC1COP(=O)([O-])[O-])n1cnc2c1ncnc2N)P(=O)'
+                          '(OCC1C(OP(=O)(OCC2C(OP(=O)(OCC3C(O)CC(O3)n3cc(C)'
+                          'c(=O)[nH]c3=O)[O-])CC(O2)n2cnc3c2nc(N)[nH]c3=O)[O-])'
+                          'CC(O1)n1ccc(nc1=O)N)[O-]'),
             'formula': dict(EmpiricalFormula('C39H46O25N15P4')),
             'mol_wt': 1248.772047992,
             'charge': -5,
@@ -73,9 +74,9 @@ class RestTestCase(unittest.TestCase):
             'alphabet': 'dna',
             'seq': 'ACGT | circular',
             'length': 4,
-            'structure': ('Nc1c2ncn(c2ncn1)C1CC2OP(=O)(OCC3C(OP(=O)(OCC4C(OP(=O)(OCC5C(OP(=O)'
-                          '(OCC2O1)[O-])CC(n1cc(C)c(=O)[nH]c1=O)O5)[O-])CC(n1c2nc(N)[nH]c(=O)'
-                          'c2nc1)O4)[O-])CC(n1c(=O)nc(N)cc1)O3)[O-]'),
+            'structure': ('O1C2CC(OC2COP(=O)([O-])OC2CC(OC2COP(=O)'
+                          '(OC2CC(OC2COP(=O)(OC2CC(OC2COP1(=O)[O-])n1ccc(nc1=O)N)[O-])'
+                          'n1cnc2c1nc(N)[nH]c2=O)[O-])n1cc(C)c(=O)[nH]c1=O)n1cnc2c1ncnc2N'),
             'formula': dict(EmpiricalFormula('C39H45O24N15P4')),
             'mol_wt': 1231.7650479919998,
             'charge': -4,
@@ -132,20 +133,22 @@ class RestTestCase(unittest.TestCase):
             rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='ACGT', ph=7.))
         self.assertEqual(rv.status_code, 200)
 
+        dI_smiles = dna.dna_alphabet.monomers.dI.export('smiles')
         rv = client.post('/api/bpform/', json=dict(alphabet='dna',
                                                    seq=('ACGT[id: "dI"'
                                                         ' | structure: "{}"'
-                                                        ' | backbone-bond-atom: N10'
-                                                        ' | backbone-displaced-atom: H10 ]').format(
-                                                       'O=C1NC=NC2=C1N=CN2'
+                                                        ' | left-bond-atom: P30'
+                                                        ' | left-displaced-atom: O33-1]').format(
+                                                       dI_smiles
                                                    )))
         self.assertEqual(rv.status_code, 200)
 
+        dI_smiles = dna.dna_alphabet.monomers.dI.export('smiles')
         rv = client.post('/api/bpform/', json=dict(alphabet='dna',
                                                    seq=('ACGT[id: "dI"'
                                                         ' | structure: "{}"'
-                                                        ' | backbone-displaced-atom: H10 ]').format(
-                                                       'O=C1NC=NC2=C1N=CN2'
+                                                        ' | left-displaced-atom: O33-1]').format(
+                                                       dI_smiles
                                                    )))
         self.assertEqual(rv.status_code, 400)
 
@@ -154,8 +157,8 @@ class RestTestCase(unittest.TestCase):
         rv = client.get('/api/alphabet/')
         self.assertEqual(rv.status_code, 200)
         alphabets = rv.get_json()
-        self.assertEqual(alphabets['dna']['name'], 'DNA nucleobases')
-        self.assertEqual(alphabets['canonical_dna']['name'], 'Canonical DNA nucleobases')
+        self.assertEqual(alphabets['dna']['name'], 'DNA nucleotide monophosphates')
+        self.assertEqual(alphabets['canonical_dna']['name'], 'Canonical DNA nucleotide monophosphates')
 
     def test_get_alphabet(self):
         client = rest.app.test_client()
@@ -163,12 +166,13 @@ class RestTestCase(unittest.TestCase):
         rv = client.get('/api/alphabet/dna/')
         self.assertEqual(rv.status_code, 200)
         rv_json = rv.get_json()
-        self.assertTrue(rv_json['monomers']['A']['binds_backbone'])
+        self.assertFalse(rv_json['monomers']['A']['binds_backbone'])
         self.assertTrue(rv_json['monomers']['A']['binds_left'])
         self.assertTrue(rv_json['monomers']['A']['binds_right'])
-        self.assertEqual(rv_json['monomers']['A']['mol_wt'], 135.13)
-        self.assertEqual(rv_json['monomers']['A']['formula'], {'C': 5.0, 'H': 5.0, 'N': 5.0})
-        self.assertEqual(rv_json['monomers']['A']['charge'], 0)
+        self.assertEqual(rv_json['monomers']['A']['mol_wt'], 329.208761998)
+        self.assertEqual(rv_json['monomers']['A']['formula'],
+                         {'C': 10., 'H': 12., 'N': 5., 'O': 6., 'P': 1.})
+        self.assertEqual(rv_json['monomers']['A']['charge'], -2)
         alphabet = core.Alphabet().from_dict(rv_json)
         self.assertTrue(dna.dna_alphabet.is_equal(alphabet))
 
@@ -191,12 +195,12 @@ class RestTestCase(unittest.TestCase):
         rv = client.get('/api/alphabet/dna/A/')
         self.assertEqual(rv.status_code, 200)
         rv_json = rv.get_json()
-        self.assertTrue(rv_json['binds_backbone'])
+        self.assertFalse(rv_json['binds_backbone'])
         self.assertTrue(rv_json['binds_left'])
         self.assertTrue(rv_json['binds_right'])
-        self.assertEqual(rv_json['mol_wt'], 135.13)
-        self.assertEqual(rv_json['formula'], {'C': 5.0, 'H': 5.0, 'N': 5.0})
-        self.assertEqual(rv_json['charge'], 0)
+        self.assertEqual(rv_json['mol_wt'], 329.208761998)
+        self.assertEqual(rv_json['formula'], {'C': 10., 'H': 12., 'N': 5., 'O': 6., 'P': 1.})
+        self.assertEqual(rv_json['charge'], -2)
 
         rv = client.get('/api/alphabet/dna/A/svg/')
         self.assertEqual(rv.status_code, 200)

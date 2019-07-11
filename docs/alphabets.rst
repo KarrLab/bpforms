@@ -3,14 +3,12 @@ Alphabets
 
 `BpForms` comes with six alphabets:
 
-* Canonical DNA: The four canonical DNA nucleobases.
-* Canonical RNA: The four canonical RNA nucleosides.
+* Canonical DNA: The canonical DNA nucleotide monophosphates.
+* Canonical RNA: The canonical RNA nucleotide monophosphates.
 * Canonical protein: The 20 canonical protein residues.
-* DNA: The four canonical DNA nucleobases, plus the non-canonical DNA nucleobases in `DNAmod <https://dnamod.hoffmanlab.org>`_.
-* RNA: The four canonical RNA nucleosides, plus the non-canonical RNA nucleosides in `MODOMICS <http://modomics.genesilico.pl/modifications/>`_ and the `RNA Modification Database <https://mods.rna.albany.edu/mods/>`_.
+* DNA: The canonical DNA nucleotide monophosphates, plus non-canonical DNA nucleotide monophosphates based on `DNAmod <https://dnamod.hoffmanlab.org>`_.
+* RNA: The canonical RNA nucleotide monophosphates, plus non-canonical RNA nucleotide monophosphates based on `MODOMICS <http://modomics.genesilico.pl/modifications/>`_ and the `RNA Modification Database <https://mods.rna.albany.edu/mods/>`_.
 * Protein: The 20 canonical protein residues, plus the non-canonical protein residues in the `PDB Chemical Component Dictionary <http://www.wwpdb.org/data/ccd>`_ and `RESID <https://pir.georgetown.edu/resid/>`_.
-
-To support compatibility with the entries in these and other databases, `BpForms` represents biopolymers as sequence of ``monomeric forms`` linked together via a ``backbone``. For compatibility with DNAmod, the monomeric forms form the DNA alphabets are nucleobases and the backbones for the DNA alphabets is deoxyribose 5-phosphate. For compatibility with MODOMICS, the monomeric forms of the RNA alphabets are nucleosides and the backbones for the RNA alphabets is hydrogen phosphate. For compatibility with RESID, the monomeric forms of the protein alphabets are amino acid stubs and the backbones of the protein alphabets is hydroxide.
 
 Building additional alphabets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

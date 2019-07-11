@@ -429,7 +429,7 @@ class MonomerTestCase(unittest.TestCase):
 
     def test_get_formula(self):
         monomer = core.Monomer(structure=dAMP_smiles)
-        self.assertEqual(monomer.get_formula(), EmpiricalFormula('C5H5N5'))
+        self.assertEqual(monomer.get_formula(), EmpiricalFormula('C10H12N5O6P'))
 
         with self.assertRaises(ValueError):
             monomer = core.Monomer()
@@ -440,18 +440,18 @@ class MonomerTestCase(unittest.TestCase):
         self.assertEqual(monomer.get_mol_wt(), None)
 
         monomer = core.Monomer(structure=dAMP_smiles)
-        self.assertEqual(monomer.get_mol_wt(), 135.13)
+        self.assertEqual(monomer.get_mol_wt(), 329.208761998)
 
         monomer.delta_mass = 1.
-        self.assertEqual(monomer.get_mol_wt(), 136.13)
+        self.assertEqual(monomer.get_mol_wt(), 330.208761998)
 
     def test_get_charge(self):
         monomer = core.Monomer(structure=dAMP_smiles)
-        self.assertEqual(monomer.get_charge(), 0)
+        self.assertEqual(monomer.get_charge(), -2)
 
         monomer = core.Monomer(structure=dAMP_smiles)
         monomer.delta_charge = 1
-        self.assertEqual(monomer.get_charge(), 1)
+        self.assertEqual(monomer.get_charge(), -1)
 
         with self.assertRaises(ValueError):
             monomer = core.Monomer()
@@ -496,7 +496,7 @@ class MonomerTestCase(unittest.TestCase):
         self.assertIn(' | identifier: "DAMP" @ "biocyc.compound"', str(monomer))
 
         monomer.structure = dAMP_smiles
-        self.assertIn(' | structure: "{}"]'.format('Nc1ncnc2c1nc[nH]2'), str(monomer))
+        self.assertIn(' | structure: "{}"]'.format(dAMP_smiles), str(monomer))
 
         monomer.backbone_bond_atoms.append(core.Atom(core.Monomer, 'C', 2, -3))
         self.assertIn(' | backbone-bond-atom: C2-3]', str(monomer))
@@ -923,11 +923,11 @@ class BackboneTestCase(unittest.TestCase):
         backbone = core.Backbone()
 
         backbone.structure = dAMP_smiles
-        self.assertEqual(backbone.get_formula(), EmpiricalFormula('C5H5N5'))
+        self.assertEqual(backbone.get_formula(), EmpiricalFormula('C10H12N5O6P'))
 
         backbone.backbone_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'C')])
         backbone.monomer_displaced_atoms = core.AtomList([core.Atom(core.Monomer, 'H'), core.Atom(core.Monomer, 'H')])
-        self.assertEqual(backbone.get_formula(), EmpiricalFormula('C5H3N5'))
+        self.assertEqual(backbone.get_formula(), EmpiricalFormula('C10H10N5O6P'))
 
         backbone.structure = None
         self.assertEqual(backbone.get_formula(), EmpiricalFormula('H2') * -1)
@@ -936,13 +936,13 @@ class BackboneTestCase(unittest.TestCase):
         backbone = core.Backbone()
 
         backbone.structure = dAMP_smiles
-        self.assertEqual(backbone.get_mol_wt(), 135.13)
+        self.assertEqual(backbone.get_mol_wt(), 329.208761998)
 
     def test_get_charge(self):
         backbone = core.Backbone()
 
         backbone.structure = dAMP_smiles
-        self.assertEqual(backbone.get_charge(), 0)
+        self.assertEqual(backbone.get_charge(), -2)
 
         backbone.structure = None
         self.assertEqual(backbone.get_charge(), 0)
@@ -1329,11 +1329,11 @@ class BpFormTestCase(unittest.TestCase):
         monomer_C = dna.canonical_dna_alphabet.monomers.C
 
         dimer = dna.CanonicalDnaForm([monomer_A, monomer_C])
-        self.assertEqual(dimer.export('smiles'), 'Nc1c2ncn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n3c(=O)nc(N)cc3)O2)[O-])C(O1)COP(=O)([O-])[O-]')
+        self.assertEqual(clean_smiles(dimer.export('smiles')),
+                         clean_smiles('Nc1c2ncn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n3c(=O)nc(N)cc3)O2)[O-])C(O1)COP(=O)([O-])[O-]'))
         self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
                          + monomer_C.get_formula()
                          + dimer.backbone.get_formula() * 2
-                         - EmpiricalFormula('H') * 2
                          - EmpiricalFormula('HO') * 1)
         self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
                          + monomer_C.get_charge()
@@ -1341,11 +1341,11 @@ class BpFormTestCase(unittest.TestCase):
                          + 1 * 1)
 
         dimer.circular = True
-        self.assertEqual(dimer.export('smiles'), 'Nc1c2ncn(c2ncn1)C1CC2OP(=O)(OCC3C(OP(=O)(OCC2O1)[O-])CC(n1c(=O)nc(N)cc1)O3)[O-]')
+        self.assertEqual(clean_smiles(dimer.export('smiles')),
+                         clean_smiles('Nc1c2ncn(c2ncn1)C1CC2OP(=O)(OCC3C(OP(=O)(OCC2O1)[O-])CC(n1c(=O)nc(N)cc1)O3)[O-]'))
         self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
                          + monomer_C.get_formula()
                          + dimer.backbone.get_formula() * 2
-                         - EmpiricalFormula('H') * 2
                          - EmpiricalFormula('HO') * 2)
         self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
                          + monomer_C.get_charge()
@@ -1357,11 +1357,11 @@ class BpFormTestCase(unittest.TestCase):
         monomer_C = dna.canonical_dna_alphabet.monomers.C
 
         dimer = dna.CanonicalDnaForm([monomer_A, monomer_C])
-        self.assertEqual(dimer.export('smiles'), 'Nc1c2ncn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n3c(=O)nc(N)cc3)O2)[O-])C(O1)COP(=O)([O-])[O-]')
+        self.assertEqual(clean_smiles(dimer.export('smiles')),
+                         clean_smiles('Nc1c2ncn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n3c(=O)nc(N)cc3)O2)[O-])C(O1)COP(=O)([O-])[O-]'))
         self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
                          + monomer_C.get_formula()
                          + dimer.backbone.get_formula() * 2
-                         - EmpiricalFormula('H') * 2
                          - EmpiricalFormula('HO') * 1)
         self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
                          + monomer_C.get_charge()
@@ -1369,70 +1369,23 @@ class BpFormTestCase(unittest.TestCase):
                          + 1 * 1)
 
         crosslink = core.Bond(
-            right_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='N', position=4)],
-            left_bond_atoms=[core.Atom(core.Monomer, monomer=2, element='C', position=8)],
-            right_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='H', position=4, charge=2)],
-            left_displaced_atoms=[core.Atom(core.Monomer, monomer=2, element='H', position=8, charge=1)]
+            right_bond_atoms=[core.Atom(core.Monomer, monomer=2, element='O', position=1)],
+            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='P', position=9)],
+            right_displaced_atoms=[core.Atom(core.Monomer, monomer=2, element='H', position=1)],
+            left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='O', position=12, charge=-1)]
         )
         dimer.crosslinks = core.BondSet([crosslink])
-        self.assertEqual(dimer.export('smiles'), 'Nc1c2n3cn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n4c(=O)nc(N)c3c4)O2)[O-])C(O1)COP(=O)([O-])[O-]')
+        print(clean_smiles(dimer.export('smiles')))
+        self.assertEqual(clean_smiles(dimer.export('smiles')),
+                         clean_smiles('Nc1ccn(c(=O)n1)C1OC2C(C1)OP(=O)([O-])OCC1C(OP(=O)(OC2)[O-])CC(O1)n1cnc2c1ncnc2N'))
         self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
                          + monomer_C.get_formula()
                          + dimer.backbone.get_formula() * 2
-                         - EmpiricalFormula('H') * 2
-                         - EmpiricalFormula('HO') * 1
-                         - EmpiricalFormula('H') * 2)
+                         - EmpiricalFormula('HO') * 2)
         self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
                          + monomer_C.get_charge()
                          + dimer.backbone.get_charge() * 2
-                         + 1 * 1
-                         - 3)
-
-        crosslink = core.Bond(
-            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='N', position=4)],
-            right_bond_atoms=[core.Atom(core.Monomer, monomer=2, element='C', position=8)],
-            left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='H', position=4, charge=2)],
-            right_displaced_atoms=[core.Atom(core.Monomer, monomer=2, element='H', position=8, charge=1)]
-        )
-        dimer.crosslinks = core.BondSet([crosslink])
-        self.assertEqual(dimer.export('smiles'), 'Nc1c2n3cn(c2ncn1)C1CC(OP(=O)(OCC2C(O)CC(n4c(=O)nc(N)c3c4)O2)[O-])C(O1)COP(=O)([O-])[O-]')
-        self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
-                         + monomer_C.get_formula()
-                         + dimer.backbone.get_formula() * 2
-                         - EmpiricalFormula('H') * 2
-                         - EmpiricalFormula('HO') * 1
-                         - EmpiricalFormula('H') * 2)
-        self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
-                         + monomer_C.get_charge()
-                         + dimer.backbone.get_charge() * 2
-                         + 1 * 1
-                         - 3)
-
-        crosslink = core.Bond(
-            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='C', position=2)],
-            right_bond_atoms=[core.Atom(core.Monomer, monomer=2, element='N', position=1)],
-            left_displaced_atoms=[
-                core.Atom(core.Monomer, monomer=1, element='N', position=1, charge=0),
-                core.Atom(core.Monomer, monomer=1, element='H', position=1, charge=0),
-                core.Atom(core.Monomer, monomer=1, element='H', position=1, charge=0),
-            ],
-            right_displaced_atoms=[
-                core.Atom(core.Monomer, monomer=2, element='H', position=1, charge=0),
-            ]
-        )
-        dimer.crosslinks = core.BondSet([crosslink])
-        self.assertEqual(dimer.export('smiles'), 'c12c3ncn(c3ncn1)C1CC(OP(=O)(OCC3C(O)CC(n4c(=O)nc(N2)cc4)O3)[O-])C(O1)COP(=O)([O-])[O-]')
-        self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
-                         + monomer_C.get_formula()
-                         + dimer.backbone.get_formula() * 2
-                         - EmpiricalFormula('H') * 2
-                         - EmpiricalFormula('HO') * 1
-                         - EmpiricalFormula('NH3'))
-        self.assertEqual(dimer.get_charge(), monomer_A.get_charge()
-                         + monomer_C.get_charge()
-                         + dimer.backbone.get_charge() * 2
-                         + 1 * 1
-                         - 0)
+                         + 1 * 2)
 
     def test_get_major_micro_species(self):
         bp_form = dna.CanonicalDnaForm([
@@ -1440,8 +1393,8 @@ class BpFormTestCase(unittest.TestCase):
             dna.canonical_dna_alphabet.monomers.C,
         ])
         structure = bp_form.get_major_micro_species(7.4, major_tautomer=True)
-        self.assertEqual(OpenBabelUtils.export(structure, 'smiles'),
-                         'Nc1nc(=O)n(cc1)C1CC(O)C(COP(=O)([O-])OC2CC(OC2COP(=O)([O-])[O-])n2cnc3c(N)ncnc23)O1')
+        self.assertEqual(clean_smiles(OpenBabelUtils.export(structure, 'smiles')),
+                         clean_smiles('Nc1nc(=O)n(cc1)C1CC(O)C(COP(=O)([O-])OC2CC(OC2COP(=O)([O-])[O-])n2cnc3c(N)ncnc23)O1'))
 
         bp_form = dna.DnaForm()
         self.assertEqual(bp_form.get_major_micro_species(7.), None)
@@ -1459,7 +1412,7 @@ class BpFormTestCase(unittest.TestCase):
             'C': monomer_C,
         }))
         self.assertEqual(str(bp_form), '{}{}{}{}'.format('A', 'C', str(monomer_G), 'A'))
-        dGMP_smiles_2 = 'Nc1[nH]c(=O)c2c(n1)[nH]cn2'
+        dGMP_smiles_2 = 'OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc(N)[nH]c2=O'
         self.assertEqual(str(bp_form), '{}{}{}{}'.format('A', 'C', '[id: "{}" | structure: "{}"]'.format('G', dGMP_smiles_2), 'A'))
 
     def test_from_str(self):
@@ -1657,15 +1610,20 @@ class BpFormTestCase(unittest.TestCase):
 
     def test_get_structure_atom_map(self):
         form = dna.DnaForm().from_str('ACG')
-        atom_map = form.get_structure()[1]
+        structure, atom_map = form.get_structure()
         self.assertEqual(sorted(atom_map.keys()), [1, 2, 3])
         self.assertEqual(sorted(atom_map[2].keys()), ['backbone', 'monomer'])
         self.assertEqual(sorted(atom_map[2]['monomer'].keys())[0], 1)
+        self.assertEqual(len(atom_map[2]['monomer'].keys()),
+                         dna.dna_alphabet.monomers.C.structure.NumAtoms() - 1)
         self.assertEqual(sorted(atom_map[2]['monomer'].keys())[-1],
                          dna.dna_alphabet.monomers.C.structure.NumAtoms())
+        self.assertNotIn(12, atom_map[2]['monomer'])
         for i_atom in range(dna.dna_alphabet.monomers.C.structure.NumAtoms()):
-            self.assertEqual(atom_map[2]['monomer'][i_atom + 1].GetAtomicNum(),
-                             dna.dna_alphabet.monomers.C.structure.GetAtom(i_atom + 1).GetAtomicNum())
+            if i_atom + 1 in atom_map[2]['monomer']:
+                atom = structure.GetAtom(atom_map[2]['monomer'][i_atom + 1])
+                self.assertEqual(atom.GetAtomicNum(),
+                                 dna.dna_alphabet.monomers.C.structure.GetAtom(i_atom + 1).GetAtomicNum())
 
     def test__bond_monomer_backbone(self):
         form = dna.CanonicalDnaForm()
@@ -1807,7 +1765,7 @@ class BpFormTestCase(unittest.TestCase):
 
         form = dna.DnaForm()
         form.from_str('ACGT')
-        form.backbone.monomer_bond_atoms[0].molecule = core.Monomer
+        form.backbone.monomer_bond_atoms.append(core.Atom(core.Monomer, 'C', None))
         self.assertNotEqual(form.validate(), [])
 
         form = dna.DnaForm()
@@ -1818,13 +1776,13 @@ class BpFormTestCase(unittest.TestCase):
         form = dna.DnaForm()
         form.from_str('ACGT')
         form.bond.left_bond_atoms[0].position = None
-        self.assertNotEqual(form.validate(), [])
+        self.assertEqual(form.validate(), [])
 
         form = dna.DnaForm()
         form.from_str('ACGT')
-        form.seq[0].backbone_bond_atoms[0].molecule = core.Backbone
+        form.seq[0].backbone_bond_atoms.append(core.Atom(core.Backbone, 'C', None))
         self.assertNotEqual(form.validate(), [])
-        form.seq[0].backbone_bond_atoms[0].molecule = core.Monomer
+        form.seq[0].backbone_bond_atoms = []
 
         form = dna.DnaForm()
         form.from_str('ACGT')
@@ -1835,7 +1793,7 @@ class BpFormTestCase(unittest.TestCase):
         form = dna.DnaForm()
         form.from_str('ACGT')
         form.backbone.monomer_bond_atoms = []
-        self.assertNotEqual(form.validate(), [])
+        self.assertEqual(form.validate(), [])
 
         form = dna.DnaForm()
         form.from_str('ACGT')
@@ -1931,10 +1889,10 @@ class BpFormTestCase(unittest.TestCase):
 
     def test_validate_crosslinks(self):
         form_str = ('AAA '
-                    ' | crosslink: [left-bond-atom: 1C5'
-                    ' | right-bond-atom: 3C5'
-                    ' | left-displaced-atom: 1H5'
-                    ' | right-displaced-atom: 3H5]')
+                    ' | crosslink: [left-bond-atom: 1P9'
+                    ' | right-bond-atom: 3O1'
+                    ' | left-displaced-atom: 1O12-1'
+                    ' | right-displaced-atom: 3H1]')
         form = dna.DnaForm().from_str(form_str)
         self.assertEqual(form.validate(), [])
 
@@ -1949,7 +1907,7 @@ class BpFormTestCase(unittest.TestCase):
 
         form = dna.DnaForm().from_str('AAA')
         form.backbone.monomer_bond_atoms.clear()
-        self.assertNotEqual(form.validate(), [])
+        self.assertEqual(form.validate(), [])
 
         form = protein.ProteinForm()
         form.from_str('CC[id: "C2"'
@@ -1999,26 +1957,26 @@ class BpFormTestCase(unittest.TestCase):
         form = dna.DnaForm().from_str(form_str)
         self.assertNotEqual(form.validate(), [])
 
-        crosslink = (' | crosslink: [left-bond-atom: 1C5'
-                     ' | right-bond-atom: 3C5'
-                     ' | left-displaced-atom: 1H5'
-                     ' | right-displaced-atom: 3H5]')
+        crosslink = (' | crosslink: [left-bond-atom: 1P9'
+                     ' | right-bond-atom: 3O1'
+                     ' | left-displaced-atom: 1O12-1'
+                     ' | right-displaced-atom: 3H1]')
         form = dna.DnaForm().from_str('AAA ' + crosslink)
         self.assertEqual(form.validate(), [])
         form.crosslinks.add(core.Bond(
-            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='C', position=5)],
-            right_bond_atoms=[core.Atom(core.Monomer, monomer=3, element='C', position=5)],
-            left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='H', position=5)],
-            right_displaced_atoms=[core.Atom(core.Monomer, monomer=3, element='H', position=5)],
+            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='P', position=9)],
+            right_bond_atoms=[core.Atom(core.Monomer, monomer=3, element='O', position=1)],
+            left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='O', position=12)],
+            right_displaced_atoms=[core.Atom(core.Monomer, monomer=3, element='H', position=1)],
         ))
         self.assertNotEqual(form.validate(), [])
 
     def test_get_image(self):
         form_str = ('AAA '
-                    ' | crosslink: [left-bond-atom: 1C5'
-                    ' | right-bond-atom: 3C5'
-                    ' | left-displaced-atom: 1H5'
-                    ' | right-displaced-atom: 3H5]')
+                    ' | crosslink: [left-bond-atom: 1P9'
+                    ' | right-bond-atom: 3O1'
+                    ' | left-displaced-atom: 1O12-1'
+                    ' | right-displaced-atom: 3H1]')
         form = dna.DnaForm().from_str(form_str)
         assert form.validate() == []
         img = form.get_image(image_format='svg', width=800, height=600)
@@ -2247,3 +2205,20 @@ class BpFormFeatureTestCase(unittest.TestCase):
         feature2 = core.BpFormFeature(None, 3, 4)
         form.features.update(set([feature1]))
         form.features.symmetric_difference_update([feature1, feature2])
+
+
+def clean_smiles(smi):
+    conv = openbabel.OBConversion()
+    conv.SetInFormat('smi')
+    conv.SetOutFormat('smi')
+    conv.SetOptions('c', conv.OUTOPTIONS)
+
+    mol = openbabel.OBMol()
+    conv.ReadString(mol, smi)
+    smi = conv.WriteString(mol).partition('\t')[0]
+
+    mol = openbabel.OBMol()
+    conv.ReadString(mol, smi)
+    smi = conv.WriteString(mol).partition('\t')[0]
+
+    return smi

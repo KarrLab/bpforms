@@ -91,21 +91,24 @@ class UtilTestCase(unittest.TestCase):
             def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
                     seq=seq, alphabet=dna.canonical_dna_alphabet,
-                    backbone=core.Backbone(
-                        structure='OC1CCOC1COP([O-])([O-])=O',
-                        monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
-                        monomer_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
+                    backbone=None,
                     bond=core.Bond(
-                        left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
-                        right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
-                        left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
-                        right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
+                        right_bond_atoms=[core.Atom(core.Monomer, element='O', position=None)],
+                        left_bond_atoms=[core.Atom(core.Monomer, element='P', position=None)],
+                        right_displaced_atoms=[core.Atom(core.Monomer, element='H', position=None)],
+                        left_displaced_atoms=[core.Atom(core.Monomer, element='O', position=None, charge=-1)]))
         util.validate_bpform_linkages(TestDnaForm)
+
+        alphabet = core.Alphabet()
+        alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
+                                           backbone_bond_atoms=[core.Atom(molecule=core.Monomer, element='N', position=6)],
+                                           backbone_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
+                                           )
 
         class TestDnaForm(core.BpForm):
             def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
-                    seq=seq, alphabet=dna.canonical_dna_alphabet,
+                    seq=seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=1000)],
@@ -118,10 +121,16 @@ class UtilTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             util.validate_bpform_linkages(TestDnaForm)
 
+        alphabet = core.Alphabet()
+        alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
+                                           backbone_bond_atoms=[core.Atom(molecule=core.Monomer, element='N', position=6)],
+                                           backbone_displaced_atoms=[core.Atom(molecule=core.Monomer, element='H', position=6)],
+                                           )
+
         class TestDnaForm(core.BpForm):
             def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
-                    seq=seq, alphabet=dna.canonical_dna_alphabet,
+                    seq=seq, alphabet=alphabet,
                     backbone=core.Backbone(
                         structure='OC1CCOC1COP([O-])([O-])=O',
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='E', position=4)],

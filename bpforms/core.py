@@ -2531,6 +2531,10 @@ class BpForm(object):
         el_table = openbabel.OBElementTable()
 
         def check_atom(molecule, atom_type, i_monomer, i_atom, structure, atom_md, bonding_hydrogens, el_table, errors):
+            if structure is None:
+                errors.append('Structure cannot be None')
+                return
+
             atom_obj = structure.GetAtom(atom_md.position)
             if atom_md.element == 'H':
                 atom_obj = get_hydrogen_atom(atom_obj, bonding_hydrogens, i_monomer)
@@ -2720,13 +2724,12 @@ class BpForm(object):
         assert conv.ReadString(mol, smiles)
         return mol
 
-    def get_structure(self, include_all_hydrogens=False, set_atom_ids=False):
+    def get_structure(self, include_all_hydrogens=False):
         """ Get an OpenBabel molecule of the structure
 
         Args:
             include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, explicitly include all
                 hydrogens
-            set_atom_ids (:obj:`bool`, optional): if :obj:`True`, set the ids of the atoms
 
         Returns:
             :obj:`tuple`:
@@ -2734,19 +2737,14 @@ class BpForm(object):
                 * :obj:`dict` of :obj:`dict`: dictionary which maps indices (1-based) of monomeric forms
                     to dictionaries which map types of components of monomeric forms ('monomer' or 'backbone')
                     to dictionaries which map indices (1-based) of atoms to atoms (instances of :obj:`openbabel.OBAtom`)
-                * :obj:`list`: atoms involved in or displaced by bond formation
-                * :obj:`list`: atoms involved in or displaced by crosslinks
-                * :obj:`list` of :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of monomeric forms
-                * :obj:`list` of :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of backbones
-                * :obj:`list` of :obj:`tuple` of :obj:`int`: list of begin and end ids of atoms of crosslinks
         """
         if not self.seq:
-            return (None, None, None, None, None, None, None)
+            return (None, None)
 
         if len(self.seq) > config['max_len_get_structure']:
             warnings.warn('Structure calculations are limited to forms with length <= {}'.format(
                 config['max_len_get_structure']), BpFormsWarning)
-            return (None, None, None, None, None, None, None)
+            return (None, None)
 
         mol = openbabel.OBMol()
         n_atom = 0
@@ -2755,37 +2753,28 @@ class BpForm(object):
         atom_map = {}
         atoms = []
         n_atoms = []
-        i_monomer_atoms = []
-        i_backbone_atoms = []
         for i_monomer, monomer in enumerate(self.seq):
-            monomer_structure = openbabel.OBMol()
-            backbone_structure = openbabel.OBMol()
-            monomer_structure += monomer.structure
-            backbone_structure += self.backbone.structure
+            if monomer.structure is None:
+                monomer_structure = openbabel.OBMol()
+            else:
+                monomer_structure = openbabel.OBMol(monomer.structure)
+            if self.backbone.structure is None:
+                backbone_structure = openbabel.OBMol()
+            else:
+                backbone_structure = openbabel.OBMol(self.backbone.structure)
 
             n_atoms.append(n_atom)
-
-            i_monomer_atoms.append((n_atom + 1,
-                                    n_atom + monomer.structure.NumAtoms()))
-            i_backbone_atoms.append((n_atom + monomer.structure.NumAtoms() + 1,
-                                     n_atom + monomer.structure.NumAtoms() + self.backbone.structure.NumAtoms()))
-            if set_atom_ids:
-                for atom in openbabel.OBMolAtomIter(monomer_structure):
-                    atom.SetId(n_atom + atom.GetIdx())
-                for atom in openbabel.OBMolAtomIter(backbone_structure):
-                    atom.SetId(n_atom + monomer.structure.NumAtoms() + atom.GetIdx())
+            atom_map[i_monomer + 1] = {'monomer': {}, 'backbone': {}}
 
             mol += monomer_structure
+            atom_map[i_monomer + 1]['monomer'] = {i_atom + 1: mol.GetAtom(n_atom + i_atom + 1)
+                            for i_atom in range(monomer_structure.NumAtoms())}
 
             if monomer.backbone_bond_atoms and backbone_structure:
                 mol += backbone_structure
-
-            atom_map[i_monomer + 1] = {
-                'monomer': {i_atom + 1: mol.GetAtom(n_atom + i_atom + 1)
-                            for i_atom in range(monomer.structure.NumAtoms())},
-                'backbone': {i_atom + 1: mol.GetAtom(n_atom + monomer.structure.NumAtoms() + i_atom + 1)
-                             for i_atom in range(backbone_structure.NumAtoms())},
-            }
+                atom_map[i_monomer + 1]['backbone'] = {i_atom + 1:
+                                                       mol.GetAtom(n_atom + monomer_structure.NumAtoms() + i_atom + 1)
+                                                       for i_atom in range(backbone_structure.NumAtoms())}                                                   
 
             monomer_atom_attrs = ['monomer', [
                 ['backbone_bond_atoms', monomer.backbone_bond_atoms],
@@ -2833,7 +2822,7 @@ class BpForm(object):
                         if atom_md.molecule == Monomer:
                             atom = mol.GetAtom(n_atom + atom_md.position)
                         else:
-                            atom = mol.GetAtom(n_atom + atom_md.position + monomer.structure.NumAtoms())
+                            atom = mol.GetAtom(n_atom + atom_md.position + monomer_structure.NumAtoms())
                         subunit_atoms[type][attr[0]].append([atom, atom_md.element, atom_md.charge])
             atoms.append(subunit_atoms)
 
@@ -2865,18 +2854,16 @@ class BpForm(object):
                     crosslink_atoms[atom_type].append(atom)
 
         # bond monomeric forms to backbones
-        i_monomer_backbone_bond_atoms = []
         for subunit_atoms in atoms:
-            i_monomer_backbone_bond_atoms.append(self._bond_monomer_backbone(mol, subunit_atoms))
+            self._bond_monomer_backbone(mol, subunit_atoms)
 
         # bond left/right pairs of subunits
-        i_left_right_bond_atoms = []
         for left_atoms, right_atoms in zip(atoms[0:-1], atoms[1:]):
-            i_left_right_bond_atoms.append(self._bond_subunits(mol, left_atoms, right_atoms))
+            self._bond_subunits(mol, left_atoms, right_atoms)
 
         # circularity
         if self.circular:
-            i_left_right_bond_atoms.append(self._bond_subunits(mol, atoms[-1], atoms[0]))
+            self._bond_subunits(mol, atoms[-1], atoms[0])
 
         # crosslinks
         i_crosslinks_bond_atoms = []
@@ -2887,13 +2874,18 @@ class BpForm(object):
         if include_all_hydrogens:
             mol.AddHydrogens()
 
+        # atom map
+        atoms = list(openbabel.OBMolAtomIter(mol))
+        for monomer in atom_map.values():
+            for motif in monomer.keys():
+                for i_atom, atom in list(monomer[motif].items()):
+                    if atom in atoms:
+                        monomer[motif][i_atom] = atom.GetIdx()
+                    else:
+                        monomer[motif].pop(i_atom)
+
         # return molecule
-        return (mol, atom_map,
-                i_monomer_atoms,
-                i_backbone_atoms,
-                i_monomer_backbone_bond_atoms,
-                i_left_right_bond_atoms,
-                i_crosslinks_bond_atoms)
+        return (mol, atom_map)
 
     def _bond_monomer_backbone(self, mol, subunit_atoms):
         """ Bond a monomeric form to a backbone
@@ -2901,9 +2893,6 @@ class BpForm(object):
         Args:
             mol (:obj:`openbabel.OBMol`): molecule with a monomeric form and backbone
             subunit_atoms (:obj:`dict`): dictionary of atoms in monomeric form and backbone to bond
-
-        Returns:
-            :obj:`list` of :obj:`tuple` of :obj:`int`: ids of atoms in bonds
         """
         for atom, atom_charge in subunit_atoms['monomer']['backbone_displaced_atoms']:
             if atom:
@@ -2913,7 +2902,6 @@ class BpForm(object):
             if atom:
                 assert mol.DeleteAtom(atom, True)
 
-        i_bond_atoms = []
         for (monomer_atom, monomer_atom_charge), (backbone_atom, backbone_atom_charge) in zip(
                 subunit_atoms['monomer']['backbone_bond_atoms'],
                 subunit_atoms['backbone']['monomer_bond_atoms']):
@@ -2922,14 +2910,11 @@ class BpForm(object):
             bond.SetEnd(backbone_atom)
             bond.SetBondOrder(1)
             assert mol.AddBond(bond)
-            i_bond_atoms.append((monomer_atom.GetId() + 1, backbone_atom.GetId() + 1))
 
             if monomer_atom_charge:
                 monomer_atom.SetFormalCharge(monomer_atom.GetFormalCharge() + monomer_atom_charge)
             if backbone_atom_charge:
                 backbone_atom.SetFormalCharge(backbone_atom.GetFormalCharge() + backbone_atom_charge)
-
-        return i_bond_atoms
 
     def _bond_subunits(self, mol, left_atoms, right_atoms):
         """  Bond a left/right pair of subunits
@@ -2938,9 +2923,6 @@ class BpForm(object):
             mol (:obj:`openbabel.OBMol`): molecule with left and right subunits
             left_atoms (:obj:`dict`): dictionary of atoms in left subunit to bond
             right_atoms (:obj:`dict`): dictionary of atoms in right subunit to bond
-
-        Returns:
-            :obj:`list` of :obj:`tuple` of :obj:`int`: ids of atoms in bonds
         """
         for atom, atom_charge in left_atoms['right']['right_displaced_atoms']:
             if atom:
@@ -2950,7 +2932,6 @@ class BpForm(object):
             if atom:
                 assert mol.DeleteAtom(atom, True)
 
-        i_bond_atoms = []
         for (l_atom, l_atom_charge), (r_atom, r_atom_charge) in zip(left_atoms['right']['right_bond_atoms'],
                                                                     right_atoms['left']['left_bond_atoms']):
             bond = openbabel.OBBond()
@@ -2964,34 +2945,23 @@ class BpForm(object):
             if r_atom_charge:
                 r_atom.SetFormalCharge(r_atom.GetFormalCharge() + r_atom_charge)
 
-            i_bond_atoms.append((l_atom.GetId() + 1, r_atom.GetId() + 1))
-
-        return i_bond_atoms
-
     def _form_crosslink(self, mol, atoms):
         """ Form bond(s) for a crosslink
 
         Args:
             mol (:obj:`openbabel.OBMol`): molecule
             atoms (:obj:`dict`): dictionary of atoms to bond and delete
-
-        Returns:
-            :obj:`list` of :obj:`tuple` of :obj:`int`: ids of atoms in bonds
         """
-        i_bond_atoms = []
         for l_atom, r_atom in zip(atoms['left_bond_atoms'], atoms['right_bond_atoms']):
             bond = openbabel.OBBond()
             bond.SetBegin(l_atom)
             bond.SetEnd(r_atom)
             bond.SetBondOrder(1)
             assert mol.AddBond(bond)
-            i_bond_atoms.append((l_atom.GetId() + 1, r_atom.GetId() + 1))
 
         for atom in itertools.chain(atoms['left_displaced_atoms'], atoms['right_displaced_atoms']):
             if atom:
                 assert mol.DeleteAtom(atom, True)
-
-        return i_bond_atoms
 
     def export(self, format, include_all_hydrogens=False, options=()):
         """ Export structure to format
@@ -3017,7 +2987,9 @@ class BpForm(object):
         Returns:
             :obj:`EmpiricalFormula`: chemical formula
         """
+        backbone_formula = self.backbone.get_formula()
         n_backbone = 0
+
         formula = EmpiricalFormula()
         for monomer, count in self.get_monomer_counts().items():
             formula += monomer.get_formula() * count
@@ -3044,7 +3016,7 @@ class BpForm(object):
                 formula[atom.element] -= 1
 
         return formula \
-            + self.backbone.get_formula() * n_backbone \
+            + backbone_formula * n_backbone \
             + self.bond.get_formula(none_position=False) * (len(self.seq) - (1 - self.circular))
 
     def get_mol_wt(self):
@@ -3061,7 +3033,9 @@ class BpForm(object):
         Returns:
             :obj:`int`: charge
         """
+        backbone_charge = self.backbone.get_charge()
         n_backbone = 0
+
         charge = 0
         for monomer, count in self.get_monomer_counts().items():
             charge += monomer.get_charge() * count
@@ -3090,7 +3064,7 @@ class BpForm(object):
                 charge -= atom.charge
 
         return charge \
-            + self.backbone.get_charge() * n_backbone \
+            + backbone_charge * n_backbone \
             + self.bond.get_charge(none_position=False) * (len(self.seq) - (1 - self.circular))
 
     def __str__(self):
@@ -3380,8 +3354,7 @@ class BpForm(object):
         Returns:
             :obj:`object`: image
         """
-        mol, _, i_monomer_atoms, i_backbone_atoms, _, i_left_right_bond_atoms, i_crosslinks_bond_atoms = self.get_structure(
-            include_all_hydrogens=include_all_hydrogens, set_atom_ids=True)
+        mol, atom_map = self.get_structure(include_all_hydrogens=include_all_hydrogens)
         el_table = openbabel.OBElementTable()
 
         atom_labels = []
@@ -3391,36 +3364,42 @@ class BpForm(object):
         bond_sets[left_right_bond_color] = {'positions': [], 'elements': [], 'color': left_right_bond_color}
         bond_sets[crosslink_bond_color] = {'positions': [], 'elements': [], 'color': crosslink_bond_color}
 
-        id_to_atom = {}
-        for atom in openbabel.OBMolAtomIter(mol):
-            id_to_atom[atom.GetId() + 1] = atom  # +1 needed because bug in openbabel
-
         # label monomers
-        for i_monomer, (i_begin_atom, i_end_atom) in enumerate(i_monomer_atoms):
-            for atom_id in range(i_begin_atom, i_end_atom):
-                atom = id_to_atom.get(atom_id, None)
-                if atom:
-                    atom_labels.append({'position': atom.GetIdx(),
-                                        'element': el_table.GetSymbol(atom.GetAtomicNum()),
-                                        'label': str(i_monomer + 1),
-                                        'color': monomer_color})
-                    break
+        for i_monomer in atom_map.keys():
+            i_atoms = sorted(atom_map[i_monomer]['monomer'].keys())
+            if i_atoms:
+                i_atom = atom_map[i_monomer]['monomer'][i_atoms[0]]
+                atom = mol.GetAtom(i_atom)
+                atom_labels.append({'position': i_atom,
+                                    'element': el_table.GetSymbol(atom.GetAtomicNum()),
+                                    'label': str(i_monomer),
+                                    'color': monomer_color})
 
         # color backbones
-        for i_begin_atom, i_end_atom in i_backbone_atoms:
-            for atom_id in range(i_begin_atom, i_end_atom):
-                atom = id_to_atom.get(atom_id, None)
-                if atom is not None:
-                    atom_sets[backbone_color]['positions'].append(atom.GetIdx())
-                    atom_sets[backbone_color]['elements'].append(el_table.GetSymbol(atom.GetAtomicNum()))
+        for i_monomer in atom_map.keys():
+            for i_atom in atom_map[i_monomer]['backbone'].values():
+                atom = mol.GetAtom(i_atom)
+                atom_sets[backbone_color]['positions'].append(i_atom)
+                atom_sets[backbone_color]['elements'].append(el_table.GetSymbol(atom.GetAtomicNum()))
 
         # color left/right bonds
-        for bond_atoms in i_left_right_bond_atoms:
-            self._add_bonds_to_set(bond_atoms, id_to_atom, bond_sets[left_right_bond_color])
+        for i_monomer, (l_monomer, r_monomer) in enumerate(zip(self.seq[0:-1], self.seq[1:])):
+            l_bond_atoms = l_monomer.right_bond_atoms or self.bond.right_bond_atoms
+            r_bond_atoms = r_monomer.left_bond_atoms or self.bond.left_bond_atoms
+            self._add_bonds_to_set(mol,
+                                   l_bond_atoms,
+                                   r_bond_atoms,
+                                   atom_map, bond_sets[left_right_bond_color],
+                                   el_table,
+                                   i_monomer_1=i_monomer + 1,
+                                   i_monomer_2=i_monomer + 2)
 
         # color crosslink bonds
-        for crosslink_atoms in i_crosslinks_bond_atoms:
-            self._add_bonds_to_set(crosslink_atoms, id_to_atom, bond_sets[crosslink_bond_color])
+        for crosslink in self.crosslinks:
+            self._add_bonds_to_set(mol, crosslink.left_bond_atoms,
+                                   crosslink.right_bond_atoms,
+                                   atom_map, bond_sets[crosslink_bond_color],
+                                   el_table)
 
         # remove unused atoms and bond sets
         if not atom_sets[backbone_color]['positions']:
@@ -3438,19 +3417,32 @@ class BpForm(object):
                              show_atom_nums=show_atom_nums,
                              width=width, height=height, include_xml_header=include_xml_header)
 
-    def _add_bonds_to_set(self, bonds, id_to_atom, bond_set):
-        for bond in bonds:
-            atom_1_id = bond[0]
-            atom_2_id = bond[1]
-            self._add_bond_to_set(atom_1_id, atom_2_id, id_to_atom, bond_set)
+    def _add_bonds_to_set(self, mol, r_bond_atoms, l_bond_atoms, atom_map, bond_set, el_table,
+                          i_monomer_1=None, i_monomer_2=None):
+        for md_atom_1, md_atom_2 in zip(r_bond_atoms, l_bond_atoms):
+            if i_monomer_1 is None:
+                i_monomer_1 = md_atom_1.monomer
+            else:
+                i_monomer_1 = i_monomer_1
 
-    def _add_bond_to_set(self, atom_1_id, atom_2_id, id_to_atom, bond_set):
-        el_table = openbabel.OBElementTable()
-        atom_1 = id_to_atom.get(atom_1_id, None)
-        atom_2 = id_to_atom.get(atom_2_id, None)
-        if atom_1 is not None and atom_2 is not None:
-            bond_set['positions'].append([atom_1.GetIdx(), atom_2.GetIdx()])
-            bond_set['elements'].append([el_table.GetSymbol(atom_1.GetAtomicNum()), el_table.GetSymbol(atom_2.GetAtomicNum())])
+            if i_monomer_2 is None:
+                i_monomer_2 = md_atom_2.monomer
+            else:
+                i_monomer_2 = i_monomer_2
+
+            type_1 = md_atom_1.molecule.__name__.lower()
+            type_2 = md_atom_2.molecule.__name__.lower()
+            i_atom_1 = atom_map[i_monomer_1][type_1].get(md_atom_1.position, None)
+            i_atom_2 = atom_map[i_monomer_2][type_2].get(md_atom_2.position, None)
+
+            atom_1 = mol.GetAtom(i_atom_1)
+            atom_2 = mol.GetAtom(i_atom_2)
+
+            bond_set['positions'].append(
+                [i_atom_1, i_atom_2])
+            bond_set['elements'].append(
+                [el_table.GetSymbol(atom_1.GetAtomicNum()),
+                 el_table.GetSymbol(atom_2.GetAtomicNum())])
 
 
 class BpFormFeature(object):

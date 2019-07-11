@@ -7,11 +7,11 @@
 """
 
 from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm,
-                          Backbone, Bond, Atom, Identifier, IdentifierSet, SynonymSet,
+                          Bond, Atom, Identifier, IdentifierSet, SynonymSet,
                           BpFormsWarning)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from wc_utils.util.chem import EmpiricalFormula
+from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species
 import csv
 import math
 import openbabel
@@ -36,11 +36,11 @@ get_dnamod(dna_mod_filename)
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.yml'))
 dna_alphabet = Alphabet().from_yaml(filename)
-# :obj:`Alphabet`: Alphabet for DNA nucleobases
+# :obj:`Alphabet`: Alphabet for DNA nucleotide monophosphates
 
 canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dna.canonical.yml'))
 canonical_dna_alphabet = Alphabet().from_yaml(canonical_filename)
-# :obj:`Alphabet`: Alphabet for canonical DNA nucleobases
+# :obj:`Alphabet`: Alphabet for canonical DNA nucleotide monophosphates
 
 engine = sqlalchemy.create_engine('sqlite:///' + dna_mod_filename)
 DeclarativeBase = declarative_base(engine)
@@ -49,18 +49,7 @@ DeclarativeBase = declarative_base(engine)
 class DnaAlphabetBuilder(AlphabetBuilder):
     """ Build DNA alphabet from MODOMICS """
 
-    INVALID_NAMES = (
-        'adenosine', 'cytidine', 'guanosine', 'uridine', 'side',
-        'ribose', 'ribulose', 'phosphate',
-        'antelmycin', 'cytosylglucuronic acid', '1-(beta-D-xylopyranosyl)cytosine',
-        'telbivudine', 'stavudine', 'tenofovir',
-        '9-{2,5-anhydro-4-[(phosphonooxy)methyl]-alpha-L-lyxofuranosyl}-9H-purin-6-amine',
-        'oxetanocin',
-        'adefovir', '5-amino-6-(5-phospho-beta-D-ribosylamino)uracil',
-        "2'-deoxyinosine", '4-amino-1-methylpyrimidin-2(1H)-one', '1,5-dimethylpyrimidine-2,4(1H,3H)-dione',
-        '9-methyl-9H-purin-6-amine',
-        '2-amino-4-oxo-7-beta-D-ribofuranosyl-4,7-dihydro-1H-pyrrolo[2,3-d]pyrimidine-5-carboxamide',
-    )
+    INVALID_NAMES = ()
 
     class Names(DeclarativeBase):
         """"""
@@ -127,13 +116,11 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         alphabet = Alphabet()
 
         # create canonical monomeric forms
-        if os.path.isfile(filename):
-            alphabet.from_yaml(filename)
-        else:
-            alphabet.from_yaml(canonical_filename)
+        alphabet.from_yaml(canonical_filename)
         alphabet.id = 'dna'
-        alphabet.name = 'DNA nucleobases'
-        alphabet.description = ('The canonical DNA nucleobases, plus the non-canonical DNA nucleobases in '
+        alphabet.name = 'DNA nucleotide monophosphates'
+        alphabet.description = ('The canonical DNA nucleotide monophosphates, '
+                                'plus the non-canonical DNA nucleotide monophosphates based on '
                                 '<a href="https://dnamod.hoffmanlab.org">DNAmod</a> and '
                                 '<a href="http://repairtoire.genesilico.pl/damage/">REPAIRtoire</a>')
 
@@ -156,6 +143,19 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         Returns:
             :obj:`Alphabet`: alphabet
         """
+        filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'dnamod.csv'))
+        monomers = {}
+        with open(filename, 'r') as file:
+            reader = csv.DictReader(file, dialect='excel')
+            for row in reader:
+                monomers[row['Id']] = {
+                    'nucleobase': row['Nucleobase'],
+                    'nucleotide': row['Nucleotide'],
+                    'left_bond_atom': int(float(row['Left bond atom (P)'])),
+                    'left_displaced_atom': int(float(row['Left displaced atom (O-)'])),
+                    'right_bond_atom': int(float(row['Right bond atom (O)'])),
+                }
+
         # get individual nucleobases and create monomeric forms
         session = self.load_session()
         with_smiles = session.query(self.Names).filter(self.Names.smiles != '[]')
@@ -187,6 +187,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
             identifiers = IdentifierSet()
             identifiers.add(Identifier('chebi', item.nameid))
+            identifiers.add(Identifier('dnamod', id))
 
             smiles = item.smiles.strip('[]')
             inchi = item.inchi.strip('[]')
@@ -209,24 +210,70 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
             comments = session.query(self.CovMod).filter(self.CovMod.cmodid == cmodid).first().definition
 
-            structure = openbabel.OBMol()
+            mol = openbabel.OBMol()
             conv = openbabel.OBConversion()
             assert conv.SetInFormat('smi')
-            if not conv.ReadString(structure, smiles):
+            if not conv.ReadString(mol, smiles):
                 assert conv.SetInFormat('inchi')
-                assert conv.ReadString(structure, inchi)
+                assert conv.ReadString(mol, inchi)
+            assert conv.SetOutFormat('smiles')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            smiles = conv.WriteString(mol).partition('\t')[0]
+
+            assert conv.SetInFormat('smiles')
+
+            if ph:
+                smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph=ph,
+                                                 major_tautomer=major_tautomer, dearomatize=dearomatize)
+
+            mol = openbabel.OBMol()
+            conv.ReadString(mol, smiles)
+            smiles = conv.WriteString(mol).partition('\t')[0]
+
+            mol = openbabel.OBMol()
+            conv.ReadString(mol, smiles)
+            smiles = conv.WriteString(mol).partition('\t')[0]
 
             monomer = alphabet.monomers.get(chars, Monomer())
             monomer.id = id
             monomer.name = name
             monomer.synonyms = synonyms
             monomer.identifiers = identifiers
-            monomer.structure = structure
+            monomer.structure = smiles
             monomer.comments = comments
 
             if not self.is_nucleobase_valid(monomer):
                 invalid_nucleobases.append(id)
                 continue
+
+            if monomer.id in monomers:
+                if smiles != monomers[monomer.id]['nucleobase']:
+                    raise Exception('Structure and atom indices may need to be updated for {}\n  {}\n  {}'.format(
+                        monomer.id, smiles, monomers[monomer.id]['nucleobase']))
+
+                smiles = monomers[monomer.id]['nucleotide']
+                if ph:
+                    smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph=ph,
+                                                     major_tautomer=major_tautomer, dearomatize=dearomatize)
+                mol = openbabel.OBMol()
+                conv.ReadString(mol, smiles)
+                smiles = conv.WriteString(mol).partition('\t')[0]
+                mol = openbabel.OBMol()
+                conv.ReadString(mol, smiles)
+                smiles = conv.WriteString(mol).partition('\t')[0]
+
+                if smiles != monomers[monomer.id]['nucleotide']:
+                    raise Exception('Structure and atom indices may need to be updated for {}\n  {}\n  {}'.format(
+                        monomer.id, smiles, monomers[monomer.id]['nucleotide']))
+
+                monomer.structure = smiles
+                monomer.left_bond_atoms = [Atom(Monomer, element='P', position=monomers[monomer.id]['left_bond_atom'])]
+                monomer.left_displaced_atoms = [Atom(Monomer, element='O', position=monomers[monomer.id]
+                                                     ['left_displaced_atom'], charge=-1)]
+                monomer.right_bond_atoms = [Atom(Monomer, element='O', position=monomers[monomer.id]['right_bond_atom'])]
+                monomer.right_displaced_atoms = [Atom(Monomer, element='H', position=monomers[monomer.id]['right_bond_atom'])]
+            else:
+                raise Exception('Structure and atom indices need to be cataloged for {}'.format(monomer.id))
 
             alphabet.monomers[chars] = monomer
 
@@ -236,18 +283,18 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
         for monomer, base_monomer_codes in all_base_monomers_codes.items():
             for base_monomer_code in base_monomer_codes:
-                monomer.base_monomers.add(alphabet.monomers[base_monomer_code])
+                base_monomer = alphabet.monomers.get(base_monomer_code, None)
+                if base_monomer:
+                    monomer.base_monomers.add(base_monomer)
         for monomer, base_monomer_ids in all_base_monomers_ids.items():
             for base_monomer_id in base_monomer_ids:
                 base_monomer = monomer_nameids.get(base_monomer_id, None)
                 if base_monomer:
                     monomer.base_monomers.add(base_monomer)
 
-        warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
-            '\n- '.join(invalid_nucleobases)), BpFormsWarning)
-
-        # get major microspecies for each monomeric form
-        self.get_major_micro_species(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+        if invalid_nucleobases:
+            warnings.warn('The following compounds were ignored because they do not appear to be nucleobases:\n- {}'.format(
+                '\n- '.join(invalid_nucleobases)), BpFormsWarning)
 
     def build_repairtoire(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
         """ Build monomeric forms from DNAmod
@@ -267,8 +314,8 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
         filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'repairtoire.csv'))
         conv = openbabel.OBConversion()
-        conv.SetInFormat('smiles')
-        conv.SetOutFormat('smiles')
+        assert conv.SetInFormat('smiles')
+        assert conv.SetOutFormat('smiles')
         conv.SetOptions('c', conv.OUTOPTIONS)
         merged_monomers = []
         new_monomers = []
@@ -277,17 +324,24 @@ class DnaAlphabetBuilder(AlphabetBuilder):
             for row in reader:
                 id = row['Id']
                 name = row['Name']
-                smiles = row['Base SMILES (cleaned)']
-                i_backbone_bond_atom = int(float(row['Backbone bond atom']))
+                smiles = row['Nucleotide monophosphate (2-) (cleaned)']
+                i_left_bond_atom = int(float(row['Left bond atom (P)']))
+                i_left_displaced_atom = int(float(row['Left displaced atom (O-)']))
+                i_right_bond_atom = int(float(row['Right bond atom (O)']))
                 comments = row['Comments']
 
-                # mol = openbabel.OBMol()
-                # conv.ReadString(mol, smiles)
-                # smiles = conv.WriteString(mol)
-
-                # mol = openbabel.OBMol()
-                # conv.ReadString(mol, smiles)
-                # smiles = conv.WriteString(mol)
+                smiles2 = smiles
+                if ph:
+                    smiles2 = get_major_micro_species(smiles2, 'smiles', 'smiles', ph=ph,
+                                                      major_tautomer=major_tautomer, dearomatize=dearomatize)
+                mol = openbabel.OBMol()
+                conv.ReadString(mol, smiles2)
+                smiles2 = conv.WriteString(mol).partition('\t')[0]
+                mol = openbabel.OBMol()
+                conv.ReadString(mol, smiles2)
+                smiles2 = conv.WriteString(mol).partition('\t')[0]
+                if smiles2 != smiles:
+                    raise Exception('Structure and atom indices may need to be updated for {}'.format(id))
 
                 monomer = monomer_smiles.get(smiles, None)
                 if monomer is None:
@@ -310,8 +364,10 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                         id=id, name=name,
                         identifiers=[Identifier('repairtoire', id)],
                         structure=smiles,
-                        backbone_bond_atoms=[Atom(Monomer, element='N', position=i_backbone_bond_atom)],
-                        backbone_displaced_atoms=[Atom(Monomer, element='H', position=i_backbone_bond_atom)],
+                        left_bond_atoms=[Atom(Monomer, element='P', position=i_left_bond_atom)],
+                        left_displaced_atoms=[Atom(Monomer, element='O', position=i_left_displaced_atom, charge=-1)],
+                        right_bond_atoms=[Atom(Monomer, element='O', position=i_right_bond_atom)],
+                        right_displaced_atoms=[Atom(Monomer, element='H', position=i_right_bond_atom)],
                         comments=comments or None)
                     alphabet.monomers[id] = monomer
 
@@ -352,15 +408,12 @@ class DnaForm(BpForm):
         """
         super(DnaForm, self).__init__(
             seq=seq, alphabet=dna_alphabet,
-            backbone=Backbone(
-                structure='OC1CCOC1COP([O-])([O-])=O',
-                monomer_bond_atoms=[Atom(Backbone, element='C', position=4)],
-                monomer_displaced_atoms=[Atom(Backbone, element='H', position=4)]),
+            backbone=None,
             bond=Bond(
-                right_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                left_bond_atoms=[Atom(Backbone, element='P', position=9)],
-                right_displaced_atoms=[Atom(Backbone, element='H', position=1)],
-                left_displaced_atoms=[Atom(Backbone, element='O', position=11, charge=-1)]),
+                right_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                left_bond_atoms=[Atom(Monomer, element='P', position=None)],
+                right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)
 
 
@@ -377,13 +430,10 @@ class CanonicalDnaForm(BpForm):
         """
         super(CanonicalDnaForm, self).__init__(
             seq=seq, alphabet=canonical_dna_alphabet,
-            backbone=Backbone(
-                structure='OC1CCOC1COP([O-])([O-])=O',
-                monomer_bond_atoms=[Atom(Backbone, element='C', position=4)],
-                monomer_displaced_atoms=[Atom(Backbone, element='H', position=4)]),
+            backbone=None,
             bond=Bond(
-                right_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                left_bond_atoms=[Atom(Backbone, element='P', position=9)],
-                right_displaced_atoms=[Atom(Backbone, element='H', position=1)],
-                left_displaced_atoms=[Atom(Backbone, element='O', position=11, charge=-1)]),
+                right_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                left_bond_atoms=[Atom(Monomer, element='P', position=None)],
+                right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)

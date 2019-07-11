@@ -76,15 +76,15 @@ class DnaTestCase(unittest.TestCase):
         dna.get_dnamod(filename)
 
     def test_dna_alphabet(self):
-        self.assertEqual(dna.dna_alphabet.monomers.A.get_formula(), EmpiricalFormula('C5H5N5'))
-        self.assertEqual(dna.dna_alphabet.monomers.C.get_formula(), EmpiricalFormula('C4H5N3O'))
-        self.assertEqual(dna.dna_alphabet.monomers.G.get_formula(), EmpiricalFormula('C5H5N5O'))
-        self.assertEqual(dna.dna_alphabet.monomers.T.get_formula(), EmpiricalFormula('C5H6N2O2'))
+        self.assertEqual(dna.dna_alphabet.monomers.A.get_formula(), EmpiricalFormula('C5H5N5') + EmpiricalFormula('C5H7O6P'))
+        self.assertEqual(dna.dna_alphabet.monomers.C.get_formula(), EmpiricalFormula('C4H5N3O') + EmpiricalFormula('C5H7O6P'))
+        self.assertEqual(dna.dna_alphabet.monomers.G.get_formula(), EmpiricalFormula('C5H5N5O') + EmpiricalFormula('C5H7O6P'))
+        self.assertEqual(dna.dna_alphabet.monomers.T.get_formula(), EmpiricalFormula('C5H6N2O2') + EmpiricalFormula('C5H7O6P'))
 
-        self.assertEqual(dna.canonical_dna_alphabet.monomers.A.get_formula(), EmpiricalFormula('C5H5N5'))
-        self.assertEqual(dna.canonical_dna_alphabet.monomers.C.get_formula(), EmpiricalFormula('C4H5N3O'))
-        self.assertEqual(dna.canonical_dna_alphabet.monomers.G.get_formula(), EmpiricalFormula('C5H5N5O'))
-        self.assertEqual(dna.canonical_dna_alphabet.monomers.T.get_formula(), EmpiricalFormula('C5H6N2O2'))
+        self.assertEqual(dna.canonical_dna_alphabet.monomers.A.get_formula(), EmpiricalFormula('C5H5N5') + EmpiricalFormula('C5H7O6P'))
+        self.assertEqual(dna.canonical_dna_alphabet.monomers.C.get_formula(), EmpiricalFormula('C4H5N3O') + EmpiricalFormula('C5H7O6P'))
+        self.assertEqual(dna.canonical_dna_alphabet.monomers.G.get_formula(), EmpiricalFormula('C5H5N5O') + EmpiricalFormula('C5H7O6P'))
+        self.assertEqual(dna.canonical_dna_alphabet.monomers.T.get_formula(), EmpiricalFormula('C5H6N2O2') + EmpiricalFormula('C5H7O6P'))
 
     def test_DnaForm_init(self):
         dna.DnaForm()
@@ -114,14 +114,14 @@ class DnaTestCase(unittest.TestCase):
         self.assertEqual(form.export('inchi'), dtmp_inchi)
 
         form = dna.CanonicalDnaForm().from_str('AA')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C5H7O6P') * 2 + EmpiricalFormula('OH') * -1
-                         + monomers.A.get_formula() * 2)
+        self.assertEqual(form.get_formula(),
+                         EmpiricalFormula('OH') * -1 + monomers.A.get_formula() * 2)
         self.assertEqual(form.get_formula(), EmpiricalFormula('C20H23N10O11P2'))
         self.assertEqual(form.get_charge(), -3)
         self.assertEqual(form.export('inchi'), di_damp_inchi)
 
         form = dna.CanonicalDnaForm().from_str('AC')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C5H7O6P') * 2 + EmpiricalFormula('OH') * -1
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -1
                          + monomers.A.get_formula()
                          + monomers.C.get_formula())
         self.assertEqual(form.get_formula(), EmpiricalFormula('C19H23O12N8P2'))
@@ -129,7 +129,7 @@ class DnaTestCase(unittest.TestCase):
         self.assertEqual(form.export('inchi'), dAdC_inchi)
 
         form = dna.CanonicalDnaForm().from_str('ACG')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C5H7O6P') * 3 + EmpiricalFormula('OH') * -2
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -2
                          + monomers.A.get_formula()
                          + monomers.C.get_formula()
                          + monomers.G.get_formula())
@@ -138,7 +138,7 @@ class DnaTestCase(unittest.TestCase):
         self.assertEqual(form.export('inchi'), dAdCdG_inchi)
 
         form = dna.DnaForm().from_str('ACG')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C5H7O6P') * 3 + EmpiricalFormula('OH') * -2
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -2
                          + monomers.A.get_formula()
                          + monomers.C.get_formula()
                          + monomers.G.get_formula())
@@ -147,7 +147,7 @@ class DnaTestCase(unittest.TestCase):
         self.assertEqual(form.export('inchi'), dAdCdG_inchi)
 
         form = dna.CanonicalDnaForm().from_str('ACGT')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C5H7O6P') * 4 + EmpiricalFormula('OH') * -3
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -3
                          + monomers.A.get_formula()
                          + monomers.C.get_formula()
                          + monomers.G.get_formula()
@@ -156,7 +156,7 @@ class DnaTestCase(unittest.TestCase):
         self.assertEqual(form.get_charge(), -5)
 
         form = dna.DnaForm().from_str('ACGT')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C5H7O6P') * 4 + EmpiricalFormula('OH') * -3
+        self.assertEqual(form.get_formula(), EmpiricalFormula('OH') * -3
                          + monomers.A.get_formula()
                          + monomers.C.get_formula()
                          + monomers.G.get_formula()
@@ -166,9 +166,10 @@ class DnaTestCase(unittest.TestCase):
 
     def test_DnaAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
-        alphabet = dna.DnaAlphabetBuilder(_max_monomers=3).run(path=path)
-        alphabet = dna.DnaAlphabetBuilder().run(path=path)
-        self.assertEqual(alphabet.monomers.A.get_formula(), EmpiricalFormula('C5H5N5'))
+        alphabet = dna.DnaAlphabetBuilder(_max_monomers=3).run(ph=7.4, path=path)
+        alphabet = dna.DnaAlphabetBuilder().run(ph=7.4, path=path)
+        self.assertEqual(alphabet.monomers.A.get_formula(),
+                         EmpiricalFormula('C5H5N5') + EmpiricalFormula('C5H7O6P'))
         self.assertTrue(os.path.isfile(path))
 
     def test_validate_linkages(self):

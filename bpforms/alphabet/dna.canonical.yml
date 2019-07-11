@@ -1,6 +1,6 @@
 id: canonical_dna
-name: Canonical DNA nucleobases
-description: The canonical DNA nucleobases
+name: Canonical DNA nucleotide monophosphates
+description: The canonical DNA nucleotide monophosphates
 monomers:
   A:
     id: adenine
@@ -10,19 +10,30 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:16708
+    - ns: chebi
+      id: CHEBI:58245
     - ns: metacyc.compound
       id: ADENINE
     - ns: pubchem.compound
       id: '190'
-    structure: NC1=C2N=CNC2=NC=N1
-    backbone_bond_atoms:
+    structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1ncnc2N
+    left_bond_atoms:
     - molecule: Monomer
-      element: N
-      position: 6
-    backbone_displaced_atoms:
+      element: P
+      position: 9
+    left_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 12
+      charge: -1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 6
+      position: 1
   C:
     id: cytosine
     name: cytosine
@@ -31,19 +42,30 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:16040
+    - ns: chebi
+      id: CHEBI:57566
     - ns: metacyc.compound
       id: CYTOSINE
     - ns: pubchem.compound
       id: '597'
-    structure: NC1=NC(=O)NC=C1
-    backbone_bond_atoms:
+    structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc(nc1=O)N
+    left_bond_atoms:
     - molecule: Monomer
-      element: N
-      position: 6
-    backbone_displaced_atoms:
+      element: P
+      position: 9
+    left_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 12
+      charge: -1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 6
+      position: 1
   G:
     id: guanine
     name: guanine
@@ -53,17 +75,28 @@ monomers:
       id: '764'
     - ns: chebi
       id: CHEBI:16235
+    - ns: chebi
+      id: CHEBI:57673
     - ns: metacyc.compound
       id: GUANINE
-    structure: NC1=NC2=C(N=CN2)C(=O)N1
-    backbone_bond_atoms:
+    structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc(N)[nH]c2=O
+    left_bond_atoms:
     - molecule: Monomer
-      element: N
-      position: 8
-    backbone_displaced_atoms:
+      element: P
+      position: 9
+    left_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 12
+      charge: -1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 1
   T:
     id: thymine
     name: thymine
@@ -73,38 +106,60 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:17821
+    - ns: chebi
+      id: CHEBI:26999
     - ns: metacyc.compound
       id: THYMINE
     - ns: pubchem.compound
       id: '1135'
-    structure: CC1=CNC(=O)NC1=O
-    backbone_bond_atoms:
+    structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C)c(=O)[nH]c1=O
+    left_bond_atoms:
     - molecule: Monomer
-      element: N
-      position: 4
-    backbone_displaced_atoms:
+      element: P
+      position: 9
+    left_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 12
+      charge: -1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 4
+      position: 1
   U:
     id: uracil
     name: uracil
     identifiers:
     - ns: chebi
       id: CHEBI:17568
+    - ns: chebi
+      id: CHEBI:246422
     - ns: metacyc.compound
       id: URACIL
     - ns: pubchem.compound
       id: '1174'
-    structure: O=C1NC=CC(=O)N1
-    backbone_bond_atoms:
+    structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc(=O)[nH]c1=O
+    left_bond_atoms:
     - molecule: Monomer
-      element: N
-      position: 3
-    backbone_displaced_atoms:
+      element: P
+      position: 9
+    left_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 12
+      charge: -1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 3
+      position: 1
   dI:
     id: hypoxanthine
     name: hypoxanthine
@@ -113,16 +168,27 @@ monomers:
     identifiers:
     - ns: chebi
       id: CHEBI:17368
+    - ns: chebi
+      id: CHEBI:28806
     - ns: metacyc.compound
       id: HYPOXANTHINE
     - ns: pubchem.compound
       id: '790'
-    structure: O=C1NC=NC2=C1N=CN2
-    backbone_bond_atoms:
+    structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc[nH]c2=O
+    left_bond_atoms:
     - molecule: Monomer
-      element: N
-      position: 10
-    backbone_displaced_atoms:
+      element: P
+      position: 9
+    left_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 12
+      charge: -1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    right_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 10
+      position: 1

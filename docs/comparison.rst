@@ -14,7 +14,7 @@ Advantages over BioPAX
 Advantages over DNAmod
 ^^^^^^^^^^^^^^^^^^^^^^
 
-* The `BpForms` DNA alphabet is internally consistent. Each monomeric form represents a nucleobase. This ensures the monomeric forms can be composed into polymers, as the semantic meaning of the polymers is well-defined.
+* The `BpForms` DNA alphabet is internally consistent. Each monomeric form represents a nucleotide monophosphate. This ensures the monomeric forms can be composed into polymers, as the semantic meaning of the polymers is well-defined.
 
 
 Advantages over MODOMICS
@@ -28,7 +28,7 @@ Advantages over MODOMICS
 * `BpForms` can capture uncertainity in the structures of biopolymers. This is essential for proteomics.
 * `BpForms` has a concrete grammar.
 * All of the monomeric forms in the `BpForms` RNA alphabet have defined structures, unlike several MODOMICS entries which have undefined `BASE` groups. This gaurantees that `BpForms` polymers specify concrete structures.
-* The `BpForms` RNA alphabet consistenty represents only nucleosides. This gaurantees that the monomeric forms are composable. In constract, MODOMICS includes both nucleosides and bases, which makes the composition of the MODOMICS monomeric forms ill-defined.
+* The `BpForms` RNA alphabet consistenty represents only nucleotide monophosphates. This gaurantees that the monomeric forms are composable. In constract, MODOMICS includes both nucleosides and bases, which makes the composition of the MODOMICS monomeric forms ill-defined.
 * The `BpForms` RNA alphabet encompasses monomeric forms from both MODOMICS and the RNA Modification Database. This adds two additional monomeric forms that are not present in MODOMICS.
 * `BpForms` includes software for error checking descriptions of non-canonical biopolymers. This includes verifying that monomeric forms that only have left bonding sites (e.g. 5' caps) only appear at the first position and that monomeric forms that only have right bonding sites (e.g. 3' caps) only appear at the last position.
 * `BpForms` includes software for interpreting descriptions of non-canonical biopolymers. This enables calculations of properties such as chemical formulae, masses, and charges, which is essential for modeling and other applications.

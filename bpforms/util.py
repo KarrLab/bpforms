@@ -201,7 +201,11 @@ def validate_bpform_linkages(form_type):
         selected_hydrogens = []
         for atom_md in getattr(molecule, atom_type):
             if atom_md.molecule == core.Backbone:
-                if atom_md.position < 1 or atom_md.position > form.backbone.structure.NumAtoms():
+                if form.backbone.structure:
+                    n_backbone_atoms = form.backbone.structure.NumAtoms()
+                else:
+                    n_backbone_atoms = 0
+                if atom_md.position < 1 or atom_md.position > n_backbone_atoms:
                     errors.append('Invalid position {} for {}.{}'.format(atom_md.position, molecule_md, atom_type))
                     continue
 
@@ -226,7 +230,6 @@ def validate_bpform_linkages(form_type):
         'left_displaced_atoms',
     ]
     for i_monomer, monomer in enumerate(form.alphabet.monomers.values()):
-        print(monomer.id)
         for atom_type in atom_types:
             selected_hydrogens = []
             for atom_md in getattr(monomer, atom_type):
@@ -248,7 +251,6 @@ def validate_bpform_linkages(form_type):
 
     # validate monomeric forms and dimers
     for monomer in form.alphabet.monomers.values():
-        print(monomer.id)
         monomer_form = form_type(seq=[monomer])
         try:
             monomer_structure = monomer_form.get_structure()[0]
