@@ -7,17 +7,6 @@ set_alphabet = function(data, status, jqXHR) {
     $('#alphabet_heading').html(data['name'] + ' alphabet')
     $('#alphabet_description').html(data['description'])
 
-    $('#monomer-legend-backbone').removeClass('hide')
-    $('#monomer-legend-left').removeClass('hide')
-    $('#monomer-legend-right').removeClass('hide')
-    if (alphabet_id == 'dna' || alphabet_id == 'canonical_dna') {
-        $('#monomer-legend-left').addClass('hide')
-        $('#monomer-legend-right').addClass('hide')
-    }
-    if (alphabet_id == 'rna' || alphabet_id == 'canonical_rna') {
-        $('#monomer-legend-left').addClass('hide')
-    }
-
     var html = ''
 
     codes = Object.keys(data['monomers'])

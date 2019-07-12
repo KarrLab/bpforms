@@ -27,7 +27,7 @@
         <div class="large-7 cell">
           <p><i>BpForms</i> is a toolkit for unambiguously describing the molecular structure (atoms and bonds) of DNA, RNA, and proteins, including non-canonical monomeric forms (subunits which compose polymers), circular topologies, and crosslinks. By concretely describing the molecular structure of biopolymers, <i>BpForms</i> aims to help epigenomics, transcriptomics, proteomics, systems biology, and synthetic biology researchers share and integrate information about DNA modification, post-transcriptional modification, post-translational modification, expanded genetic codes, and synthetic parts. In particular, <i>BpForms</i> was developed to help researchers collaboratively develop whole-cell computational models <a href="https://www.wholecell.org"><i class="fi-link"></i></a>.</p>
 
-          <p><i>BpForms</i> includes a notation for describing biopolymer forms and three consensus alphabets of non-canonical monomeric forms of DNA nucleotide monophosphates, RNA nucleotide monophosphates, and protein residues. <i>BpForms</i> also includes four software tools for verifying descriptions of biopolymer forms and calculating properties such as their molecular structure, formula, molecular weight, and charge: this website, a JSON REST API <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>, a command line interface <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>, and a Python API <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>. <i>BpForms</i> is available open-source <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a> under the MIT license.</p>
+          <p><i>BpForms</i> includes a notation for describing biopolymer forms and three consensus alphabets of non-canonical monomeric forms of DNA nucleotide monophosphates, RNA nucleotide monophosphates, and protein amino acids. <i>BpForms</i> also includes four software tools for verifying descriptions of biopolymer forms and calculating properties such as their molecular structure, formula, molecular weight, and charge: this website, a JSON REST API <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>, a command line interface <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>, and a Python API <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>. <i>BpForms</i> is available open-source <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a> under the MIT license.</p>
         </div>
         <div class="large-5 cell toc">
           <h3>Table of contents</h3>
@@ -291,7 +291,7 @@
               </p>
             </div>
             <div class="large-4 cell">
-              <h5>Protein: 1,448 residues</h5>
+              <h5>Protein: 1,448 amino acids</h5>
               <a data-fancybox="gallery"
                 href="img/example/protein-AA0037.svg"
                 data-width="600">
@@ -384,7 +384,7 @@
           <h4>Example</h4>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              <p>The example below illustrates how to describe the modified protein residue N<sup>5</sup>-methyl-L-arginine.</p>
+              <p>The example below illustrates how to describe the modified amino acid N<sup>5</sup>-methyl-L-arginine.</p>
 
               <p>The blue atoms indicate atoms (N terminus) involved in left bonds to preceding monomeric forms; the dark blue N atom indicates the atom which bonds with preceding monomeric forms; the light blue H atom indicates atoms displaced by the formation of these bonds.</p>
 
@@ -492,7 +492,7 @@
           <h3>Example</h3>
           <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-              <p>The example below illustrates how to describe a tripeptide with a disulfide bond. The blue line indicates the disulfide bond (crosslink). The green lines indicate the bonds between the successive residues. The black labels indicate the positions of monomeric forms within the sequence.</p>
+              <p>The example below illustrates how to describe a tripeptide with a disulfide bond. The blue line indicates the disulfide bond (crosslink). The green lines indicate the bonds between the successive amino acids. The black labels indicate the positions of monomeric forms within the sequence.</p>
             </div>
             <div class="large-8 cell syntax">
               <pre>CAC | crosslink: [
@@ -583,7 +583,7 @@
         <div class="large-4 cell">
           <a name="proteomics"></a>
           <h3>Proteomics</h3>
-          <p><i>BpForms</i> can help researchers precisely communicate the sequences of proteoforms, analyze modifications, and improve the quality of reported sequences by identifying errors in the descriptions of proteoforms, such as monomeric forms that are inconsistent with the unmodified sequence (e.g., selenocysteine modification of a non-cysteine residue) and inconsistent bonds (e.g., N,N,N-trimethyl-L-alanine (which has no N-terminus) located in the middle of a peptide).</p>
+          <p><i>BpForms</i> can help researchers precisely communicate the sequences of proteoforms, analyze modifications, and improve the quality of reported sequences by identifying errors in the descriptions of proteoforms, such as monomeric forms that are inconsistent with the unmodified sequence (e.g., selenocysteine modification of a non-cysteine amino acid) and inconsistent bonds (e.g., N,N,N-trimethyl-L-alanine (which has no N-terminus) located in the middle of a peptide).</p>
         </div>
         <div class="large-8 cell">
           <h3>Example: Analysis of the metabolic load of protein modification in humans</h3>

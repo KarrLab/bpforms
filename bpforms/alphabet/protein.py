@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone,
+from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence,
                           Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet,
                           BpFormsWarning)
 from bs4 import BeautifulSoup
@@ -27,11 +27,11 @@ import zipfile
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.yml'))
 protein_alphabet = Alphabet().from_yaml(filename)
-# :obj:`Alphabet`: Alphabet for protein residues
+# :obj:`Alphabet`: Alphabet for protein amino acids
 
 canonical_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.canonical.yml'))
 canonical_protein_alphabet = Alphabet().from_yaml(canonical_filename)
-# :obj:`Alphabet`: Alphabet for canonical protein residues
+# :obj:`Alphabet`: Alphabet for canonical protein amino acids
 
 
 class ProteinAlphabetBuilder(AlphabetBuilder):
@@ -71,8 +71,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # load canonical monomeric forms
         alphabet.from_yaml(canonical_filename)
         alphabet.id = 'protein'
-        alphabet.name = 'Protein residues'
-        alphabet.description = ('The 20 canonical protein residues, plus the non-canonical protein residues in the '
+        alphabet.name = 'Protein amino acids'
+        alphabet.description = ('The canonical protein amino acids, plus non-canonical amino acids based on '
                                 '<a href="http://www.wwpdb.org/data/ccd">PDB Chemical Component Dictionary</a> '
                                 'and <a href="https://pir.georgetown.edu/resid">RESID</a>')
 
@@ -143,6 +143,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         '  Code\tSMILES\n'
                         '  {}\n\n').format(
                 len(no_termini), '\n  '.join('\t'.join(txt) for txt in no_termini)))
+
+        # transform from residue to amino acids
 
         # return alphabet
         return alphabet
@@ -223,14 +225,13 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
                 if name not in ['L-arginine', 'L-asparagine', 'L-valine']:
                     canonical_aa.structure = structure
-                    canonical_aa.backbone_bond_atoms[0].position = index_c
-                    canonical_aa.backbone_displaced_atoms[0].position = index_c
-                    canonical_aa.right_bond_atoms[0].position = index_c
-                    canonical_aa.left_bond_atoms[0].position = index_n
-                    canonical_aa.left_displaced_atoms[0].position = index_n
-                    canonical_aa.left_displaced_atoms[1].position = index_n
-                    warnings.warn('Updated canonical monomeric form {}'.format(name), BpFormsWarning)
+                    canonical_aa.left_bond_atoms = []
+                    canonical_aa.left_displaced_atoms = []
+                    canonical_aa.right_bond_atoms = []
+                    canonical_aa.right_displaced_atoms = []
+                    self.set_termini(structure, canonical_aa, index_n, index_c)
 
+                warnings.warn('Updated canonical monomeric form {}'.format(name), BpFormsWarning)
                 continue
 
             monomer = Monomer(
@@ -304,11 +305,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         assert conv.SetInFormat('smi'), 'Unable to set format to SMILES'
         conv.ReadString(smiles_mol, smiles)
 
-        _, i_n, i_c = self.get_termini(smiles_mol)
+        _, i_n, i_c = self.get_termini(smiles_mol, residue=False)
         if i_n is None or i_c is None:
             smiles_mol_2 = openbabel.OBMol()
             conv.ReadString(smiles_mol_2, smiles)
-            _, i_n_2, i_c_2 = self.get_termini(smiles_mol_2, residue=False)
+            _, i_n_2, i_c_2 = self.get_termini(smiles_mol_2)
             if ((i_n_2 is not None) + (i_c_2 is not None)) > ((i_n is not None) + (i_c is not None)):
                 smiles = conv.WriteString(smiles_mol_2)
 
@@ -321,7 +322,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 assert conv.SetInFormat('smi')
                 conv.ReadString(smiles_mol, smiles)
 
-                _, i_n, i_c = self.get_termini(smiles_mol)
+                _, i_n, i_c = self.get_termini(smiles_mol, residue=False)
 
         return (smiles_mol, i_n, i_c)
 
@@ -392,7 +393,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             pdb_ccd_id_to_monomers = {}
             for file_info in tar_file:
                 i_file += 1
-                if i_file % 100 == 1:
+                if i_file % 1000 == 1:
                     print('Processing file {} of {}'.format(i_file, n_files))
 
                 if os.path.splitext(file_info.name)[-1] != '.xml':
@@ -547,7 +548,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     monomer = Monomer(id=id, name=name, synonyms=synonyms,
                                       identifiers=identifiers, structure=smiles)
 
-                    _, i_n, i_c = self.get_termini(monomer.structure)
+                    _, i_n, i_c = self.get_termini(monomer.structure, residue=False)
                     self.set_termini(mol, monomer, i_n, i_c)
 
                     assert id not in alphabet.monomers
@@ -606,9 +607,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             name='S-geranylgeranyl-L-cysteine methyl ester',
             identifiers=IdentifierSet([Identifier('mod', 'MOD:01119')]),
             base_monomers=[alphabet.monomers.C],
-            structure='COC(=O)[C@@H](N)CSC\C=C(/C)CC\C=C(/C)CC\C=C(/C)CCC=C(C)C',
-            left_bond_atoms=[Atom(Monomer, element='N', position=7, charge=-1)],
-            left_displaced_atoms=[Atom(Monomer, element='H', position=7)])
+            structure='COC(=O)[C@H](CSC/C=C(/CC/C=C(/CC/C=C(/CCC=C(C)C)\C)\C)\C)[NH3+]',
+            left_bond_atoms=[Atom(Monomer, element='N', position=29, charge=-1)],
+            left_displaced_atoms=[Atom(Monomer, element='H', position=29),
+                                  Atom(Monomer, element='H', position=29, charge=1)])
 
     def set_termini(self, mol, monomer, i_n, i_c):
         """ Set the C and N terminal bond atoms of a monomer
@@ -620,9 +622,30 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             i_c (:obj:`int`): index of C terminus
         """
         if i_c:
-            monomer.backbone_bond_atoms.append(Atom(Monomer, element='C', position=i_c))
-            monomer.backbone_displaced_atoms.append(Atom(Monomer, element='H', position=i_c))
-            monomer.right_bond_atoms.append(Atom(Monomer, element='C', position=i_c))
+            c_atom = mol.GetAtom(i_c)
+            i_o = None
+            for bond in openbabel.OBAtomBondIter(c_atom):
+                if bond.GetBondOrder() != 1:
+                    continue
+
+                o_atom = bond.GetBeginAtom()
+                if o_atom.GetIdx() == c_atom.GetIdx():
+                    o_atom = bond.GetEndAtom()
+
+                if o_atom.GetAtomicNum() == 8:
+                    other_atoms = sorted([other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(o_atom)])
+                    if len(other_atoms) == 1 or other_atoms[-2] == 1:
+                        i_o = o_atom.GetIdx()
+                        break
+
+            if i_o:
+                monomer.right_bond_atoms.append(Atom(Monomer, element='C', position=i_c))
+                if o_atom.GetFormalCharge() == 0:
+                    monomer.right_displaced_atoms.append(Atom(Monomer, element='O', position=i_o))
+                    monomer.right_displaced_atoms.append(Atom(Monomer, element='H', position=i_o))
+                else:
+                    monomer.right_displaced_atoms.append(Atom(Monomer, element='O', position=i_o, charge=-1))
+
         if i_n:
             atom = mol.GetAtom(i_n)
             other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(atom)]
@@ -683,8 +706,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
             if atom_c:
                 idx_c = atom_c.GetIdx()
-                if not residue:
-                    self.is_c_terminus(mol, atom_c, residue=residue, convert_to_residue=True)
+                if residue:
+                    self.is_c_terminus(mol, atom_c, residue=residue, convert_to_aa=True)
             else:
                 idx_c = None
         else:
@@ -738,14 +761,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         # return True
         return True
 
-    def is_c_terminus(self, mol, atom, residue=True, convert_to_residue=False):
+    def is_c_terminus(self, mol, atom, residue=True, convert_to_aa=False):
         """ Determine if an atom is an C-terminus
 
         Args:
             mol (:obj:`openbabel.OBMol`): molecule
             atom (:obj:`openbabel.OBAtom`): atom
             residue (:obj:`bool`, optional): if :obj:`True`, search for a residue (H instead of O- at C terminus)
-            convert_to_residue (:obj:`bool`, optional): if :obj:`True`, convert O- to H
+            convert_to_aa (:obj:`bool`, optional): if :obj:`True`, convert COH to COOH
 
         Returns:
             :obj:`bool`: :obj:`True` if the atom is an C-terminus
@@ -809,10 +832,26 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 if other_atom.GetIdx() != atom.GetIdx() and other_atom.GetAtomicNum() != 1:
                     return False
 
-        # correct amino acid to residue
-        if convert_to_residue:
-            other_atom = o_single_bonds[0][1]
-            other_atom.SetAtomicNum(1)
+        # correct residue to amino acid
+        if convert_to_aa:
+            h_atom = None
+            for other_atom in openbabel.OBAtomAtomIter(atom):
+                if other_atom.GetAtomicNum() == 1:
+                    h_atom = other_atom
+                    break
+
+            if h_atom is not None:
+                h_atom.SetAtomicNum(8)
+            else:
+                o_atom = mol.NewAtom()
+                o_atom.SetAtomicNum(8)
+                o_atom.SetFormalCharge(0)
+
+                bond = openbabel.OBBond()
+                bond.SetBegin(atom)
+                bond.SetEnd(o_atom)
+                bond.SetBondOrder(1)
+                assert mol.AddBond(bond)
 
         # return True
         return True
@@ -937,14 +976,12 @@ class ProteinForm(BpForm):
         """
         super(ProteinForm, self).__init__(
             seq=seq, alphabet=protein_alphabet,
-            backbone=Backbone(
-                structure='[OH-]',
-                monomer_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                monomer_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
+            backbone=None,
             bond=Bond(
                 right_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 left_bond_atoms=[Atom(Monomer, element='N', position=None)],
-                right_displaced_atoms=[Atom(Backbone, element='O', position=1, charge=-1)],
+                right_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
+                                       Atom(Monomer, element='H', position=None)],
                 left_displaced_atoms=[Atom(Monomer, element='H', position=None),
                                       Atom(Monomer, element='H', position=None, charge=1)]),
             circular=circular)
@@ -963,14 +1000,12 @@ class CanonicalProteinForm(BpForm):
         """
         super(CanonicalProteinForm, self).__init__(
             seq=seq, alphabet=canonical_protein_alphabet,
-            backbone=Backbone(
-                structure='[OH-]',
-                monomer_bond_atoms=[Atom(Backbone, element='O', position=1)],
-                monomer_displaced_atoms=[Atom(Backbone, element='H', position=1)]),
+            backbone=None,
             bond=Bond(
                 right_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 left_bond_atoms=[Atom(Monomer, element='N', position=None)],
-                right_displaced_atoms=[Atom(Backbone, element='O', position=1, charge=-1)],
+                right_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
+                                       Atom(Monomer, element='H', position=None)],
                 left_displaced_atoms=[Atom(Monomer, element='H', position=None),
                                       Atom(Monomer, element='H', position=None, charge=1)]),
             circular=circular)

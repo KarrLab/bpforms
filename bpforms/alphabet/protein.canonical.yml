@@ -1,6 +1,6 @@
 id: canonical_protein
-name: Canonical protein residues
-description: The 20 canonical protein residues
+name: Canonical protein amino acids
+description: The canonical protein amino acids
 monomers:
   A:
     id: Ala
@@ -19,32 +19,31 @@ monomers:
       id: AA0001
     - ns: metacyc.compound
       id: L-ALPHA-ALANINE
-    structure: C[C@H]([NH3+])C=O
-    backbone_bond_atoms:
+    structure: C[C@H]([NH3+])C(=O)O
+    left_bond_atoms:
     - molecule: Monomer
-      element: C
-      position: 8
-    backbone_displaced_atoms:
+      element: N
+      position: 4
+      charge: -1
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 8
+      position: 4
+      charge: 1
+    - molecule: Monomer
+      element: H
+      position: 4
     right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
-    left_bond_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
-      element: N
-      charge: -1
-      position: 4
-    left_displaced_atoms:
+      element: O
+      position: 10
     - molecule: Monomer
       element: H
-      charge: 1
-      position: 4
-    - molecule: Monomer
-      element: H
-      position: 4
+      position: 10
   R:
     id: Arg
     name: L-arginine
@@ -62,32 +61,31 @@ monomers:
       id: CHEBI:16467
     - ns: metacyc.compound
       id: ARG
-    structure: O=C[C@H](CCCNC(=[NH2+])N)[NH3+]
-    backbone_bond_atoms:
+    structure: OC(=O)[C@H](CCCNC(=[NH2+])N)[NH3+]
+    left_bond_atoms:
     - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
+      element: N
+      position: 15
+      charge: -1
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 2
+      position: 15
+      charge: 1
+    - molecule: Monomer
+      element: H
+      position: 15
     right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    left_bond_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
-      element: N
-      charge: -1
-      position: 14
-    left_displaced_atoms:
+      element: O
+      position: 1
     - molecule: Monomer
       element: H
-      charge: 1
-      position: 14
-    - molecule: Monomer
-      element: H
-      position: 14
+      position: 1
   N:
     id: Asn
     name: L-asparagine
@@ -112,32 +110,31 @@ monomers:
       id: '6267'
     - ns: chebi
       id: CHEBI:17196
-    structure: NC(=O)C[C@H]([NH3+])C=O
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 11
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 11
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 11
+    structure: NC(=O)C[C@@H](C(=O)O)[NH3+]
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 10
       charge: -1
-      position: 7
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 10
       charge: 1
-      position: 7
     - molecule: Monomer
       element: H
+      position: 10
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
       position: 7
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 9
+    - molecule: Monomer
+      element: H
+      position: 9
   D:
     id: Asp
     name: L-aspartic acid
@@ -155,28 +152,27 @@ monomers:
       id: '5960'
     - ns: metacyc.compound
       id: ASP
-    structure: O=C[C@H](CC(=O)[O-])[NH3+]
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
+    structure: '[O-]C(=O)C[C@@H](C(=O)O)[NH3+]'
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 10
       charge: -1
-      position: 9
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 10
       charge: 1
+    - molecule: Monomer
+      element: H
+      position: 10
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 7
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
       position: 9
     - molecule: Monomer
       element: H
@@ -202,32 +198,31 @@ monomers:
       id: AA0005
     - ns: metacyc.compound
       id: CYS
-    structure: SC[C@H]([NH3+])C=O
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 9
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 9
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 9
+    structure: OC(=O)[C@@H]([NH3+])CS
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 6
       charge: -1
-      position: 5
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 6
       charge: 1
-      position: 5
     - molecule: Monomer
       element: H
-      position: 5
+      position: 6
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 2
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    - molecule: Monomer
+      element: H
+      position: 1
   Q:
     id: Gln
     name: L-glutamine
@@ -252,28 +247,27 @@ monomers:
       id: AA0007
     - ns: pubchem.compound
       id: '5961'
-    structure: O=C[C@H](CCC(=O)N)[NH3+]
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
+    structure: NC(=O)CC[C@@H](C(=O)O)[NH3+]
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 11
       charge: -1
-      position: 10
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 11
       charge: 1
+    - molecule: Monomer
+      element: H
+      position: 11
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 8
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
       position: 10
     - molecule: Monomer
       element: H
@@ -296,28 +290,27 @@ monomers:
       id: GLU
     - ns: pubchem.compound
       id: '33032'
-    structure: O=C[C@H](CCC(=O)[O-])[NH3+]
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
+    structure: '[O-]C(=O)CC[C@@H](C(=O)O)[NH3+]'
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 11
       charge: -1
-      position: 10
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 11
       charge: 1
+    - molecule: Monomer
+      element: H
+      position: 11
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 8
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
       position: 10
     - molecule: Monomer
       element: H
@@ -337,32 +330,31 @@ monomers:
       id: CHEBI:15428
     - ns: resid
       id: AA0008
-    structure: C([NH3+])C=O
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 6
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 6
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 6
+    structure: OC(=O)C[NH3+]
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 5
       charge: -1
-      position: 2
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 5
       charge: 1
-      position: 2
     - molecule: Monomer
       element: H
+      position: 5
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
       position: 2
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    - molecule: Monomer
+      element: H
+      position: 1
   H:
     id: His
     name: L-histidine
@@ -380,32 +372,31 @@ monomers:
       id: '33032'
     - ns: chebi
       id: CHEBI:15971
-    structure: C(c1c[nH]cn1)[C@H]([NH3+])C=O
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 14
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 14
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 14
+    structure: OC(=O)[C@@H]([NH3+])Cc1c[nH]cn1
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 6
       charge: -1
-      position: 10
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 6
       charge: 1
-      position: 10
     - molecule: Monomer
       element: H
-      position: 10
+      position: 6
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 2
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+    - molecule: Monomer
+      element: H
+      position: 1
   I:
     id: Ile
     name: L-isoleucine
@@ -422,28 +413,27 @@ monomers:
       id: CHEBI:17191
     - ns: pubchem.compound
       id: '6306'
-    structure: CC[C@@H]([C@@H](C=O)[NH3+])C
-    backbone_bond_atoms:
+    structure: CC[C@@H]([C@@H](C(=O)O)[NH3+])C
+    left_bond_atoms:
     - molecule: Monomer
-      element: C
-      position: 7
-    backbone_displaced_atoms:
+      element: N
+      position: 10
+      charge: -1
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 7
+      position: 10
+      charge: 1
+    - molecule: Monomer
+      element: H
+      position: 10
     right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
-    left_bond_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
-      element: N
-      charge: -1
-      position: 9
-    left_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      charge: 1
+      element: O
       position: 9
     - molecule: Monomer
       element: H
@@ -467,28 +457,27 @@ monomers:
       id: CHEBI:15603
     - ns: metacyc.compound
       id: LEU
-    structure: O=C[C@H](CC(C)C)[NH3+]
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
+    structure: '[NH3+][C@H](C(=O)O)CC(C)C'
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 1
       charge: -1
-      position: 9
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 1
       charge: 1
+    - molecule: Monomer
+      element: H
+      position: 1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 7
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
       position: 9
     - molecule: Monomer
       element: H
@@ -505,28 +494,27 @@ monomers:
       id: AA0012
     - ns: metacyc.compound
       id: LEU
-    structure: O=C[C@H](CCCC[NH3+])[NH3+]
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
+    structure: '[NH3+]CCCC[C@@H](C(=O)O)[NH3+]'
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 14
       charge: -1
-      position: 13
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 14
       charge: 1
+    - molecule: Monomer
+      element: H
+      position: 14
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 11
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
       position: 13
     - molecule: Monomer
       element: H
@@ -550,32 +538,31 @@ monomers:
       id: '6137'
     - ns: resid
       id: AA0013
-    structure: CSCC[C@H]([NH3+])C=O
-    backbone_bond_atoms:
+    structure: CSCC[C@H]([NH3+])C(=O)O
+    left_bond_atoms:
     - molecule: Monomer
-      element: C
-      position: 11
-    backbone_displaced_atoms:
+      element: N
+      position: 7
+      charge: -1
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 11
+      position: 7
+      charge: 1
+    - molecule: Monomer
+      element: H
+      position: 7
     right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
-    left_bond_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
-      element: N
-      charge: -1
-      position: 7
-    left_displaced_atoms:
+      element: O
+      position: 13
     - molecule: Monomer
       element: H
-      charge: 1
-      position: 7
-    - molecule: Monomer
-      element: H
-      position: 7
+      position: 13
   F:
     id: Phe
     name: L-phenylalanine
@@ -593,32 +580,31 @@ monomers:
       id: AA0014
     - ns: chebi
       id: CHEBI:17295
-    structure: O=C[C@H](Cc1ccccc1)[NH3+]
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 2
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 2
+    structure: '[NH3+][C@H](C(=O)O)Cc1ccccc1'
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 1
       charge: -1
-      position: 12
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 1
       charge: 1
-      position: 12
     - molecule: Monomer
       element: H
-      position: 12
+      position: 1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 7
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 9
+    - molecule: Monomer
+      element: H
+      position: 9
   P:
     id: Pro
     name: L-proline
@@ -643,32 +629,31 @@ monomers:
       id: PRO
     - ns: chebi
       id: CHEBI:17203
-    structure: O=C[C@@H]1CCC[NH2+]1
-    backbone_bond_atoms:
+    structure: OC(=O)[C@@H]1CCC[NH2+]1
+    left_bond_atoms:
     - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
+      element: N
+      position: 9
+      charge: -1
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 2
+      position: 9
+      charge: 1
+    - molecule: Monomer
+      element: H
+      position: 9
     right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    left_bond_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
-      element: N
-      charge: -1
-      position: 8
-    left_displaced_atoms:
+      element: O
+      position: 1
     - molecule: Monomer
       element: H
-      charge: 1
-      position: 8
-    - molecule: Monomer
-      element: H
-      position: 8
+      position: 1
   S:
     id: Ser
     name: L-serine
@@ -692,32 +677,31 @@ monomers:
       id: CHEBI:17115
     - ns: pubchem.compound
       id: '5951'
-    structure: OC[C@H]([NH3+])C=O
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 9
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 9
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 9
+    structure: OC[C@@H](C(=O)O)[NH3+]
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 8
       charge: -1
-      position: 5
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 8
       charge: 1
-      position: 5
     - molecule: Monomer
       element: H
+      position: 8
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
       position: 5
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 7
+    - molecule: Monomer
+      element: H
+      position: 7
   T:
     id: Thr
     name: L-threonine
@@ -738,32 +722,31 @@ monomers:
       id: CHEBI:16857
     - ns: pubchem.compound
       id: '6288'
-    structure: C[C@H]([C@H]([NH3+])C=O)O
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 10
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 10
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 10
+    structure: C[C@H]([C@@H](C(=O)O)[NH3+])O
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 9
       charge: -1
-      position: 6
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 9
       charge: 1
-      position: 6
     - molecule: Monomer
       element: H
+      position: 9
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
       position: 6
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 8
+    - molecule: Monomer
+      element: H
+      position: 8
   W:
     id: Trp
     name: L-tryptophan
@@ -783,32 +766,31 @@ monomers:
       id: '6305'
     - ns: resid
       id: AA0018
-    structure: O=C[C@H](Cc1c[nH]c2c1cccc2)[NH3+]
-    backbone_bond_atoms:
+    structure: OC(=O)[C@H](Cc1c[nH]c2c1cccc2)[NH3+]
+    left_bond_atoms:
     - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
+      element: N
+      position: 17
+      charge: -1
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 2
+      position: 17
+      charge: 1
+    - molecule: Monomer
+      element: H
+      position: 17
     right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    left_bond_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
-      element: N
-      charge: -1
-      position: 16
-    left_displaced_atoms:
+      element: O
+      position: 1
     - molecule: Monomer
       element: H
-      charge: 1
-      position: 16
-    - molecule: Monomer
-      element: H
-      position: 16
+      position: 1
   Y:
     id: Tyr
     name: L-tyrosine
@@ -830,32 +812,31 @@ monomers:
       id: AA0019
     - ns: pubchem.compound
       id: '6057'
-    structure: O=C[C@H](Cc1ccc(cc1)O)[NH3+]
-    backbone_bond_atoms:
+    structure: OC(=O)[C@H](Cc1ccc(cc1)O)[NH3+]
+    left_bond_atoms:
     - molecule: Monomer
-      element: C
-      position: 2
-    backbone_displaced_atoms:
+      element: N
+      position: 14
+      charge: -1
+    left_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 2
+      position: 14
+      charge: 1
+    - molecule: Monomer
+      element: H
+      position: 14
     right_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
-    left_bond_atoms:
+    right_displaced_atoms:
     - molecule: Monomer
-      element: N
-      charge: -1
-      position: 13
-    left_displaced_atoms:
+      element: O
+      position: 1
     - molecule: Monomer
       element: H
-      charge: 1
-      position: 13
-    - molecule: Monomer
-      element: H
-      position: 13
+      position: 1
   V:
     id: Val
     name: L-valine
@@ -874,29 +855,28 @@ monomers:
       id: VAL
     - ns: chebi
       id: CHEBI:16414
-    structure: 'CC(C)C([NH3+])C=O'
-    backbone_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 9
-    backbone_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 9
-    right_bond_atoms:
-    - molecule: Monomer
-      element: C
-      position: 9
+    structure: '[NH3+]C(C(=O)O)C(C)C'
     left_bond_atoms:
     - molecule: Monomer
       element: N
+      position: 1
       charge: -1
-      position: 5
     left_displaced_atoms:
     - molecule: Monomer
       element: H
+      position: 1
       charge: 1
-      position: 5
     - molecule: Monomer
       element: H
-      position: 5
+      position: 1
+    right_bond_atoms:
+    - molecule: Monomer
+      element: C
+      position: 6
+    right_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 8
+    - molecule: Monomer
+      element: H
+      position: 8

@@ -18,13 +18,9 @@ import requests
 import tempfile
 import unittest
 
-ALA_smiles = 'CC([NH3+])C([O-])=O'
-di_ALA_smiles = 'CC([NH3+])C(=O)[NH2+]C(C)C([O-])=O'
-tri_ALA_smiles = 'CC([NH3+])C(=O)[NH2+]C(C)C(=O)[NH2+]C(C)C([O-])=O'
-
-ALA_inchi = 'InChI=1S/C3H7NO2/c1-2(4)3(5)6/h2H,4H2,1H3,(H,5,6)/t2-/m0/s1'
-di_ALA_inchi = 'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)/t3-,4?/m0/s1'
-tri_ALA_inchi = 'InChI=1S/C9H17N3O4/c1-4(10)7(13)11-5(2)8(14)12-6(3)9(15)16/h4-6H,10H2,1-3H3,(H,11,13)(H,12,14)(H,15,16)/t4-,5?,6?/m0/s1'
+ALA_smiles = 'C[C@H]([NH3+])C(=O)O'
+di_ALA_smiles = 'C[C@H]([NH3+])C(=O)N[C@@H](C)C(=O)O'
+tri_ALA_smiles = 'C[C@H]([NH3+])C(=O)N[C@@H](C)C(=O)N[C@@H](C)C(=O)O'
 
 
 class ProteinTestCase(unittest.TestCase):
@@ -52,8 +48,10 @@ class ProteinTestCase(unittest.TestCase):
         shutil.rmtree(self.dirname)
 
     def test_protein_alphabet(self):
-        self.assertEqual(protein.protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H12NO'))
-        self.assertEqual(protein.canonical_protein_alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H12NO'))
+        self.assertEqual(protein.protein_alphabet.monomers.F.get_formula(), 
+            EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
+        self.assertEqual(protein.canonical_protein_alphabet.monomers.F.get_formula(), 
+            EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
 
     def test_ProteinForm_init(self):
         protein.ProteinForm()
@@ -63,24 +61,24 @@ class ProteinTestCase(unittest.TestCase):
         monomers = protein.canonical_protein_alphabet.monomers
 
         form = protein.CanonicalProteinForm().from_str('A')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C3H7NO2'))
-        self.assertEqual(form.get_charge(), 0)
-        self.assertEqual(form.export('inchi'), ALA_inchi)
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C3H7NO2') + EmpiricalFormula('H'))
+        self.assertEqual(form.get_charge(), 1)
+        self.assertEqual(form.export('smiles'), ALA_smiles)
 
         form = protein.CanonicalProteinForm().from_str('AA')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C6H12N2O3'))
-        self.assertEqual(form.get_charge(), 0)
-        self.assertEqual(form.export('inchi'), di_ALA_inchi)
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C6H12N2O3') + EmpiricalFormula('H'))
+        self.assertEqual(form.get_charge(), 1)
+        self.assertEqual(form.export('smiles'), di_ALA_smiles)
 
         form = protein.CanonicalProteinForm().from_str('AAA')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C9H17N3O4'))
-        self.assertEqual(form.get_charge(), 0)
-        self.assertEqual(form.export('inchi'), tri_ALA_inchi)
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C9H17N3O4') + EmpiricalFormula('H'))
+        self.assertEqual(form.get_charge(), 1)
+        self.assertEqual(form.export('smiles'), tri_ALA_smiles)
 
         form = protein.ProteinForm().from_str('AAA')
-        self.assertEqual(form.get_formula(), EmpiricalFormula('C9H17N3O4'))
-        self.assertEqual(form.get_charge(), 0)
-        self.assertEqual(form.export('inchi'), tri_ALA_inchi)
+        self.assertEqual(form.get_formula(), EmpiricalFormula('C9H17N3O4') + EmpiricalFormula('H'))
+        self.assertEqual(form.get_charge(), 1)
+        self.assertEqual(form.export('smiles'), tri_ALA_smiles)
 
     def test_ProteinAlphabetBuilder_is_termini(self):
         builder = protein.ProteinAlphabetBuilder()
@@ -183,12 +181,13 @@ class ProteinTestCase(unittest.TestCase):
         structure, index_n, index_c = protein.ProteinAlphabetBuilder().get_resid_monomer_structure(
             'AA0005', self.tmp_pdbfile, ph=7.4, major_tautomer=True)
 
-        # check if correct index for N and C atoms
-        self.assertEqual(index_n, 5)
-        self.assertEqual(index_c, 9)
         # just in case check that original structure has not been modified
-        self.assertEqual(OpenBabelUtils.get_inchi(structure),
-                         'InChI=1S/C3H7NOS/c4-3(1-5)2-6/h1,3,6H,2,4H2/p+1/t3-/m1/s1')
+        self.assertEqual(OpenBabelUtils.export(structure, 'smiles'),
+                         'OC(=O)[C@@H]([NH3+])CS')
+
+        # check if correct index for N and C atoms
+        self.assertEqual(index_n, 6)
+        self.assertEqual(index_c, 2)
 
     def test_ProteinAlphabetBuilder(self):
         pdb_dir = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.pdb'))
@@ -198,11 +197,13 @@ class ProteinTestCase(unittest.TestCase):
         path = os.path.join(self.dirname, 'alphabet.yml')
 
         alphabet = protein.ProteinAlphabetBuilder(_max_monomers=10).run(ph=7.4, path=path)
-        self.assertEqual(alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H12NO'))
+        self.assertEqual(alphabet.monomers.F.get_formula(), 
+            EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
 
         self.assertTrue(os.path.isfile(path))
         alphabet = Alphabet().from_yaml(path)
-        self.assertEqual(alphabet.monomers.F.get_formula(), EmpiricalFormula('C9H12NO'))
+        self.assertEqual(alphabet.monomers.F.get_formula(), 
+            EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
 
     def test_validate_linkages(self):
         validate_bpform_linkages(protein.CanonicalProteinForm)
@@ -222,7 +223,7 @@ class ProteinTestCase(unittest.TestCase):
 
             if monomer.right_bond_atoms:
                 atom_c = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
-                if not builder.is_c_terminus(monomer.structure, atom_c):
+                if not builder.is_c_terminus(monomer.structure, atom_c, residue=False):
                     errors.append('Monomer {} does not have a C-terminus'.format(monomer.id))
 
             # if monomer.left_bond_atoms and monomer.right_bond_atoms:
@@ -255,9 +256,9 @@ class ProteinTestCase(unittest.TestCase):
         # AA0062
         form = protein.ProteinForm().from_str('{AA0062}')
         self.assertEqual(form.validate(), [])
-        self.assertNotEqual(form.export('smiles'), form.seq[0].export('smiles'))
-        self.assertEqual(form.get_formula(), form.seq[0].get_formula() + EmpiricalFormula('O') - EmpiricalFormula('H'))
-        self.assertEqual(form.get_charge(), form.seq[0].get_charge() - 1)
+        self.assertEqual(form.export('smiles'), form.seq[0].export('smiles'))
+        self.assertEqual(form.get_formula(), form.seq[0].get_formula())
+        self.assertEqual(form.get_charge(), form.seq[0].get_charge())
 
         form = protein.ProteinForm().from_str('A{AA0062}')
         self.assertNotEqual(form.validate(), [])
@@ -291,8 +292,10 @@ class ProteinTestCase(unittest.TestCase):
 
         dimer = protein.ProteinForm().from_str('{AA0062}{AA0318}')
         self.assertEqual(dimer.validate(), [])
-        self.assertEqual(dimer.get_formula(), monomer1.get_formula() + monomer2.get_formula() - EmpiricalFormula('OH2'))
-        self.assertEqual(dimer.get_charge(), monomer1.get_charge() + monomer2.get_charge())
+        self.assertEqual(dimer.get_formula(), 
+            monomer1.get_formula() + monomer2.get_formula() - EmpiricalFormula('OH3'))
+        self.assertEqual(dimer.get_charge(), 
+            monomer1.get_charge() + monomer2.get_charge() - 1)
 
         dimer = protein.ProteinForm().from_str('{AA0318}{AA0062}')
         self.assertNotEqual(dimer.validate(), [])

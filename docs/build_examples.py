@@ -57,26 +57,26 @@ def build(dirname=default_dirname):
     draw_monomer(bpforms.ProteinForm, '''
         [id: "AA0305"
             | name: "N5-methyl-L-arginine"
-            | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
+            | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
             | right-bond-atom: C2
-            | backbone-bond-atom: C2
-            | backbone-displaced-atom: H2
-            | left-bond-atom: N15-1
-            | left-displaced-atom: H15+1
-            | left-displaced-atom: H15+1
+            | right-displaced-atom: O1
+            | right-displaced-atom: H1
+            | left-bond-atom: N16-1
+            | left-displaced-atom: H16+1
+            | left-displaced-atom: H16
             ]
         ''', dirname, 'left-right-bonds-AA0305', show_atom_nums=True)
 
     draw_polymer(bpforms.ProteinForm, '''
         A[id: "AA0305"
             | name: "N5-methyl-L-arginine"
-            | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
+            | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
             | right-bond-atom: C2
-            | backbone-bond-atom: C2
-            | backbone-displaced-atom: H2
-            | left-bond-atom: N15-1
-            | left-displaced-atom: H15+1
-            | left-displaced-atom: H15+1
+            | right-displaced-atom: O1
+            | right-displaced-atom: H1
+            | left-bond-atom: N16-1
+            | left-displaced-atom: H16+1
+            | left-displaced-atom: H16
             ]A
         ''', dirname, 'left-right-bonds-A-AA0305-A', show_atom_nums=False)
 
@@ -86,10 +86,10 @@ def build(dirname=default_dirname):
 
     draw_polymer(bpforms.ProteinForm, '''
         CAC | crosslink: [
-            left-bond-atom: 1S1 |
-            left-displaced-atom: 1H1 |
-            right-bond-atom: 3S1 |
-            right-displaced-atom: 3H1
+            left-bond-atom: 1S11 |
+            left-displaced-atom: 1H11 |
+            right-bond-atom: 3S11 |
+            right-displaced-atom: 3H11
         ]''', dirname, 'crosslink-protein-sulfide-bond', show_atom_nums=False)
 
 

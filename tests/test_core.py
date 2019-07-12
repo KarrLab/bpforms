@@ -1693,7 +1693,7 @@ class BpFormTestCase(unittest.TestCase):
 
         form = protein.CanonicalProteinForm().from_str('AA')
         self.assertEqual(form.export('inchi'),
-                         'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)/t3-,4?/m0/s1')
+                         'InChI=1S/C6H12N2O3/c1-3(7)5(9)8-4(2)6(10)11/h3-4H,7H2,1-2H3,(H,8,9)(H,10,11)/p+1/t3-,4?/m0/s1')
 
         form = dna.CanonicalDnaForm()
         self.assertEqual(form.export('inchi'), None)
@@ -1816,74 +1816,74 @@ class BpFormTestCase(unittest.TestCase):
 
         form = protein.ProteinForm()
         form.from_str('CC[id: "C2"'
-                      ' | structure: "SC[C@H]([NH3+])C=O"'
-                      ' | backbone-bond-atom: C9'
-                      ' | backbone-displaced-atom: H9'
-                      ' | right-bond-atom: C9'
-                      ' | left-bond-atom: N5-1'
-                      ' | left-displaced-atom: H5+1'
-                      ' | left-displaced-atom: H5'
+                      ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
+                      ' | right-bond-atom: C2'
+                      ' | right-displaced-atom: O1'
+                      ' | right-displaced-atom: H1'
+                      ' | left-bond-atom: N6-1'
+                      ' | left-displaced-atom: H6+1'
+                      ' | left-displaced-atom: H6'
                       ']|circular')
         self.assertEqual(form.validate(), [])
 
         form = protein.ProteinForm()
         form.from_str('[id: "C2"'
-                      ' | structure: "SC[C@H]([NH3+])C=O"'
-                      ' | backbone-bond-atom: C9'
-                      ' | backbone-displaced-atom: H9'
-                      ' | right-bond-atom: C9'
-                      ' | left-bond-atom: N5-1'
-                      ' | left-displaced-atom: H5+1'
-                      ' | left-displaced-atom: H5'
+                      ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
+                      ' | right-bond-atom: C2'
+                      ' | right-displaced-atom: O1'
+                      ' | right-displaced-atom: H1'
+                      ' | left-bond-atom: N6-1'
+                      ' | left-displaced-atom: H6+1'
+                      ' | left-displaced-atom: H6'
                       ']CC|circular')
         self.assertEqual(form.validate(), [])
 
         # no atom for right bond
         form = protein.ProteinForm()
         form.from_str('CC[id: "C2"'
-                      ' | structure: "SC[C@H]([NH3+])C=O"'
-                      ' | backbone-bond-atom: C9'
-                      ' | backbone-displaced-atom: H9'
-                      ' | left-bond-atom: N5-1'
-                      ' | left-displaced-atom: H5+1'
-                      ' | left-displaced-atom: H5'
+                      ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
+                      ' | right-displaced-atom: O1'
+                      ' | right-displaced-atom: H1'
+                      ' | left-bond-atom: N6-1'
+                      ' | left-displaced-atom: H6+1'
+                      ' | left-displaced-atom: H6'
                       ']|circular')
         self.assertNotEqual(form.validate(), [])
 
         # not atom for left bond
         form = protein.ProteinForm()
         form.from_str('[id: "C2"'
-                      ' | structure: "SC[C@H]([NH3+])C=O"'
-                      ' | backbone-bond-atom: C9'
-                      ' | backbone-displaced-atom: H9'
-                      ' | right-bond-atom: C9'
-                      ' | left-displaced-atom: H5+1'
-                      ' | left-displaced-atom: H5'
+                      ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
+                      ' | right-bond-atom: C2'
+                      ' | right-displaced-atom: O1'
+                      ' | right-displaced-atom: H1'
+                      ' | left-displaced-atom: H6+1'
+                      ' | left-displaced-atom: H6'
                       ']CC|circular')
         self.assertNotEqual(form.validate(), [])
 
         # no structure defined
         form = protein.ProteinForm()
         form.from_str('[id: "C2"'
-                      ' | backbone-bond-atom: C9'
-                      ' | backbone-displaced-atom: H9'
-                      ' | right-bond-atom: C9'
-                      ' | left-bond-atom: N5-1'
-                      ' | left-displaced-atom: H5+1'
-                      ' | left-displaced-atom: H5'
+                      ' | right-bond-atom: C2'
+                      ' | right-displaced-atom: O1'
+                      ' | right-displaced-atom: H1'
+                      ' | left-bond-atom: N6-1'
+                      ' | left-displaced-atom: H6+1'
+                      ' | left-displaced-atom: H6'
                       ']CC|circular')
         self.assertNotEqual(form.validate(), [])
 
         # incorrect element (C1)
         form = protein.ProteinForm()
         form.from_str('[id: "C2"'
-                      ' | structure: "SC[C@H]([NH3+])C=O"'
-                      ' | backbone-bond-atom: C1'
-                      ' | backbone-displaced-atom: H9'
-                      ' | right-bond-atom: C9'
-                      ' | left-bond-atom: N5-1'
-                      ' | left-displaced-atom: H5+1'
-                      ' | left-displaced-atom: H5'
+                      ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
+                      ' | right-bond-atom: C1'
+                      ' | right-displaced-atom: O1'
+                      ' | right-displaced-atom: H1'
+                      ' | left-bond-atom: N6-1'
+                      ' | left-displaced-atom: H6+1'
+                      ' | left-displaced-atom: H6'
                       ']CC|circular')
         self.assertNotEqual(form.validate(), [])
 
@@ -1911,40 +1911,39 @@ class BpFormTestCase(unittest.TestCase):
 
         form = protein.ProteinForm()
         form.from_str('CC[id: "C2"'
-                      ' | structure: "SC[C@H]([NH3+])C=O"'
-                      ' | backbone-bond-atom: C9'
-                      ' | backbone-displaced-atom: H9'
-                      ' | right-bond-atom: C9'
-                      ' | left-bond-atom: N5-1'
-                      ' | left-bond-atom: N5-1'
-                      ' | left-displaced-atom: H5+1'
-                      ' | left-displaced-atom: H5'
+                      ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
+                      ' | right-bond-atom: C2'
+                      ' | right-displaced-atom: O1'
+                      ' | right-displaced-atom: H1'
+                      ' | left-bond-atom: N6-1'
+                      ' | left-bond-atom: N6-1'
+                      ' | left-displaced-atom: H6+1'
+                      ' | left-displaced-atom: H6'
                       ']')
         self.assertNotEqual(form.validate(), [])
 
         form = protein.ProteinForm()
         form.from_str('CC[id: "C2"'
-                      ' | structure: "SC[C@H]([NH3+])C=O"'
-                      ' | backbone-bond-atom: C9'
-                      ' | backbone-displaced-atom: H9'
-                      ' | right-bond-atom: C9'
-                      ' | right-bond-atom: C9'
-                      ' | left-bond-atom: N5-1'
-                      ' | left-displaced-atom: H5+1'
-                      ' | left-displaced-atom: H5'
+                      ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
+                      ' | right-bond-atom: C2'
+                      ' | right-displaced-atom: O1'
+                      ' | right-displaced-atom: H1'
+                      ' | right-displaced-atom: H1'
+                      ' | left-bond-atom: N6-1'
+                      ' | left-displaced-atom: H6+1'
+                      ' | left-displaced-atom: H6'
                       ']')
         self.assertEqual(form.validate(), [])
 
         form = protein.ProteinForm()
         form.from_str('CC[id: "C2"'
-                      ' | structure: "SC[C@H]([NH3+])C=O"'
-                      ' | backbone-bond-atom: C9'
-                      ' | backbone-displaced-atom: H9'
-                      ' | right-bond-atom: C9'
-                      ' | right-bond-atom: C9'
-                      ' | left-bond-atom: N5-1'
-                      ' | left-displaced-atom: H5+1'
-                      ' | left-displaced-atom: H5'
+                      ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
+                      ' | right-displaced-atom: O1'
+                      ' | right-displaced-atom: H1'
+                      ' | right-displaced-atom: H1'
+                      ' | left-bond-atom: N6-1'
+                      ' | left-displaced-atom: H6+1'
+                      ' | left-displaced-atom: H6'
                       ']|circular')
         self.assertNotEqual(form.validate(), [])
 
