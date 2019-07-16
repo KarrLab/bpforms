@@ -1375,7 +1375,6 @@ class BpFormTestCase(unittest.TestCase):
             left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='O', position=12, charge=-1)]
         )
         dimer.crosslinks = core.BondSet([crosslink])
-        print(clean_smiles(dimer.export('smiles')))
         self.assertEqual(clean_smiles(dimer.export('smiles')),
                          clean_smiles('Nc1ccn(c(=O)n1)C1OC2C(C1)OP(=O)([O-])OCC1C(OP(=O)(OC2)[O-])CC(O1)n1cnc2c1ncnc2N'))
         self.assertEqual(dimer.get_formula(), monomer_A.get_formula()
@@ -1614,10 +1613,10 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(sorted(atom_map.keys()), [1, 2, 3])
         self.assertEqual(sorted(atom_map[2].keys()), ['backbone', 'monomer'])
         self.assertEqual(sorted(atom_map[2]['monomer'].keys())[0], 1)
-        self.assertEqual(len(atom_map[2]['monomer'].keys()),
-                         dna.dna_alphabet.monomers.C.structure.NumAtoms() - 1)
         self.assertEqual(sorted(atom_map[2]['monomer'].keys())[-1],
                          dna.dna_alphabet.monomers.C.structure.NumAtoms())
+        self.assertEqual(len(atom_map[2]['monomer'].keys()),
+                         dna.dna_alphabet.monomers.C.structure.NumAtoms() - 1)
         self.assertNotIn(12, atom_map[2]['monomer'])
         for i_atom in range(dna.dna_alphabet.monomers.C.structure.NumAtoms()):
             if i_atom + 1 in atom_map[2]['monomer']:
@@ -1634,13 +1633,22 @@ class BpFormTestCase(unittest.TestCase):
         conv.ReadString(mol, '[O-]N([O-])C1=C2N=CNC2=NC=N1')
         form._bond_monomer_backbone(mol, {
             'monomer': {
-                'backbone_bond_atoms': [(mol.GetAtom(2), 1), ],
-                'backbone_displaced_atoms': [(mol.GetAtom(1), -1)],
+                'backbone_bond_atoms': [(mol.GetAtom(2), 1, core.Monomer, 2, 1), ],
+                'backbone_displaced_atoms': [(mol.GetAtom(1), 1, core.Monomer, 1, -1)],
             },
             'backbone': {
-                'monomer_bond_atoms': [(mol.GetAtom(8), 1)],
-                'monomer_displaced_atoms': [(mol.GetAtom(3), -1)],
+                'monomer_bond_atoms': [(mol.GetAtom(8), 1, core.Monomer, 8, 1)],
+                'monomer_displaced_atoms': [(mol.GetAtom(3), 1, core.Monomer, 3, -1)],
             }
+        }, {
+            1: {
+                'monomer': {
+                    1: mol.GetAtom(1),
+                    2: mol.GetAtom(2),
+                    3: mol.GetAtom(3),
+                    8: mol.GetAtom(8),
+                },
+            },
         })
 
     def test__bond_subunits(self):
@@ -1652,15 +1660,24 @@ class BpFormTestCase(unittest.TestCase):
         conv.ReadString(mol, '[O-]N([O-])C1=C2N=CNC2=NC=N1')
         form._bond_subunits(mol, {
             'right': {
-                'right_bond_atoms': [(mol.GetAtom(8), 1)],
-                'right_displaced_atoms': [(mol.GetAtom(3), -1)],
+                'right_bond_atoms': [(mol.GetAtom(8), 1, core.Monomer, 8, 1)],
+                'right_displaced_atoms': [(mol.GetAtom(3), 1, core.Monomer, 3, -1)],
             }
         },
             {
             'left': {
-                'left_bond_atoms': [(mol.GetAtom(1), 1), ],
-                'left_displaced_atoms': [(mol.GetAtom(1), -1)],
+                'left_bond_atoms': [(mol.GetAtom(1), 1, core.Monomer, 1, 1), ],
+                'left_displaced_atoms': [(mol.GetAtom(2), 1, core.Monomer, 2, -1)],
             }
+        }, {
+            1: {
+                'monomer': {
+                    1: mol.GetAtom(1), 
+                    2: mol.GetAtom(2),
+                    3: mol.GetAtom(3),
+                    8: mol.GetAtom(8),
+                },
+            },
         })
 
     def test_export(self):
