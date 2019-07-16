@@ -129,7 +129,7 @@ def gen_html_viz_alphabet(bpform_type, filename):
     doc += '          <th>Code</th>\n'
     doc += '          <th>Monomeric form</th>\n'
     doc += '          <th>Dimer</th>\n'
-    doc += '          <th>SMILES</th>\n'
+    doc += '          <th>Canonical SMILES</th>\n'
     doc += '          <th>Monomeric form bond atoms</th>\n'
     doc += '          <th>Monomeric form displaced atoms</th>\n'
     doc += '          <th>Left bond atoms</th>\n'
@@ -143,7 +143,7 @@ def gen_html_viz_alphabet(bpform_type, filename):
         doc += '          <td>{}</td>\n'.format(code)
         doc += '          <td>{}</td>\n'.format(monomer.get_image(width=width, height=height, include_xml_header=False))
 
-        if monomer.structure and bpform.can_monomer_bind_left(monomer) and bpform.can_monomer_bind_right(monomer):
+        if monomer.structure and bpform.can_monomer_bond_left(monomer) and bpform.can_monomer_bond_right(monomer):
             dimer = bpform_type()
             dimer.seq.append(monomer)
             dimer.seq.append(monomer)
@@ -171,14 +171,14 @@ def gen_html_viz_alphabet(bpform_type, filename):
         file.write(doc)
 
 
-def validate_bpform_linkages(form_type):
-    """ Validate linkages in alphabet
+def validate_bpform_bonds(form_type):
+    """ Validate bonds in alphabet
 
     Args:
         form_type (:obj:`type`): type of BpForm
 
     Raises:
-        :obj:`ValueError`: if any of the linkages are invalid
+        :obj:`ValueError`: if any of the bonds are invalid
     """
 
     form = form_type()
@@ -267,7 +267,7 @@ def validate_bpform_linkages(form_type):
         except Exception as error:
             errors.append('Unable to create monomeric form of {}:\n    {}'.format(monomer.id, str(error)))
 
-        if form.can_monomer_bind_left(monomer) and form.can_monomer_bind_right(monomer):
+        if form.can_monomer_bond_left(monomer) and form.can_monomer_bond_right(monomer):
             dimer_form = form_type(seq=[monomer, monomer])
             try:
                 dimer_structure = dimer_form.get_structure()[0]

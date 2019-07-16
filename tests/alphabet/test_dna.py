@@ -7,7 +7,7 @@
 """
 
 from bpforms.alphabet import dna
-from bpforms.util import validate_bpform_linkages
+from bpforms.util import validate_bpform_bonds
 from wc_utils.util.chem import EmpiricalFormula
 import mock
 import openbabel
@@ -172,9 +172,9 @@ class DnaTestCase(unittest.TestCase):
                          EmpiricalFormula('C5H5N5') + EmpiricalFormula('C5H7O6P'))
         self.assertTrue(os.path.isfile(path))
 
-    def test_validate_linkages(self):
-        validate_bpform_linkages(dna.CanonicalDnaForm)
-        validate_bpform_linkages(dna.DnaForm)
+    def test_validate_bonds(self):
+        validate_bpform_bonds(dna.CanonicalDnaForm)
+        validate_bpform_bonds(dna.DnaForm)
 
     def test_validate_form(self):
         form = dna.DnaForm()

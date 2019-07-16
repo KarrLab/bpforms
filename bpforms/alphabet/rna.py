@@ -632,14 +632,14 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         return True
 
     def is_terminus(self, b_atom, r_atom):
-        """ Determine if a pair of atoms is a valid pair of linkage sites
+        """ Determine if a pair of atoms is a valid pair of bonding sites
 
         Args:
             b_atom (:obj:`openbabel.OBAtom`): potential backbone atom
             r_atom (:obj:`openbabel.OBAtom`): potential right bond atom
 
         Returns:
-            :obj:`bool`: :obj:`True`, if the atoms are a valid pair of linkage sites
+            :obj:`bool`: :obj:`True`, if the atoms are a valid pair of bonding sites
         """
         r_atom_2 = self.is_backbone_atom(b_atom)
         if not r_atom_2:
@@ -651,14 +651,14 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         return r_atom_2.GetIdx() == r_atom.GetIdx()
 
     def is_nucleotide_terminus(self, l_atom, r_atom):
-        """ Determine if a pair of atoms is a valid pair of linkage sites
+        """ Determine if a pair of atoms is a valid pair of bonding sites
 
         Args:
             l_atom (:obj:`openbabel.OBAtom`): potential left atom
             r_atom (:obj:`openbabel.OBAtom`): potential right bond atom
 
         Returns:
-            :obj:`bool`: :obj:`True`, if the atoms are a valid pair of linkage sites
+            :obj:`bool`: :obj:`True`, if the atoms are a valid pair of bonding sites
         """
         r_atom_2 = self.is_left_atom(l_atom)
         if not r_atom_2:
@@ -670,13 +670,13 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         return r_atom_2.GetIdx() == r_atom.GetIdx()
 
     def is_backbone_atom(self, b_atom):
-        """ Determine if an atom is a valid backbone linkage site
+        """ Determine if an atom is a valid backbone bonding site
 
         Args:
             b_atom (:obj:`openbabel.OBAtom`): potential backbone atom
 
         Returns:
-            :obj:`bool`: :obj:`True`, if the atom is a valid backbone linkage site
+            :obj:`bool`: :obj:`True`, if the atom is a valid backbone bonding site
         """
         if b_atom.GetAtomicNum() != 8:
             return False
@@ -739,13 +739,13 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         return r_atom_2
 
     def is_left_atom(self, l_atom):
-        """ Determine if an atom is a valid left linkage site
+        """ Determine if an atom is a valid left bonding site
 
         Args:
             l_atom (:obj:`openbabel.OBAtom`): potential left atom
 
         Returns:
-            :obj:`bool`: :obj:`True`, if the atom is a valid left linkage site
+            :obj:`bool`: :obj:`True`, if the atom is a valid left bonding site
         """
         if l_atom.GetAtomicNum() != 15:
             return False
@@ -824,13 +824,13 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         return r_atom_2
 
     def is_right_bond_atom(self, r_atom):
-        """ Determine if an atom is a valid right bond linkage site
+        """ Determine if an atom is a valid right bond bonding site
 
         Args:
             b_atom (:obj:`openbabel.OBAtom`): potential right bond atom
 
         Returns:
-            :obj:`bool`: :obj:`True`, if the atom is a valid right bond linkage site
+            :obj:`bool`: :obj:`True`, if the atom is a valid right bond bonding site
         """
         other_atoms = [other_atom.GetAtomicNum() for other_atom in openbabel.OBAtomAtomIter(r_atom)]
         tot_bond_order = sum([bond.GetBondOrder() for bond in openbabel.OBAtomBondIter(r_atom)])

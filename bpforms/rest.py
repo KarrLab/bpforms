@@ -308,9 +308,9 @@ def get_monomer_properties(alphabet, monomer):
     form_obj = bpforms.util.get_form(alphabet)()
     monomer_obj = alphabet_obj.monomers.get(monomer, None)
     monomer_dict = monomer_obj.to_dict(alphabet=alphabet_obj)
-    monomer_dict['binds_backbone'] = len(monomer_obj.backbone_bond_atoms) > 0
-    monomer_dict['binds_left'] = form_obj.can_monomer_bind_left(monomer_obj)
-    monomer_dict['binds_right'] = form_obj.can_monomer_bind_right(monomer_obj)
+    monomer_dict['bonds_backbone'] = len(monomer_obj.backbone_bond_atoms) > 0
+    monomer_dict['bonds_left'] = form_obj.can_monomer_bond_left(monomer_obj)
+    monomer_dict['bonds_right'] = form_obj.can_monomer_bond_right(monomer_obj)
     monomer_dict['formula'] = dict(monomer_obj.get_formula())
     monomer_dict['mol_wt'] = monomer_obj.get_mol_wt()
     monomer_dict['charge'] = monomer_obj.get_charge()

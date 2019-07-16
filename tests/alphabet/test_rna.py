@@ -8,7 +8,7 @@
 
 from bpforms.core import Identifier, IdentifierSet, Monomer
 from bpforms.alphabet import rna
-from bpforms.util import validate_bpform_linkages
+from bpforms.util import validate_bpform_bonds
 from wc_utils.util.chem import EmpiricalFormula
 import mock
 import openbabel
@@ -172,9 +172,9 @@ class RnaTestCase(unittest.TestCase):
                          EmpiricalFormula('C10O4N5H13') + EmpiricalFormula('PO3H-1'))
         self.assertTrue(os.path.isfile(path))
 
-    def test_validate_linkages(self):
-        validate_bpform_linkages(rna.CanonicalRnaForm)
-        validate_bpform_linkages(rna.RnaForm)
+    def test_validate_bonds(self):
+        validate_bpform_bonds(rna.CanonicalRnaForm)
+        validate_bpform_bonds(rna.RnaForm)
 
         builder = rna.RnaAlphabetBuilder()
 

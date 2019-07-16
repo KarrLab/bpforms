@@ -3,7 +3,7 @@
 `BpForms` notation
 ------------------
 
-The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomeric forms using (a) a syntax similar to IUPAC/IUBMB and (b) extended alphabets for DNA, RNA, and proteins to describe monomeric forms. `BpForms` contains three pre-built canonical DNA, RNA and protein alphabets and three extended DNA, RNA, and protein alphabets curated from DNAmod, MODOMICS, the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database. Users can also create additional custom alphabets. These alphabets are associated with their corresponding biopolyer form, which allows `BpForms` to calculate the chemical structure (e.g. in SMILES format), chemical formula, molecular weight, and charge of a biopolymer.
+The `BpForms` notation unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomeric forms using (a) a syntax similar to IUPAC/IUBMB and (b) extended alphabets for DNA, RNA, and proteins to describe monomeric forms. `BpForms` contains three pre-built canonical DNA, RNA and protein alphabets and three extended DNA, RNA, and protein alphabets curated from DNAmod, MODOMICS, the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database. Users can also create additional custom alphabets. These alphabets are associated with their corresponding biopolyer form, which allows `BpForms` to calculate the chemical structure (e.g., in SMILES format), chemical formula, molecular weight, and charge of a biopolymer.
 
 * Monomeric forms that are present in the alphabet are indicated by a single character or multiple characters delimited by curly brackets.
 * Monomeric forms that are not in the alphabet are defined "inline" with one or more attributes separated by vertical pipes ("|") inside square brackets.
@@ -28,7 +28,7 @@ Sections 2.1.1 - 2.1.6 describe the attributes of monomeric forms. Please also s
 Structure
 ^^^^^^^^^
 
-The ``structure`` attribute describes the chemical structure of the monomeric form as a SMILES-encoded string::
+The ``structure`` attribute describes the chemical structure of the monomeric form as a SMILES-encoded string, preferably with the atoms canonicaly ordered (e.g., in OpenBabel canonical SMILES format).::
 
     [id: "dI" |
         structure: "O=C1NC=NC2=C1N=CN2"
@@ -37,15 +37,19 @@ The ``structure`` attribute describes the chemical structure of the monomeric fo
 We recommend defining this attribute for each monomeric form. Theis attribute must be defined to calculate the structure, formula, molecular weight, and charge of the biopolymer.
 
 
-Linkages
-^^^^^^^^
+Bonds with adjacent monomeric forms
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe the linkages between successive monomeric forms. The values of these attributes represent (i) the element in the monomeric form involved in the bond, (ii) the atom index of the element in the monomeric form involved in the bond, and (iii) the charge of atom involved in the bond.::
+The ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe the bonds between successive monomeric forms. The values of these attributes represent 
+
+* The element in the monomeric form involved in the bond, 
+* The atom index of the element in the monomeric form involved in the bond, according to the atom ordering in the structure of the monomer which, preferably, should be ordered according to the canonical SMILES algorithm, and 
+* The charge of atom involved in the bond.
+
+::
 
     [id: "dI"
         | structure: "O=C1NC=NC2=C1N=CN2"
-        | backbone-bond-atom: N10
-        | backbone-displaced-atom: H10
         ]
 
 We recommend defining these attributes for each monomeric form. These attributes must be defined to calculate the structure, formula, molecular weight, and charge of the biopolymer.
@@ -62,7 +66,14 @@ The ``circular`` attribute indicates that a biopolymer has a cicular topology::
 Intrachain crosslinks
 ^^^^^^^^^^^^^^^^^^^^^
 
-The ``crosslink``,  ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe additional covalent bonds between non-adjacent monomeric forms, such as DNA crosslinks caused chemotherapeutics and disulfide bonds between cysteines in proteins. The values of the ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes indicate the atoms involved in or displaced by the formation of each covalent bond. The values of these attributes represent (i) the index of the monomeric form involved in the bond, (ii) the element in the monomeric form involved in the bond, (iii) the atom index of the element in the monomeric form involved in the bond, and (iv) the charge of atom involved in the bond.::
+The ``crosslink``,  ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes describe additional covalent bonds between non-adjacent monomeric forms, such as DNA crosslinks caused chemotherapeutics and disulfide bonds between cysteines in proteins. The values of the ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``left-displaced-atom`` attributes indicate the atoms involved in or displaced by the formation of each covalent bond. The values of these attributes represent 
+
+  * The index of the monomeric form involved in the bond,
+  * The element in the monomeric form involved in the bond,
+  * The atom index of the element in the monomeric form involved in the bond, according to the atom ordering in the structure of the monomer which, preferably, should be ordered according to the canonical SMILES algorithm, and 
+  * The charge of atom involved in the bond.
+
+::
 
   AC | crosslink: [
     right-bond-atom: 1N4 |
@@ -144,7 +155,7 @@ Examples
 
 * DNA::
 
-    ACGT[id: "dI" | structure: "O=C1NC=NC2=C1N=CN2" | backbone-bond-atom: N10 | backbone-displaced-atom: H10]AG{m2A}
+    ACGT[id: "dI" | structure: "O=C1NC=NC2=C1N=CN2"]AG{m2A}
 
 * RNA::
 

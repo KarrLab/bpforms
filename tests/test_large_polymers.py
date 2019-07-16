@@ -86,7 +86,7 @@ class LargeBpFormsTestCase(unittest.TestCase):
                '\n  Structure: {:.3f} s, {}'
                '\n  Major microspecies: {:.3f} s, {}'
                '\n  Major tautomer: {:.3f} s, {}'
-               '\n  SMILES: {:.3f} s, {}'
+               '\n  Canonical SMILES: {:.3f} s, {}'
                ).format(
             length, end3 - start,
             end1 - start, hurry.filesize.size(uss1 - uss0),

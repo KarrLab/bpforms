@@ -8,7 +8,7 @@
 
 from bpforms.core import Alphabet, Identifier, IdentifierSet, Monomer
 from bpforms.alphabet import protein
-from bpforms.util import validate_bpform_linkages
+from bpforms.util import validate_bpform_bonds
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
 import openbabel
 import os.path
@@ -205,9 +205,9 @@ class ProteinTestCase(unittest.TestCase):
         self.assertEqual(alphabet.monomers.F.get_formula(), 
             EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
 
-    def test_validate_linkages(self):
-        validate_bpform_linkages(protein.CanonicalProteinForm)
-        validate_bpform_linkages(protein.ProteinForm)
+    def test_validate_bonds(self):
+        validate_bpform_bonds(protein.CanonicalProteinForm)
+        validate_bpform_bonds(protein.ProteinForm)
 
         self.validate_alphabet(protein.CanonicalProteinForm().alphabet)
         self.validate_alphabet(protein.ProteinForm().alphabet)

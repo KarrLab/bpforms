@@ -65,7 +65,7 @@ Advantages over `ProForma Proteoform Notation <http://www.topdownproteomics.org/
 * `BpForms` can represent DNA, RNA, and proteins.
 * `BpForms` can represent any modification and, therefore, is not limited to modifications that have been previously enumerated in databases and ontologies. This is necessary to represent the combinatorial complexity of non-canonical DNA, RNA, and proteins.
 * `BpForms` concretely captures the bonds between adjacent monomeric forms, avoiding ambiguity about how monomeric forms are composed into polymers. This is particularly important for monomeric forms that have multiple C and N termini, which affects numerous entries in RESID.
-* `BpForms` can represent monomeric forms which can only bind to the right and left or which don't have backbones such as 3' and 5' caps.
+* `BpForms` can represent monomeric forms which can only bond to the right and left or which don't have backbones such as 3' and 5' caps.
 * `BpForms` can represent bonds between non-adjacent monomeric forms, such as disulfide bonds.
 * `BpForms` can represent circular biopolymers.
 * `BpForms` separates the representation of non-canonical biopolymers from the chemical processes which generate them.
@@ -79,7 +79,7 @@ Advantages over RESID
 ^^^^^^^^^^^^^^^^^^^^^
 
 * Each monomeric form in the `BpForms` protein alphabet has a defined structure. This gaurantees that polymers have well-defined structures. In constrast, RESID has numerous entires without defined structures.
-* The composability of the monomeric forms in the `BpForms` protein alphabet is well-defined. Each form has at most one left-binding-terminus (C) and at most one right-binding-terminus (N). This eliminates confusion about the meaning of composition monomeric forms with multiple N and C-termini. In contrast, RESID has numerous entries with multiple N or C-termini whose composition into polymers is ill-defined.
+* The composability of the monomeric forms in the `BpForms` protein alphabet is well-defined. Each form has at most one left-bonding-terminus (C) and at most one right-bonding-terminus (N). This eliminates confusion about the meaning of composition monomeric forms with multiple N and C-termini. In contrast, RESID has numerous entries with multiple N or C-termini whose composition into polymers is ill-defined.
 * The `BpForms` protein alphabet encompasses entries from additional databases.
 
 

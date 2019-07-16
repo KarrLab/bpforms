@@ -145,7 +145,7 @@
                 <label>Length
                     <input type="number" id="length"/>
                 </label>
-                <label>Structure (SMILES)
+                <label>Structure (canonical SMILES)
                     <textarea id="structure"></textarea>
                 </label>
                 <label>Chemical formula
@@ -347,7 +347,7 @@
         <div class="large-5 cell notation">
           <a name="molecular-structure"></a>
           <h4>Molecular structure</h4>
-          <p>The <tt class="attribute">structure</tt> attribute describes the molecular structure of the monomeric form. This attribute must be a SMILES-encoded string. Each monomeric form can only have one structure attribute. This attribute is required to calculate the molecular structure of the polymer.</p>
+          <p>The <tt class="attribute">structure</tt> attribute describes the molecular structure of the monomeric form. This attribute must be a SMILES-encoded string, and the atoms should be canonically ordered (i.e., OpenBabel canonical SMILES format). Each monomeric form can only have one structure attribute. This attribute is required to calculate the molecular structure of the polymer.</p>
         </div>
         <div class="large-7 cell example">
           <h4>Example</h4>

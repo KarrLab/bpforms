@@ -86,7 +86,7 @@ class UtilTestCase(unittest.TestCase):
                     circular=circular)
         util.gen_html_viz_alphabet(TestForm, filename)
 
-    def test_validate_bpform_linkages(self):
+    def test_validate_bpform_bonds(self):
         class TestDnaForm(core.BpForm):
             def __init__(self, seq=None):
                 super(TestDnaForm, self).__init__(
@@ -97,7 +97,7 @@ class UtilTestCase(unittest.TestCase):
                         left_bond_atoms=[core.Atom(core.Monomer, element='P', position=None)],
                         right_displaced_atoms=[core.Atom(core.Monomer, element='H', position=None)],
                         left_displaced_atoms=[core.Atom(core.Monomer, element='O', position=None, charge=-1)]))
-        util.validate_bpform_linkages(TestDnaForm)
+        util.validate_bpform_bonds(TestDnaForm)
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
@@ -119,7 +119,7 @@ class UtilTestCase(unittest.TestCase):
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
-            util.validate_bpform_linkages(TestDnaForm)
+            util.validate_bpform_bonds(TestDnaForm)
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
@@ -141,7 +141,7 @@ class UtilTestCase(unittest.TestCase):
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
-            util.validate_bpform_linkages(TestDnaForm)
+            util.validate_bpform_bonds(TestDnaForm)
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
@@ -162,7 +162,7 @@ class UtilTestCase(unittest.TestCase):
                         right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
-        util.validate_bpform_linkages(TestDnaForm)
+        util.validate_bpform_bonds(TestDnaForm)
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
@@ -184,7 +184,7 @@ class UtilTestCase(unittest.TestCase):
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
-            util.validate_bpform_linkages(TestDnaForm)
+            util.validate_bpform_bonds(TestDnaForm)
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
@@ -206,7 +206,7 @@ class UtilTestCase(unittest.TestCase):
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
-            util.validate_bpform_linkages(TestDnaForm)
+            util.validate_bpform_bonds(TestDnaForm)
 
         alphabet = core.Alphabet()
         alphabet.monomers.A = core.Monomer(id='adenine', structure='NC1=C2N=CNC2=NC=N1',
@@ -229,23 +229,23 @@ class UtilTestCase(unittest.TestCase):
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
             with mock.patch('wc_utils.util.chem.OpenBabelUtils.export', side_effect=['smiles1', 'inchi1', 'inchi2']):
-                util.validate_bpform_linkages(TestDnaForm)
+                util.validate_bpform_bonds(TestDnaForm)
 
         with self.assertRaises(ValueError):
             with mock.patch.object(core.BpForm, 'get_formula', return_value=EmpiricalFormula()):
-                util.validate_bpform_linkages(TestDnaForm)
+                util.validate_bpform_bonds(TestDnaForm)
 
         with self.assertRaises(ValueError):
             with mock.patch.object(core.BpForm, 'get_formula', side_effect=[EmpiricalFormula('C10H12N5O6P'), EmpiricalFormula()]):
-                util.validate_bpform_linkages(TestDnaForm)
+                util.validate_bpform_bonds(TestDnaForm)
 
         with self.assertRaises(ValueError):
             with mock.patch.object(core.BpForm, 'get_charge', return_value=-100):
-                util.validate_bpform_linkages(TestDnaForm)
+                util.validate_bpform_bonds(TestDnaForm)
 
         with self.assertRaises(ValueError):
             with mock.patch.object(core.BpForm, 'get_charge', side_effect=[-2, -100]):
-                util.validate_bpform_linkages(TestDnaForm)
+                util.validate_bpform_bonds(TestDnaForm)
 
     def test_write_read_to_from_fasta(self):
         Form = dna.DnaForm
