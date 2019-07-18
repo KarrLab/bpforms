@@ -3200,24 +3200,23 @@ class BpForm(object):
                     'left_bond_atoms': AtomList(),
                     'left_displaced_atoms': AtomList(),
                 }
-                for arg in args:
-                    if isinstance(arg, tuple):
-                        arg_name, arg_val = arg
-                        if arg_name in ['id', 'name', 'structure', 'delta_mass', 'delta_charge', 'position', 'comments']:
-                            if arg_name in kwargs:
-                                raise ValueError('{} attribute cannot be repeated'.format(arg_name))
-                            if arg_name == 'position':
-                                kwargs['start_position'], kwargs['end_position'] = arg_val
-                            else:
-                                kwargs[arg_name] = arg_val
-                        elif arg_name in ['synonyms', 'identifiers', 'base_monomers']:
-                            kwargs[arg_name].add(arg_val)
-                        elif arg_name in ['backbone_bond_atoms', 'backbone_displaced_atoms',
-                                          'right_bond_atoms', 'right_displaced_atoms',
-                                          'left_bond_atoms', 'left_displaced_atoms']:
-                            kwargs[arg_name].append(arg_val)
-                        else:  # pragma: no cover # the grammar ensures this will never be reached
-                            raise ValueError('Invalid attribute {}'.format(arg_name))
+                for arg in args[1:-1:2]:
+                    arg_name, arg_val = arg
+                    if arg_name in ['id', 'name', 'structure', 'delta_mass', 'delta_charge', 'position', 'comments']:
+                        if arg_name in kwargs:
+                            raise ValueError('{} attribute cannot be repeated'.format(arg_name))
+                        if arg_name == 'position':
+                            kwargs['start_position'], kwargs['end_position'] = arg_val
+                        else:
+                            kwargs[arg_name] = arg_val
+                    elif arg_name in ['synonyms', 'identifiers', 'base_monomers']:
+                        kwargs[arg_name].add(arg_val)
+                    elif arg_name in ['backbone_bond_atoms', 'backbone_displaced_atoms',
+                                      'right_bond_atoms', 'right_displaced_atoms',
+                                      'left_bond_atoms', 'left_displaced_atoms']:
+                        kwargs[arg_name].append(arg_val)
+                    else:  # pragma: no cover # the grammar ensures this will never be reached
+                        raise ValueError('Invalid attribute {}'.format(arg_name))
                 return Monomer(**kwargs)
 
             @lark.v_args(inline=True)
@@ -3238,31 +3237,31 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def structure(self, *args):
-                return ('structure', args[-1].value)
+                return ('structure', args[-2].value)
 
             @lark.v_args(inline=True)
             def backbone_bond_atom(self, *args):
-                return ('backbone_bond_atoms', args[1])
+                return ('backbone_bond_atoms', args[-1])
 
             @lark.v_args(inline=True)
             def backbone_displaced_atom(self, *args):
-                return ('backbone_displaced_atoms', args[1])
+                return ('backbone_displaced_atoms', args[-1])
 
             @lark.v_args(inline=True)
             def right_bond_atom(self, *args):
-                return ('right_bond_atoms', args[1])
+                return ('right_bond_atoms', args[-1])
 
             @lark.v_args(inline=True)
             def right_displaced_atom(self, *args):
-                return ('right_displaced_atoms', args[1])
+                return ('right_displaced_atoms', args[-1])
 
             @lark.v_args(inline=True)
             def left_bond_atom(self, *args):
-                return ('left_bond_atoms', args[1])
+                return ('left_bond_atoms', args[-1])
 
             @lark.v_args(inline=True)
             def left_displaced_atom(self, *args):
-                return ('left_displaced_atoms', args[1])
+                return ('left_displaced_atoms', args[-1])
 
             @lark.v_args(inline=True)
             def atom(self, *args):
@@ -3283,17 +3282,19 @@ class BpForm(object):
             def position(self, *args):
                 start_position = None
                 end_position = None
-                for arg in args:
-                    if arg.type == 'START_POSITION':
-                        start_position = int(float(arg.value))
-                    elif arg.type == 'END_POSITION':
-                        end_position = int(float(arg.value))
+
+                if args[-1].type == 'INT':
+                    end_position = int(float(args[-1].value))
+                if args[-2].type == 'INT':
+                    start_position = int(float(args[-2].value))
+                if args[-3].type == 'INT':
+                    start_position = int(float(args[-3].value))
 
                 return ('position', (start_position, end_position))
 
             @lark.v_args(inline=True)
-            def base_monomer(self, separator, code):
-                code = code.value
+            def base_monomer(self, *args):
+                code = args[-2].value
                 if code[0] == '"' and code[-1] == '"':
                     code = code[1:-1]
                 monomer = self.bp_form.alphabet.monomers.get(code, None)
@@ -3309,12 +3310,12 @@ class BpForm(object):
             def crosslink(self, *args):
                 bond = Bond()
 
-                if len(args) <= 1:
+                if len(args) <= 4:
                     args = []
-                elif isinstance(args[1], tuple):
-                    args = args[1::2]
+                elif isinstance(args[3], tuple):
+                    args = args[3:-1:2]
                 else:
-                    args = args[2::2]
+                    args = args[4:-1:2]                
 
                 for atom_type, atom in args:
                     atom_type_list = getattr(bond, atom_type)
@@ -3336,7 +3337,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def crosslink_atom_type(self, *args):
-                return args[0].value + '_' + args[1].value + '_atoms'
+                return args[0].value.replace('-', '_') + 's'
 
             @lark.v_args(inline=True)
             def circular(self, *args):

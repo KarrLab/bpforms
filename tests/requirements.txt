@@ -5,4 +5,5 @@ lxml
 matplotlib
 mock
 numpy
+plyplus
 psutil
