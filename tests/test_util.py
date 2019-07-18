@@ -14,9 +14,13 @@ from bpforms import util
 from wc_utils.util.chem import EmpiricalFormula
 import mock
 import os
+import requests
 import shutil
 import tempfile
 import unittest
+
+response = requests.get('http://modomics.genesilico.pl/modifications/')
+modomics_available = response.status_code == 200
 
 
 class UtilTestCase(unittest.TestCase):
@@ -52,6 +56,7 @@ class UtilTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             util.get_form('lipid')
 
+    @unittest.skipif(not modomics_available, 'MODOMICS server not accesssible')
     def test_build_alphabets(self):
         self.assertFalse(os.path.isfile(dna.filename))
         self.assertFalse(os.path.isfile(rna.filename))

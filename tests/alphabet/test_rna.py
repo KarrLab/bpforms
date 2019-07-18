@@ -49,6 +49,9 @@ ACG_inchi = ('InChI=1S'
              '/h1-2,6-11,15-20,25-27,43-46H,3-5H2,(H,52,53)(H,54,55)(H2,30,37,48)(H2,31,33,34)(H2,49,50,51)(H3,32,38,39,47)'
              '/p-4')
 
+response = requests.get('http://modomics.genesilico.pl/modifications/')
+modomics_available = response.status_code == 200
+
 
 class RnaTestCase(unittest.TestCase):
     def setUp(self):
@@ -146,6 +149,7 @@ class RnaTestCase(unittest.TestCase):
         self.assertEqual(form.get_formula(), EmpiricalFormula('C38H44O29N15P4'))
         self.assertEqual(form.get_charge(), -5)
 
+    @unittest.skipif(not modomics_available, 'MODOMICS server not accesssible')
     def test_RnaAlphabetBuilder_get_nucleoside_details_from_modomics(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
         session = requests.Session()
@@ -154,6 +158,7 @@ class RnaTestCase(unittest.TestCase):
         self.assertEqual(rna.RnaAlphabetBuilder().get_nucleoside_details_from_modomics('(pN)2′3′>p', session), (None, IdentifierSet()))
         self.assertEqual(rna.RnaAlphabetBuilder().get_nucleoside_details_from_modomics('Xm', session), (None, IdentifierSet()))
 
+    @unittest.skipif(not modomics_available, 'MODOMICS server not accesssible')
     def test_RnaAlphabetBuilder_is_valid_nucleoside(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
         session = requests.Session()
@@ -164,6 +169,7 @@ class RnaTestCase(unittest.TestCase):
         self.assertEqual(rna.RnaAlphabetBuilder().is_valid_nucleoside(
             Monomer(structure='[O-]P([O-])=O')), False)
 
+    @unittest.skipif(not modomics_available, 'MODOMICS server not accesssible')
     def test_RnaAlphabetBuilder(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
         alphabet = rna.RnaAlphabetBuilder(_max_monomers=3).run(path=path)

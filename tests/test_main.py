@@ -14,6 +14,7 @@ import bpforms.alphabet.protein
 import capturer
 import mock
 import os
+import requests
 import shutil
 import tempfile
 import unittest
@@ -22,6 +23,9 @@ dI_smiles = 'O=C1NC=NC2=C1N=CN2'
 dI_smiles_ph_14 = 'O=c1[n-]cnc2c1nc[n-]2'
 dIMP_smiles = 'OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O'
 dIMP_smiles_ph_14 = 'OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O'
+
+response = requests.get('http://modomics.genesilico.pl/modifications/')
+modomics_available = response.status_code == 200
 
 
 class CliTestCase(unittest.TestCase):
@@ -238,6 +242,7 @@ class BuildAlphabetsCliTestCase(unittest.TestCase):
         os.rename(bpforms.alphabet.rna.filename + '.save', bpforms.alphabet.rna.filename)
         os.rename(bpforms.alphabet.protein.filename + '.save', bpforms.alphabet.protein.filename)
 
+    @unittest.skipif(not modomics_available, 'MODOMICS server not accesssible')
     def test_build_alphabets(self):
         self.assertFalse(os.path.isfile(bpforms.alphabet.dna.filename))
         self.assertFalse(os.path.isfile(bpforms.alphabet.rna.filename))
