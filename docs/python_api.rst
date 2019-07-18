@@ -18,11 +18,7 @@ Creating biopolymer forms
 
 Use the `BpForms` notation and the ``bpforms.BpForm.from_str`` method to create an instance of ``bpforms.BpForm`` that represents a form of a biopolymer::
 
-    dna_form = bpforms.DnaForm().from_str('''ACG[
-        id: "dI"
-        | structure: "O=C1NC=NC2=C1N=CN2"
-        | base-monomer: "A"
-        ]AC'''.replace('\n', '').replace(' ', ''))
+    dna_form = bpforms.DnaForm().from_str('ACG{m2C}AC')
 
 
 Getting and setting monomeric forms
@@ -49,7 +45,6 @@ Optionally, `BpForms` can track the monomeric forms that are generated from a mo
     di_monomer = dna_form[3]
     di_monomer.base_monomers
         => set(<bpforms.core.Monomer at 0x7fb365341240>)
-    di_monomer.base_monomers.add(bpforms.Monomer())
 
 
 Protonation and tautomerization
@@ -69,10 +64,10 @@ Use these commands to calculate the length, formula, molecular weight, and charg
         => 6
 
     dna_form.get_formula()
-        => AttrDefault(<class 'float'>, False, {'C': 59.0, 'N': 24.0, 'O': 37.0, 'P': 5.0, 'H': 66.0})
+        => AttrDefault(<class 'float'>, False, {'C': 59.0, 'N': 23.0, 'O': 35.0, 'P': 6.0, 'H': 72.0})
 
     dna_form.get_mol_wt()
-        => 1858.17680999
+        => 1849.193571988
 
     dna_form.get_charge()
         => -7
@@ -84,7 +79,7 @@ Generating IUPAC/IUBMB sequences for `BpForms`
 The ``get_canonical_seq`` method generates IUPAC/IUBMB representations of `BpForms`. Where annotated, this method uses the ``base_monomers`` attribute to represent modified monomeric forms using the code for their root (e.g. m2A is represented as "A"). Monomeric forms that don't have their base annotated are represented as "N" and "X" for nucleic acids and proteins, respectively::
 
     dna_form.get_canonical_seq()
-        => ACGAAC
+        => ATANAC
 
 
 Determine if two biopolymers describe the same structure

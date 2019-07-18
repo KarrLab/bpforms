@@ -107,7 +107,7 @@
             <label>Enter a sequence of monomeric forms and, optionally, a set of crosslinks. See the documentation below for more information about the syntax.
                 <textarea
                     id="monomer_seq_in"
-                    placeholder='AC{m2A}CC[id: dI | structure: "O=C1NC=NC2=C1N=CN2"]G'></textarea>
+                    placeholder='AC{m2A}CC{dI}G'></textarea>
             </label>
 
             <label>Select the topology
@@ -232,7 +232,7 @@
             </div>
             <div class="large-4 cell">
               <h5>Protein</h5>
-              <p style="text-align: center;"><tt>AC[id: "U" | structure: "N[C@H](C=O)C[SeH]" | ... ]C</tt></p>
+              <p style="text-align: center;"><tt>AC[id: "U" | structure: "N[C@H](C(=O)O)C[SeH]" | ... ]C</tt></p>
               <a data-fancybox="gallery"
                 href="img/example/form-Protein.svg"
                 data-width="600">
@@ -331,15 +331,17 @@
           <h3>Examples</h3>
           <pre>[id: "dI"
     | name: "hypoxanthine"
-    | structure: "O=C1NC=NC2=C1N=CN2O=C1NC=NC2=C1N=CN2"
+    | structure: "OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O"
     ]</pre><br/>
           <pre>[id: "AA0305"
     | name: "N5-methyl-L-arginine"
-    | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
+    | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
+    | left-bond-atom: N16-1
+    | left-displaced-atom: H16+1
+    | left-displaced-atom: H16
     | right-bond-atom: C2
-    | left-bond-atom: N15-1
-    | left-displaced-atom: H15+1
-    | left-displaced-atom: H15+1
+    | right-displaced-atom: O1
+    | right-displaced-atom: H1
     | comments: "Methylated form of L-arginine"
     ]</pre>
         </div>
@@ -358,7 +360,7 @@
             <div class="large-8 cell syntax">
               <pre>[id: "m2C"
     | name: "2-O-methylcytosine"
-    | structure: "COC1=NC(N)=CC=N1"
+    | structure: "COC1=NC(=CCN1C1CC(C(O1)COP(=O)([O-])[O-])O)N"
     ]</pre>
             </div>
             <div class="large-4 cell image">
@@ -393,11 +395,13 @@
             <div class="large-8 cell syntax">
               <pre>[id: "AA0305"
   | name: "N5-methyl-L-arginine"
-  | structure: "O=C[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
-  | left-bond-atom: N15-1
-  | left-displaced-atom: H15+1
-  | left-displaced-atom: H15+1
+  | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
+  | left-bond-atom: N16-1
+  | left-displaced-atom: H16+1
+  | left-displaced-atom: H16
   | right-bond-atom: C2
+  | right-displaced-atom: O1
+  | right-displaced-atom: H1
   ]</pre>
             </div>
             <div class="large-4 cell image">

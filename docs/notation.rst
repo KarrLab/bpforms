@@ -31,7 +31,7 @@ Structure
 The ``structure`` attribute describes the chemical structure of the monomeric form as a SMILES-encoded string, preferably with the atoms canonicaly ordered (e.g., in OpenBabel canonical SMILES format).::
 
     [id: "dI" |
-        structure: "O=C1NC=NC2=C1N=CN2"
+        structure: "OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O"
         ]
 
 We recommend defining this attribute for each monomeric form. Theis attribute must be defined to calculate the structure, formula, molecular weight, and charge of the biopolymer.
@@ -49,7 +49,7 @@ The ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-atom``, and ``lef
 ::
 
     [id: "dI"
-        | structure: "O=C1NC=NC2=C1N=CN2"
+        | structure: "OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O"
         ]
 
 We recommend defining these attributes for each monomeric form. These attributes must be defined to calculate the structure, formula, molecular weight, and charge of the biopolymer.
@@ -76,19 +76,17 @@ The ``crosslink``,  ``right-bond-atom``, ``right-displaced-atom``, ``left-bond-a
 ::
 
   AC | crosslink: [
-    right-bond-atom: 1N4 |
-    left-bond-atom: 2C8 |
-    right-displaced-atom: 1H4+2 |
-    left-displaced-atom: 2H8+1
+    right-bond-atom: 2O1 |
+    left-bond-atom: 1P9 |
+    right-displaced-atom: 2H1 |
+    left-displaced-atom: 1O12-1
     ]
 
-  AC | crosslink: [
-    left-bond-atom: 1C2 |
-    right-bond-atom: 2N1 |
-    left-displaced-atom: 1N1 |
-    left-displaced-atom: 1H1 |
-    left-displaced-atom: 1H1 |
-    right-displaced-atom: 2H1
+  CRC | crosslink: [
+    left-bond-atom: 1S11 |
+    left-displaced-atom: 1H11 |
+    right-bond-atom: 3S11 |
+    right-displaced-atom: 3H11
     ]
 
 
@@ -155,15 +153,47 @@ Examples
 
 * DNA::
 
-    ACGT[id: "dI" | structure: "O=C1NC=NC2=C1N=CN2"]AG{m2A}
+    ACGT[id: "dI" 
+    | structure: "OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O"
+    | right-bond-atom: O34
+    | left-bond-atom: P30
+    | right-displaced-atom: H32
+    | left-displaced-atom: O33-1
+    ]AG{m2A}
 
 * RNA::
 
-    {01G}CGU[id: "01A" | structure: "COC1C(O)C(OC1n1cnc2c1ncn(c2=N)C)CO"]AG[id: "019A" | structure: "COC1C(O)C(OC1n1cnc2c1ncn(c2=O)C)CO"]
+    {01G}CGU[id: "01A" 
+      | structure: "COC1C(O)C(OC1n1cnc2c1ncn(c2=N)C)COP(=O)([O-])[O-]"
+      | right-bond-atom: O5
+      | left-bond-atom: P22
+      | right-displaced-atom: H5
+      | left-displaced-atom: O25-1
+    ]
+    AG[id: "019A" 
+      | structure: "COC1C(O)C(OC1n1cnc2c1ncn(c2=O)C)COP(=O)([O-])[O-]"
+      | right-bond-atom: O5
+      | left-bond-atom: P22
+      | right-displaced-atom: H5
+      | left-displaced-atom: O25-1
+    ]
 
 * Protein::
 
-    ARGKL[id: "AA0318" | structure: "COC(=O)[C@@H]([NH3+])CCCC[NH3+]"]YRCG[id: "AA0567" | structure: "CC=CC(=O)NCCCC[C@@H](C=O)[NH3+]"]
+    ARGK[id: "AA0567" 
+      | structure: "C/C=C/C(=O)NCCCC[C@@H](C(=O)O)[NH3+]"
+      | left-bond-atom: N16-1
+      | left-displaced-atom: H16
+      | left-displaced-atom: H16+1
+      | right-bond-atom: C13
+      | right-displaced-atom: O15
+      | right-displaced-atom: H15
+    ]LYRCG[id: "AA0318" 
+      | structure: "COC(=O)[C@@H]([NH3+])CCCC[NH3+]"
+      | left-bond-atom: N7-1
+      | left-displaced-atom: H7
+      | left-displaced-atom: H7+1
+    ]
 
 * Cicular DNA::
 

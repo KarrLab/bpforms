@@ -8,9 +8,7 @@
 * A notation for concretely describing the primary structures of non-canonical biopolymers. See :numref:`notation` for detailed information. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomeric form at the fourth position:
   ::
 
-    ACG[
-        id: "dI" | structure: "O=C1NC=NC2=C1N=CN2"
-        ]T
+    ACG{dI}
 
   This concrete representation enables the `BpForms` software tools to calculate properties of non-canonical biopolymers.
 
