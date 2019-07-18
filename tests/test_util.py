@@ -56,7 +56,7 @@ class UtilTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             util.get_form('lipid')
 
-    @unittest.skipif(not modomics_available, 'MODOMICS server not accesssible')
+    @unittest.skipIf(not modomics_available, 'MODOMICS server not accesssible')
     def test_build_alphabets(self):
         self.assertFalse(os.path.isfile(dna.filename))
         self.assertFalse(os.path.isfile(rna.filename))

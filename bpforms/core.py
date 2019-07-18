@@ -6,7 +6,6 @@
 :License: MIT
 """
 
-from .config import get_config
 from ruamel import yaml
 from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_molecule, OpenBabelUtils
 import abc
@@ -20,8 +19,6 @@ import re
 import urllib.parse
 import warnings
 import wc_utils.cache
-
-config = get_config()['bpforms']
 
 # setup cache
 cache_dir = os.path.expanduser('~/.cache/bpforms')
@@ -2708,14 +2705,6 @@ class BpForm(object):
         """
         if not self.seq:
             return None
-        if len(self.seq) > config['max_len_get_major_micro_species']:
-            warnings.warn('Major microspecies calculations are limited to forms with length <= {}'.format(
-                config['max_len_get_major_micro_species']), BpFormsWarning)
-            return None
-        if major_tautomer and len(self.seq) > config['max_len_get_major_micro_species_major_tautomer']:
-            warnings.warn('Major tautomer calculations are limited to forms with length <= {}'.format(
-                config['max_len_get_major_micro_species_major_tautomer']), BpFormsWarning)
-            return None
 
         smiles = self.export('smiles')
         smiles = get_major_micro_species(smiles, 'smiles', 'smiles',
@@ -2741,11 +2730,6 @@ class BpForm(object):
                     to dictionaries which map indices (1-based) of atoms to atoms (instances of :obj:`openbabel.OBAtom`)
         """
         if not self.seq:
-            return (None, None)
-
-        if len(self.seq) > config['max_len_get_structure']:
-            warnings.warn('Structure calculations are limited to forms with length <= {}'.format(
-                config['max_len_get_structure']), BpFormsWarning)
             return (None, None)
 
         mol = openbabel.OBMol()
@@ -3315,7 +3299,7 @@ class BpForm(object):
                 elif isinstance(args[3], tuple):
                     args = args[3:-1:2]
                 else:
-                    args = args[4:-1:2]                
+                    args = args[4:-1:2]
 
                 for atom_type, atom in args:
                     atom_type_list = getattr(bond, atom_type)

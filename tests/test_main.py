@@ -242,7 +242,7 @@ class BuildAlphabetsCliTestCase(unittest.TestCase):
         os.rename(bpforms.alphabet.rna.filename + '.save', bpforms.alphabet.rna.filename)
         os.rename(bpforms.alphabet.protein.filename + '.save', bpforms.alphabet.protein.filename)
 
-    @unittest.skipif(not modomics_available, 'MODOMICS server not accesssible')
+    @unittest.skipIf(not modomics_available, 'MODOMICS server not accesssible')
     def test_build_alphabets(self):
         self.assertFalse(os.path.isfile(bpforms.alphabet.dna.filename))
         self.assertFalse(os.path.isfile(bpforms.alphabet.rna.filename))

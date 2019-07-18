@@ -6,6 +6,7 @@
 :License: MIT
 """
 
+from .config import get_config
 from wc_utils.util.chem import OpenBabelUtils
 import bpforms
 import bpforms.core
@@ -19,6 +20,8 @@ import os
 import pkg_resources
 import urllib.parse
 import warnings
+
+config = get_config()['bpforms']['rest']
 
 # setup app
 app = flask.Flask(__name__)
@@ -126,14 +129,32 @@ class Bpform(flask_restplus.Resource):
                     formula = dict(form.get_formula())
                     mol_wt = form.get_mol_wt()
                     charge = form.get_charge()
-                    structure = form.get_structure()[0]
+
+                    if len(form.seq) <= config['max_len_get_structure']:
+                        structure = form.get_structure()[0]
+                    else:
+                        structure = None
+                        warnings.warn('Structure calculations are limited to forms with length <= {}'.format(
+                            config['max_len_get_structure']), bpforms.BpFormsWarning)
+
                 else:
-                    structure = form.get_major_micro_species(ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+                    if major_tautomer and len(form.seq) > config['max_len_get_major_micro_species_major_tautomer']:
+                        warnings.warn('Major tautomer calculations are limited to forms with length <= {}'.format(
+                            config['max_len_get_major_micro_species_major_tautomer']), bpforms.BpFormsWarning)
+                        structure = None
+                    elif len(form.seq) > config['max_len_get_major_micro_species']:
+                        warnings.warn('Major microspecies calculations are limited to forms with length <= {}'.format(
+                            config['max_len_get_major_micro_species']), bpforms.BpFormsWarning)
+                        structure = None
+                    else:
+                        structure = form.get_major_micro_species(ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+
                     if structure is not None:
                         formula = OpenBabelUtils.get_formula(structure)
                         mol_wt = formula.get_molecular_weight()
                         formula = dict(formula)
                         charge = structure.GetTotalCharge()
+
                 if structure is None:
                     smiles = None
                 else:
