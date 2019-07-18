@@ -29,62 +29,64 @@
 
           <p><i>BpForms</i> includes a notation for describing biopolymer forms and three consensus alphabets of non-canonical monomeric forms of DNA nucleotide monophosphates, RNA nucleotide monophosphates, and protein amino acids. <i>BpForms</i> also includes four software tools for verifying descriptions of biopolymer forms and calculating properties such as their molecular structure, formula, molecular weight, and charge: this website, a JSON REST API <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>, a command line interface <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>, and a Python API <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>. <i>BpForms</i> is available open-source <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a> under the MIT license.</p>
         </div>
-        <div class="large-5 cell toc">
-          <h3>Table of contents</h3>
-          <div class="grid-x grid-padding-x">
-            <div class="large-6 cell">
-              <ul>
-                <li><a href="#calculator">Online verifier/calculator</a></li>
-                <li><a href="#notation">Notation</a>
-                  <ul>
-                    <li><a href="#alphabets">Alphabets</a></li>
-                    <li><a href="#inline-monomers">Inline monomeric forms</a>
-                      <ul>
-                        <li><a href="#molecular-structure">Molecular structure</a></li>
-                        <li><a href="#adjacent-bonds">Bonds with adjacent monomers</a></li>
-                        <li><a href="#uncertainty">Uncertainty</a></li>
-                        <li><a href="#metadata">Metadata</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#topology">Circularity</a></li>
-                    <li><a href="#crosslinks">Crosslinks</a></li>
-                  </ul>
-                </li>
-                <li><a href="#use-cases">User interfaces</a>
-                  <ul>
-                    <li><a href="#calculator">Webform</a></li>
-                    <li><a href="#rest">REST API</a></li>
-                    <li><a href="#cli">Command line interface</a></li>
-                    <li><a href="#library">Python library</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div class="large-6 cell">
-              <ul>
-                <li><a href="#use-cases">Use cases</a>
-                  <ul>
-                    <li><a href="#epigenomics">Epigenomics</a></li>
-                    <li><a href="#transcriptomics">Transcriptomics</a></li>
-                    <li><a href="#proteomics">Proteomics</a></li>
-                    <li><a href="#sys-bio">Systems biology</a></li>
-                    <li><a href="#syn-bio">Synthetic biology</a></li>
-                  </ul>
-                </li>
-                <li><a href="#integration">Integration with standards</a>
-                  <ul>
-                    <li><a href="#biopax">BioPAX</a></li>
-                    <li><a href="#fasta">FASTA</a></li>
-                    <li><a href="#pdb">PDB files</a></li>
-                    <li><a href="#sbml">SBML</a></li>
-                    <li><a href="#sbol">SBOL</a></li>
-                  </ul>
-                </li>
-                <li><a href="#resources">Other useful resources</a></li>
-                <li><a href="#help">Tutorials, docs, and help</a></li>
-                <li><a href="#contributing">Contributing to <i>BpForms</i></a></li>
-                <li><a href="#about">About <i>BpForms</i></a></li>
-              </ul>
+        <div class="large-5 cell">
+          <div class="toc">
+            <h3>Table of contents</h3>
+            <div class="grid-x grid-padding-x">
+              <div class="large-6 cell">
+                <ul>
+                  <li><a href="#calculator">Online verifier/calculator</a></li>
+                  <li><a href="#notation">Notation</a>
+                    <ul>
+                      <li><a href="#alphabets">Alphabets</a></li>
+                      <li><a href="#inline-monomers">Inline monomeric forms</a>
+                        <ul>
+                          <li><a href="#molecular-structure">Molecular structure</a></li>
+                          <li><a href="#adjacent-bonds">Bonds with adjacent monomers</a></li>
+                          <li><a href="#uncertainty">Uncertainty</a></li>
+                          <li><a href="#metadata">Metadata</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#topology">Circularity</a></li>
+                      <li><a href="#crosslinks">Crosslinks</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#use-cases">User interfaces</a>
+                    <ul>
+                      <li><a href="#calculator">Webform</a></li>
+                      <li><a href="#rest">REST API</a></li>
+                      <li><a href="#cli">Command line interface</a></li>
+                      <li><a href="#library">Python library</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class="large-6 cell">
+                <ul>
+                  <li><a href="#use-cases">Use cases</a>
+                    <ul>
+                      <li><a href="#epigenomics">Epigenomics</a></li>
+                      <li><a href="#transcriptomics">Transcriptomics</a></li>
+                      <li><a href="#proteomics">Proteomics</a></li>
+                      <li><a href="#sys-bio">Systems biology</a></li>
+                      <li><a href="#syn-bio">Synthetic biology</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#integration">Integration with standards</a>
+                    <ul>
+                      <li><a href="#biopax">BioPAX</a></li>
+                      <li><a href="#fasta">FASTA</a></li>
+                      <li><a href="#pdb">PDB files</a></li>
+                      <li><a href="#sbml">SBML</a></li>
+                      <li><a href="#sbol">SBOL</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#resources">Other useful resources</a></li>
+                  <li><a href="#help">Tutorials, docs, and help</a></li>
+                  <li><a href="#contributing">Contributing to <i>BpForms</i></a></li>
+                  <li><a href="#about">About <i>BpForms</i></a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

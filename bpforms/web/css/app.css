@@ -106,6 +106,8 @@ pre .modification {
     background: #f6f6f6;
     border-radius: 0.3rem;
     border: 1px solid #ccc;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 .toc h3 {
     color: #333;
