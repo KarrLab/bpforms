@@ -14,6 +14,7 @@ from bpforms.alphabet import protein
 from bpforms.alphabet import rna
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
 import hurry.filesize
+import openbabel
 import os
 import psutil
 import time
@@ -29,6 +30,13 @@ class LargeBpFormsTestCase(unittest.TestCase):
 
     def test_protein(self):
         self.verify_large_polymers(protein.ProteinForm, 'ACDE')
+
+    def test_get_structure(self):
+        form = protein.ProteinForm().from_str('ARCGY' * 100)
+        structure, _ = form.get_structure()
+        self.assertIsInstance(structure, openbabel.OBMol)
+        cml = OpenBabelUtils.export(structure, 'cml')
+        self.assertTrue(cml.startswith('<molecule'))
 
     def verify_large_polymers(self, form_type, alphabet):
         # test Python API
