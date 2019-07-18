@@ -48,5 +48,6 @@ END_POSITION: INT
 WS: /[ \t\f\r\n]/+
 INT: DIGIT+
 DIGIT: "0".."9"
-
-%import common.ESCAPED_STRING
+ESCAPED_STRING: "\"" STRING_ESC_INNER? "\""
+STRING_ESC_INNER: STRING_INNER /(?<!\\)(\\\\)*?/ 
+STRING_INNER: /.+?/
