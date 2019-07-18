@@ -1,41 +1,41 @@
-start: seq (ATTR_SEP global_attr)*
+start: seq (ATTR_SEP global_attr)* WS*
 seq: (WS|monomer)+
 ?monomer: alphabet_monomer | inline_monomer
 alphabet_monomer: CHAR | DELIMITED_CHARS
 inline_monomer: "[" WS* inline_monomer_attr (ATTR_SEP inline_monomer_attr)* WS* "]"
 ?inline_monomer_attr: id | name | synonym | identifier | structure | backbone_bond_atom | backbone_displaced_atom | right_bond_atom | left_bond_atom | right_displaced_atom | left_displaced_atom | delta_mass | delta_charge | position | base_monomer | comments
-?id: "id" FIELD_SEP ESCAPED_STRING
-?name: "name" FIELD_SEP ESCAPED_STRING
-?synonym: "synonym" FIELD_SEP ESCAPED_STRING
-?identifier: "identifier" FIELD_SEP identifier_id IDENTIFIER_SEP identifier_ns
+id: "id" FIELD_SEP ESCAPED_STRING
+name: "name" FIELD_SEP ESCAPED_STRING
+synonym: "synonym" FIELD_SEP ESCAPED_STRING
+identifier: "identifier" FIELD_SEP identifier_id IDENTIFIER_SEP identifier_ns
 ?identifier_ns: ESCAPED_STRING
 ?identifier_id: ESCAPED_STRING
-?structure: "structure" FIELD_SEP "\"" SMILES "\""
-?backbone_bond_atom: "backbone-bond-atom" FIELD_SEP atom
-?backbone_displaced_atom: "backbone-displaced-atom" FIELD_SEP atom
-?right_bond_atom: "right-bond-atom" FIELD_SEP atom
-?left_bond_atom: "left-bond-atom" FIELD_SEP atom
-?right_displaced_atom: "right-displaced-atom" FIELD_SEP atom
-?left_displaced_atom: "left-displaced-atom" FIELD_SEP atom
-?atom: atom_element atom_position atom_charge?
+structure: "structure" FIELD_SEP "\"" SMILES "\""
+backbone_bond_atom: "backbone-bond-atom" FIELD_SEP atom
+backbone_displaced_atom: "backbone-displaced-atom" FIELD_SEP atom
+right_bond_atom: "right-bond-atom" FIELD_SEP atom
+left_bond_atom: "left-bond-atom" FIELD_SEP atom
+right_displaced_atom: "right-displaced-atom" FIELD_SEP atom
+left_displaced_atom: "left-displaced-atom" FIELD_SEP atom
+atom: atom_element atom_position atom_charge?
 ?atom_element: /[A-Z][a-z]?/
 ?atom_position: /[0-9]+/
 ?atom_charge: /[\+\-][0-9]+/
-?delta_mass: "delta-mass" FIELD_SEP DALTON
-?delta_charge: "delta-charge" FIELD_SEP CHARGE
-?position: "position" FIELD_SEP START_POSITION? "-" END_POSITION?
-?base_monomer: "base-monomer" FIELD_SEP ESCAPED_CHARS
-?comments: "comments" FIELD_SEP ESCAPED_STRING
+delta_mass: "delta-mass" FIELD_SEP DALTON
+delta_charge: "delta-charge" FIELD_SEP CHARGE
+position: "position" FIELD_SEP START_POSITION? "-" END_POSITION?
+base_monomer: "base-monomer" FIELD_SEP ESCAPED_CHARS
+comments: "comments" FIELD_SEP ESCAPED_STRING
 ?global_attr: crosslink | circular
-?crosslink: "crosslink" FIELD_SEP "[" WS* crosslink_atom (ATTR_SEP crosslink_atom)* WS* "]"
-?crosslink_atom: crosslink_atom_type FIELD_SEP monomer_position atom_element atom_position atom_charge?
-?crosslink_atom_type: /(left|right)/ "-" /(bond|displaced)/ "-atom"
+crosslink: "crosslink" FIELD_SEP "[" WS* (crosslink_atom (ATTR_SEP crosslink_atom)* WS*)? "]"
+crosslink_atom: crosslink_atom_type FIELD_SEP monomer_position atom_element atom_position atom_charge?
+crosslink_atom_type: /(left|right)/ "-" /(bond|displaced)/ "-atom"
 ?monomer_position: /[0-9]+/
-?circular: "circular"
+circular: "circular"
 ATTR_SEP: WS* "|" WS*
 FIELD_SEP: WS* ":" WS*
 IDENTIFIER_SEP: WS* "@" WS*
-CHAR: /[^\[\]\{\}":| ]/
+CHAR: /[^\[\]\{\}":| \t\f\r\n]/
 CHARS: CHAR+
 ESCAPED_CHARS: "\"" CHARS "\""
 DELIMITED_CHARS: "{" /[^\[\]\{\}"]/+ "}"
@@ -44,6 +44,9 @@ DALTON: /[\-\+]?[0-9]+(\.[0-9]*)?/
 CHARGE: /[\-\+]?[0-9]+/
 START_POSITION: INT
 END_POSITION: INT
-%import common.WS
+
+WS: /[ \t\f\r\n]/+
+INT: DIGIT+
+DIGIT: "0".."9"
+
 %import common.ESCAPED_STRING
-%import common.INT

@@ -1596,6 +1596,16 @@ class BpFormTestCase(unittest.TestCase):
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'multiple times'):
             form = dna.DnaForm().from_str('AAA' + xlink + xlink)
 
+        dna.DnaForm().from_str('A\n').validate()
+        dna.DnaForm().from_str('A \n').validate()
+        dna.DnaForm().from_str('A\n ').validate()
+        dna.DnaForm().from_str('A \n ').validate()
+        dna.DnaForm().from_str('A ').validate()
+        dna.DnaForm().from_str('A | crosslink: []\n')
+        dna.DnaForm().from_str('A | crosslink: [] ')
+        dna.DnaForm().from_str('A | crosslink: [] \n')
+        dna.DnaForm().from_str('A | crosslink: []\n ')
+
     def test_from_str_circular(self):
         form = dna.DnaForm().from_str('AAA')
         self.assertFalse(form.circular)
