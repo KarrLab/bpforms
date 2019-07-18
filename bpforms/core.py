@@ -3157,7 +3157,6 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def start(self, *args):
-                print(args)
                 for arg_type, arg_val in args[0::2]:
                     if arg_type in ['seq', 'circular']:
                         setattr(self.bp_form, arg_type, arg_val)
