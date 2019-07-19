@@ -32,7 +32,7 @@ class LargeBpFormsTestCase(unittest.TestCase):
         self.verify_large_polymers(protein.ProteinForm, 'ACDE')
 
     def test_get_structure(self):
-        form = protein.ProteinForm().from_str('ARCGY' * 100)
+        form = protein.ProteinForm().from_str('ARCGY' * 10)
         structure, _ = form.get_structure()
         self.assertIsInstance(structure, openbabel.OBMol)
         cml = OpenBabelUtils.export(structure, 'cml')
