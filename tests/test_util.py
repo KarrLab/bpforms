@@ -20,7 +20,7 @@ import tempfile
 import unittest
 
 response = requests.get('http://modomics.genesilico.pl/modifications/')
-modomics_available = response.status_code == 200
+modomics_available = response.status_code == 200 and repsonse.elapsed.total_seconds() < 0.5
 
 
 class UtilTestCase(unittest.TestCase):

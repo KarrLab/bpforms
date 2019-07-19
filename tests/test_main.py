@@ -25,7 +25,7 @@ dIMP_smiles = 'OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O
 dIMP_smiles_ph_14 = 'OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O'
 
 response = requests.get('http://modomics.genesilico.pl/modifications/')
-modomics_available = response.status_code == 200
+modomics_available = response.status_code == 200 and repsonse.elapsed.total_seconds() < 0.5
 
 
 class CliTestCase(unittest.TestCase):

@@ -50,7 +50,7 @@ ACG_inchi = ('InChI=1S'
              '/p-4')
 
 response = requests.get('http://modomics.genesilico.pl/modifications/')
-modomics_available = response.status_code == 200
+modomics_available = response.status_code == 200 and repsonse.elapsed.total_seconds() < 0.5
 
 
 class RnaTestCase(unittest.TestCase):
