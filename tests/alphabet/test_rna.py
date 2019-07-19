@@ -51,7 +51,7 @@ ACG_inchi = ('InChI=1S'
 
 try:
     response = requests.get('http://modomics.genesilico.pl/modifications/')
-    modomics_available = response.status_code == 200 and repsonse.elapsed.total_seconds() < 0.5
+    modomics_available = response.status_code == 200 and response.elapsed.total_seconds() < 0.5
 except requests.exceptions.ConnectionError:
     modomics_available = False
 
