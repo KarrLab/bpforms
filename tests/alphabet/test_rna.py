@@ -49,8 +49,11 @@ ACG_inchi = ('InChI=1S'
              '/h1-2,6-11,15-20,25-27,43-46H,3-5H2,(H,52,53)(H,54,55)(H2,30,37,48)(H2,31,33,34)(H2,49,50,51)(H3,32,38,39,47)'
              '/p-4')
 
-response = requests.get('http://modomics.genesilico.pl/modifications/')
-modomics_available = response.status_code == 200 and repsonse.elapsed.total_seconds() < 0.5
+try:
+    response = requests.get('http://modomics.genesilico.pl/modifications/')
+    modomics_available = response.status_code == 200 and repsonse.elapsed.total_seconds() < 0.5
+except requests.exceptions.ConnectionError:
+    modomics_available = False
 
 
 class RnaTestCase(unittest.TestCase):

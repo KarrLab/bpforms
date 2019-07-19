@@ -19,8 +19,11 @@ import shutil
 import tempfile
 import unittest
 
-response = requests.get('http://modomics.genesilico.pl/modifications/')
-modomics_available = response.status_code == 200 and repsonse.elapsed.total_seconds() < 0.5
+try:
+    response = requests.get('http://modomics.genesilico.pl/modifications/')
+    modomics_available = response.status_code == 200 and repsonse.elapsed.total_seconds() < 0.5
+except requests.exceptions.ConnectionError:
+    modomics_available = False
 
 
 class UtilTestCase(unittest.TestCase):
