@@ -32,7 +32,7 @@ class LargeBpFormsTestCase(unittest.TestCase):
         self.verify_large_polymers(protein.ProteinForm, 'ACDE')
 
     def test_get_structure(self):
-        form = protein.ProteinForm().from_str('ARCGY' * 10)
+        form = protein.ProteinForm().from_str('ARCGY' * 100)
         structure, _ = form.get_structure()
         self.assertIsInstance(structure, openbabel.OBMol)
         cml = OpenBabelUtils.export(structure, 'cml')
@@ -69,18 +69,22 @@ class LargeBpFormsTestCase(unittest.TestCase):
         end1 = time.time()
         uss1 = process.memory_full_info().uss
 
-        structure = form.get_structure()[0]
-        if structure is not None:
+        if length <= 50:
+            structure = form.get_structure()[0]
             self.assertEqual(OpenBabelUtils.get_formula(structure), formula)
             self.assertEqual(structure.GetTotalCharge(), charge)
+        else:
+            structure = None
         end2 = time.time()
         uss2 = process.memory_full_info().uss
 
-        form.get_major_micro_species(7.4, major_tautomer=False)
+        if length <= 20:
+            form.get_major_micro_species(7.4, major_tautomer=False)
         end3 = time.time()
         uss3 = process.memory_full_info().uss
 
-        form.get_major_micro_species(7.4, major_tautomer=True)
+        if length <= 5:
+            form.get_major_micro_species(7.4, major_tautomer=True)
         end4 = time.time()
         uss4 = process.memory_full_info().uss
 
