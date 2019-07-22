@@ -325,7 +325,7 @@ monomers:
     - ns: pubchem.compound
       id: '750'
     - ns: metacyc.compound
-      id: GLU
+      id: GLY
     - ns: chebi
       id: CHEBI:15428
     - ns: resid
@@ -493,7 +493,7 @@ monomers:
     - ns: resid
       id: AA0012
     - ns: metacyc.compound
-      id: LEU
+      id: LYS
     structure: '[NH3+]CCCC[C@@H](C(=O)O)[NH3+]'
     left_bond_atoms:
     - molecule: Monomer

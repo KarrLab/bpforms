@@ -220,6 +220,8 @@ class Monomer(object):
         delta_charge (:obj:`int`): additional charge relative to structure
         start_position (:obj:`tuple`): uncertainty in the location of the monomeric form
         end_position (:obj:`tuple`): uncertainty in the location of the monomeric form
+        monomers_position (:obj:`set` of :obj:`Monomer`): originating monomers within :obj:`start_position` to 
+            :obj:`end_position` where the monomeric form may be located
         base_monomers (:obj:`set` of :obj:`Monomer`): monomers which this monomeric form is derived from
         backbone_bond_atoms (:obj:`AtomList`): atoms from monomeric form that bond to backbone
         backbone_displaced_atoms (:obj:`AtomList`): atoms from monomeric form displaced by bond to backbone
@@ -231,7 +233,8 @@ class Monomer(object):
     """
 
     def __init__(self, id=None, name=None, synonyms=None, identifiers=None, structure=None,
-                 delta_mass=None, delta_charge=None, start_position=None, end_position=None,
+                 delta_mass=None, delta_charge=None,
+                 start_position=None, end_position=None, monomers_position=None,
                  base_monomers=None,
                  backbone_bond_atoms=None, backbone_displaced_atoms=None,
                  right_bond_atoms=None, left_bond_atoms=None,
@@ -248,6 +251,8 @@ class Monomer(object):
             delta_charge (:obj:`float`, optional): additional charge relative to structure
             start_position (:obj:`int`, optional): uncertainty in the location of the monomeric form
             end_position (:obj:`int`, optional): uncertainty in the location of the monomeric form
+            monomers_position (:obj:`set` of :obj:`Monomer`, optional): originating monomers within :obj:`start_position` to 
+                :obj:`end_position` where the monomeric form may be located
             base_monomers (:obj:`set` of :obj:`Monomer`, optional): monomers which this monomeric form is derived from
             backbone_bond_atoms (:obj:`AtomList`, optional): atoms from monomeric form that bond to backbone
             backbone_displaced_atoms (:obj:`AtomList`, optional): atoms from monomeric form displaced by bond to backbone
@@ -266,6 +271,7 @@ class Monomer(object):
         self.delta_charge = delta_charge
         self.start_position = start_position
         self.end_position = end_position
+        self.monomers_position = monomers_position or set()
         self.base_monomers = base_monomers or set()
         self.backbone_bond_atoms = backbone_bond_atoms or AtomList()
         self.backbone_displaced_atoms = backbone_displaced_atoms or AtomList()
@@ -505,6 +511,35 @@ class Monomer(object):
                 raise ValueError('`end_position` must be a positive integer or None')
             value = int(value)
         self._end_position = value
+
+    @property
+    def monomers_position(self):
+        """ Get the originating monomers within :obj:`start_position` to 
+        :obj:`end_position` where the monomeric form may be located
+
+        Returns:
+            :obj:`set` of :obj:`Monomer`: originating monomers within :obj:`start_position` to 
+                :obj:`end_position` where the monomeric form may be located
+        """
+        return self._monomers_position
+
+    @monomers_position.setter
+    def monomers_position(self, value):
+        """ Set the originating monomers within :obj:`start_position` to 
+        :obj:`end_position` where the monomeric form may be located
+
+        Args:
+            value (:obj:`set` of :obj:`Monomer`): originating monomers within :obj:`start_position` to 
+                :obj:`end_position` where the monomeric form may be located
+
+        Raises:
+            :obj:`ValueError`: if value is not an instance of :obj:`set`
+        """
+        if isinstance(value, list):
+            value = set(value)
+        if not isinstance(value, set):
+            raise ValueError('`monomers_position` must be an instance of `set`')
+        self._monomers_position = value
 
     @property
     def base_monomers(self):
@@ -907,6 +942,12 @@ class Monomer(object):
         if self.structure:
             dict['structure'] = self.export('smi', options=('c',))
 
+        if self.monomers_position and alphabet:
+            dict['monomers_position'] = []
+            for monomer in self.monomers_position:
+                monomer_code = alphabet.get_monomer_code(monomer)
+                dict['monomers_position'].append(monomer_code)
+
         if self.base_monomers and alphabet:
             dict['base_monomers'] = []
             for monomer in self.base_monomers:
@@ -945,6 +986,7 @@ class Monomer(object):
         self.delta_charge = None
         self.start_position = None
         self.end_position = None
+        self.monomers_position.clear()
         self.base_monomers.clear()
         self.comments = None
 
@@ -965,6 +1007,10 @@ class Monomer(object):
         structure = dict.get('structure', None)
         if structure:
             self.structure = structure
+
+        monomers_position_ids = dict.get('monomers_position', [])
+        if monomers_position_ids and alphabet:
+            self.monomers_position = set([alphabet.monomers.get(monomer_id) for monomer_id in monomers_position_ids])
 
         base_monomer_ids = dict.get('base_monomers', [])
         if base_monomer_ids and alphabet:
@@ -1029,11 +1075,17 @@ class Monomer(object):
             els.append('delta-charge: ' + str(self.delta_charge))
 
         if self.start_position is not None or self.end_position is not None:
-            els.append('position: {}-{}'.format(self.start_position or '', self.end_position or ''))
+            el = 'position: {}-{}'.format(self.start_position or '', self.end_position or '')
+
+            if self.monomers_position and alphabet:
+                codes = sorted(alphabet.get_monomer_code(monomer) for monomer in self.monomers_position)
+                el += ' ({})'.format(' | '.join(codes))
+
+            els.append(el)
 
         if alphabet:
-            for base_monomer in self.base_monomers:
-                els.append('base-monomer: "{}"'.format(alphabet.get_monomer_code(base_monomer)))
+            for monomer in self.base_monomers:
+                els.append('base-monomer: "{}"'.format(alphabet.get_monomer_code(monomer)))
 
         if self.comments:
             els.append('comments: "' + self.comments.replace('"', '\\"') + '"')
@@ -1083,16 +1135,17 @@ class Monomer(object):
         if self.export('inchi') != other.export('inchi'):
             return False
 
-        if len(self.base_monomers) != len(other.base_monomers):
-            return False
-        for base_monomer in self.base_monomers:
-            has_equal = False
-            for other_base_monomer in other.base_monomers:
-                if base_monomer.is_equal(other_base_monomer):
-                    has_equal = True
-                    break
-            if not has_equal:
+        for attr in ['monomers_position', 'base_monomers']:
+            if len(getattr(self, attr)) != len(getattr(other, attr)):
                 return False
+            for base_monomer in getattr(self, attr):
+                has_equal = False
+                for other_base_monomer in getattr(other, attr):
+                    if base_monomer.is_equal(other_base_monomer):
+                        has_equal = True
+                        break
+                if not has_equal:
+                    return False
 
         attr_names = (
             'backbone_bond_atoms', 'backbone_displaced_atoms',
@@ -1213,11 +1266,12 @@ class MonomerDict(attrdict.AttrDict):
             code (:obj:`str`): characters for monomeric form
             monomer (:obj:`Monomer`): monomeric form
         """
-        if not re.match(r'^[^\[\]\{\}]+$', code):
+        pattern = (r'^([^\[\]\{\}":\| \t\f\r\n]|'
+                   r'[^\[\]\{\}":\| \t\f\r\n][^\[\]\{\}":\|\t\f\r\n]*[^\[\]\{\}":\| \t\f\r\n])$')
+        if not re.match(pattern, code):
             raise ValueError(f'`code` "{code}" must be at least one character, excluding '
-                             'square brackets and curly brackets')
-        if re.match(r'^[ \t\f\r\n]+$', code):
-            raise ValueError(f'`code` "{code}" cannot be a sequence of whitespace characters')
+                             'square brackets, curly brackets, double quotes, colons, and pipes '
+                             'and must not begin or end with a white space')
         super(MonomerDict, self).__setitem__(code, monomer)
 
 
@@ -3176,6 +3230,7 @@ class BpForm(object):
                 kwargs = {
                     'synonyms': SynonymSet(),
                     'identifiers': IdentifierSet(),
+                    'monomers_position': set(),
                     'base_monomers': set(),
                     'backbone_bond_atoms': AtomList(),
                     'backbone_displaced_atoms': AtomList(),
@@ -3190,10 +3245,10 @@ class BpForm(object):
                         if arg_name in kwargs:
                             raise ValueError('{} attribute cannot be repeated'.format(arg_name))
                         if arg_name == 'position':
-                            kwargs['start_position'], kwargs['end_position'] = arg_val
+                            kwargs['start_position'], kwargs['end_position'], kwargs['monomers_position'] = arg_val
                         else:
                             kwargs[arg_name] = arg_val
-                    elif arg_name in ['synonyms', 'identifiers', 'base_monomers']:
+                    elif arg_name in ['synonyms', 'identifiers', 'monomers_position', 'base_monomers']:
                         kwargs[arg_name].add(arg_val)
                     elif arg_name in ['backbone_bond_atoms', 'backbone_displaced_atoms',
                                       'right_bond_atoms', 'right_displaced_atoms',
@@ -3266,15 +3321,33 @@ class BpForm(object):
             def position(self, *args):
                 start_position = None
                 end_position = None
+                monomers_position = []
 
-                if args[-1].type == 'INT':
-                    end_position = int(float(args[-1].value))
-                if args[-2].type == 'INT':
-                    start_position = int(float(args[-2].value))
-                if args[-3].type == 'INT':
-                    start_position = int(float(args[-3].value))
+                before_dash = True
+                for arg in args:
+                    if isinstance(arg, lark.lexer.Token):
+                        if arg.type == 'DASH':
+                            before_dash = False
+                        if arg.type == 'INT':
+                            if before_dash:
+                                start_position = int(float(arg.value))
+                            else:
+                                end_position = int(float(arg.value))
+                    elif isinstance(arg, list):
+                        monomers_position = arg
 
-                return ('position', (start_position, end_position))
+                return ('position', (start_position, end_position, monomers_position))
+
+            @lark.v_args(inline=True)
+            def monomers_position(self, *args):
+                monomers = []
+                for arg in args:
+                    if arg.type in ['CHAR', 'CHARS']:
+                        monomer = self.bp_form.alphabet.monomers.get(arg.value, None)
+                        if monomer is None:
+                            raise ValueError('"{}" not in alphabet'.format(arg.value))
+                        monomers.append(monomer)
+                return monomers
 
             @lark.v_args(inline=True)
             def base_monomer(self, *args):

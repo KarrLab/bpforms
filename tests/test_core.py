@@ -356,6 +356,13 @@ class MonomerTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             monomer.end_position = 'a'
 
+    def test_monomers_position_setter(self):
+        monomer = core.Monomer()
+        monomer.monomers_position = []
+        monomer.monomers_position = set([core.Monomer()])
+        with self.assertRaises(ValueError):
+            monomer.monomers_position = 'A'
+
     def test_base_monomers_setter(self):
         monomer = core.Monomer()
         monomer.base_monomers = []
@@ -461,10 +468,12 @@ class MonomerTestCase(unittest.TestCase):
         alphabet = dna.dna_alphabet
 
         monomer = core.Monomer()
+        monomer.monomers_position = [alphabet.monomers.C]
         monomer.base_monomers = [alphabet.monomers.A]
         monomer.backbone_bond_atoms = [core.Atom(core.Monomer, 'C', charge=3), core.Atom(core.Monomer, 'H', position=3, charge=2)]
         monomer_as_dict = monomer.to_dict(alphabet=alphabet)
         self.assertEqual(monomer_as_dict, {
+            'monomers_position': ['C'],
             'base_monomers': ['A'],
             'backbone_bond_atoms': [
                 {'molecule': 'Monomer', 'element': 'C', 'charge': 3},
@@ -474,6 +483,7 @@ class MonomerTestCase(unittest.TestCase):
 
         monomer_2 = core.Monomer()
         monomer_2.from_dict(monomer_as_dict, alphabet=alphabet)
+        self.assertEqual(monomer_2.monomers_position, set([alphabet.monomers.C]))
         self.assertEqual(monomer_2.base_monomers, set([alphabet.monomers.A]))
         self.assertTrue(monomer.is_equal(monomer_2))
 
@@ -527,10 +537,13 @@ class MonomerTestCase(unittest.TestCase):
         monomer_2 = core.Monomer(id='A', structure=dAMP_smiles)
         monomer_3 = core.Monomer(id='B', structure=dAMP_smiles)
         monomer_4 = core.Monomer(id='A', structure=dCMP_smiles)
-        monomer_5 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='A')])
-        monomer_6 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='A')])
-        monomer_7 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='B')])
-        monomer_8 = core.Monomer(id='A', structure=dAMP_smiles, backbone_bond_atoms=[core.Atom(None, 'S')])
+        monomer_5 = core.Monomer(id='A', structure=dAMP_smiles, monomers_position=[core.Monomer(id='A')])
+        monomer_6 = core.Monomer(id='A', structure=dAMP_smiles, monomers_position=[core.Monomer(id='A')])
+        monomer_7 = core.Monomer(id='A', structure=dAMP_smiles, monomers_position=[core.Monomer(id='B')])
+        monomer_8 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='A')])
+        monomer_9 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='A')])
+        monomer_10 = core.Monomer(id='A', structure=dAMP_smiles, base_monomers=[core.Monomer(id='B')])
+        monomer_11 = core.Monomer(id='A', structure=dAMP_smiles, backbone_bond_atoms=[core.Atom(None, 'S')])
 
         self.assertTrue(monomer_1.is_equal(monomer_1))
         self.assertTrue(monomer_1.is_equal(monomer_2))
@@ -542,6 +555,9 @@ class MonomerTestCase(unittest.TestCase):
         self.assertTrue(monomer_5.is_equal(monomer_6))
         self.assertFalse(monomer_5.is_equal(monomer_7))
         self.assertFalse(monomer_1.is_equal(monomer_8))
+        self.assertTrue(monomer_8.is_equal(monomer_9))
+        self.assertFalse(monomer_8.is_equal(monomer_10))
+        self.assertFalse(monomer_1.is_equal(monomer_11))
 
     def test_get_image_url(self):
         url = dna.dna_alphabet.monomers.A.get_image_url()
@@ -1517,9 +1533,9 @@ class BpFormTestCase(unittest.TestCase):
         alphabet.monomers['A'] = core.Monomer()
         alphabet.monomers['AA'] = core.Monomer()
         alphabet.monomers['*'] = core.Monomer()
-        alphabet.monomers[' A'] = core.Monomer()
+        alphabet.monomers['A A'] = core.Monomer()
         self.assertTrue(core.BpForm(alphabet=alphabet).from_str(
-            'AAA{AA}AA{aA}{Aa}AA*{ A}').is_equal(core.BpForm([
+            'AAA{AA}AA{aA}{Aa}AA*{A A}').is_equal(core.BpForm([
                 alphabet.monomers['A'], alphabet.monomers['A'], alphabet.monomers['A'],
                 alphabet.monomers['AA'],
                 alphabet.monomers['A'], alphabet.monomers['A'],
@@ -1527,7 +1543,7 @@ class BpFormTestCase(unittest.TestCase):
                 alphabet.monomers['Aa'],
                 alphabet.monomers['A'], alphabet.monomers['A'],
                 alphabet.monomers['*'],
-                alphabet.monomers[' A'],
+                alphabet.monomers['A A'],
             ], alphabet=alphabet)))
 
         as_str = 'AAA{AA}AA{aA}{Aa}AA'
@@ -1555,6 +1571,25 @@ class BpFormTestCase(unittest.TestCase):
         dna_form_1 = dna.DnaForm().from_str('[structure: "' + dIMP_smiles + '"]')
         dna_form_2 = dna.DnaForm().from_str('[structure: "' + dIMP_smiles + '"]')
         self.assertTrue(dna_form_1.is_equal(dna_form_2))
+
+        self.assertTrue(dna.DnaForm().from_str(
+            'AA[id: "dI"'
+            ' | position: 3-5 [A|C | G| m2A]]A').is_equal(dna.DnaForm([
+                dna.dna_alphabet.monomers.A,
+                dna.dna_alphabet.monomers.A,
+                core.Monomer(
+                    id='dI',
+                    start_position=3,
+                    end_position=5,
+                    monomers_position=[
+                        dna.dna_alphabet.monomers.A,
+                        dna.dna_alphabet.monomers.C,
+                        dna.dna_alphabet.monomers.G,
+                        dna.dna_alphabet.monomers.m2A,
+                    ]
+                ),
+                dna.dna_alphabet.monomers.A,
+            ])))
 
     def test_from_str_crosslinks(self):
         form = dna.DnaForm().from_str('AAA')
@@ -1682,7 +1717,7 @@ class BpFormTestCase(unittest.TestCase):
         }, {
             1: {
                 'monomer': {
-                    1: mol.GetAtom(1), 
+                    1: mol.GetAtom(1),
                     2: mol.GetAtom(2),
                     3: mol.GetAtom(3),
                     8: mol.GetAtom(8),
@@ -2040,12 +2075,23 @@ class AlphabetTestCase(unittest.TestCase):
         alphabet.monomers['aA'] = core.Monomer(structure=dAMP_smiles)
         alphabet.monomers['Aa'] = core.Monomer(structure=dAMP_smiles)
         alphabet.monomers['*'] = core.Monomer(structure=dAMP_smiles)
-        alphabet.monomers['* '] = core.Monomer(structure=dAMP_smiles)
-        alphabet.monomers['\n*'] = core.Monomer(structure=dAMP_smiles)
+        alphabet.monomers['* *'] = core.Monomer(structure=dAMP_smiles)
         with self.assertRaises(ValueError):
             alphabet.monomers['{aa'] = core.Monomer(structure=dAMP_smiles)
         with self.assertRaises(ValueError):
             alphabet.monomers['A]'] = core.Monomer(structure=dAMP_smiles)
+        with self.assertRaises(ValueError):
+            alphabet.monomers['* '] = core.Monomer(structure=dAMP_smiles)
+        with self.assertRaises(ValueError):
+            alphabet.monomers[' *'] = core.Monomer(structure=dAMP_smiles)
+        with self.assertRaises(ValueError):
+            alphabet.monomers['\n '] = core.Monomer(structure=dAMP_smiles)
+        with self.assertRaises(ValueError):
+            alphabet.monomers[' \n'] = core.Monomer(structure=dAMP_smiles)
+        with self.assertRaises(ValueError):
+            alphabet.monomers['*\n*'] = core.Monomer(structure=dAMP_smiles)
+        with self.assertRaises(ValueError):
+            alphabet.monomers['*\t*'] = core.Monomer(structure=dAMP_smiles)
         with self.assertRaises(ValueError):
             alphabet.monomers[' '] = core.Monomer(structure=dAMP_smiles)
         with self.assertRaises(ValueError):

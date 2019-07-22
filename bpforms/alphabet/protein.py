@@ -111,6 +111,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             for identifier in list(monomer.identifiers):
                 if identifier.ns == 'pdb.ligand' and identifier.id == 'ACE':
                     monomer.identifiers.remove(identifier)
+        for monomer in alphabet.monomers.values():
+            for base_monomer in list(monomer.base_monomers):
+                if base_monomer.id == 'AA0025':
+                    monomer.base_monomers.remove(base_monomer)
+                    monomer.base_monomers.add(alphabet.monomers.C)
 
         # save report
         n_only = []
@@ -505,7 +510,14 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
                 # merge into alphabet
                 monomer = None
-                if id not in ['ABA']:
+
+                if id == 'ARG':
+                    monomer = alphabet.monomers.R
+                elif id == 'HIS':
+                    monomer = alphabet.monomers.H
+                elif id == 'LYS':
+                    monomer = alphabet.monomers.K
+                elif id not in ['ABA']:
                     monomer = smiles_to_monomer.get(smiles, None)
 
                 if monomer is None:
