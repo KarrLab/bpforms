@@ -3404,15 +3404,19 @@ class BpForm(object):
         parse_tree_transformer = ParseTreeTransformer(self)
         return parse_tree_transformer.transform(tree)
 
-    def get_canonical_seq(self):
+    def get_canonical_seq(self, monomer_codes=None):
         """ Get IUPAC/IUBMB representation of a polymer with bases represented by the character codes
         of their parent monomers (e.g. methyl-2-adenosine is represented by 'A')
+
+        Args:
+            monomer_codes (:obj:`dict`, optional): dictionary that maps monomers to their codes
 
         Returns:
             :obj:`str`: IUPAC/IUBMB representation of a polymer
         """
 
-        monomer_codes = {monomer: code for code, monomer in self.alphabet.monomers.items()}
+        if monomer_codes is None:
+            monomer_codes = {monomer: code for code, monomer in self.alphabet.monomers.items()}
 
         seq = ''
         for monomer in self.seq:
