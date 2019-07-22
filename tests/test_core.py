@@ -1572,24 +1572,26 @@ class BpFormTestCase(unittest.TestCase):
         dna_form_2 = dna.DnaForm().from_str('[structure: "' + dIMP_smiles + '"]')
         self.assertTrue(dna_form_1.is_equal(dna_form_2))
 
-        self.assertTrue(dna.DnaForm().from_str(
+        form = dna.DnaForm().from_str(
             'AA[id: "dI"'
-            ' | position: 3-5 [A|C | G| m2A]]A').is_equal(dna.DnaForm([
-                dna.dna_alphabet.monomers.A,
-                dna.dna_alphabet.monomers.A,
-                core.Monomer(
-                    id='dI',
-                    start_position=3,
-                    end_position=5,
-                    monomers_position=[
+            ' | position: 3-5 [A|C | G| m2A]]A')
+        self.assertTrue(form.is_equal(dna.DnaForm([
+            dna.dna_alphabet.monomers.A,
+            dna.dna_alphabet.monomers.A,
+            core.Monomer(
+                id='dI',
+                start_position=3,
+                end_position=5,
+                monomers_position=[
                         dna.dna_alphabet.monomers.A,
                         dna.dna_alphabet.monomers.C,
                         dna.dna_alphabet.monomers.G,
                         dna.dna_alphabet.monomers.m2A,
-                    ]
-                ),
-                dna.dna_alphabet.monomers.A,
-            ])))
+                        ]
+            ),
+            dna.dna_alphabet.monomers.A,
+        ])))
+        self.assertEqual('AA[id: "dI" | position: 3-5 [A | C | G | m2A]]A', str(form))
 
     def test_from_str_crosslinks(self):
         form = dna.DnaForm().from_str('AAA')

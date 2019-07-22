@@ -1079,7 +1079,7 @@ class Monomer(object):
 
             if self.monomers_position and alphabet:
                 codes = sorted(alphabet.get_monomer_code(monomer) for monomer in self.monomers_position)
-                el += ' ({})'.format(' | '.join(codes))
+                el += ' [{}]'.format(' | '.join(codes))
 
             els.append(el)
 
