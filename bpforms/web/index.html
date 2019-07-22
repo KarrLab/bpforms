@@ -422,7 +422,7 @@
           <p class="before_list">Through the inline monomeric forms, <i>BpForms</i> can represent two types of uncertainty in the molecular structure of forms of biopolymers:</p>
           <ul>
           <li>The <tt class="attribute">delta-mass</tt> and <tt class="attribute">delta-charge</tt> attributes can describe additional mass and charge beyond that of the canonical monomeric form which have been observed, but which cannot be resolved to a specific molecular structure. The value of <tt class="attribute">delta-mass</tt> attribute must be a float. The value of the <tt class="attribute">delta-charge</tt> attribute must be an integer. Such mass and charge uncertainty can arise from mass spectrometry studies which often cannot resolve the exact molecular structure of each monomeric form.</li>
-          <li>The <tt class="attribute">position</tt> attribute can be used to indicate a range of positions within the sequence in which the monomeric form is believed to be located, rather than a single position within the sequence. The value of the <tt class="attribute">position</tt> should be two integers separated by a dash (e.g., <tt>2-3</tt>). Such positional uncertainty can arise from enzymatic assays which do not have single nucleotide resolution.</li>
+          <li>The <tt class="attribute">position</tt> attribute can be used to indicate a range of positions within the sequence in which the monomeric form is believed to be located, rather than a single position within the sequence. The value of the <tt class="attribute">position</tt> should be two integers separated by a dash (e.g., <tt>2-3</tt>), optionally, followed by a pipe-delimited list of possible originating monomeric forms that the non-canonical monomeric form is derived from enclosed in square brackets (e.g., <tt>2-3 [A | C | G]</tt>). Such positional uncertainty can arise from enzymatic assays which do not have single nucleotide resolution.</li>
           </ul>
         </div>
         <div class="large-7 cell example">
@@ -430,6 +430,7 @@
           <ul>
           <li><tt>[id: "dAMP" | delta-mass: -18 | delta-charge: 0]</tt>: indicates the dehydration of dAMP whose exact location is not known.</li>
           <li><tt>[id: "dI" | position: 2-3]</tt>: indicates that deoxyinosine may occur anywhere between the second and third position.</li>
+          <li><tt>[id: "dI" | position: 4-8 [A | C]]</tt>: indicates that deoxyinosine may occur at any A or C between the fourth and eighth positions.</li>
           </ul>
         </div>
 
