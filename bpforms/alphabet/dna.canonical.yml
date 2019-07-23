@@ -17,7 +17,7 @@ monomers:
     - ns: pubchem.compound
       id: '190'
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1ncnc2N
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -26,7 +26,7 @@ monomers:
       element: O
       position: 12
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
@@ -49,7 +49,7 @@ monomers:
     - ns: pubchem.compound
       id: '597'
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc(nc1=O)N
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -58,7 +58,7 @@ monomers:
       element: O
       position: 12
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
@@ -80,7 +80,7 @@ monomers:
     - ns: metacyc.compound
       id: GUANINE
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc(N)[nH]c2=O
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -89,7 +89,7 @@ monomers:
       element: O
       position: 12
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
@@ -113,7 +113,7 @@ monomers:
     - ns: pubchem.compound
       id: '1135'
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C)c(=O)[nH]c1=O
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -122,7 +122,7 @@ monomers:
       element: O
       position: 12
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
@@ -143,7 +143,7 @@ monomers:
     - ns: pubchem.compound
       id: '1174'
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc(=O)[nH]c1=O
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -152,7 +152,7 @@ monomers:
       element: O
       position: 12
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
@@ -175,7 +175,7 @@ monomers:
     - ns: pubchem.compound
       id: '790'
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc[nH]c2=O
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -184,7 +184,7 @@ monomers:
       element: O
       position: 12
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1

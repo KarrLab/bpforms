@@ -122,11 +122,11 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         c_only = []
         no_termini = []
         for code, monomer in alphabet.monomers.items():
-            if monomer.left_bond_atoms and not monomer.right_bond_atoms:
+            if monomer.l_bond_atoms and not monomer.r_bond_atoms:
                 n_only.append((code, monomer.export('smiles', options=('c',))))
-            elif not monomer.left_bond_atoms and monomer.right_bond_atoms:
+            elif not monomer.l_bond_atoms and monomer.r_bond_atoms:
                 c_only.append((code, monomer.export('smiles', options=('c',))))
-            elif not monomer.left_bond_atoms and not monomer.right_bond_atoms:
+            elif not monomer.l_bond_atoms and not monomer.r_bond_atoms:
                 no_termini.append((code, monomer.export('smiles', options=('c',))))
         n_only.sort()
         c_only.sort()
@@ -230,9 +230,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
                 if name not in ['L-arginine', 'L-asparagine', 'L-valine']:
                     canonical_aa.structure = structure
-                    canonical_aa.left_bond_atoms = []
+                    canonical_aa.l_bond_atoms = []
                     canonical_aa.left_displaced_atoms = []
-                    canonical_aa.right_bond_atoms = []
+                    canonical_aa.r_bond_atoms = []
                     canonical_aa.right_displaced_atoms = []
                     self.set_termini(structure, canonical_aa, index_n, index_c)
 
@@ -620,7 +620,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             identifiers=IdentifierSet([Identifier('mod', 'MOD:01119')]),
             base_monomers=[alphabet.monomers.C],
             structure='COC(=O)[C@H](CSC/C=C(/CC/C=C(/CC/C=C(/CCC=C(C)C)\C)\C)\C)[NH3+]',
-            left_bond_atoms=[Atom(Monomer, element='N', position=29, charge=-1)],
+            l_bond_atoms=[Atom(Monomer, element='N', position=29, charge=-1)],
             left_displaced_atoms=[Atom(Monomer, element='H', position=29),
                                   Atom(Monomer, element='H', position=29, charge=1)])
 
@@ -651,7 +651,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                         break
 
             if i_o:
-                monomer.right_bond_atoms.append(Atom(Monomer, element='C', position=i_c))
+                monomer.r_bond_atoms.append(Atom(Monomer, element='C', position=i_c))
                 if o_atom.GetFormalCharge() == 0:
                     monomer.right_displaced_atoms.append(Atom(Monomer, element='O', position=i_o))
                     monomer.right_displaced_atoms.append(Atom(Monomer, element='H', position=i_o))
@@ -666,7 +666,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             n_charge = atom.GetFormalCharge()
             n_h = other_atoms.count(1)
 
-            monomer.left_bond_atoms.append(Atom(Monomer, element='N', position=i_n, charge=-n_charge))
+            monomer.l_bond_atoms.append(Atom(Monomer, element='N', position=i_n, charge=-n_charge))
             if n_charge >= 0 and n_h >= 1:
                 monomer.left_displaced_atoms.append(Atom(Monomer, element='H', position=i_n))
             if n_charge >= 1 and n_h >= 2:
@@ -990,8 +990,8 @@ class ProteinForm(BpForm):
             seq=seq, alphabet=protein_alphabet,
             backbone=None,
             bond=Bond(
-                right_bond_atoms=[Atom(Monomer, element='C', position=None)],
-                left_bond_atoms=[Atom(Monomer, element='N', position=None)],
+                r_bond_atoms=[Atom(Monomer, element='C', position=None)],
+                l_bond_atoms=[Atom(Monomer, element='N', position=None)],
                 right_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
                                        Atom(Monomer, element='H', position=None)],
                 left_displaced_atoms=[Atom(Monomer, element='H', position=None),
@@ -1014,8 +1014,8 @@ class CanonicalProteinForm(BpForm):
             seq=seq, alphabet=canonical_protein_alphabet,
             backbone=None,
             bond=Bond(
-                right_bond_atoms=[Atom(Monomer, element='C', position=None)],
-                left_bond_atoms=[Atom(Monomer, element='N', position=None)],
+                r_bond_atoms=[Atom(Monomer, element='C', position=None)],
+                l_bond_atoms=[Atom(Monomer, element='N', position=None)],
                 right_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
                                        Atom(Monomer, element='H', position=None)],
                 left_displaced_atoms=[Atom(Monomer, element='H', position=None),

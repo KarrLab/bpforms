@@ -321,13 +321,13 @@
           <ul>
             <li><tt>id</tt>, <tt>name</tt>, <tt>synonym</tt>: These attributes indicate human-readable names for the monomeric form.</li>
             <li><tt>structure</tt>: This attribute indicates the molecular structure of the monomeric form.</li>          
-            <li><tt>left-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>right-bond-atom</tt>, <tt>right-displaced-atom</tt>: These attributes indicate the atoms in the structure that participate in bonds with the preceding and following monomeric forms in the sequence and the atoms that are displaced by the formation of these bonds.</li>
+            <li><tt>l-bond-atom</tt>, <tt>left-displaced-atom</tt>, <tt>r-bond-atom</tt>, <tt>right-displaced-atom</tt>: These attributes indicate the atoms in the structure that participate in bonds with the preceding and following monomeric forms in the sequence and the atoms that are displaced by the formation of these bonds.</li>
             <li><tt>delta-mass</tt>, <tt>delta-charge</tt>, <tt>position</tt>: These attributes can be used to describe uncertainty in the structure and location of the monomeric form.</li>
             <li><tt>identifier</tt>: This attribute indicates an entry in a database or ontology which is equivalent to the monomeric form.</li>
             <li><tt>comment</tt>: This attribute can be used to store comments about monomeric forms.</li>
           </ul>
 
-          <p>All of these attributes are optional. However, the <tt class="attribute">structure</tt>, <tt class="attribute">left-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">right-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes are required to calculate the molecular structure, chemical formula, molecular weight, and charge of the polymer.</p>
+          <p>All of these attributes are optional. However, the <tt class="attribute">structure</tt>, <tt class="attribute">l-bond-atom</tt>, <tt class="attribute">left-displaced-atom</tt>, <tt class="attribute">r-bond-atom</tt>, and <tt class="attribute">right-displaced-atom</tt> attributes are required to calculate the molecular structure, chemical formula, molecular weight, and charge of the polymer.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Examples</h3>
@@ -338,10 +338,10 @@
           <pre>[id: "AA0305"
     | name: "N5-methyl-L-arginine"
     | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
-    | left-bond-atom: N16-1
+    | l-bond-atom: N16-1
     | left-displaced-atom: H16+1
     | left-displaced-atom: H16
-    | right-bond-atom: C2
+    | r-bond-atom: C2
     | right-displaced-atom: O1
     | right-displaced-atom: H1
     | comments: "Methylated form of L-arginine"
@@ -378,7 +378,7 @@
         <div class="large-5 cell notation">
           <a name="adjacent-bonds"></a>
           <h4>Bonds with adjacent monomers</h4>
-          <p>The <tt class="attribute">left-bond-atom</tt> and <tt class="attribute">left-displaced-atom</tt> attributes describe bonds with preceding monomeric forms; the <tt class="attribute">right-bond-atom</tt> and <tt class="attribute">right-displaced-atom</tt> attributes describe bonds with succeeding monomeric forms.</p>
+          <p>The <tt class="attribute">l-bond-atom</tt> and <tt class="attribute">left-displaced-atom</tt> attributes describe bonds with preceding monomeric forms; the <tt class="attribute">r-bond-atom</tt> and <tt class="attribute">right-displaced-atom</tt> attributes describe bonds with succeeding monomeric forms.</p>
 
           <p>The values of these attributes are the element of the atom, the position of the atom within the monomeric form, and the charge of the atom (e.g., <tt>N3+1</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</p>
 
@@ -398,10 +398,10 @@
               <pre>[id: "AA0305"
   | name: "N5-methyl-L-arginine"
   | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
-  | left-bond-atom: N16-1
+  | l-bond-atom: N16-1
   | left-displaced-atom: H16+1
   | left-displaced-atom: H16
-  | right-bond-atom: C2
+  | r-bond-atom: C2
   | right-displaced-atom: O1
   | right-displaced-atom: H1
   ]</pre>
@@ -485,11 +485,11 @@
           <h3>Crosslinks between non-adjacent monomers</h3>
           <p>The <tt class="attribute">crosslink</tt> polymer attribute can be used to indicate a bond between non-adjacent monomeric forms. For example, this attribute can be used to describe intrastrand crosslinks in DNA and disulfide bonds between cysteines in proteins.</p>
 
-          <p>Each Crosslink can be described by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., "<tt>| crosslink: [left-bond-atom: 1C1 | right-bond-atom: 3C2 | ...]</tt>").</p>
+          <p>Each Crosslink can be described by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., "<tt>| crosslink: [l-bond-atom: 1C1 | r-bond-atom: 3C2 | ...]</tt>").</p>
 
           <p class="before_list">Each crosslink can be described with four types of attributes:</p>
           <ul>
-            <li><tt>left-bond-atom</tt> and <tt>right-bond-atom</tt>: These attributes indicate the atoms involved in the bond. The values of these attributes are the position of the monomeric form within the sequence, the element of the atom, the position of the atom within the monomeric form, and the charge of the atom (e.g., <tt>8N3+1</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</li>
+            <li><tt>l-bond-atom</tt> and <tt>r-bond-atom</tt>: These attributes indicate the atoms involved in the bond. The values of these attributes are the position of the monomeric form within the sequence, the element of the atom, the position of the atom within the monomeric form, and the charge of the atom (e.g., <tt>8N3+1</tt>). OpenBabel can be used to display the numbers of the atoms within monomeric forms.</li>
             <li><tt>left-displaced-atom</tt> and <tt>right-displaced-atom</tt>: These attributes indicate the atoms displaced by the formation of the bond. The values of these attributes are also the position of the monomeric form within the sequence, the element of the atom, the position of the atom within the monomeric form, and the charge of the atom.</li>
           </ul>
 
@@ -503,9 +503,9 @@
             </div>
             <div class="large-8 cell syntax">
               <pre>CAC | crosslink: [
-    left-bond-atom: 1S11 |
+    l-bond-atom: 1S11 |
     left-displaced-atom: 1H11 |
-    right-bond-atom: 3S11 |
+    r-bond-atom: 3S11 |
     right-displaced-atom: 3H11
 ]</pre>
             </div>

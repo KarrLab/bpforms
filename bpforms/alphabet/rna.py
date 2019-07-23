@@ -161,7 +161,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 atom = mol2.GetAtom(i_atom)
                 if self.is_left_atom(atom):
                     atom_ls.append(atom)
-                elif self.is_right_bond_atom(atom):
+                elif self.is_r_bond_atom(atom):
                     atom_rs.append(atom)
 
             i_left_p = None
@@ -183,9 +183,9 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             monomer.structure = smiles
             monomer.backbone_bond_atoms = []
             monomer.backbone_displaced_atoms = []
-            monomer.left_bond_atoms = [Atom(Monomer, element='P', position=i_left_p)]
+            monomer.l_bond_atoms = [Atom(Monomer, element='P', position=i_left_p)]
             monomer.left_displaced_atoms = [Atom(Monomer, element='O', position=i_left_o, charge=-1)]
-            monomer.right_bond_atoms = [Atom(Monomer, element='O', position=i_right_o)]
+            monomer.r_bond_atoms = [Atom(Monomer, element='O', position=i_right_o)]
             monomer.right_displaced_atoms = [Atom(Monomer, element='H', position=i_right_o)]
 
             assert monomer.structure.GetAtom(i_right_o).GetAtomicNum() == 8
@@ -599,7 +599,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             atom = monomer.structure.GetAtom(i_atom)
             if self.is_backbone_atom(atom):
                 atom_bs.append(atom)
-            elif self.is_right_bond_atom(atom):
+            elif self.is_r_bond_atom(atom):
                 atom_rs.append(atom)
 
         termini = []
@@ -626,7 +626,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             monomer.backbone_bond_atoms = [Atom(Monomer, 'O', atom_b_idx)]
             monomer.backbone_displaced_atoms = [Atom(Monomer, 'H', atom_b_idx)]
         if atom_r_idx:
-            monomer.right_bond_atoms = [Atom(Monomer, 'O', atom_r_idx)]
+            monomer.r_bond_atoms = [Atom(Monomer, 'O', atom_r_idx)]
             monomer.right_displaced_atoms = [Atom(Monomer, 'H', atom_r_idx)]
 
         return True
@@ -645,7 +645,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         if not r_atom_2:
             return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
-        if not self.is_right_bond_atom(r_atom):
+        if not self.is_r_bond_atom(r_atom):
             return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
         return r_atom_2.GetIdx() == r_atom.GetIdx()
@@ -664,7 +664,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         if not r_atom_2:
             return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
-        if not self.is_right_bond_atom(r_atom):
+        if not self.is_r_bond_atom(r_atom):
             return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
         return r_atom_2.GetIdx() == r_atom.GetIdx()
@@ -823,7 +823,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         return r_atom_2
 
-    def is_right_bond_atom(self, r_atom):
+    def is_r_bond_atom(self, r_atom):
         """ Determine if an atom is a valid right bond bonding site
 
         Args:
@@ -857,8 +857,8 @@ class RnaForm(BpForm):
             seq=seq, alphabet=rna_alphabet,
             backbone=None,
             bond=Bond(
-                right_bond_atoms=[Atom(Monomer, element='O', position=None)],
-                left_bond_atoms=[Atom(Monomer, element='P', position=None)],
+                r_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                l_bond_atoms=[Atom(Monomer, element='P', position=None)],
                 right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
                 left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)
@@ -879,8 +879,8 @@ class CanonicalRnaForm(BpForm):
             seq=seq, alphabet=canonical_rna_alphabet,
             backbone=None,
             bond=Bond(
-                right_bond_atoms=[Atom(Monomer, element='O', position=None)],
-                left_bond_atoms=[Atom(Monomer, element='P', position=None)],
+                r_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                l_bond_atoms=[Atom(Monomer, element='P', position=None)],
                 right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
                 left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)

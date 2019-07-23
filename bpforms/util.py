@@ -156,10 +156,10 @@ def gen_html_viz_alphabet(bpform_type, filename):
                                                           for atom in monomer.backbone_bond_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
                                                           for atom in monomer.backbone_displaced_atoms))
-        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.right_bond_atoms))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.r_bond_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
                                                           for atom in monomer.right_displaced_atoms))
-        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.left_bond_atoms))
+        doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position) for atom in monomer.l_bond_atoms))
         doc += '          <td>{}</td>\n'.format(', '.join('{}{}'.format(atom.element, atom.position)
                                                           for atom in monomer.left_displaced_atoms))
         doc += '        </tr>\n'
@@ -191,8 +191,8 @@ def validate_bpform_bonds(form_type):
     atom_types = [
         ['backbone', 'monomer_bond_atoms'],
         ['backbone', 'monomer_displaced_atoms'],
-        ['bond', 'left_bond_atoms'],
-        ['bond', 'right_bond_atoms'],
+        ['bond', 'l_bond_atoms'],
+        ['bond', 'r_bond_atoms'],
         ['bond', 'left_displaced_atoms'],
         ['bond', 'right_displaced_atoms'],
     ]
@@ -224,8 +224,8 @@ def validate_bpform_bonds(form_type):
     atom_types = [
         'backbone_bond_atoms',
         'backbone_displaced_atoms',
-        'right_bond_atoms',
-        'left_bond_atoms',
+        'r_bond_atoms',
+        'l_bond_atoms',
         'right_displaced_atoms',
         'left_displaced_atoms',
     ]

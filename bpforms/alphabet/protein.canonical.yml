@@ -20,7 +20,7 @@ monomers:
     - ns: metacyc.compound
       id: L-ALPHA-ALANINE
     structure: C[C@H]([NH3+])C(=O)O
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 4
@@ -33,7 +33,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 4
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
@@ -62,7 +62,7 @@ monomers:
     - ns: metacyc.compound
       id: ARG
     structure: OC(=O)[C@H](CCCNC(=[NH2+])N)[NH3+]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 15
@@ -75,7 +75,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 15
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
@@ -111,7 +111,7 @@ monomers:
     - ns: chebi
       id: CHEBI:17196
     structure: NC(=O)C[C@@H](C(=O)O)[NH3+]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
@@ -124,7 +124,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
@@ -153,7 +153,7 @@ monomers:
     - ns: metacyc.compound
       id: ASP
     structure: '[O-]C(=O)C[C@@H](C(=O)O)[NH3+]'
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
@@ -166,7 +166,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
@@ -199,7 +199,7 @@ monomers:
     - ns: metacyc.compound
       id: CYS
     structure: OC(=O)[C@@H]([NH3+])CS
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
@@ -212,7 +212,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 6
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
@@ -248,7 +248,7 @@ monomers:
     - ns: pubchem.compound
       id: '5961'
     structure: NC(=O)CC[C@@H](C(=O)O)[NH3+]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 11
@@ -261,7 +261,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
@@ -291,7 +291,7 @@ monomers:
     - ns: pubchem.compound
       id: '33032'
     structure: '[O-]C(=O)CC[C@@H](C(=O)O)[NH3+]'
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 11
@@ -304,7 +304,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 8
@@ -331,7 +331,7 @@ monomers:
     - ns: resid
       id: AA0008
     structure: OC(=O)C[NH3+]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 5
@@ -344,7 +344,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 5
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
@@ -373,7 +373,7 @@ monomers:
     - ns: chebi
       id: CHEBI:15971
     structure: OC(=O)[C@@H]([NH3+])Cc1c[nH]cn1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 6
@@ -386,7 +386,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 6
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
@@ -414,7 +414,7 @@ monomers:
     - ns: pubchem.compound
       id: '6306'
     structure: CC[C@@H]([C@@H](C(=O)O)[NH3+])C
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 10
@@ -427,7 +427,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 10
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
@@ -458,7 +458,7 @@ monomers:
     - ns: metacyc.compound
       id: LEU
     structure: '[NH3+][C@H](C(=O)O)CC(C)C'
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 1
@@ -471,7 +471,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
@@ -495,7 +495,7 @@ monomers:
     - ns: metacyc.compound
       id: LYS
     structure: '[NH3+]CCCC[C@@H](C(=O)O)[NH3+]'
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 14
@@ -508,7 +508,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
@@ -539,7 +539,7 @@ monomers:
     - ns: resid
       id: AA0013
     structure: CSCC[C@H]([NH3+])C(=O)O
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 7
@@ -552,7 +552,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 7
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 11
@@ -581,7 +581,7 @@ monomers:
     - ns: chebi
       id: CHEBI:17295
     structure: '[NH3+][C@H](C(=O)O)Cc1ccccc1'
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 1
@@ -594,7 +594,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 7
@@ -630,7 +630,7 @@ monomers:
     - ns: chebi
       id: CHEBI:17203
     structure: OC(=O)[C@@H]1CCC[NH2+]1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 9
@@ -643,7 +643,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
@@ -678,7 +678,7 @@ monomers:
     - ns: pubchem.compound
       id: '5951'
     structure: OC[C@@H](C(=O)O)[NH3+]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 8
@@ -691,7 +691,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 8
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 5
@@ -723,7 +723,7 @@ monomers:
     - ns: pubchem.compound
       id: '6288'
     structure: C[C@H]([C@@H](C(=O)O)[NH3+])O
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 9
@@ -736,7 +736,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 9
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 6
@@ -767,7 +767,7 @@ monomers:
     - ns: resid
       id: AA0018
     structure: OC(=O)[C@H](Cc1c[nH]c2c1cccc2)[NH3+]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 17
@@ -780,7 +780,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 17
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
@@ -813,7 +813,7 @@ monomers:
     - ns: pubchem.compound
       id: '6057'
     structure: OC(=O)[C@H](Cc1ccc(cc1)O)[NH3+]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 14
@@ -826,7 +826,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 14
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 2
@@ -856,7 +856,7 @@ monomers:
     - ns: chebi
       id: CHEBI:16414
     structure: '[NH3+]C(C(=O)O)C(C)C'
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: N
       position: 1
@@ -869,7 +869,7 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: C
       position: 6

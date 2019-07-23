@@ -87,8 +87,8 @@ class UtilTestCase(unittest.TestCase):
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
                         monomer_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
-                        left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
-                        right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
+                        l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
+                        r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]),
                     circular=circular)
@@ -101,8 +101,8 @@ class UtilTestCase(unittest.TestCase):
                     seq=seq, alphabet=dna.canonical_dna_alphabet,
                     backbone=None,
                     bond=core.Bond(
-                        right_bond_atoms=[core.Atom(core.Monomer, element='O', position=None)],
-                        left_bond_atoms=[core.Atom(core.Monomer, element='P', position=None)],
+                        r_bond_atoms=[core.Atom(core.Monomer, element='O', position=None)],
+                        l_bond_atoms=[core.Atom(core.Monomer, element='P', position=None)],
                         right_displaced_atoms=[core.Atom(core.Monomer, element='H', position=None)],
                         left_displaced_atoms=[core.Atom(core.Monomer, element='O', position=None, charge=-1)]))
         util.validate_bpform_bonds(TestDnaForm)
@@ -122,8 +122,8 @@ class UtilTestCase(unittest.TestCase):
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=1000)],
                         monomer_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
-                        left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
-                        right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
+                        l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
+                        r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
@@ -144,8 +144,8 @@ class UtilTestCase(unittest.TestCase):
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='E', position=4)],
                         monomer_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
-                        left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
-                        right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
+                        l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
+                        r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
@@ -166,8 +166,8 @@ class UtilTestCase(unittest.TestCase):
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
                         monomer_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
-                        left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
-                        right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
+                        l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
+                        r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         util.validate_bpform_bonds(TestDnaForm)
@@ -187,8 +187,8 @@ class UtilTestCase(unittest.TestCase):
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
                         monomer_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
-                        left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
-                        right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
+                        l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
+                        r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
@@ -209,8 +209,8 @@ class UtilTestCase(unittest.TestCase):
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
                         monomer_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
-                        left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
-                        right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
+                        l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
+                        r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
@@ -231,8 +231,8 @@ class UtilTestCase(unittest.TestCase):
                         monomer_bond_atoms=[core.Atom(core.Backbone, element='C', position=4)],
                         monomer_displaced_atoms=[core.Atom(core.Backbone, element='H', position=4)]),
                     bond=core.Bond(
-                        left_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
-                        right_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
+                        l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
+                        r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
                         left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
                         right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):

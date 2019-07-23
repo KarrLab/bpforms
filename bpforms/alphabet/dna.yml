@@ -19,11 +19,11 @@ monomers:
     - ns: pubchem.compound
       id: '190'
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1ncnc2N
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -51,11 +51,11 @@ monomers:
     - ns: chebi
       id: CHEBI:57566
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc(nc1=O)N
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -81,11 +81,11 @@ monomers:
     - ns: chebi
       id: CHEBI:57673
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc(N)[nH]c2=O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -114,11 +114,11 @@ monomers:
     - ns: chebi
       id: CHEBI:26999
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C)c(=O)[nH]c1=O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -144,11 +144,11 @@ monomers:
     - ns: metacyc.compound
       id: URACIL
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc(=O)[nH]c1=O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -175,11 +175,11 @@ monomers:
     - ns: chebi
       id: CHEBI:28997
     structure: OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 34
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 30
@@ -208,11 +208,11 @@ monomers:
     structure: COC1=NC(=CCN1C1CC(C(O1)COP(=O)([O-])[O-])O)N
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 20
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 16
@@ -241,11 +241,11 @@ monomers:
     structure: O=Cc1cn(C2CC(C(O2)COP(=O)([O-])[O-])O)c(=O)nc1N
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 13
@@ -274,11 +274,11 @@ monomers:
     structure: OCc1cn(C2CC(C(O2)COP(=O)([O-])[O-])O)c(=O)nc1N
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 13
@@ -304,11 +304,11 @@ monomers:
     structure: CCN1C(=CCN(C1=O)C1CC(C(O1)COP(=O)([O-])[O-])O)N
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 21
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 17
@@ -341,11 +341,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1CC=C(N(C1=O)C)N
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -375,11 +375,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C(=O)[O-])c(nc1=O)N
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -406,11 +406,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc2n(c1=O)ccn2
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -439,11 +439,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C)c(nc1=O)N
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -476,11 +476,11 @@ monomers:
     structure: CNc1ccn(c(=O)n1)C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 21
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 17
@@ -506,11 +506,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])[N+]1(C)C=CC(=NC1=O)N
     base_monomers:
     - C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -543,11 +543,11 @@ monomers:
     base_monomers:
     - C
     - h
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 24
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 20
@@ -578,11 +578,11 @@ monomers:
     structure: '[NH3+]CCCC[NH2+]Cc1cn(C2OC(C(C2)O)COP(=O)([O-])[O-])c(=O)[nH]c1=O'
     base_monomers:
     - T
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 21
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 24
@@ -612,11 +612,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1CC(C)C(=O)NC1=O
     base_monomers:
     - T
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -648,11 +648,11 @@ monomers:
     base_monomers:
     - g
     - T
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 13
@@ -684,11 +684,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C)c(=O)n(c1=O)C
     base_monomers:
     - T
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -716,11 +716,11 @@ monomers:
     structure: COc1nc(=O)n(cc1C)C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - T
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 22
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 18
@@ -748,11 +748,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])[N+]1(C)C=C(C)C(=O)NC1=O
     base_monomers:
     - T
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -781,11 +781,11 @@ monomers:
     structure: OCNc1ncnc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 24
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 20
@@ -813,11 +813,11 @@ monomers:
     structure: NC(=O)CNc1ncnc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 22
@@ -852,11 +852,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1ncnc2N(C)C
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -886,11 +886,11 @@ monomers:
     structure: Nc1nc(N)c2c(n1)n(cn2)C1OC(C(C1)O)COP(=O)([O-])[O-]
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 20
@@ -924,11 +924,11 @@ monomers:
     structure: ONc1ncnc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 23
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 19
@@ -957,11 +957,11 @@ monomers:
     structure: ONc1nc(N)nc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 24
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 20
@@ -992,11 +992,11 @@ monomers:
     structure: CNc1ncnc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 23
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 19
@@ -1022,11 +1022,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1C=NC2=C(N=CNC12C)N
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1058,11 +1058,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1C=NC2=C(N(C=NC12)C)N
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1093,11 +1093,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1CN(c2c1nc[nH+]c2N)C
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1124,11 +1124,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])[N+]1(C)C=Nc2c1ncnc2N
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1163,11 +1163,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1C=NC2=C([NH+]=CN(C12)C)N
     base_monomers:
     - A
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1193,11 +1193,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1C(=O)N=C2C1N=C(N)NC2=O
     base_monomers:
     - G
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1226,11 +1226,11 @@ monomers:
     structure: '[O-]C(=O)C(Nc1[nH]c(=O)c2c(n1)n(cn2)C1CC(C(O1)COP(=O)([O-])[O-])O)C'
     base_monomers:
     - G
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 28
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 24
@@ -1258,11 +1258,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])[N+]12C=CN=C1NC(=O)c1c2[nH]cn1
     base_monomers:
     - G
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1291,11 +1291,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1[nH]c1nccn1c2=O
     base_monomers:
     - G
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1322,11 +1322,11 @@ monomers:
     structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)[N+]1(C=C(c2c1nc(N)[nH]c2=O)C(=O)N)C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - G
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 40
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 36
@@ -1359,11 +1359,11 @@ monomers:
     structure: OC[C@H]1O[C@H]([C@@H]([C@@H]1O)O)[N+]1(C=Nc2c1nc([nH]c2=O)N(C)C)C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - G
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 39
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 35
@@ -1394,11 +1394,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc(N)n(c2=O)C
     base_monomers:
     - G
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1433,11 +1433,11 @@ monomers:
     structure: COc1nc(N)nc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - G
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 24
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 20
@@ -1471,11 +1471,11 @@ monomers:
     structure: CNc1[nH]c(=O)c2c(n1)n(cn2)C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - G
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 25
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 21
@@ -1512,11 +1512,11 @@ monomers:
     structure: OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=CC(=O)NC1=O)C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - U
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 31
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 27
@@ -1542,11 +1542,11 @@ monomers:
     structure: OCC(CCCc1cn(C2CC(C(O2)COP(=O)([O-])[O-])O)c(=O)[nH]c1=O)O
     base_monomers:
     - U
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 21
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 17
@@ -1577,11 +1577,11 @@ monomers:
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C(=O)[O-])c(=O)[nH]c1=O
     base_monomers:
     - U
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 9
@@ -1611,11 +1611,11 @@ monomers:
     structure: OCc1cn(C2CC(C(O2)COP(=O)([O-])[O-])O)c(=O)[nH]c1=O
     base_monomers:
     - U
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 17
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 13
@@ -1644,11 +1644,11 @@ monomers:
     base_monomers:
     - U
     - dU
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 24
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 20
@@ -1681,11 +1681,11 @@ monomers:
     base_monomers:
     - U
     - dU
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 37
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 33
@@ -1715,11 +1715,11 @@ monomers:
     base_monomers:
     - U
     - dU
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 31
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 34
@@ -1751,11 +1751,11 @@ monomers:
     structure: '[NH3+]CCOCC1=C[N+](C(=O)NC1=O)([C@@H]1O[C@@H]([C@H](C1)O)CO)C1OC(C(C1)O)COP(=O)([O-])[O-]'
     base_monomers:
     - U
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 33
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 36
@@ -1788,11 +1788,11 @@ monomers:
     base_monomers:
     - g
     - U
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 21
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 24
@@ -1815,11 +1815,11 @@ monomers:
     - ns: repairtoire
       id: 1,N2-ethenoG
     structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1cnc2c1nc1[nH]ccn1c2=O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 12
@@ -1839,11 +1839,11 @@ monomers:
     - ns: repairtoire
       id: 1,N6-ethenoA
     structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1cnc2c1nc[n+]1c2[nH]cc1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 12
@@ -1863,11 +1863,11 @@ monomers:
     - ns: repairtoire
       id: 1eA
     structure: CC[n+]1cnc2c(c1N)ncn2[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 27
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 23
@@ -1887,11 +1887,11 @@ monomers:
     - ns: repairtoire
       id: 1heA
     structure: OCC[n+]1cnc2c(c1N)ncn2[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 28
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 24
@@ -1911,11 +1911,11 @@ monomers:
     - ns: repairtoire
       id: 1hpA
     structure: OCCC[n+]1cnc2c(c1N)ncn2[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 29
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 25
@@ -1935,11 +1935,11 @@ monomers:
     - ns: repairtoire
       id: 1pA
     structure: CCC[n+]1cnc2c(c1N)ncn2[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 28
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 24
@@ -1959,11 +1959,11 @@ monomers:
     - ns: repairtoire
       id: 3,N4-ethenoC
     structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1ccc2n(c1=O)ccn2
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 12
@@ -1983,11 +1983,11 @@ monomers:
     - ns: repairtoire
       id: 3eC
     structure: CC[n+]1c(N)ccn(c1=O)[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 25
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 21
@@ -2007,11 +2007,11 @@ monomers:
     - ns: repairtoire
       id: 3heC
     structure: OCC[n+]1c(N)ccn(c1=O)[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 22
@@ -2031,11 +2031,11 @@ monomers:
     - ns: repairtoire
       id: 3hpC
     structure: OCCC[n+]1c(N)ccn(c1=O)[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 27
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 23
@@ -2056,11 +2056,11 @@ monomers:
     - ns: repairtoire
       id: 3mG
     structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1cnc2c1[n+](C)c([nH]c2=O)N
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 12
@@ -2080,11 +2080,11 @@ monomers:
     - ns: repairtoire
       id: 3pC
     structure: CCC[n+]1c(N)ccn(c1=O)[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 22
@@ -2109,11 +2109,11 @@ monomers:
     - ns: repairtoire
       id: thymidine glycol
     structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])N1C(=O)NC(=O)[C@]([C@H]1O)(C)O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 12
@@ -2134,11 +2134,11 @@ monomers:
     - ns: repairtoire
       id: 6mA
     structure: CNc1ncnc2c1ncn2[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 22
@@ -2159,11 +2159,11 @@ monomers:
     - ns: repairtoire
       id: 7mG
     structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1c[n+](c2c1nc(N)[nH]c2=O)C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 12
@@ -2184,11 +2184,11 @@ monomers:
     - ns: repairtoire
       id: 8mG
     structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1c(C)nc2c1nc(N)[nH]c2=O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 12
@@ -2209,11 +2209,11 @@ monomers:
     - ns: repairtoire
       id: O2mT
     structure: CO[C@@H]1NC(=O)C(=CN1[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O)C
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 25
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 21
@@ -2234,11 +2234,11 @@ monomers:
     - ns: repairtoire
       id: O4mT
     structure: CO[C@@H]1NC(=O)N(C=C1C)[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 26
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 22
@@ -2259,11 +2259,11 @@ monomers:
     - ns: repairtoire
       id: O6mG
     structure: CO[C@@H]1NC(=[NH+]c2c1ncn2[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O)N
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 28
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 24

@@ -17,7 +17,7 @@ monomers:
     - ns: modomics.short_name
       id: A
     structure: OC1C(O)C(OC1n1cnc2c1ncnc2N)COP(=O)([O-])[O-]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 20
@@ -26,7 +26,7 @@ monomers:
       element: O
       position: 23
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 4
@@ -49,7 +49,7 @@ monomers:
     - ns: modomics.short_name
       id: C
     structure: OC1C(O)C(OC1n1ccc(nc1=O)N)COP(=O)([O-])[O-]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 18
@@ -58,7 +58,7 @@ monomers:
       element: O
       position: 21
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 4
@@ -81,7 +81,7 @@ monomers:
     - ns: modomics.short_name
       id: G
     structure: OC1C(O)C(OC1n1cnc2c1nc(N)[nH]c2=O)COP(=O)([O-])[O-]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 22
@@ -90,7 +90,7 @@ monomers:
       element: O
       position: 25
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 4
@@ -113,7 +113,7 @@ monomers:
     - ns: modomics.short_name
       id: U
     structure: OC1C(O)C(OC1n1ccc(=O)[nH]c1=O)COP(=O)([O-])[O-]
-    left_bond_atoms:
+    l_bond_atoms:
     - molecule: Monomer
       element: P
       position: 19
@@ -122,7 +122,7 @@ monomers:
       element: O
       position: 22
       charge: -1
-    right_bond_atoms:
+    r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 4

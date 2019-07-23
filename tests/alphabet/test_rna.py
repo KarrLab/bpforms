@@ -188,14 +188,14 @@ class RnaTestCase(unittest.TestCase):
         builder = rna.RnaAlphabetBuilder()
 
         for monomer in rna.CanonicalRnaForm().alphabet.monomers.values():
-            l_atom = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
-            r_atom = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
+            l_atom = monomer.structure.GetAtom(monomer.l_bond_atoms[0].position)
+            r_atom = monomer.structure.GetAtom(monomer.r_bond_atoms[0].position)
             assert builder.is_nucleotide_terminus(l_atom, r_atom)
 
         for monomer in rna.RnaForm().alphabet.monomers.values():
-            if monomer.left_bond_atoms and monomer.right_bond_atoms:
-                l_atom = monomer.structure.GetAtom(monomer.left_bond_atoms[0].position)
-                r_atom = monomer.structure.GetAtom(monomer.right_bond_atoms[0].position)
+            if monomer.l_bond_atoms and monomer.r_bond_atoms:
+                l_atom = monomer.structure.GetAtom(monomer.l_bond_atoms[0].position)
+                r_atom = monomer.structure.GetAtom(monomer.r_bond_atoms[0].position)
                 assert builder.is_nucleotide_terminus(l_atom, r_atom)
 
     def test_validate_form(self):

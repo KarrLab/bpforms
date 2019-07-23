@@ -384,19 +384,19 @@ class MonomerTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             monomer.backbone_displaced_atoms = None
 
-    def test_set_right_bond_atoms(self):
+    def test_set_r_bond_atoms(self):
         monomer = core.Monomer()
-        monomer.right_bond_atoms = []
-        monomer.right_bond_atoms = core.AtomList()
+        monomer.r_bond_atoms = []
+        monomer.r_bond_atoms = core.AtomList()
         with self.assertRaises(ValueError):
-            monomer.right_bond_atoms = None
+            monomer.r_bond_atoms = None
 
     def test_set_bond_bond_atoms(self):
         monomer = core.Monomer()
-        monomer.left_bond_atoms = []
-        monomer.left_bond_atoms = core.AtomList()
+        monomer.l_bond_atoms = []
+        monomer.l_bond_atoms = core.AtomList()
         with self.assertRaises(ValueError):
-            monomer.left_bond_atoms = None
+            monomer.l_bond_atoms = None
 
     def test_set_right_displaced_atoms(self):
         monomer = core.Monomer()
@@ -982,19 +982,19 @@ class BackboneTestCase(unittest.TestCase):
 
 
 class BondTestCase(unittest.TestCase):
-    def test_set_left_bond_atoms(self):
+    def test_set_l_bond_atoms(self):
         bond = core.Bond()
-        bond.left_bond_atoms = []
-        bond.left_bond_atoms = core.AtomList()
+        bond.l_bond_atoms = []
+        bond.l_bond_atoms = core.AtomList()
         with self.assertRaises(ValueError):
-            bond.left_bond_atoms = None
+            bond.l_bond_atoms = None
 
     def test_set_bond_bond_atoms(self):
         bond = core.Bond()
-        bond.right_bond_atoms = []
-        bond.right_bond_atoms = core.AtomList()
+        bond.r_bond_atoms = []
+        bond.r_bond_atoms = core.AtomList()
         with self.assertRaises(ValueError):
-            bond.right_bond_atoms = None
+            bond.r_bond_atoms = None
 
     def test_set_left_displaced_atoms(self):
         bond = core.Bond()
@@ -1032,8 +1032,8 @@ class BondTestCase(unittest.TestCase):
     def test_is_equal(self):
         bond_1 = core.Bond()
         bond_2 = core.Bond()
-        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')])
-        bond_4 = core.Bond(right_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        bond_3 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        bond_4 = core.Bond(r_bond_atoms=[core.Atom(core.Monomer, 'H')])
         bond_5 = core.Bond(left_displaced_atoms=[core.Atom(core.Monomer, 'H')])
         bond_6 = core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'H')])
         self.assertTrue(bond_1.is_equal(bond_1))
@@ -1045,11 +1045,11 @@ class BondTestCase(unittest.TestCase):
         self.assertFalse(bond_1.is_equal(bond_6))
 
     def test_str(self):
-        bond = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')])
-        self.assertEqual(str(bond), '[left-bond-atom: H]')
+        bond = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'H')])
+        self.assertEqual(str(bond), '[l-bond-atom: H]')
 
-        bond = core.Bond(right_bond_atoms=[core.Atom(core.Monomer, 'H', position=2, charge=-3)])
-        self.assertEqual(str(bond), '[right-bond-atom: H2-3]')
+        bond = core.Bond(r_bond_atoms=[core.Atom(core.Monomer, 'H', position=2, charge=-3)])
+        self.assertEqual(str(bond), '[r-bond-atom: H2-3]')
 
         bond = core.Bond(right_displaced_atoms=[core.Atom(core.Monomer, 'C', position=3, charge=4)])
         self.assertEqual(str(bond), '[right-displaced-atom: C3+4]')
@@ -1058,12 +1058,12 @@ class BondTestCase(unittest.TestCase):
 class BondSetTestCase(unittest.TestCase):
     def test_add(self):
         bonds = core.BondSet()
-        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'O')])
-        bond_2 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'N')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'P')])
-        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'S')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'Na')])
+        bond_1 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'H')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'O')])
+        bond_2 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'N')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'P')])
+        bond_3 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'S')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'Na')])
         bonds.add(bond_1)
         bonds.add(bond_2)
 
@@ -1077,12 +1077,12 @@ class BondSetTestCase(unittest.TestCase):
 
     def test_update(self):
         bonds = core.BondSet()
-        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'O')])
-        bond_2 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'N')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'P')])
-        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'S')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'Na')])
+        bond_1 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'H')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'O')])
+        bond_2 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'N')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'P')])
+        bond_3 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'S')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'Na')])
         bonds.update(set([bond_1, bond_2]))
         self.assertEqual(len(bonds), 2)
         self.assertIn(bond_1, bonds)
@@ -1092,12 +1092,12 @@ class BondSetTestCase(unittest.TestCase):
     def test_symmetric_difference_update(self):
         bonds_1 = core.BondSet()
         bonds_2 = core.BondSet()
-        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'O')])
-        bond_2 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'N')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'P')])
-        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'S')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'Na')])
+        bond_1 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'H')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'O')])
+        bond_2 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'N')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'P')])
+        bond_3 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'S')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'Na')])
         bonds_1.update(set([bond_1, bond_2]))
         bonds_2.update(set([bond_1, bond_3]))
 
@@ -1108,12 +1108,12 @@ class BondSetTestCase(unittest.TestCase):
         bonds_1 = core.BondSet()
         bonds_2 = core.BondSet()
         bonds_3 = core.BondSet()
-        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'H')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'O')])
-        bond_2 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'N')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'P')])
-        bond_3 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'S')],
-                           right_bond_atoms=[core.Atom(core.Monomer, 'Na')])
+        bond_1 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'H')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'O')])
+        bond_2 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'N')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'P')])
+        bond_3 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'S')],
+                           r_bond_atoms=[core.Atom(core.Monomer, 'Na')])
         bonds_1.update(set([bond_1, bond_2]))
         bonds_2.update(set([bond_1, bond_2]))
         bonds_3.update(set([bond_1, bond_3]))
@@ -1212,7 +1212,7 @@ class BpFormTestCase(unittest.TestCase):
         bp_form_5 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), backbone=core.Backbone(structure='O'))
         bp_form_6 = core.BpForm(seq=core.MonomerSequence(
-            [core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(left_bond_atoms=[core.Atom(core.Monomer, 'C')]))
+            [core.Monomer(id='A'), core.Monomer(id='B')]), bond=core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'C')]))
         bp_form_7 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]), circular=True)
         self.assertTrue(bp_form_1.is_equal(bp_form_1))
@@ -1385,8 +1385,8 @@ class BpFormTestCase(unittest.TestCase):
                          + 1 * 1)
 
         crosslink = core.Bond(
-            right_bond_atoms=[core.Atom(core.Monomer, monomer=2, element='O', position=1)],
-            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='P', position=9)],
+            r_bond_atoms=[core.Atom(core.Monomer, monomer=2, element='O', position=1)],
+            l_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='P', position=9)],
             right_displaced_atoms=[core.Atom(core.Monomer, monomer=2, element='H', position=1)],
             left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='O', position=12, charge=-1)]
         )
@@ -1454,9 +1454,9 @@ class BpFormTestCase(unittest.TestCase):
                       + ' | backbone-bond-atom: C1-1'
                       + ' | backbone-bond-atom: D2-2'
                       + ' | backbone-displaced-atom: D2-2'
-                      + ' | right-bond-atom: E3-3'
+                      + ' | r-bond-atom: E3-3'
                       + ' | right-displaced-atom: F4-4'
-                      + ' | left-bond-atom: G5-5'
+                      + ' | l-bond-atom: G5-5'
                       + ' | left-displaced-atom: H6-6'
                       + ' | delta-mass: -2.5'
                       + ' | delta-charge: 3'
@@ -1464,10 +1464,10 @@ class BpFormTestCase(unittest.TestCase):
                       + ' | base-monomer: "A"'
                       + ' | comments: "A purine 2\'-deoxyribonucleoside that is inosine ..."]A')
         dna_form_2 = dna.DnaForm().from_str(dna_form_1)
-        self.assertIsInstance(dna_form_2.seq[2].left_bond_atoms[0].element, str)
-        self.assertEqual(dna_form_2.seq[2].left_bond_atoms[0].element, 'G')
-        self.assertEqual(dna_form_2.seq[2].left_bond_atoms[0].position, 5)
-        self.assertEqual(dna_form_2.seq[2].left_bond_atoms[0].charge, -5)
+        self.assertIsInstance(dna_form_2.seq[2].l_bond_atoms[0].element, str)
+        self.assertEqual(dna_form_2.seq[2].l_bond_atoms[0].element, 'G')
+        self.assertEqual(dna_form_2.seq[2].l_bond_atoms[0].position, 5)
+        self.assertEqual(dna_form_2.seq[2].l_bond_atoms[0].charge, -5)
         self.assertEqual(list(dna_form_2.seq[2].base_monomers)[0].id, 'adenine')
         self.assertIn(dna_form_2.seq[2].export('smiles'), [dIMP_smiles, 'OCC1OC(CC1O)n1cnc2c1ncnc2O'])
         dna_form_3 = dna.DnaForm([
@@ -1485,9 +1485,9 @@ class BpFormTestCase(unittest.TestCase):
                     core.Atom(core.Monomer, 'D', position=2, charge=-2),
                 ],
                 backbone_displaced_atoms=[core.Atom(core.Monomer, 'D', position=2, charge=-2)],
-                right_bond_atoms=[core.Atom(core.Monomer, 'E', position=3, charge=-3)],
+                r_bond_atoms=[core.Atom(core.Monomer, 'E', position=3, charge=-3)],
                 right_displaced_atoms=[core.Atom(core.Monomer, 'F', position=4, charge=-4)],
-                left_bond_atoms=[core.Atom(core.Monomer, 'G', position=5, charge=-5)],
+                l_bond_atoms=[core.Atom(core.Monomer, 'G', position=5, charge=-5)],
                 left_displaced_atoms=[core.Atom(core.Monomer, 'H', position=6, charge=-6)],
                 delta_mass=-2.5,
                 delta_charge=3,
@@ -1598,37 +1598,37 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(form.crosslinks, core.BondSet())
 
         form_str = ('AAA'
-                    '|crosslink: [left-bond-atom: 1C1] '
+                    '|crosslink: [l-bond-atom: 1C1] '
                     '| crosslink: [right-displaced-atom: 5H3+1 '
                     '| right-displaced-atom: 6H2+3 '
-                    '| right-bond-atom: 8P5-2]')
+                    '| r-bond-atom: 8P5-2]')
         form = dna.DnaForm().from_str(form_str)
 
-        bond_1 = core.Bond(left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='C', position=1)])
+        bond_1 = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='C', position=1)])
         bond_2 = core.Bond(right_displaced_atoms=[
             core.Atom(core.Monomer, monomer=5, element='H', position=3, charge=1),
             core.Atom(core.Monomer, monomer=6, element='H', position=2, charge=3),
-        ], right_bond_atoms=[core.Atom(core.Monomer, monomer=8, element='P', position=5, charge=-2)])
+        ], r_bond_atoms=[core.Atom(core.Monomer, monomer=8, element='P', position=5, charge=-2)])
         bonds = core.BondSet([bond_1, bond_2])
 
         self.assertTrue(form.crosslinks.is_equal(bonds))
 
         form_str_1 = ('AAA'
-                      ' | crosslink: [left-bond-atom: 1C1]'
-                      ' | crosslink: [right-bond-atom: 8P5-2'
+                      ' | crosslink: [l-bond-atom: 1C1]'
+                      ' | crosslink: [r-bond-atom: 8P5-2'
                       ' | right-displaced-atom: 5H3+1'
                       ' | right-displaced-atom: 6H2+3]')
         form_str_2 = ('AAA'
-                      ' | crosslink: [right-bond-atom: 8P5-2'
+                      ' | crosslink: [r-bond-atom: 8P5-2'
                       ' | right-displaced-atom: 5H3+1'
                       ' | right-displaced-atom: 6H2+3]'
-                      ' | crosslink: [left-bond-atom: 1C1]')
+                      ' | crosslink: [l-bond-atom: 1C1]')
         self.assertIn(str(form), [form_str_1, form_str_2])
 
-        xlink = (' | crosslink: [right-bond-atom: 8P5-2'
+        xlink = (' | crosslink: [r-bond-atom: 8P5-2'
                  ' | right-displaced-atom: 5H3+1'
                  ' | right-displaced-atom: 6H2+3]'
-                 ' | crosslink: [left-bond-atom: 1C1]')
+                 ' | crosslink: [l-bond-atom: 1C1]')
         form = dna.DnaForm().from_str('AAA' + xlink)
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'multiple times'):
             form = dna.DnaForm().from_str('AAA' + xlink + xlink)
@@ -1707,13 +1707,13 @@ class BpFormTestCase(unittest.TestCase):
         conv.ReadString(mol, '[O-]N([O-])C1=C2N=CNC2=NC=N1')
         form._bond_subunits(mol, {
             'right': {
-                'right_bond_atoms': [(mol.GetAtom(8), 1, core.Monomer, 8, 1)],
+                'r_bond_atoms': [(mol.GetAtom(8), 1, core.Monomer, 8, 1)],
                 'right_displaced_atoms': [(mol.GetAtom(3), 1, core.Monomer, 3, -1)],
             }
         },
             {
             'left': {
-                'left_bond_atoms': [(mol.GetAtom(1), 1, core.Monomer, 1, 1), ],
+                'l_bond_atoms': [(mol.GetAtom(1), 1, core.Monomer, 1, 1), ],
                 'left_displaced_atoms': [(mol.GetAtom(2), 1, core.Monomer, 2, -1)],
             }
         }, {
@@ -1834,12 +1834,12 @@ class BpFormTestCase(unittest.TestCase):
 
         form = dna.DnaForm()
         form.from_str('ACGT')
-        form.bond.left_bond_atoms.append(core.Atom(core.Monomer, 'C', None))
+        form.bond.l_bond_atoms.append(core.Atom(core.Monomer, 'C', None))
         self.assertNotEqual(form.validate(), [])
 
         form = dna.DnaForm()
         form.from_str('ACGT')
-        form.bond.left_bond_atoms[0].position = None
+        form.bond.l_bond_atoms[0].position = None
         self.assertEqual(form.validate(), [])
 
         form = dna.DnaForm()
@@ -1850,9 +1850,9 @@ class BpFormTestCase(unittest.TestCase):
 
         form = dna.DnaForm()
         form.from_str('ACGT')
-        form.seq[0].right_bond_atoms.append(core.Atom(core.Backbone, 'C', 1))
+        form.seq[0].r_bond_atoms.append(core.Atom(core.Backbone, 'C', 1))
         self.assertNotEqual(form.validate(), [])
-        form.seq[0].right_bond_atoms.pop()
+        form.seq[0].r_bond_atoms.pop()
 
         form = dna.DnaForm()
         form.from_str('ACGT')
@@ -1861,12 +1861,12 @@ class BpFormTestCase(unittest.TestCase):
 
         form = dna.DnaForm()
         form.from_str('ACGT')
-        form.bond.left_bond_atoms = []
+        form.bond.l_bond_atoms = []
         self.assertNotEqual(form.validate(), [])
 
         form = dna.DnaForm()
         form.from_str('ACGT')
-        form.bond.right_bond_atoms = []
+        form.bond.r_bond_atoms = []
         self.assertNotEqual(form.validate(), [])
 
     def test_validate_circular(self):
@@ -1881,10 +1881,10 @@ class BpFormTestCase(unittest.TestCase):
         form = protein.ProteinForm()
         form.from_str('CC[id: "C2"'
                       ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
-                      ' | right-bond-atom: C2'
+                      ' | r-bond-atom: C2'
                       ' | right-displaced-atom: O1'
                       ' | right-displaced-atom: H1'
-                      ' | left-bond-atom: N6-1'
+                      ' | l-bond-atom: N6-1'
                       ' | left-displaced-atom: H6+1'
                       ' | left-displaced-atom: H6'
                       ']|circular')
@@ -1893,10 +1893,10 @@ class BpFormTestCase(unittest.TestCase):
         form = protein.ProteinForm()
         form.from_str('[id: "C2"'
                       ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
-                      ' | right-bond-atom: C2'
+                      ' | r-bond-atom: C2'
                       ' | right-displaced-atom: O1'
                       ' | right-displaced-atom: H1'
-                      ' | left-bond-atom: N6-1'
+                      ' | l-bond-atom: N6-1'
                       ' | left-displaced-atom: H6+1'
                       ' | left-displaced-atom: H6'
                       ']CC|circular')
@@ -1908,7 +1908,7 @@ class BpFormTestCase(unittest.TestCase):
                       ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
                       ' | right-displaced-atom: O1'
                       ' | right-displaced-atom: H1'
-                      ' | left-bond-atom: N6-1'
+                      ' | l-bond-atom: N6-1'
                       ' | left-displaced-atom: H6+1'
                       ' | left-displaced-atom: H6'
                       ']|circular')
@@ -1918,7 +1918,7 @@ class BpFormTestCase(unittest.TestCase):
         form = protein.ProteinForm()
         form.from_str('[id: "C2"'
                       ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
-                      ' | right-bond-atom: C2'
+                      ' | r-bond-atom: C2'
                       ' | right-displaced-atom: O1'
                       ' | right-displaced-atom: H1'
                       ' | left-displaced-atom: H6+1'
@@ -1929,10 +1929,10 @@ class BpFormTestCase(unittest.TestCase):
         # no structure defined
         form = protein.ProteinForm()
         form.from_str('[id: "C2"'
-                      ' | right-bond-atom: C2'
+                      ' | r-bond-atom: C2'
                       ' | right-displaced-atom: O1'
                       ' | right-displaced-atom: H1'
-                      ' | left-bond-atom: N6-1'
+                      ' | l-bond-atom: N6-1'
                       ' | left-displaced-atom: H6+1'
                       ' | left-displaced-atom: H6'
                       ']CC|circular')
@@ -1942,10 +1942,10 @@ class BpFormTestCase(unittest.TestCase):
         form = protein.ProteinForm()
         form.from_str('[id: "C2"'
                       ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
-                      ' | right-bond-atom: C1'
+                      ' | r-bond-atom: C1'
                       ' | right-displaced-atom: O1'
                       ' | right-displaced-atom: H1'
-                      ' | left-bond-atom: N6-1'
+                      ' | l-bond-atom: N6-1'
                       ' | left-displaced-atom: H6+1'
                       ' | left-displaced-atom: H6'
                       ']CC|circular')
@@ -1953,20 +1953,20 @@ class BpFormTestCase(unittest.TestCase):
 
     def test_validate_crosslinks(self):
         form_str = ('AAA '
-                    ' | crosslink: [left-bond-atom: 1P9'
-                    ' | right-bond-atom: 3O1'
+                    ' | crosslink: [l-bond-atom: 1P9'
+                    ' | r-bond-atom: 3O1'
                     ' | left-displaced-atom: 1O12-1'
                     ' | right-displaced-atom: 3H1]')
         form = dna.DnaForm().from_str(form_str)
         self.assertEqual(form.validate(), [])
 
         # invalid atom parent
-        list(form.crosslinks)[0].left_bond_atoms[0].molecule = core.Backbone
+        list(form.crosslinks)[0].l_bond_atoms[0].molecule = core.Backbone
         self.assertNotEqual(form.validate(), [])
 
         # unmatched bond atoms
         form = dna.DnaForm().from_str('AAA')
-        form.bond.left_bond_atoms.append(core.Atom(core.Backbone, element='O', position=1))
+        form.bond.l_bond_atoms.append(core.Atom(core.Backbone, element='O', position=1))
         self.assertNotEqual(form.validate(), [])
 
         form = dna.DnaForm().from_str('AAA')
@@ -1976,11 +1976,11 @@ class BpFormTestCase(unittest.TestCase):
         form = protein.ProteinForm()
         form.from_str('CC[id: "C2"'
                       ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
-                      ' | right-bond-atom: C2'
+                      ' | r-bond-atom: C2'
                       ' | right-displaced-atom: O1'
                       ' | right-displaced-atom: H1'
-                      ' | left-bond-atom: N6-1'
-                      ' | left-bond-atom: N6-1'
+                      ' | l-bond-atom: N6-1'
+                      ' | l-bond-atom: N6-1'
                       ' | left-displaced-atom: H6+1'
                       ' | left-displaced-atom: H6'
                       ']')
@@ -1989,11 +1989,11 @@ class BpFormTestCase(unittest.TestCase):
         form = protein.ProteinForm()
         form.from_str('CC[id: "C2"'
                       ' | structure: "OC(=O)[C@@H]([NH3+])CS"'
-                      ' | right-bond-atom: C2'
+                      ' | r-bond-atom: C2'
                       ' | right-displaced-atom: O1'
                       ' | right-displaced-atom: H1'
                       ' | right-displaced-atom: H1'
-                      ' | left-bond-atom: N6-1'
+                      ' | l-bond-atom: N6-1'
                       ' | left-displaced-atom: H6+1'
                       ' | left-displaced-atom: H6'
                       ']')
@@ -2005,30 +2005,30 @@ class BpFormTestCase(unittest.TestCase):
                       ' | right-displaced-atom: O1'
                       ' | right-displaced-atom: H1'
                       ' | right-displaced-atom: H1'
-                      ' | left-bond-atom: N6-1'
+                      ' | l-bond-atom: N6-1'
                       ' | left-displaced-atom: H6+1'
                       ' | left-displaced-atom: H6'
                       ']|circular')
         self.assertNotEqual(form.validate(), [])
 
         form_str = ('AAA '
-                    ' | crosslink: [left-bond-atom: 1C5'
-                    ' | right-bond-atom: 3C5'
-                    ' | right-bond-atom: 3C5'
+                    ' | crosslink: [l-bond-atom: 1C5'
+                    ' | r-bond-atom: 3C5'
+                    ' | r-bond-atom: 3C5'
                     ' | left-displaced-atom: 1H5'
                     ' | right-displaced-atom: 3H5]')
         form = dna.DnaForm().from_str(form_str)
         self.assertNotEqual(form.validate(), [])
 
-        crosslink = (' | crosslink: [left-bond-atom: 1P9'
-                     ' | right-bond-atom: 3O1'
+        crosslink = (' | crosslink: [l-bond-atom: 1P9'
+                     ' | r-bond-atom: 3O1'
                      ' | left-displaced-atom: 1O12-1'
                      ' | right-displaced-atom: 3H1]')
         form = dna.DnaForm().from_str('AAA ' + crosslink)
         self.assertEqual(form.validate(), [])
         form.crosslinks.add(core.Bond(
-            left_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='P', position=9)],
-            right_bond_atoms=[core.Atom(core.Monomer, monomer=3, element='O', position=1)],
+            l_bond_atoms=[core.Atom(core.Monomer, monomer=1, element='P', position=9)],
+            r_bond_atoms=[core.Atom(core.Monomer, monomer=3, element='O', position=1)],
             left_displaced_atoms=[core.Atom(core.Monomer, monomer=1, element='O', position=12)],
             right_displaced_atoms=[core.Atom(core.Monomer, monomer=3, element='H', position=1)],
         ))
@@ -2036,8 +2036,8 @@ class BpFormTestCase(unittest.TestCase):
 
     def test_get_image(self):
         form_str = ('AAA '
-                    ' | crosslink: [left-bond-atom: 1P9'
-                    ' | right-bond-atom: 3O1'
+                    ' | crosslink: [l-bond-atom: 1P9'
+                    ' | r-bond-atom: 3O1'
                     ' | left-displaced-atom: 1O12-1'
                     ' | right-displaced-atom: 3H1]')
         form = dna.DnaForm().from_str(form_str)

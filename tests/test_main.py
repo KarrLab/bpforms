@@ -83,9 +83,9 @@ class CliTestCase(unittest.TestCase):
             with __main__.App(argv=['validate', 'canonical_dna',
                                     ('ACG'
                                      '[id: "dI" | structure: "{}"'
-                                     ' | left-bond-atom: P30'
+                                     ' | l-bond-atom: P30'
                                      ' | left-displaced-atom: O33-1'
-                                     ' | right-bond-atom: O34'
+                                     ' | r-bond-atom: O34'
                                      ' | right-displaced-atom: H34'
                                      ' ]'
                                      'T').format(dIMP_smiles)]) as app:
@@ -185,15 +185,15 @@ class CliTestCase(unittest.TestCase):
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna',
                                     ('[id: "dI" | structure: "{0}"'
-                                        ' | left-bond-atom: P30'
+                                        ' | l-bond-atom: P30'
                                         ' | left-displaced-atom: O33-1'
-                                        ' | right-bond-atom: O34'
+                                        ' | r-bond-atom: O34'
                                         ' | right-displaced-atom: H34'
                                         ' ]'
                                      '[id: "dI" | structure: "{0}"'
-                                        ' | left-bond-atom: P30'
+                                        ' | l-bond-atom: P30'
                                         ' | left-displaced-atom: O33-1'
-                                        ' | right-bond-atom: O34'
+                                        ' | r-bond-atom: O34'
                                         ' | right-displaced-atom: H34'
                                         ' ]').format(
                     dIMP_smiles), '14.']) as app:

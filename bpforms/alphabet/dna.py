@@ -151,9 +151,9 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 monomers[row['Id']] = {
                     'nucleobase': row['Nucleobase'],
                     'nucleotide': row['Nucleotide'],
-                    'left_bond_atom': int(float(row['Left bond atom (P)'])),
+                    'l_bond_atom': int(float(row['Left bond atom (P)'])),
                     'left_displaced_atom': int(float(row['Left displaced atom (O-)'])),
-                    'right_bond_atom': int(float(row['Right bond atom (O)'])),
+                    'r_bond_atom': int(float(row['Right bond atom (O)'])),
                 }
 
         # get individual nucleobases and create monomeric forms
@@ -267,11 +267,11 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                         monomer.id, smiles, monomers[monomer.id]['nucleotide']))
 
                 monomer.structure = smiles
-                monomer.left_bond_atoms = [Atom(Monomer, element='P', position=monomers[monomer.id]['left_bond_atom'])]
+                monomer.l_bond_atoms = [Atom(Monomer, element='P', position=monomers[monomer.id]['l_bond_atom'])]
                 monomer.left_displaced_atoms = [Atom(Monomer, element='O', position=monomers[monomer.id]
                                                      ['left_displaced_atom'], charge=-1)]
-                monomer.right_bond_atoms = [Atom(Monomer, element='O', position=monomers[monomer.id]['right_bond_atom'])]
-                monomer.right_displaced_atoms = [Atom(Monomer, element='H', position=monomers[monomer.id]['right_bond_atom'])]
+                monomer.r_bond_atoms = [Atom(Monomer, element='O', position=monomers[monomer.id]['r_bond_atom'])]
+                monomer.right_displaced_atoms = [Atom(Monomer, element='H', position=monomers[monomer.id]['r_bond_atom'])]
             else:
                 raise Exception('Structure and atom indices need to be cataloged for {}'.format(monomer.id))
 
@@ -325,9 +325,9 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 id = row['Id']
                 name = row['Name']
                 smiles = row['Nucleotide monophosphate (2-) (cleaned)']
-                i_left_bond_atom = int(float(row['Left bond atom (P)']))
+                i_l_bond_atom = int(float(row['Left bond atom (P)']))
                 i_left_displaced_atom = int(float(row['Left displaced atom (O-)']))
-                i_right_bond_atom = int(float(row['Right bond atom (O)']))
+                i_r_bond_atom = int(float(row['Right bond atom (O)']))
                 comments = row['Comments']
 
                 smiles2 = smiles
@@ -364,10 +364,10 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                         id=id, name=name,
                         identifiers=[Identifier('repairtoire', id)],
                         structure=smiles,
-                        left_bond_atoms=[Atom(Monomer, element='P', position=i_left_bond_atom)],
+                        l_bond_atoms=[Atom(Monomer, element='P', position=i_l_bond_atom)],
                         left_displaced_atoms=[Atom(Monomer, element='O', position=i_left_displaced_atom, charge=-1)],
-                        right_bond_atoms=[Atom(Monomer, element='O', position=i_right_bond_atom)],
-                        right_displaced_atoms=[Atom(Monomer, element='H', position=i_right_bond_atom)],
+                        r_bond_atoms=[Atom(Monomer, element='O', position=i_r_bond_atom)],
+                        right_displaced_atoms=[Atom(Monomer, element='H', position=i_r_bond_atom)],
                         comments=comments or None)
                     alphabet.monomers[id] = monomer
 
@@ -410,8 +410,8 @@ class DnaForm(BpForm):
             seq=seq, alphabet=dna_alphabet,
             backbone=None,
             bond=Bond(
-                right_bond_atoms=[Atom(Monomer, element='O', position=None)],
-                left_bond_atoms=[Atom(Monomer, element='P', position=None)],
+                r_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                l_bond_atoms=[Atom(Monomer, element='P', position=None)],
                 right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
                 left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)
@@ -432,8 +432,8 @@ class CanonicalDnaForm(BpForm):
             seq=seq, alphabet=canonical_dna_alphabet,
             backbone=None,
             bond=Bond(
-                right_bond_atoms=[Atom(Monomer, element='O', position=None)],
-                left_bond_atoms=[Atom(Monomer, element='P', position=None)],
+                r_bond_atoms=[Atom(Monomer, element='O', position=None)],
+                l_bond_atoms=[Atom(Monomer, element='P', position=None)],
                 right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
                 left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)

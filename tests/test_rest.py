@@ -137,7 +137,7 @@ class RestTestCase(unittest.TestCase):
         rv = client.post('/api/bpform/', json=dict(alphabet='dna',
                                                    seq=('ACGT[id: "dI"'
                                                         ' | structure: "{}"'
-                                                        ' | left-bond-atom: P30'
+                                                        ' | l-bond-atom: P30'
                                                         ' | left-displaced-atom: O33-1]').format(
                                                        dI_smiles
                                                    )))
