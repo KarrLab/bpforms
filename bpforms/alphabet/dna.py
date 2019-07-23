@@ -152,7 +152,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                     'nucleobase': row['Nucleobase'],
                     'nucleotide': row['Nucleotide'],
                     'l_bond_atom': int(float(row['Left bond atom (P)'])),
-                    'left_displaced_atom': int(float(row['Left displaced atom (O-)'])),
+                    'l_displaced_atom': int(float(row['Left displaced atom (O-)'])),
                     'r_bond_atom': int(float(row['Right bond atom (O)'])),
                 }
 
@@ -268,10 +268,10 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
                 monomer.structure = smiles
                 monomer.l_bond_atoms = [Atom(Monomer, element='P', position=monomers[monomer.id]['l_bond_atom'])]
-                monomer.left_displaced_atoms = [Atom(Monomer, element='O', position=monomers[monomer.id]
-                                                     ['left_displaced_atom'], charge=-1)]
+                monomer.l_displaced_atoms = [Atom(Monomer, element='O', position=monomers[monomer.id]
+                                                     ['l_displaced_atom'], charge=-1)]
                 monomer.r_bond_atoms = [Atom(Monomer, element='O', position=monomers[monomer.id]['r_bond_atom'])]
-                monomer.right_displaced_atoms = [Atom(Monomer, element='H', position=monomers[monomer.id]['r_bond_atom'])]
+                monomer.r_displaced_atoms = [Atom(Monomer, element='H', position=monomers[monomer.id]['r_bond_atom'])]
             else:
                 raise Exception('Structure and atom indices need to be cataloged for {}'.format(monomer.id))
 
@@ -326,7 +326,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 name = row['Name']
                 smiles = row['Nucleotide monophosphate (2-) (cleaned)']
                 i_l_bond_atom = int(float(row['Left bond atom (P)']))
-                i_left_displaced_atom = int(float(row['Left displaced atom (O-)']))
+                i_l_displaced_atom = int(float(row['Left displaced atom (O-)']))
                 i_r_bond_atom = int(float(row['Right bond atom (O)']))
                 comments = row['Comments']
 
@@ -365,9 +365,9 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                         identifiers=[Identifier('repairtoire', id)],
                         structure=smiles,
                         l_bond_atoms=[Atom(Monomer, element='P', position=i_l_bond_atom)],
-                        left_displaced_atoms=[Atom(Monomer, element='O', position=i_left_displaced_atom, charge=-1)],
+                        l_displaced_atoms=[Atom(Monomer, element='O', position=i_l_displaced_atom, charge=-1)],
                         r_bond_atoms=[Atom(Monomer, element='O', position=i_r_bond_atom)],
-                        right_displaced_atoms=[Atom(Monomer, element='H', position=i_r_bond_atom)],
+                        r_displaced_atoms=[Atom(Monomer, element='H', position=i_r_bond_atom)],
                         comments=comments or None)
                     alphabet.monomers[id] = monomer
 
@@ -412,8 +412,8 @@ class DnaForm(BpForm):
             bond=Bond(
                 r_bond_atoms=[Atom(Monomer, element='O', position=None)],
                 l_bond_atoms=[Atom(Monomer, element='P', position=None)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
+                r_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                l_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)
 
 
@@ -434,6 +434,6 @@ class CanonicalDnaForm(BpForm):
             bond=Bond(
                 r_bond_atoms=[Atom(Monomer, element='O', position=None)],
                 l_bond_atoms=[Atom(Monomer, element='P', position=None)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
+                r_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                l_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)

@@ -40,7 +40,7 @@ We recommend defining this attribute for each monomeric form. Theis attribute mu
 Bonds with adjacent monomeric forms
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``r-bond-atom``, ``right-displaced-atom``, ``l-bond-atom``, and ``left-displaced-atom`` attributes describe the bonds between successive monomeric forms. The values of these attributes represent 
+The ``r-bond-atom``, ``r-displaced-atom``, ``l-bond-atom``, and ``l-displaced-atom`` attributes describe the bonds between successive monomeric forms. The values of these attributes represent 
 
 * The element in the monomeric form involved in the bond, 
 * The atom index of the element in the monomeric form involved in the bond, according to the atom ordering in the structure of the monomer which, preferably, should be ordered according to the canonical SMILES algorithm, and 
@@ -66,7 +66,7 @@ The ``circular`` attribute indicates that a biopolymer has a cicular topology::
 Intrachain crosslinks
 ^^^^^^^^^^^^^^^^^^^^^
 
-The ``crosslink``,  ``r-bond-atom``, ``right-displaced-atom``, ``l-bond-atom``, and ``left-displaced-atom`` attributes describe additional covalent bonds between non-adjacent monomeric forms, such as DNA crosslinks caused chemotherapeutics and disulfide bonds between cysteines in proteins. The values of the ``r-bond-atom``, ``right-displaced-atom``, ``l-bond-atom``, and ``left-displaced-atom`` attributes indicate the atoms involved in or displaced by the formation of each covalent bond. The values of these attributes represent 
+The ``crosslink``,  ``r-bond-atom``, ``r-displaced-atom``, ``l-bond-atom``, and ``l-displaced-atom`` attributes describe additional covalent bonds between non-adjacent monomeric forms, such as DNA crosslinks caused chemotherapeutics and disulfide bonds between cysteines in proteins. The values of the ``r-bond-atom``, ``r-displaced-atom``, ``l-bond-atom``, and ``l-displaced-atom`` attributes indicate the atoms involved in or displaced by the formation of each covalent bond. The values of these attributes represent 
 
   * The index of the monomeric form involved in the bond,
   * The element in the monomeric form involved in the bond,
@@ -78,15 +78,15 @@ The ``crosslink``,  ``r-bond-atom``, ``right-displaced-atom``, ``l-bond-atom``, 
   AC | crosslink: [
     r-bond-atom: 2O1 |
     l-bond-atom: 1P9 |
-    right-displaced-atom: 2H1 |
-    left-displaced-atom: 1O12-1
+    r-displaced-atom: 2H1 |
+    l-displaced-atom: 1O12-1
     ]
 
   CRC | crosslink: [
     l-bond-atom: 1S11 |
-    left-displaced-atom: 1H11 |
+    l-displaced-atom: 1H11 |
     r-bond-atom: 3S11 |
-    right-displaced-atom: 3H11
+    r-displaced-atom: 3H11
     ]
 
 
@@ -157,8 +157,8 @@ Examples
     | structure: "OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O"
     | r-bond-atom: O34
     | l-bond-atom: P30
-    | right-displaced-atom: H32
-    | left-displaced-atom: O33-1
+    | r-displaced-atom: H32
+    | l-displaced-atom: O33-1
     ]AG{m2A}
 
 * RNA::
@@ -167,15 +167,15 @@ Examples
       | structure: "COC1C(O)C(OC1n1cnc2c1ncn(c2=N)C)COP(=O)([O-])[O-]"
       | r-bond-atom: O5
       | l-bond-atom: P22
-      | right-displaced-atom: H5
-      | left-displaced-atom: O25-1
+      | r-displaced-atom: H5
+      | l-displaced-atom: O25-1
     ]
     AG[id: "019A" 
       | structure: "COC1C(O)C(OC1n1cnc2c1ncn(c2=O)C)COP(=O)([O-])[O-]"
       | r-bond-atom: O5
       | l-bond-atom: P22
-      | right-displaced-atom: H5
-      | left-displaced-atom: O25-1
+      | r-displaced-atom: H5
+      | l-displaced-atom: O25-1
     ]
 
 * Protein::
@@ -183,16 +183,16 @@ Examples
     ARGK[id: "AA0567" 
       | structure: "C/C=C/C(=O)NCCCC[C@@H](C(=O)O)[NH3+]"
       | l-bond-atom: N16-1
-      | left-displaced-atom: H16
-      | left-displaced-atom: H16+1
+      | l-displaced-atom: H16
+      | l-displaced-atom: H16+1
       | r-bond-atom: C13
-      | right-displaced-atom: O15
-      | right-displaced-atom: H15
+      | r-displaced-atom: O15
+      | r-displaced-atom: H15
     ]LYRCG[id: "AA0318" 
       | structure: "COC(=O)[C@@H]([NH3+])CCCC[NH3+]"
       | l-bond-atom: N7-1
-      | left-displaced-atom: H7
-      | left-displaced-atom: H7+1
+      | l-displaced-atom: H7
+      | l-displaced-atom: H7+1
     ]
 
 * Cicular DNA::

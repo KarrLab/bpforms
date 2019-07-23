@@ -84,9 +84,9 @@ class CliTestCase(unittest.TestCase):
                                     ('ACG'
                                      '[id: "dI" | structure: "{}"'
                                      ' | l-bond-atom: P30'
-                                     ' | left-displaced-atom: O33-1'
+                                     ' | l-displaced-atom: O33-1'
                                      ' | r-bond-atom: O34'
-                                     ' | right-displaced-atom: H34'
+                                     ' | r-displaced-atom: H34'
                                      ' ]'
                                      'T').format(dIMP_smiles)]) as app:
                 # run app
@@ -104,7 +104,7 @@ class CliTestCase(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, '^Form is invalid'):
             with __main__.App(argv=['validate', 'canonical_dna', (
                 'ACGT'
-                '[id: "dI" | structure: "{}" | left-displaced-atom: O33-1 ]'
+                '[id: "dI" | structure: "{}" | l-displaced-atom: O33-1 ]'
             ).format(dIMP_smiles)]) as app:
                 # run app
                 app.run()
@@ -186,15 +186,15 @@ class CliTestCase(unittest.TestCase):
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna',
                                     ('[id: "dI" | structure: "{0}"'
                                         ' | l-bond-atom: P30'
-                                        ' | left-displaced-atom: O33-1'
+                                        ' | l-displaced-atom: O33-1'
                                         ' | r-bond-atom: O34'
-                                        ' | right-displaced-atom: H34'
+                                        ' | r-displaced-atom: H34'
                                         ' ]'
                                      '[id: "dI" | structure: "{0}"'
                                         ' | l-bond-atom: P30'
-                                        ' | left-displaced-atom: O33-1'
+                                        ' | l-displaced-atom: O33-1'
                                         ' | r-bond-atom: O34'
-                                        ' | right-displaced-atom: H34'
+                                        ' | r-displaced-atom: H34'
                                         ' ]').format(
                     dIMP_smiles), '14.']) as app:
                 # run app
@@ -216,7 +216,7 @@ class CliTestCase(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, '^Form is invalid'):
             with __main__.App(argv=['get-major-micro-species', 'canonical_dna', (
                 'ACGT'
-                '[id: "dI" | structure: "{}" | left-displaced-atom: O33-1 ]'
+                '[id: "dI" | structure: "{}" | l-displaced-atom: O33-1 ]'
             ).format(dI_smiles), '7.']) as app:
                 # run app
                 app.run()

@@ -59,11 +59,11 @@ def build(dirname=default_dirname):
             | name: "N5-methyl-L-arginine"
             | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
             | r-bond-atom: C2
-            | right-displaced-atom: O1
-            | right-displaced-atom: H1
+            | r-displaced-atom: O1
+            | r-displaced-atom: H1
             | l-bond-atom: N16-1
-            | left-displaced-atom: H16+1
-            | left-displaced-atom: H16
+            | l-displaced-atom: H16+1
+            | l-displaced-atom: H16
             ]
         ''', dirname, 'left-right-bonds-AA0305', show_atom_nums=True)
 
@@ -72,11 +72,11 @@ def build(dirname=default_dirname):
             | name: "N5-methyl-L-arginine"
             | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
             | r-bond-atom: C2
-            | right-displaced-atom: O1
-            | right-displaced-atom: H1
+            | r-displaced-atom: O1
+            | r-displaced-atom: H1
             | l-bond-atom: N16-1
-            | left-displaced-atom: H16+1
-            | left-displaced-atom: H16
+            | l-displaced-atom: H16+1
+            | l-displaced-atom: H16
             ]A
         ''', dirname, 'left-right-bonds-A-AA0305-A', show_atom_nums=False)
 
@@ -87,9 +87,9 @@ def build(dirname=default_dirname):
     draw_polymer(bpforms.ProteinForm, '''
         CAC | crosslink: [
             l-bond-atom: 1S11 |
-            left-displaced-atom: 1H11 |
+            l-displaced-atom: 1H11 |
             r-bond-atom: 3S11 |
-            right-displaced-atom: 3H11
+            r-displaced-atom: 3H11
         ]''', dirname, 'crosslink-protein-sulfide-bond', show_atom_nums=False)
 
 

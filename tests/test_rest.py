@@ -138,7 +138,7 @@ class RestTestCase(unittest.TestCase):
                                                    seq=('ACGT[id: "dI"'
                                                         ' | structure: "{}"'
                                                         ' | l-bond-atom: P30'
-                                                        ' | left-displaced-atom: O33-1]').format(
+                                                        ' | l-displaced-atom: O33-1]').format(
                                                        dI_smiles
                                                    )))
         self.assertEqual(rv.status_code, 200)
@@ -147,7 +147,7 @@ class RestTestCase(unittest.TestCase):
         rv = client.post('/api/bpform/', json=dict(alphabet='dna',
                                                    seq=('ACGT[id: "dI"'
                                                         ' | structure: "{}"'
-                                                        ' | left-displaced-atom: O33-1]').format(
+                                                        ' | l-displaced-atom: O33-1]').format(
                                                        dI_smiles
                                                    )))
         self.assertEqual(rv.status_code, 400)

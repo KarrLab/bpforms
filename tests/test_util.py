@@ -89,8 +89,8 @@ class UtilTestCase(unittest.TestCase):
                     bond=core.Bond(
                         l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
-                        left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
-                        right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]),
+                        l_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
+                        r_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]),
                     circular=circular)
         util.gen_html_viz_alphabet(TestForm, filename)
 
@@ -103,8 +103,8 @@ class UtilTestCase(unittest.TestCase):
                     bond=core.Bond(
                         r_bond_atoms=[core.Atom(core.Monomer, element='O', position=None)],
                         l_bond_atoms=[core.Atom(core.Monomer, element='P', position=None)],
-                        right_displaced_atoms=[core.Atom(core.Monomer, element='H', position=None)],
-                        left_displaced_atoms=[core.Atom(core.Monomer, element='O', position=None, charge=-1)]))
+                        r_displaced_atoms=[core.Atom(core.Monomer, element='H', position=None)],
+                        l_displaced_atoms=[core.Atom(core.Monomer, element='O', position=None, charge=-1)]))
         util.validate_bpform_bonds(TestDnaForm)
 
         alphabet = core.Alphabet()
@@ -124,8 +124,8 @@ class UtilTestCase(unittest.TestCase):
                     bond=core.Bond(
                         l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
-                        left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
-                        right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
+                        l_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
+                        r_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
             util.validate_bpform_bonds(TestDnaForm)
 
@@ -146,8 +146,8 @@ class UtilTestCase(unittest.TestCase):
                     bond=core.Bond(
                         l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
-                        left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
-                        right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
+                        l_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
+                        r_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
             util.validate_bpform_bonds(TestDnaForm)
 
@@ -168,8 +168,8 @@ class UtilTestCase(unittest.TestCase):
                     bond=core.Bond(
                         l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
-                        left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
-                        right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
+                        l_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
+                        r_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         util.validate_bpform_bonds(TestDnaForm)
 
         alphabet = core.Alphabet()
@@ -189,8 +189,8 @@ class UtilTestCase(unittest.TestCase):
                     bond=core.Bond(
                         l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
-                        left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
-                        right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
+                        l_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
+                        r_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
             util.validate_bpform_bonds(TestDnaForm)
 
@@ -211,8 +211,8 @@ class UtilTestCase(unittest.TestCase):
                     bond=core.Bond(
                         l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
-                        left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
-                        right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
+                        l_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
+                        r_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
             util.validate_bpform_bonds(TestDnaForm)
 
@@ -233,8 +233,8 @@ class UtilTestCase(unittest.TestCase):
                     bond=core.Bond(
                         l_bond_atoms=[core.Atom(core.Backbone, element='O', position=1)],
                         r_bond_atoms=[core.Atom(core.Backbone, element='P', position=9)],
-                        left_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
-                        right_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
+                        l_displaced_atoms=[core.Atom(core.Backbone, element='H', position=1)],
+                        r_displaced_atoms=[core.Atom(core.Backbone, element='O', position=11, charge=-1)]))
         with self.assertRaises(ValueError):
             with mock.patch('wc_utils.util.chem.OpenBabelUtils.export', side_effect=['smiles1', 'inchi1', 'inchi2']):
                 util.validate_bpform_bonds(TestDnaForm)

@@ -231,9 +231,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 if name not in ['L-arginine', 'L-asparagine', 'L-valine']:
                     canonical_aa.structure = structure
                     canonical_aa.l_bond_atoms = []
-                    canonical_aa.left_displaced_atoms = []
+                    canonical_aa.l_displaced_atoms = []
                     canonical_aa.r_bond_atoms = []
-                    canonical_aa.right_displaced_atoms = []
+                    canonical_aa.r_displaced_atoms = []
                     self.set_termini(structure, canonical_aa, index_n, index_c)
 
                 warnings.warn('Updated canonical monomeric form {}'.format(name), BpFormsWarning)
@@ -621,7 +621,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             base_monomers=[alphabet.monomers.C],
             structure='COC(=O)[C@H](CSC/C=C(/CC/C=C(/CC/C=C(/CCC=C(C)C)\C)\C)\C)[NH3+]',
             l_bond_atoms=[Atom(Monomer, element='N', position=29, charge=-1)],
-            left_displaced_atoms=[Atom(Monomer, element='H', position=29),
+            l_displaced_atoms=[Atom(Monomer, element='H', position=29),
                                   Atom(Monomer, element='H', position=29, charge=1)])
 
     def set_termini(self, mol, monomer, i_n, i_c):
@@ -653,10 +653,10 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             if i_o:
                 monomer.r_bond_atoms.append(Atom(Monomer, element='C', position=i_c))
                 if o_atom.GetFormalCharge() == 0:
-                    monomer.right_displaced_atoms.append(Atom(Monomer, element='O', position=i_o))
-                    monomer.right_displaced_atoms.append(Atom(Monomer, element='H', position=i_o))
+                    monomer.r_displaced_atoms.append(Atom(Monomer, element='O', position=i_o))
+                    monomer.r_displaced_atoms.append(Atom(Monomer, element='H', position=i_o))
                 else:
-                    monomer.right_displaced_atoms.append(Atom(Monomer, element='O', position=i_o, charge=-1))
+                    monomer.r_displaced_atoms.append(Atom(Monomer, element='O', position=i_o, charge=-1))
 
         if i_n:
             atom = mol.GetAtom(i_n)
@@ -668,9 +668,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
             monomer.l_bond_atoms.append(Atom(Monomer, element='N', position=i_n, charge=-n_charge))
             if n_charge >= 0 and n_h >= 1:
-                monomer.left_displaced_atoms.append(Atom(Monomer, element='H', position=i_n))
+                monomer.l_displaced_atoms.append(Atom(Monomer, element='H', position=i_n))
             if n_charge >= 1 and n_h >= 2:
-                monomer.left_displaced_atoms.append(Atom(Monomer, element='H', position=i_n, charge=1))
+                monomer.l_displaced_atoms.append(Atom(Monomer, element='H', position=i_n, charge=1))
 
     def get_termini(self, mol, residue=True):
         """ Get indices of atoms of N and C termini
@@ -992,9 +992,9 @@ class ProteinForm(BpForm):
             bond=Bond(
                 r_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 l_bond_atoms=[Atom(Monomer, element='N', position=None)],
-                right_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
+                r_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
                                        Atom(Monomer, element='H', position=None)],
-                left_displaced_atoms=[Atom(Monomer, element='H', position=None),
+                l_displaced_atoms=[Atom(Monomer, element='H', position=None),
                                       Atom(Monomer, element='H', position=None, charge=1)]),
             circular=circular)
 
@@ -1016,8 +1016,8 @@ class CanonicalProteinForm(BpForm):
             bond=Bond(
                 r_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 l_bond_atoms=[Atom(Monomer, element='N', position=None)],
-                right_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
+                r_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
                                        Atom(Monomer, element='H', position=None)],
-                left_displaced_atoms=[Atom(Monomer, element='H', position=None),
+                l_displaced_atoms=[Atom(Monomer, element='H', position=None),
                                       Atom(Monomer, element='H', position=None, charge=1)]),
             circular=circular)

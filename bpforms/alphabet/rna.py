@@ -159,7 +159,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             atom_rs = []
             for i_atom in range(1, mol2.NumAtoms() + 1):
                 atom = mol2.GetAtom(i_atom)
-                if self.is_left_atom(atom):
+                if self.is_l_atom(atom):
                     atom_ls.append(atom)
                 elif self.is_r_bond_atom(atom):
                     atom_rs.append(atom)
@@ -184,9 +184,9 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             monomer.backbone_bond_atoms = []
             monomer.backbone_displaced_atoms = []
             monomer.l_bond_atoms = [Atom(Monomer, element='P', position=i_left_p)]
-            monomer.left_displaced_atoms = [Atom(Monomer, element='O', position=i_left_o, charge=-1)]
+            monomer.l_displaced_atoms = [Atom(Monomer, element='O', position=i_left_o, charge=-1)]
             monomer.r_bond_atoms = [Atom(Monomer, element='O', position=i_right_o)]
-            monomer.right_displaced_atoms = [Atom(Monomer, element='H', position=i_right_o)]
+            monomer.r_displaced_atoms = [Atom(Monomer, element='H', position=i_right_o)]
 
             assert monomer.structure.GetAtom(i_right_o).GetAtomicNum() == 8
             assert monomer.structure.GetAtom(i_left_p).GetAtomicNum() == 15
@@ -627,7 +627,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             monomer.backbone_displaced_atoms = [Atom(Monomer, 'H', atom_b_idx)]
         if atom_r_idx:
             monomer.r_bond_atoms = [Atom(Monomer, 'O', atom_r_idx)]
-            monomer.right_displaced_atoms = [Atom(Monomer, 'H', atom_r_idx)]
+            monomer.r_displaced_atoms = [Atom(Monomer, 'H', atom_r_idx)]
 
         return True
 
@@ -660,7 +660,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
         Returns:
             :obj:`bool`: :obj:`True`, if the atoms are a valid pair of bonding sites
         """
-        r_atom_2 = self.is_left_atom(l_atom)
+        r_atom_2 = self.is_l_atom(l_atom)
         if not r_atom_2:
             return False  # pragma no cover: case not used by MODOMICS or the RNA Modification Database
 
@@ -738,7 +738,7 @@ class RnaAlphabetBuilder(AlphabetBuilder):
 
         return r_atom_2
 
-    def is_left_atom(self, l_atom):
+    def is_l_atom(self, l_atom):
         """ Determine if an atom is a valid left bonding site
 
         Args:
@@ -859,8 +859,8 @@ class RnaForm(BpForm):
             bond=Bond(
                 r_bond_atoms=[Atom(Monomer, element='O', position=None)],
                 l_bond_atoms=[Atom(Monomer, element='P', position=None)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
+                r_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                l_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)
 
 
@@ -881,6 +881,6 @@ class CanonicalRnaForm(BpForm):
             bond=Bond(
                 r_bond_atoms=[Atom(Monomer, element='O', position=None)],
                 l_bond_atoms=[Atom(Monomer, element='P', position=None)],
-                right_displaced_atoms=[Atom(Monomer, element='H', position=None)],
-                left_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
+                r_displaced_atoms=[Atom(Monomer, element='H', position=None)],
+                l_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1)]),
             circular=circular)
