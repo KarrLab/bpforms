@@ -56,7 +56,7 @@ CROSSLINK_FIELD_NAME: "crosslink"
 
 CHAR: /[^\[\]\{\}":\| \t\f\r\n]/
 CHARS: CHAR /[^\[\]\{\}":\|\t\f\r\n]*/ CHAR
-DELIMITED_CHARS: "{" CHARS "}"
+DELIMITED_CHARS: "{" (CHAR|CHARS) "}"
 SMILES: /[^"]+/
 DALTON: /[\-\+]?[0-9]+(\.[0-9]*)?/
 CHARGE: /[\-\+]?[0-9]+/
