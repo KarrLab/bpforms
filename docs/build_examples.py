@@ -85,7 +85,7 @@ def build(dirname=default_dirname):
         ''', dirname, 'circular-DNA-AC', show_atom_nums=False)
 
     draw_polymer(bpforms.ProteinForm, '''
-        CAC | crosslink: [
+        CAC | x-link: [
             l-bond-atom: 1S11 |
             l-displaced-atom: 1H11 |
             r-bond-atom: 3S11 |

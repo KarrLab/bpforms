@@ -66,7 +66,7 @@ The ``circular`` attribute indicates that a biopolymer has a cicular topology::
 Intrachain crosslinks
 ^^^^^^^^^^^^^^^^^^^^^
 
-The ``crosslink``,  ``r-bond-atom``, ``r-displaced-atom``, ``l-bond-atom``, and ``l-displaced-atom`` attributes describe additional covalent bonds between non-adjacent monomeric forms, such as DNA crosslinks caused chemotherapeutics and disulfide bonds between cysteines in proteins. The values of the ``r-bond-atom``, ``r-displaced-atom``, ``l-bond-atom``, and ``l-displaced-atom`` attributes indicate the atoms involved in or displaced by the formation of each covalent bond. The values of these attributes represent 
+The ``x-link``,  ``r-bond-atom``, ``r-displaced-atom``, ``l-bond-atom``, and ``l-displaced-atom`` attributes describe additional covalent bonds between non-adjacent monomeric forms, such as DNA crosslinks caused chemotherapeutics and disulfide bonds between cysteines in proteins. The values of the ``r-bond-atom``, ``r-displaced-atom``, ``l-bond-atom``, and ``l-displaced-atom`` attributes indicate the atoms involved in or displaced by the formation of each covalent bond. The values of these attributes represent 
 
   * The index of the monomeric form involved in the bond,
   * The element in the monomeric form involved in the bond,
@@ -75,14 +75,14 @@ The ``crosslink``,  ``r-bond-atom``, ``r-displaced-atom``, ``l-bond-atom``, and 
 
 ::
 
-  AC | crosslink: [
+  AC | x-link: [
     r-bond-atom: 2O1 |
     l-bond-atom: 1P9 |
     r-displaced-atom: 2H1 |
     l-displaced-atom: 1O12-1
     ]
 
-  CRC | crosslink: [
+  CRC | x-link: [
     l-bond-atom: 1S11 |
     l-displaced-atom: 1H11 |
     r-bond-atom: 3S11 |

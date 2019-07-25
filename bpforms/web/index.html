@@ -180,11 +180,11 @@
             <li><i>BpForms</i> has concrete semantics for generating molecular structures from its compressed representation of sequences of monomeric forms.</li>
           </ul>
 
-          <p class="before_list"><i>BpForms</i> descriptions of biopolymers consists of three parts separated by pipes ("|") (e.g., <tt>A{pSer}Y | circular | crosslink: [...]</tt>):</p>
+          <p class="before_list"><i>BpForms</i> descriptions of biopolymers consists of three parts separated by pipes ("|") (e.g., <tt>A{pSer}Y | circular | x-link: [...]</tt>):</p>
           <ul>
             <li>A sequence of strings that indicate monomeric forms of an alphabet bonded together (e.g., <tt>A{pSer}Y</tt>. As described below, <i>BpForms</i> includes six alphabets of hundreds of monomeric forms of DNA, RNA, and proteins, and users can define additional alphabets.</li>
             <li>An optional attribute for indicating the circularity of the polymer (e.g., <tt>circular</tt>). See below for additional information.</li>
-            <li>An optional set of crosslinks which describe bonds between non-adjacent monomeric forms (e.g., <tt>crosslink: [...]</tt>). See below for additional information.</li>
+            <li>An optional set of crosslinks which describe bonds between non-adjacent monomeric forms (e.g., <tt>x-link: [...]</tt>). See below for additional information.</li>
           </ul>
 
           <p class="before_list">The monomeric forms in the sequence of monomeric forms can be described in three ways:</p>
@@ -483,9 +483,9 @@
         <div class="large-5 cell notation">
           <a name="crosslinks"></a>
           <h3>Crosslinks between non-adjacent monomers</h3>
-          <p>The <tt class="attribute">crosslink</tt> polymer attribute can be used to indicate a bond between non-adjacent monomeric forms. For example, this attribute can be used to describe intrastrand crosslinks in DNA and disulfide bonds between cysteines in proteins.</p>
+          <p>The <tt class="attribute">x-link</tt> polymer attribute can be used to indicate a bond between non-adjacent monomeric forms. For example, this attribute can be used to describe intrastrand crosslinks in DNA and disulfide bonds between cysteines in proteins.</p>
 
-          <p>Each Crosslink can be described by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., "<tt>| crosslink: [l-bond-atom: 1C1 | r-bond-atom: 3C2 | ...]</tt>").</p>
+          <p>Each Crosslink can be described by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., "<tt>| x-link: [l-bond-atom: 1C1 | r-bond-atom: 3C2 | ...]</tt>").</p>
 
           <p class="before_list">Each crosslink can be described with four types of attributes:</p>
           <ul>
@@ -502,7 +502,7 @@
               <p>The example below illustrates how to describe a tripeptide with a disulfide bond. The blue line indicates the disulfide bond (crosslink). The green lines indicate the bonds between the successive amino acids. The black labels indicate the positions of monomeric forms within the sequence.</p>
             </div>
             <div class="large-8 cell syntax">
-              <pre>CAC | crosslink: [
+              <pre>CAC | x-link: [
     l-bond-atom: 1S11 |
     l-displaced-atom: 1H11 |
     r-bond-atom: 3S11 |

@@ -49,7 +49,7 @@ DELTA_CHARGE_FIELD_NAME: 'delta\-charge';
 POSITION_FIELD_NAME: 'position';
 BASE_MONOMER_FIELD_NAME: 'base\-monomer';
 COMMENTS_FIELD_NAME: 'comments';
-CROSSLINK_FIELD_NAME: 'crosslink';
+CROSSLINK_FIELD_NAME: 'x-link';
 
 ?attr_sep: WS* '\|' WS*;
 ?field_sep: WS* ':' WS*;

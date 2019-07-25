@@ -3168,7 +3168,7 @@ class BpForm(object):
                     atoms.append('{}: {}{}{}{}'.format(atom_type[0:-1].replace('_', '-'),
                                                        atom.monomer, atom.element, atom.position, charge))
 
-            val += ' | crosslink: [{}]'.format(' | '.join(atoms))
+            val += ' | x-link: [{}]'.format(' | '.join(atoms))
 
         return val
 

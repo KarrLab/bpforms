@@ -1598,8 +1598,8 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(form.crosslinks, core.BondSet())
 
         form_str = ('AAA'
-                    '|crosslink: [l-bond-atom: 1C1] '
-                    '| crosslink: [r-displaced-atom: 5H3+1 '
+                    '|x-link: [l-bond-atom: 1C1] '
+                    '| x-link: [r-displaced-atom: 5H3+1 '
                     '| r-displaced-atom: 6H2+3 '
                     '| r-bond-atom: 8P5-2]')
         form = dna.DnaForm().from_str(form_str)
@@ -1614,21 +1614,21 @@ class BpFormTestCase(unittest.TestCase):
         self.assertTrue(form.crosslinks.is_equal(bonds))
 
         form_str_1 = ('AAA'
-                      ' | crosslink: [l-bond-atom: 1C1]'
-                      ' | crosslink: [r-bond-atom: 8P5-2'
+                      ' | x-link: [l-bond-atom: 1C1]'
+                      ' | x-link: [r-bond-atom: 8P5-2'
                       ' | r-displaced-atom: 5H3+1'
                       ' | r-displaced-atom: 6H2+3]')
         form_str_2 = ('AAA'
-                      ' | crosslink: [r-bond-atom: 8P5-2'
+                      ' | x-link: [r-bond-atom: 8P5-2'
                       ' | r-displaced-atom: 5H3+1'
                       ' | r-displaced-atom: 6H2+3]'
-                      ' | crosslink: [l-bond-atom: 1C1]')
+                      ' | x-link: [l-bond-atom: 1C1]')
         self.assertIn(str(form), [form_str_1, form_str_2])
 
-        xlink = (' | crosslink: [r-bond-atom: 8P5-2'
+        xlink = (' | x-link: [r-bond-atom: 8P5-2'
                  ' | r-displaced-atom: 5H3+1'
                  ' | r-displaced-atom: 6H2+3]'
-                 ' | crosslink: [l-bond-atom: 1C1]')
+                 ' | x-link: [l-bond-atom: 1C1]')
         form = dna.DnaForm().from_str('AAA' + xlink)
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'multiple times'):
             form = dna.DnaForm().from_str('AAA' + xlink + xlink)
@@ -1638,10 +1638,10 @@ class BpFormTestCase(unittest.TestCase):
         dna.DnaForm().from_str('A\n ').validate()
         dna.DnaForm().from_str('A \n ').validate()
         dna.DnaForm().from_str('A ').validate()
-        dna.DnaForm().from_str('A | crosslink: []\n')
-        dna.DnaForm().from_str('A | crosslink: [] ')
-        dna.DnaForm().from_str('A | crosslink: [] \n')
-        dna.DnaForm().from_str('A | crosslink: []\n ')
+        dna.DnaForm().from_str('A | x-link: []\n')
+        dna.DnaForm().from_str('A | x-link: [] ')
+        dna.DnaForm().from_str('A | x-link: [] \n')
+        dna.DnaForm().from_str('A | x-link: []\n ')
 
     def test_from_str_circular(self):
         form = dna.DnaForm().from_str('AAA')
@@ -1953,7 +1953,7 @@ class BpFormTestCase(unittest.TestCase):
 
     def test_validate_crosslinks(self):
         form_str = ('AAA '
-                    ' | crosslink: [l-bond-atom: 1P9'
+                    ' | x-link: [l-bond-atom: 1P9'
                     ' | r-bond-atom: 3O1'
                     ' | l-displaced-atom: 1O12-1'
                     ' | r-displaced-atom: 3H1]')
@@ -2012,7 +2012,7 @@ class BpFormTestCase(unittest.TestCase):
         self.assertNotEqual(form.validate(), [])
 
         form_str = ('AAA '
-                    ' | crosslink: [l-bond-atom: 1C5'
+                    ' | x-link: [l-bond-atom: 1C5'
                     ' | r-bond-atom: 3C5'
                     ' | r-bond-atom: 3C5'
                     ' | l-displaced-atom: 1H5'
@@ -2020,7 +2020,7 @@ class BpFormTestCase(unittest.TestCase):
         form = dna.DnaForm().from_str(form_str)
         self.assertNotEqual(form.validate(), [])
 
-        crosslink = (' | crosslink: [l-bond-atom: 1P9'
+        crosslink = (' | x-link: [l-bond-atom: 1P9'
                      ' | r-bond-atom: 3O1'
                      ' | l-displaced-atom: 1O12-1'
                      ' | r-displaced-atom: 3H1]')
@@ -2036,7 +2036,7 @@ class BpFormTestCase(unittest.TestCase):
 
     def test_get_image(self):
         form_str = ('AAA '
-                    ' | crosslink: [l-bond-atom: 1P9'
+                    ' | x-link: [l-bond-atom: 1P9'
                     ' | r-bond-atom: 3O1'
                     ' | l-displaced-atom: 1O12-1'
                     ' | r-displaced-atom: 3H1]')
