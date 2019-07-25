@@ -23,11 +23,24 @@ from ruamel import yaml
 PDB_FTP_HOST = 'ftp.wwpdb.org'
 PDB_ROOT = '/pub/pdb/data/structures/divided/pdb/'
 PROTEIN_YML_PATH = '../bpforms/alphabet/protein.yml'
+LOCAL_PDB_PATH = '/root/karrlab/pdb/'
 
-# get org_ids for ecoli and descendants
+# Escherichia coli
+query_org_id = 562
+
+# Gammaproteobacteria
+# query_org_id = 1236
+
+# Saccharomyces cerevisiae
+# query_org_id = 4932
+
+# Saccharomycetes
+# query_org_id = 4891
+
+# get org_ids for query organism and descendants
 ncbi = NCBITaxa()
-ecoli_ids = ncbi.get_descendant_taxa(562, intermediate_nodes=True)
-ecoli_ids.append(562)
+query_ids = ncbi.get_descendant_taxa(query_org_id, intermediate_nodes=True)
+query_ids.append(query_org_id)
 
 rank_distance = {'species':0,
                  'genus':1,
@@ -87,7 +100,73 @@ def read_pdb_yaml():
 
     return pdb_monomers
 
-def load_pdb(max_entries):
+def load_full_pdb_hets_by_entry_from_ftp(max_entries):
+    """ read the PDB database and get heterogen sets for all entries
+
+    """
+    # get amino acid set (canonical and non-canonical) from bpforms
+    pdb_monomers = read_pdb_yaml()
+
+    print('loading PDB entries from FTP server')
+    # connect to PDB FTP
+    ftp = FTP(PDB_FTP_HOST)
+    ftp.login()
+
+    ftp.cwd(PDB_ROOT)
+
+    hets_by_entry = []
+    total_i = 0
+
+
+    for dir in ftp.nlst():
+
+        ftp.cwd(os.path.join(PDB_ROOT, dir))
+        # get files
+        for file_pdb in ftp.nlst():
+
+            # print(file_pdb)
+            f = BytesIO()
+            ftp.retrbinary('RETR '+file_pdb, f.write)
+            f.seek(0)
+
+            with gzip.GzipFile(fileobj=f, mode='rb') as gz:
+
+                het_set = set()
+
+                line = gz.readline().decode('utf-8').strip()
+
+                while line != '':
+                    record_type = line[:6]
+
+                    if record_type == 'HET   ':
+                        het = line[7:10].strip()
+                        if het in pdb_monomers:
+                            het_set.add(het)
+
+                    line = gz.readline().decode('utf-8').strip()
+
+                hets_by_entry.append(het_set)
+                gz.close()
+
+            total_i += 1
+            # print(total_i)
+
+            if total_i % 100 == 0:
+                print('progress:', total_i)
+
+            if isinstance(max_entries, int) and total_i == max_entries:
+                break
+        else:
+            continue
+        break
+
+    ftp.close()
+    print('total examined', total_i)
+
+    return hets_by_entry
+
+
+def load_pdb_from_ftp(max_entries):
     """ read the PDB database and parse the entries
 
     """
@@ -102,12 +181,12 @@ def load_pdb(max_entries):
     ftp.cwd(PDB_ROOT)
 
     entries_native = []
-    entries_engineered_ecoli = []
+    entries_engineered_in_query = []
 
     # get folders
     total_i = 0
     non_engineered_i = 0
-    engineered_ecoli_i = 0
+    engineered_in_query_i = 0
     for dir in ftp.nlst():
 
         ftp.cwd(os.path.join(PDB_ROOT, dir))
@@ -182,9 +261,9 @@ def load_pdb(max_entries):
             else:
                 if len(entry.exp_org_taxid) == 1:
                     taxid = list(entry.exp_org_taxid)[0]
-                    if taxid in ecoli_ids:
-                        entries_engineered_ecoli.append(entry)
-                        engineered_ecoli_i += 1
+                    if taxid in query_ids:
+                        entries_engineered_in_query.append(entry)
+                        engineered_in_query_i += 1
 
 
             total_i += 1
@@ -193,23 +272,22 @@ def load_pdb(max_entries):
             if total_i % 100 == 0:
                 print('progress:', total_i)
 
-        # this block causes early termination of the reading (for testing)
-
             if isinstance(max_entries, int) and total_i == max_entries:
                 break
         else:
             continue
         break
 
+    ftp.close()
 
     print('native', non_engineered_i)
-    print('engineered in e coli', engineered_ecoli_i)
+    print('engineered in query', engineered_in_query_i)
     print('total examined', total_i)
 
-    return entries_native, entries_engineered_ecoli
+    return entries_native, entries_engineered_in_query
 
 
-def save_entries(entries_native, entries_engineered_ecoli):
+def save_entries(entries_native, entries_engineered_in_query):
     """ save PDB entry parsing results to yaml files
 
     """
@@ -221,15 +299,15 @@ def save_entries(entries_native, entries_engineered_ecoli):
         # print(entry.id, entry.org_taxid, entry.het)
 
     # print(native_yaml_data)
-    to_yaml(native_yaml_data, 'pdb_het_native.yml')
+    to_yaml(native_yaml_data, 'pdb_het_native_of_'+str(query_org_id)+'.yml')
 
-    exp_ecoli_yaml_data = []
-    for entry in entries_engineered_ecoli:
-        exp_ecoli_yaml_data.append(entry.to_dict())
+    exp_query_yaml_data = []
+    for entry in entries_engineered_in_query:
+        exp_query_yaml_data.append(entry.to_dict())
         # print(entry.id, entry.org_taxid, entry.het)
 
     # print(native_yaml_data)
-    to_yaml(exp_ecoli_yaml_data, 'pdb_het_engineered_ecoli.yml')
+    to_yaml(exp_query_yaml_data, 'pdb_het_engineered_in_'+str(query_org_id)+'.yml')
 
 def reorganize_entries(entries_native):
     """ Reorganize entries by organism
@@ -245,29 +323,29 @@ def reorganize_entries(entries_native):
 
     return entries_org
 
-def get_ecoli_heterogen(entries_org, entries_engineered_ecoli):
-    """ Get the native and full heterogen set of ecoli and descendants
+def get_query_heterogen(entries_org, entries_engineered_in_query):
+    """ Get the native and full heterogen set of the query organism and descendants
 
     """
 
-    ecoli_native_het_set = set()
-    for ecoli_id in ecoli_ids:
-        if str(ecoli_id) in entries_org:
-            for ecoli_entry in entries_org[str(ecoli_id)]:
-                ecoli_native_het_set.update(ecoli_entry.het)
+    query_native_het_set = set()
+    for query_id in query_ids:
+        if str(query_id) in entries_org:
+            for query_entry in entries_org[str(query_id)]:
+                query_native_het_set.update(query_entry.het)
 
-    ecoli_full_het_set = set()
-    for entry in entries_engineered_ecoli:
-        ecoli_full_het_set.update(entry.het)
-    ecoli_full_het_set = ecoli_full_het_set | ecoli_native_het_set
+    query_full_het_set = set()
+    for entry in entries_engineered_in_query:
+        query_full_het_set.update(entry.het)
+    query_full_het_set = query_full_het_set | query_native_het_set
 
-    return (ecoli_native_het_set, ecoli_full_het_set)
+    return (query_native_het_set, query_full_het_set)
 
-def calc_perc_transformable(entries_org, ecoli_het_set, filename):
+def calc_perc_transformable(entries_org, query_het_set, out_filename):
     """ Calculate and write percent transformable
 
     """
-    fp = open(filename,'w')
+    fp = open(out_filename,'w')
     fp.write('org_id,possible_entries,total_entries,percent_transformable\n')
 
     df = pd.DataFrame(columns=['org_id','possible_entries','total_entries','percent_transformable'])
@@ -277,7 +355,7 @@ def calc_perc_transformable(entries_org, ecoli_het_set, filename):
         total_entries = 0
         for entry in org_entries_native:
             total_entries += 1
-            if entry.het.issubset(ecoli_het_set):
+            if entry.het.issubset(query_het_set):
                 possible_entries += 1
         fp.write('{},{},{},{:.4f}\n'.format(org_id, possible_entries, total_entries, possible_entries/total_entries))
         df = df.append(pd.Series([org_id, possible_entries, total_entries, possible_entries/total_entries], index=df.columns), ignore_index=True)
@@ -286,48 +364,48 @@ def calc_perc_transformable(entries_org, ecoli_het_set, filename):
     df = df.astype({'org_id':'int64', 'possible_entries':'int64', 'total_entries':'int64', 'percent_transformable':'float64' })
     return df
 
-def get_hets_by_entry(data_native, data_engineered_ecoli):
+def get_hets_by_entry(data_native, data_engineered_in_query):
 
-    # get ecoli hets data
-    ecoli_hets_by_entry = []
+    # get query hets data
+    query_hets_by_entry = []
     for entry in data_native:
-        if int(entry['org_taxid'][0]) in ecoli_ids:
+        if int(entry['org_taxid'][0]) in query_ids:
             # print(int(entry['org_taxid'][0]))
-            ecoli_hets_by_entry.append(set(entry['het']))
+            query_hets_by_entry.append(set(entry['het']))
 
-    print('ecoli native entries', len(ecoli_hets_by_entry))
+    print('query native entries', len(query_hets_by_entry))
 
-    # get ecoli hets data
-    ecoli_full_hets_by_entry = []
-    for entry in data_engineered_ecoli:
-        ecoli_full_hets_by_entry.append(set(entry['het']))
-    ecoli_full_hets_by_entry.extend(ecoli_hets_by_entry)
+    # get query hets data
+    query_full_hets_by_entry = []
+    for entry in data_engineered_in_query:
+        query_full_hets_by_entry.append(set(entry['het']))
+    query_full_hets_by_entry.extend(query_hets_by_entry)
 
-    print('ecoli total entries', len(ecoli_full_hets_by_entry))
+    print('query total entries', len(query_full_hets_by_entry))
 
-    return (ecoli_hets_by_entry, ecoli_full_hets_by_entry)
+    return (query_hets_by_entry, query_full_hets_by_entry)
 
 
-def analyze_rarefaction(ecoli_hets_by_entry, num_iter, filename):
+def analyze_rarefaction(query_hets_by_entry, num_iter, out_filename):
     """ Rarefaction analysis + write figure
 
     """
 
     # get all permutations of the list and calculate cumulative discovery
-    rarefaction_mat = np.linspace(1, len(ecoli_hets_by_entry), len(ecoli_hets_by_entry)).reshape(-1, 1)
+    rarefaction_mat = np.linspace(1, len(query_hets_by_entry), len(query_hets_by_entry)).reshape(-1, 1)
 
     permutation_list = []
 
     for i in range(num_iter):
         # print(i)
 
-        random.shuffle(ecoli_hets_by_entry)
+        random.shuffle(query_hets_by_entry)
 
         # get rarefaction curve data
         hets_set = set()
         rarefaction_list = []
-        for i in range(len(ecoli_hets_by_entry)):
-            hets_set = hets_set | ecoli_hets_by_entry[i]
+        for i in range(len(query_hets_by_entry)):
+            hets_set = hets_set | query_hets_by_entry[i]
             # print(hets_set)
             rarefaction_list.append(len(hets_set))
 
@@ -342,7 +420,9 @@ def analyze_rarefaction(ecoli_hets_by_entry, num_iter, filename):
 
     plt.figure()
     plt.plot(rarefaction_mat[:,0], rarefaction_mat[:,1])
-    plt.savefig(filename, dpi=300)
+    plt.xlabel('# of PDB entries')
+    plt.ylabel('# of n.c. aa')
+    plt.savefig(out_filename, dpi=300)
 
 def analyze_taxonomy(df_perc_transformable, type_suffix):
     print('Analyzing taxonomy of the',type_suffix,'dataset')
@@ -360,11 +440,11 @@ def analyze_taxonomy(df_perc_transformable, type_suffix):
     org_ids_valid = df_valid['org_id'].tolist()
 
     # get tree
-    tree = ncbi.get_topology(org_ids_valid)
+    tree = ncbi.get_topology(org_ids_valid, intermediate_nodes=True)
 
-    node_ecoli = tree&'562'
+    node_query = tree&(str(query_org_id))
 
-    # for each node, find common ancestor between it and the ecoli node.
+    # for each node, find common ancestor between it and the query organism node.
     # Iterate back from that node back to the root, and get the first node
     # that is not 'no rank'. That rank approximates the distance.
 
@@ -378,7 +458,7 @@ def analyze_taxonomy(df_perc_transformable, type_suffix):
     common_ancestor_ranks = {}
     for org_id in org_ids_valid:
         try:
-            common = node_ecoli.get_common_ancestor(tree&str(org_id))
+            common = node_query.get_common_ancestor(tree&str(org_id))
 
             if common.rank != 'no rank':
                 common_ancestor_ranks[org_id] = common.rank
@@ -405,16 +485,17 @@ def analyze_taxonomy(df_perc_transformable, type_suffix):
 
     # print(df_ranksuccess)
 
-    df_filtered = df_ranksuccess[df_ranksuccess['total_entries']>5]
+    # df_filtered = df_ranksuccess[df_ranksuccess['total_entries']>5]
+    df_filtered = df_ranksuccess.copy()
 
     # print(df_filtered)
 
-    # plot
-    plt.figure()
-    plt.scatter(df_filtered['ancestor_rank_val'], df_filtered['percent_transformable'], 10)
-    plt.ylim(0.75,1.05)
-    # plt.show()
-    plt.savefig("perc_vs_taxdist_by_species_"+type_suffix+".png", dpi=300)
+    # # plot
+    # plt.figure()
+    # plt.scatter(df_filtered['ancestor_rank_val'], df_filtered['percent_transformable'], 10)
+    # plt.ylim(0.75,1.05)
+    # # plt.show()
+    # plt.savefig('perc_vs_taxdist_by_species_'+type_suffix+'_'+str(query_org_id)+'.png', dpi=300)
 
     # calculate percentage transformable over each distance
 
@@ -431,46 +512,58 @@ def analyze_taxonomy(df_perc_transformable, type_suffix):
 
     plt.figure()
     plt.scatter(percent_by_dist_mat[:,0], percent_by_dist_mat[:,1], 10)
-    plt.ylim(0.75,1.05)
+    plt.xlabel('Taxonomic Distance')
+    plt.ylabel('Transformable')
+    # plt.ylim(0.75,1.05)
     # plt.show()
-    plt.savefig("perc_vs_taxdist_by_dist_"+type_suffix+".png", dpi=300)
+    plt.savefig('perc_vs_taxdist_by_dist_'+type_suffix+'_'+str(query_org_id)+'.png', dpi=300)
+
+
+def run_analyze_full_pdb_rarefaction(max_entries=None):
+
+    print('rarefaction analysis of full PDB database')
+
+    hets_by_entry = load_full_pdb_hets_by_entry_from_ftp(max_entries)
+
+    analyze_rarefaction(hets_by_entry, 10, 'rarefaction_pdb.png')
 
 
 
+def run_analyze_org(max_entries=None):
 
-def run(max_entries=None):
+    print('analyze organism', query_org_id)
 
-    (entries_native, entries_engineered_ecoli) = load_pdb(max_entries)
+    (entries_native, entries_engineered_in_query) = load_pdb_from_ftp(max_entries)
 
-    save_entries(entries_native, entries_engineered_ecoli)
+    save_entries(entries_native, entries_engineered_in_query)
 
     entries_org = reorganize_entries(entries_native)
 
-    (ecoli_native_het_set, ecoli_full_het_set) = get_ecoli_heterogen(entries_org, entries_engineered_ecoli)
-    print('e coli native heterogen set', ecoli_native_het_set)
-    print('e coli full heterogen set', ecoli_full_het_set)
+    (query_native_het_set, query_full_het_set) = get_query_heterogen(entries_org, entries_engineered_in_query)
+    print('query organism native heterogen set', query_native_het_set)
+    print('query organism full heterogen set', query_full_het_set)
 
-    df_perc_transformable_native = calc_perc_transformable(entries_org, ecoli_native_het_set, 'ecoli_transformable_based_on_native.csv')
-    df_perc_transformable_full = calc_perc_transformable(entries_org, ecoli_full_het_set, 'ecoli_transformable_based_on_full.csv')
+    df_perc_transformable_native = calc_perc_transformable(entries_org, query_native_het_set, 'query_transformable_based_on_native_'+str(query_org_id)+'.csv')
+    df_perc_transformable_full = calc_perc_transformable(entries_org, query_full_het_set, 'query_transformable_based_on_full_'+str(query_org_id)+'.csv')
 
     data_native = []
     for entry in entries_native:
         data_native.append(entry.to_dict())
-    data_engineered_ecoli = []
-    for entry in entries_engineered_ecoli:
-        data_engineered_ecoli.append(entry.to_dict())
+    data_engineered_in_query = []
+    for entry in entries_engineered_in_query:
+        data_engineered_in_query.append(entry.to_dict())
 
     # # if from yaml file, instead of the code above, use the block below:
     # yaml_reader = yaml.YAML()
     # with open(NATIVE_YML_FILE_PATH, 'rb') as file:
     #     data_native = yaml_reader.load(file)
-    # with open(ENGINEERED_ECOLI_YML_FILE_PATH, 'rb') as file:
-    #     data_engineered_ecoli = yaml_reader.load(file)
+    # with open(ENGINEERED_IN_QUERY_YML_FILE_PATH, 'rb') as file:
+    #     data_engineered_in_query = yaml_reader.load(file)
 
-    (ecoli_native_hets_by_entry, ecoli_full_hets_by_entry) = get_hets_by_entry(data_native, data_engineered_ecoli)
+    (query_native_hets_by_entry, query_full_hets_by_entry) = get_hets_by_entry(data_native, data_engineered_in_query)
 
-    analyze_rarefaction(ecoli_native_hets_by_entry, 1000, 'rarefaction_native.png')
-    analyze_rarefaction(ecoli_full_hets_by_entry, 10, 'rarefaction_full.png')
+    analyze_rarefaction(query_native_hets_by_entry, 1000, 'rarefaction_native_'+str(query_org_id)+'.png')
+    analyze_rarefaction(query_full_hets_by_entry, 10, 'rarefaction_full_'+str(query_org_id)+'.png')
 
     # # if from csv file, use the two lines below
     # df_perc_transformable_native = pd.read_csv(CSV_FILE_PATH_NATIVE)
@@ -480,5 +573,8 @@ def run(max_entries=None):
     analyze_taxonomy(df_perc_transformable_native, 'full')
 
 if __name__ == '__main__':
-    # run(max_entries=1000)
-    run()
+    # run_analyze_org(max_entries=1000)
+    run_analyze_full_pdb_rarefaction(max_entries=1000)
+
+    # run_analyze_org()
+    # run_analyze_full_pdb_rarefaction()
