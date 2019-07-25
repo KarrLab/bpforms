@@ -166,6 +166,61 @@ def load_full_pdb_hets_by_entry_from_ftp(max_entries):
     return hets_by_entry
 
 
+def load_full_pdb_hets_by_entry_from_local(max_entries):
+    """ read the PDB database and get heterogen sets for all entries from local directory
+
+    """
+    # get amino acid set (canonical and non-canonical) from bpforms
+    pdb_monomers = read_pdb_yaml()
+
+    print('loading PDB entries from local directory', LOCAL_PDB_PATH)
+    # connect to PDB FTP
+
+    hets_by_entry = []
+    total_i = 0
+
+    for root, directories, filenames in os.walk(LOCAL_PDB_PATH):
+
+        for filename in filenames:
+            if filename[0] != '.':
+                f = os.path.join(root,filename)
+
+                with gzip.open(f, 'rb') as gz:
+
+                    het_set = set()
+
+                    line = gz.readline().decode('utf-8').strip()
+
+                    while line != '':
+                        record_type = line[:6]
+
+                        if record_type == 'HET   ':
+                            het = line[7:10].strip()
+                            if het in pdb_monomers:
+                                het_set.add(het)
+
+                        line = gz.readline().decode('utf-8').strip()
+
+                    hets_by_entry.append(het_set)
+                    gz.close()
+
+                total_i += 1
+                # print(total_i)
+
+                if total_i % 100 == 0:
+                    print('progress:', total_i)
+
+                if isinstance(max_entries, int) and total_i == max_entries:
+                    break
+        else:
+            continue
+        break
+
+    print('total examined', total_i)
+
+    return hets_by_entry
+
+
 def load_pdb_from_ftp(max_entries):
     """ read the PDB database and parse the entries
 
@@ -285,6 +340,119 @@ def load_pdb_from_ftp(max_entries):
     print('total examined', total_i)
 
     return entries_native, entries_engineered_in_query
+
+def load_pdb_from_local(max_entries):
+    """ read the PDB database and parse the entries from local directory
+
+    """
+    # get amino acid set (canonical and non-canonical) from bpforms
+    pdb_monomers = read_pdb_yaml()
+
+    print('loading PDB entries from local directory', LOCAL_PDB_PATH)
+    # connect to PDB FTP
+
+    entries_native = []
+    entries_engineered_in_query = []
+
+    # get folders
+    total_i = 0
+    non_engineered_i = 0
+    engineered_in_query_i = 0
+
+    for root, directories, filenames in os.walk(LOCAL_PDB_PATH):
+
+        for filename in filenames:
+            if filename[0] != '.':
+                f = os.path.join(root,filename)
+
+                # read file
+                entry = Entry()
+                engineered = False
+
+                # parse file
+                with gzip.open(f, 'rb') as gz:
+
+                    line = gz.readline().decode('utf-8').strip()
+
+                    while line != '':
+                        record_type = line[:6]
+
+                        # get id
+                        if record_type == 'HEADER':
+                            entry.id = line[62:66]
+
+                        # get only non-engineered protein
+                        elif record_type == 'COMPND' and line[11:26] == 'ENGINEERED: YES':
+                            engineered = True
+
+                        # get organism
+                        elif record_type == 'SOURCE':
+                            if line[11:25] == 'ORGANISM_TAXID':
+                                if line[-1] == ';':
+                                    taxid = line[27:-1]
+                                else:
+                                    taxid = line[27:]
+
+                                if taxid.isdigit():
+                                    entry.org_taxid.add(int(taxid))
+
+                            elif line[11:34] == 'EXPRESSION_SYSTEM_TAXID':
+                                # print(file_pdb, line)
+                                if line[-1] == ';':
+                                    exp_taxid = line[36:-1]
+                                else:
+                                    exp_taxid = line[36:]
+                                if exp_taxid.isdigit():
+                                    entry.exp_org_taxid.add(int(exp_taxid))
+
+                        # get heterogen
+                        elif record_type == 'HET   ':
+                            het = line[7:10].strip()
+                            if het in pdb_monomers:
+                                entry.het.add(het)
+
+                        line = gz.readline().decode('utf-8').strip()
+
+                    gz.close()
+
+                if not engineered:
+                    # for now, only get entries that are exclusively from one organism
+                    if len(entry.org_taxid) == 1:
+                        # does not include those whose taxid is 'unidentified' or 'synthetic'
+                        taxid = list(entry.org_taxid)[0]
+                        if taxid != 32630 and taxid != 32644:
+
+                            entries_native.append(entry)
+                            # print(entry.id, entry.org_taxid, entry.het)
+                            non_engineered_i += 1
+                else:
+                    if len(entry.exp_org_taxid) == 1:
+                        taxid = list(entry.exp_org_taxid)[0]
+                        if taxid in query_ids:
+                            entries_engineered_in_query.append(entry)
+                            engineered_in_query_i += 1
+
+
+                total_i += 1
+                # print(total_i)
+
+                if total_i % 100 == 0:
+                    print('progress:', total_i)
+
+                if isinstance(max_entries, int) and total_i == max_entries:
+                    break
+        else:
+            continue
+        break
+
+
+    print('native', non_engineered_i)
+    print('engineered in query', engineered_in_query_i)
+    print('total examined', total_i)
+
+    return entries_native, entries_engineered_in_query
+
+
 
 
 def save_entries(entries_native, entries_engineered_in_query):
@@ -519,21 +687,27 @@ def analyze_taxonomy(df_perc_transformable, type_suffix):
     plt.savefig('perc_vs_taxdist_by_dist_'+type_suffix+'_'+str(query_org_id)+'.png', dpi=300)
 
 
-def run_analyze_full_pdb_rarefaction(max_entries=None):
+def run_analyze_full_pdb_rarefaction(max_entries=None, use_local=False):
 
     print('rarefaction analysis of full PDB database')
 
-    hets_by_entry = load_full_pdb_hets_by_entry_from_ftp(max_entries)
+    if use_local:
+        hets_by_entry = load_full_pdb_hets_by_entry_from_local(max_entries)
+    else:
+        hets_by_entry = load_full_pdb_hets_by_entry_from_ftp(max_entries)
 
     analyze_rarefaction(hets_by_entry, 10, 'rarefaction_pdb.png')
 
 
 
-def run_analyze_org(max_entries=None):
+def run_analyze_org(max_entries=None, use_local=False):
 
     print('analyze organism', query_org_id)
 
-    (entries_native, entries_engineered_in_query) = load_pdb_from_ftp(max_entries)
+    if use_local:
+        (entries_native, entries_engineered_in_query) = load_pdb_from_local(max_entries)
+    else:
+        (entries_native, entries_engineered_in_query) = load_pdb_from_ftp(max_entries)
 
     save_entries(entries_native, entries_engineered_in_query)
 
@@ -576,5 +750,5 @@ if __name__ == '__main__':
     # run_analyze_org(max_entries=1000)
     run_analyze_full_pdb_rarefaction(max_entries=1000)
 
-    # run_analyze_org()
-    # run_analyze_full_pdb_rarefaction()
+    # run_analyze_org(use_local=True)
+    # run_analyze_full_pdb_rarefaction(use_local=True)
