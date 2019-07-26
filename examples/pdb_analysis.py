@@ -630,13 +630,13 @@ def analyze_taxonomy(df_perc_transformable, type_suffix):
 
             if common.rank != 'no rank':
                 common_ancestor_ranks[org_id] = common.rank
-                continue
             else:
                 for ancestor_node in common.iter_ancestors():
                     if ancestor_node.rank != 'no rank':
                         common_ancestor_ranks[org_id] = ancestor_node.rank
-                        continue
-                common_ancestor_ranks[org_id] = 'no rank'
+                        break
+                else:
+                    common_ancestor_ranks[org_id] = 'no rank'
 
         except Exception as error:
             errors.append((org_id, error))
@@ -682,7 +682,7 @@ def analyze_taxonomy(df_perc_transformable, type_suffix):
     plt.scatter(percent_by_dist_mat[:,0], percent_by_dist_mat[:,1], 10)
     plt.xlabel('Taxonomic Distance')
     plt.ylabel('Transformable')
-    # plt.ylim(0.75,1.05)
+    plt.ylim(0.7,1.05)
     # plt.show()
     plt.savefig('perc_vs_taxdist_by_dist_'+type_suffix+'_'+str(query_org_id)+'.png', dpi=300)
 
