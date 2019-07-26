@@ -744,7 +744,7 @@ def run_analyze_org(max_entries=None, use_local=False):
     # df_perc_transformable_full = pd.read_csv(CSV_FILE_PATH_FULL)
 
     analyze_taxonomy(df_perc_transformable_native, 'native')
-    analyze_taxonomy(df_perc_transformable_native, 'full')
+    analyze_taxonomy(df_perc_transformable_full, 'full')
 
 if __name__ == '__main__':
     # run_analyze_org(max_entries=1000)
