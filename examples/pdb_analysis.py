@@ -509,12 +509,14 @@ def get_query_heterogen(entries_org, entries_engineered_in_query):
 
     return (query_native_het_set, query_full_het_set)
 
-def calc_perc_transformable(entries_org, query_het_set, out_filename):
+def calc_perc_transformable(entries_org, query_het_set, out_filename_prefix):
     """ Calculate and write percent transformable
 
     """
-    fp = open(out_filename,'w')
+    fp = open(out_filename_prefix+'.csv','w')
     fp.write('org_id,possible_entries,total_entries,percent_transformable\n')
+    fp_2 = open(out_filename_prefix+'_nottransformableentries.csv', 'w')
+    fp_2.write('entry_id, org_id, missing_hets\n')
 
     df = pd.DataFrame(columns=['org_id','possible_entries','total_entries','percent_transformable'])
 
@@ -525,10 +527,13 @@ def calc_perc_transformable(entries_org, query_het_set, out_filename):
             total_entries += 1
             if entry.het.issubset(query_het_set):
                 possible_entries += 1
+            else:
+                fp_2.write('{},{},{}\n'.format(entry.id, org_id, ' '.join(entry.het.difference(query_het_set))))
         fp.write('{},{},{},{:.4f}\n'.format(org_id, possible_entries, total_entries, possible_entries/total_entries))
         df = df.append(pd.Series([org_id, possible_entries, total_entries, possible_entries/total_entries], index=df.columns), ignore_index=True)
 
     fp.close()
+    fp_2.close()
     df = df.astype({'org_id':'int64', 'possible_entries':'int64', 'total_entries':'int64', 'percent_transformable':'float64' })
     return df
 
@@ -591,6 +596,31 @@ def analyze_rarefaction(query_hets_by_entry, num_iter, out_filename):
     plt.xlabel('# of PDB entries')
     plt.ylabel('# of n.c. aa')
     plt.savefig(out_filename, dpi=300)
+
+def analyze_het_frequency(query_hets_by_entry, out_filename_prefix):
+    """ calculate the frequency of each heterogen
+        frequency of heterogen = # of entries in which the heterogen appears / # of total entries
+    """
+    num_entries = len(query_hets_by_entry)
+    het_dict = {}
+    for het_entry in query_hets_by_entry:
+        for het in het_entry:
+            if het in het_dict:
+                het_dict[het] += 1
+            else:
+                het_dict[het] = 1
+    # print(het_dict)
+    df_het = pd.DataFrame(list(het_dict.items()), columns=['het', 'occurance'])
+    df_het.loc[:,'occurance'] /= num_entries
+    df_het_sorted = df_het.sort_values(by=['occurance'], ascending=False)
+    # print(df_het_sorted)
+    df_het_sorted.to_csv(out_filename_prefix+'.csv')
+
+    plt.figure()
+    df_het_sorted.hist(column='occurance', bins=100)
+    plt.xlabel('frequency of heterogen')
+    plt.ylabel('# of heterogen w/ that frequency')
+    plt.savefig(out_filename_prefix+'.png', dpi=300)
 
 def analyze_taxonomy(df_perc_transformable, type_suffix):
     print('Analyzing taxonomy of the',type_suffix,'dataset')
@@ -698,6 +728,16 @@ def run_analyze_full_pdb_rarefaction(max_entries=None, use_local=False):
 
     analyze_rarefaction(hets_by_entry, 10, 'rarefaction_pdb.png')
 
+def run_analyze_full_pdb_het_frequency(max_entries=None, use_local=False):
+
+    print('calculating heterogen frequency of full PDB database')
+
+    if use_local:
+        hets_by_entry = load_full_pdb_hets_by_entry_from_local(max_entries)
+    else:
+        hets_by_entry = load_full_pdb_hets_by_entry_from_ftp(max_entries)
+
+    analyze_het_frequency(hets_by_entry, 'het_frequency_pdb')
 
 
 def run_analyze_org(max_entries=None, use_local=False):
@@ -717,8 +757,8 @@ def run_analyze_org(max_entries=None, use_local=False):
     print('query organism native heterogen set', query_native_het_set)
     print('query organism full heterogen set', query_full_het_set)
 
-    df_perc_transformable_native = calc_perc_transformable(entries_org, query_native_het_set, 'query_transformable_based_on_native_'+str(query_org_id)+'.csv')
-    df_perc_transformable_full = calc_perc_transformable(entries_org, query_full_het_set, 'query_transformable_based_on_full_'+str(query_org_id)+'.csv')
+    df_perc_transformable_native = calc_perc_transformable(entries_org, query_native_het_set, 'query_transformable_based_on_native_'+str(query_org_id))
+    df_perc_transformable_full = calc_perc_transformable(entries_org, query_full_het_set, 'query_transformable_based_on_full_'+str(query_org_id))
 
     data_native = []
     for entry in entries_native:
@@ -747,8 +787,9 @@ def run_analyze_org(max_entries=None, use_local=False):
     analyze_taxonomy(df_perc_transformable_full, 'full')
 
 if __name__ == '__main__':
-    # run_analyze_org(max_entries=1000)
-    run_analyze_full_pdb_rarefaction(max_entries=1000)
+    run_analyze_org(max_entries=1000)
+    # run_analyze_full_pdb_rarefaction(max_entries=1000)
+    # run_analyze_full_pdb_het_frequency(max_entries=1000)
 
     # run_analyze_org(use_local=True)
     # run_analyze_full_pdb_rarefaction(use_local=True)
