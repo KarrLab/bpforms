@@ -57,8 +57,10 @@ class Entry(object):
 
     """
 
-    def __init__(self, id=None, org_taxid=None, exp_org_taxid=None, het=None):
+    def __init__(self, id=None, uniprot_id=None, org_taxid=None, exp_org_taxid=None, het=None):
         self.id = id
+        if uniprot_id is None:
+            self.uniprot_id = set()
         if org_taxid is None:
             self.org_taxid = set()
         if exp_org_taxid is None:
@@ -69,6 +71,7 @@ class Entry(object):
     def to_dict(self):
         d = {}
         d['id'] = self.id
+        d['self.uniprot_id'] = list(self.uniprot_id)
         d['org_taxid'] = list(self.org_taxid)
         d['exp_org_taxid'] = list(self.exp_org_taxid)
         d['het'] = list(self.het)
@@ -299,6 +302,9 @@ def load_pdb_from_ftp(max_entries):
                         if het in pdb_monomers:
                             entry.het.add(het)
 
+                    elif record_type == 'DBREF ' and line[26:29] == 'UNP':
+                        entry.uniprot_id.add(line[33:40].strip())
+
                     line = gz.readline().decode('utf-8').strip()
 
                 gz.close()
@@ -411,6 +417,9 @@ def load_pdb_from_local(max_entries):
                             if het in pdb_monomers:
                                 entry.het.add(het)
 
+                        elif record_type == 'DBREF ' and line[26:29] == 'UNP':
+                            entry.uniprot_id.add(line[33:40].strip())
+
                         line = gz.readline().decode('utf-8').strip()
 
                     gz.close()
@@ -516,7 +525,7 @@ def calc_perc_transformable(entries_org, query_het_set, out_filename_prefix):
     fp = open(out_filename_prefix+'.csv','w')
     fp.write('org_id,possible_entries,total_entries,percent_transformable\n')
     fp_2 = open(out_filename_prefix+'_nottransformableentries.csv', 'w')
-    fp_2.write('entry_id, org_id, missing_hets\n')
+    fp_2.write('entry_id, uniprot_id, org_id, missing_hets\n')
 
     df = pd.DataFrame(columns=['org_id','possible_entries','total_entries','percent_transformable'])
 
@@ -528,7 +537,7 @@ def calc_perc_transformable(entries_org, query_het_set, out_filename_prefix):
             if entry.het.issubset(query_het_set):
                 possible_entries += 1
             else:
-                fp_2.write('{},{},{}\n'.format(entry.id, org_id, ' '.join(entry.het.difference(query_het_set))))
+                fp_2.write('{},{},{},{}\n'.format(entry.id, ' '.join(entry.uniprot_id), org_id, ' '.join(entry.het.difference(query_het_set))))
         fp.write('{},{},{},{:.4f}\n'.format(org_id, possible_entries, total_entries, possible_entries/total_entries))
         df = df.append(pd.Series([org_id, possible_entries, total_entries, possible_entries/total_entries], index=df.columns), ignore_index=True)
 
@@ -792,6 +801,6 @@ if __name__ == '__main__':
     # run_analyze_full_pdb_rarefaction(max_entries=1000)
     # run_analyze_full_pdb_het_frequency(max_entries=1000)
 
-    # run_analyze_org(use_local=True)
+    run_analyze_org(use_local=True)
     # run_analyze_full_pdb_rarefaction(use_local=True)
-    run_analyze_full_pdb_het_frequency(use_local=True)
+    # run_analyze_full_pdb_het_frequency(use_local=True)
