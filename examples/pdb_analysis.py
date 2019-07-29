@@ -618,6 +618,7 @@ def analyze_het_frequency(query_hets_by_entry, out_filename_prefix):
 
     plt.figure()
     df_het_sorted.hist(column='occurance', bins=100)
+    plt.xscale('log')
     plt.xlabel('frequency of heterogen')
     plt.ylabel('# of heterogen w/ that frequency')
     plt.savefig(out_filename_prefix+'.png', dpi=300)
@@ -787,9 +788,10 @@ def run_analyze_org(max_entries=None, use_local=False):
     analyze_taxonomy(df_perc_transformable_full, 'full')
 
 if __name__ == '__main__':
-    run_analyze_org(max_entries=1000)
+    # run_analyze_org(max_entries=1000)
     # run_analyze_full_pdb_rarefaction(max_entries=1000)
     # run_analyze_full_pdb_het_frequency(max_entries=1000)
 
     # run_analyze_org(use_local=True)
     # run_analyze_full_pdb_rarefaction(use_local=True)
+    run_analyze_full_pdb_het_frequency(use_local=True)
