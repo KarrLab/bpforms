@@ -5,7 +5,7 @@
 
 `BpForms` emcompasses five tools:
 
-* A notation for concretely describing the primary structures of non-canonical biopolymers. See :numref:`notation` for detailed information. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomeric form at the fourth position:
+* A grammar for concretely describing the primary structures of non-canonical biopolymers. See :numref:`grammar` for detailed information. For example, the following represents a modified DNA molecule that contains a deoxyinosine monomeric form at the fourth position:
   ::
 
     ACG{dI}

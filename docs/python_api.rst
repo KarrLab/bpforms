@@ -16,7 +16,7 @@ Run this command to import `BpForms`::
 Creating biopolymer forms
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Use the `BpForms` notation and the ``bpforms.BpForm.from_str`` method to create an instance of ``bpforms.BpForm`` that represents a form of a biopolymer::
+Use the `BpForms` grammar and the ``bpforms.BpForm.from_str`` method to create an instance of ``bpforms.BpForm`` that represents a form of a biopolymer::
 
     dna_form = bpforms.DnaForm().from_str('ACG{m2C}AC')
 

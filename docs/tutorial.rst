@@ -5,7 +5,7 @@ Tutorial
     :maxdepth: 2
     :caption: Table of contents
 
-    notation.rst
+    grammar.rst
     website.rst
     rest_api.rst
     cli.rst

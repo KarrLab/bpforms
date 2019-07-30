@@ -27,7 +27,7 @@
         <div class="large-7 cell">
           <p><i>BpForms</i> is a toolkit for unambiguously describing the molecular structure (atoms and bonds) of DNA, RNA, and proteins, including non-canonical monomeric forms (subunits which compose polymers), circular topologies, and crosslinks. By concretely describing the molecular structure of biopolymers, <i>BpForms</i> aims to help epigenomics, transcriptomics, proteomics, systems biology, and synthetic biology researchers share and integrate information about DNA modification, post-transcriptional modification, post-translational modification, expanded genetic codes, and synthetic parts. In particular, <i>BpForms</i> was developed to help researchers collaboratively develop whole-cell computational models <a href="https://www.wholecell.org"><i class="fi-link"></i></a>.</p>
 
-          <p><i>BpForms</i> includes a notation for describing biopolymer forms and three consensus alphabets of non-canonical monomeric forms of DNA nucleotide monophosphates, RNA nucleotide monophosphates, and protein amino acids. <i>BpForms</i> also includes four software tools for verifying descriptions of biopolymer forms and calculating properties such as their molecular structure, formula, molecular weight, and charge: this website, a JSON REST API <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>, a command line interface <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>, and a Python API <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>. <i>BpForms</i> is available open-source <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a> under the MIT license.</p>
+          <p><i>BpForms</i> includes a grammar for describing biopolymer forms and three consensus alphabets of non-canonical monomeric forms of DNA nucleotide monophosphates, RNA nucleotide monophosphates, and protein amino acids. <i>BpForms</i> also includes four software tools for verifying descriptions of biopolymer forms and calculating properties such as their molecular structure, formula, molecular weight, and charge: this website, a JSON REST API <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>, a command line interface <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>, and a Python API <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>. <i>BpForms</i> is available open-source <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a> under the MIT license.</p>
         </div>
         <div class="large-5 cell">
           <div class="toc">
@@ -36,7 +36,7 @@
               <div class="large-6 cell">
                 <ul>
                   <li><a href="#calculator">Online verifier/calculator</a></li>
-                  <li><a href="#notation">Notation</a>
+                  <li><a href="#grammar">Grammar</a>
                     <ul>
                       <li><a href="#alphabets">Alphabets</a></li>
                       <li><a href="#inline-monomers">Inline monomeric forms</a>
@@ -164,14 +164,14 @@
       </div>
 
       <div class="grid-x grid-padding-x orange">
-        <a name="notation"></a>
+        <a name="grammar"></a>
         <div class="large-12 cell">
-            <h2><i>BpForms</i> notation</h2>
+            <h2><i>BpForms</i> grammar</h2>
         </div>
 
-        <div class="large-5 cell notation">
+        <div class="large-5 cell grammar">
           <h3>Overview</h3>
-          <p class="before_list">The <i>BpForms</i> notation extends the IUPAC/IUBMB notation commonly used to represent unmodified DNA, RNA, and proteins to describe non-canonical forms of DNA, RNA, and proteins:</p>
+          <p class="before_list">The <i>BpForms</i> grammar extends the IUPAC/IUBMB notation commonly used to represent unmodified DNA, RNA, and proteins to describe non-canonical forms of DNA, RNA, and proteins:</p>
           <ul>
             <li><i>BpForms</i> can represent a wider range of monomeric forms, including monomeric forms that are not described in pre-defined alphabets. See the Alphabets section below for more information.</li>
             <li><i>BpForms</i> can capture left and right caps such as 5' caps.</li>
@@ -252,7 +252,7 @@
           </div>
         </div>
 
-        <div class="large-5 cell notation">
+        <div class="large-5 cell grammar">
           <a name="alphabets"></a>
           <h3>Alphabets</h3>
           <p style="margin-bottom: 0px;"><i>BpForms</i> includes several alphabets. Each alphabet describes hundreds of monomeric forms.</p>
@@ -310,7 +310,7 @@
           </div>
         </div>
 
-        <div class="large-5 cell notation">
+        <div class="large-5 cell grammar">
           <a name="inline-monomers"></a>
           <h3>"Inline" monomeric forms</h3>
           <p>Monomeric forms which are not defined in the alphabet can be defined "inline" within the sequence of monomeric forms.</p>
@@ -348,7 +348,7 @@
     ]</pre>
         </div>
 
-        <div class="large-5 cell notation">
+        <div class="large-5 cell grammar">
           <a name="molecular-structure"></a>
           <h4>Molecular structure</h4>
           <p>The <tt class="attribute">structure</tt> attribute describes the molecular structure of the monomeric form. This attribute must be a SMILES-encoded string, and the atoms should be canonically ordered (i.e., OpenBabel canonical SMILES format). Each monomeric form can only have one structure attribute. This attribute is required to calculate the molecular structure of the polymer.</p>
@@ -375,7 +375,7 @@
           </div>
         </div>
 
-        <div class="large-5 cell notation">
+        <div class="large-5 cell grammar">
           <a name="adjacent-bonds"></a>
           <h4>Bonds with adjacent monomers</h4>
           <p>The <tt class="attribute">l-bond-atom</tt> and <tt class="attribute">l-displaced-atom</tt> attributes describe bonds with preceding monomeric forms; the <tt class="attribute">r-bond-atom</tt> and <tt class="attribute">r-displaced-atom</tt> attributes describe bonds with succeeding monomeric forms.</p>
@@ -416,7 +416,7 @@
           </div>
         </div>
 
-        <div class="large-5 cell notation">
+        <div class="large-5 cell grammar">
           <a name="uncertainty"></a>
           <h4>Structure and positional uncertainty</h4>
           <p class="before_list">Through the inline monomeric forms, <i>BpForms</i> can represent two types of uncertainty in the molecular structure of forms of biopolymers:</p>
@@ -435,7 +435,7 @@
         </div>
 
 
-        <div class="large-5 cell notation">
+        <div class="large-5 cell grammar">
           <a name="metadata"></a>
           <h4>Metadata</h4>
           <p class="before_list"><i>BpForms</i> can represent several types of metadata about inline monomeric forms:</p>
@@ -456,7 +456,7 @@
           </ul>
         </div>
 
-        <div class="large-5 cell notation">
+        <div class="large-5 cell grammar">
           <a name="topology"></a>
           <h3>Circular and linear topologies</h3>
           <p>By default, <i>BpForms</i> describes linear polymers. The <tt class="attribute">circular</tt> polymer attribute can be used to indicate that the polymer is circular (there is a bond between the last and first monomeric forms).</p>
@@ -480,7 +480,7 @@
           </div>
         </div>
 
-        <div class="large-5 cell notation">
+        <div class="large-5 cell grammar">
           <a name="crosslinks"></a>
           <h3>Crosslinks between non-adjacent monomers</h3>
           <p>The <tt class="attribute">x-link</tt> polymer attribute can be used to indicate a bond between non-adjacent monomeric forms. For example, this attribute can be used to describe intrastrand crosslinks in DNA and disulfide bonds between cysteines in proteins.</p>
@@ -914,8 +914,8 @@ REMARK   1 <span class="bpform">KFLVGPDGVPVRRYSRRFLTIDIEPDIETLLSQGASA</span>
           <h2>Tutorials, documentation, and help</h2>
         </div>
         <div class="large-6 cell">
-          <h3>Documentation for the notation</h3>
-          Documentation for the notation is available above <a href="#notation"><i class="fi-link"></i></a>. The grammar for the notation is available at GitHub <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i></a>
+          <h3>Documentation for the grammar</h3>
+          Documentation for the grammar is available above <a href="#grammar"><i class="fi-link"></i></a>. The definition of the grammar is available at GitHub <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i></a>
         </div>
         <div class="large-6 cell">
           <h3>Definitions of the monomeric forms in the alphabets</h3>

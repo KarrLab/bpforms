@@ -12,7 +12,7 @@
 
 `BpForms` encompasses five tools:
 
-* A notation for concretely describing the primary structures of non-canonical biopolymers. See the [documentation](https://docs.karrlab.org/bpforms/) for more information. For example, the following text represents a modified DNA molecule that contains a deoxyinosine monomeric form at the fourth position.
+* A grammar for concretely describing the primary structures of non-canonical biopolymers. See the [documentation](https://docs.karrlab.org/bpforms/) for more information. For example, the following text represents a modified DNA molecule that contains a deoxyinosine monomeric form at the fourth position.
   ```
   ACG[id: "dI"
        | structure: "[H][C@]1(O)C[C@@]([H])(O[C@]1([H])CO)N1C=NC2=C1N=CN=C2O"]T
