@@ -525,7 +525,7 @@ def calc_perc_transformable(entries_org, query_het_set, out_filename_prefix):
     fp = open(out_filename_prefix+'.csv','w')
     fp.write('org_id,possible_entries,total_entries,percent_transformable\n')
     fp_2 = open(out_filename_prefix+'_nottransformableentries.csv', 'w')
-    fp_2.write('entry_id, uniprot_id, org_id, missing_hets\n')
+    fp_2.write('entry_id,uniprot_id,org_id,missing_hets\n')
 
     df = pd.DataFrame(columns=['org_id','possible_entries','total_entries','percent_transformable'])
 
@@ -627,7 +627,7 @@ def analyze_het_frequency(query_hets_by_entry, out_filename_prefix):
 
     plt.figure()
     df_het_sorted.hist(column='occurance', bins=100)
-    plt.xscale('log')
+    # plt.xscale('log')
     plt.xlabel('frequency of heterogen')
     plt.ylabel('# of heterogen w/ that frequency')
     plt.savefig(out_filename_prefix+'.png', dpi=300)
@@ -796,11 +796,48 @@ def run_analyze_org(max_entries=None, use_local=False):
     analyze_taxonomy(df_perc_transformable_native, 'native')
     analyze_taxonomy(df_perc_transformable_full, 'full')
 
+
+def run_analyze_untransformable_freq(filename):
+    """ qualatatively analyze the physiological roles of the most frequent untransformable modifications
+
+    """
+    df = pd.read_csv(filename)
+    untransformable_hets_by_entry = []
+    for entry in df['missing_hets'].tolist():
+        untransformable_hets_by_entry.append(set(entry.split(' ')))
+
+    analyze_het_frequency(untransformable_hets_by_entry, 'untransformable_het_freq')
+
+def run_analyze_uniprot_ids(filename):
+    """ get 1 uniprot id per entry and get the unique ids
+
+    """
+    df = pd.read_csv(filename, converters={'uniprot_id': lambda x: str(x)})
+    unique_uniprot_ids = set()
+    for entry in df['uniprot_id'].tolist():
+        for id in entry.split(' '):
+            if id != '':
+                unique_uniprot_ids.add(id)
+                # take one from each entry
+                break
+
+    fp = open('untransformable_uniprot_ids.txt', 'w')
+    for id in unique_uniprot_ids:
+        fp.write('{}\n'.format(id))
+
+    fp.close()
+
+
 if __name__ == '__main__':
     # run_analyze_org(max_entries=1000)
     # run_analyze_full_pdb_rarefaction(max_entries=1000)
     # run_analyze_full_pdb_het_frequency(max_entries=1000)
 
-    run_analyze_org(use_local=True)
+    # run_analyze_org(use_local=True)
     # run_analyze_full_pdb_rarefaction(use_local=True)
     # run_analyze_full_pdb_het_frequency(use_local=True)
+
+    filename_untransformable = '/root/karrlab/miscellaneous/pdb_analysis/query_transformable_based_on_full_562_nottransformableentries.csv'
+    # filename_untransformable = '/root/karrlab/miscellaneous/pdb_analysis/query_transformable_based_on_full_4932_nottransformableentries.csv'
+    # run_analyze_untransformable_freq(filename_untransformable)
+    run_analyze_uniprot_ids(filename_untransformable)
