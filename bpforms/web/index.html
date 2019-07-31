@@ -5,11 +5,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BpForms: a toolkit for concretely describing non-canonical DNA, RNA, and proteins</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-icon-fonts@0.1.1/foundation-icons.css" 
-        integrity="sha256-CWltC/W+elkkUKhitcztPiSfE3AEpzAvrkmEqB68Lx0=" 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-icon-fonts@0.1.1/foundation-icons.css"
+        integrity="sha256-CWltC/W+elkkUKhitcztPiSfE3AEpzAvrkmEqB68Lx0="
         crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css" 
-      integrity="sha256-xpOKVlYXzQ3P03j397+jWFZLMBXLES3IiryeClgU5og= sha384-gP4DhqyoT9b1vaikoHi9XQ8If7UNLO73JFOOlQV1RATrA7D0O7TjJZifac6NwPps sha512-AKwIib1E+xDeXe0tCgbc9uSvPwVYl6Awj7xl0FoaPFostZHOuDQ1abnDNCYtxL/HWEnVOMrFyf91TDgLPi9pNg==" 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css"
+      integrity="sha256-xpOKVlYXzQ3P03j397+jWFZLMBXLES3IiryeClgU5og= sha384-gP4DhqyoT9b1vaikoHi9XQ8If7UNLO73JFOOlQV1RATrA7D0O7TjJZifac6NwPps sha512-AKwIib1E+xDeXe0tCgbc9uSvPwVYl6Awj7xl0FoaPFostZHOuDQ1abnDNCYtxL/HWEnVOMrFyf91TDgLPi9pNg=="
       crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
@@ -47,8 +47,8 @@
                           <li><a href="#metadata">Metadata</a></li>
                         </ul>
                       </li>
-                      <li><a href="#topology">Circularity</a></li>
                       <li><a href="#crosslinks">Crosslinks</a></li>
+                      <li><a href="#topology">Circularity</a></li>
                     </ul>
                   </li>
                   <li><a href="#use-cases">User interfaces</a>
@@ -175,16 +175,16 @@
           <ul>
             <li><i>BpForms</i> can represent a wider range of monomeric forms, including monomeric forms that are not described in pre-defined alphabets. See the Alphabets section below for more information.</li>
             <li><i>BpForms</i> can capture left and right caps such as 5' caps.</li>
-            <li><i>BpForms</i> can capture linear and circular topologies of polymers.</li>
             <li><i>BpForms</i> can capture intrastrand crosslinks (additional bonds between non-adjacent monomeric forms).</li>
+            <li><i>BpForms</i> can capture linear and circular topologies of polymers.</li>
             <li><i>BpForms</i> has concrete semantics for generating molecular structures from its compressed representation of sequences of monomeric forms.</li>
           </ul>
 
           <p class="before_list"><i>BpForms</i> descriptions of biopolymers consists of three parts separated by pipes ("|") (e.g., <tt>A{pSer}Y | circular | x-link: [...]</tt>):</p>
           <ul>
             <li>A sequence of strings that indicate monomeric forms of an alphabet bonded together (e.g., <tt>A{pSer}Y</tt>. As described below, <i>BpForms</i> includes six alphabets of hundreds of monomeric forms of DNA, RNA, and proteins, and users can define additional alphabets.</li>
-            <li>An optional attribute for indicating the circularity of the polymer (e.g., <tt>circular</tt>). See below for additional information.</li>
             <li>An optional set of crosslinks which describe bonds between non-adjacent monomeric forms (e.g., <tt>x-link: [...]</tt>). See below for additional information.</li>
+            <li>An optional attribute for indicating the circularity of the polymer (e.g., <tt>circular</tt>). See below for additional information.</li>
           </ul>
 
           <p class="before_list">The monomeric forms in the sequence of monomeric forms can be described in three ways:</p>
@@ -320,7 +320,7 @@
           <p class="before_list">The inline monomeric forms support seven types of attributes. See below for more information about each attribute.</p>
           <ul>
             <li><tt>id</tt>, <tt>name</tt>, <tt>synonym</tt>: These attributes indicate human-readable names for the monomeric form.</li>
-            <li><tt>structure</tt>: This attribute indicates the molecular structure of the monomeric form.</li>          
+            <li><tt>structure</tt>: This attribute indicates the molecular structure of the monomeric form.</li>
             <li><tt>l-bond-atom</tt>, <tt>l-displaced-atom</tt>, <tt>r-bond-atom</tt>, <tt>r-displaced-atom</tt>: These attributes indicate the atoms in the structure that participate in bonds with the preceding and following monomeric forms in the sequence and the atoms that are displaced by the formation of these bonds.</li>
             <li><tt>delta-mass</tt>, <tt>delta-charge</tt>, <tt>position</tt>: These attributes can be used to describe uncertainty in the structure and location of the monomeric form.</li>
             <li><tt>identifier</tt>: This attribute indicates an entry in a database or ontology which is equivalent to the monomeric form.</li>
@@ -457,35 +457,11 @@
         </div>
 
         <div class="large-5 cell grammar">
-          <a name="topology"></a>
-          <h3>Circular and linear topologies</h3>
-          <p>By default, <i>BpForms</i> describes linear polymers. The <tt class="attribute">circular</tt> polymer attribute can be used to indicate that the polymer is circular (there is a bond between the last and first monomeric forms).</p>
-        </div>
-        <div class="large-7 cell example">
-          <h3>Example</h3>
-          <div class="grid-x grid-padding-x">
-            <div class="large-12 cell">
-              <p>The example below illustrates how to describe the circular DNA dimer of the DNA nucleotides deoxyadenosine monophosphate and deoxycytosine monophosphate. The green lines indicate the bonds between successive nucleotides. The black labels indicate the positions of monomeric forms within the sequence.</p>
-            </div>
-            <div class="large-8 cell syntax">
-              <pre>AC | circular</pre>
-            </div>
-            <div class="large-4 cell image">
-              <a data-fancybox="gallery"
-                href="img/example/circular-DNA-AC.svg"
-                data-width="600">
-                <img src="img/example/circular-DNA-AC.svg"/>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="large-5 cell grammar">
           <a name="crosslinks"></a>
           <h3>Crosslinks between non-adjacent monomers</h3>
           <p>The <tt class="attribute">x-link</tt> polymer attribute can be used to indicate a bond between non-adjacent monomeric forms. For example, this attribute can be used to describe intrastrand crosslinks in DNA and disulfide bonds between cysteines in proteins.</p>
 
-          <p>Each Crosslink can be described by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., "<tt>| x-link: [l-bond-atom: 1C1 | r-bond-atom: 3C2 | ...]</tt>").</p>
+          <p>Each crosslink can be described by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., "<tt>| x-link: [l-bond-atom: 1C1 | r-bond-atom: 3C2 | ...]</tt>").</p>
 
           <p class="before_list">Each crosslink can be described with four types of attributes:</p>
           <ul>
@@ -514,6 +490,30 @@
                 href="img/example/crosslink-protein-sulfide-bond.svg"
                 data-width="600">
                 <img src="img/example/crosslink-protein-sulfide-bond.svg"/>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      <div class="large-5 cell grammar">
+          <a name="topology"></a>
+          <h3>Circular and linear topologies</h3>
+          <p>By default, <i>BpForms</i> describes linear polymers. The <tt class="attribute">circular</tt> polymer attribute can be used to indicate that the polymer is circular (there is a bond between the last and first monomeric forms).</p>
+        </div>
+        <div class="large-7 cell example">
+          <h3>Example</h3>
+          <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+              <p>The example below illustrates how to describe the circular DNA dimer of the DNA nucleotides deoxyadenosine monophosphate and deoxycytosine monophosphate. The green lines indicate the bonds between successive nucleotides. The black labels indicate the positions of monomeric forms within the sequence.</p>
+            </div>
+            <div class="large-8 cell syntax">
+              <pre>AC | circular</pre>
+            </div>
+            <div class="large-4 cell image">
+              <a data-fancybox="gallery"
+                href="img/example/circular-DNA-AC.svg"
+                data-width="600">
+                <img src="img/example/circular-DNA-AC.svg"/>
               </a>
             </div>
           </div>
@@ -995,8 +995,8 @@ REMARK   1 <span class="bpform">KFLVGPDGVPVRRYSRRFLTIDIEPDIETLLSQGASA</span>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js" 
-      integrity="sha256-/PFxCnsMh+nTuM0k3VJCRch1gwnCfKjaP8rJNq5SoBg= sha384-9ksAFjQjZnpqt6VtpjMjlp2S0qrGbcwF/rvrLUg2vciMhwc1UJJeAAOLuJ96w+Nj sha512-UMSn6RHqqJeJcIfV1eS2tPKCjzaHkU/KqgAnQ7Nzn0mLicFxaVhm9vq7zG5+0LALt15j1ljlg8Fp9PT1VGNmDw==" 
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js"
+      integrity="sha256-/PFxCnsMh+nTuM0k3VJCRch1gwnCfKjaP8rJNq5SoBg= sha384-9ksAFjQjZnpqt6VtpjMjlp2S0qrGbcwF/rvrLUg2vciMhwc1UJJeAAOLuJ96w+Nj sha512-UMSn6RHqqJeJcIfV1eS2tPKCjzaHkU/KqgAnQ7Nzn0mLicFxaVhm9vq7zG5+0LALt15j1ljlg8Fp9PT1VGNmDw=="
       crossorigin="anonymous"></script>
     <script src="js/app.js"></script>
   </body>
