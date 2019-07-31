@@ -107,6 +107,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         alphabet.monomers.AA0027.identifiers.remove(Identifier('cas', '17576'))
         alphabet.monomers.AA0230.identifiers.remove(Identifier('pdb.ligand', 'NO'))
         alphabet.monomers.AA0232.identifiers.remove(Identifier('pdb.ligand', 'OTD'))
+        alphabet.monomers.D.base_monomers.clear()
         for monomer in alphabet.monomers.values():
             for identifier in list(monomer.identifiers):
                 if identifier.ns == 'pdb.ligand' and identifier.id == 'ACE':
@@ -505,7 +506,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 smiles = smiles_conv.WriteString(mol).partition('\t')[0]
 
                 # exclude from alphabet because entry minus O- is equivalent to another entry
-                if id in ['5XU', 'ASA', 'GND', 'PHA', 'RGL', 'TYB']:
+                if id in ['ASA', 'GND']:
                     continue
 
                 # merge into alphabet
