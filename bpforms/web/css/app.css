@@ -96,6 +96,14 @@ pre .bpform {
     color: #3bafda;
 }
 
+pre .bpform-attr {
+    color: #2ad7b0;
+}
+
+pre .bpform-val {
+    color: #fe174b;
+}
+
 pre .modification {
     color: #da3baf;
     font-weight: bold;
