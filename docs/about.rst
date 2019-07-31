@@ -40,4 +40,4 @@ This work was supported by a National Institute of Health P41 award [grant numbe
 Questions and comments
 ----------------------
 
-Please contact the `Karr Lab <https://www.karrlab.org/>`_ with any questions or comments.
+Please contact the `Karr Lab <mailto:info@karrlab.org>`_ with any questions or comments.
