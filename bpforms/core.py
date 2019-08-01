@@ -391,17 +391,17 @@ class Monomer(object):
         """ Set structure
 
         Args:
-            value (:obj:`openbabel.OBMol` or :obj:`str`): OpenBabel molecule, canonical SMILES-encoded structure, or None
+            value (:obj:`openbabel.OBMol` or :obj:`str`): Open Babel molecule, canonical SMILES-encoded structure, or None
 
         Raises:
-            :obj:`ValueError`: if value is not an OpenBabel molecule, canonical SMILES-encoded structure, or None
+            :obj:`ValueError`: if value is not an Open Babel molecule, canonical SMILES-encoded structure, or None
         """
         if value and not isinstance(value, openbabel.OBMol):
             ob_mol = openbabel.OBMol()
             conversion = openbabel.OBConversion()
             assert conversion.SetInFormat('smi'), 'Unable to set format to SMILES'
             if not conversion.ReadString(ob_mol, value):
-                raise ValueError('`structure` must be an OpenBabel molecule, canonical SMILES-encoded structure, or None')
+                raise ValueError('`structure` must be an Open Babel molecule, canonical SMILES-encoded structure, or None')
             value = ob_mol
 
         self._structure = value or None
@@ -1847,7 +1847,7 @@ class Backbone(object):
         """
         Args:
             structure (:obj:`str` or :obj:`openbabel.OBMol`, optional): chemical structure as canonical 
-                SMILES-encoded string or OpenBabel molecule
+                SMILES-encoded string or Open Babel molecule
             monomer_bond_atoms (:obj:`AtomList`, optional): atoms from backbone that bond to monomeric form
             monomer_displaced_atoms (:obj:`AtomList`, optional): atoms from backbone displaced by bond to monomeric form
         """
@@ -1869,14 +1869,14 @@ class Backbone(object):
         """ Set the structure
 
         Args:
-            value (:obj:`str` or :obj:`openbabel.OBMol`): structure as canonical SMILES-encoded string or OpenBabel molecule
+            value (:obj:`str` or :obj:`openbabel.OBMol`): structure as canonical SMILES-encoded string or Open Babel molecule
         """
         if value is not None and not isinstance(value, openbabel.OBMol):
             ob_mol = openbabel.OBMol()
             conversion = openbabel.OBConversion()
             assert conversion.SetInFormat('smi'), 'Unable to set format to SMILES'
             if not conversion.ReadString(ob_mol, value):
-                raise ValueError('`structure` must be an OpenBabel molecule, canonical SMILES-encoded structure, or None')
+                raise ValueError('`structure` must be an Open Babel molecule, canonical SMILES-encoded structure, or None')
             value = ob_mol
         self._structure = value
 
@@ -2770,7 +2770,7 @@ class BpForm(object):
         return mol
 
     def get_structure(self, include_all_hydrogens=False):
-        """ Get an OpenBabel molecule of the structure
+        """ Get an Open Babel molecule of the structure
 
         Args:
             include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, explicitly include all
@@ -2778,7 +2778,7 @@ class BpForm(object):
 
         Returns:
             :obj:`tuple`:
-                * :obj:`openbabel.OBMol`: OpenBabel molecule of the structure
+                * :obj:`openbabel.OBMol`: Open Babel molecule of the structure
                 * :obj:`dict` of :obj:`dict`: dictionary which maps indices (1-based) of monomeric forms
                     to dictionaries which map types of components of monomeric forms ('monomer' or 'backbone')
                     to dictionaries which map indices (1-based) of atoms to atoms (instances of :obj:`openbabel.OBAtom`)

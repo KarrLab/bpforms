@@ -33,4 +33,4 @@ The following are valuable resources for reconstructing DNA, RNA, and protein mo
 * Drawing structures of monomeric forms
 
     * `ChemAxon Marvin <https://chemaxon.com/products/marvin>`_: Software for drawing structures of monomeric forms
-    * `OpenBabel <http://openbabel.org/wiki/Category:Installation>`_: Software for calculating the numbers of the atoms in monomeric forms
+    * `Open Babel <http://openbabel.org/wiki/Category:Installation>`_: Software for calculating the numbers of the atoms in monomeric forms

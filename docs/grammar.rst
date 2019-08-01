@@ -28,7 +28,7 @@ Sections 2.1.1 - 2.1.6 describe the attributes of monomeric forms. Please also s
 Structure
 ^^^^^^^^^
 
-The ``structure`` attribute describes the chemical structure of the monomeric form as a SMILES-encoded string, preferably with the atoms canonicaly ordered (e.g., in OpenBabel canonical SMILES format).::
+The ``structure`` attribute describes the chemical structure of the monomeric form as a SMILES-encoded string, preferably with the atoms canonicaly ordered (e.g., in Open Babel canonical SMILES format).::
 
     [id: "dI" |
         structure: "OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O"
