@@ -22,6 +22,8 @@ recursive-include bpforms/alphabet *.yml
 
 # website
 graft bpforms/web
+prune bpforms/web/data
+prune bpforms/web/img
 
 # examples
-graft examples
+recursive-include examples *.ipynb

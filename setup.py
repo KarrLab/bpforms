@@ -14,10 +14,10 @@ package_data = {
         'VERSION',
         'grammar.lark',
         'alphabet/*.yml',  # alphabets
-        'alphabet/*.sqlite',  # alphabets
         'config/*.cfg',
         'web/*',  # website
-        'web/**/*',  # website
+        'web/css/*',  # website
+        'web/js/*',  # website
     ],
 }
 
