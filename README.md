@@ -28,6 +28,8 @@
 
 `BpForms` was motivated by the need to concretely represent the biochemistry of DNA modification, DNA repair, post-transcriptional processing, and post-translational processing in [whole-cell computational models](https://www.wholecell.org). `BpForms` is also a valuable tool for experimental proteomics and synthetic biology. In particular, we developed `BpForms` because there were no notations, schemas, data models, or file formats for concretely representing non-canonical forms of biopolymers, despite the existence of several databases and ontologies of DNA, RNA, and protein modifications, the [ProForma Proteoform Notation](https://www.topdownproteomics.org/resources/proforma/), and the [MOMODICS](http://modomics.genesilico.pl/) codes for modified RNA bases.
 
+*BpForms* can be combined with [*BcForms*](https://www.bcforms.org) to concretely describe the primary structure of complexes.
+
 ## Installation
 1. Install the third-party dependencies listed below. Detailed installation instructions are available in [An Introduction to Whole-Cell Modeling](http://docs.karrlab.org/intro_to_wc_modeling/master/0.0.1/installation.html).
 
