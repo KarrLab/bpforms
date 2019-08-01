@@ -216,8 +216,10 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
         writer = csv.writer(file, dialect='excel-tab')
         writer.writerow(['PRO id', 'UniProt id', 'Organism',
                          'Unmodified sequence (IUBMB)',
-                         'Processing', 'Processsed sequence (IUBMB)', 'Processsed formula', 'Processsed molecular weight', 'Processsed charge',
-                         'Modifications', 'Modified sequence (abbreviated BpForms)', 'Modified sequence (BpForms)', 'Is modified sequence concrete', 'Modified formula', 'Modified molecular weight', 'Modified charge',
+                         'Processing', 'Deletions', 'Processsed sequence (IUBMB)', 'Processsed formula',
+                         'Processsed molecular weight', 'Processsed charge',
+                         'Modifications', 'Crosslinks', 'Modified sequence (abbreviated BpForms)', 'Modified sequence (BpForms)',
+                         'Is modified sequence concrete', 'Modified formula', 'Modified molecular weight', 'Modified charge',
                          'Modifications formula', 'Modifications molecular weight', 'Modifications charge',
                          'PRO issues', 'Monomeric form issues'])
 
@@ -238,12 +240,15 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
                 parsed_protein.get('organism', None),
                 parsed_protein.get('seq', None),
                 ', '.join('{}-{}'.format(p['start'], p['end']) for p in parsed_protein['processing']),
+                ', '.join('{}-{}'.format(deletion[0], deletion[1]) for deletion in parsed_protein.get('deletions', [])),
                 parsed_protein.get('processed_seq', None),
                 parsed_protein.get('processed_formula', None),
                 parsed_protein.get('processed_mol_wt', None),
                 parsed_protein.get('processed_charge', None),
                 ', '.join('{} --> {} ({})'.format(m['residue'] or '?', m['monomer'], ', '.join(str(p) for p in m['positions']))
                           for m in parsed_protein['modifications']),
+                ', '.join('{}{}-{}{}'.format(xlink[0][1], xlink[0][0], xlink[1][1], xlink[1][0])
+                          for xlink in parsed_protein.get('crosslinks', [])),
                 parsed_protein.get('modified_seq', None),
                 parsed_protein.get('modified_full_seq', None),
                 parsed_protein.get('modified_concrete', False),
@@ -705,6 +710,49 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
                             break
                     if not set_monomer:
                         protein['modified_errors'].append('Unable to set monomeric form')
+
+        if protein['processing']:
+            xlinks = []
+            seq_len = 0
+            protein['crosslinks'] = []
+            protein['deletions'] = []
+            for left, right in zip(protein['processing'][0:-1], protein['processing'][1:]):
+                seq_len += left['end'] - left['start'] + 1
+                i_left = seq_len
+                i_right = i_left + 1
+
+                if left['end'] + 1 == right['start']:
+                    protein['crosslinks'].append(((left['end'], protein['seq'][left['end']-1]),
+                                                  (right['start'], protein['seq'][right['start'] - 1])))
+                else:
+                    protein['deletions'].append((left['end'] + 1, right['start'] - 1))
+
+                if left['end'] + 1 != right['start']:
+                    continue
+
+                #err = False
+                # if protein['seq'][left['end'] - 1] != 'C' or form.seq[i_left - 1] != bpforms.protein_alphabet.monomers.C:
+                #    err = True
+                #    protein['modified_errors'].append('Disulfide bond site {}{} != C'.format(
+                #        protein['seq'][left['end'] - 1], left['end']))
+                # if protein['seq'][right['start'] - 1] != 'C' or form.seq[i_right - 1] != bpforms.protein_alphabet.monomers.C:
+                #    err = True
+                #    protein['modified_errors'].append('Disulfide bond site {}{} != C'.format(
+                #        protein['seq'][right['start'] - 1], right['start']))
+                #
+                # if err:
+                #    continue
+                
+                concrete = False
+
+                i_left = '{}-{}'.format(seq_len - (left['end'] - left['start'] + 1) + 1, seq_len)
+                i_right = '{}-{}'.format(seq_len + 1, seq_len + (right['end'] - right['start'] + 1))
+                form.crosslinks.add(bpforms.Bond(
+                    #l_bond_atoms=[bpforms.Atom(bpforms.Monomer, 'S', position=11, monomer=i_left)],
+                    #r_bond_atoms=[bpforms.Atom(bpforms.Monomer, 'S', position=11, monomer=i_right)],
+                    #l_displaced_atoms=[bpforms.Atom(bpforms.Monomer, 'H', position=11, monomer=i_left)],
+                    #r_displaced_atoms=[bpforms.Atom(bpforms.Monomer, 'H', position=11, monomer=i_right)],
+                    ))
 
     # validate
     if apply_modifications:
