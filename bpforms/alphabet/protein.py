@@ -108,6 +108,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         alphabet.monomers.AA0230.identifiers.remove(Identifier('pdb.ligand', 'NO'))
         alphabet.monomers.AA0232.identifiers.remove(Identifier('pdb.ligand', 'OTD'))
         alphabet.monomers.D.base_monomers.clear()
+        alphabet.monomers.AA0253.base_monomers.remove(alphabet.monomers.A)
         for monomer in alphabet.monomers.values():
             for identifier in list(monomer.identifiers):
                 if identifier.ns == 'pdb.ligand' and identifier.id == 'ACE':
@@ -117,6 +118,9 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                 if base_monomer.id == 'AA0025':
                     monomer.base_monomers.remove(base_monomer)
                     monomer.base_monomers.add(alphabet.monomers.C)
+        for monomer in alphabet.monomers.values():
+            if monomer in monomer.base_monomers:
+                monomer.base_monomers.remove(monomer)
 
         # save report
         n_only = []

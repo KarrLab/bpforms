@@ -3665,7 +3665,6 @@ monomers:
     structure: OC(=O)[C@H](CCCCNC(=O)[C@@H]1[NH2+]CC[C@H]1C)[NH3+]
     base_monomers:
     - K
-    - O
     r_bond_atoms:
     - molecule: Monomer
       element: C
@@ -10609,7 +10608,6 @@ monomers:
       id: CHEBI:30000
     structure: N[C@H](C(=O)O)C[SeH]
     base_monomers:
-    - U
     - C
     r_bond_atoms:
     - molecule: Monomer
@@ -17773,7 +17771,6 @@ monomers:
       id: 4289-98-9
     structure: CSCC[C@@H](C(=O)O)NC=O
     base_monomers:
-    - AA0021
     - M
     r_bond_atoms:
     - molecule: Monomer
@@ -21057,7 +21054,6 @@ monomers:
     structure: C[C@@H]([C@H]([NH3+])C(=O)O)S/C=C\N
     base_monomers:
     - T
-    - A
     - C
     r_bond_atoms:
     - molecule: Monomer
