@@ -711,42 +711,44 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
                     if not set_monomer:
                         protein['modified_errors'].append('Unable to set monomeric form')
 
-        if protein['processing']:
-            xlinks = []
-            seq_len = 0
-            protein['crosslinks'] = []
-            protein['deletions'] = []
-            for left, right in zip(protein['processing'][0:-1], protein['processing'][1:]):
-                seq_len += left['end'] - left['start'] + 1
-                i_left = seq_len
-                i_right = i_left + 1
+    # crosslinks
+    if protein['processing']:
+        xlinks = []
+        seq_len = 0
+        protein['crosslinks'] = []
+        protein['deletions'] = []
+        for left, right in zip(protein['processing'][0:-1], protein['processing'][1:]):
+            seq_len += left['end'] - left['start'] + 1
+            i_left = seq_len
+            i_right = i_left + 1
 
-                if left['end'] + 1 == right['start']:
-                    protein['crosslinks'].append(((left['end'], protein['seq'][left['end']-1]),
-                                                  (right['start'], protein['seq'][right['start'] - 1])))
-                else:
-                    protein['deletions'].append((left['end'] + 1, right['start'] - 1))
+            if left['end'] + 1 == right['start']:
+                protein['crosslinks'].append(((left['end'], protein['seq'][left['end']-1]),
+                                              (right['start'], protein['seq'][right['start'] - 1])))
+            else:
+                protein['deletions'].append((left['end'] + 1, right['start'] - 1))
 
-                if left['end'] + 1 != right['start']:
-                    continue
+            if left['end'] + 1 != right['start']:
+                continue
 
-                #err = False
-                # if protein['seq'][left['end'] - 1] != 'C' or form.seq[i_left - 1] != bpforms.protein_alphabet.monomers.C:
-                #    err = True
-                #    protein['modified_errors'].append('Disulfide bond site {}{} != C'.format(
-                #        protein['seq'][left['end'] - 1], left['end']))
-                # if protein['seq'][right['start'] - 1] != 'C' or form.seq[i_right - 1] != bpforms.protein_alphabet.monomers.C:
-                #    err = True
-                #    protein['modified_errors'].append('Disulfide bond site {}{} != C'.format(
-                #        protein['seq'][right['start'] - 1], right['start']))
-                #
-                # if err:
-                #    continue
-                
-                concrete = False
+            #err = False
+            # if protein['seq'][left['end'] - 1] != 'C' or form.seq[i_left - 1] != bpforms.protein_alphabet.monomers.C:
+            #    err = True
+            #    protein['modified_errors'].append('Disulfide bond site {}{} != C'.format(
+            #        protein['seq'][left['end'] - 1], left['end']))
+            # if protein['seq'][right['start'] - 1] != 'C' or form.seq[i_right - 1] != bpforms.protein_alphabet.monomers.C:
+            #    err = True
+            #    protein['modified_errors'].append('Disulfide bond site {}{} != C'.format(
+            #        protein['seq'][right['start'] - 1], right['start']))
+            #
+            # if err:
+            #    continue
+            
+            concrete = False
 
-                i_left = '{}-{}'.format(seq_len - (left['end'] - left['start'] + 1) + 1, seq_len)
-                i_right = '{}-{}'.format(seq_len + 1, seq_len + (right['end'] - right['start'] + 1))
+            i_left = '{}-{}'.format(seq_len - (left['end'] - left['start'] + 1) + 1, seq_len)
+            i_right = '{}-{}'.format(seq_len + 1, seq_len + (right['end'] - right['start'] + 1))
+            if apply_modifications:
                 form.crosslinks.add(bpforms.Bond(
                     #l_bond_atoms=[bpforms.Atom(bpforms.Monomer, 'S', position=11, monomer=i_left)],
                     #r_bond_atoms=[bpforms.Atom(bpforms.Monomer, 'S', position=11, monomer=i_right)],
