@@ -6,6 +6,7 @@
 :License: MIT
 """
 
+import bcforms.core
 import bpforms.core
 import bpforms.rest
 import bpforms.util
@@ -54,6 +55,7 @@ def build(alphabet_ids=None, pro_max_num_proteins=None):
 
     # clear cache
     bpforms.core.cache.clear()
+    bcforms.core.cache.clear()
 
     # cache alphabet REST queries and save JSON files for HTML pages
     data_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'data'))
@@ -85,6 +87,14 @@ def build(alphabet_ids=None, pro_max_num_proteins=None):
         for code, monomer in alphabet.monomers.items():
             with open(os.path.join(alphabet_img_dir, code + '.png'), 'wb') as file:
                 file.write(monomer.get_image(image_format='png', width=250, height=150))
+
+    # build images of crosslinks for webpage
+    img_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'img', 'crosslink'))
+    
+    xlinks = list(bcforms.core.parse_yaml(bcforms.core._xlink_filename).keys())
+    for xlink in xlinks:
+        with open(os.path.join(img_dir, xlink + '.png'), 'wb') as file:
+            file.write(bcforms.core.draw_xlink(xlink))
 
     # build examples
     build_examples.build()
