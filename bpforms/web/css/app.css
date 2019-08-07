@@ -216,3 +216,8 @@ pre .modification {
 .monomer-legend {
     font-size: 0.7em;
 }
+
+/* alphabet */
+#crosslink_container {
+    padding-top: 1rem;
+}
