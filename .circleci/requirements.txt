@@ -1,2 +1,4 @@
 # Karr Lab
 git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils[all]
+git+https://github.com/KarrLab/bpforms.git#egg=bpforms[all]
+git+https://github.com/KarrLab/bcforms.git#egg=bcforms[all]
