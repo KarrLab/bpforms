@@ -7,6 +7,7 @@
 """
 
 import bcforms.core
+import bcforms.rest
 import bpforms.core
 import bpforms.rest
 import bpforms.util
@@ -76,6 +77,13 @@ def build(alphabet_ids=None, pro_max_num_proteins=None):
         with open(os.path.join(alphabet_data_dir, alphabet.id + '.json'), 'wb') as file:
             file.write(rv.data)
 
+    # cache crosslink REST queries and save json files for HTML pages
+    bcforms_rest_client = bcforms.rest.app.test_client()
+    rv = bcforms_rest_client.get('/api/crosslink/')
+    assert rv.status_code == 200
+    with open(os.path.join(data_dir, 'xlink' + '.json'), 'wb') as file:
+        file.write(rv.data)
+
     # build images of monomers for alphabet web pages
     img_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'img', 'alphabet'))
 
@@ -89,11 +97,13 @@ def build(alphabet_ids=None, pro_max_num_proteins=None):
                 file.write(monomer.get_image(image_format='png', width=250, height=150))
 
     # build images of crosslinks for webpage
-    img_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'img', 'crosslink'))
-    
+    xlink_img_dir = pkg_resources.resource_filename('bpforms', os.path.join('web', 'img', 'crosslink'))
+    if not os.path.isdir(xlink_img_dir):
+        os.makedirs(xlink_img_dir)
+
     xlinks = list(bcforms.core.parse_yaml(bcforms.core._xlink_filename).keys())
     for xlink in xlinks:
-        with open(os.path.join(img_dir, xlink + '.png'), 'wb') as file:
+        with open(os.path.join(xlink_img_dir, xlink + '.png'), 'wb') as file:
             file.write(bcforms.core.draw_xlink(xlink))
 
     # build examples
