@@ -36,6 +36,8 @@ OUT_PICKLE_FILENAME_2 = os.path.join('examples', 'pro_input.out.2.pkl')
 OUT_TSV_FILENAME = os.path.join('examples', 'pro_input.out.tsv')
 OUT_FASTA_FILENAME = os.path.join('examples', 'pro_input.fasta')
 OUT_FIG_FILENAME = os.path.join('examples', 'pro_input.svg')
+OUT_CML_DIRNAME = os.path.join('examples', 'pro_input_cml')
+OUT_SVG_DIRNAME = os.path.join('examples', 'pro_input_svg')
 
 cache_name = os.path.join('examples', 'pro')
 session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
@@ -70,7 +72,8 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
         max_num_proteins=None,
         out_pickle_filename=OUT_PICKLE_FILENAME, out_pickle_filename_2=OUT_PICKLE_FILENAME_2,
         out_tsv_filename=OUT_TSV_FILENAME, out_fasta_filename=OUT_FASTA_FILENAME,
-        out_fig_filename=OUT_FIG_FILENAME):
+        out_fig_filename=OUT_FIG_FILENAME, out_cml_dirname=OUT_CML_DIRNAME,
+        out_svg_dirname=OUT_SVG_DIRNAME):
     """ Download PRO ontology, generate proteoforms, and encode with BpForms
 
     Args:
@@ -85,6 +88,8 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
         out_tsv_filename (:obj:`str`, optional): path to save results in tab-separated format
         out_fasta_filename (:obj:`str`, optional): path to save results in FASTA format
         out_fig_filename (:obj:`str`, optional): path to save plot of results
+        out_cml_dirname (:obj:`str`, optional): path to save preoteoforms in CML format
+        out_svg_dirname (:obj:`str`, optional): path to save preoteoforms im SVG format
 
     Returns:
         :obj:`list` of :obj:`dict`: proteoforms encoded with BpForms
@@ -161,6 +166,12 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
                     print(protein['id'] + ': ' + msg)
 
     # generate BpForms for each protein
+    if not os.path.isdir(out_cml_dirname):
+        os.mkdir(out_cml_dirname)
+
+    if not os.path.isdir(out_svg_dirname):
+        os.mkdir(out_svg_dirname)
+
     if not os.path.isfile(out_pickle_filename_2):
         for i_protein, protein in enumerate(parsed_proteins):
             if i_protein % 100 == 0:
@@ -199,6 +210,35 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
                 protein['modifications_formula'] = str(modified_formula - processed_formula)
                 protein['modifications_mol_wt'] = protein['modified_mol_wt'] - protein['processed_mol_wt']
                 protein['modifications_charge'] = protein['modified_charge'] - protein['processed_charge']
+
+                with open(os.path.join(out_cml_dirname, protein['id'] + '.cml'), 'w') as file:
+                    file.write(modified_form.export('cml'))
+
+                form = gen_bpform(protein, monomers, monomer_codes,
+                                  apply_processing=False, include_annotations=True)
+                seq_features = []
+                if protein['processing']:
+                    seq_features.append({
+                        'label': 'Processed',
+                        'color': '#cccccc',
+                        'positions': [],
+                    })
+                    last = 0
+                    for p in protein['processing']:
+                        seq_features[0]['positions'].append([last + 1, p['start'] - 1])
+                        last = p['end']
+                    seq_features[0]['positions'].append([
+                        protein['processing'][-1]['end'] + 1,
+                        len(form.seq),
+                    ])
+
+                    if protein['processing'][0]['start'] == 1:
+                        seq_features[0]['positions'].pop(0)
+                    if protein['processing'][-1]['end'] == len(form.seq):
+                        seq_features[0]['positions'].pop(len(seq_features[0]['positions']) - 1)
+
+                with open(os.path.join(out_svg_dirname, protein['id'] + '.svg'), 'w') as file:
+                    file.write(form.get_genomic_image(seq_features))
 
             if modified_form.get_canonical_seq(monomer_codes) != protein['processed_seq']:
                 protein['pro_errors'].append('Modified sequence for {} not compatible with the processed sequence'.format(
@@ -511,7 +551,8 @@ def parse_protein(protein):
     }
 
 
-def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modifications=True, include_annotations=True):
+def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes,
+               apply_processing=True, apply_modifications=True, include_annotations=True):
     """ Generate BpForm for a modified protein in PRO
 
     Args:
@@ -519,6 +560,7 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
         pro_ids_to_bpform_monomers (:obj:`dict`): dictionary which maps ids of monomeric forms
             used by PRO to monomeric forms in the BpForms protein alphabet
         monomer_codes (:obj:`dict`): dictionary that maps monomers to their codes in the alphabet
+        apply_processing (:obj:`bool`, optional): if :obj:`True`, include processing in proteoform
         apply_modifications (:obj:`bool`, optional): if :obj:`True`, include modifications in proteoform
         include_annotations (:obj:`bool`, optional): if :obj:`True`, include metadata about modified monomers
 
@@ -535,7 +577,7 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
     # apply processing
     modifications = copy.deepcopy(protein['modifications'])
     seq = protein['seq']
-    if protein['processing']:
+    if apply_processing and protein['processing']:
         procesed_seq = []
         seq = ''
         for processing in protein['processing']:
@@ -743,7 +785,7 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
             #
             # if err:
             #    continue
-            
+
             concrete = False
 
             i_left = '{}-{}'.format(seq_len - (left['end'] - left['start'] + 1) + 1, seq_len)
@@ -754,7 +796,7 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes, apply_modific
                     #r_bond_atoms=[bpforms.Atom(bpforms.Monomer, 'S', position=11, monomer=i_right)],
                     #l_displaced_atoms=[bpforms.Atom(bpforms.Monomer, 'H', position=11, monomer=i_left)],
                     #r_displaced_atoms=[bpforms.Atom(bpforms.Monomer, 'H', position=11, monomer=i_right)],
-                    ))
+                ))
 
     # validate
     if apply_modifications:

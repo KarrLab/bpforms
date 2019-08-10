@@ -15,6 +15,7 @@ package_data = {
         'grammar.lark',
         'alphabet/*.yml',  # alphabets
         'config/*.cfg',
+        'polymer_genomic_viz.template.svg',  # visualization
         'web/*',  # website
         'web/css/*',  # website
         'web/js/*',  # website

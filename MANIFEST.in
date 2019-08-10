@@ -20,6 +20,9 @@ include bpforms/grammar.lark
 # alphabets
 recursive-include bpforms/alphabet *.yml
 
+# visualization files
+include bpforms/polymer_genomic_viz.template.svg
+
 # website
 graft bpforms/web
 prune bpforms/web/data

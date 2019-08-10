@@ -11,7 +11,9 @@ from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_m
 import abc
 import attrdict
 import itertools
+import jinja2
 import lark
+import math
 import openbabel
 import os
 import pkg_resources
@@ -803,6 +805,7 @@ class Monomer(object):
     def get_image(self, bond_label='', displaced_label='', bond_opacity=255, displaced_opacity=63,
                   backbone_bond_color=0xff0000, left_bond_color=0x00ff00, right_bond_color=0x0000ff,
                   include_all_hydrogens=True, show_atom_nums=False,
+                  atom_label_font_size=0.6,
                   width=200, height=200, image_format='svg', include_xml_header=True):
         """ Get image
 
@@ -816,6 +819,7 @@ class Monomer(object):
             right_bond_color (:obj:`int`, optional): color to paint atoms involved in bond with monomeric form to right
             include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, show all hydrogens
             show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
+            atom_label_font_size (:obj:`float`, optional): relative atom label font size
             width (:obj:`int`, optional): width in pixels
             height (:obj:`int`, optional): height in pixels
             image_format (:obj:`str`, optional): format of generated image {emf, eps, jpeg, msbmp, pdf, png, or svg}
@@ -862,7 +866,9 @@ class Monomer(object):
         return draw_molecule(cml, 'cml', image_format=image_format,
                              atom_labels=atom_labels, atom_sets=atom_sets.values(),
                              show_atom_nums=show_atom_nums,
-                             width=width, height=height, include_xml_header=include_xml_header)
+                             atom_label_font_size=atom_label_font_size,
+                             width=width, height=height,
+                             include_xml_header=include_xml_header)
 
     @staticmethod
     def _blend_color_opacity(color, opacity):
@@ -3427,8 +3433,9 @@ class BpForm(object):
     def get_image(self, monomer_color=0x000000, backbone_color=0xff0000,
                   left_right_bond_color=0x00ff00, crosslink_bond_color=0x0000ff,
                   include_all_hydrogens=True, show_atom_nums=False,
+                  atom_label_font_size=0.6,
                   width=200, height=200, image_format='svg', include_xml_header=True):
-        """ Get image
+        """ Get molecular visualization
 
         Args:
             monomer_color (:obj:`int`, optional): color to paint atoms involved in monomeric forms
@@ -3437,6 +3444,7 @@ class BpForm(object):
             crosslink_bond_color (:obj:`int`, optional): color to paint atoms involved in crosslinks
             include_all_hydrogens (:obj:`bool`, optional): if :obj:`True`, show all hydrogens
             show_atom_nums (:obj:`bool`, optional): if :obj:`True`, show the numbers of the atoms
+            atom_label_font_size (:obj:`float`, optional): relative atom label font size
             width (:obj:`int`, optional): width in pixels
             height (:obj:`int`, optional): height in pixels
             image_format (:obj:`str`, optional): format of generated image {emf, eps, jpeg, msbmp, pdf, png, or svg}
@@ -3506,6 +3514,7 @@ class BpForm(object):
         return draw_molecule(cml, 'cml', image_format=image_format,
                              atom_labels=atom_labels, atom_sets=atom_sets.values(), bond_sets=bond_sets.values(),
                              show_atom_nums=show_atom_nums,
+                             atom_label_font_size=atom_label_font_size,
                              width=width, height=height, include_xml_header=include_xml_header)
 
     def _add_bonds_to_set(self, mol, r_bond_atoms, l_bond_atoms, atom_map, bond_set, el_table,
@@ -3534,6 +3543,236 @@ class BpForm(object):
             bond_set['elements'].append(
                 [el_table.GetSymbol(atom_1.GetAtomicNum()),
                  el_table.GetSymbol(atom_2.GetAtomicNum())])
+
+    def get_genomic_image(self, seq_features=None,
+                          width=800, nt_per_track=100,
+                          seq_font_size=13, tick_label_font_size=10,
+                          legend_font_size=13, tooltip_font_size=13,
+                          x_link_stroke_width=2, x_link_radius=4,
+                          axis_stroke_width=0.5,
+                          seq_color='#000000', non_canonical_color='#e74624',
+                          x_link_color='#2daae1', axis_color='#000000'):
+        """ Get a genomic visualization of the :obj:`BpForm`
+
+        Args:
+            seq_features (:obj:`list` of :obj:`dict`, optional): list of features each 
+                represented by a dictionary with three keys
+
+                * label (:obj:`str`): description of the type of feature
+                * color (:obj:`str`): color
+                * positions (:obj:`list` of :obj:`list` of :obj:`int`): list of position
+                  ranges of the type of feature
+            width (:obj:`int`, optional): width
+            nt_per_track (:obj:`int`, optional): number of nucleotides per track
+            seq_font_size (:obj:`float`, optional): font size of sequence
+            tick_label_font_size (:obj:`float`, optional): font size of tick labels
+            legend_font_size (:obj:`float`, optional): font size of legend
+            tooltip_font_size (:obj:`float`, optional): font size of tooltip
+            x_link_stroke_width (:obj:`float`, optional): stroke width of crosslinks
+            x_link_radius (:obj:`float`, optional): radius of crosslinks line
+            axis_stroke_width (:obj:`float`, optional): stroke width of axis
+            seq_color (:obj:`str`, optional): color of canonical monomers
+            non_canonical_color (:obj:`str`, optional): color of non-canonical monomers
+            x_link_color (:obj:`str`, optional): colors of crosslinks
+            axis_color (:obj:`str`, optional): color of axis
+
+        Returns:
+            :obj:`str`: SVG image
+        """
+        import bpforms
+        
+        nc_label_sep = 0.1 * seq_font_size
+        axis_sep = 0.2 * tick_label_font_size
+        tick_len = 0.4 * tick_label_font_size
+        tick_label_sep = 0.6 * tick_label_font_size
+        legend_label_sep = 1/3 * legend_font_size
+
+        if isinstance(self, bpforms.DnaForm):
+            canonical_monomers = [bpforms.dna_alphabet.monomers.get(code) for code in 'ACGT']
+        elif isinstance(self, bpforms.RnaForm):
+            canonical_monomers = [bpforms.rna_alphabet.monomers.get(code) for code in 'ACGU']
+        elif isinstance(self, bpforms.ProteinForm):
+            canonical_monomers = [bpforms.protein_alphabet.monomers.get(code)
+                                  for code in bpforms.canonical_protein_alphabet.monomers.keys()]
+        else:
+            raise ValueError('BpForm must be an instance of `DnaForm`, `RnaForm`, or `ProteinForm`')
+
+        monomer_codes = {monomer: code for code, monomer in self.alphabet.monomers.items()}
+
+        seq_tracks = []
+        monomer_seq = self.seq
+        canonical_seq = self.get_canonical_seq()
+        n_tracks = math.ceil(len(monomer_seq) / nt_per_track)
+        max_nc_label_len = 0
+        for i_track in range(n_tracks):
+            seq_track = {
+                'i_track': i_track,
+                'min': i_track * nt_per_track + 1,
+                'max': min((i_track + 1) * nt_per_track, len(monomer_seq)),
+                'len': min((i_track + 1) * nt_per_track, len(monomer_seq)) - (i_track * nt_per_track + 1) + 1,
+                'seq': [],
+                'ticks': [],
+            }
+            seq_tracks.append(seq_track)
+
+            # seq
+            for i_monomer, (monomer, canonical_code) in enumerate(zip(monomer_seq[i_track * nt_per_track:(i_track + 1) * nt_per_track],
+                                                                      canonical_seq[i_track * nt_per_track:(i_track + 1) * nt_per_track])):
+                non_canonical_label = monomer_codes.get(monomer, None)
+                if not non_canonical_label:
+                    if monomer.id:
+                        non_canonical_label = monomer.id
+                    elif monomer.name:
+                        non_canonical_label = monomer.name
+                    elif monomer.synonyms:
+                        non_canonical_label = list(monomer.synonyms)[0]
+                    elif monomer.identifiers:
+                        non_canonical_label = list(monomer.identifiers)[0].id
+                    else:
+                        non_canonical_label = 'Non-canonical'
+
+                if monomer.name:
+                    tooltip = monomer.name
+                elif monomer.synonyms:
+                    tooltip = list(monomer.synonyms)[0]
+                elif monomer.identifiers:
+                    tooltip = list(monomer.identifiers)[0].id
+                elif monomer.id:
+                    tooltip = monomer.id
+                else:
+                    tooltip = 'Non-canonical monomer'
+
+                track_monomer = {
+                    'i_monomer': i_monomer,
+                    'canonical_code': canonical_code,
+                    'canonical': monomer in canonical_monomers,
+                    'non_canonical_label': non_canonical_label,
+                    'tooltip': tooltip,
+                }
+
+                pos = i_track * nt_per_track + i_monomer + 1
+                for feature in seq_features:
+                    for position in feature['positions']:
+                        if pos >= position[0] and pos <= position[1]:
+                            track_monomer['color'] = feature['color']
+                            break
+
+                seq_track['seq'].append(track_monomer)
+
+                max_nc_label_len = max(max_nc_label_len, len(non_canonical_label))
+
+            # ticks
+            seq_track['ticks'].append({'x': 1, 'label': i_track * nt_per_track + 1})
+            for i_tick in range(math.floor((seq_track['max'] - seq_track['min'] + 1) / 10)):
+                seq_track['ticks'].append({'x': (i_tick + 1) * 10, 'label': i_track * nt_per_track + (i_tick + 1) * 10})
+
+        x_links = []
+        for crosslink in self.crosslinks:
+            l = crosslink.l_bond_atoms[0].monomer
+            r = crosslink.r_bond_atoms[0].monomer
+            l_track = math.floor((l - 1) / nt_per_track)
+            r_track = math.floor((r - 1) / nt_per_track)
+            l_pos = (l - 1) % nt_per_track + 1
+            r_pos = (r - 1) % nt_per_track + 1
+
+            if l_pos < r_pos:
+                x_link = {
+                    'l_track': l_track,
+                    'r_track': r_track,
+                    'l_pos': l_pos,
+                    'r_pos': r_pos,
+                }
+            else:
+                x_link = {
+                    'l_track': r_track,
+                    'r_track': l_track,
+                    'l_pos': r_pos,
+                    'r_pos': l_pos,
+                }
+            x_link['tooltip'] = 'Crosslink'  # todo
+            x_links.append(x_link)
+        x_links = sorted(x_links, key=lambda x: (x['l_track'], x['r_track'], x['l_pos'], x['r_pos']))
+        offset = 0
+        prev_track = -1
+        prev_pos = -1
+        for x_link in x_links:
+            if x_link['l_track'] == x_link['r_track'] and \
+                    x_link['l_track'] == prev_track and \
+                    x_link['l_pos'] <= prev_pos:
+                offset += 1
+            else:
+                offset = 0
+                prev_track = x_link['r_track']
+                prev_pos = x_link['r_pos']
+            x_link['offset'] = offset
+
+        # read template
+        with open(pkg_resources.resource_filename('bpforms', 'polymer_genomic_viz.template.svg')) as file:
+            template = jinja2.Template(file.read())
+
+        # render template
+        h_padding = tick_label_font_size * (math.floor(math.log10(len(self.seq))) + 1) * 0.5 * 0.6
+        code_h = seq_font_size
+        nc_label_h = max_nc_label_len * math.sin(math.pi / 3) * seq_font_size * 0.65
+        track_h = nc_label_h + nc_label_sep + code_h \
+            + axis_sep + tick_len + tick_label_sep + tick_label_font_size * 0.25
+        track_sep = 0.5 * track_h
+        legend_sep = track_sep
+
+        context = {
+            # BpForm
+            'seq_tracks': seq_tracks,
+            'x_links': x_links,
+
+            # highlight colors
+            'seq_features': seq_features,
+
+            # size
+            'width': width,
+            'height': track_h * n_tracks + track_sep * (n_tracks - 1) \
+            + legend_sep \
+            + (2 + len(seq_features)) * legend_font_size \
+            + (1 + len(seq_features)) * legend_label_sep,
+            'h_padding': h_padding,
+
+            # track
+            'n_tracks': n_tracks,
+            'nt_per_track': nt_per_track,
+            'track_w': width - 2 * h_padding,
+            'track_h': track_h,
+            'px_per_nt': (width - 2 * h_padding) / (nt_per_track - 1),
+            'nc_label_h': nc_label_h,
+            'nc_label_sep': nc_label_sep,
+            'code_h': code_h,
+            'axis_sep': axis_sep,
+            'tick_len': tick_len,
+            'tick_label_sep': tick_label_sep,
+            'track_sep': track_sep,
+
+            # crosslinks
+            'x_link_radius': x_link_radius,
+
+            # legend
+            'legend_sep': legend_sep,
+            'legend_label_sep': legend_label_sep,
+
+            # font sizes
+            'seq_font_size': seq_font_size,
+            'tick_label_font_size': tick_label_font_size,
+            'legend_font_size': legend_font_size,
+
+            # stroke widths
+            'x_link_stroke_width': x_link_stroke_width,
+            'axis_stroke_width': axis_stroke_width,
+
+            # colors
+            'seq_color': seq_color,
+            'non_canonical_color': non_canonical_color,
+            'x_link_color': x_link_color,
+            'axis_color': axis_color,
+        }
+
+        return template.render(**context)
 
 
 class BpFormFeature(object):

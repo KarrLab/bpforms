@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="{{ width }}" height="{{ height }}"
+    xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <style>
+        .axis line {
+            stroke: {{ axis_color }};
+            stroke-width: {{ axis_stroke_width }}px;
+        }
+        .ticks text {
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            font-size: {{ tick_label_font_size }}px;
+            text-anchor: middle;
+            alignment-baseline: after-edge;
+        }
+        .base {
+            font-family: "Courier New", Courier, monospace;
+        }
+        .non-canonical, .monomer .base.non-canonical {
+            fill: {{ non_canonical_color }};
+            font-weight: bold;
+        }
+        .monomer .base {
+            text-anchor: middle;
+            alignment-baseline: before-edge;
+            fill: {{ seq_color }};
+        }
+        .monomer .non-canonical-monomer {
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            text-anchor: left;
+            alignment-baseline: middle;
+            text-anchor: start;
+        }
+        .monomer .base, .monomer .non-canonical-monomer {
+            font-size: {{ seq_font_size }}px;
+        }
+        .x_links {
+            stroke: {{ x_link_color}};
+            stroke-width: {{ x_link_stroke_width }}px;
+            fill: none;
+        }
+
+        .legend {
+            font-size: {{ legend_font_size }}px;
+        }
+        .legend text {
+            alignment-baseline: middle;
+        }
+        .legend .base {
+            text-anchor: middle;
+        }
+        .legend .label {
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        }
+
+        #tooltip {
+          font-size: {{ tooltip_font_size }}px;
+        }
+    </style>
+
+    {% for seq_track in seq_tracks %}
+    <g class="seq_track" transform="translate({{ h_padding - px_per_nt }}, {{ seq_track.i_track * (track_h + track_sep) }})">
+        <!-- axis -->
+        <g class="axis" transform="translate(0, {{ code_h + nc_label_sep + nc_label_h + axis_sep }})">
+            <line x1="{{ px_per_nt }}" x2="{{ seq_track.len * px_per_nt }}" y1="0" y2="0" />
+
+            <!-- ticks and tick labels -->
+            <g class="ticks">
+                {% for tick in seq_track.ticks %}
+
+                <g transform="translate({{ tick.x * px_per_nt }}, 0)">
+                    <line x1="0" x2="0" y1="0" y2="{{ tick_len }}" />
+                    <text x="0" y="{{ tick_len + tick_label_sep + tick_label_font_size / 2 }}">{{ tick.label }}</text>
+                </g>
+                {% endfor %}
+            </g>
+        </g>
+
+        <!-- sequence -->
+        <g class="seq">
+            {% for monomer in seq_track.seq %}
+            {% if monomer.canonical %}
+            <g class="monomer" transform="translate({{ (monomer.i_monomer + 1) * px_per_nt }}, {{ nc_label_h + nc_label_sep }})">
+                <text class="base" x="0" y="0"{% if monomer.color %} style="fill: {{ monomer.color }}"{% endif %}>{{ monomer.canonical_code }}</text>
+            </g>
+            {% else %}
+            <g class="monomer" transform="translate({{ (monomer.i_monomer + 1) * px_per_nt }}, {{ nc_label_h + nc_label_sep }})"
+                onmousemove="showTooltip(evt, '{{ monomer.tooltip|escape }}');"
+                onmouseout="hideTooltip();">
+                <text class="base non-canonical" x="0" y="0"{% if monomer.color %} style="fill: {{ monomer.color }}"{% endif %}>{{ monomer.canonical_code }}</text>
+                <text class="non-canonical-monomer non-canonical" x="0" transform="translate(0.0, -{{ nc_label_sep }}) rotate(-60)"{% if monomer.color %} style="fill: {{ monomer.color }}"{% endif %}>{{ monomer.non_canonical_label }}</text>
+            </g>
+            {% endif %}
+            {% endfor %}
+        </g>
+    </g>
+    {% endfor %}
+
+    <!-- crosslinks -->
+    <g class="x_links">
+        {% for x_link in x_links %}
+          {% set radius = x_link_radius + x_link_stroke_width * 2 * x_link.offset %}
+        <path
+            onmousemove="showTooltip(evt, '{{ x_link.tooltip|escape }}');"
+            onmouseout="hideTooltip();"
+            d="M {{ h_padding + (x_link.l_pos - 1) * px_per_nt }}
+                 {{ nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.l_track }}
+               a {{ radius }} {{ radius }}
+                 1 0 1
+                 {{ radius }} -{{ radius }}
+               L {{ h_padding + (x_link.r_pos - 1) * px_per_nt - radius }}
+                {{ nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track - radius }}
+                 a {{ radius }} {{ radius }}
+                   1 0 1
+                   {{ radius }} {{ radius }}"/>
+         {% endfor %}
+    </g>
+
+    <!-- legend -->
+    <g class="legend" transform="translate({{ h_padding }}, {{ height - (2 + seq_features|length - 0.5) * legend_font_size - (1 + seq_features|length) * legend_label_sep }})">
+        <g transform="translate(0, 0)">
+            <text x="0" y="{{ legend_font_size * 0.1 }}" class="base nc">X</text>
+            <text class="label" x="{{ legend_font_size * 0.75 }}" y="0">Non-canonical monomeric form</text>
+        </g>
+        {% for feature in seq_features %}
+        <g transform="translate(0, {{ (legend_font_size + legend_label_sep) * loop.index }})">
+            <text x="0" y="{{ legend_font_size * 0.1 }}" class="base nc" style="fill: {{ feature.color }}">X</text>
+            <text class="label" x="{{ legend_font_size * 0.75 }}" y="0">{{ feature.label }}</text>
+        </g>
+        {% endfor %}
+        <g transform="translate(0, {{ (legend_font_size + legend_label_sep) * (seq_features|length + 1) }})">
+            <line class="x_links" x1="-{{ legend_font_size / 4 }}" x2="{{ legend_font_size / 4 }}" y1="0" y2="0" />
+            <text class="label" x="{{ legend_font_size * 0.75 }}" y="0">Crosslink</text>
+        </g>
+    </g>
+
+    <!-- tooltips -->
+    <g id="tooltip" style="display: none;">
+        <foreignObject x="0" y="0" width="300" height="300">
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <style>
+                    div {
+                        border: 1px solid #000000;
+                        border-radius: 4px;
+                        background: #ffffff;
+                        padding: 2px 4px 2px 4px;
+                        width: max-content;
+                        height: max-content;
+                    }
+                </style>
+                <div></div>
+            </body>
+        </foreignObject>
+    </g>
+    <script>
+        var svg = document.getElementsByTagName('svg')[0]
+        var tooltip = document.getElementById('tooltip');
+        var tooltip_container = tooltip
+          .getElementsByTagName('foreignObject')[0]
+          .getElementsByTagName('div')[0];
+        var evt_pt = svg.createSVGPoint();
+
+        function showTooltip(evt, text) {
+            tooltip_container.innerHTML = text;
+            positionTooltip(evt);
+        }
+
+        function positionTooltip(evt) {
+            tooltip.style.display = "block";
+
+            evt_pt.x = evt.clientX;
+            evt_pt.y = evt.clientY;
+            var cursor_pt =  evt_pt.matrixTransform(svg.getScreenCTM().inverse());
+
+            tooltip.setAttribute('transform', 'translate('
+              + (cursor_pt.x + 1).toString()
+              + ', '
+              + (cursor_pt.y + 1).toString()
+              + ')');
+        }
+
+        function hideTooltip() {
+            var tooltip = document.getElementById("tooltip");
+            tooltip.style.display = "none";
+        }
+    </script>
+</svg>

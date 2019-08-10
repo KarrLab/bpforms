@@ -78,6 +78,8 @@ examples/*.svg
 examples/*.swp
 examples/*.tsv
 examples/*.xlsx
+examples/pro_input_cml/
+examples/pro_input_svg/
 
 # Paul's temporary work
 paulTmpTests

@@ -2053,6 +2053,52 @@ class BpFormTestCase(unittest.TestCase):
         # with open('test2.svg', 'w') as file:
         #     file.write(img)
 
+    def test_get_genomic_image(self):
+        form = protein.ProteinForm().from_str(
+            ('ACRGCRGAARGCHILCA{SEL}RC' * 30) + (
+                ' | x-link: ['
+                '   l-bond-atom: 2S11'
+                ' | r-bond-atom: 5S11'
+                ' | l-displaced-atom: 2H11'
+                ' | r-displaced-atom: 5H11'
+                ']'
+                ' | x-link: ['
+                '   l-bond-atom: 40S11'
+                ' | r-bond-atom: 80S11'
+                ' | l-displaced-atom: 40H11'
+                ' | r-displaced-atom: 80H11'
+                ']'
+                ' | x-link: ['
+                '   l-bond-atom: 60S11'
+                ' | r-bond-atom: 100S11'
+                ' | l-displaced-atom: 60H11'
+                ' | r-displaced-atom: 100H11'
+                ']'
+                ' | x-link: ['
+                '   l-bond-atom: 20S11'
+                ' | r-bond-atom: 160S11'
+                ' | l-displaced-atom: 20H11'
+                ' | r-displaced-atom: 160H11'
+                ']'
+                ' | x-link: ['
+                '   l-bond-atom: 140S11'
+                ' | r-bond-atom: 220S11'
+                ' | l-displaced-atom: 140H11'
+                ' | r-displaced-atom: 220H11'
+                ']'
+            ))
+        seq_features = [{
+            'label': 'Processed',
+            'color': '#cccccc',
+            'positions': [[1, 30], [50, 85]],
+        }]
+
+        svg = form.get_genomic_image(seq_features)
+        self.assertIsInstance(svg, str)
+
+        # with open(os.path.join('examples', 'test.svg'), 'w') as file:
+        #     file.write(svg)
+
 
 class AlphabetTestCase(unittest.TestCase):
     def setUp(self):

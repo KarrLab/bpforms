@@ -3,6 +3,7 @@ beautifulsoup4
 biopython
 cement >= 3.0.0
 configobj
+jinja2
 lark_parser >= 0.6.6
 openbabel
 requests
