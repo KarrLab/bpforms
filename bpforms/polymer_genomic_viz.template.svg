@@ -118,12 +118,12 @@
     <!-- legend -->
     <g class="legend" transform="translate({{ h_padding }}, {{ height - (2 + seq_features|length - 0.5) * legend_font_size - (1 + seq_features|length) * legend_label_sep }})">
         <g transform="translate(0, 0)">
-            <text x="0" y="{{ legend_font_size * 0.1 }}" class="base nc">X</text>
+            <text x="0" y="{{ legend_font_size * 0.1 }}" class="base non-canonical">X</text>
             <text class="label" x="{{ legend_font_size * 0.75 }}" y="0">Non-canonical monomeric form</text>
         </g>
         {% for feature in seq_features %}
         <g transform="translate(0, {{ (legend_font_size + legend_label_sep) * loop.index }})">
-            <text x="0" y="{{ legend_font_size * 0.1 }}" class="base nc" style="fill: {{ feature.color }}">X</text>
+            <text x="0" y="{{ legend_font_size * 0.1 }}" class="base non-canonical" style="fill: {{ feature.color }}">X</text>
             <text class="label" x="{{ legend_font_size * 0.75 }}" y="0">{{ feature.label }}</text>
         </g>
         {% endfor %}
