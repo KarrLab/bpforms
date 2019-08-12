@@ -20,6 +20,9 @@ include bpforms/grammar.lark
 # alphabets
 recursive-include bpforms/alphabet *.yml
 
+# crosslink ontology
+recursive-include xlink *.yml
+
 # visualization files
 include bpforms/polymer_genomic_viz.template.svg
 

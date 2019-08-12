@@ -1,0 +1,593 @@
+A,C:
+  synonyms:
+  - 2-(L-cystein-S-yl)-L-alanine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: A
+  l_bond_atoms:
+  - C2
+  l_displaced_atoms:
+  - H2
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: C
+  r_bond_atoms:
+  - S11
+  r_displaced_atoms:
+  - H11
+AA0025:
+  synonyms:
+  - L-cystine
+  common_name: disulfide
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: C
+  l_bond_atoms:
+  - S11
+  l_displaced_atoms:
+  - H11
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: C
+  r_bond_atoms:
+  - S11
+  r_displaced_atoms:
+  - H11
+AA0126:
+  synonyms:
+  - N-(L-isoaspartyl)-glycine
+  common_name: isoaspartyl_glycine_isopeptide
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: D
+  l_bond_atoms:
+  - C6
+  l_displaced_atoms:
+  - O8+1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: G
+  r_bond_atoms:
+  - N5-1
+  r_displaced_atoms:
+  - H5+1
+  - H5
+AA0206:
+  synonyms:
+  - S-glycyl-L-cysteine
+  common_name: glycine_cysteine_thioester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: G
+  l_bond_atoms:
+  - C2
+  l_displaced_atoms:
+  - O1
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: C
+  r_bond_atoms:
+  - S11
+  r_displaced_atoms:
+  - H11
+AA0360:
+  synonyms:
+  - N-(L-isoglutamyl)-glycine
+  common_name: isoglutamyl_glycine_isopeptide
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: G
+  l_bond_atoms:
+  - N5-1
+  l_displaced_atoms:
+  - H5+1
+  - H5
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: E
+  r_bond_atoms:
+  - C7
+  r_displaced_atoms:
+  - O9+1
+AA0368:
+  synonyms:
+  - 3'-(L-tyros-O4'-yl)-L-tyrosine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: Y
+  l_bond_atoms:
+  - C9
+  l_displaced_atoms:
+  - H9
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: Y
+  r_bond_atoms:
+  - O13
+  r_displaced_atoms:
+  - H13
+AA0411:
+  synonyms:
+  - S-(L-alanyl)-L-cysteine
+  common_name: alanine_cysteine_thioester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: A
+  l_bond_atoms:
+  - C8
+  l_displaced_atoms:
+  - O10
+  - H10
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: C
+  r_bond_atoms:
+  - S11
+  r_displaced_atoms:
+  - H11
+AA0413:
+  synonyms:
+  - S-(L-methionyl)-L-cysteine
+  common_name: methionine_cysteine_thioester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: C
+  l_bond_atoms:
+  - S11
+  l_displaced_atoms:
+  - H11
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: M
+  r_bond_atoms:
+  - C11
+  r_displaced_atoms:
+  - O13
+  - H13
+AA0414:
+  synonyms:
+  - S-(L-phenylalanyl)-L-cysteine
+  common_name: phenylalanine_cysteine_thioester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: F
+  l_bond_atoms:
+  - C7
+  l_displaced_atoms:
+  - O9
+  - H9
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: C
+  r_bond_atoms:
+  - S11
+  r_displaced_atoms:
+  - H11
+AA0415:
+  synonyms:
+  - S-(L-threonyl)-L-cysteine
+  common_name: threonine_cysteine_thioester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: T
+  l_bond_atoms:
+  - C6
+  l_displaced_atoms:
+  - O8
+  - H8
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: C
+  r_bond_atoms:
+  - S11
+  r_displaced_atoms:
+  - H11
+AA0416:
+  synonyms:
+  - S-(L-tyrosyl)-L-cysteine
+  common_name: tyrosine_cysteine_thioester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: Y
+  l_bond_atoms:
+  - C2
+  l_displaced_atoms:
+  - O1
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: C
+  r_bond_atoms:
+  - S11
+  r_displaced_atoms:
+  - H11
+AA0417:
+  synonyms:
+  - S-(L-tryptophanyl)-L-cysteine
+  common_name: tryptophan_cysteine_thioester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: W
+  l_bond_atoms:
+  - C2
+  l_displaced_atoms:
+  - O1
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: C
+  r_bond_atoms:
+  - S11
+  r_displaced_atoms:
+  - H11
+AA0495:
+  synonyms:
+  - O-glycyl-L-serine
+  common_name: serine_glycinate_ester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: G
+  l_bond_atoms:
+  - C2
+  l_displaced_atoms:
+  - O1
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: S
+  r_bond_atoms:
+  - O1
+  r_displaced_atoms:
+  - H1
+AA0505:
+  synonyms:
+  - N2-(L-isoglutamyl)-L-lysine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: E
+  l_bond_atoms:
+  - C7
+  l_displaced_atoms:
+  - O9+1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: K
+  r_bond_atoms:
+  - N14-1
+  r_displaced_atoms:
+  - H14+1
+  - H14
+AA0536:
+  synonyms:
+  - O-(isoglutamyl)-L-threonine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: T
+  l_bond_atoms:
+  - O13
+  l_displaced_atoms:
+  - H13
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: Q
+  r_bond_atoms:
+  - C2
+  r_displaced_atoms:
+  - N1
+  - H1
+  - H1
+AA0586:
+  synonyms:
+  - L-lysinonorleucine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: K
+  l_bond_atoms:
+  - N1
+  l_displaced_atoms:
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: K
+  r_bond_atoms:
+  - C5
+  r_displaced_atoms:
+  - N1-1
+  - H1+1
+  - H1
+  - H1
+C,D:
+  synonyms:
+  - 3-(S-L-cysteinyl)-L-aspartic acid
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: C
+  l_bond_atoms:
+  - S11
+  l_displaced_atoms:
+  - H11
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: D
+  r_bond_atoms:
+  - C5
+  r_displaced_atoms:
+  - H5
+C,L:
+  synonyms:
+  - S-(L-leucyl)-L-cysteine
+  common_name: leucine_cysteine_thioester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: C
+  l_bond_atoms:
+  - S11
+  l_displaced_atoms:
+  - H11
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: L
+  r_bond_atoms:
+  - C7
+  r_displaced_atoms:
+  - O9
+  - H9
+C,M:
+  synonyms:
+  - 2-(L-cystein-S-yl)-L-methionine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: C
+  l_bond_atoms:
+  - S11
+  l_displaced_atoms:
+  - H11
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: M
+  r_bond_atoms:
+  - C5
+  r_displaced_atoms:
+  - H5
+C,Q:
+  synonyms:
+  - S-(L-isoglutamyl)-L-cysteine
+  common_name: isoglutamyl_cysteine_thioester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: C
+  l_bond_atoms:
+  - S11
+  l_displaced_atoms:
+  - H11
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: Q
+  r_bond_atoms:
+  - C2
+  r_displaced_atoms:
+  - N1
+  - H1
+  - H1
+C,S:
+  synonyms:
+  - 2-(L-cystein-S-yl)-L-serine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: C
+  l_bond_atoms:
+  - S11
+  l_displaced_atoms:
+  - H11
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: S
+  r_bond_atoms:
+  - C3
+  r_displaced_atoms:
+  - H3
+C,Y:
+  synonyms:
+  - 2-(L-cystein-S-yl)-D-tyrosine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: C
+  l_bond_atoms:
+  - S11
+  l_displaced_atoms:
+  - H11
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: Y
+  r_bond_atoms:
+  - C4
+  r_displaced_atoms:
+  - H4
+D,K:
+  synonyms:
+  - N6-(L-aspartyl)-L-lysine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: D
+  l_bond_atoms:
+  - C2
+  l_displaced_atoms:
+  - H2
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: K
+  r_bond_atoms:
+  - N1-1
+  r_displaced_atoms:
+  - H1+1
+  - H1
+D,T:
+  synonyms:
+  - O-isoaspartyl-L-threonine
+  common_name: threonine_aspartic_ester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: D
+  l_bond_atoms:
+  - C6
+  l_displaced_atoms:
+  - O8+1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: T
+  r_bond_atoms:
+  - O13
+  r_displaced_atoms:
+  - H13
+E,S:
+  synonyms:
+  - O-(L-isoglutamyl)-L-serine
+  common_name: isoglutamyl_serine_ester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: E
+  l_bond_atoms:
+  - C7
+  l_displaced_atoms:
+  - O9+1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: S
+  r_bond_atoms:
+  - O1
+  r_displaced_atoms:
+  - H1
+F,S:
+  synonyms:
+  - O-(L-phenylalanyl)-L-serine
+  common_name: phenylalanine_serine_ester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: F
+  l_bond_atoms:
+  - C7
+  l_displaced_atoms:
+  - O9
+  - H9
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: S
+  r_bond_atoms:
+  - O1
+  r_displaced_atoms:
+  - H1
+F,V:
+  synonyms:
+  - 3-(L-phenylalan-2'-yl)-L-valine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: F
+  l_bond_atoms:
+  - C12
+  l_displaced_atoms:
+  - H12
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: V
+  r_bond_atoms:
+  - C11
+  r_displaced_atoms:
+  - H11
+G,K:
+  synonyms:
+  - N6-glycyl-L-lysine
+  common_name: glycyl_lysine_isopeptide
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: G
+  l_bond_atoms:
+  - C2
+  l_displaced_atoms:
+  - O1
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: K
+  r_bond_atoms:
+  - N1-1
+  r_displaced_atoms:
+  - H1+1
+  - H1
+G,T:
+  synonyms:
+  - O-glycyl-L-threonine
+  common_name: threonine_glycinate_ester
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: G
+  l_bond_atoms:
+  - C2
+  l_displaced_atoms:
+  - O1
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: T
+  r_bond_atoms:
+  - O13
+  r_displaced_atoms:
+  - H13
+K,N:
+  synonyms:
+  - N6-(L-isoaspartyl)-L-lysine
+  common_name: isoaspartyl_lysine_isopeptide
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: K
+  l_bond_atoms:
+  - N1-1
+  l_displaced_atoms:
+  - H1+1
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: N
+  r_bond_atoms:
+  - C2
+  r_displaced_atoms:
+  - N1
+  - H1
+  - H1
+K,Q:
+  synonyms:
+  - N6-(L-isoglutamyl)-L-lysine
+  common_name: isoglutamyl_lysine_isopeptide
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: K
+  l_bond_atoms:
+  - N1-1
+  l_displaced_atoms:
+  - H1+1
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: Q
+  r_bond_atoms:
+  - C2
+  r_displaced_atoms:
+  - N1
+  - H1
+  - H1
+K,S:
+  synonyms:
+  - L-lysinoalanine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: K
+  l_bond_atoms:
+  - N1
+  l_displaced_atoms:
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: S
+  r_bond_atoms:
+  - C2
+  r_displaced_atoms:
+  - O1
+  - H1
+K,T:
+  synonyms:
+  - N6-(L-threonyl)-L-lysine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: K
+  l_bond_atoms:
+  - N1-1
+  l_displaced_atoms:
+  - H1+1
+  - H1
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: T
+  r_bond_atoms:
+  - C6
+  r_displaced_atoms:
+  - O8
+  - H8
+U,U:
+  synonyms:
+  - L-selenocystine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: U
+  l_bond_atoms:
+  - Se8
+  l_displaced_atoms:
+  - H8
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: U
+  r_bond_atoms:
+  - Se8
+  r_displaced_atoms:
+  - H8
+V,Y:
+  synonyms:
+  - 3-(O4'-L-tyrosyl)-L-valine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: V
+  l_bond_atoms:
+  - C9
+  l_displaced_atoms:
+  - H9
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: Y
+  r_bond_atoms:
+  - O13
+  r_displaced_atoms:
+  - H13
+Y,Y:
+  synonyms:
+  - 3'-(L-tyros-3'-yl)-L-tyrosine
+  l_monomer_alphabet: bpforms.ProteinForm
+  l_monomer: Y
+  l_bond_atoms:
+  - C9
+  l_displaced_atoms:
+  - H9
+  r_monomer_alphabet: bpforms.ProteinForm
+  r_monomer: Y
+  r_bond_atoms:
+  - C9
+  r_displaced_atoms:
+  - H9

@@ -14,6 +14,7 @@ package_data = {
         'VERSION',
         'grammar.lark',
         'alphabet/*.yml',  # alphabets
+        'xlink/*.yml',  # crosslink ontology
         'config/*.cfg',
         'polymer_genomic_viz.template.svg',  # visualization
         'web/*',  # website
