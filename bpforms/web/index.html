@@ -335,7 +335,8 @@
           <h3>Examples</h3>
           <pre>[id: "dI"
     | name: "hypoxanthine"
-    | structure: "OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O"
+    | structure: "OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)
+                  C1CC(C(O1)COP(=O)([O-])[O-])O"
     ]</pre><br/>
           <pre>[id: "AA0305"
     | name: "N5-methyl-L-arginine"
@@ -364,7 +365,8 @@
             <div class="large-8 cell syntax">
               <pre>[id: "m2C"
     | name: "2-O-methylcytosine"
-    | structure: "COC1=NC(=CCN1C1CC(C(O1)COP(=O)([O-])[O-])O)N"
+    | structure: "COC1=NC(=CCN1C1CC(C(O1)COP(=O)
+                  ([O-])[O-])O)N"
     ]</pre>
             </div>
             <div class="large-4 cell image">
@@ -399,7 +401,8 @@
             <div class="large-8 cell syntax">
               <pre>[id: "AA0305"
   | name: "N5-methyl-L-arginine"
-  | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)[NH3+]"
+  | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)
+                [NH3+]"
   | l-bond-atom: N16-1
   | l-displaced-atom: H16+1
   | l-displaced-atom: H16
@@ -463,16 +466,28 @@
           <h3>Crosslinks between non-adjacent monomers</h3>
           <p>The <tt class="attribute">x-link</tt> polymer attribute can be used to indicate a bond between non-adjacent monomeric forms. For example, this attribute can be used to describe intrastrand crosslinks in DNA and disulfide bonds between cysteines in proteins.</p>
 
-          <p>Each crosslink can be described by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., "<tt>| x-link: [l-bond-atom: 1C1 | r-bond-atom: 3C2 | ...]</tt>").</p>
+          <p>Crosslinks can be described our ontology of crosslinks or defined inline.</p>
 
-          <p class="before_list">Each crosslink can be described with five types of attributes:</p>
+          <p>Polymers can have zero, one, or more crosslinks.</p>
+
+          <h4>Ontology-defined crosslinks</h4>
+          <p>Crosslinks defined using our ontology can be described by enclosing attributes which indicate the monomeric forms involved in the crosslink within square brackets and delimiting the attributes with pipes (e.g., <tt>CAC | x-link: [type: disfulfide | l-monomer: 1 | r-monomer: 3]</tt>).</p>
+
+          <p>The value of the <tt>type</tt> attribute must be the id of a crosslink in our ontology. See the crosslinks browser <a href="crosslinks.html"><i class="fi-link"></i></a> for a list of the defined crosslinks.</p>
+
+          <p>The values of the <tt>l-monomer</tt> and <tt>r-monomer</tt> attributes should be integers which indicates the positions of the monomeric forms involved in the crosslink. The left/right orientation of the monomeric forms must be matched to the definition of the crosslink in the ontology.</p>
+
+          <h4>User-defined crosslinks</h4>
+          <p>Users can also define crosslinks "inline" by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., <tt>| x-link: [l-bond-atom: 1C1 | r-bond-atom: 3C2 | ...]</tt>).</p>
+
+          <p class="before_list">Each user-defined crosslink can be described with five types of attributes:</p>
           <ul>
             <li><tt>l-bond-atom</tt> and <tt>r-bond-atom</tt>: These attributes indicate the atoms involved in the bond. The values of these attributes are the position of the monomeric form within the sequence, the element of the atom, the position of the atom within the monomeric form, and the charge of the atom (e.g., <tt>8N3+1</tt>). Open Babel can be used to display the numbers of the atoms within monomeric forms.</li>
             <li><tt>l-displaced-atom</tt> and <tt>r-displaced-atom</tt>: These attributes indicate the atoms displaced by the formation of the bond. The values of these attributes are also the position of the monomeric form within the sequence, the element of the atom, the position of the atom within the monomeric form, and the charge of the atom.</li>
             <li><tt>comments</tt>: This attribute can indicate comments about the crosslink, such as uncertainty about its location or structure.</li>
           </ul>
 
-          <p>Polymers can have zero, one, or more crosslinks. Each crosslink can have one or more left and right bond atoms and zero or more left and right displaced atoms. Furthermore, each crosslink must have the same number of left and right bond atoms. This constraint is verified by the <i>BpForms</i> software.</p>
+          <p>Each user-defined crosslink can have one or more left and right bond atoms and zero or more left and right displaced atoms. Furthermore, each user-defined crosslink must have the same number of left and right bond atoms. This constraint is verified by the <i>BpForms</i> software.</p>
         </div>
         <div class="large-7 cell example">
           <h3>Example</h3>
@@ -481,11 +496,18 @@
               <p>The example below illustrates how to describe a tripeptide with a disulfide bond. The blue line indicates the disulfide bond (crosslink). The green lines indicate the bonds between the successive amino acids. The black labels indicate the positions of monomeric forms within the sequence.</p>
             </div>
             <div class="large-8 cell syntax">
+              <p class="before_list">Ontology-defined crosslink</p>
+              <pre>CAC | x-link: [type: "disulfide"
+      l-monomer: 1
+    | r-monomer: 3
+]</pre>
+              <p class="before_list" style="margin-top: 1rem;">User-defined crosslink</p>
               <pre>CAC | x-link: [
-    l-bond-atom: 1S11 |
-    l-displaced-atom: 1H11 |
-    r-bond-atom: 3S11 |
-    r-displaced-atom: 3H11
+      l-bond-atom: 1S11
+    | l-displaced-atom: 1H11
+    | r-bond-atom: 3S11
+    | r-displaced-atom: 3H11
+    | comments: "Disulfide bond"
 ]</pre>
             </div>
             <div class="large-4 cell image">

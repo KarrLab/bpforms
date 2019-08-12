@@ -1461,7 +1461,7 @@ def parse_yaml(path):
     """ Read a YAML file
 
     Args:
-        path (:obj:`str`): path to YAML file which defines alphabet
+        path (:obj:`str`): path to YAML file
 
     Returns:
         :obj:`object`: content of file
@@ -2009,10 +2009,103 @@ class Backbone(object):
         return True
 
 
-class Bond(object):
-    """ Bond between monomeric forms
+class BondBase(abc.ABC):
+    @abc.abstractmethod
+    def get_l_bond_atoms(self):
+        """ Get left bond atoms 
+
+        Returns:
+            :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        pass
+
+    @abc.abstractmethod
+    def get_r_bond_atoms(self):
+        """ Get right bond atoms 
+
+        Returns:
+            :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        pass
+
+    @abc.abstractmethod
+    def get_l_displaced_atoms(self):
+        """ Get left displaced atoms 
+
+        Returns:
+            :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        pass
+
+    @abc.abstractmethod
+    def get_r_displaced_atoms(self):
+        """ Get right displaced atoms 
+
+        Returns:
+            :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        pass
+
+    def get_formula(self, none_position=True):
+        """ Get the formula
+
+        Args:
+            none_position (:obj:`bool`, optional): include atoms whose position is :obj:`None`
+
+        Returns:
+            :obj:`EmpiricalFormula`: formula
+        """
+        formula = EmpiricalFormula()
+        for atom in self.l_displaced_atoms:
+            if atom.position is not None or none_position:
+                formula[atom.element] -= 1
+        for atom in self.r_displaced_atoms:
+            if atom.position is not None or none_position:
+                formula[atom.element] -= 1
+        return formula
+
+    def get_mol_wt(self, none_position=True):
+        """ Get the molecular weight
+
+        Args:
+            none_position (:obj:`bool`, optional): include atoms whose position is :obj:`None`
+
+        Returns:
+            :obj:`float`: molecular weight
+        """
+        return self.get_formula(none_position=none_position).get_molecular_weight()
+
+    def get_charge(self, none_position=True):
+        """ Get the charge
+
+        Args:
+            none_position (:obj:`bool`, optional): include atoms whose position is :obj:`None`
+
+        Returns:
+            :obj:`int`: charge
+        """
+        charge = 0
+        for atom in self.l_bond_atoms:
+            if atom.position is not None or none_position:
+                charge -= atom.charge
+        for atom in self.l_displaced_atoms:
+            if atom.position is not None or none_position:
+                charge -= atom.charge
+        for atom in self.r_bond_atoms:
+            if atom.position is not None or none_position:
+                charge -= atom.charge
+        for atom in self.r_displaced_atoms:
+            if atom.position is not None or none_position:
+                charge -= atom.charge
+        return charge
+
+
+class Bond(BondBase):
+    """ Bond between monomeric forms (inter-residue bond or crosslink)
 
     Attributes:
+        l_monomer (:obj:`Monomer`): left monomeric form
+        r_monomer (:obj:`Monomer`): right monomeric form
         l_bond_atoms (:obj:`AtomList`): atoms from left monomeric form that bond with right monomeric form
         r_bond_atoms (:obj:`AtomList`): atoms from right monomeric form that bond with left monomeric form
         l_displaced_atoms (:obj:`AtomList`): atoms from left monomeric form displaced by bond
@@ -2020,22 +2113,73 @@ class Bond(object):
         comments (:obj:`str`): comments
     """
 
-    def __init__(self, l_bond_atoms=None, r_bond_atoms=None,
+    def __init__(self, l_monomer=None, r_monomer=None,
+                 l_bond_atoms=None, r_bond_atoms=None,
                  l_displaced_atoms=None, r_displaced_atoms=None,
                  comments=None):
         """
         Args:
+            l_monomer (:obj:`Monomer`, optional): left monomeric form
+            r_monomer (:obj:`Monomer`, optional): right monomeric form
             l_bond_atoms (:obj:`AtomList`, optional): atoms from left monomeric form that bond with right monomeric form
             r_bond_atoms (:obj:`AtomList`, optional): atoms from right monomeric form that bond with left monomeric form
             l_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomeric form displaced by bond
             r_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomeric form displaced by bond
             comments (:obj:`str`, optional): comments
         """
+        self.l_monomer = l_monomer
+        self.r_monomer = r_monomer
         self.l_bond_atoms = l_bond_atoms or AtomList()
         self.r_bond_atoms = r_bond_atoms or AtomList()
         self.l_displaced_atoms = l_displaced_atoms or AtomList()
         self.r_displaced_atoms = r_displaced_atoms or AtomList()
         self.comments = comments
+
+    @property
+    def l_monomer(self):
+        """ Get the left monomeric form
+
+        Returns:
+            :obj:`Monomer`: left monomeric form
+        """
+        return self._l_monomer
+
+    @l_monomer.setter
+    def l_monomer(self, value):
+        """ Set the left monomeric form
+
+        Args:
+            value (:obj:`Monomer`): left monomeric form
+
+        Raises:
+            :obj:`ValueError`: if `l_monomer` is not an instance of `Monomer` or `None`
+        """
+        if not (isinstance(value, Monomer) or value is None):
+            raise ValueError('`l_monomer` must be an instance of `Monomer` or `None`')
+        self._l_monomer = value
+
+    @property
+    def r_monomer(self):
+        """ Get the right monomeric form
+
+        Returns:
+            :obj:`Monomer`: right monomeric form
+        """
+        return self._r_monomer
+
+    @r_monomer.setter
+    def r_monomer(self, value):
+        """ Set the right monomeric form
+
+        Args:
+            value (:obj:`Monomer`): right monomeric form
+
+        Raises:
+            :obj:`ValueError`: if `r_monomer` is not an instance of `Monomer` or `None`
+        """
+        if not (isinstance(value, Monomer) or value is None):
+            raise ValueError('`r_monomer` must be an instance of `Monomer` or `None`')
+        self._r_monomer = value
 
     @property
     def l_bond_atoms(self):
@@ -2160,58 +2304,37 @@ class Bond(object):
             raise ValueError('`comments` must be a string or None')
         self._comments = value
 
-    def get_formula(self, none_position=True):
-        """ Get the formula
-
-        Args:
-            none_position (:obj:`bool`, optional): include atoms whose position is :obj:`None`
+    def get_l_bond_atoms(self):
+        """ Get left bond atoms 
 
         Returns:
-            :obj:`EmpiricalFormula`: formula
+            :obj:`list` of :obj:`Atom`: left bond atoms
         """
-        formula = EmpiricalFormula()
-        for atom in self.l_displaced_atoms:
-            if atom.position is not None or none_position:
-                formula[atom.element] -= 1
-        for atom in self.r_displaced_atoms:
-            if atom.position is not None or none_position:
-                formula[atom.element] -= 1
-        return formula
+        return self.l_bond_atoms
 
-    def get_mol_wt(self, none_position=True):
-        """ Get the molecular weight
-
-        Args:
-            none_position (:obj:`bool`, optional): include atoms whose position is :obj:`None`
+    def get_r_bond_atoms(self):
+        """ Get right bond atoms 
 
         Returns:
-            :obj:`float`: molecular weight
+            :obj:`list` of :obj:`Atom`: left bond atoms
         """
-        return self.get_formula(none_position=none_position).get_molecular_weight()
+        return self.r_bond_atoms
 
-    def get_charge(self, none_position=True):
-        """ Get the charge
-
-        Args:
-            none_position (:obj:`bool`, optional): include atoms whose position is :obj:`None`
+    def get_l_displaced_atoms(self):
+        """ Get left displaced atoms 
 
         Returns:
-            :obj:`int`: charge
+            :obj:`list` of :obj:`Atom`: left bond atoms
         """
-        charge = 0
-        for atom in self.l_bond_atoms:
-            if atom.position is not None or none_position:
-                charge -= atom.charge
-        for atom in self.l_displaced_atoms:
-            if atom.position is not None or none_position:
-                charge -= atom.charge
-        for atom in self.r_bond_atoms:
-            if atom.position is not None or none_position:
-                charge -= atom.charge
-        for atom in self.r_displaced_atoms:
-            if atom.position is not None or none_position:
-                charge -= atom.charge
-        return charge
+        return self.l_displaced_atoms
+
+    def get_r_displaced_atoms(self):
+        """ Get right displaced atoms 
+
+        Returns:
+            :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        return self.r_displaced_atoms
 
     def is_equal(self, other):
         """ Determine if two bonds are semantically equal
@@ -2225,6 +2348,8 @@ class Bond(object):
         if self is other:
             return True
         if self.__class__ != other.__class__:
+            return False
+        if self.l_monomer != self.r_monomer:
             return False
         if not self.l_bond_atoms.is_equal(other.l_bond_atoms) \
                 or not self.r_bond_atoms.is_equal(other.r_bond_atoms) \
@@ -2265,6 +2390,160 @@ class Bond(object):
         return "[{}]".format(' | '.join(attrs))
 
 
+class OntoBond(BondBase):
+    """ A crosslinking bond whose molecular details are defined in an
+    ontology of crosslinks
+
+    Attributes:
+        type (:obj:`Bond`): type of bond
+        l_monomer (:obj:`int`): location of left monomeric form
+        r_monomer (:obj:`int`): location of right monomeric form
+    """
+
+    def __init__(self, type=None, l_monomer=None, r_monomer=None):
+        self.type = type
+        self.l_monomer = l_monomer
+        self.r_monomer = r_monomer
+
+    @property
+    def l_monomer(self):
+        """ Get location of left monomeric form
+
+        Returns:
+            :obj:`int`: location of left monomeric form
+        """
+        return self._l_monomer
+
+    @l_monomer.setter
+    def l_monomer(self, value):
+        """ Set location of left monomeric form
+
+        Args:
+            value (:obj:`int`): location of left monomeric form
+
+        Raises:
+            :obj:`ValueError`: if value is not a positive integer or None
+        """
+        if value is not None:
+            if not isinstance(value, (int, float)):
+                raise ValueError('`l_monomer` must be a positive integer or None')
+            if value != int(value) or value < 1:
+                raise ValueError('`l_monomer` must be a positive integer or None')
+            value = int(value)
+        self._l_monomer = value
+
+    @property
+    def r_monomer(self):
+        """ Get location of right monomeric form
+
+        Returns:
+            :obj:`int`: location of right monomeric form
+        """
+        return self._r_monomer
+
+    @r_monomer.setter
+    def r_monomer(self, value):
+        """ Set location of right monomeric form
+
+        Args:
+            value (:obj:`int`): location of right monomeric form
+
+        Raises:
+            :obj:`ValueError`: if value is not a positive integer or None
+        """
+        if value is not None:
+            if not isinstance(value, (int, float)):
+                raise ValueError('`r_monomer` must be a positive integer or None')
+            if value != int(value) or value < 1:
+                raise ValueError('`r_monomer` must be a positive integer or None')
+            value = int(value)
+        self._r_monomer = value
+
+    def get_l_bond_atoms(self):
+        """ Get left bond atoms 
+
+        Returns:
+            :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        atoms = []
+        for atom in self.type.l_bond_atoms:
+            atoms.append(Atom(atom.molecule, atom.element,
+                              position=atom.position, charge=atom.charge, monomer=self.l_monomer))
+        return atoms
+
+    def get_r_bond_atoms(self):
+        """ Get right bond atoms 
+
+        Returns:
+            :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        atoms = []
+        for atom in self.type.r_bond_atoms:
+            atoms.append(Atom(atom.molecule, atom.element,
+                              position=atom.position, charge=atom.charge, monomer=self.r_monomer))
+        return atoms
+
+    def get_l_displaced_atoms(self):
+        """ Get left displaced atoms 
+
+        Returns:
+            :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        atoms = []
+        for atom in self.type.l_displaced_atoms:
+            atoms.append(Atom(atom.molecule, atom.element,
+                              position=atom.position, charge=atom.charge, monomer=self.l_monomer))
+        return atoms
+
+    def get_r_displaced_atoms(self):
+        """ Get right displaced atoms 
+
+        Returns:
+            :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        atoms = []
+        for atom in self.type.r_displaced_atoms:
+            atoms.append(Atom(atom.molecule, atom.element,
+                              position=atom.position, charge=atom.charge, monomer=self.l_monomer))
+        return atoms
+
+    def __str__(self):
+        """ Generate string representation of bond
+
+        Returns:
+            :obj:`str`: string representation of bond
+        """
+        attrs = []
+
+        if self.type:
+            attrs.append('type: "{}"'.format(onto_crosslink_to_id[self.type]))
+        if self.l_monomer:
+            attrs.append('l-monomer: {}'.format(self.l_monomer))
+        if self.r_monomer:
+            attrs.append('r-monomer: {}'.format(self.r_monomer))
+
+        return "[{}]".format(' | '.join(attrs))
+
+    def is_equal(self, other):
+        """ Determine if two bonds are semantically equal
+
+        Args:
+            other (:obj:`Bond`): other bond
+
+        Returns:
+            :obj:`bool`: :obj:`True` if the bond are semantically equal
+        """
+        if self is other:
+            return True
+        if self.__class__ != other.__class__:
+            return False
+        if not self.type.is_equal(other.type):
+            return False
+        if self.l_monomer != other.l_monomer or self.r_monomer != other.r_monomer:
+            return False
+        return True
+
+
 class BondSet(set):
     """ Set of bonds """
 
@@ -2272,20 +2551,20 @@ class BondSet(set):
         """ Add a bond
 
         Args:
-            bond (:obj:`Bond`): bond
+            bond (:obj:`BondBase`): bond
 
         Raises:
             :obj:`ValueError`: if the `bond` is not an instance of `Bond`
         """
-        if not isinstance(bond, Bond):
-            raise ValueError('`bond` must be an instance of `Bond`')
+        if not isinstance(bond, BondBase):
+            raise ValueError('`bond` must be an instance of `BondBase`')
         super(BondSet, self).add(bond)
 
     def update(self, bonds):
         """ Add a set of bonds
 
         Args:
-            bonds (iterable of :obj:`Bond`): bonds
+            bonds (iterable of :obj:`BondBase`): bonds
         """
         for bond in bonds:
             self.add(bond)
@@ -2687,17 +2966,26 @@ class BpForm(object):
 
         # crosslinks
         for i_crosslink, crosslink in enumerate(self.crosslinks):
-            atom_types = ['r_bond_atoms', 'r_displaced_atoms',
-                          'l_bond_atoms', 'l_displaced_atoms']
-            for atom_type in atom_types:
-                for i_atom, atom in enumerate(getattr(crosslink, atom_type)):
-                    if atom.molecule != Monomer or not atom.monomer or not atom.element or not atom.position:
-                        errors.append("'{}[{}]' of crosslink {} must have a defined monomer, element, and position".format(
-                            atom_type, i_atom, i_crosslink + 1))
-                    else:
-                        check_atom('Crosslink {} - monomer {}'.format(i_crosslink, atom.monomer), atom_type, atom.monomer - 1, i_atom,
-                                   self.seq[atom.monomer - 1].structure, atom, bonding_monomer_hydrogens,
-                                   el_table, errors)
+            if isinstance(crosslink, OntoBond):
+                if self.seq[crosslink.l_monomer - 1] != crosslink.type.l_monomer:
+                    errors.append('Monomer {} must be equal to the left monomer of crosslink {}'.format(
+                        crosslink.l_monomer, onto_crosslink_to_id[crosslink.type]))
+                if self.seq[crosslink.r_monomer - 1] != crosslink.type.r_monomer:
+                    errors.append('Monomer {} must be equal to the right monomer of crosslink {}'.format(
+                        crosslink.r_monomer, onto_crosslink_to_id[crosslink.type]))
+
+            else:
+                atom_types = ['r_bond_atoms', 'r_displaced_atoms',
+                              'l_bond_atoms', 'l_displaced_atoms']
+                for atom_type in atom_types:
+                    for i_atom, atom in enumerate(getattr(crosslink, 'get_' + atom_type)()):
+                        if atom.molecule != Monomer or not atom.monomer or not atom.element or not atom.position:
+                            errors.append("'{}[{}]' of crosslink {} must have a defined monomer, element, and position".format(
+                                atom_type, i_atom, i_crosslink + 1))
+                        else:
+                            check_atom('Crosslink {} - monomer {}'.format(i_crosslink, atom.monomer), atom_type, atom.monomer - 1, i_atom,
+                                       self.seq[atom.monomer - 1].structure, atom, bonding_monomer_hydrogens,
+                                       el_table, errors)
 
         # check that monomers 1 .. L-1 can bond to right
         for i_monomer, monomer in enumerate(self.seq[0:-1]):
@@ -2736,7 +3024,7 @@ class BpForm(object):
             errors.append('Number of right and left bond atoms must be equal for monomers {}, {}'.format(len(self.seq), 1))
 
         for i_crosslink, crosslink in enumerate(self.crosslinks):
-            if len(crosslink.l_bond_atoms) != len(crosslink.r_bond_atoms):
+            if len(crosslink.get_l_bond_atoms()) != len(crosslink.get_r_bond_atoms()):
                 errors.append('Number of right and left bond atoms must be equal for crosslink {}'.format(i_crosslink + 1))
 
         crosslinks = list(self.crosslinks)
@@ -2931,7 +3219,7 @@ class BpForm(object):
             crosslinks_atoms.append(crosslink_atoms)
             for atom_type in ['l_bond_atoms', 'r_bond_atoms', 'l_displaced_atoms', 'r_displaced_atoms']:
                 crosslink_atoms[atom_type] = []
-                for atom_md in getattr(crosslink, atom_type):
+                for atom_md in getattr(crosslink, 'get_' + atom_type)():
                     atom = mol.GetAtom(n_atoms[atom_md.monomer - 1] + atom_md.position)
                     if atom_md.element == 'H':
                         atom = get_hydrogen_atom(atom, bonding_hydrogens, atom_md.monomer - 1)
@@ -3117,7 +3405,7 @@ class BpForm(object):
 
         # crosslinks
         for crosslink in self.crosslinks:
-            for atom in itertools.chain(crosslink.l_displaced_atoms, crosslink.r_displaced_atoms):
+            for atom in itertools.chain(crosslink.get_l_displaced_atoms(), crosslink.get_r_displaced_atoms()):
                 formula[atom.element] -= 1
 
         return formula \
@@ -3165,7 +3453,7 @@ class BpForm(object):
 
         # crosslinks
         for crosslink in self.crosslinks:
-            for atom in itertools.chain(crosslink.l_displaced_atoms, crosslink.r_displaced_atoms):
+            for atom in itertools.chain(crosslink.get_l_displaced_atoms(), crosslink.get_r_displaced_atoms()):
                 charge -= atom.charge
 
         return charge \
@@ -3196,19 +3484,7 @@ class BpForm(object):
 
         # crosslinks
         for crosslink in self.crosslinks:
-            atoms = []
-            for atom_type in ['l_bond_atoms', 'r_bond_atoms', 'l_displaced_atoms', 'r_displaced_atoms']:
-                for atom in getattr(crosslink, atom_type):
-                    if atom.charge > 0:
-                        charge = '+' + str(atom.charge)
-                    elif atom.charge == 0:
-                        charge = ''
-                    else:
-                        charge = str(atom.charge)
-                    atoms.append('{}: {}{}{}{}'.format(atom_type[0:-1].replace('_', '-'),
-                                                       atom.monomer, atom.element, atom.position, charge))
-
-            val += ' | x-link: [{}]'.format(' | '.join(atoms))
+            val += ' | x-link: ' + str(crosslink)
 
         return val
 
@@ -3406,8 +3682,35 @@ class BpForm(object):
             @lark.v_args(inline=True)
             def crosslink(self, *args):
                 for arg in args:
-                    if isinstance(arg, Bond):
+                    if isinstance(arg, BondBase):
                         return ('crosslinks', arg)
+
+            @lark.v_args(inline=True)
+            def onto_crosslink(self, *args):
+                bond = OntoBond()
+                for arg in args:
+                    if isinstance(arg, lark.tree.Tree) and arg.data == 'onto_crosslink_attr':
+                        attr, val = arg.children[0]
+                        setattr(bond, attr, val)
+                return bond
+
+            @lark.v_args(inline=True)
+            def onto_crosslink_monomer(self, *args):
+                return (args[0], int(float(args[-1].value)))
+
+            @lark.v_args(inline=True)
+            def onto_crosslink_monomer_type(self, *args):
+                return args[0].value + '_monomer'
+
+            @lark.v_args(inline=True)
+            def onto_crosslink_type(self, *args):
+                for arg in args:
+                    if arg.type == 'CHARS':
+                        type_id = arg.value
+                        type = crosslinks_onto.get(type_id, None)
+                        if type is None:
+                            raise ValueError('"{}" not in ontology'.format(type_id))
+                        return ('type', type)
 
             @lark.v_args(inline=True)
             def inline_crosslink(self, *args):
@@ -3537,8 +3840,8 @@ class BpForm(object):
 
         # color crosslink bonds
         for crosslink in self.crosslinks:
-            self._add_bonds_to_set(mol, crosslink.l_bond_atoms,
-                                   crosslink.r_bond_atoms,
+            self._add_bonds_to_set(mol, crosslink.get_l_bond_atoms(),
+                                   crosslink.get_r_bond_atoms(),
                                    atom_map, bond_sets[crosslink_bond_color],
                                    el_table)
 
@@ -3710,8 +4013,8 @@ class BpForm(object):
 
         x_links = []
         for crosslink in self.crosslinks:
-            l = crosslink.l_bond_atoms[0].monomer
-            r = crosslink.r_bond_atoms[0].monomer
+            l = crosslink.get_l_bond_atoms()[0].monomer
+            r = crosslink.get_r_bond_atoms()[0].monomer
             l_track = math.floor((l - 1) / nt_per_track)
             r_track = math.floor((r - 1) / nt_per_track)
             l_pos = (l - 1) % nt_per_track + 1
@@ -4036,3 +4339,5 @@ def get_hydrogen_atom(parent_atom, bonding_hydrogens, i_monomer):
                 bonding_hydrogens.append(tmp)
                 return other_atom
     return None
+
+from bpforms.xlink.core import crosslinks_onto, onto_crosslink_to_id

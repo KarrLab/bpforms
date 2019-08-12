@@ -1072,7 +1072,7 @@ class BondSetTestCase(unittest.TestCase):
         self.assertIn(bond_2, bonds)
         self.assertNotIn(bond_3, bonds)
 
-        with self.assertRaisesRegex(ValueError, '`bond` must be an instance of `Bond`'):
+        with self.assertRaisesRegex(ValueError, '`bond` must be an instance of `BondBase`'):
             bonds.add(None)
 
     def test_update(self):
@@ -1650,6 +1650,28 @@ class BpFormTestCase(unittest.TestCase):
                     '| comments: "a comment"]')
         form = dna.DnaForm().from_str(form_str)
         self.assertEqual(list(form.crosslinks)[0].comments, 'a comment')
+
+        user_form = protein.ProteinForm().from_str(
+            'CAC'
+            ' | x-link: ['
+            '   l-bond-atom: 1S11'
+            ' | r-bond-atom: 3S11'
+            ' | l-displaced-atom: 1H11'
+            ' | r-displaced-atom: 3H11'
+            ']')
+        onto_form_str = (
+            'CAC'
+            ' | x-link: ['
+            'type: "disulfide" '
+            '| l-monomer: 1 '
+            '| r-monomer: 3'
+            ']')
+        onto_form = protein.ProteinForm().from_str(onto_form_str)
+        self.assertEqual(onto_form.export('smiles'), user_form.export('smiles'))
+        self.assertEqual(str(onto_form), onto_form_str)
+
+        onto_form_2 = protein.ProteinForm().from_str(onto_form_str)
+        self.assertTrue(onto_form_2.is_equal(onto_form))
 
     def test_from_str_circular(self):
         form = dna.DnaForm().from_str('AAA')
