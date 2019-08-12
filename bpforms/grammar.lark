@@ -27,9 +27,21 @@ monomers_position: WS? OPEN_SQ_BRACKET (CHAR|CHARS) (WS? "|" WS? (CHAR|CHARS))* 
 base_monomer: BASE_MONOMER_FIELD_NAME field_sep QUOTE_DELIMITER (CHAR|CHARS) QUOTE_DELIMITER
 comments: COMMENTS_FIELD_NAME field_sep ESCAPED_STRING
 ?global_attr: crosslink | circular
-crosslink: CROSSLINK_FIELD_NAME field_sep OPEN_SQ_BRACKET WS? (crosslink_atom (attr_sep crosslink_atom)* WS?)? CLOSE_SQ_BRACKET
-crosslink_atom: crosslink_atom_type field_sep INT atom_element INT atom_charge?
-crosslink_atom_type: (LEFT_BOND_ATOM_FIELD_NAME | RIGHT_BOND_ATOM_FIELD_NAME | LEFT_DISPLACED_ATOM_FIELD_NAME | RIGHT_DISPLACED_ATOM_FIELD_NAME)
+
+crosslink: CROSSLINK_FIELD_NAME field_sep OPEN_SQ_BRACKET WS? (onto_crosslink | inline_crosslink) WS? CLOSE_SQ_BRACKET
+
+onto_crosslink: onto_crosslink_attr (attr_sep onto_crosslink_attr)*
+onto_crosslink_attr: onto_crosslink_type | onto_crosslink_atom
+onto_crosslink_atom: onto_crosslink_atom_type field_sep INT
+onto_crosslink_atom_type: "l-monomer" | "r-monomer"
+onto_crosslink_type: "type" field_sep CHARS
+
+inline_crosslink: (inline_crosslink_attr (attr_sep inline_crosslink_attr)*)?
+inline_crosslink_attr: inline_crosslink_atom | inline_crosslink_comments
+inline_crosslink_atom: inline_crosslink_atom_type field_sep INT atom_element INT atom_charge?
+inline_crosslink_atom_type: (LEFT_BOND_ATOM_FIELD_NAME | RIGHT_BOND_ATOM_FIELD_NAME | LEFT_DISPLACED_ATOM_FIELD_NAME | RIGHT_DISPLACED_ATOM_FIELD_NAME)
+inline_crosslink_comments: COMMENTS_FIELD_NAME field_sep ESCAPED_STRING
+
 circular: "circular"
 
 ID_FIELD_NAME: "id"

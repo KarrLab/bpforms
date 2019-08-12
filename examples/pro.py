@@ -796,6 +796,7 @@ def gen_bpform(protein, pro_ids_to_bpform_monomers, monomer_codes,
                     #r_bond_atoms=[bpforms.Atom(bpforms.Monomer, 'S', position=11, monomer=i_right)],
                     #l_displaced_atoms=[bpforms.Atom(bpforms.Monomer, 'H', position=11, monomer=i_left)],
                     #r_displaced_atoms=[bpforms.Atom(bpforms.Monomer, 'H', position=11, monomer=i_right)],
+                    comments='The polymer contains a disulfide bond between the ranges {} and {}'.format(i_left, i_right),
                 ))
 
     # validate

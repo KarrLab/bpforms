@@ -1643,6 +1643,14 @@ class BpFormTestCase(unittest.TestCase):
         dna.DnaForm().from_str('A | x-link: [] \n')
         dna.DnaForm().from_str('A | x-link: []\n ')
 
+        form_str = ('AAA'
+                    '| x-link: [r-displaced-atom: 5H3+1 '
+                    '| r-displaced-atom: 6H2+3 '
+                    '| r-bond-atom: 8P5-2'
+                    '| comments: "a comment"]')
+        form = dna.DnaForm().from_str(form_str)
+        self.assertEqual(list(form.crosslinks)[0].comments, 'a comment')
+
     def test_from_str_circular(self):
         form = dna.DnaForm().from_str('AAA')
         self.assertFalse(form.circular)

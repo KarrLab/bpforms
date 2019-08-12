@@ -2017,21 +2017,25 @@ class Bond(object):
         r_bond_atoms (:obj:`AtomList`): atoms from right monomeric form that bond with left monomeric form
         l_displaced_atoms (:obj:`AtomList`): atoms from left monomeric form displaced by bond
         r_displaced_atoms (:obj:`AtomList`): atoms from right monomeric form displaced by bond
+        comments (:obj:`str`): comments
     """
 
     def __init__(self, l_bond_atoms=None, r_bond_atoms=None,
-                 l_displaced_atoms=None, r_displaced_atoms=None):
+                 l_displaced_atoms=None, r_displaced_atoms=None,
+                 comments=None):
         """
         Args:
             l_bond_atoms (:obj:`AtomList`, optional): atoms from left monomeric form that bond with right monomeric form
             r_bond_atoms (:obj:`AtomList`, optional): atoms from right monomeric form that bond with left monomeric form
             l_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomeric form displaced by bond
             r_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomeric form displaced by bond
+            comments (:obj:`str`, optional): comments
         """
         self.l_bond_atoms = l_bond_atoms or AtomList()
         self.r_bond_atoms = r_bond_atoms or AtomList()
         self.l_displaced_atoms = l_displaced_atoms or AtomList()
         self.r_displaced_atoms = r_displaced_atoms or AtomList()
+        self.comments = comments
 
     @property
     def l_bond_atoms(self):
@@ -2133,6 +2137,29 @@ class Bond(object):
             value = AtomList(value)
         self._r_displaced_atoms = value
 
+    @property
+    def comments(self):
+        """ Get comments
+
+        Returns:
+            :obj:`str`: comments
+        """
+        return self._comments
+
+    @comments.setter
+    def comments(self, value):
+        """ Set comments
+
+        Args:
+            value (:obj:`str`): comments
+
+        Raises:
+            :obj:`ValueError`: if value is not a str or None
+        """
+        if value and not isinstance(value, str):
+            raise ValueError('`comments` must be a string or None')
+        self._comments = value
+
     def get_formula(self, none_position=True):
         """ Get the formula
 
@@ -2204,6 +2231,8 @@ class Bond(object):
                 or not self.l_displaced_atoms.is_equal(other.l_displaced_atoms) \
                 or not self.r_displaced_atoms.is_equal(other.r_displaced_atoms):
             return False
+        if self.comments != other.comments:
+            return False
         return True
 
     def __str__(self):
@@ -2212,7 +2241,8 @@ class Bond(object):
         Returns:
             :obj:`str`: string representation of bond
         """
-        atoms = []
+        attrs = []
+
         for atom_type in ['l_bond_atoms', 'r_bond_atoms',
                           'l_displaced_atoms',  'r_displaced_atoms']:
             for atom in getattr(self, atom_type):
@@ -2223,12 +2253,16 @@ class Bond(object):
                 else:
                     charge = ''
 
-                atoms.append('{}: {}{}{}{}'.format(atom_type[0:-1].replace('_', '-'),
+                attrs.append('{}: {}{}{}{}'.format(atom_type[0:-1].replace('_', '-'),
                                                    atom.monomer or '',
                                                    atom.element,
                                                    atom.position or '',
                                                    charge))
-        return "[{}]".format(' | '.join(atoms))
+
+        if self.comments:
+            attrs.append('comments: "{}"'.format(self.comments.replace('"', '\\"')))
+
+        return "[{}]".format(' | '.join(attrs))
 
 
 class BondSet(set):
@@ -3371,23 +3405,27 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def crosslink(self, *args):
-                bond = Bond()
-
-                if len(args) <= 4:
-                    args = []
-                elif isinstance(args[3], tuple):
-                    args = args[3:-1:2]
-                else:
-                    args = args[4:-1:2]
-
-                for atom_type, atom in args:
-                    atom_type_list = getattr(bond, atom_type)
-                    atom_type_list.append(atom)
-
-                return ('crosslinks', bond)
+                for arg in args:
+                    if isinstance(arg, Bond):
+                        return ('crosslinks', arg)
 
             @lark.v_args(inline=True)
-            def crosslink_atom(self, *args):
+            def inline_crosslink(self, *args):
+                bond = Bond()
+
+                for arg in args:
+                    if isinstance(arg, lark.tree.Tree) and arg.data == 'inline_crosslink_attr':
+                        attr, val = arg.children[0]
+                        if attr == 'comments':
+                            setattr(bond, attr, val)
+                        else:
+                            attr_val_list = getattr(bond, attr)
+                            attr_val_list.append(val)
+
+                return bond
+
+            @lark.v_args(inline=True)
+            def inline_crosslink_atom(self, *args):
                 atom_type = args[0]
                 monomer = int(float(args[2].value))
                 element = args[3].value
@@ -3396,11 +3434,15 @@ class BpForm(object):
                     charge = int(float(args[5].value))
                 else:
                     charge = 0
-                return atom_type, Atom(Monomer, monomer=monomer, element=element, position=position, charge=charge)
+                return (atom_type, Atom(Monomer, monomer=monomer, element=element, position=position, charge=charge))
 
             @lark.v_args(inline=True)
-            def crosslink_atom_type(self, *args):
+            def inline_crosslink_atom_type(self, *args):
                 return args[0].value.replace('-', '_') + 's'
+
+            @lark.v_args(inline=True)
+            def inline_crosslink_comments(self, *args):
+                return ('comments', args[-1].value[1:-1])
 
             @lark.v_args(inline=True)
             def circular(self, *args):
@@ -3580,7 +3622,7 @@ class BpForm(object):
             :obj:`str`: SVG image
         """
         import bpforms
-        
+
         nc_label_sep = 0.1 * seq_font_size
         axis_sep = 0.2 * tick_label_font_size
         tick_len = 0.4 * tick_label_font_size

@@ -465,10 +465,11 @@
 
           <p>Each crosslink can be described by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., "<tt>| x-link: [l-bond-atom: 1C1 | r-bond-atom: 3C2 | ...]</tt>").</p>
 
-          <p class="before_list">Each crosslink can be described with four types of attributes:</p>
+          <p class="before_list">Each crosslink can be described with five types of attributes:</p>
           <ul>
             <li><tt>l-bond-atom</tt> and <tt>r-bond-atom</tt>: These attributes indicate the atoms involved in the bond. The values of these attributes are the position of the monomeric form within the sequence, the element of the atom, the position of the atom within the monomeric form, and the charge of the atom (e.g., <tt>8N3+1</tt>). Open Babel can be used to display the numbers of the atoms within monomeric forms.</li>
             <li><tt>l-displaced-atom</tt> and <tt>r-displaced-atom</tt>: These attributes indicate the atoms displaced by the formation of the bond. The values of these attributes are also the position of the monomeric form within the sequence, the element of the atom, the position of the atom within the monomeric form, and the charge of the atom.</li>
+            <li><tt>comments</tt>: This attribute can indicate comments about the crosslink, such as uncertainty about its location or structure.</li>
           </ul>
 
           <p>Polymers can have zero, one, or more crosslinks. Each crosslink can have one or more left and right bond atoms and zero or more left and right displaced atoms. Furthermore, each crosslink must have the same number of left and right bond atoms. This constraint is verified by the <i>BpForms</i> software.</p>
