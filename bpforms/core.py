@@ -2518,9 +2518,9 @@ class OntoBond(BondBase):
         if self.type:
             attrs.append('type: "{}"'.format(onto_crosslink_to_id[self.type]))
         if self.l_monomer:
-            attrs.append('l-monomer: {}'.format(self.l_monomer))
+            attrs.append('l: {}'.format(self.l_monomer))
         if self.r_monomer:
-            attrs.append('r-monomer: {}'.format(self.r_monomer))
+            attrs.append('r: {}'.format(self.r_monomer))
 
         return "[{}]".format(' | '.join(attrs))
 

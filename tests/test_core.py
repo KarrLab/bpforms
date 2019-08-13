@@ -1663,8 +1663,8 @@ class BpFormTestCase(unittest.TestCase):
             'CAC'
             ' | x-link: ['
             'type: "disulfide" '
-            '| l-monomer: 1 '
-            '| r-monomer: 3'
+            '| l: 1 '
+            '| r: 3'
             ']')
         onto_form = protein.ProteinForm().from_str(onto_form_str)
         self.assertEqual(onto_form.export('smiles'), user_form.export('smiles'))

@@ -471,11 +471,11 @@
           <p>Polymers can have zero, one, or more crosslinks.</p>
 
           <h4>Ontology-defined crosslinks</h4>
-          <p>Crosslinks defined using our ontology can be described by enclosing attributes which indicate the monomeric forms involved in the crosslink within square brackets and delimiting the attributes with pipes (e.g., <tt>CAC | x-link: [type: disfulfide | l-monomer: 1 | r-monomer: 3]</tt>).</p>
+          <p>Crosslinks defined using our ontology can be described by enclosing attributes which indicate the monomeric forms involved in the crosslink within square brackets and delimiting the attributes with pipes (e.g., <tt>CAC | x-link: [type: disfulfide | l: 1 | r: 3]</tt>).</p>
 
           <p>The value of the <tt>type</tt> attribute must be the id of a crosslink in our ontology. See the crosslinks browser <a href="crosslinks.html"><i class="fi-link"></i></a> for a list of the defined crosslinks.</p>
 
-          <p>The values of the <tt>l-monomer</tt> and <tt>r-monomer</tt> attributes should be integers which indicates the positions of the monomeric forms involved in the crosslink. The left/right orientation of the monomeric forms must be matched to the definition of the crosslink in the ontology.</p>
+          <p>The values of the <tt>l</tt> and <tt>r</tt> attributes should be integers which indicates the positions of the monomeric forms involved in the crosslink. The left/right orientation of the monomeric forms must be matched to the definition of the crosslink in the ontology.</p>
 
           <h4>User-defined crosslinks</h4>
           <p>Users can also define crosslinks "inline" by enclosing attributes which indicate the atoms involved in the bond within square brackets and delimiting the attributes with pipes (e.g., <tt>| x-link: [l-bond-atom: 1C1 | r-bond-atom: 3C2 | ...]</tt>).</p>
@@ -498,8 +498,8 @@
             <div class="large-8 cell syntax">
               <p class="before_list">Ontology-defined crosslink</p>
               <pre>CAC | x-link: [type: "disulfide"
-      l-monomer: 1
-    | r-monomer: 3
+      l: 1
+    | r: 3
 ]</pre>
               <p class="before_list" style="margin-top: 1rem;">User-defined crosslink</p>
               <pre>CAC | x-link: [
