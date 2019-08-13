@@ -1,7 +1,6 @@
-""" read the manually-curated xlink xlsx file and export it to an xlink alphabet
+""" Read the manually-curated xlink xlsx file and export it to an xlink ontology
 
 :Author: Mike Zheng <xzheng20@colby.edu>
-:Author: Jonathan Karr <karr@mssm.edu>
 :Date: 2019-08-05
 :Copyright: 2019, Karr Lab
 :License: MIT

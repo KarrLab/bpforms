@@ -13,10 +13,12 @@ from bs4 import BeautifulSoup
 from ftplib import FTP
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils, get_major_micro_species
 from xml.etree.ElementTree import ElementTree
+import bpforms.xlink.core
 import glob
 import jnius
 import openbabel
 import os.path
+import pandas
 import pkg_resources
 import re
 import requests
@@ -123,6 +125,16 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         for monomer in alphabet.monomers.values():
             if monomer in monomer.base_monomers:
                 monomer.base_monomers.remove(monomer)
+
+        # remove crosslinks
+        filename = pkg_resources.resource_filename('bpforms', os.path.join('xlink', 'xlink.xlsx'))
+        data_frame = pandas.read_excel(filename)
+        for _, row in data_frame.iterrows():
+            if row['alphabet'] == 'protein' and row['alphabet_id'] in alphabet.monomers:
+                monomer = alphabet.monomers.pop(row['alphabet_id'])
+                for o_monomer in alphabet.monomers.values():
+                    if monomer in o_monomer.base_monomers:
+                        o_monomer.base_monomers.remove(monomer)
 
         # save report
         n_only = []

@@ -6,6 +6,7 @@ configobj
 jinja2
 lark_parser >= 0.6.6
 openbabel
+pandas
 requests
 requests_cache
 ruamel.yaml >= 0.15
