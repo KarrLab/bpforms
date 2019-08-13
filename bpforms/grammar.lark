@@ -33,7 +33,7 @@ crosslink: CROSSLINK_FIELD_NAME field_sep OPEN_SQ_BRACKET WS? (onto_crosslink | 
 onto_crosslink: onto_crosslink_attr (attr_sep onto_crosslink_attr)*
 onto_crosslink_attr: onto_crosslink_type | onto_crosslink_monomer
 onto_crosslink_monomer: onto_crosslink_monomer_type field_sep INT
-onto_crosslink_monomer_type: /[lr]/ "-monomer"
+onto_crosslink_monomer_type: /[lr]/
 onto_crosslink_type: "type" field_sep QUOTE_DELIMITER CHARS QUOTE_DELIMITER
 
 inline_crosslink: (inline_crosslink_attr (attr_sep inline_crosslink_attr)*)?
