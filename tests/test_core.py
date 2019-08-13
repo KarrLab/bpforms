@@ -1284,6 +1284,47 @@ class BpFormTestCase(unittest.TestCase):
         self.assertFalse(bp_form_1.is_equal(bp_form_6))
         self.assertFalse(bp_form_1.is_equal(bp_form_7))
 
+    def test_diff(self):
+        form_1 = dna.DnaForm()
+        form_2 = dna.DnaForm()
+        self.assertEqual(form_1.diff(form_1), None)
+        self.assertEqual(form_1.diff(form_2), None)
+        
+        form_2 = rna.RnaForm()
+        self.assertIn('DnaForm != RnaForm', form_1.diff(form_2))
+
+        form_2 = dna.DnaForm()
+        form_2.alphabet = rna.rna_alphabet
+        form_2.backbone = core.Backbone(monomer_bond_atoms=[core.Atom(core.Monomer, 'C')])
+        form_2.bond = core.Bond()
+        self.assertIn('Forms have different alphabets', form_1.diff(form_2))
+        self.assertIn('Forms have different backbones', form_1.diff(form_2))
+        self.assertIn('Forms have different inter-monomer bonds', form_1.diff(form_2))
+
+        form_2 = dna.DnaForm().from_str('A')
+        self.assertIn('Length 0 != 1', form_1.diff(form_2))
+
+        form_1 = dna.DnaForm().from_str('A')
+        form_2 = dna.DnaForm().from_str('C')
+        self.assertIn('Monomeric form 1', form_1.diff(form_2))
+
+        form_2 = dna.DnaForm().from_str('A|x-link:[]')
+        self.assertIn('Number of crosslinks 0 != 1', form_1.diff(form_2))
+
+        form_1 = dna.DnaForm().from_str('A|x-link:[l-bond-atom: 1C1]')
+        form_2 = dna.DnaForm().from_str('A|x-link:[l-bond-atom: 2O2]')
+        self.assertIn('not in self', form_1.diff(form_2))
+        self.assertIn('not in other', form_1.diff(form_2))
+
+        form_1 = dna.DnaForm().from_str('A|x-link:[l-bond-atom: 1C1]')
+        form_2 = dna.DnaForm().from_str('A|x-link:[l-bond-atom: 1C1]')
+        self.assertEqual(form_1.diff(form_2), None)
+
+        form_2 = dna.DnaForm(circular=True)
+        self.assertIn('Circularity False != True', form_1.diff(form_2))
+
+
+
     def test_getitem(self):
         monomer_1 = core.Monomer(id='A')
         monomer_2 = core.Monomer(id='B')

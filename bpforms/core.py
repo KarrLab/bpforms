@@ -2863,13 +2863,15 @@ class BpForm(object):
 
         # alphabet, backbone, inter-monomeric form bond
         if not self.alphabet.is_equal(other.alphabet):
-            diff.append('BpForms have different alphabets')
+            diff.append('Forms have different alphabets')
 
-        if not self.backbone.is_equal(other.backbone):
-            diff.append('BpForms have different backbones')
+        if (self.backbone is None and other.backbone is not None) or \
+            (self.backbone is not None and not self.backbone.is_equal(other.backbone)):
+            diff.append('Forms have different backbones')
         
-        if not self.bond.is_equal(other.bond):
-            diff.append('BpForms have different inter-monomer bonds')
+        if (self.bond is None and self.bond is not None) or \
+            (self.bond is not None and not self.bond.is_equal(other.bond)):
+            diff.append('Forms have different inter-monomer bonds')
 
         if diff:
             return '\n'.join(diff)
