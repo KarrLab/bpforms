@@ -36,8 +36,8 @@ OUT_PICKLE_FILENAME_2 = os.path.join('examples', 'pro_input.out.2.pkl')
 OUT_TSV_FILENAME = os.path.join('examples', 'pro_input.out.tsv')
 OUT_FASTA_FILENAME = os.path.join('examples', 'pro_input.fasta')
 OUT_FIG_FILENAME = os.path.join('examples', 'pro_input.svg')
-OUT_CML_DIRNAME = os.path.join('examples', 'pro_input_cml')
-OUT_SVG_DIRNAME = os.path.join('examples', 'pro_input_svg')
+OUT_STRUCTURE_DIRNAME = os.path.join('examples', 'pro_input_structure')
+OUT_VIZ_DIRNAME = os.path.join('examples', 'pro_input_viz')
 
 cache_name = os.path.join('examples', 'pro')
 session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
@@ -72,8 +72,8 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
         max_num_proteins=None,
         out_pickle_filename=OUT_PICKLE_FILENAME, out_pickle_filename_2=OUT_PICKLE_FILENAME_2,
         out_tsv_filename=OUT_TSV_FILENAME, out_fasta_filename=OUT_FASTA_FILENAME,
-        out_fig_filename=OUT_FIG_FILENAME, out_cml_dirname=OUT_CML_DIRNAME,
-        out_svg_dirname=OUT_SVG_DIRNAME):
+        out_fig_filename=OUT_FIG_FILENAME, out_structure_dirname=OUT_STRUCTURE_DIRNAME,
+        out_viz_dirname=OUT_VIZ_DIRNAME):
     """ Download PRO ontology, generate proteoforms, and encode with BpForms
 
     Args:
@@ -88,8 +88,8 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
         out_tsv_filename (:obj:`str`, optional): path to save results in tab-separated format
         out_fasta_filename (:obj:`str`, optional): path to save results in FASTA format
         out_fig_filename (:obj:`str`, optional): path to save plot of results
-        out_cml_dirname (:obj:`str`, optional): path to save preoteoforms in CML format
-        out_svg_dirname (:obj:`str`, optional): path to save preoteoforms im SVG format
+        out_structure_dirname (:obj:`str`, optional): path to save preoteoforms in CML format
+        out_viz_dirname (:obj:`str`, optional): path to save preoteoforms im SVG format
 
     Returns:
         :obj:`list` of :obj:`dict`: proteoforms encoded with BpForms
@@ -166,11 +166,11 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
                     print(protein['id'] + ': ' + msg)
 
     # generate BpForms for each protein
-    if not os.path.isdir(out_cml_dirname):
-        os.mkdir(out_cml_dirname)
+    if not os.path.isdir(out_structure_dirname):
+        os.mkdir(out_structure_dirname)
 
-    if not os.path.isdir(out_svg_dirname):
-        os.mkdir(out_svg_dirname)
+    if not os.path.isdir(out_viz_dirname):
+        os.mkdir(out_viz_dirname)
 
     if not os.path.isfile(out_pickle_filename_2):
         for i_protein, protein in enumerate(parsed_proteins):
@@ -211,8 +211,8 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
                 protein['modifications_mol_wt'] = protein['modified_mol_wt'] - protein['processed_mol_wt']
                 protein['modifications_charge'] = protein['modified_charge'] - protein['processed_charge']
 
-                with open(os.path.join(out_cml_dirname, protein['id'] + '.cml'), 'w') as file:
-                    file.write(modified_form.export('cml'))
+                # with open(os.path.join(out_structure_dirname, protein['id'] + '.cml'), 'w') as file:
+                #     file.write(modified_form.export('cml'))
 
                 form = gen_bpform(protein, monomers, monomer_codes,
                                   apply_processing=False, include_annotations=True)
@@ -237,8 +237,8 @@ def run(in_obo_filename=IN_OBO_FILENAME, in_pkl_filename=IN_PKL_FILENAME, in_tsv
                     if protein['processing'][-1]['end'] == len(form.seq):
                         seq_features[0]['positions'].pop(len(seq_features[0]['positions']) - 1)
 
-                with open(os.path.join(out_svg_dirname, protein['id'] + '.svg'), 'w') as file:
-                    file.write(form.get_genomic_image(seq_features))
+                with open(os.path.join(out_viz_dirname, protein['id'] + '.svg'), 'w') as file:
+                    file.write(form.get_genomic_image(seq_features, width=910))
 
             if modified_form.get_canonical_seq(monomer_codes) != protein['processed_seq']:
                 protein['pro_errors'].append('Modified sequence for {} not compatible with the processed sequence'.format(
