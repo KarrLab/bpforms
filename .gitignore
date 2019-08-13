@@ -80,6 +80,7 @@ examples/*.tsv
 examples/*.xlsx
 examples/pro_input_structure/
 examples/pro_input_viz/
+examples/pro_input_viz.zip
 
 # Paul's temporary work
 paulTmpTests
