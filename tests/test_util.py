@@ -59,16 +59,19 @@ class UtilTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             util.get_form('lipid')
 
-    @unittest.skipIf(not modomics_available, 'MODOMICS server not accesssible')
     def test_build_alphabets(self):
         self.assertFalse(os.path.isfile(dna.filename))
         self.assertFalse(os.path.isfile(rna.filename))
         self.assertFalse(os.path.isfile(protein.filename))
 
-        util.build_alphabets(_max_monomers=3)
+        alphabets = ['dna', 'protein']
+        if modomics_available:
+            alphabets.append('rna')
+        util.build_alphabets(alphabets=alphabets, _max_monomers=3)
 
         self.assertTrue(os.path.isfile(dna.filename))
-        self.assertTrue(os.path.isfile(rna.filename))
+        if modomics_available:
+            self.assertTrue(os.path.isfile(rna.filename))
         self.assertTrue(os.path.isfile(protein.filename))
 
     def test_gen_html_viz_alphabet(self):

@@ -288,27 +288,22 @@ def get_monomer(alphabet, monomer, format):
     if monomer_obj is None:
         flask_restplus.abort(400, 'Monomer "{}" not in alphabet "{}"'.format(monomer, alphabet))
 
+    mimetypes = {
+        'emf': 'image/emf',
+        'eps': 'application/postscript',
+        'jpeg': 'image/jpeg',
+        'msbmp': 'image/bmp',
+        'png': 'image/png',
+        'pdf': 'application/pdf',
+        'svg': 'image/svg+xml',
+    }
+
     if format == 'json':
         return get_monomer_properties(alphabet, monomer)
 
-    elif format in ['emf', 'eps', 'jpeg', 'msbmp', 'png', 'pdf', 'svg']:
-        if format == 'emf':
-            mimetype = 'image/emf'
-        elif format == 'eps':
-            mimetype = 'application/postscript'
-        elif format == 'jpeg':
-            mimetype = 'image/jpeg'
-        elif format == 'msbmp':
-            mimetype = 'image/bmp'
-        elif format == 'png':
-            mimetype = 'image/png'
-        elif format == 'pdf':
-            mimetype = 'application/pdf'
-        elif format == 'svg':
-            mimetype = 'image/svg+xml'
-
+    elif format in mimetypes:
         return flask.Response(monomer_obj.get_image(image_format=format, width=250, height=150),
-                              mimetype=mimetype)
+                              mimetype=mimetypes[format])
 
     else:
         flask_restplus.abort(400, 'Invalid format "{}"'.format(format))

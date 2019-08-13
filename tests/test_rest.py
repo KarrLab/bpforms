@@ -110,6 +110,15 @@ class RestTestCase(unittest.TestCase):
         self.assertEqual(rv.status_code, 200)
         self.assertIn('My warning', rv.get_json()['warnings'])
 
+        rv = client.post('/api/bpform/', json=dict(alphabet='dna', seq='A' * 100))
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn('limited to forms with length <=', rv.get_json()['warnings'])
+
+        rv = client.post('/api/bpform/', json=dict(
+            alphabet='dna', seq='A' * 100, ph=7.))
+        self.assertEqual(rv.status_code, 200)
+        self.assertIn('limited to forms with length <=', rv.get_json()['warnings'])
+
     def test_get_bpform_properties_errors(self):
         client = rest.app.test_client()
 
@@ -223,3 +232,6 @@ class RestTestCase(unittest.TestCase):
 
         rv = client.get('/api/alphabet/dna/A/unknown/')
         self.assertEqual(rv.status_code, 400)
+
+        rv = client.get('/api/alphabet/dna/A/eps/')
+        self.assertEqual(rv.status_code, 200)

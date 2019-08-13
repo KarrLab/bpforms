@@ -1036,6 +1036,10 @@ class BondTestCase(unittest.TestCase):
         bond_4 = core.Bond(r_bond_atoms=[core.Atom(core.Monomer, 'H')])
         bond_5 = core.Bond(l_displaced_atoms=[core.Atom(core.Monomer, 'H')])
         bond_6 = core.Bond(r_displaced_atoms=[core.Atom(core.Monomer, 'H')])
+        bond_7 = core.Bond(l_monomer=core.Monomer())
+        bond_8 = core.Bond(l_monomer=core.Monomer())
+        bond_9 = core.Bond(r_monomer=core.Monomer())
+        bond_10 = core.Bond(comments='a comment')
         self.assertTrue(bond_1.is_equal(bond_1))
         self.assertTrue(bond_1.is_equal(bond_2))
         self.assertFalse(bond_1.is_equal({}))
@@ -1043,6 +1047,11 @@ class BondTestCase(unittest.TestCase):
         self.assertFalse(bond_1.is_equal(bond_4))
         self.assertFalse(bond_1.is_equal(bond_5))
         self.assertFalse(bond_1.is_equal(bond_6))
+        self.assertFalse(bond_1.is_equal(bond_7))
+        self.assertFalse(bond_1.is_equal(bond_8))
+        self.assertTrue(bond_7.is_equal(bond_8))
+        self.assertFalse(bond_1.is_equal(bond_9))
+        self.assertFalse(bond_1.is_equal(bond_10))
 
     def test_str(self):
         bond = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'H')])
@@ -1053,6 +1062,58 @@ class BondTestCase(unittest.TestCase):
 
         bond = core.Bond(r_displaced_atoms=[core.Atom(core.Monomer, 'C', position=3, charge=4)])
         self.assertEqual(str(bond), '[r-displaced-atom: C3+4]')
+
+        bond = core.Bond(comments='a comment')
+        self.assertEqual(str(bond), '[comments: "a comment"]')
+
+    def test_setter_errors(self):
+        bond = core.Bond()
+        
+        bond.l_monomer = core.Monomer()
+        with self.assertRaisesRegex(ValueError, 'must be an instance of `Monomer` or `None`'):
+            bond.l_monomer = -2
+
+        bond.r_monomer = core.Monomer()
+        with self.assertRaisesRegex(ValueError, 'must be an instance of `Monomer` or `None`'):
+            bond.r_monomer = -2
+
+        bond.comments = 'a comment'
+        with self.assertRaisesRegex(ValueError, 'must be a string or None'):
+            bond.comments = 1
+
+
+class OntoBondTestCase(unittest.TestCase):
+    def test_setter_errors(self):
+        bond = core.OntoBond()
+        
+        bond.type = core.Bond()
+        with self.assertRaisesRegex(ValueError, 'must be an instance of `Bond` or `None`'):
+            bond.type = -2
+
+        bond.l_monomer = 2
+        with self.assertRaises(ValueError):
+            bond.l_monomer = 'a'
+        with self.assertRaises(ValueError):
+            bond.l_monomer = -2
+
+        bond.r_monomer = 2
+        with self.assertRaises(ValueError):
+            bond.r_monomer = 'a'
+        with self.assertRaises(ValueError):
+            bond.r_monomer = -2
+
+    def test_is_equal(self):
+        bond_1 = core.OntoBond()
+        bond_2 = core.OntoBond()
+        bond_3 = core.OntoBond(type=core.Bond())
+        bond_4 = core.OntoBond(l_monomer=2)
+        bond_5 = core.OntoBond(r_monomer=2)
+        self.assertTrue(bond_1.is_equal(bond_1))
+        self.assertTrue(bond_1.is_equal(bond_2))
+        self.assertFalse(bond_1.is_equal('bond'))
+        self.assertFalse(bond_1.is_equal(bond_3))
+        self.assertFalse(bond_1.is_equal(bond_4))
+        self.assertFalse(bond_1.is_equal(bond_5))
 
 
 class BondSetTestCase(unittest.TestCase):
@@ -1593,6 +1654,9 @@ class BpFormTestCase(unittest.TestCase):
         ])))
         self.assertEqual('AA[id: "dI" | position: 3-5 [A | C | G | m2A]]A', str(form))
 
+        with self.assertRaisesRegex(lark.exceptions.VisitError, 'not in alphabet'):
+            dna.DnaForm().from_str('A[id: "dI" | position: 3-5 [unknown]]')
+
     def test_from_str_crosslinks(self):
         form = dna.DnaForm().from_str('AAA')
         self.assertEqual(form.crosslinks, core.BondSet())
@@ -1673,6 +1737,16 @@ class BpFormTestCase(unittest.TestCase):
         onto_form_2 = protein.ProteinForm().from_str(onto_form_str)
         self.assertTrue(onto_form_2.is_equal(onto_form))
 
+        onto_form_str = (
+            'CAC'
+            ' | x-link: ['
+            'type: "unknown" '
+            '| l: 1 '
+            '| r: 3'
+            ']')
+        with self.assertRaisesRegex(lark.exceptions.VisitError, 'not in ontology'):
+            protein.ProteinForm().from_str(onto_form_str)
+
     def test_from_str_circular(self):
         form = dna.DnaForm().from_str('AAA')
         self.assertFalse(form.circular)
@@ -1683,6 +1757,12 @@ class BpFormTestCase(unittest.TestCase):
         form = dna.DnaForm().from_str('AAA|circular')
         self.assertTrue(form.circular)
         self.assertEqual(str(form), 'AAA | circular')
+
+    def test_get_structure_with_null_monomer(self):
+        form = dna.DnaForm()
+        form.seq.append(core.Monomer())
+        self.assertEqual(form.seq[0].structure, None)
+        form.get_structure()
 
     def test_get_structure_atom_map(self):
         form = dna.DnaForm().from_str('ACG')
@@ -2128,6 +2208,20 @@ class BpFormTestCase(unittest.TestCase):
 
         # with open(os.path.join('examples', 'test.svg'), 'w') as file:
         #     file.write(svg)
+
+        form = dna.DnaForm().from_str('AAAAA' * 30)
+        form.seq.append(core.Monomer(id='id'))
+        form.seq.append(core.Monomer(name='name'))
+        form.seq.append(core.Monomer(synonyms=['syn']))
+        form.seq.append(core.Monomer(identifiers=[core.Identifier(ns='ns', id='ns-id')]))
+        form.seq.append(core.Monomer())
+        form.get_genomic_image()
+
+        form = rna.RnaForm().from_str('AAAAA' * 30)
+        form.get_genomic_image()
+
+        with self.assertRaisesRegex(ValueError, 'must be an instance'):
+            protein.CanonicalProteinForm().get_genomic_image()
 
 
 class AlphabetTestCase(unittest.TestCase):

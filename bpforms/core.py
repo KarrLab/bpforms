@@ -1516,17 +1516,6 @@ class AlphabetBuilder(abc.ABC):
         """
         pass  # pragma: no cover
 
-    def get_major_micro_species(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
-        """ Get major microspecies for monomeric forms in alphabet
-
-        Args:
-            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
-            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
-            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
-        """
-        if ph is not None:
-            alphabet.get_major_micro_species(ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
-
     def save(self, alphabet, path):
         """ Save alphabet to YAML file
 
@@ -2017,7 +2006,7 @@ class BondBase(abc.ABC):
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
         """
-        pass
+        pass # pragma: no cover
 
     @abc.abstractmethod
     def get_r_bond_atoms(self):
@@ -2026,7 +2015,7 @@ class BondBase(abc.ABC):
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
         """
-        pass
+        pass # pragma: no cover
 
     @abc.abstractmethod
     def get_l_displaced_atoms(self):
@@ -2035,7 +2024,7 @@ class BondBase(abc.ABC):
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
         """
-        pass
+        pass # pragma: no cover
 
     @abc.abstractmethod
     def get_r_displaced_atoms(self):
@@ -2044,7 +2033,7 @@ class BondBase(abc.ABC):
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
         """
-        pass
+        pass # pragma: no cover
 
     def get_formula(self, none_position=True):
         """ Get the formula
@@ -2349,7 +2338,11 @@ class Bond(BondBase):
             return True
         if self.__class__ != other.__class__:
             return False
-        if self.l_monomer != self.r_monomer:
+        if (self.l_monomer is None and other.l_monomer is not None) or \
+           (self.l_monomer is not None and not self.l_monomer.is_equal(other.l_monomer)):
+            return False
+        if (self.r_monomer is None and other.r_monomer is not None) or \
+           (self.r_monomer is not None and not self.r_monomer.is_equal(other.r_monomer)):
             return False
         if not self.l_bond_atoms.is_equal(other.l_bond_atoms) \
                 or not self.r_bond_atoms.is_equal(other.r_bond_atoms) \
@@ -2404,6 +2397,30 @@ class OntoBond(BondBase):
         self.type = type
         self.l_monomer = l_monomer
         self.r_monomer = r_monomer
+
+    @property
+    def type(self):
+        """ Get type
+
+        Returns:
+            :obj:`Bond`: type
+        """
+        return self._type
+
+    @type.setter
+    def type(self, value):
+        """ Set type
+
+        Args:
+            value (:obj:`Bond`): type
+
+        Raises:
+            :obj:`ValueError`: if value is not a Bond or None
+        """
+        if value is not None:
+            if not isinstance(value, Bond):
+                raise ValueError('`type` must be an instance of `Bond` or `None`')            
+        self._type = value
 
     @property
     def l_monomer(self):
@@ -2537,7 +2554,8 @@ class OntoBond(BondBase):
             return True
         if self.__class__ != other.__class__:
             return False
-        if not self.type.is_equal(other.type):
+        if (self.type is None and other.type is not None) or \
+           (self.type is not None and not self.type.is_equal(other.type)):
             return False
         if self.l_monomer != other.l_monomer or self.r_monomer != other.r_monomer:
             return False
@@ -2821,6 +2839,77 @@ class BpForm(object):
                                  and self.bond.is_equal(other.bond)
                                  and self.circular == other.circular
                                  and self.crosslinks.is_equal(other.crosslinks))
+
+    def diff(self, other):
+        """ Determine the semantic difference between two biopolymer forms
+
+        Args:
+            other (:obj:`BpForm`): another biopolymer form
+
+        Returns:
+            :obj:`str`: description of the semantic difference between 
+                two biopolymer forms 
+        """
+        diff = []
+
+        # class
+        if self.__class__ != other.__class__:
+            diff.append('{} != {}'.format(
+                self.__class__.__name__,
+                other.__class__.__name__))
+
+        if diff:
+            return '\n'.join(diff)
+
+        # alphabet, backbone, inter-monomeric form bond
+        if not self.alphabet.is_equal(other.alphabet):
+            diff.append('BpForms have different alphabets')
+
+        if not self.backbone.is_equal(other.backbone):
+            diff.append('BpForms have different backbones')
+        
+        if not self.bond.is_equal(other.bond):
+            diff.append('BpForms have different inter-monomer bonds')
+
+        if diff:
+            return '\n'.join(diff)
+
+        # sequence, crosslinks, circularity
+        if len(self.seq) != len(other.seq):
+            diff.append('Length {} != {}'.format(
+                len(self.seq), len(other.seq)))
+        else:
+            for i_monomer, (monomer, o_monomer) in enumerate(zip(
+                self.seq, other.seq)):
+                if not monomer.is_equal(o_monomer):
+                    diff.append('Monomeric form {} {} != {}'.format(
+                        i_monomer + 1, monomer, o_monomer))
+        
+        if len(self.crosslinks) != len(other.crosslinks):
+            diff.append('Number of crosslinks {} != {}'.format(
+                len(self.crosslinks), len(other.crosslinks)))
+        else:
+            o_crosslinks = list(other.crosslinks)
+            for link in self.crosslinks:
+                match = False
+                for o_link in list(o_crosslinks):
+                    if link.is_equal(o_link):
+                        match = True
+                        o_crosslinks.remove(o_link)
+                        break
+                if not match:
+                    diff.append('Crosslink {} not in other'.format(link))
+            for o_link in o_crosslinks:
+                diff.append('Crosslink {} not in self'.format(o_link))
+
+        if self.circular != other.circular:
+            diff.append('Circularity {} != {}'.format(
+                self.circular, other.circular))
+
+        if diff:
+            return '\n'.join(diff)
+
+        return None
 
     def __getitem__(self, slice):
         """ Get monomeric form(s) at slice
@@ -3668,8 +3757,6 @@ class BpForm(object):
             @lark.v_args(inline=True)
             def base_monomer(self, *args):
                 code = args[-2].value
-                if code[0] == '"' and code[-1] == '"':
-                    code = code[1:-1]
                 monomer = self.bp_form.alphabet.monomers.get(code, None)
                 if monomer is None:
                     raise ValueError('"{}" not in alphabet'.format(code))
@@ -3925,6 +4012,8 @@ class BpForm(object):
             :obj:`str`: SVG image
         """
         import bpforms
+
+        seq_features = seq_features or []
 
         nc_label_sep = 0.1 * seq_font_size
         axis_sep = 0.2 * tick_label_font_size

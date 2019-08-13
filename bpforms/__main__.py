@@ -114,9 +114,7 @@ class GetPropertiesController(cement.Controller):
                     mol_wt = formula.get_molecular_weight()
                     charge = structure.GetTotalCharge()
 
-            if structure is None:
-                smiles = None
-            else:
+            if structure is not None:
                 smiles = OpenBabelUtils.export(structure, 'smiles')
         except Exception:
             pass
