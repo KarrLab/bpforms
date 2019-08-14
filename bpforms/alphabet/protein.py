@@ -9,15 +9,13 @@
 from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence,
                           Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet,
                           BpFormsWarning)
+from bpforms.alphabet.core import download_pdb_ccd, parse_pdb_ccd
 from bs4 import BeautifulSoup
 from ftplib import FTP
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils, get_major_micro_species
-from xml.etree.ElementTree import ElementTree
 import bpforms.xlink.core
 import glob
-import io
 import jnius
-import mendeleev
 import openbabel
 import os.path
 import pandas
@@ -25,7 +23,6 @@ import pkg_resources
 import re
 import requests
 import requests_cache
-import tarfile
 import warnings
 import zipfile
 
@@ -400,12 +397,12 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         new_monomers = []
         pdb_ccd_id_to_monomers = {}
 
-        filename = self.download_pdb_ccd()
-        valid_types = ['L-peptide linking',
+        filename = download_pdb_ccd()
+        valid_types = ('L-peptide linking',
                        'L-peptide COOH carboxy terminus',
-                       'L-peptide NH3 amino terminus']
+                       'L-peptide NH3 amino terminus')
         for pdb_monomer, base_monomer, smiles, _, _ in \
-                self.parse_pdb_ccd(filename, valid_types):
+                parse_pdb_ccd(filename, valid_types, self._max_monomers):
             id = pdb_monomer.id
             name = pdb_monomer.name
             synonyms = pdb_monomer.synonyms
@@ -542,208 +539,6 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
 
             file.write('{} monomers were added to the alphabet:\n  {}\n'.format(
                 len(new_monomers), '\n  '.join(sorted(new_monomers))))
-
-    def download_pdb_ccd(self):
-        """ Download PDB CCD 
-
-        Returns:
-            :obj:`str`: path to tar.gz file for the PDB CCD
-        """
-        dirname = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'pdb'))
-        if not os.path.isdir(dirname):
-            os.makedirs(dirname)
-        filename = os.path.join(dirname, 'components-pub-xml.tar.gz')
-        if not os.path.isfile(filename):
-            response = requests.get('http://ligand-expo.rcsb.org/dictionaries/components-pub-xml.tar.gz')
-            response.raise_for_status()
-            with open(filename, 'wb') as file:
-                file.write(response.content)
-
-        return filename
-
-    def parse_pdb_ccd(self, filename, valid_types):
-        """ Parse entries out of the PDB CCD
-
-        Args:
-            filename (:obj:`str`): path to tar.gz file for PDB CCD
-            valid_types (:obj:`list` of :obj:`str`): list
-                of types of entries to retrieve
-
-        Returns:
-            :obj:`list` of :obj:`tuple`:  list of metadata and 
-                structures of the entries
-        """
-        entries = []
-        with tarfile.open(filename, 'r:gz') as tar_file:
-            i_file = 0
-            n_files = len(tar_file.getmembers())
-            for file_info in tar_file:
-                i_file += 1
-                if i_file % 1000 == 1:
-                    print('Processing file {} of {}'.format(i_file, n_files))
-
-                if os.path.splitext(file_info.name)[-1] != '.xml':
-                    continue
-
-                xml_file = tar_file.extractfile(file_info)
-                entry = self.parse_pdb_ccd_entry(
-                    xml_file, valid_types)
-                if entry is not None:
-                    entries.append(entry)
-                if len(entries) >= self._max_monomers:
-                    break
-        return entries
-
-    def parse_pdb_ccd_entry(self, xml_file, valid_types):
-        """ Parse an entry of the PDB CCD
-
-        Args:
-            xml_file (:obj:`io.BufferedReader`): XML file 
-                that defines an entry of the PDB CCD
-            valid_types (:obj:`list` of :obj:`str`): list
-                of types of entries to retrieve
-
-        Returns:
-            :obj:`tuple`:
-
-                * :obj:`Monomer`: metadata about the entry
-                * :obj:`str`: id of base monomer
-                * :obj:`str`: SMILES-encoded structure of the entry
-                * :obj:`openbabel.OBMol`: structure of the entry
-                * :obj:`dict`: dictionary that maps atom ids to their
-                    coordinates
-        """
-        ns = '{http://pdbml.pdb.org/schema/pdbx-v40.xsd}'
-
-        xml_root = ElementTree().parse(xml_file)
-        xml_group = xml_root.find(ns + 'chem_compCategory')
-        if xml_group is None:
-            return  # pragma: no cover # element is always present
-
-        # get id
-        xml_comp = xml_group.find(ns + 'chem_comp')
-        if xml_comp is None:
-            return  # pragma: no cover # element is always present
-        id = xml_comp.get('id')
-        identifiers = IdentifierSet([Identifier('pdb-ccd', id)])
-
-        # check that compound has been released, is an amino acid, and is no ambiguous
-        xml_el = xml_comp.find(ns + 'pdbx_release_status')
-        if xml_el is None or xml_el.text != 'REL':
-            return
-
-        xml_el = xml_comp.find(ns + 'type')
-        if xml_el is None or xml_el.text not in valid_types:
-            return
-
-        xml_el = xml_comp.find(ns + 'pdbx_ambiguous_flag')
-        if xml_el is None or xml_el.text != 'N':
-            return  # pragma: no cover # element is always present
-
-        # get name
-        xml_el = xml_comp.find(ns + 'name')
-        if xml_el is None:
-            name = None  # pragma: no cover # element is always present
-        else:
-            name = xml_el.text.lower()
-
-        # retrieve synonyms
-        synonyms = SynonymSet()
-        xml_el = xml_comp.find(ns + 'one_letter_code')
-        if xml_el is not None:
-            synonyms.add(xml_el.text)
-
-        for xml_group in xml_root.findall(ns + 'pdbx_chem_comp_identifierCategory'):
-            for xml_subgroup in xml_group.findall(ns + 'pdbx_chem_comp_identifier'):
-                if xml_subgroup.get('type') == 'SYSTEMATIC NAME':
-                    synonyms.add(xml_subgroup.find(ns + 'identifier').text)
-
-        xml_el = xml_comp.find(ns + 'mon_nstd_parent_comp_id')
-        if xml_el is not None:
-            base_monomer = xml_el.text
-        else:
-            base_monomer = None
-
-        # retrieve structure
-        smiles = None
-        for xml_group in xml_root.findall(ns + 'pdbx_chem_comp_descriptorCategory'):
-            for xml_subgroup in xml_group.findall(ns + 'pdbx_chem_comp_descriptor'):
-                if xml_subgroup.get('type') == 'SMILES_CANONICAL' and \
-                        xml_subgroup.get('program') == 'OpenEye OEToolkits':
-                    smiles = xml_subgroup.find(ns + 'descriptor').text
-        if smiles is None:
-            return  # pragma: no cover # element is always present
-
-        # discard entries with coordinating metals
-        mol = openbabel.OBMol()
-        inchi_conv = openbabel.OBConversion()
-        assert inchi_conv.SetInFormat('smi'), 'Unable to set format to SMILES'
-        assert inchi_conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
-        inchi_conv.ReadString(mol, smiles)
-        inchi = inchi_conv.WriteString(mol)
-        formula = inchi.split('/')[1]
-        if '.' in formula:
-            return
-
-        mol = openbabel.OBMol()
-        mol_complete = True
-        atoms = {}
-
-        xml_group = xml_root.find(ns + 'chem_comp_atomCategory')
-        xml_atoms = xml_group.findall(ns + 'chem_comp_atom')
-        for xml_atom in xml_atoms:
-            if xml_atom.get('comp_id') != id:
-                continue
-
-            atom_id = xml_atom.get('atom_id')
-            charge = int(float(xml_atom.find(ns + 'charge').text))
-            element = xml_atom.find(ns + 'type_symbol').text
-            element = element[0] + element[1:].lower()
-            atoms[atom_id] = {
-                'position': int(float(xml_atom.find(ns + 'pdbx_ordinal').text)),
-                'element': element,
-                'charge': charge,
-            }
-
-            atom = openbabel.OBAtom()
-            atom.SetAtomicNum(getattr(mendeleev, element).atomic_number)
-            atom.SetFormalCharge(charge)
-            mol.AddAtom(atom)
-
-        xml_group = xml_root.find(ns + 'chem_comp_bondCategory')
-        xml_bonds = xml_group.findall(ns + 'chem_comp_bond')
-        for xml_bond in xml_bonds:
-            if xml_bond.get('comp_id') != id:
-                continue
-
-            i_atom_1 = atoms[xml_bond.get('atom_id_1')]['position']
-            i_atom_2 = atoms[xml_bond.get('atom_id_2')]['position']
-
-            bond = openbabel.OBBond()
-            bond.SetBegin(mol.GetAtom(i_atom_1))
-            bond.SetEnd(mol.GetAtom(i_atom_2))
-            order = xml_bond.find(ns + 'value_order').text
-            if order == 'sing':
-                bond.SetBondOrder(1)
-            elif order == 'doub':
-                bond.SetBondOrder(2)
-            elif order == 'trip':
-                bond.SetBondOrder(3)
-            elif order == 'quad':
-                bond.SetBondOrder(4)
-            elif order == 'arom':
-                bond.SetBondOrder(5)
-            else:  # ['delo', 'pi', 'poly']
-                mol_complete = False
-            assert mol.AddBond(bond)
-
-        if not mol_complete:
-            mol = None
-            atoms = None
-
-        return (Monomer(id=id, name=name, synonyms=synonyms,
-                        identifiers=identifiers,
-                        structure=smiles), base_monomer, smiles, mol, atoms)
 
     def build_from_mod(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet from PSI-MI ontology

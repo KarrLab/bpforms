@@ -9,7 +9,7 @@
 from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm,
                           Bond, Atom, Identifier, IdentifierSet, SynonymSet,
                           BpFormsWarning)
-from bpforms.alphabet.protein import ProteinAlphabetBuilder
+from bpforms.alphabet.core import download_pdb_ccd, parse_pdb_ccd, get_pdb_ccd_open_babel_mol
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species
@@ -20,7 +20,6 @@ import os
 import pkg_resources
 import requests
 import sqlalchemy
-import tarfile
 import warnings
 
 
@@ -51,7 +50,18 @@ DeclarativeBase = declarative_base(engine)
 class DnaAlphabetBuilder(AlphabetBuilder):
     """ Build DNA alphabet from MODOMICS """
 
-    INVALID_NAMES = ()
+    INVALID_IDS = (
+        # nucleosides
+        "2'-deoxyinosine",
+        "2'-deoxyuridine",
+        "2'-deoxy-5-(4,5-dihydroxypentyl)uridine",
+        "5-(2-aminoethoxy)methyl-2'-deoxyuridine",
+        "5,6-dihydroxy-2'-deoxyuridine",
+        "5-(2-aminoethyl)-2'-deoxyuridine",
+        "7-amido-7-deazaguanosine",
+        "(beta-D-glucopyranosyloxymethyl)deoxyuridine 5'-monophosphate",
+        "N(2),N(2)-dimethylguanosine",
+    )
 
     class Names(DeclarativeBase):
         """"""
@@ -130,6 +140,39 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         self.build_dnamod(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
         self.build_repairtoire(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
         self.build_pdb(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+
+        # corrections
+        if 'dI' in alphabet.monomers and 'DI' in alphabet.monomers:
+            dI = alphabet.monomers.dI
+            alphabet.monomers.dI = alphabet.monomers.pop('DI')
+            alphabet.monomers.dI.synonyms.add("2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-"
+                                              "(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol")
+            alphabet.monomers.dI.synonyms.add('deoxyinosine')
+            alphabet.monomers.dI.synonyms.add('9-(2-deoxy-beta-d-erythro-pentofuranosyl)-9h-purin-6-ol')
+            alphabet.monomers.dI.identifiers.add(Identifier('dnamod', "2'-deoxyinosine"))
+            alphabet.monomers.dI.identifiers.add(Identifier('chebi', 'CHEBI:28997'))
+            alphabet.monomers.dI.comments = ("A purine 2'-deoxyribonucleoside that is inosine in which the hydroxy "
+                                             "group at position 2' is replaced by a hydrogen.")
+            for monomer in alphabet.monomers.values():
+                if dI in monomer.base_monomers:
+                    monomer.base_monomers.remove(dI)
+                    monomer.base_monomers.add(alphabet.monomers.dI)
+
+        if 'dU' in alphabet.monomers:
+            alphabet.monomers.dU.synonyms.add("2'-deoxyuridine")
+            alphabet.monomers.dU.synonyms.add('1-(2-deoxy-beta-D-erythro-pentofuranosyl)uracil')
+            alphabet.monomers.dU.synonyms.add("2'-deoxyuridine-5'-monophosphate")
+            alphabet.monomers.dU.synonyms.add("dU")
+            alphabet.monomers.dU.synonyms.add("deoxyuridine")
+            alphabet.monomers.dU.synonyms.add("2-deoxyuridine")
+            alphabet.monomers.dU.identifiers.add(Identifier('dnamod', "2'-deoxyuridine"))
+            alphabet.monomers.dU.identifiers.add(Identifier('chebi', 'CHEBI:16450'))
+            alphabet.monomers.dU.identifiers.add(Identifier('repairtoire', 'dU'))
+            alphabet.monomers.dU.comments = (
+                "A pyrimidine 2'-deoxyribonucleoside having uracil as the nucleobase. Cysteine "
+                "spontaneously loses an amine group, which is replaced by a keto group at the "
+                "C4-atom. This reaction occurs spontaneously and all the time, and is the reason "
+                "why T is used in DNA. This way, dU and T can be distinguished from each other.")
 
         # return alphabet
         return alphabet
@@ -388,12 +431,9 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         Returns:
             :obj:`bool`: :obj:`True` if monomeric form should be included in alphabet
         """
-        for invalid_name in self.INVALID_NAMES:
-            if invalid_name in monomer.name:
+        for invalid_id in self.INVALID_IDS:
+            if invalid_id in monomer.id:
                 return False
-            for synonym in monomer.synonyms:
-                if invalid_name in synonym:
-                    return False
 
         return True
 
@@ -409,20 +449,166 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        smiles_to_monomer = {monomer.export('smiles'): monomer for monomer in alphabet.monomers.values()}
+        def get_can_smiles(structure):
+            structure2 = openbabel.OBMol()
+            structure2 += structure
+
+            for atom in openbabel.OBMolAtomIter(structure2):
+                atom.UnsetStereo()
+
+            for bond in openbabel.OBMolBondIter(structure2):
+                bond.UnsetHash()
+                bond.UnsetWedge()
+                bond.UnsetUp()
+                bond.UnsetDown()
+            
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            smiles = conv.WriteString(structure2, True)
+
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(structure, smiles)
+            smiles = conv.WriteString(structure, True)
+
+            return smiles
+
+        smiles_to_monomer = {get_can_smiles(monomer.structure): monomer for monomer in alphabet.monomers.values()}
+        monomer_codes = {code: monomer for code, monomer in alphabet.monomers.items()}        
+        monomer_lc_codes = {code.lower(): code for code in alphabet.monomers.keys()}
+        monomer_to_codes = {monomer: code for code, monomer in alphabet.monomers.items()}
 
         base_monomers = {}
         pdb_id_to_monomer = {}
 
-        pdb_builder = ProteinAlphabetBuilder(_max_monomers=self._max_monomers)
-        filename = pdb_builder.download_pdb_ccd()
-        valid_types = ['DNA linking',
+        same_structures = []
+        same_ids = []
+        same_ids_case_insensitive = []
+
+        filename = download_pdb_ccd()
+        valid_types = ('DNA linking',
                        'DNA OH 5 prime terminus',
-                       'DNA OH 3 prime terminus']
-        for pdb_monomer, base_monomer, smiles, structure, atoms in \
-                pdb_builder.parse_pdb_ccd(filename, valid_types):
+                       'DNA OH 3 prime terminus')
+        for pdb_monomer, base_monomer, smiles, pdb_structure, atoms in \
+                parse_pdb_ccd(filename, valid_types, self._max_monomers):
+            structure = get_pdb_ccd_open_babel_mol(pdb_structure)
             if structure is None:
                 continue
+
+            # set structure, atoms
+            mol = openbabel.OBMol()
+            mol += structure
+            if "P" in atoms:
+                atom = mol.GetAtom(atoms["P"]['position'])
+                assert atom.GetAtomicNum() == 15
+                atom.SetIsotope(1)
+            if "OP3" in atoms:
+                atom = mol.GetAtom(atoms["OP3"]['position'])
+                assert atom.GetAtomicNum() == 8
+                atom.SetIsotope(1)
+            if "O3'" in atoms:
+                atom = mol.GetAtom(atoms["O3'"]['position'])
+                assert atom.GetAtomicNum() == 8
+                atom.SetIsotope(2)
+
+            if "OP2" in atoms:
+                op2 = mol.GetAtom(atoms["OP2"]['position'])
+            if "OP3" in atoms:
+                op3 = mol.GetAtom(atoms["OP3"]['position'])
+            if "HOP2" in atoms:
+                hop2 = mol.GetAtom(atoms["HOP2"]['position'])
+            if "HOP3" in atoms:
+                hop3 = mol.GetAtom(atoms["HOP3"]['position'])
+            if "OP2" in atoms and "HOP2" in atoms:
+                assert mol.DeleteAtom(hop2, True)
+                op2.SetFormalCharge(-1)
+            if "OP3" in atoms and "HOP3" in atoms:
+                assert mol.DeleteAtom(hop3, True)
+                op3.SetFormalCharge(-1)
+
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            isotope_smiles = conv.WriteString(mol, True)
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, isotope_smiles)
+            isotope_smiles = conv.WriteString(mol, True)
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, isotope_smiles)
+            i_left_p = None
+            i_right_o = None
+            i_left_o = None
+            for atom in openbabel.OBMolAtomIter(mol):
+                if atom.GetAtomicNum() == 15 and atom.GetIsotope() == 1:
+                    i_left_p = atom.GetIdx()
+                    atom.SetIsotope(0)
+                elif atom.GetAtomicNum() == 8 and atom.GetIsotope() == 1:
+                    i_left_o = atom.GetIdx()
+                    atom.SetIsotope(0)
+                elif atom.GetAtomicNum() == 8 and atom.GetIsotope() == 2:
+                    i_right_o = atom.GetIdx()
+                    atom.SetIsotope(0)
+            can_smiles = conv.WriteString(mol, True)
+
+            atom_map = {}
+            for atom in openbabel.OBMolAtomIter(mol):
+                if atom.GetAtomicNum() > 1:
+                    atom_map[atom.GetIdx()] = len(atom_map) + 1
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, can_smiles)
+            can_smiles = conv.WriteString(mol, True)
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, can_smiles)
+
+            atom_map_2 = {}
+            for atom in openbabel.OBMolAtomIter(mol):
+                if atom.GetAtomicNum() > 1:
+                    atom_map_2[len(atom_map_2) + 1] = atom.GetIdx()
+
+            if i_left_p is not None:
+                i_left_p = atom_map_2[atom_map[i_left_p]]
+                assert mol.GetAtom(i_left_p).GetAtomicNum() == 15
+            if i_left_o is not None:
+                i_left_o = atom_map_2[atom_map[i_left_o]]
+                assert mol.GetAtom(i_left_o).GetAtomicNum() == 8
+            if i_right_o is not None:
+                i_right_o = atom_map_2[atom_map[i_right_o]]
+                assert mol.GetAtom(i_right_o).GetAtomicNum() == 8
+
+            pdb_monomer.structure = mol
+            if i_left_p is not None and i_left_o is not None and \
+                    ('HOP3' in atoms or mol.GetAtom(i_left_o).GetFormalCharge() == -1):
+                pdb_monomer.l_bond_atoms = [Atom(Monomer, element='P', position=i_left_p)]
+                pdb_monomer.l_displaced_atoms = [
+                    Atom(Monomer, element='O', position=i_left_o, charge=-1)]
+            if i_right_o is not None and "HO3'" in atoms:
+                pdb_monomer.r_bond_atoms = [Atom(Monomer, element='O', position=i_right_o)]
+                pdb_monomer.r_displaced_atoms = [Atom(Monomer, element='H', position=i_right_o)]
 
             # get canonical SMILES for entry
             can_smiles = smiles
@@ -449,10 +635,28 @@ class DnaAlphabetBuilder(AlphabetBuilder):
             conv.ReadString(mol, can_smiles)
             can_smiles = conv.WriteString(mol, True)
 
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, can_smiles)
+            can_smiles = get_can_smiles(mol)
+
             # determine if the entry is already represented in the alphabet
             monomer = smiles_to_monomer.get(can_smiles, None)
-            if monomer is None and pdb_monomer.id in ['DA', 'DC', 'DG', 'DT']:
+            if monomer is not None:
+                same_structures.append((pdb_monomer.id, monomer_to_codes[monomer]))
+            if pdb_monomer.id in ['DA', 'DC', 'DG', 'DT']:
                 monomer = alphabet.monomers.get(pdb_monomer.id[1], None)
+            if monomer is None:
+                monomer = monomer_codes.get(pdb_monomer.id, None)
+                if monomer is not None:
+                    same_ids.append(pdb_monomer.id)
+            if monomer is None:
+                monomer_diff_case = monomer_lc_codes.get(pdb_monomer.id.lower(), None)
+                if monomer_diff_case is not None:
+                    same_ids_case_insensitive.append((pdb_monomer.id, monomer_diff_case))
 
             # add/merge the entry with the alphabet
             if monomer is None:
@@ -461,117 +665,6 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 if base_monomer is not None:
                     base_monomers[pdb_monomer] = base_monomer
                 pdb_id_to_monomer[pdb_monomer.id] = pdb_monomer
-
-                mol = openbabel.OBMol()
-                mol += structure
-                if "P" in atoms:
-                    atom = mol.GetAtom(atoms["P"]['position'])
-                    assert atom.GetAtomicNum() == 15
-                    atom.SetIsotope(1)
-                if "OP3" in atoms:
-                    atom = mol.GetAtom(atoms["OP3"]['position'])
-                    assert atom.GetAtomicNum() == 8
-                    atom.SetIsotope(1)
-                if "O3'" in atoms:
-                    atom = mol.GetAtom(atoms["O3'"]['position'])
-                    assert atom.GetAtomicNum() == 8
-                    atom.SetIsotope(2)
-
-                if "OP2" in atoms:
-                    op2 = mol.GetAtom(atoms["OP2"]['position'])
-                if "OP3" in atoms:
-                    op3 = mol.GetAtom(atoms["OP3"]['position'])
-                if "HOP2" in atoms:
-                    hop2 = mol.GetAtom(atoms["HOP2"]['position'])
-                if "HOP3" in atoms:
-                    hop3 = mol.GetAtom(atoms["HOP3"]['position'])
-                if "OP2" in atoms and "HOP2" in atoms:
-                    assert mol.DeleteAtom(hop2, True)
-                    op2.SetFormalCharge(-1)
-                if "OP3" in atoms and "HOP3" in atoms:
-                    assert mol.DeleteAtom(hop3, True)
-                    op3.SetFormalCharge(-1)
-
-                conv = openbabel.OBConversion()
-                assert conv.SetInFormat('smi')
-                assert conv.SetOutFormat('smi')
-                conv.SetOptions('c', conv.OUTOPTIONS)
-                isotope_smiles = conv.WriteString(mol, True)
-
-                mol = openbabel.OBMol()
-                conv = openbabel.OBConversion()
-                assert conv.SetInFormat('smi')
-                assert conv.SetOutFormat('smi')
-                conv.SetOptions('c', conv.OUTOPTIONS)
-                conv.ReadString(mol, isotope_smiles)
-                isotope_smiles = conv.WriteString(mol, True)
-
-                mol = openbabel.OBMol()
-                conv = openbabel.OBConversion()
-                assert conv.SetInFormat('smi')
-                assert conv.SetOutFormat('smi')
-                conv.SetOptions('c', conv.OUTOPTIONS)
-                conv.ReadString(mol, isotope_smiles)
-                i_left_p = None
-                i_right_o = None
-                i_left_o = None
-                for atom in openbabel.OBMolAtomIter(mol):
-                    if atom.GetAtomicNum() == 15 and atom.GetIsotope() == 1:
-                        i_left_p = atom.GetIdx()
-                        atom.SetIsotope(0)
-                    elif atom.GetAtomicNum() == 8 and atom.GetIsotope() == 1:
-                        i_left_o = atom.GetIdx()
-                        atom.SetIsotope(0)
-                    elif atom.GetAtomicNum() == 8 and atom.GetIsotope() == 2:
-                        i_right_o = atom.GetIdx()
-                        atom.SetIsotope(0)
-                can_smiles = conv.WriteString(mol, True)
-
-                atom_map = {}
-                for atom in openbabel.OBMolAtomIter(mol):
-                    if atom.GetAtomicNum() > 1:
-                        atom_map[atom.GetIdx()] = len(atom_map) + 1
-
-                mol = openbabel.OBMol()
-                conv = openbabel.OBConversion()
-                assert conv.SetInFormat('smi')
-                assert conv.SetOutFormat('smi')
-                conv.SetOptions('c', conv.OUTOPTIONS)
-                conv.ReadString(mol, can_smiles)
-                can_smiles = conv.WriteString(mol, True)
-
-                mol = openbabel.OBMol()
-                conv = openbabel.OBConversion()
-                assert conv.SetInFormat('smi')
-                assert conv.SetOutFormat('smi')
-                conv.SetOptions('c', conv.OUTOPTIONS)
-                conv.ReadString(mol, can_smiles)
-
-                atom_map_2 = {}
-                for atom in openbabel.OBMolAtomIter(mol):
-                    if atom.GetAtomicNum() > 1:
-                        atom_map_2[len(atom_map_2) + 1] = atom.GetIdx()
-
-                if i_left_p is not None:
-                    i_left_p = atom_map_2[atom_map[i_left_p]]
-                    assert mol.GetAtom(i_left_p).GetAtomicNum() == 15
-                if i_left_o is not None:
-                    i_left_o = atom_map_2[atom_map[i_left_o]]
-                    assert mol.GetAtom(i_left_o).GetAtomicNum() == 8
-                if i_right_o is not None:
-                    i_right_o = atom_map_2[atom_map[i_right_o]]
-                    assert mol.GetAtom(i_right_o).GetAtomicNum() == 8
-
-                pdb_monomer.structure = mol
-                if i_left_p is not None and i_left_o is not None and \
-                        ('HOP3' in atoms or mol.GetAtom(i_left_o).GetFormalCharge() == -1):
-                    pdb_monomer.l_bond_atoms = [Atom(Monomer, element='P', position=i_left_p)]
-                    pdb_monomer.l_displaced_atoms = [
-                        Atom(Monomer, element='O', position=i_left_o, charge=-1)]
-                if i_right_o is not None and "HO3'" in atoms:
-                    pdb_monomer.r_bond_atoms = [Atom(Monomer, element='O', position=i_right_o)]
-                    pdb_monomer.r_displaced_atoms = [Atom(Monomer, element='H', position=i_right_o)]
-
                 alphabet.monomers[pdb_monomer.id] = pdb_monomer
 
             else:
@@ -591,6 +684,16 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         for monomer, base_monomer in base_monomers.items():
             if base_monomer in pdb_id_to_monomer:
                 monomer.base_monomers.add(pdb_id_to_monomer[base_monomer])
+
+        # print summary
+        print('{} entries with the similar structures were joined:\n  {}\t{}\n  {}'.format(
+            len(same_structures), 'PDB CCD id', 'Alphabet code',
+            '\n  '.join(sorted('\t'.join(ids) for ids in same_structures))))
+        print('{} entries with the same ids were joined:\n  {}'.format(
+            len(same_ids), '\n  '.join(sorted(same_ids))))
+        print('{} entries with similar ids potentially should be joined:\n  {}\t{}\n  {}'.format(
+            len(same_ids_case_insensitive), 'PDB CCD id', 'Alphabet code',
+            '\n  '.join(sorted('\t'.join(ids) for ids in same_ids_case_insensitive))))
 
 
 class DnaForm(BpForm):
