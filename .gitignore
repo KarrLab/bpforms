@@ -58,10 +58,10 @@ bpforms/alphabet/DNAmod.sqlite
 bpforms/alphabet/rna.sqlite
 bpforms/alphabet/repairtoire.xlsx
 # bpforms/alphabet/rnamods/
-bpforms/alphabet/protein.pdb/
+bpforms/alphabet/resid/
 bpforms/alphabet/protein.sqlite
 bpforms/alphabet/protein.report.txt
-bpforms/alphabet/PDB/
+bpforms/alphabet/pdb/
 bpforms/web/data/
 bpforms/web/img/alphabet/
 bpforms/web/img/example/

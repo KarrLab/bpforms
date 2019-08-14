@@ -15,7 +15,9 @@ from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils, get_major_micro
 from xml.etree.ElementTree import ElementTree
 import bpforms.xlink.core
 import glob
+import io
 import jnius
+import mendeleev
 import openbabel
 import os.path
 import pandas
@@ -111,7 +113,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         alphabet.monomers.AA0232.identifiers.remove(Identifier('pdb.ligand', 'OTD'))
         alphabet.monomers.D.base_monomers.clear()
         if 'AA0253' in alphabet.monomers and 'A' in alphabet.monomers and \
-            alphabet.monomers.A in alphabet.monomers.AA0253.base_monomers:
+                alphabet.monomers.A in alphabet.monomers.AA0253.base_monomers:
             alphabet.monomers.AA0253.base_monomers.remove(alphabet.monomers.A)
         for monomer in alphabet.monomers.values():
             for identifier in list(monomer.identifiers):
@@ -188,7 +190,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             canonical_aas[monomer.name] = monomer
 
         # create directory
-        pdb_dir = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.pdb'))
+        pdb_dir = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'resid'))
         if not os.path.isdir(pdb_dir):
             os.mkdir(pdb_dir)
 
@@ -359,16 +361,6 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
             dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
         """
-        dirname = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'PDB'))
-        if not os.path.isdir(dirname):
-            os.makedirs(dirname)
-        filename = os.path.join(dirname, 'components-pub-xml.tar.gz')
-        if not os.path.isfile(filename):
-            response = requests.get('http://ligand-expo.rcsb.org/dictionaries/components-pub-xml.tar.gz')
-            response.raise_for_status()
-            with open(filename, 'wb') as file:
-                file.write(response.content)
-
         smiles_to_monomer = {}
         pdb_ligand_to_monomer = {}
         name_to_monomer = {}
@@ -399,22 +391,192 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         assert smiles_conv.SetOutFormat('smi'), 'Unable to set format to SMILES'
         smiles_conv.SetOptions('c', smiles_conv.OUTOPTIONS)
 
-        inchi_conv = openbabel.OBConversion()
-        assert inchi_conv.SetInFormat('smi'), 'Unable to set format to SMILES'
-        assert inchi_conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
+        n_monomers = 0
+        base_monomers = {}
+        same_structures = []
+        same_pdb_ids = []
+        same_names = []
+        potential_incorrect_merges = []
+        new_monomers = []
+        pdb_ccd_id_to_monomers = {}
 
-        ns = '{http://pdbml.pdb.org/schema/pdbx-v40.xsd}'
+        filename = self.download_pdb_ccd()
+        valid_types = ['L-peptide linking',
+                       'L-peptide COOH carboxy terminus',
+                       'L-peptide NH3 amino terminus']
+        for pdb_monomer, base_monomer, smiles, _, _ in \
+                self.parse_pdb_ccd(filename, valid_types):
+            id = pdb_monomer.id
+            name = pdb_monomer.name
+            synonyms = pdb_monomer.synonyms
+            identifiers = pdb_monomer.identifiers
+            if base_monomer is not None:
+                base_monomers[id] = base_monomer
+
+            # correct to residue
+            mol = openbabel.OBMol()
+            smiles_conv.ReadString(mol, smiles)
+
+            _, i_n, i_c = self.get_termini(mol, residue=False)
+            if i_n is None or i_c is None:
+                mol_2 = openbabel.OBMol()
+                smiles_conv.ReadString(mol_2, smiles)
+                _, i_n_2, i_c_2 = self.get_termini(mol_2)
+                if ((i_n_2 is not None) + (i_c_2 is not None)) > ((i_n is not None) + (i_c is not None)):
+                    mol = mol_2
+                    i_n = i_n_2
+                    i_c = i_c_2
+
+            smiles = smiles_conv.WriteString(mol).partition('\t')[0]
+
+            # correct structure for pH
+            if ph:
+                try:
+                    smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph,
+                                                     major_tautomer=major_tautomer, dearomatize=dearomatize)
+                except jnius.JavaException:
+                    continue
+
+            mol = openbabel.OBMol()
+            smiles_conv.ReadString(mol, smiles)
+            smiles = smiles_conv.WriteString(mol).partition('\t')[0]
+
+            mol = openbabel.OBMol()
+            smiles_conv.ReadString(mol, smiles)
+            smiles = smiles_conv.WriteString(mol).partition('\t')[0]
+
+            # exclude from alphabet because entry minus O- is equivalent to another entry
+            if id in ['ASA', 'GND']:
+                continue
+
+            # merge into alphabet
+            monomer = None
+
+            if id == 'ARG':
+                monomer = alphabet.monomers.R
+            elif id == 'HIS':
+                monomer = alphabet.monomers.H
+            elif id == 'LYS':
+                monomer = alphabet.monomers.K
+            elif id not in ['ABA']:
+                monomer = smiles_to_monomer.get(smiles, None)
+
+            if monomer is None:
+                monomer = pdb_ligand_to_monomer.get(id, None)
+                if monomer is None:
+                    if id not in ['HSK', 'MTY', 'SUI']:
+                        names = list(synonyms)
+                        if name is not None:
+                            names.append(name)
+
+                        for n in names:
+                            monomer = name_to_monomer.get(n.lower(), None)
+                            if monomer is not None:
+                                same_names.append((id, monomer.id, n))
+                                break
+
+                    if monomer is None:
+                        new_monomers.append(id)
+                else:
+                    same_pdb_ids.append((id, smiles, monomer.export('smiles', options=('c',))))
+            else:
+                resid_id = ''
+                pdb_ligand_id = ''
+                for identifier in monomer.identifiers:
+                    if identifier.ns == 'resid':
+                        resid_id = identifier.id
+                    if identifier.ns == 'pdb.ligand':
+                        pdb_ligand_id = identifier.id
+                same_structures.append((id, resid_id, pdb_ligand_id))
+
+            n_monomers += 1
+            if monomer is not None:
+                monomer.synonyms.add(name)
+                monomer.synonyms.update(synonyms)
+                for identifier in monomer.identifiers:
+                    if identifier.ns == 'pdb-ccd':
+                        potential_incorrect_merges.append((id, identifier.id))
+                monomer.identifiers.update(identifiers)
+            else:
+                monomer = Monomer(id=id, name=name, synonyms=synonyms,
+                                  identifiers=identifiers, structure=smiles)
+
+                _, i_n, i_c = self.get_termini(monomer.structure, residue=False)
+                self.set_termini(mol, monomer, i_n, i_c)
+
+                assert id not in alphabet.monomers
+                alphabet.monomers[id] = monomer
+
+            pdb_ccd_id_to_monomers[id] = monomer
+
+        # set base monomers
+        for monomer_id, base_id in base_monomers.items():
+            monomer = pdb_ccd_id_to_monomers.get(monomer_id, None)
+            base = pdb_ccd_id_to_monomers.get(base_id, None)
+            if monomer is not None and base is not None:
+                monomer.base_monomers.add(base)
+
+        # save summary of merging
+        filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'pdb', 'merge-report.txt'))
+        with open(filename, 'w') as file:
+            file.write(('{} monomers were merged into the alphabet because they have the same structures (SMILES):\n'
+                        '  PDB-CCD ID\tRESID ID\tPDB Ligand RESID ID\n'
+                        '  {}\n\n').format(
+                len(same_structures), '\n  '.join(sorted('\t'.join(n) for n in same_structures))))
+
+            file.write(('{} monomers were merged into the alphabet because they have the same PDB ids (ligand / CCD), '
+                        'but different structures (e.g., different stereochemistry or bond order):\n'
+                        '  PDB-CCD ID\tPDB-CCD SMILES\tRESID SMILES\n'
+                        '  {}\n\n').format(
+                len(same_pdb_ids), '\n  '.join(sorted('\t'.join(n) for n in same_pdb_ids))))
+
+            file.write(('{} monomers were merged into the alphabet because they have the same names:\n'
+                        '  PDB-CCD ID\tRESID ID\tName\n'
+                        '  {}\n\n').format(
+                len(same_names), '\n  '.join(sorted('\t'.join(n) for n in same_names))))
+
+            file.write(('{} monomers were potentially merged incorrectly:\n'
+                        '  PDB-CCD ID-1\tPDB-CCD ID-2\n'
+                        '  {}\n\n').format(
+                len(potential_incorrect_merges), '\n  '.join(sorted('\t'.join(n) for n in potential_incorrect_merges))))
+
+            file.write('{} monomers were added to the alphabet:\n  {}\n'.format(
+                len(new_monomers), '\n  '.join(sorted(new_monomers))))
+
+    def download_pdb_ccd(self):
+        """ Download PDB CCD 
+
+        Returns:
+            :obj:`str`: path to tar.gz file for the PDB CCD
+        """
+        dirname = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'pdb'))
+        if not os.path.isdir(dirname):
+            os.makedirs(dirname)
+        filename = os.path.join(dirname, 'components-pub-xml.tar.gz')
+        if not os.path.isfile(filename):
+            response = requests.get('http://ligand-expo.rcsb.org/dictionaries/components-pub-xml.tar.gz')
+            response.raise_for_status()
+            with open(filename, 'wb') as file:
+                file.write(response.content)
+
+        return filename
+
+    def parse_pdb_ccd(self, filename, valid_types):
+        """ Parse entries out of the PDB CCD
+
+        Args:
+            filename (:obj:`str`): path to tar.gz file for PDB CCD
+            valid_types (:obj:`list` of :obj:`str`): list
+                of types of entries to retrieve
+
+        Returns:
+            :obj:`list` of :obj:`tuple`:  list of metadata and 
+                structures of the entries
+        """
+        entries = []
         with tarfile.open(filename, 'r:gz') as tar_file:
             i_file = 0
             n_files = len(tar_file.getmembers())
-            n_monomers = 0
-            base_monomers = {}
-            same_structures = []
-            same_pdb_ids = []
-            same_names = []
-            potential_incorrect_merges = []
-            new_monomers = []
-            pdb_ccd_id_to_monomers = {}
             for file_info in tar_file:
                 i_file += 1
                 if i_file % 1000 == 1:
@@ -424,205 +586,164 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
                     continue
 
                 xml_file = tar_file.extractfile(file_info)
-                xml_root = ElementTree().parse(xml_file)
-                xml_group = xml_root.find(ns + 'chem_compCategory')
-                if xml_group is None:
-                    continue  # pragma: no cover # element is always present
-
-                # get id
-                xml_comp = xml_group.find(ns + 'chem_comp')
-                if xml_comp is None:
-                    continue  # pragma: no cover # element is always present
-                id = xml_comp.get('id')
-                identifiers = IdentifierSet([Identifier('pdb-ccd', id)])
-
-                # check that compound has been released, is an amino acid, and is no ambiguous
-                xml_el = xml_comp.find(ns + 'pdbx_release_status')
-                if xml_el is None or xml_el.text != 'REL':
-                    continue
-
-                xml_el = xml_comp.find(ns + 'type')
-                if xml_el is None or xml_el.text not in ['L-peptide linking',
-                                                         'L-peptide COOH carboxy terminus',
-                                                         'L-peptide NH3 amino terminus']:
-                    continue
-
-                xml_el = xml_comp.find(ns + 'pdbx_ambiguous_flag')
-                if xml_el is None or xml_el.text != 'N':
-                    continue  # pragma: no cover # element is always present
-
-                # get name
-                xml_el = xml_comp.find(ns + 'name')
-                if xml_el is None:
-                    name = None  # pragma: no cover # element is always present
-                else:
-                    name = xml_el.text.lower()
-
-                # retrieve synonyms
-                synonyms = SynonymSet()
-                xml_el = xml_comp.find(ns + 'one_letter_code')
-                if xml_el is not None:
-                    synonyms.add(xml_el.text)
-
-                for xml_group in xml_root.findall(ns + 'pdbx_chem_comp_identifierCategory'):
-                    for xml_subgroup in xml_group.findall(ns + 'pdbx_chem_comp_identifier'):
-                        if xml_subgroup.get('type') == 'SYSTEMATIC NAME':
-                            synonyms.add(xml_subgroup.find(ns + 'identifier').text)
-
-                xml_el = xml_comp.find(ns + 'mon_nstd_parent_comp_id')
-                if xml_el is not None:
-                    base_monomers[id] = xml_el.text
-
-                # retrieve structure
-                smiles = None
-                for xml_group in xml_root.findall(ns + 'pdbx_chem_comp_descriptorCategory'):
-                    for xml_subgroup in xml_group.findall(ns + 'pdbx_chem_comp_descriptor'):
-                        if xml_subgroup.get('type') == 'SMILES_CANONICAL' and \
-                                xml_subgroup.get('program') == 'OpenEye OEToolkits':
-                            smiles = xml_subgroup.find(ns + 'descriptor').text
-                if smiles is None:
-                    continue  # pragma: no cover # element is always present
-
-                # discard entries with coordinating metals
-                mol = openbabel.OBMol()
-                inchi_conv.ReadString(mol, smiles)
-                inchi = inchi_conv.WriteString(mol)
-                formula = inchi.split('/')[1]
-                if '.' in formula:
-                    continue
-
-                # correct to residue
-                mol = openbabel.OBMol()
-                smiles_conv.ReadString(mol, smiles)
-
-                _, i_n, i_c = self.get_termini(mol, residue=False)
-                if i_n is None or i_c is None:
-                    mol_2 = openbabel.OBMol()
-                    smiles_conv.ReadString(mol_2, smiles)
-                    _, i_n_2, i_c_2 = self.get_termini(mol_2)
-                    if ((i_n_2 is not None) + (i_c_2 is not None)) > ((i_n is not None) + (i_c is not None)):
-                        mol = mol_2
-                        i_n = i_n_2
-                        i_c = i_c_2
-
-                smiles = smiles_conv.WriteString(mol).partition('\t')[0]
-
-                # correct structure for pH
-                if ph:
-                    try:
-                        smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph,
-                                                         major_tautomer=major_tautomer, dearomatize=dearomatize)
-                    except jnius.JavaException:
-                        continue
-
-                mol = openbabel.OBMol()
-                smiles_conv.ReadString(mol, smiles)
-                smiles = smiles_conv.WriteString(mol).partition('\t')[0]
-
-                mol = openbabel.OBMol()
-                smiles_conv.ReadString(mol, smiles)
-                smiles = smiles_conv.WriteString(mol).partition('\t')[0]
-
-                # exclude from alphabet because entry minus O- is equivalent to another entry
-                if id in ['ASA', 'GND']:
-                    continue
-
-                # merge into alphabet
-                monomer = None
-
-                if id == 'ARG':
-                    monomer = alphabet.monomers.R
-                elif id == 'HIS':
-                    monomer = alphabet.monomers.H
-                elif id == 'LYS':
-                    monomer = alphabet.monomers.K
-                elif id not in ['ABA']:
-                    monomer = smiles_to_monomer.get(smiles, None)
-
-                if monomer is None:
-                    monomer = pdb_ligand_to_monomer.get(id, None)
-                    if monomer is None:
-                        if id not in ['HSK', 'MTY', 'SUI']:
-                            names = list(synonyms)
-                            if name is not None:
-                                names.append(name)
-
-                            for n in names:
-                                monomer = name_to_monomer.get(n.lower(), None)
-                                if monomer is not None:
-                                    same_names.append((id, monomer.id, n))
-                                    break
-
-                        if monomer is None:
-                            new_monomers.append(id)
-                    else:
-                        same_pdb_ids.append((id, smiles, monomer.export('smiles', options=('c',))))
-                else:
-                    resid_id = ''
-                    pdb_ligand_id = ''
-                    for identifier in monomer.identifiers:
-                        if identifier.ns == 'resid':
-                            resid_id = identifier.id
-                        if identifier.ns == 'pdb.ligand':
-                            pdb_ligand_id = identifier.id
-                    same_structures.append((id, resid_id, pdb_ligand_id))
-
-                n_monomers += 1
-                if monomer is not None:
-                    monomer.synonyms.add(name)
-                    monomer.synonyms.update(synonyms)
-                    for identifier in monomer.identifiers:
-                        if identifier.ns == 'pdb-ccd':
-                            potential_incorrect_merges.append((id, identifier.id))
-                    monomer.identifiers.update(identifiers)
-                else:
-                    monomer = Monomer(id=id, name=name, synonyms=synonyms,
-                                      identifiers=identifiers, structure=smiles)
-
-                    _, i_n, i_c = self.get_termini(monomer.structure, residue=False)
-                    self.set_termini(mol, monomer, i_n, i_c)
-
-                    assert id not in alphabet.monomers
-                    alphabet.monomers[id] = monomer
-
-                pdb_ccd_id_to_monomers[id] = monomer
-
-                if n_monomers == self._max_monomers:
+                entry = self.parse_pdb_ccd_entry(
+                    xml_file, valid_types)
+                if entry is not None:
+                    entries.append(entry)
+                if len(entries) >= self._max_monomers:
                     break
+        return entries
 
-            # set base monomers
-            for monomer_id, base_id in base_monomers.items():
-                monomer = pdb_ccd_id_to_monomers.get(monomer_id, None)
-                base = pdb_ccd_id_to_monomers.get(base_id, None)
-                if monomer is not None and base is not None:
-                    monomer.base_monomers.add(base)
+    def parse_pdb_ccd_entry(self, xml_file, valid_types):
+        """ Parse an entry of the PDB CCD
 
-            # save summary of merging
-            filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'PDB', 'merge-report.txt'))
-            with open(filename, 'w') as file:
-                file.write(('{} monomers were merged into the alphabet because they have the same structures (SMILES):\n'
-                            '  PDB-CCD ID\tRESID ID\tPDB Ligand RESID ID\n'
-                            '  {}\n\n').format(
-                    len(same_structures), '\n  '.join(sorted('\t'.join(n) for n in same_structures))))
+        Args:
+            xml_file (:obj:`io.BufferedReader`): XML file 
+                that defines an entry of the PDB CCD
+            valid_types (:obj:`list` of :obj:`str`): list
+                of types of entries to retrieve
 
-                file.write(('{} monomers were merged into the alphabet because they have the same PDB ids (ligand / CCD), '
-                            'but different structures (e.g., different stereochemistry or bond order):\n'
-                            '  PDB-CCD ID\tPDB-CCD SMILES\tRESID SMILES\n'
-                            '  {}\n\n').format(
-                    len(same_pdb_ids), '\n  '.join(sorted('\t'.join(n) for n in same_pdb_ids))))
+        Returns:
+            :obj:`tuple`:
 
-                file.write(('{} monomers were merged into the alphabet because they have the same names:\n'
-                            '  PDB-CCD ID\tRESID ID\tName\n'
-                            '  {}\n\n').format(
-                    len(same_names), '\n  '.join(sorted('\t'.join(n) for n in same_names))))
+                * :obj:`Monomer`: metadata about the entry
+                * :obj:`str`: id of base monomer
+                * :obj:`str`: SMILES-encoded structure of the entry
+                * :obj:`openbabel.OBMol`: structure of the entry
+                * :obj:`dict`: dictionary that maps atom ids to their
+                    coordinates
+        """
+        ns = '{http://pdbml.pdb.org/schema/pdbx-v40.xsd}'
 
-                file.write(('{} monomers were potentially merged incorrectly:\n'
-                            '  PDB-CCD ID-1\tPDB-CCD ID-2\n'
-                            '  {}\n\n').format(
-                    len(potential_incorrect_merges), '\n  '.join(sorted('\t'.join(n) for n in potential_incorrect_merges))))
+        xml_root = ElementTree().parse(xml_file)
+        xml_group = xml_root.find(ns + 'chem_compCategory')
+        if xml_group is None:
+            return  # pragma: no cover # element is always present
 
-                file.write('{} monomers were added to the alphabet:\n  {}\n'.format(
-                    len(new_monomers), '\n  '.join(sorted(new_monomers))))
+        # get id
+        xml_comp = xml_group.find(ns + 'chem_comp')
+        if xml_comp is None:
+            return  # pragma: no cover # element is always present
+        id = xml_comp.get('id')
+        identifiers = IdentifierSet([Identifier('pdb-ccd', id)])
+
+        # check that compound has been released, is an amino acid, and is no ambiguous
+        xml_el = xml_comp.find(ns + 'pdbx_release_status')
+        if xml_el is None or xml_el.text != 'REL':
+            return
+
+        xml_el = xml_comp.find(ns + 'type')
+        if xml_el is None or xml_el.text not in valid_types:
+            return
+
+        xml_el = xml_comp.find(ns + 'pdbx_ambiguous_flag')
+        if xml_el is None or xml_el.text != 'N':
+            return  # pragma: no cover # element is always present
+
+        # get name
+        xml_el = xml_comp.find(ns + 'name')
+        if xml_el is None:
+            name = None  # pragma: no cover # element is always present
+        else:
+            name = xml_el.text.lower()
+
+        # retrieve synonyms
+        synonyms = SynonymSet()
+        xml_el = xml_comp.find(ns + 'one_letter_code')
+        if xml_el is not None:
+            synonyms.add(xml_el.text)
+
+        for xml_group in xml_root.findall(ns + 'pdbx_chem_comp_identifierCategory'):
+            for xml_subgroup in xml_group.findall(ns + 'pdbx_chem_comp_identifier'):
+                if xml_subgroup.get('type') == 'SYSTEMATIC NAME':
+                    synonyms.add(xml_subgroup.find(ns + 'identifier').text)
+
+        xml_el = xml_comp.find(ns + 'mon_nstd_parent_comp_id')
+        if xml_el is not None:
+            base_monomer = xml_el.text
+        else:
+            base_monomer = None
+
+        # retrieve structure
+        smiles = None
+        for xml_group in xml_root.findall(ns + 'pdbx_chem_comp_descriptorCategory'):
+            for xml_subgroup in xml_group.findall(ns + 'pdbx_chem_comp_descriptor'):
+                if xml_subgroup.get('type') == 'SMILES_CANONICAL' and \
+                        xml_subgroup.get('program') == 'OpenEye OEToolkits':
+                    smiles = xml_subgroup.find(ns + 'descriptor').text
+        if smiles is None:
+            return  # pragma: no cover # element is always present
+
+        # discard entries with coordinating metals
+        mol = openbabel.OBMol()
+        inchi_conv = openbabel.OBConversion()
+        assert inchi_conv.SetInFormat('smi'), 'Unable to set format to SMILES'
+        assert inchi_conv.SetOutFormat('inchi'), 'Unable to set format to InChI'
+        inchi_conv.ReadString(mol, smiles)
+        inchi = inchi_conv.WriteString(mol)
+        formula = inchi.split('/')[1]
+        if '.' in formula:
+            return
+
+        mol = openbabel.OBMol()
+        mol_complete = True
+        atoms = {}
+
+        xml_group = xml_root.find(ns + 'chem_comp_atomCategory')
+        xml_atoms = xml_group.findall(ns + 'chem_comp_atom')
+        for xml_atom in xml_atoms:
+            if xml_atom.get('comp_id') != id:
+                continue
+
+            atom_id = xml_atom.get('atom_id')
+            charge = int(float(xml_atom.find(ns + 'charge').text))
+            element = xml_atom.find(ns + 'type_symbol').text
+            element = element[0] + element[1:].lower()
+            atoms[atom_id] = {
+                'position': int(float(xml_atom.find(ns + 'pdbx_ordinal').text)),
+                'element': element,
+                'charge': charge,
+            }
+
+            atom = openbabel.OBAtom()
+            atom.SetAtomicNum(getattr(mendeleev, element).atomic_number)
+            atom.SetFormalCharge(charge)
+            mol.AddAtom(atom)
+
+        xml_group = xml_root.find(ns + 'chem_comp_bondCategory')
+        xml_bonds = xml_group.findall(ns + 'chem_comp_bond')
+        for xml_bond in xml_bonds:
+            if xml_bond.get('comp_id') != id:
+                continue
+
+            i_atom_1 = atoms[xml_bond.get('atom_id_1')]['position']
+            i_atom_2 = atoms[xml_bond.get('atom_id_2')]['position']
+
+            bond = openbabel.OBBond()
+            bond.SetBegin(mol.GetAtom(i_atom_1))
+            bond.SetEnd(mol.GetAtom(i_atom_2))
+            order = xml_bond.find(ns + 'value_order').text
+            if order == 'sing':
+                bond.SetBondOrder(1)
+            elif order == 'doub':
+                bond.SetBondOrder(2)
+            elif order == 'trip':
+                bond.SetBondOrder(3)
+            elif order == 'quad':
+                bond.SetBondOrder(4)
+            elif order == 'arom':
+                bond.SetBondOrder(5)
+            else:  # ['delo', 'pi', 'poly']
+                mol_complete = False
+            assert mol.AddBond(bond)
+
+        if not mol_complete:
+            mol = None
+            atoms = None
+
+        return (Monomer(id=id, name=name, synonyms=synonyms,
+                        identifiers=identifiers,
+                        structure=smiles), base_monomer, smiles, mol, atoms)
 
     def build_from_mod(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
         """ Build alphabet from PSI-MI ontology
@@ -641,7 +762,7 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
             structure='COC(=O)[C@H](CSC/C=C(/CC/C=C(/CC/C=C(/CCC=C(C)C)\C)\C)\C)[NH3+]',
             l_bond_atoms=[Atom(Monomer, element='N', position=29, charge=-1)],
             l_displaced_atoms=[Atom(Monomer, element='H', position=29),
-                                  Atom(Monomer, element='H', position=29, charge=1)])
+                               Atom(Monomer, element='H', position=29, charge=1)])
 
     def set_termini(self, mol, monomer, i_n, i_c):
         """ Set the C and N terminal bond atoms of a monomer
@@ -1012,9 +1133,9 @@ class ProteinForm(BpForm):
                 r_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 l_bond_atoms=[Atom(Monomer, element='N', position=None)],
                 r_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
-                                       Atom(Monomer, element='H', position=None)],
+                                   Atom(Monomer, element='H', position=None)],
                 l_displaced_atoms=[Atom(Monomer, element='H', position=None),
-                                      Atom(Monomer, element='H', position=None, charge=1)]),
+                                   Atom(Monomer, element='H', position=None, charge=1)]),
             circular=circular)
 
 
@@ -1036,7 +1157,7 @@ class CanonicalProteinForm(BpForm):
                 r_bond_atoms=[Atom(Monomer, element='C', position=None)],
                 l_bond_atoms=[Atom(Monomer, element='N', position=None)],
                 r_displaced_atoms=[Atom(Monomer, element='O', position=None, charge=-1),
-                                       Atom(Monomer, element='H', position=None)],
+                                   Atom(Monomer, element='H', position=None)],
                 l_displaced_atoms=[Atom(Monomer, element='H', position=None),
-                                      Atom(Monomer, element='H', position=None, charge=1)]),
+                                   Atom(Monomer, element='H', position=None, charge=1)]),
             circular=circular)

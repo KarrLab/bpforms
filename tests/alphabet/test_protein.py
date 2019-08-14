@@ -48,10 +48,10 @@ class ProteinTestCase(unittest.TestCase):
         shutil.rmtree(self.dirname)
 
     def test_protein_alphabet(self):
-        self.assertEqual(protein.protein_alphabet.monomers.F.get_formula(), 
-            EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
-        self.assertEqual(protein.canonical_protein_alphabet.monomers.F.get_formula(), 
-            EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
+        self.assertEqual(protein.protein_alphabet.monomers.F.get_formula(),
+                         EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
+        self.assertEqual(protein.canonical_protein_alphabet.monomers.F.get_formula(),
+                         EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
 
     def test_ProteinForm_init(self):
         protein.ProteinForm()
@@ -197,13 +197,13 @@ class ProteinTestCase(unittest.TestCase):
         path = os.path.join(self.dirname, 'alphabet.yml')
 
         alphabet = protein.ProteinAlphabetBuilder(_max_monomers=10).run(ph=7.4, path=path)
-        self.assertEqual(alphabet.monomers.F.get_formula(), 
-            EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
+        self.assertEqual(alphabet.monomers.F.get_formula(),
+                         EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
 
         self.assertTrue(os.path.isfile(path))
         alphabet = Alphabet().from_yaml(path)
-        self.assertEqual(alphabet.monomers.F.get_formula(), 
-            EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
+        self.assertEqual(alphabet.monomers.F.get_formula(),
+                         EmpiricalFormula('C9H12NO') + EmpiricalFormula('O'))
 
     def test_validate_bonds(self):
         validate_bpform_bonds(protein.CanonicalProteinForm)
@@ -292,10 +292,10 @@ class ProteinTestCase(unittest.TestCase):
 
         dimer = protein.ProteinForm().from_str('{AA0062}{AA0318}')
         self.assertEqual(dimer.validate(), [])
-        self.assertEqual(dimer.get_formula(), 
-            monomer1.get_formula() + monomer2.get_formula() - EmpiricalFormula('OH3'))
-        self.assertEqual(dimer.get_charge(), 
-            monomer1.get_charge() + monomer2.get_charge() - 1)
+        self.assertEqual(dimer.get_formula(),
+                         monomer1.get_formula() + monomer2.get_formula() - EmpiricalFormula('OH3'))
+        self.assertEqual(dimer.get_charge(),
+                         monomer1.get_charge() + monomer2.get_charge() - 1)
 
         dimer = protein.ProteinForm().from_str('{AA0318}{AA0062}')
         self.assertNotEqual(dimer.validate(), [])
