@@ -273,6 +273,8 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 structure=structure,
             )
 
+            if chars in ['N']:
+                continue
             if not monomer.structure:
                 continue
             if '*' in monomer.export('smiles', options=('c',)):
@@ -618,6 +620,9 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                        'RNA OH 3 prime terminus')
         for pdb_monomer, base_monomer, smiles, pdb_structure, atoms in \
                 parse_pdb_ccd(filename, valid_types, self._max_monomers):
+            if pdb_monomer.id == 'N':
+                continue
+
             structure = get_pdb_ccd_open_babel_mol(pdb_structure)
             if structure is None:
                 continue
