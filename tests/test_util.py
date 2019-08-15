@@ -271,3 +271,71 @@ class UtilTestCase(unittest.TestCase):
         self.assertEqual(forms.keys(), forms2.keys())
         for id in forms.keys():
             self.assertTrue(forms2[id].is_equal(forms[id]))
+
+    def test_get_genomic_image(self):
+        form = protein.ProteinForm().from_str(
+            ('ACRGCRGAARGCHILCA{SEL}RC' * 30) + (
+                ' | x-link: ['
+                '   l-bond-atom: 2S11'
+                ' | r-bond-atom: 5S11'
+                ' | l-displaced-atom: 2H11'
+                ' | r-displaced-atom: 5H11'
+                ']'
+                ' | x-link: ['
+                '   l-bond-atom: 40S11'
+                ' | r-bond-atom: 80S11'
+                ' | l-displaced-atom: 40H11'
+                ' | r-displaced-atom: 80H11'
+                ']'
+                ' | x-link: ['
+                '   l-bond-atom: 60S11'
+                ' | r-bond-atom: 100S11'
+                ' | l-displaced-atom: 60H11'
+                ' | r-displaced-atom: 100H11'
+                ']'
+                ' | x-link: ['
+                '   l-bond-atom: 20S11'
+                ' | r-bond-atom: 160S11'
+                ' | l-displaced-atom: 20H11'
+                ' | r-displaced-atom: 160H11'
+                ']'
+                ' | x-link: ['
+                '   l-bond-atom: 140S11'
+                ' | r-bond-atom: 220S11'
+                ' | l-displaced-atom: 140H11'
+                ' | r-displaced-atom: 220H11'
+                ']'
+            ))
+        seq_features = [{
+            'label': 'Processed',
+            'color': '#cccccc',
+            'positions': {0: [[1, 30], [50, 85]]},
+        }]
+
+        svg = util.get_genomic_image(
+            [form, form, form, form],
+            inter_crosslinks=[
+                mock.Mock(
+                    get_l_bond_atoms=lambda: [mock.Mock(subunit='0', monomer=100)],
+                    get_r_bond_atoms=lambda: [mock.Mock(subunit='3', monomer=150)],
+                ),
+                mock.Mock(
+                    get_l_bond_atoms=lambda: [mock.Mock(subunit='2', monomer=150)],
+                    get_r_bond_atoms=lambda: [mock.Mock(subunit='1', monomer=50)],
+                    type='Disulfide',
+                ),
+            ],
+            polymer_labels={
+                0: 'Title 1',
+                1: 'Title 2',
+                2: 'Title 3',
+                3: 'Title 4',
+            },
+            seq_features=seq_features,
+            width=1200,
+            nt_per_track=80,
+            polymer_cols=2)
+        self.assertIsInstance(svg, str)
+
+        # with open(os.path.join('.', 'test.svg'), 'w') as file:
+        #    file.write(svg)

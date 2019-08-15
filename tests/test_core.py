@@ -1323,8 +1323,6 @@ class BpFormTestCase(unittest.TestCase):
         form_2 = dna.DnaForm(circular=True)
         self.assertIn('Circularity False != True', form_1.diff(form_2))
 
-
-
     def test_getitem(self):
         monomer_1 = core.Monomer(id='A')
         monomer_2 = core.Monomer(id='B')
@@ -2244,11 +2242,12 @@ class BpFormTestCase(unittest.TestCase):
             'positions': [[1, 30], [50, 85]],
         }]
 
-        svg = form.get_genomic_image(seq_features)
+        svg = form.get_genomic_image(
+            seq_features=seq_features)
         self.assertIsInstance(svg, str)
 
-        # with open(os.path.join('examples', 'test.svg'), 'w') as file:
-        #     file.write(svg)
+        # with open(os.path.join('.', 'test.svg'), 'w') as file:
+        #    file.write(svg)
 
         form = dna.DnaForm().from_str('AAAAA' * 30)
         form.seq.append(core.Monomer(id='id'))

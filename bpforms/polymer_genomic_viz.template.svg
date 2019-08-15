@@ -33,12 +33,24 @@
         .monomer .base, .monomer .non-canonical-monomer {
             font-size: {{ seq_font_size }}px;
         }
-        .x_links {
-            stroke: {{ x_link_color}};
+        .intra_x_links {
+            stroke: {{ intra_x_link_color}};
+            stroke-width: {{ x_link_stroke_width }}px;
+            fill: none;
+        }
+        .inter_x_links {
+            stroke: {{ inter_x_link_color}};
             stroke-width: {{ x_link_stroke_width }}px;
             fill: none;
         }
 
+        .polymer_label {
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            font-size: {{ polymer_label_font_size }}px;
+            text-anchor: middle;
+            alignment-baseline: before-edge;
+            fill: {{ polymer_label_color }};
+        }
         .legend {
             font-size: {{ legend_font_size }}px;
         }
@@ -57,58 +69,93 @@
         }
     </style>
 
-    {% for seq_track in seq_tracks %}
-    <g class="seq_track" transform="translate({{ h_padding - px_per_nt }}, {{ seq_track.i_track * (track_h + track_sep) }})">
-        <!-- axis -->
-        <g class="axis" transform="translate(0, {{ code_h + nc_label_sep + nc_label_h + axis_sep }})">
-            <line x1="{{ px_per_nt }}" x2="{{ seq_track.len * px_per_nt }}" y1="0" y2="0" />
+    {% for polymer in polymers %}
+    {% set i_row = (loop.index0 / polymer_cols)|round(0, 'floor') %}
+    <g class="polymer" transform="translate({{ (loop.index0 % polymer_cols) * (polymer_w + polymer_margin) }}, {{ i_row * (polymer_h + polymer_margin) + polymer_label_font_size + polymer_label_sep }})">
+        {% if polymer.label %}
+        <text class="polymer_label" x="{{ h_padding + track_w / 2}}" y="-{{ polymer_label_font_size + polymer_label_sep}}">{{ polymer.label }}</text>
+        {% endif %}
 
-            <!-- ticks and tick labels -->
-            <g class="ticks">
-                {% for tick in seq_track.ticks %}
+        {% for seq_track in polymer.seq_tracks %}
+        <g class="seq_track" transform="translate({{ h_padding - px_per_nt }}, {{ seq_track.i_track * (track_h + track_sep) }})">
+            <!-- axis -->
+            <g class="axis" transform="translate(0, {{ code_h + nc_label_sep + nc_label_h + axis_sep }})">
+                <line x1="{{ px_per_nt }}" x2="{{ seq_track.len * px_per_nt }}" y1="0" y2="0" />
 
-                <g transform="translate({{ tick.x * px_per_nt }}, 0)">
-                    <line x1="0" x2="0" y1="0" y2="{{ tick_len }}" />
-                    <text x="0" y="{{ tick_len + tick_label_sep + tick_label_font_size / 2 }}">{{ tick.label }}</text>
+                <!-- ticks and tick labels -->
+                <g class="ticks">
+                    {% for tick in seq_track.ticks %}
+
+                    <g transform="translate({{ tick.x * px_per_nt }}, 0)">
+                        <line x1="0" x2="0" y1="0" y2="{{ tick_len }}" />
+                        <text x="0" y="{{ tick_len + tick_label_sep + tick_label_font_size / 2 }}">{{ tick.label }}</text>
+                    </g>
+                    {% endfor %}
                 </g>
+            </g>
+
+            <!-- sequence -->
+            <g class="seq">
+                {% for monomer in seq_track.seq %}
+                {% if monomer.canonical %}
+                <g class="monomer" transform="translate({{ (monomer.i_monomer + 1) * px_per_nt }}, {{ nc_label_h + nc_label_sep }})">
+                    <text class="base" x="0" y="0"{% if monomer.color %} style="fill: {{ monomer.color }}"{% endif %}>{{ monomer.canonical_code }}</text>
+                </g>
+                {% else %}
+                <g class="monomer" transform="translate({{ (monomer.i_monomer + 1) * px_per_nt }}, {{ nc_label_h + nc_label_sep }})"
+                    {% if monomer.tooltip %}
+                    onmousemove="showTooltip(evt, '{{ monomer.tooltip|escape }}');"
+                    onmouseout="hideTooltip();">
+                    {% endif %}
+                    <text class="base non-canonical" x="0" y="0"{% if monomer.color %} style="fill: {{ monomer.color }}"{% endif %}>{{ monomer.canonical_code }}</text>
+                    <text class="non-canonical-monomer non-canonical" x="0" transform="translate(0.0, -{{ nc_label_sep }}) rotate(-60)"{% if monomer.color %} style="fill: {{ monomer.color }}"{% endif %}>{{ monomer.non_canonical_label }}</text>
+                </g>
+                {% endif %}
                 {% endfor %}
             </g>
         </g>
+        {% endfor %}
 
-        <!-- sequence -->
-        <g class="seq">
-            {% for monomer in seq_track.seq %}
-            {% if monomer.canonical %}
-            <g class="monomer" transform="translate({{ (monomer.i_monomer + 1) * px_per_nt }}, {{ nc_label_h + nc_label_sep }})">
-                <text class="base" x="0" y="0"{% if monomer.color %} style="fill: {{ monomer.color }}"{% endif %}>{{ monomer.canonical_code }}</text>
-            </g>
-            {% else %}
-            <g class="monomer" transform="translate({{ (monomer.i_monomer + 1) * px_per_nt }}, {{ nc_label_h + nc_label_sep }})"
-                onmousemove="showTooltip(evt, '{{ monomer.tooltip|escape }}');"
-                onmouseout="hideTooltip();">
-                <text class="base non-canonical" x="0" y="0"{% if monomer.color %} style="fill: {{ monomer.color }}"{% endif %}>{{ monomer.canonical_code }}</text>
-                <text class="non-canonical-monomer non-canonical" x="0" transform="translate(0.0, -{{ nc_label_sep }}) rotate(-60)"{% if monomer.color %} style="fill: {{ monomer.color }}"{% endif %}>{{ monomer.non_canonical_label }}</text>
-            </g>
-            {% endif %}
-            {% endfor %}
+        <!-- intra-stand crosslinks -->
+        <g class="intra_x_links">
+            {% for x_link in polymer.x_links %}
+              {% set radius = x_link_radius + x_link_stroke_width * 2 * x_link.offset %}
+            <path
+                {% if x_link.tooltip %}
+                onmousemove="showTooltip(evt, '{{ x_link.tooltip|escape }}');"
+                onmouseout="hideTooltip();"
+                {% endif %}
+                d="M {{ h_padding + (x_link.l_pos - 1) * px_per_nt }}
+                     {{ nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.l_track }}
+                   a {{ radius }} {{ radius }}
+                     1 0 1
+                     {{ radius }} -{{ radius }}
+                   L {{ h_padding + (x_link.r_pos - 1) * px_per_nt - radius }}
+                    {{ nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track - radius }}
+                     a {{ radius }} {{ radius }}
+                       1 0 1
+                       {{ radius }} {{ radius }}"/>
+             {% endfor %}
         </g>
     </g>
     {% endfor %}
 
-    <!-- crosslinks -->
-    <g class="x_links">
-        {% for x_link in x_links %}
+    <!-- inter-polymer crosslinks -->
+    <g class="inter_x_links">
+        {% for x_link in inter_x_links %}
           {% set radius = x_link_radius + x_link_stroke_width * 2 * x_link.offset %}
         <path
+            {% if x_link.tooltip %}
             onmousemove="showTooltip(evt, '{{ x_link.tooltip|escape }}');"
             onmouseout="hideTooltip();"
-            d="M {{ h_padding + (x_link.l_pos - 1) * px_per_nt }}
-                 {{ nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.l_track }}
+            {% endif %}
+            d="M {{ x_link.l_polymer_col * (polymer_w + polymer_margin) + h_padding + (x_link.l_pos - 1) * px_per_nt }}
+                 {{ polymer_label_font_size + polymer_label_sep + x_link.l_polymer_row * (polymer_h + polymer_margin) + nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.l_track }}
                a {{ radius }} {{ radius }}
                  1 0 1
                  {{ radius }} -{{ radius }}
-               L {{ h_padding + (x_link.r_pos - 1) * px_per_nt - radius }}
-                {{ nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track - radius }}
+               L {{ x_link.r_polymer_col * (polymer_w + polymer_margin) + h_padding + (x_link.r_pos - 1) * px_per_nt - radius }}
+                {{ polymer_label_font_size + polymer_label_sep + x_link.r_polymer_row * (polymer_h + polymer_margin) + nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track - radius }}
                  a {{ radius }} {{ radius }}
                    1 0 1
                    {{ radius }} {{ radius }}"/>
@@ -116,21 +163,18 @@
     </g>
 
     <!-- legend -->
-    <g class="legend" transform="translate({{ h_padding }}, {{ height - (2 + seq_features|length - 0.5) * legend_font_size - (1 + seq_features|length) * legend_label_sep }})">
-        <g transform="translate(0, 0)">
-            <text x="0" y="{{ legend_font_size * 0.1 }}" class="base non-canonical">X</text>
-            <text class="label" x="{{ legend_font_size * 0.75 }}" y="0">Non-canonical monomeric form</text>
-        </g>
-        {% for feature in seq_features %}
-        <g transform="translate(0, {{ (legend_font_size + legend_label_sep) * loop.index }})">
-            <text x="0" y="{{ legend_font_size * 0.1 }}" class="base non-canonical" style="fill: {{ feature.color }}">X</text>
-            <text class="label" x="{{ legend_font_size * 0.75 }}" y="0">{{ feature.label }}</text>
+    {% set n_legend = legend_rows|length %}
+    <g class="legend" transform="translate({{ h_padding }}, {{ height - (n_legend - 0.5) * legend_font_size - (n_legend - 1) * legend_label_sep }})">
+        {% for legend_row in legend_rows %}
+        <g transform="translate(0, {{ (legend_font_size + legend_label_sep) * loop.index0 }})">
+            {% if legend_row.symbol %}
+            <text x="0" y="{{ legend_font_size * 0.1 }}" class="base" style="fill: {{ legend_row.color }}">{{ legend_row.symbol }}</text>
+            {% else %}
+            <line x1="-{{ legend_font_size / 4 }}" x2="{{ legend_font_size / 4 }}" y1="0" y2="0" style="stroke: {{ legend_row.color }}; stroke-width: {{ legend_row.stroke_width }}px" />
+            {% endif %}
+            <text class="label" x="{{ legend_font_size * 0.75 }}" y="0">{{ legend_row.label }}</text>
         </g>
         {% endfor %}
-        <g transform="translate(0, {{ (legend_font_size + legend_label_sep) * (seq_features|length + 1) }})">
-            <line class="x_links" x1="-{{ legend_font_size / 4 }}" x2="{{ legend_font_size / 4 }}" y1="0" y2="0" />
-            <text class="label" x="{{ legend_font_size * 0.75 }}" y="0">Crosslink</text>
-        </g>
     </g>
 
     <!-- tooltips -->
