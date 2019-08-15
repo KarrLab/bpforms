@@ -3991,12 +3991,12 @@ class BpForm(object):
                   ranges of the type of feature
 
         The method also accepts the same arguments as 
-            :obj:`bpforms.util.get_genomic_image`.
+            :obj:`bpforms.util.gen_genomic_viz`.
 
         Returns:
             :obj:`str`: SVG image
         """
-        from bpforms.util import get_genomic_image
+        from bpforms.util import gen_genomic_viz
 
         if label:
             kwargs['polymer_labels'] = {0: label}
@@ -4006,7 +4006,7 @@ class BpForm(object):
             for feature in kwargs['seq_features']:
                 feature['positions'] = {0: feature['positions']}
 
-        return get_genomic_image([self], **kwargs)
+        return gen_genomic_viz([self], **kwargs)
 
 
 class BpFormFeature(object):

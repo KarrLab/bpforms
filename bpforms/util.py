@@ -324,7 +324,7 @@ def read_from_fasta(filename, alphabet):
     return forms
 
 
-def get_genomic_image(polymers, inter_crosslinks=None, polymer_labels=None, seq_features=None,
+def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_features=None,
                       width=800, polymer_cols=1, polymer_margin=25,
                       nt_per_track=100, track_sep=10,
                       polymer_label_font_size=15, seq_font_size=13, tick_label_font_size=10,

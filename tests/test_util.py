@@ -272,7 +272,7 @@ class UtilTestCase(unittest.TestCase):
         for id in forms.keys():
             self.assertTrue(forms2[id].is_equal(forms[id]))
 
-    def test_get_genomic_image(self):
+    def test_gen_genomic_viz(self):
         form = protein.ProteinForm().from_str(
             ('ACRGCRGAARGCHILCA{SEL}RC' * 30) + (
                 ' | x-link: ['
@@ -312,7 +312,7 @@ class UtilTestCase(unittest.TestCase):
             'positions': {0: [[1, 30], [50, 85]]},
         }]
 
-        svg = util.get_genomic_image(
+        svg = util.gen_genomic_viz(
             [form, form, form, form],
             inter_crosslinks=[
                 mock.Mock(
