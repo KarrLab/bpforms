@@ -112,6 +112,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         if 'AA0253' in alphabet.monomers and 'A' in alphabet.monomers and \
                 alphabet.monomers.A in alphabet.monomers.AA0253.base_monomers:
             alphabet.monomers.AA0253.base_monomers.remove(alphabet.monomers.A)
+        if 'SEC' in alphabet.monomers and 'C' in alphabet.monomers:
+            alphabet.monomers.SEC.base_monomers.add(alphabet.monomers.C)
         for monomer in alphabet.monomers.values():
             for identifier in list(monomer.identifiers):
                 if identifier.ns == 'pdb.ligand' and identifier.id == 'ACE':

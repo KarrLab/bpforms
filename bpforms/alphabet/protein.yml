@@ -47838,6 +47838,8 @@ monomers:
       element: H
       position: 6
       charge: 1
+    base_monomers:
+    - C
   SEE:
     id: SEE
     name: trihydroxy(l-serinato-kappao~3~)borate(1-)
