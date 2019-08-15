@@ -1068,7 +1068,7 @@ class BondTestCase(unittest.TestCase):
 
     def test_setter_errors(self):
         bond = core.Bond()
-        
+
         bond.l_monomer = core.Monomer()
         with self.assertRaisesRegex(ValueError, 'must be an instance of `Monomer` or `None`'):
             bond.l_monomer = -2
@@ -1085,7 +1085,7 @@ class BondTestCase(unittest.TestCase):
 class OntoBondTestCase(unittest.TestCase):
     def test_setter_errors(self):
         bond = core.OntoBond()
-        
+
         bond.type = core.Bond()
         with self.assertRaisesRegex(ValueError, 'must be an instance of `Bond` or `None`'):
             bond.type = -2
@@ -1289,7 +1289,7 @@ class BpFormTestCase(unittest.TestCase):
         form_2 = dna.DnaForm()
         self.assertEqual(form_1.diff(form_1), None)
         self.assertEqual(form_1.diff(form_2), None)
-        
+
         form_2 = rna.RnaForm()
         self.assertIn('DnaForm != RnaForm', form_1.diff(form_2))
 

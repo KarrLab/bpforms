@@ -18,7 +18,7 @@ import tarfile
 
 
 def download_pdb_ccd():
-    """ Download PDB CCD 
+    """ Download PDB CCD
 
     Returns:
         :obj:`str`: path to tar.gz file for the PDB CCD
@@ -48,7 +48,7 @@ def parse_pdb_ccd(filename, valid_types, max_monomers):
             entries to process
 
     Returns:
-        :obj:`list` of :obj:`tuple`:  list of metadata and 
+        :obj:`list` of :obj:`tuple`:  list of metadata and
             structures of the entries
     """
     entries = []
@@ -77,7 +77,7 @@ def parse_pdb_ccd_entry(xml_file, valid_types):
     """ Parse an entry of the PDB CCD
 
     Args:
-        xml_file (:obj:`io.BufferedReader`): XML file 
+        xml_file (:obj:`io.BufferedReader`): XML file
             that defines an entry of the PDB CCD
         valid_types (:obj:`list` of :obj:`str`): list
             of types of entries to retrieve
@@ -263,7 +263,7 @@ def get_can_smiles(mol):
         mol (:obj:`openbabel.OBMol`): molecule
 
     Returns:
-        :obj:`str`: SMILES representation of a molecule without its stereochemistry 
+        :obj:`str`: SMILES representation of a molecule without its stereochemistry
     """
     conv = openbabel.OBConversion()
     assert conv.SetInFormat('smi')

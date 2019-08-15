@@ -240,9 +240,9 @@ class BuildAlphabetsCliTestCase(unittest.TestCase):
 
     def test_build_alphabets(self):
         self.assertFalse(os.path.isfile(bpforms.alphabet.dna.filename))
-        
+
         with capturer.CaptureOutput(merged=False, relay=False) as captured:
-            with __main__.App(argv=['build-alphabets', 
+            with __main__.App(argv=['build-alphabets',
                                     '--alphabet', 'dna',
                                     '--max-monomers', '3']) as app:
                 # run app

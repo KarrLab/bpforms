@@ -3,7 +3,7 @@
 `BpForms` grammar
 ------------------
 
-The `BpForms` grammar unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomeric forms using (a) a syntax similar to IUPAC/IUBMB and (b) extended alphabets for DNA, RNA, and proteins to describe monomeric forms. 
+The `BpForms` grammar unambiguously represents the primary structure of biopolymer forms that contain canonical and non-canonical monomeric forms using (a) a syntax similar to IUPAC/IUBMB and (b) extended alphabets for DNA, RNA, and proteins to describe monomeric forms.
 
 `BpForms.org <https://www.bpforms.org>`_ contains a detailed overview of the grammar and examples.
 

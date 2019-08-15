@@ -222,7 +222,7 @@ class Monomer(object):
         delta_charge (:obj:`int`): additional charge relative to structure
         start_position (:obj:`tuple`): uncertainty in the location of the monomeric form
         end_position (:obj:`tuple`): uncertainty in the location of the monomeric form
-        monomers_position (:obj:`set` of :obj:`Monomer`): originating monomers within :obj:`start_position` to 
+        monomers_position (:obj:`set` of :obj:`Monomer`): originating monomers within :obj:`start_position` to
             :obj:`end_position` where the monomeric form may be located
         base_monomers (:obj:`set` of :obj:`Monomer`): monomers which this monomeric form is derived from
         backbone_bond_atoms (:obj:`AtomList`): atoms from monomeric form that bond to backbone
@@ -253,7 +253,7 @@ class Monomer(object):
             delta_charge (:obj:`float`, optional): additional charge relative to structure
             start_position (:obj:`int`, optional): uncertainty in the location of the monomeric form
             end_position (:obj:`int`, optional): uncertainty in the location of the monomeric form
-            monomers_position (:obj:`set` of :obj:`Monomer`, optional): originating monomers within :obj:`start_position` to 
+            monomers_position (:obj:`set` of :obj:`Monomer`, optional): originating monomers within :obj:`start_position` to
                 :obj:`end_position` where the monomeric form may be located
             base_monomers (:obj:`set` of :obj:`Monomer`, optional): monomers which this monomeric form is derived from
             backbone_bond_atoms (:obj:`AtomList`, optional): atoms from monomeric form that bond to backbone
@@ -516,22 +516,22 @@ class Monomer(object):
 
     @property
     def monomers_position(self):
-        """ Get the originating monomers within :obj:`start_position` to 
+        """ Get the originating monomers within :obj:`start_position` to
         :obj:`end_position` where the monomeric form may be located
 
         Returns:
-            :obj:`set` of :obj:`Monomer`: originating monomers within :obj:`start_position` to 
+            :obj:`set` of :obj:`Monomer`: originating monomers within :obj:`start_position` to
                 :obj:`end_position` where the monomeric form may be located
         """
         return self._monomers_position
 
     @monomers_position.setter
     def monomers_position(self, value):
-        """ Set the originating monomers within :obj:`start_position` to 
+        """ Set the originating monomers within :obj:`start_position` to
         :obj:`end_position` where the monomeric form may be located
 
         Args:
-            value (:obj:`set` of :obj:`Monomer`): originating monomers within :obj:`start_position` to 
+            value (:obj:`set` of :obj:`Monomer`): originating monomers within :obj:`start_position` to
                 :obj:`end_position` where the monomeric form may be located
 
         Raises:
@@ -1841,7 +1841,7 @@ class Backbone(object):
     def __init__(self, structure=None, monomer_bond_atoms=None, monomer_displaced_atoms=None):
         """
         Args:
-            structure (:obj:`str` or :obj:`openbabel.OBMol`, optional): chemical structure as canonical 
+            structure (:obj:`str` or :obj:`openbabel.OBMol`, optional): chemical structure as canonical
                 SMILES-encoded string or Open Babel molecule
             monomer_bond_atoms (:obj:`AtomList`, optional): atoms from backbone that bond to monomeric form
             monomer_displaced_atoms (:obj:`AtomList`, optional): atoms from backbone displaced by bond to monomeric form
@@ -2001,7 +2001,7 @@ class Backbone(object):
 class BondBase(abc.ABC):
     @abc.abstractmethod
     def get_l_bond_atoms(self):
-        """ Get left bond atoms 
+        """ Get left bond atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2010,7 +2010,7 @@ class BondBase(abc.ABC):
 
     @abc.abstractmethod
     def get_r_bond_atoms(self):
-        """ Get right bond atoms 
+        """ Get right bond atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2019,7 +2019,7 @@ class BondBase(abc.ABC):
 
     @abc.abstractmethod
     def get_l_displaced_atoms(self):
-        """ Get left displaced atoms 
+        """ Get left displaced atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2028,7 +2028,7 @@ class BondBase(abc.ABC):
 
     @abc.abstractmethod
     def get_r_displaced_atoms(self):
-        """ Get right displaced atoms 
+        """ Get right displaced atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2294,7 +2294,7 @@ class Bond(BondBase):
         self._comments = value
 
     def get_l_bond_atoms(self):
-        """ Get left bond atoms 
+        """ Get left bond atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2302,7 +2302,7 @@ class Bond(BondBase):
         return self.l_bond_atoms
 
     def get_r_bond_atoms(self):
-        """ Get right bond atoms 
+        """ Get right bond atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2310,7 +2310,7 @@ class Bond(BondBase):
         return self.r_bond_atoms
 
     def get_l_displaced_atoms(self):
-        """ Get left displaced atoms 
+        """ Get left displaced atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2318,7 +2318,7 @@ class Bond(BondBase):
         return self.l_displaced_atoms
 
     def get_r_displaced_atoms(self):
-        """ Get right displaced atoms 
+        """ Get right displaced atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2419,7 +2419,7 @@ class OntoBond(BondBase):
         """
         if value is not None:
             if not isinstance(value, Bond):
-                raise ValueError('`type` must be an instance of `Bond` or `None`')            
+                raise ValueError('`type` must be an instance of `Bond` or `None`')
         self._type = value
 
     @property
@@ -2477,7 +2477,7 @@ class OntoBond(BondBase):
         self._r_monomer = value
 
     def get_l_bond_atoms(self):
-        """ Get left bond atoms 
+        """ Get left bond atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2489,7 +2489,7 @@ class OntoBond(BondBase):
         return atoms
 
     def get_r_bond_atoms(self):
-        """ Get right bond atoms 
+        """ Get right bond atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2501,7 +2501,7 @@ class OntoBond(BondBase):
         return atoms
 
     def get_l_displaced_atoms(self):
-        """ Get left displaced atoms 
+        """ Get left displaced atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2513,7 +2513,7 @@ class OntoBond(BondBase):
         return atoms
 
     def get_r_displaced_atoms(self):
-        """ Get right displaced atoms 
+        """ Get right displaced atoms
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
@@ -2847,8 +2847,8 @@ class BpForm(object):
             other (:obj:`BpForm`): another biopolymer form
 
         Returns:
-            :obj:`str`: description of the semantic difference between 
-                two biopolymer forms 
+            :obj:`str`: description of the semantic difference between
+                two biopolymer forms
         """
         diff = []
 
@@ -2868,7 +2868,7 @@ class BpForm(object):
         if (self.backbone is None and other.backbone is not None) or \
             (self.backbone is not None and not self.backbone.is_equal(other.backbone)):
             diff.append('Forms have different backbones')
-        
+
         if (self.bond is None and self.bond is not None) or \
             (self.bond is not None and not self.bond.is_equal(other.bond)):
             diff.append('Forms have different inter-monomer bonds')
@@ -2886,7 +2886,7 @@ class BpForm(object):
                 if not monomer.is_equal(o_monomer):
                     diff.append('Monomeric form {} {} != {}'.format(
                         i_monomer + 1, monomer, o_monomer))
-        
+
         if len(self.crosslinks) != len(other.crosslinks):
             diff.append('Number of crosslinks {} != {}'.format(
                 len(self.crosslinks), len(other.crosslinks)))
@@ -3989,7 +3989,7 @@ class BpForm(object):
         """ Get a genomic visualization of the :obj:`BpForm`
 
         Args:
-            seq_features (:obj:`list` of :obj:`dict`, optional): list of features each 
+            seq_features (:obj:`list` of :obj:`dict`, optional): list of features each
                 represented by a dictionary with three keys
 
                 * label (:obj:`str`): description of the type of feature
