@@ -590,7 +590,7 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
         x_link['offset'] = offset
 
     # read template
-    with open(pkg_resources.resource_filename('bpforms', 'polymer_genomic_viz.template.svg')) as file:
+    with open(pkg_resources.resource_filename('bpforms', 'genomic_viz.template.svg')) as file:
         template = jinja2.Template(file.read())
 
     # render template

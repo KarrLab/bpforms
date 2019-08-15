@@ -24,7 +24,7 @@ recursive-include bpforms/alphabet *.yml
 recursive-include xlink *.yml
 
 # visualization files
-include bpforms/polymer_genomic_viz.template.svg
+include bpforms/genomic_viz.template.svg
 
 # website
 graft bpforms/web

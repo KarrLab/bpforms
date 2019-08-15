@@ -16,7 +16,7 @@ package_data = {
         'alphabet/*.yml',  # alphabets
         'xlink/*.yml',  # crosslink ontology
         'config/*.cfg',
-        'polymer_genomic_viz.template.svg',  # visualization
+        'genomic_viz.template.svg',  # visualization
         'web/*',  # website
         'web/css/*',  # website
         'web/js/*',  # website
