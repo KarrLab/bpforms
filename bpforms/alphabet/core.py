@@ -36,7 +36,7 @@ def download_pdb_ccd():
     return filename
 
 
-@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)#, filename_args=[0])
+@cache.memoize(typed=False, expire=30 * 24 * 60 * 60)  # , filename_args=[0])
 def parse_pdb_ccd(filename, valid_types, max_monomers):
     """ Parse entries out of the PDB CCD
 
@@ -254,3 +254,48 @@ def get_pdb_ccd_open_babel_mol(pdb_mol):
         assert mol.AddBond(bond)
 
     return mol
+
+
+def get_can_smiles(mol):
+    """ Get the canonical SMILES representation of a molecule without its stereochemistry
+
+    Args:
+        mol (:obj:`openbabel.OBMol`): molecule
+
+    Returns:
+        :obj:`str`: SMILES representation of a molecule without its stereochemistry 
+    """
+    conv = openbabel.OBConversion()
+    assert conv.SetInFormat('smi')
+    assert conv.SetOutFormat('smi')
+    conv.SetOptions('c', conv.OUTOPTIONS)
+    smiles = conv.WriteString(mol, True)
+    mol = openbabel.OBMol()
+    conv.ReadString(mol, smiles)
+
+    for atom in openbabel.OBMolAtomIter(mol):
+        atom.UnsetStereo()
+
+    for bond in openbabel.OBMolBondIter(mol):
+        bond.UnsetHash()
+        bond.UnsetWedge()
+        bond.UnsetUp()
+        bond.UnsetDown()
+
+    mol.DeleteData(openbabel.StereoData)
+
+    conv = openbabel.OBConversion()
+    assert conv.SetInFormat('smi')
+    assert conv.SetOutFormat('smi')
+    conv.SetOptions('c', conv.OUTOPTIONS)
+    smiles = conv.WriteString(mol, True)
+
+    conv = openbabel.OBConversion()
+    assert conv.SetInFormat('smi')
+    assert conv.SetOutFormat('smi')
+    conv.SetOptions('c', conv.OUTOPTIONS)
+    mol = openbabel.OBMol()
+    conv.ReadString(mol, smiles)
+    smiles = conv.WriteString(mol, True)
+
+    return smiles

@@ -9,6 +9,8 @@
 from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, Backbone,
                           Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet,
                           BpFormsWarning)
+from bpforms.alphabet.core import (download_pdb_ccd, parse_pdb_ccd, get_pdb_ccd_open_babel_mol,
+                                   get_can_smiles)
 from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species
 import bs4
 import csv
@@ -191,6 +193,9 @@ class RnaAlphabetBuilder(AlphabetBuilder):
             assert monomer.structure.GetAtom(i_right_o).GetAtomicNum() == 8
             assert monomer.structure.GetAtom(i_left_p).GetAtomicNum() == 15
             assert monomer.structure.GetAtom(i_left_o).GetAtomicNum() == 8
+
+        # build PDB
+        self.build_pdb(alphabet, session, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
         # return alphabet
         return alphabet
@@ -580,6 +585,282 @@ class RnaAlphabetBuilder(AlphabetBuilder):
                 print('{} monomeric forms were added to the alphabet:\n  {}'.format(
                     len(additional_monomers), '\n  '.join(additional_monomers)))
 
+    def build_pdb(self, alphabet, session, ph=None, major_tautomer=False, dearomatize=False):
+        """ Build monomeric forms from PDB CCD
+
+        Args:
+            alphabet (:obj:`Alphabet`): alphabet
+            session (:obj:`requests_cache.core.CachedSession`): request cache session
+            ph (:obj:`float`, optional): pH at which to calculate the major protonation state of each monomeric form
+            major_tautomer (:obj:`bool`, optional): if :obj:`True`, calculate the major tautomer
+            dearomatize (:obj:`bool`, optional): if :obj:`True`, dearomatize molecule
+
+        Returns:
+            :obj:`Alphabet`: alphabet
+        """
+        smiles_to_monomer = {get_can_smiles(monomer.structure): monomer for monomer in alphabet.monomers.values()}
+        monomer_codes = {code: monomer for code, monomer in alphabet.monomers.items()}
+        monomer_lc_codes = {code.lower(): code for code in alphabet.monomers.keys()}
+        monomer_to_codes = {monomer: code for code, monomer in alphabet.monomers.items()}
+
+        base_monomers = {}
+        pdb_id_to_monomer = {}
+
+        same_structures = []
+        same_ids = []
+        same_ids_case_insensitive = []
+
+        replaced_monomers = []
+
+        filename = download_pdb_ccd()
+        valid_types = ('RNA linking',
+                       'RNA OH 5 prime terminus',
+                       'RNA OH 3 prime terminus')
+        for pdb_monomer, base_monomer, smiles, pdb_structure, atoms in \
+                parse_pdb_ccd(filename, valid_types, self._max_monomers):
+            structure = get_pdb_ccd_open_babel_mol(pdb_structure)
+            if structure is None:
+                continue
+
+            # set structure, atoms
+            mol = openbabel.OBMol()
+            mol += structure
+
+            if "P" in atoms:
+                atom = mol.GetAtom(atoms["P"]['position'])
+                assert atom.GetAtomicNum() == 15
+                atom.SetIsotope(1)
+
+            ops = []
+            for i_o in range(1, 4):
+                id_o = 'OP' + str(i_o)
+                id_h = 'H' + id_o
+                if id_o in atoms and id_h in atoms:
+                    atom_o = mol.GetAtom(atoms[id_o]['position'])
+                    assert atom_o.GetAtomicNum() == 8
+                    atom_o.SetIsotope(len(ops))
+
+                    atom_h = mol.GetAtom(atoms[id_h]['position'])
+                    assert atom_h.GetAtomicNum() == 1
+
+                    ops.append((atom_o, atom_h))
+                    if len(ops) == 2:
+                        break
+
+            if "O3'" in atoms:
+                atom = mol.GetAtom(atoms["O3'"]['position'])
+                assert atom.GetAtomicNum() == 8
+                atom.SetIsotope(2)
+
+            for op, hop in ops:
+                assert mol.DeleteAtom(hop, True)
+                op.SetFormalCharge(-1)
+
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            isotope_smiles = conv.WriteString(mol, True)
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, isotope_smiles)
+            isotope_smiles = conv.WriteString(mol, True)
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, isotope_smiles)
+            i_left_p = None
+            i_right_o = None
+            i_left_o = None
+            for atom in openbabel.OBMolAtomIter(mol):
+                if atom.GetAtomicNum() == 15 and atom.GetIsotope() == 1:
+                    i_left_p = atom.GetIdx()
+                    atom.SetIsotope(0)
+                elif atom.GetAtomicNum() == 8 and atom.GetIsotope() == 1:
+                    i_left_o = atom.GetIdx()
+                    atom.SetIsotope(0)
+                elif atom.GetAtomicNum() == 8 and atom.GetIsotope() == 2:
+                    i_right_o = atom.GetIdx()
+                    atom.SetIsotope(0)
+            can_smiles = conv.WriteString(mol, True)
+
+            atom_map = {}
+            for atom in openbabel.OBMolAtomIter(mol):
+                if atom.GetAtomicNum() > 1:
+                    atom_map[atom.GetIdx()] = len(atom_map) + 1
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, can_smiles)
+            can_smiles = conv.WriteString(mol, True)
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, can_smiles)
+
+            atom_map_2 = {}
+            for atom in openbabel.OBMolAtomIter(mol):
+                if atom.GetAtomicNum() > 1:
+                    atom_map_2[len(atom_map_2) + 1] = atom.GetIdx()
+
+            if i_left_p is not None:
+                i_left_p = atom_map_2[atom_map[i_left_p]]
+                assert mol.GetAtom(i_left_p).GetAtomicNum() == 15
+            if i_left_o is not None:
+                i_left_o = atom_map_2[atom_map[i_left_o]]
+                assert mol.GetAtom(i_left_o).GetAtomicNum() == 8
+            if i_right_o is not None:
+                i_right_o = atom_map_2[atom_map[i_right_o]]
+                assert mol.GetAtom(i_right_o).GetAtomicNum() == 8
+
+            pdb_monomer.structure = mol
+            if i_left_p is not None and i_left_o is not None and \
+                    ('HOP3' in atoms or mol.GetAtom(i_left_o).GetFormalCharge() == -1):
+                pdb_monomer.l_bond_atoms = [Atom(Monomer, element='P', position=i_left_p)]
+                pdb_monomer.l_displaced_atoms = [
+                    Atom(Monomer, element='O', position=i_left_o, charge=-1)]
+            if i_right_o is not None and "HO3'" in atoms:
+                pdb_monomer.r_bond_atoms = [Atom(Monomer, element='O', position=i_right_o)]
+                pdb_monomer.r_displaced_atoms = [Atom(Monomer, element='H', position=i_right_o)]
+
+            # get canonical SMILES for entry
+            can_smiles = smiles
+
+            if ph:
+                can_smiles = get_major_micro_species(
+                    can_smiles, 'smiles', 'smiles', ph=ph,
+                    major_tautomer=major_tautomer,
+                    dearomatize=dearomatize)
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, can_smiles)
+            can_smiles = conv.WriteString(mol, True)
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, can_smiles)
+            can_smiles = conv.WriteString(mol, True)
+
+            mol = openbabel.OBMol()
+            conv = openbabel.OBConversion()
+            assert conv.SetInFormat('smi')
+            assert conv.SetOutFormat('smi')
+            conv.SetOptions('c', conv.OUTOPTIONS)
+            conv.ReadString(mol, can_smiles)
+            can_smiles = get_can_smiles(mol)
+
+            # determine if the entry is already represented in the alphabet
+            merge_with_new = False
+
+            monomer = None
+
+            if pdb_monomer.id not in ['A5O', 'AP7', 'CAR', 'GAO', 'UAR']:
+                monomer = smiles_to_monomer.get(can_smiles, None)
+                if monomer is not None:
+                    for identifier in monomer.identifiers:
+                        if identifier.ns == 'pdb-ccd':
+                            monomer = None
+                            break
+
+            if monomer is not None:
+                merge_with_new = True
+                same_structures.append((pdb_monomer.id, monomer_to_codes[monomer]))
+            if pdb_monomer.id in ['A', 'C', 'G', 'U']:
+                merge_with_new = False
+                monomer = alphabet.monomers.get(pdb_monomer.id, None)
+            if monomer is None:
+                monomer = monomer_codes.get(pdb_monomer.id, None)
+                if monomer is not None:
+                    same_ids.append(pdb_monomer.id)
+            if monomer is None:
+                monomer_diff_case = monomer_lc_codes.get(pdb_monomer.id.lower(), None)
+                if monomer_diff_case is not None:
+                    same_ids_case_insensitive.append((pdb_monomer.id, monomer_diff_case))
+
+            # add/merge the entry with the alphabet
+            if monomer is None:
+                # add the entry to the alphabet
+                alphabet.monomers[pdb_monomer.id] = pdb_monomer
+                if base_monomer is not None:
+                    base_monomers[pdb_monomer] = base_monomer
+                pdb_id_to_monomer[pdb_monomer.id] = pdb_monomer
+
+            elif merge_with_new:
+                # merge an existing monomer with the PDB entry
+                alphabet.monomers[monomer_to_codes[monomer]] = pdb_monomer
+
+                pdb_monomer.synonyms.update(monomer.synonyms)
+                pdb_monomer.synonyms.add(pdb_monomer.id)
+                pdb_monomer.synonyms.add(pdb_monomer.name)
+                pdb_monomer.id = monomer.id or pdb_monomer.id
+                pdb_monomer.name = monomer.name or pdb_monomer.name
+                pdb_monomer.synonyms.discard(pdb_monomer.id)
+                pdb_monomer.synonyms.discard(pdb_monomer.name)
+
+                pdb_monomer.identifiers.update(monomer.identifiers)
+                pdb_monomer.base_monomers.update(monomer.base_monomers)
+                pdb_monomer.comments = monomer.comments
+
+                if base_monomer is not None:
+                    base_monomers[pdb_monomer] = base_monomer
+                pdb_id_to_monomer[pdb_monomer.id] = pdb_monomer
+
+                replaced_monomers.append((monomer, pdb_monomer))
+
+            else:
+                # merge the entry with an existing monomer
+                if pdb_monomer.id not in [monomer.id, monomer.name]:
+                    monomer.synonyms.add(pdb_monomer.id)
+                if pdb_monomer.name not in [monomer.id, monomer.name]:
+                    monomer.synonyms.add(pdb_monomer.name)
+                monomer.synonyms.update(pdb_monomer.synonyms)
+                monomer.identifiers.update(pdb_monomer.identifiers)
+
+                if base_monomer is not None:
+                    base_monomers[monomer] = base_monomer
+                pdb_id_to_monomer[pdb_monomer.id] = monomer
+
+        # set base monomers
+        for monomer, base_monomer in base_monomers.items():
+            if base_monomer in pdb_id_to_monomer:
+                monomer.base_monomers.add(pdb_id_to_monomer[base_monomer])
+
+        for old_monomer, new_monomer in replaced_monomers:
+            for o_monomer in alphabet.monomers.values():
+                if old_monomer in o_monomer.base_monomers:
+                    o_monomer.base_monomers.remove(old_monomer)
+                    o_monomer.base_monomers.add(new_monomer)
+
+        # print summary
+        print('{} entries with the similar structures were joined:\n  {}\t{}\n  {}'.format(
+            len(same_structures), 'PDB CCD id', 'Alphabet code',
+            '\n  '.join(sorted('\t'.join(ids) for ids in same_structures))))
+        print('{} entries with the same ids were joined:\n  {}'.format(
+            len(same_ids), '\n  '.join(sorted(same_ids))))
+        print('{} entries with similar ids potentially should be joined:\n  {}\t{}\n  {}'.format(
+            len(same_ids_case_insensitive), 'PDB CCD id', 'Alphabet code',
+            '\n  '.join(sorted('\t'.join(ids) for ids in same_ids_case_insensitive))))
+
     def is_valid_nucleoside(self, monomer):
         """ Determine if nucleoside should be included in alphabet
 
@@ -850,7 +1131,7 @@ class RnaForm(BpForm):
     def __init__(self, seq=None, circular=False):
         """
         Args:
-            seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the DNA
+            seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the RNA
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(RnaForm, self).__init__(
@@ -872,7 +1153,7 @@ class CanonicalRnaForm(BpForm):
     def __init__(self, seq=None, circular=False):
         """
         Args:
-            seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the DNA
+            seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the RNA
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
         """
         super(CanonicalRnaForm, self).__init__(

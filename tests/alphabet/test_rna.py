@@ -187,16 +187,41 @@ class RnaTestCase(unittest.TestCase):
 
         builder = rna.RnaAlphabetBuilder()
 
+        invalid_termini = []
         for monomer in rna.CanonicalRnaForm().alphabet.monomers.values():
             l_atom = monomer.structure.GetAtom(monomer.l_bond_atoms[0].position)
             r_atom = monomer.structure.GetAtom(monomer.r_bond_atoms[0].position)
-            assert builder.is_nucleotide_terminus(l_atom, r_atom)
+            if not builder.is_nucleotide_terminus(l_atom, r_atom):
+                invalid_termini.append(monomer.id)
 
+        if invalid_termini:
+            raise Exception('The following monomers have invalid termini\n  {}'.format(
+                '\n  '.join(sorted(invalid_termini))))
+
+        invalid_termini = []
         for monomer in rna.RnaForm().alphabet.monomers.values():
             if monomer.l_bond_atoms and monomer.r_bond_atoms:
                 l_atom = monomer.structure.GetAtom(monomer.l_bond_atoms[0].position)
                 r_atom = monomer.structure.GetAtom(monomer.r_bond_atoms[0].position)
-                assert builder.is_nucleotide_terminus(l_atom, r_atom)
+                expected_invalid = ['LCG', 'SRA', 'T2T', 'TLN']
+                if not builder.is_nucleotide_terminus(l_atom, r_atom) and monomer.id not in expected_invalid:
+                    invalid_termini.append('both: ' + monomer.id)
+
+            elif monomer.l_bond_atoms:
+                l_atom = monomer.structure.GetAtom(monomer.l_bond_atoms[0].position)
+                expected_invalid = ['31H', '31M', '5AA', '8RJ', 'F3N',
+                                    'FA2', 'KGV', 'PPU', 'PU']
+                if not builder.is_l_atom(l_atom) and monomer.id not in expected_invalid:
+                    invalid_termini.append('left: ' + monomer.id)
+
+            elif monomer.r_bond_atoms:
+                r_atom = monomer.structure.GetAtom(monomer.r_bond_atoms[0].position)
+                if not builder.is_r_bond_atom(r_atom):
+                    invalid_termini.append('right: ' + monomer.id)
+
+        if invalid_termini:
+            raise Exception('The following monomers have invalid termini\n  {}'.format(
+                '\n  '.join(sorted(invalid_termini))))
 
     def test_validate_form(self):
         form = rna.RnaForm()

@@ -9,7 +9,8 @@
 from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, BpForm,
                           Bond, Atom, Identifier, IdentifierSet, SynonymSet,
                           BpFormsWarning)
-from bpforms.alphabet.core import download_pdb_ccd, parse_pdb_ccd, get_pdb_ccd_open_babel_mol
+from bpforms.alphabet.core import (download_pdb_ccd, parse_pdb_ccd, get_pdb_ccd_open_babel_mol,
+                                   get_can_smiles)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species
@@ -139,7 +140,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         # build from sources
         self.build_dnamod(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
         self.build_repairtoire(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
-        self.build_pdb(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
+        self.build_pdb_ccd(alphabet, ph=ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
 
         # corrections
         if 'dI' in alphabet.monomers and 'DI' in alphabet.monomers:
@@ -437,8 +438,8 @@ class DnaAlphabetBuilder(AlphabetBuilder):
 
         return True
 
-    def build_pdb(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
-        """ Build monomeric forms from DNAmod
+    def build_pdb_ccd(self, alphabet, ph=None, major_tautomer=False, dearomatize=False):
+        """ Build monomeric forms from PDB CCD
 
         Args:
             alphabet (:obj:`Alphabet`): alphabet
@@ -449,36 +450,8 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         Returns:
             :obj:`Alphabet`: alphabet
         """
-        def get_can_smiles(structure):
-            structure2 = openbabel.OBMol()
-            structure2 += structure
-
-            for atom in openbabel.OBMolAtomIter(structure2):
-                atom.UnsetStereo()
-
-            for bond in openbabel.OBMolBondIter(structure2):
-                bond.UnsetHash()
-                bond.UnsetWedge()
-                bond.UnsetUp()
-                bond.UnsetDown()
-            
-            conv = openbabel.OBConversion()
-            assert conv.SetInFormat('smi')
-            assert conv.SetOutFormat('smi')
-            conv.SetOptions('c', conv.OUTOPTIONS)
-            smiles = conv.WriteString(structure2, True)
-
-            conv = openbabel.OBConversion()
-            assert conv.SetInFormat('smi')
-            assert conv.SetOutFormat('smi')
-            conv.SetOptions('c', conv.OUTOPTIONS)
-            conv.ReadString(structure, smiles)
-            smiles = conv.WriteString(structure, True)
-
-            return smiles
-
         smiles_to_monomer = {get_can_smiles(monomer.structure): monomer for monomer in alphabet.monomers.values()}
-        monomer_codes = {code: monomer for code, monomer in alphabet.monomers.items()}        
+        monomer_codes = {code: monomer for code, monomer in alphabet.monomers.items()}
         monomer_lc_codes = {code.lower(): code for code in alphabet.monomers.keys()}
         monomer_to_codes = {monomer: code for code, monomer in alphabet.monomers.items()}
 
@@ -488,6 +461,8 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         same_structures = []
         same_ids = []
         same_ids_case_insensitive = []
+
+        replaced_monomers = []
 
         filename = download_pdb_ccd()
         valid_types = ('DNA linking',
@@ -502,33 +477,36 @@ class DnaAlphabetBuilder(AlphabetBuilder):
             # set structure, atoms
             mol = openbabel.OBMol()
             mol += structure
+
             if "P" in atoms:
                 atom = mol.GetAtom(atoms["P"]['position'])
                 assert atom.GetAtomicNum() == 15
                 atom.SetIsotope(1)
-            if "OP3" in atoms:
-                atom = mol.GetAtom(atoms["OP3"]['position'])
-                assert atom.GetAtomicNum() == 8
-                atom.SetIsotope(1)
+
+            ops = []
+            for i_o in range(1, 4):
+                id_o = 'OP' + str(i_o)
+                id_h = 'H' + id_o
+                if id_o in atoms and id_h in atoms:
+                    atom_o = mol.GetAtom(atoms[id_o]['position'])
+                    assert atom_o.GetAtomicNum() == 8
+                    atom_o.SetIsotope(len(ops))
+
+                    atom_h = mol.GetAtom(atoms[id_h]['position'])
+                    assert atom_h.GetAtomicNum() == 1
+
+                    ops.append((atom_o, atom_h))
+                    if len(ops) == 2:
+                        break
+
             if "O3'" in atoms:
                 atom = mol.GetAtom(atoms["O3'"]['position'])
                 assert atom.GetAtomicNum() == 8
                 atom.SetIsotope(2)
 
-            if "OP2" in atoms:
-                op2 = mol.GetAtom(atoms["OP2"]['position'])
-            if "OP3" in atoms:
-                op3 = mol.GetAtom(atoms["OP3"]['position'])
-            if "HOP2" in atoms:
-                hop2 = mol.GetAtom(atoms["HOP2"]['position'])
-            if "HOP3" in atoms:
-                hop3 = mol.GetAtom(atoms["HOP3"]['position'])
-            if "OP2" in atoms and "HOP2" in atoms:
-                assert mol.DeleteAtom(hop2, True)
-                op2.SetFormalCharge(-1)
-            if "OP3" in atoms and "HOP3" in atoms:
-                assert mol.DeleteAtom(hop3, True)
-                op3.SetFormalCharge(-1)
+            for op, hop in ops:
+                assert mol.DeleteAtom(hop, True)
+                op.SetFormalCharge(-1)
 
             conv = openbabel.OBConversion()
             assert conv.SetInFormat('smi')
@@ -644,10 +622,23 @@ class DnaAlphabetBuilder(AlphabetBuilder):
             can_smiles = get_can_smiles(mol)
 
             # determine if the entry is already represented in the alphabet
-            monomer = smiles_to_monomer.get(can_smiles, None)
+            merge_with_new = False
+
+            monomer = None
+
+            if pdb_monomer.id not in ['A3A', 'DNR']:
+                monomer = smiles_to_monomer.get(can_smiles, None)
+                if monomer is not None:
+                    for identifier in monomer.identifiers:
+                        if identifier.ns == 'pdb-ccd':
+                            monomer = None
+                            break
+
             if monomer is not None:
+                merge_with_new = True
                 same_structures.append((pdb_monomer.id, monomer_to_codes[monomer]))
             if pdb_monomer.id in ['DA', 'DC', 'DG', 'DT']:
+                merge_with_new = False
                 monomer = alphabet.monomers.get(pdb_monomer.id[1], None)
             if monomer is None:
                 monomer = monomer_codes.get(pdb_monomer.id, None)
@@ -665,7 +656,28 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 if base_monomer is not None:
                     base_monomers[pdb_monomer] = base_monomer
                 pdb_id_to_monomer[pdb_monomer.id] = pdb_monomer
-                alphabet.monomers[pdb_monomer.id] = pdb_monomer
+
+            elif merge_with_new:
+                # merge an existing monomer with the PDB entry
+                alphabet.monomers[monomer_to_codes[monomer]] = pdb_monomer
+
+                pdb_monomer.synonyms.update(monomer.synonyms)
+                pdb_monomer.synonyms.add(pdb_monomer.id)
+                pdb_monomer.synonyms.add(pdb_monomer.name)
+                pdb_monomer.id = monomer.id or pdb_monomer.id
+                pdb_monomer.name = monomer.name or pdb_monomer.name
+                pdb_monomer.synonyms.discard(pdb_monomer.id)
+                pdb_monomer.synonyms.discard(pdb_monomer.name)
+
+                pdb_monomer.identifiers.update(monomer.identifiers)
+                pdb_monomer.base_monomers.update(monomer.base_monomers)
+                pdb_monomer.comments = monomer.comments
+
+                if base_monomer is not None:
+                    base_monomers[pdb_monomer] = base_monomer
+                pdb_id_to_monomer[pdb_monomer.id] = pdb_monomer
+
+                replaced_monomers.append((monomer, pdb_monomer))
 
             else:
                 # merge the entry with an existing monomer
@@ -684,6 +696,12 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         for monomer, base_monomer in base_monomers.items():
             if base_monomer in pdb_id_to_monomer:
                 monomer.base_monomers.add(pdb_id_to_monomer[base_monomer])
+
+        for old_monomer, new_monomer in replaced_monomers:
+            for o_monomer in alphabet.monomers.values():
+                if old_monomer in o_monomer.base_monomers:
+                    o_monomer.base_monomers.remove(old_monomer)
+                    o_monomer.base_monomers.add(new_monomer)
 
         # print summary
         print('{} entries with the similar structures were joined:\n  {}\t{}\n  {}'.format(

@@ -8,23 +8,23 @@ monomers:
     id: adenine
     name: adenine
     synonyms:
-    - 6-aminopurine
+    - A
     - 2'-deoxy-5'-adenylic acid
+    - 6-aminopurine
     - '[(2R,3S,5R)-5-(6-aminopurin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen phosphate'
     - 2'-deoxyadenosine-5'-monophosphate
-    - A
     - DA
     identifiers:
-    - ns: chebi
-      id: CHEBI:16708
     - ns: chebi
       id: CHEBI:58245
     - ns: pubchem.compound
       id: '190'
-    - ns: pdb-ccd
-      id: DA
     - ns: metacyc.compound
       id: ADENINE
+    - ns: chebi
+      id: CHEBI:16708
+    - ns: pdb-ccd
+      id: DA
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1ncnc2N
     r_bond_atoms:
     - molecule: Monomer
@@ -47,24 +47,24 @@ monomers:
     id: cytosine
     name: cytosine
     synonyms:
-    - C
-    - DC
-    - 2'-deoxy-5'-cytidylic acid
     - 4-amino-2-oxo-1,2-dihydropyrimidine
+    - C
+    - 2'-deoxy-5'-cytidylic acid
+    - DC
+    - 2'-deoxycytidine-5'-monophosphate
     - '[(2R,3S,5R)-5-(4-amino-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
       phosphate'
-    - 2'-deoxycytidine-5'-monophosphate
     identifiers:
-    - ns: chebi
-      id: CHEBI:57566
-    - ns: pubchem.compound
-      id: '597'
     - ns: pdb-ccd
       id: DC
     - ns: chebi
       id: CHEBI:16040
     - ns: metacyc.compound
       id: CYTOSINE
+    - ns: chebi
+      id: CHEBI:57566
+    - ns: pubchem.compound
+      id: '597'
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc(nc1=O)N
     r_bond_atoms:
     - molecule: Monomer
@@ -87,23 +87,23 @@ monomers:
     id: guanine
     name: guanine
     synonyms:
-    - 2'-deoxyguanosine-5'-monophosphate
-    - '[(2R,3S,5R)-5-(2-amino-6-oxo-1H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
-      phosphate'
     - G
     - 2'-deoxy-5'-guanylic acid
+    - '[(2R,3S,5R)-5-(2-amino-6-oxo-1H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
+      phosphate'
     - DG
+    - 2'-deoxyguanosine-5'-monophosphate
     identifiers:
-    - ns: pubchem.compound
-      id: '764'
-    - ns: chebi
-      id: CHEBI:57673
-    - ns: metacyc.compound
-      id: GUANINE
     - ns: pdb-ccd
       id: DG
     - ns: chebi
       id: CHEBI:16235
+    - ns: chebi
+      id: CHEBI:57673
+    - ns: metacyc.compound
+      id: GUANINE
+    - ns: pubchem.compound
+      id: '764'
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc(N)[nH]c2=O
     r_bond_atoms:
     - molecule: Monomer
@@ -126,25 +126,25 @@ monomers:
     id: thymine
     name: thymine
     synonyms:
-    - 5-methyl-2,4(1H,3H)-pyrimidinedione
     - 5-methyluracil
-    - T
-    - thymidine-5'-monophosphate
+    - 5-methyl-2,4(1H,3H)-pyrimidinedione
+    - DT
     - '[(2R,3S,5R)-3-hydroxy-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - DT
+    - T
     - 5'-thymidylic acid
+    - thymidine-5'-monophosphate
     identifiers:
-    - ns: metacyc.compound
-      id: THYMINE
-    - ns: pdb-ccd
-      id: DT
     - ns: chebi
       id: CHEBI:17821
-    - ns: chebi
-      id: CHEBI:26999
     - ns: pubchem.compound
       id: '1135'
+    - ns: metacyc.compound
+      id: THYMINE
+    - ns: chebi
+      id: CHEBI:26999
+    - ns: pdb-ccd
+      id: DT
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C)c(=O)[nH]c1=O
     r_bond_atoms:
     - molecule: Monomer
@@ -168,11 +168,11 @@ monomers:
     name: uracil
     identifiers:
     - ns: chebi
-      id: CHEBI:17568
+      id: CHEBI:246422
     - ns: metacyc.compound
       id: URACIL
     - ns: chebi
-      id: CHEBI:246422
+      id: CHEBI:17568
     - ns: pubchem.compound
       id: '1174'
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc(=O)[nH]c1=O
@@ -199,20 +199,20 @@ monomers:
     comments: A purine 2'-deoxyribonucleoside that is inosine in which the hydroxy
       group at position 2' is replaced by a hydrogen.
     synonyms:
+    - 2'-deoxy-5'-inosinic acid
     - 2'-deoxyinosine, 9-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)tetrahydrofuran-2-yl]-9H-purin-6-ol
     - deoxyinosine
     - 9-(2-deoxy-beta-d-erythro-pentofuranosyl)-9h-purin-6-ol
-    - 2'-deoxy-5'-inosinic acid
     - '[(2R,3S,5R)-3-hydroxy-5-(6-oxo-1H-purin-9-yl)oxolan-2-yl]methyl dihydrogen
       phosphate'
     - I
     identifiers:
-    - ns: chebi
-      id: CHEBI:28997
-    - ns: dnamod
-      id: 2'-deoxyinosine
     - ns: pdb-ccd
       id: DI
+    - ns: dnamod
+      id: 2'-deoxyinosine
+    - ns: chebi
+      id: CHEBI:28997
     structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)([O-])[O-])n1cnc2c1nc[nH]c2=O
     r_bond_atoms:
     - molecule: Monomer
@@ -270,32 +270,40 @@ monomers:
     comments: A nucleobase analogue that is cytosine in which the hydrogen at position
       5 is replaced by a formyl group.
     synonyms:
-    - cytosine-5-carbaldehyde
     - 4-amino-2-oxopyrimidine-5-carbaldehyde
+    - C
+    - 5FC
+    - 2'-deoxy-5-formylcytidine 5'-(dihydrogen phosphate)
+    - '[(2R,3S,5R)-5-(4-amino-5-methanoyl-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - 5-formyl-2'-deoxy-cytidine-5'-monophosphate
+    - cytosine-5-carbaldehyde
     identifiers:
     - ns: chebi
       id: CHEBI:76794
+    - ns: pdb-ccd
+      id: 5FC
     - ns: dnamod
       id: 5-formylcytosine
-    structure: O=Cc1cn(C2CC(C(O2)COP(=O)([O-])[O-])O)c(=O)nc1N
+    structure: O=Cc1cn([C@H]2C[C@@H]([C@H](O2)COP(=O)([O-])[O-])O)c(=O)nc1N
     base_monomers:
     - C
     r_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 20
     l_bond_atoms:
     - molecule: Monomer
       element: P
-      position: 13
+      position: 16
     r_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 20
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 19
       charge: -1
   h:
     id: 5-(hydroxymethyl)cytosine
@@ -303,32 +311,38 @@ monomers:
     comments: A nucleobase analogue that is cytosine in which the hydrogen at position
       5 is replaced by a hydroxymethyl group.
     synonyms:
-    - 4-amino-5-(hydroxymethyl)-2(1h)-pyrimidinone
+    - 2'-deoxy-5-(hydroxymethyl)cytidine 5'-(dihydrogen phosphate)
+    - '[(2R,3S,5R)-5-[4-azanyl-5-(hydroxymethyl)-2-oxidanylidene-pyrimidin-1-yl]-3-oxidanyl-oxolan-2-yl]methyl
+      dihydrogen phosphate'
     - 5-hydroxymethylcytosine
+    - 5HC
+    - 4-amino-5-(hydroxymethyl)-2(1h)-pyrimidinone
     identifiers:
     - ns: dnamod
       id: 5-(hydroxymethyl)cytosine
+    - ns: pdb-ccd
+      id: 5HC
     - ns: chebi
       id: CHEBI:76792
-    structure: OCc1cn(C2CC(C(O2)COP(=O)([O-])[O-])O)c(=O)nc1N
+    structure: OCc1cn([C@H]2C[C@H]([C@@H](O2)COP(=O)([O-])[O-])O)c(=O)nc1N
     base_monomers:
     - C
     r_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
+      position: 20
     l_bond_atoms:
     - molecule: Monomer
       element: P
-      position: 13
+      position: 16
     r_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
+      position: 20
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 19
       charge: -1
   e3C:
     id: 3-ethylcytosine
@@ -336,10 +350,10 @@ monomers:
     comments: A pyrimidone that is cytosine substituted by an ethyl group at position
       3.
     identifiers:
-    - ns: dnamod
-      id: 3-ethylcytosine
     - ns: chebi
       id: CHEBI:74029
+    - ns: dnamod
+      id: 3-ethylcytosine
     structure: CCN1C(=CCN(C1=O)C1CC(C(O1)COP(=O)([O-])[O-])O)N
     base_monomers:
     - C
@@ -367,16 +381,16 @@ monomers:
       nitrogen at position 3 is substituted by a methyl group. Occurs sparsely. Repaired
       by a direct repair (DR) mechanism. Also repaired in RNA.
     synonyms:
+    - 3-methyl-2'-deoxycytidine-5'-monophosphate
     - n3-methylcytosine
     - 3mC
-    - 3-methyl-2'-deoxycytidine-5'-monophosphate
     identifiers:
-    - ns: dnamod
-      id: 3-methylcytosine
     - ns: repairtoire
       id: 3mC
     - ns: chebi
       id: CHEBI:39992
+    - ns: dnamod
+      id: 3-methylcytosine
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1CC=C(N(C1=O)C)N
     base_monomers:
     - C
@@ -403,34 +417,24 @@ monomers:
     comments: A nucleobase analogue that is cytosine in which the hydrogen at position
       5 is replaced by a carboxy group.
     synonyms:
-    - 5-carboxylcytosine
+    - 5-carboxy-2'-deoxycytidine 5'-(dihydrogen phosphate)
     - 4-amino-2-oxopyrimidine-5-carboxylic acid
     - cytosine-5-carboxylic acid
+    - 1CC
+    - 4-azanyl-2-oxidanylidene-1-[(2R,4S,5R)-4-oxidanyl-5-(phosphonooxymethyl)oxolan-2-yl]pyrimidine-5-carboxylic
+      acid
+    - 5-carboxy-2'-deoxycytidine monophosphate
+    - 5-carboxylcytosine
     identifiers:
-    - ns: chebi
-      id: CHEBI:76793
+    - ns: pdb-ccd
+      id: 1CC
     - ns: dnamod
       id: 5-carboxycytosine
-    structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C(=O)[O-])c(nc1=O)N
+    - ns: chebi
+      id: CHEBI:76793
+    structure: O[C@H]1C[C@@H](O[C@H]1COP(=O)(O)O)n1cc(C(=O)O)c(nc1=O)N
     base_monomers:
     - C
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 9
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 12
-      charge: -1
   ɛC:
     id: 3,N(4)-ethenocytosine
     name: imidazo[1,2-c]pyrimidin-5(6H)-one
@@ -438,10 +442,10 @@ monomers:
     - 3,n(4)-ethanocytosine
     - ethenocytosine
     identifiers:
-    - ns: chebi
-      id: CHEBI:29147
     - ns: dnamod
       id: 3,N(4)-ethenocytosine
+    - ns: chebi
+      id: CHEBI:29147
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1ccc2n(c1=O)ccn2
     base_monomers:
     - C
@@ -468,14 +472,22 @@ monomers:
     comments: A pyrimidine that is a derivative of cytosine, having a methyl group
       at the 5-position.
     synonyms:
+    - '[(2R,3S,5R)-5-(4-amino-5-methyl-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - C
     - 4-amino-5-methyl-2(1h)-pyrimidinone
+    - 5CM
+    - 2'-deoxy-5-methylcytidine 5'-(dihydrogen phosphate)
     - 4-amino-5-methyl-2-pyrimidinol
+    - 5-methyl-2'-deoxy-cytidine-5'-monophosphate
     identifiers:
     - ns: dnamod
       id: 5-methylcytosine
     - ns: chebi
       id: CHEBI:27551
-    structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C)c(nc1=O)N
+    - ns: pdb-ccd
+      id: 5CM
+    structure: O[C@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])n1cc(C)c(nc1=O)N
     base_monomers:
     - C
     r_bond_atoms:
@@ -485,7 +497,7 @@ monomers:
     l_bond_atoms:
     - molecule: Monomer
       element: P
-      position: 9
+      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
@@ -493,7 +505,7 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 15
       charge: -1
   4mC:
     id: N(4)-methylcytosine
@@ -501,36 +513,44 @@ monomers:
     comments: A pyrimidone that is cytosine bearing an N(4)-methyl substituent. Repaired
       by a direct repair (DR) mechanism.
     synonyms:
-    - n(4)-methylcytosine
-    - 4mC
     - 4-methyl-2'-deoxycytidine-5'-monophosphate
+    - n4-methyl-2'-deoxy-cytidine-5'-monophosphate
+    - C
+    - 4mC
+    - n(4)-methylcytosine
+    - '[(2R,3S,5R)-3-hydroxy-5-(4-methylamino-2-oxo-pyrimidin-1-yl)oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - C34
     - 4-methylamino-1h-pyrimidin-2-one
+    - 2'-deoxy-N-methylcytidine 5'-(dihydrogen phosphate)
     identifiers:
-    - ns: chebi
-      id: CHEBI:21839
-    - ns: repairtoire
-      id: 4mC
+    - ns: pdb-ccd
+      id: C34
     - ns: dnamod
       id: N(4)-methylcytosine
-    structure: CNc1ccn(c(=O)n1)C1CC(C(O1)COP(=O)([O-])[O-])O
+    - ns: repairtoire
+      id: 4mC
+    - ns: chebi
+      id: CHEBI:21839
+    structure: CNc1ccn(c(=O)n1)[C@H]1C[C@H]([C@H](O1)COP(=O)([O-])[O-])O
     base_monomers:
     - C
     r_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 21
+      position: 24
     l_bond_atoms:
     - molecule: Monomer
       element: P
-      position: 17
+      position: 20
     r_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 21
+      position: 24
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 20
+      position: 23
       charge: -1
   1mC:
     id: 1-methylcytosine
@@ -568,16 +588,16 @@ monomers:
     comments: A beta-D-glucoside derived from formal condensation of the hydroxy group
       of 5-(hydroxymethyl)cytosine with the anomeric hydroxy group of D-glucopyranose.
     synonyms:
-    - 5-glucosylmethylcytosine
-    - 5-gmc
-    - beta-d-glucosyl-5-hydroxymethylcytosine
     - beta-glucosyl-5-hydroxymethylcytosine
+    - 5-glucosylmethylcytosine
     - 5-beta-d-glucosylmethylcytosine
+    - beta-d-glucosyl-5-hydroxymethylcytosine
+    - 5-gmc
     identifiers:
-    - ns: chebi
-      id: CHEBI:131616
     - ns: dnamod
       id: 5-(beta-D-glucosylmethyl)cytosine
+    - ns: chebi
+      id: CHEBI:131616
     structure: OC[C@H]1O[C@@H](OCc2cn(C3CC(C(O3)COP(=O)([O-])[O-])O)c(=O)[nH]c2=N)[C@@H]([C@H]([C@@H]1O)O)O
     base_monomers:
     - C
@@ -606,9 +626,9 @@ monomers:
       methyl group has been replaced by one of the amino groups of putrescine. It
       replaces about half of the thymine residues in the DNA of bacetriophage phiW-14.
     synonyms:
+    - putthy
     - 5-(4-aminobutylaminomethyl)uracil
     - n-thyminylputrescine
-    - putthy
     identifiers:
     - ns: dnamod
       id: alpha-putrescinylthymine
@@ -640,34 +660,25 @@ monomers:
     comments: A pyrimidone obtained by formal addition of hydrogen across the 5,6-position
       of thymine.
     synonyms:
-    - 5,6-dihydro-5-methyluracil
+    - QBT
     - 5-methyl-5,6-dihydrouracil
+    - 5,6-dihydro-5-methyluracil
     - dihydrothymine
+    - '[(2r,3s,5r)-3-hydroxy-5-[(5s)-5-methyl-2,4-dioxo-1,3-diazinan-1-yl]oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - '[(2R,3S,5R)-3-hydroxy-5-[(5S)-5-methyl-2,4-dioxo-1,3-diazinan-1-yl]oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - T
     identifiers:
+    - ns: pdb-ccd
+      id: QBT
     - ns: chebi
       id: CHEBI:27468
     - ns: dnamod
       id: 5,6-dihydrothymine
-    structure: OC1CC(OC1COP(=O)([O-])[O-])N1CC(C)C(=O)NC1=O
+    structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)(O)O)N1C[C@H](C)C(=O)NC1=O
     base_monomers:
     - T
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 9
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 12
-      charge: -1
   e:
     id: 5-formyluracil
     name: 2,4-dioxo-1,2,3,4-tetrahydropyrimidine-5-carbaldehyde
@@ -675,103 +686,88 @@ monomers:
       group of 5-hydroxymethyluracil to the corresponding aldehyde. It is a major
       one-electron photooxidation product of thymine in oligodeoxynucleotides.
     synonyms:
-    - fou
     - uracil 5-carbaldehyde
     - 5fu
+    - U
+    - 2'-deoxy-5-formyluridine 5'-(dihydrogen phosphate)
+    - '[(2R,3S,5R)-3-hydroxy-5-(5-methanoyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - fou
+    - UFR
     identifiers:
     - ns: chebi
       id: CHEBI:80961
     - ns: dnamod
       id: 5-formyluracil
-    structure: O=Cc1cn(C2CC(C(O2)COP(=O)([O-])[O-])O)c(=O)[nH]c1=O
+    - ns: pdb-ccd
+      id: UFR
+    structure: O=Cc1cn([C@@H]2C[C@@H]([C@H](O2)COP(=O)(O)O)O)c(=O)[nH]c1=O
     base_monomers:
     - g
     - T
     r_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 13
+      position: 20
     r_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 16
-      charge: -1
+      position: 20
   3mT:
     id: 3,5-dimethyluracil
     name: 3,5-dimethylpyrimidine-2,4(1H,3H)-dione
     comments: A pyrimidone that is uracil with methyl group substituents at positions
       3 and 5. Repaired by a direct repair (DR) mechanism.
     synonyms:
+    - 3-methylthymidine 5'-(dihydrogen phosphate)
     - 3mT
-    - 3-methylthymine
+    - MFT
     - 3-methyl-2'-deoxythymidine-5'-monophosphate
+    - '[(2R,3S,5R)-5-(3,5-dimethyl-2,4-dioxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - 3-methylthymine
     identifiers:
-    - ns: chebi
-      id: CHEBI:74766
     - ns: dnamod
       id: 3,5-dimethyluracil
+    - ns: pdb-ccd
+      id: MFT
+    - ns: chebi
+      id: CHEBI:74766
     - ns: repairtoire
       id: 3mT
-    structure: OC1CC(OC1COP(=O)([O-])[O-])n1cc(C)c(=O)n(c1=O)C
+    structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)(O)O)n1cc(C)c(=O)n(c1=O)C
     base_monomers:
     - T
     r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 9
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 12
-      charge: -1
   O4-meT:
     id: O(4)-methylthymine
     name: 4-methoxy-5-methylpyrimidin-2(1H)-one
     comments: A methylthymine in which the methyl group is located at the O4-position.
     synonyms:
-    - o-4-methylthymine
+    - '[(2R,3S,5R)-5-(4-methoxy-5-methyl-2-oxidanylidene-pyrimidin-1-yl)-3-oxidanyl-oxolan-2-yl]methyl
+      dihydrogen phosphate'
     - 4-methoxy-5-methylpyrimidin-2-one
+    - 1-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-4-methoxy-5-methylpyrimidin-2(1h)-one
+    - o-4-methylthymine
+    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-4-methoxy-5-methylpyrimidin-2(1H)-one
+    - 5DB
     identifiers:
-    - ns: dnamod
-      id: O(4)-methylthymine
     - ns: chebi
       id: CHEBI:134100
-    structure: COc1nc(=O)n(cc1C)C1CC(C(O1)COP(=O)([O-])[O-])O
+    - ns: dnamod
+      id: O(4)-methylthymine
+    - ns: pdb-ccd
+      id: 5DB
+    structure: COc1nc(=O)n(cc1C)[C@H]1C[C@@H]([C@H](O1)COP(=O)(O)O)O
     base_monomers:
     - T
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 22
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 18
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 22
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 21
-      charge: -1
   1mT:
     id: 1,5-dimethyluracil
     name: 1,5-dimethylpyrimidine-2,4(1H,3H)-dione
@@ -845,10 +841,10 @@ monomers:
     synonyms:
     - 2-(9h-purin-6-ylamino)acetamide
     identifiers:
-    - ns: chebi
-      id: CHEBI:102525
     - ns: dnamod
       id: N(6)-carbamoylmethyladenine
+    - ns: chebi
+      id: CHEBI:102525
     structure: NC(=O)CNc1ncnc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - A
@@ -875,14 +871,14 @@ monomers:
     comments: A tertiary amine that is adenine substituted at N-6 by geminal methyl
       groups.
     synonyms:
-    - n,n-dimethyladenine
-    - 6-dimethylaminopurine
     - 6-(dimethylamino)purine
     - n(6)-dimethyladenine
+    - 6-dimethylaminopurine
     - n,n-dimethyl-6-aminopurine
-    - n,n-dimethyl-1h-purin-6-amine
-    - n(6),n(6)-dimethyladenine
     - 6-dimethyladenine
+    - n,n-dimethyladenine
+    - n(6),n(6)-dimethyladenine
+    - n,n-dimethyl-1h-purin-6-amine
     identifiers:
     - ns: dnamod
       id: N(6),N(6)-dimethyladenine
@@ -910,56 +906,46 @@ monomers:
       charge: -1
   m2A:
     id: 9H-purine-2,6-diamine
-    name: ''
+    name: 2,6-diaminopurine nucleotide
     comments: A member of the class of 2,6-diaminopurines that is 9H-purine in which
       the hydrogens at positions 2 and 6 are replaced by amino groups.
     synonyms:
-    - 2,6-diaminopurine
-    - 2-aminoadenine
     - 9h-purine-2,6-diamine
+    - A
+    - 2-aminoadenine
+    - 2,6-diaminopurine
+    - 2-amino-2'-deoxyadenosine 5'-(dihydrogen phosphate)
+    - 1AP
+    - '[(2R,3S,5R)-5-(2,6-diaminopurin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
+      phosphate'
     identifiers:
     - ns: chebi
       id: CHEBI:40235
     - ns: dnamod
       id: 9H-purine-2,6-diamine
-    structure: Nc1nc(N)c2c(n1)n(cn2)C1OC(C(C1)O)COP(=O)([O-])[O-]
+    - ns: pdb-ccd
+      id: 1AP
+    structure: Nc1nc(N)c2c(n1)n(cn2)[C@H]1O[C@@H]([C@@H](C1)O)COP(=O)(O)O
     base_monomers:
     - A
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 17
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 20
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 17
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 23
-      charge: -1
   HAP:
     id: N(6)-hydroxyadenine
     name: N-hydroxy-1H-purin-6-amine
     comments: A member of the class of 6-aminopurinnes that is adenine in which one
       of the exocyclic amino hydrogens is replaced by a hydroxy group.
     synonyms:
-    - n-hydroxyadenine
-    - hap
-    - 6-hydroxylaminopurine
-    - 6-n-hydroxylaminopurine
     - n-(7h-purin-6-yl)hydroxylamine
-    - n(6)-hydroxyadenine
     - 6-hydroxyaminopurine
+    - 6-n-hydroxylaminopurine
+    - hap
+    - n(6)-hydroxyadenine
+    - 6-hydroxylaminopurine
+    - n-hydroxyadenine
     identifiers:
-    - ns: dnamod
-      id: N(6)-hydroxyadenine
     - ns: chebi
       id: CHEBI:78235
+    - ns: dnamod
+      id: N(6)-hydroxyadenine
     structure: ONc1ncnc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - A
@@ -989,10 +975,10 @@ monomers:
     - 2-amino-n6-hydroxyadenine
     - guanine oxime
     identifiers:
-    - ns: chebi
-      id: CHEBI:78685
     - ns: dnamod
       id: 2-amino-6-hydroxyaminopurine
+    - ns: chebi
+      id: CHEBI:78685
     structure: ONc1nc(N)nc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
     base_monomers:
     - A
@@ -1019,10 +1005,10 @@ monomers:
     comments: A methyladenine that is 9H-purin-6-amine substituted by a methyl group
       at the amino nitrogen.
     synonyms:
-    - n6-monomethyladenine
     - 6-methylaminopurine
-    - n6-methyladenine
     - 6-map
+    - n6-methyladenine
+    - n6-monomethyladenine
     identifiers:
     - ns: chebi
       id: CHEBI:28871
@@ -1084,9 +1070,9 @@ monomers:
     comments: Adenine substituted with a methyl group at position N-1. Occurs sparsely.
       Repaired by a direct repair (DR) mechanism. Also repaired in RNA.
     synonyms:
-    - n1-methyladenine
     - 1mA
     - 1-methyl-2'-deoxyadenosine-5'-monophosphate
+    - n1-methyladenine
     identifiers:
     - ns: dnamod
       id: 1-methyladenine
@@ -1123,12 +1109,12 @@ monomers:
     - 7-methyl-2'-deoxyadenosine-5'-monophosphate
     - 7mA
     identifiers:
-    - ns: dnamod
-      id: 7-methyladenine
     - ns: chebi
       id: CHEBI:28921
     - ns: repairtoire
       id: 7mA
+    - ns: dnamod
+      id: 7-methyladenine
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1CN(c2c1nc[nH+]c2N)C
     base_monomers:
     - A
@@ -1187,18 +1173,18 @@ monomers:
       position N-3. Occurs frequently. Repaired by direct repair (DR) mechanisms.
       AlkB activity not confirmed. Also repaired by the BER pathway.
     synonyms:
-    - 3mA
+    - 3-methyl-3h-purin-6-ylamine
     - 6-amino-3-methylpurine
     - 3-methyl-3h-adenine
+    - 3mA
     - 3-methyl-2'-deoxyadenosine-5'-monophosphate
-    - 3-methyl-3h-purin-6-ylamine
     identifiers:
-    - ns: repairtoire
-      id: 3mA
     - ns: chebi
       id: CHEBI:38635
     - ns: dnamod
       id: 3-methyladenine
+    - ns: repairtoire
+      id: 3mA
     structure: OC1CC(OC1COP(=O)([O-])[O-])N1C=NC2=C([NH+]=CN(C12)C)N
     base_monomers:
     - A
@@ -1255,8 +1241,8 @@ monomers:
     comments: An alanine derivative consisting of alanine having a 6-oxo-6,9-dihydro-1H-purin-2-yl
       group attached to the amino function.
     synonyms:
-    - n(2)-(1-carboxyethyl)guanine
     - ceguanine
+    - n(2)-(1-carboxyethyl)guanine
     identifiers:
     - ns: dnamod
       id: N(2)-carboxyethylguanine
@@ -1323,10 +1309,10 @@ monomers:
     - 1,n(2)-ethenoguanine
     - 1,n(2)-epsilong
     identifiers:
-    - ns: chebi
-      id: CHEBI:134096
     - ns: dnamod
       id: 1,N(2)-ethenoguanine
+    - ns: chebi
+      id: CHEBI:134096
     structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1[nH]c1nccn1c2=O
     base_monomers:
     - G
@@ -1352,17 +1338,24 @@ monomers:
     name: 2-amino-1-methyl-1,9-dihydro-6H-purin-6-one
     comments: Repaired by a direct repair (DR) mechanism.
     synonyms:
+    - G
+    - MG1
+    - '[(2R,3S,5R)-5-(2-amino-1-methyl-6-oxo-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
+      dihydrogen phosphate'
     - 1mG
     - n1-methylguanine
     - 1-methyl-2'-deoxyguanosine-5'-monophosphate
+    - 2'-deoxy-1-methylguanosine 5'-(dihydrogen phosphate)
     identifiers:
-    - ns: repairtoire
-      id: 1mG
-    - ns: dnamod
-      id: 1-methylguanine
     - ns: chebi
       id: CHEBI:21803
-    structure: OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1nc(N)n(c2=O)C
+    - ns: dnamod
+      id: 1-methylguanine
+    - ns: pdb-ccd
+      id: MG1
+    - ns: repairtoire
+      id: 1mG
+    structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)([O-])[O-])n1cnc2c1nc(N)n(c2=O)C
     base_monomers:
     - G
     r_bond_atoms:
@@ -1372,7 +1365,7 @@ monomers:
     l_bond_atoms:
     - molecule: Monomer
       element: P
-      position: 9
+      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
@@ -1380,7 +1373,7 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 12
+      position: 14
       charge: -1
   m6G:
     id: 6-O-methylguanine
@@ -1391,84 +1384,83 @@ monomers:
       such as endogenous S-adenosylmethionine, it base-pairs to thymine rather than
       cytidine, causing a G:C to A:T transition in DNA.
     synonyms:
+    - G
+    - 9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-methoxy-9H-purin-2-amine
+    - 6OG
     - o(6)-methylguanine
-    - 6-methoxy-1h-purine-2-amine
     - 2-amino-6-methoxypurine
     - 6-methoxyguanine
+    - 6-methoxy-1h-purine-2-amine
+    - '[(2R,3S,5R)-5-(2-azanyl-6-methoxy-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
+      dihydrogen phosphate'
     - o-(6)-methylguanine
+    - 6-o-methyl guanosine-5'-monophosphate
     identifiers:
-    - ns: chebi
-      id: CHEBI:20689
     - ns: dnamod
       id: 6-O-methylguanine
-    structure: COc1nc(N)nc2c1ncn2C1CC(C(O1)COP(=O)([O-])[O-])O
+    - ns: pdb-ccd
+      id: 6OG
+    - ns: chebi
+      id: CHEBI:20689
+    structure: COc1nc(N)nc2c1ncn2[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
     base_monomers:
     - G
     r_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 24
+      position: 27
     l_bond_atoms:
     - molecule: Monomer
       element: P
-      position: 20
+      position: 23
     r_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 24
+      position: 27
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 23
+      position: 26
       charge: -1
   2mG:
     id: N(2)-methylguanine
     name: 2-(methylamino)-1,7-dihydro-6H-purin-6-one
     comments: A methylguanine in which the methyl group is located at the N2-position.
     synonyms:
+    - G
     - 2-methylguanine
-    - n-methyl-guanine
-    - 1,7-dihydro-2-(methylamino)-6h-purin-6-one
     - 2mG
-    - 2-methylamino-6-oxopurine
+    - 1,7-dihydro-2-(methylamino)-6h-purin-6-one
     - 2-methyl-2'-deoxyguanosine-5'-monophosphate
+    - '[(2R,3S,5R)-3-hydroxy-5-(2-methylamino-6-oxo-1H-purin-9-yl)oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - n2-methyl-2'-deoxy-guanosine-5'-monophosphate
+    - n-methyl-guanine
+    - 2'-deoxy-N-methylguanosine 5'-(dihydrogen phosphate)
+    - 2-methylamino-6-oxopurine
+    - G49
     identifiers:
-    - ns: repairtoire
-      id: 2mG
-    - ns: dnamod
-      id: N(2)-methylguanine
+    - ns: pdb-ccd
+      id: G49
     - ns: chebi
       id: CHEBI:21818
-    structure: CNc1[nH]c(=O)c2c(n1)n(cn2)C1CC(C(O1)COP(=O)([O-])[O-])O
+    - ns: dnamod
+      id: N(2)-methylguanine
+    - ns: repairtoire
+      id: 2mG
+    structure: CNc1[nH]c(=O)c2c(n1)n(cn2)[C@@H]1C[C@@H]([C@H](O1)COP(=O)(O)O)O
     base_monomers:
     - G
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 25
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 21
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 25
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 24
-      charge: -1
   dhpUra:
     id: 5-(4,5-dihydroxypentyl)uracil
     name: 5-(4,5-dihydroxypentyl)pyrimidine-2,4(1H,3H)-dione
     comments: A nucleobase analogue that is uracil substituted at position 5 by a
       4,5-dihydroxypentyl group.
     identifiers:
-    - ns: dnamod
-      id: 5-(4,5-dihydroxypentyl)uracil
     - ns: chebi
       id: CHEBI:132195
+    - ns: dnamod
+      id: 5-(4,5-dihydroxypentyl)uracil
     structure: OCC(CCCc1cn(C2CC(C(O2)COP(=O)([O-])[O-])O)c(=O)[nH]c1=O)O
     base_monomers:
     - U
@@ -1493,12 +1485,12 @@ monomers:
     id: uracil-5-carboxylic acid
     name: 2,4-dioxo-1,2,3,4-tetrahydropyrimidine-5-carboxylic acid
     synonyms:
-    - uracil 5-carboxylate
-    - 5-carboxyuracil
-    - 2,4-dihydroxy-5-pyrimidinecarboxylic acid
     - steviolbioside
     - isoorotic acid
     - uracil 5-carboxylic acid
+    - 2,4-dihydroxy-5-pyrimidinecarboxylic acid
+    - 5-carboxyuracil
+    - uracil 5-carboxylate
     identifiers:
     - ns: dnamod
       id: uracil-5-carboxylic acid
@@ -1530,34 +1522,33 @@ monomers:
     comments: A primary alcohol that is uracil bearing a hydroxymethyl substituent
       at the 5-position.
     synonyms:
-    - 5-(hydroxymethyl)-2,4(1h,3h)-pyrimidinedione
-    - 5-(hydroxymethyl)uracil
     - 5-hydroxymethyl uracil
+    - 5-(hydroxymethyl)-2,4(1h,3h)-pyrimidinedione
+    - U
+    - 2'-deoxy-5-(hydroxymethyl)uridine 5'-(dihydrogen phosphate)
+    - 5HU
+    - '[(2R,3S,5R)-3-hydroxy-5-[5-(hydroxymethyl)-2,4-dioxo-pyrimidin-1-yl]oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - 5-(hydroxymethyl)uracil
+    - 5-hydroxymethyluridine-2'-deoxy-5'-monophosphate
     identifiers:
     - ns: dnamod
       id: 5-hydroxymethyluracil
+    - ns: pdb-ccd
+      id: 5HU
     - ns: chebi
       id: CHEBI:16964
-    structure: OCc1cn(C2CC(C(O2)COP(=O)([O-])[O-])O)c(=O)[nH]c1=O
+    structure: OCc1cn([C@@H]2C[C@@H]([C@H](O2)COP(=O)(O)O)O)c(=O)[nH]c1=O
     base_monomers:
     - U
     r_bond_atoms:
     - molecule: Monomer
       element: O
-      position: 17
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 13
+      position: 20
     r_displaced_atoms:
     - molecule: Monomer
       element: H
-      position: 17
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 16
-      charge: -1
+      position: 20
   1,N2-ethenoG:
     id: 1,N2-ethenoG
     name: 1,N2-etheno-2'-deoxyguanosine-5'-monophosphate
@@ -1565,35 +1556,18 @@ monomers:
       exocyclic adducts are repaired with an epoxide intermediate, that is hydrolyzed
       to the repaired base + CHO-CHO.
     synonyms:
+    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3,5-dihydro-9H-imidazo[1,2-a]purin-9-one
     - N
-    - 1,n2-ethenoguanine
     - '[(2R,3S,5R)-3-hydroxy-5-(9-oxo-5H-imidazo[1,2-a]purin-3-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3,5-dihydro-9H-imidazo[1,2-a]purin-9-one
     - GNE
+    - 1,n2-ethenoguanine
     identifiers:
     - ns: pdb-ccd
       id: GNE
     - ns: repairtoire
       id: 1,N2-ethenoG
-    structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1cnc2c1nc1[nH]ccn1c2=O
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
+    structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)(O)O)n1cnc2c1nc1[nH]ccn1c2=O
   1,N6-ethenoA:
     id: 1,N6-ethenoA
     name: 1,N6-etheno-2'-deoxyadenosine-5'-monophosphate
@@ -1724,26 +1698,26 @@ monomers:
       each other.
     synonyms:
     - DU
+    - U
+    - 2'-deoxyuridine-5'-monophosphate
     - '[(2R,3S,5R)-5-(2,4-dioxopyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
       phosphate'
-    - deoxyuridine
     - 1-(2-deoxy-beta-D-erythro-pentofuranosyl)uracil
-    - U
     - 2-deoxyuridine
-    - 2'-deoxyuridine-5'-monophosphate
-    - 2'-deoxyuridine
-    - 2'-deoxy-5'-uridylic acid
     - dU
+    - 2'-deoxyuridine
+    - deoxyuridine
+    - 2'-deoxy-5'-uridylic acid
     identifiers:
     - ns: dnamod
       id: 2'-deoxyuridine
     - ns: pdb-ccd
       id: DU
-    - ns: chebi
-      id: CHEBI:16450
     - ns: repairtoire
       id: dU
-    structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1ccc(=O)[nH]c1=O
+    - ns: chebi
+      id: CHEBI:16450
+    structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)([O-])[O-])n1ccc(=O)[nH]c1=O
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1759,23 +1733,23 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 14
       charge: -1
   3,N4-ethenoC:
     id: 3,N4-ethenoC
     name: 3,N4-etheno-2'-deoxycytidine-5'-monophosphate
     synonyms:
-    - 6-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)imidazo[1,2-c]pyrimidin-5(6H)-one
-    - EDC
-    - n3,n4-etheno-2'-deoxycytidine-5'-monophosphate
     - '[(2R,3S,5R)-3-oxidanyl-5-(5-oxidanylideneimidazo[1,2-c]pyrimidin-6-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 6-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)imidazo[1,2-c]pyrimidin-5(6H)-one
+    - n3,n4-etheno-2'-deoxycytidine-5'-monophosphate
+    - EDC
     identifiers:
-    - ns: pdb-ccd
-      id: EDC
     - ns: repairtoire
       id: 3,N4-ethenoC
-    structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1ccc2n(c1=O)ccn2
+    - ns: pdb-ccd
+      id: EDC
+    structure: O[C@@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])n1ccc2n(c1=O)ccn2
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1791,7 +1765,7 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 14
       charge: -1
   3eC:
     id: 3eC
@@ -1922,10 +1896,21 @@ monomers:
       a unique site in the single-stranded genome of a bacteriophage M13mp19 derivative.
       Replication of the genome in E. coli yielded targeted mutations at a frequency
       of 0.3%; the mutations were exclusively T to C transitions.
+    synonyms:
+    - (5r,6s)-5,6-dihydro-5,6-dihydroxythymidine-5'-monophosphate
+    - 5,6-dihydroxythymidine 5'-(dihydrogen phosphate)
+    - T
+    - CTG
+    - '[(2R,3S,5R)-5-[(5R,6S)-5,6-dihydroxy-5-methyl-2,4-dioxo-1,3-diazinan-1-yl]-3-hydroxy-oxolan-2-yl]methyl
+      dihydrogen phosphate'
     identifiers:
     - ns: repairtoire
       id: thymidine glycol
-    structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])N1C(=O)NC(=O)[C@]([C@H]1O)(C)O
+    - ns: pdb-ccd
+      id: CTG
+    structure: O[C@@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])N1C(=O)NC(=O)[C@]([C@H]1O)(C)O
+    base_monomers:
+    - T
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1941,25 +1926,25 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 14
       charge: -1
   6mA:
     id: 6mA
     name: 6-methyl-2'-deoxyadenosine-5'-monophosphate
     comments: AlkB activity not confirmed
     synonyms:
-    - '[(2R,3S,5R)-3-hydroxy-5-[6-(methylamino)purin-9-yl]oxolan-2-yl]methyl dihydrogen
-      phosphate'
-    - n6-methyl-deoxy-adenosine-5'-monophosphate
     - A
     - 6MA
+    - n6-methyl-deoxy-adenosine-5'-monophosphate
     - 2'-deoxy-N-methyladenosine 5'-(dihydrogen phosphate)
+    - '[(2R,3S,5R)-3-hydroxy-5-[6-(methylamino)purin-9-yl]oxolan-2-yl]methyl dihydrogen
+      phosphate'
     identifiers:
-    - ns: repairtoire
-      id: 6mA
     - ns: pdb-ccd
       id: 6MA
-    structure: CNc1ncnc2c1ncn2[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
+    - ns: repairtoire
+      id: 6mA
+    structure: CNc1ncnc2c1ncn2[C@@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -1975,7 +1960,7 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 25
+      position: 24
       charge: -1
   7mG:
     id: 7mG
@@ -2008,35 +1993,26 @@ monomers:
     comments: Repaired by a direct repair (DR) mechanism.
     synonyms:
     - G
-    - 2'-deoxy-8-methylguanosine 5'-(dihydrogen phosphate)
+    - 8MG
     - '[(2R,3S,5R)-5-(2-amino-8-methyl-6-oxo-1H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 8MG
+    - 2'-deoxy-8-methylguanosine 5'-(dihydrogen phosphate)
     identifiers:
-    - ns: pdb-ccd
-      id: 8MG
     - ns: repairtoire
       id: 8mG
-    structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1c(C)nc2c1nc(N)[nH]c2=O
+    - ns: pdb-ccd
+      id: 8MG
+    structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)(O)O)n1c(C)nc2c1nc(N)[nH]c2=O
     base_monomers:
     - G
     r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   O2mT:
     id: O2mT
     name: O2-methyl-2'-deoxythymidine-5'-monophosphate
@@ -2158,10 +2134,10 @@ monomers:
     id: 0AP
     name: 2'-deoxycytidine 3',5'-bis(dihydrogen phosphate)
     synonyms:
-    - C
     - 2'-deoxycytidine 3',5'-bis(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(4-amino-2-oxo-pyrimidin-1-yl)-3-phosphonooxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 0AP
@@ -2186,9 +2162,9 @@ monomers:
     name: '[(2s,5r)-5-{4-amino-5-[(4-ethynylphenyl)ethynyl]-2-oxopyrimidin-1(2h)-yl}tetrahydrofuran-2-yl]methyl
       dihydrogen phosphate'
     synonyms:
-    - '[(2S,5R)-5-{4-amino-5-[(4-ethynylphenyl)ethynyl]-2-oxopyrimidin-1(2H)-yl}tetrahydrofuran-2-yl]methyl
-      dihydrogen phosphate'
     - '[(2S,5R)-5-[4-azanyl-5-[2-(4-ethynylphenyl)ethynyl]-2-oxidanylidene-pyrimidin-1-yl]oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - '[(2S,5R)-5-{4-amino-5-[(4-ethynylphenyl)ethynyl]-2-oxopyrimidin-1(2H)-yl}tetrahydrofuran-2-yl]methyl
       dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
@@ -2215,9 +2191,7 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: 18Q
-    structure: O[C@@H]1C[C@@H](O[C@@H]1CO[P@@](=O)(O)[O-])n1cc(C(=O)NCc2cccs2)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
+    structure: O[C@@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1cc(C(=O)NCc2cccs2)c(=O)[nH]c1=O
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -2233,35 +2207,8 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 14
       charge: -1
-  1AP:
-    id: 1AP
-    name: 2,6-diaminopurine nucleotide
-    synonyms:
-    - 2-amino-2'-deoxyadenosine 5'-(dihydrogen phosphate)
-    - A
-    - '[(2R,3S,5R)-5-(2,6-diaminopurin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
-      phosphate'
-    identifiers:
-    - ns: pdb-ccd
-      id: 1AP
-    structure: Nc1nc(N)c2c(n1)n(cn2)[C@H]1O[C@@H]([C@@H](C1)O)COP(=O)(O)O
-    base_monomers:
-    - A
-  1CC:
-    id: 1CC
-    name: 5-carboxy-2'-deoxycytidine monophosphate
-    synonyms:
-    - 4-azanyl-2-oxidanylidene-1-[(2R,4S,5R)-4-oxidanyl-5-(phosphonooxymethyl)oxolan-2-yl]pyrimidine-5-carboxylic
-      acid
-    - 5-carboxy-2'-deoxycytidine 5'-(dihydrogen phosphate)
-    identifiers:
-    - ns: pdb-ccd
-      id: 1CC
-    structure: O[C@H]1C[C@@H](O[C@H]1COP(=O)(O)O)n1cc(C(=O)O)c(nc1=O)N
-    base_monomers:
-    - C
   1FC:
     id: 1FC
     name: 4-amino-1-(2-deoxy-2-fluoro-5-o-phosphono-beta-d-arabinofuranosyl)-2-oxo-1,2-dihydropyrimidine-5-carboxylic
@@ -2320,13 +2267,13 @@ monomers:
     id: 1W5
     name: (1r)-1-(6-amino-2-hydroxy-5-nitropyridin-3-yl)-1,4-anhydro-2-deoxy-5-o-phosphono-d-erythro-pentitol
     synonyms:
-    - (1R)-1-(6-amino-2-hydroxy-5-nitropyridin-3-yl)-1,4-anhydro-2-deoxy-5-O-phosphono-D-erythro-pentitol
     - '[(2~{R},3~{S},5~{R})-5-(6-azanyl-5-nitro-2-oxidanyl-pyridin-3-yl)-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - (1R)-1-(6-amino-2-hydroxy-5-nitropyridin-3-yl)-1,4-anhydro-2-deoxy-5-O-phosphono-D-erythro-pentitol
     identifiers:
     - ns: pdb-ccd
       id: 1W5
-    structure: O[C@H]1C[C@H](O[C@@H]1CO[P@](=O)(O)[O-])c1cc([N+](=O)[O-])c(nc1O)N
+    structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)([O-])[O-])c1cc([N+](=O)[O-])c(nc1O)N
     l_bond_atoms:
     - molecule: Monomer
       element: P
@@ -2346,7 +2293,7 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: 1WA
-    structure: O[C@@H]1C[C@@H](O[C@H]1CO[P@@](=O)(O)[O-])[n+]1cc[n+]2c1[nH]c(N)nc2O
+    structure: O[C@@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])[n+]1cc[n+]2c1[nH]c(N)nc2O
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -2362,16 +2309,16 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 14
       charge: -1
   2AR:
     id: 2AR
     name: 2'-deoxyaristeromycin-5'-phosphate
     synonyms:
-    - '[(1R,2S,4R)-4-(6-amino-9H-purin-9-yl)-2-hydroxycyclopentyl]methyl dihydrogen
-      phosphate'
     - A
     - '[(1R,2S,4R)-4-(6-aminopurin-9-yl)-2-hydroxy-cyclopentyl]methyl dihydrogen phosphate'
+    - '[(1R,2S,4R)-4-(6-amino-9H-purin-9-yl)-2-hydroxycyclopentyl]methyl dihydrogen
+      phosphate'
     identifiers:
     - ns: pdb-ccd
       id: 2AR
@@ -2399,8 +2346,8 @@ monomers:
     id: 2BD
     name: n1-(1-hydroxy-3-buten-2(s)-yl)-2'-deoxyinosine mono phosphoric acid
     synonyms:
-    - I
     - 2'-deoxy-1-[(1S)-1-(hydroxymethyl)prop-2-en-1-yl]inosine 5'-(dihydrogen phosphate)
+    - I
     - '[(2R,5R)-3-hydroxy-5-[1-[(2S)-1-hydroxybut-3-en-2-yl]-6-oxo-purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
     identifiers:
@@ -2462,8 +2409,8 @@ monomers:
     name: 2',3'-dideoxyadenosine-5'-monophosphate
     synonyms:
     - '[(2S,5R)-5-(6-aminopurin-9-yl)oxolan-2-yl]methyl dihydrogen phosphate'
-    - A
     - '[(2S,5R)-5-(6-amino-9H-purin-9-yl)tetrahydrofuran-2-yl]methyl dihydrogen phosphate'
+    - A
     identifiers:
     - ns: pdb-ccd
       id: 2DA
@@ -2483,9 +2430,9 @@ monomers:
     id: 2DF
     name: n-(2-deoxy-beta-d-erytho-pentofuranosyl-5-phosphate) formamide
     synonyms:
-    - '[(2R,3S,5R)-5-formamido-3-hydroxy-oxolan-2-yl]methyl dihydrogen phosphate'
     - N
     - 2-deoxy-N-formyl-5-O-phosphono-beta-D-erythro-pentofuranosylamine
+    - '[(2R,3S,5R)-5-formamido-3-hydroxy-oxolan-2-yl]methyl dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
       id: 2DF
@@ -2495,8 +2442,8 @@ monomers:
     name: 2-hydroxy-3-(pyren-1-ylmethoxy)propyl dihydrogen phosphate
     synonyms:
     - N
-    - (2S)-2-hydroxy-3-(pyren-1-ylmethoxy)propyl dihydrogen phosphate
     - '[(2S)-2-hydroxy-3-(pyren-1-ylmethoxy)propyl] dihydrogen phosphate'
+    - (2S)-2-hydroxy-3-(pyren-1-ylmethoxy)propyl dihydrogen phosphate
     identifiers:
     - ns: pdb-ccd
       id: 2DM
@@ -2522,9 +2469,9 @@ monomers:
     id: 2DT
     name: 3'-deoxythymidine-5'-monophosphate
     synonyms:
-    - T
     - '[(2S,5R)-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl dihydrogen
       phosphate'
+    - T
     - '[(2S,5R)-5-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)tetrahydrofuran-2-yl]methyl
       dihydrogen phosphate'
     identifiers:
@@ -2578,8 +2525,8 @@ monomers:
     id: 2FI
     name: 2'-fluoro-2'-deoxyinosine
     synonyms:
-    - N
     - 9-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-1,9-dihydro-6H-purin-6-one
+    - N
     - '[(2R,3R,4S,5R)-4-fluoro-3-hydroxy-5-(6-oxo-1H-purin-9-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
     identifiers:
@@ -2599,9 +2546,9 @@ monomers:
     name: '[(2r,5r)-5-(4-amino-5-chloro-2-oxopyrimidin-1(2h)-yl)-3-oxotetrahydrofuran-2-yl]methyl
       dihydrogen phosphate'
     synonyms:
-    - '[(2R,5R)-5-(4-amino-5-chloro-2-oxopyrimidin-1(2H)-yl)-3-oxotetrahydrofuran-2-yl]methyl
-      dihydrogen phosphate'
     - '[(2R,5R)-5-(4-azanyl-5-chloranyl-2-oxidanylidene-pyrimidin-1-yl)-3-oxidanylidene-oxolan-2-yl]methyl
+      dihydrogen phosphate'
+    - '[(2R,5R)-5-(4-amino-5-chloro-2-oxopyrimidin-1(2H)-yl)-3-oxotetrahydrofuran-2-yl]methyl
       dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
@@ -2630,9 +2577,9 @@ monomers:
     id: 2JU
     name: 2'-deoxy-5-[(naphthalen-1-ylmethyl)carbamoyl]uridine 5'-(dihydrogen phosphate)
     synonyms:
-    - 2'-deoxy-5-[(naphthalen-1-ylmethyl)carbamoyl]uridine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-[5-(naphthalen-1-ylmethylcarbamoyl)-2,4-bis(oxidanylidene)pyrimidin-1-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-5-[(naphthalen-1-ylmethyl)carbamoyl]uridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: 2JU
@@ -2674,9 +2621,9 @@ monomers:
     id: 2LA
     name: 2-amino-5-(aminomethyl)-7-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-3,7-dihydro-4h-pyrrolo[2,3-d]pyrimidin-4-one
     synonyms:
-    - 2-amino-5-(aminomethyl)-7-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3,7-dihydro-4H-pyrrolo[2,3-d]pyrimidin-4-one
     - '[(2R,3S,5R)-5-[5-(aminomethyl)-2-azanyl-4-oxidanylidene-3H-pyrrolo[2,3-d]pyrimidin-7-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2-amino-5-(aminomethyl)-7-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3,7-dihydro-4H-pyrrolo[2,3-d]pyrimidin-4-one
     identifiers:
     - ns: pdb-ccd
       id: 2LA
@@ -2791,9 +2738,9 @@ monomers:
     id: 3DR
     name: 1',2'-dideoxyribofuranose-5'-phosphate
     synonyms:
-    - 1,4-anhydro-2-deoxy-5-O-phosphono-D-erythro-pentitol
-    - N
     - '[(2R,3S)-3-hydroxyoxolan-2-yl]methyl dihydrogen phosphate'
+    - N
+    - 1,4-anhydro-2-deoxy-5-O-phosphono-D-erythro-pentitol
     identifiers:
     - ns: pdb-ccd
       id: 3DR
@@ -2819,30 +2766,21 @@ monomers:
     id: 3ZO
     name: 2'-deoxy-xanthosine-5'-monophosphate
     synonyms:
+    - 2'-deoxy-5'-2,3-dihydroxanthylic acid
     - '[(2R,3S,5R)-5-[2,6-bis(oxidanylidene)-3H-purin-9-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-deoxy-5'-2,3-dihydroxanthylic acid
     identifiers:
     - ns: pdb-ccd
       id: 3ZO
     structure: O=c1[nH]c(=O)c2c([nH]1)n(cn2)[C@H]1O[C@H]([C@@H](C1)O)CO[P@@](=O)(O)[O-]
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 25
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 28
-      charge: -1
   47C:
     id: 47C
     name: 2'-deoxy-n-(prop-2-en-1-yloxy)cytidine 5'-(dihydrogen phosphate)
     synonyms:
-    - C
+    - 2'-deoxy-N-(prop-2-en-1-yloxy)cytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-hydroxy-5-[2-oxo-4-(prop-2-enoxyamino)pyrimidin-1-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-deoxy-N-(prop-2-en-1-yloxy)cytidine 5'-(dihydrogen phosphate)
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 47C
@@ -2897,19 +2835,10 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   4JA:
     id: 4JA
     name: (2s)-3-[(6-deoxy-beta-d-glucopyranosyl)oxy]-2-hydroxypropyl dihydrogen phosphate
@@ -2953,10 +2882,10 @@ monomers:
     id: 4PC
     name: 3-(2'-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-6-methyl-3,7-dihydro-2h-pyrrolo[2,3-d]pyrimidin-2-one
     synonyms:
-    - C
     - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-methyl-3,7-dihydro-2H-pyrrolo[2,3-d]pyrimidin-2-one
     - '[(2R,3S,5R)-3-hydroxy-5-(6-methyl-2-oxo-7H-pyrrolo[2,3-d]pyrimidin-3-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 4PC
@@ -2984,10 +2913,10 @@ monomers:
     id: 4PD
     name: 3-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-6-methyl-1,3-dihydro-2h-pyrrolo[2,3-d]pyrimidin-2-one
     synonyms:
-    - C
-    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-methyl-1,3-dihydro-2H-pyrrolo[2,3-d]pyrimidin-2-one
     - '[(2R,3S,5R)-3-hydroxy-5-(6-methyl-2-oxo-1H-pyrrolo[2,3-d]pyrimidin-3-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-methyl-1,3-dihydro-2H-pyrrolo[2,3-d]pyrimidin-2-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 4PD
@@ -3015,10 +2944,10 @@ monomers:
     id: 4PE
     name: 3-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-6-methyl-3h-pyrrolo[2,3-d]pyrimidin-2-ol
     synonyms:
-    - C
     - '[(2R,3S,5R)-3-hydroxy-5-(2-hydroxy-6-methyl-pyrrolo[2,3-d]pyrimidin-3-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
     - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-methyl-3H-pyrrolo[2,3-d]pyrimidin-2-ol
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 4PE
@@ -3046,9 +2975,9 @@ monomers:
     id: 4SC
     name: 4'-thio-2'-deoxycytidine-5'-monophosphate group
     synonyms:
-    - C
     - '[(2R,3S,5R)-5-[(5R)-4-amino-5-methyl-2-oxo-5,6-dihydropyrimidin-1-yl]-3-hydroxy-thiolan-2-yl]methoxy-oxido-oxo-phosphanium'
     - 2'-deoxy-5-methyl-5'-O-[oxido(oxo)phosphonio]-4'-thiocytidine
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 4SC
@@ -3067,9 +2996,9 @@ monomers:
     id: 4U3
     name: 5-chloro-2'-deoxycytidine 5'-(dihydrogen phosphate)
     synonyms:
+    - 5-chloro-2'-deoxycytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(4-azanyl-5-chloranyl-2-oxidanylidene-pyrimidin-1-yl)-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 5-chloro-2'-deoxycytidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: 4U3
@@ -3097,8 +3026,8 @@ monomers:
     id: 5AT
     name: 5'-amino-5'-deoxythymidine
     synonyms:
-    - 1-[(2R,4S,5R)-5-(aminomethyl)-4-hydroxy-oxolan-2-yl]-5-methyl-pyrimidine-2,4-dione
     - T
+    - 1-[(2R,4S,5R)-5-(aminomethyl)-4-hydroxy-oxolan-2-yl]-5-methyl-pyrimidine-2,4-dione
     - 5'-amino-5'-deoxythymidine
     identifiers:
     - ns: pdb-ccd
@@ -3114,48 +3043,6 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-  5CM:
-    id: 5CM
-    name: 5-methyl-2'-deoxy-cytidine-5'-monophosphate
-    synonyms:
-    - C
-    - 2'-deoxy-5-methylcytidine 5'-(dihydrogen phosphate)
-    - '[(2R,3S,5R)-5-(4-amino-5-methyl-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    identifiers:
-    - ns: pdb-ccd
-      id: 5CM
-    structure: O[C@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])n1cc(C)c(nc1=O)N
-    base_monomers:
-    - C
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
-  5DB:
-    id: 5DB
-    name: 1-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-4-methoxy-5-methylpyrimidin-2(1h)-one
-    synonyms:
-    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-4-methoxy-5-methylpyrimidin-2(1H)-one
-    - '[(2R,3S,5R)-5-(4-methoxy-5-methyl-2-oxidanylidene-pyrimidin-1-yl)-3-oxidanyl-oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    identifiers:
-    - ns: pdb-ccd
-      id: 5DB
-    structure: COc1nc(=O)n(cc1C)[C@H]1C[C@@H]([C@H](O1)COP(=O)(O)O)O
   5EJ:
     id: 5EJ
     name: 1-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-4-ethoxy-5-methylpyrimidin-2(1h)-one
@@ -3167,67 +3054,6 @@ monomers:
     - ns: pdb-ccd
       id: 5EJ
     structure: CCOc1nc(=O)n(cc1C)[C@H]1C[C@H]([C@H](O1)COP(=O)(O)O)O
-  5FC:
-    id: 5FC
-    name: 5-formyl-2'-deoxy-cytidine-5'-monophosphate
-    synonyms:
-    - C
-    - '[(2R,3S,5R)-5-(4-amino-5-methanoyl-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    - 2'-deoxy-5-formylcytidine 5'-(dihydrogen phosphate)
-    identifiers:
-    - ns: pdb-ccd
-      id: 5FC
-    structure: O=Cc1cn([C@H]2C[C@@H]([C@H](O2)COP(=O)([O-])[O-])O)c(=O)nc1N
-    base_monomers:
-    - C
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 20
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 16
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 20
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 19
-      charge: -1
-  5HC:
-    id: 5HC
-    name: 2'-deoxy-5-(hydroxymethyl)cytidine 5'-(dihydrogen phosphate)
-    synonyms:
-    - 2'-deoxy-5-(hydroxymethyl)cytidine 5'-(dihydrogen phosphate)
-    - '[(2R,3S,5R)-5-[4-azanyl-5-(hydroxymethyl)-2-oxidanylidene-pyrimidin-1-yl]-3-oxidanyl-oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    identifiers:
-    - ns: pdb-ccd
-      id: 5HC
-    structure: OCc1cn([C@H]2C[C@H]([C@@H](O2)COP(=O)([O-])[O-])O)c(=O)nc1N
-    base_monomers:
-    - C
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 20
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 16
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 20
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 19
-      charge: -1
   5HT:
     id: 5HT
     name: 5-hydroxy-thymidine
@@ -3249,42 +3075,18 @@ monomers:
     - molecule: Monomer
       element: H
       position: 11
-  5HU:
-    id: 5HU
-    name: 5-hydroxymethyluridine-2'-deoxy-5'-monophosphate
-    synonyms:
-    - '[(2R,3S,5R)-3-hydroxy-5-[5-(hydroxymethyl)-2,4-dioxo-pyrimidin-1-yl]oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    - U
-    - 2'-deoxy-5-(hydroxymethyl)uridine 5'-(dihydrogen phosphate)
-    identifiers:
-    - ns: pdb-ccd
-      id: 5HU
-    structure: OCc1cn([C@@H]2C[C@@H]([C@H](O2)COP(=O)(O)O)O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 20
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 20
   5IU:
     id: 5IU
     name: 5-iodo-2'-deoxyuridine-5'-monophosphate
     synonyms:
     - 2'-deoxy-5-iodouridine 5'-(dihydrogen phosphate)
+    - U
     - '[(2R,3S,5R)-3-hydroxy-5-(5-iodo-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - U
     identifiers:
     - ns: pdb-ccd
       id: 5IU
     structure: O[C@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])n1cc(I)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3317,10 +3119,10 @@ monomers:
     id: 5NC
     name: 5-aza-cytidine-5'monophosphate
     synonyms:
-    - C
     - 4-amino-1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1,3,5-triazin-2(1H)-one
     - '[(2R,3S,5R)-5-(4-amino-2-oxo-1,3,5-triazin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 5NC
@@ -3340,29 +3142,38 @@ monomers:
     id: 5OC
     name: 2'-deoxy-5-hydroxycytidine 5'-(dihydrogen phosphate)
     synonyms:
+    - 2'-deoxy-5-hydroxycytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(4-azanyl-5-oxidanyl-2-oxidanylidene-pyrimidin-1-yl)-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-deoxy-5-hydroxycytidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: 5OC
-    structure: O[C@H]1C[C@H](O[C@H]1CO[P@@](=O)(O)[O-])n1cc(O)c(nc1=O)N
+    structure: O[C@H]1C[C@H](O[C@H]1COP(=O)([O-])[O-])n1cc(O)c(nc1=O)N
     r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 1
+    l_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
+    l_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 15
+      charge: -1
   5PC:
     id: 5PC
     name: 5(1-propynyl)-2'-deoxycytidine-5'-monophosphate
     synonyms:
-    - C
-    - 2'-deoxy-5-prop-1-yn-1-ylcytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(4-amino-2-oxo-5-prop-1-ynyl-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-5-prop-1-yn-1-ylcytidine 5'-(dihydrogen phosphate)
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 5PC
@@ -3390,10 +3201,10 @@ monomers:
     id: 5PY
     name: 1-(2'-deoxy-5'-o-phosphono-beta-d-erythro-pentofuranosyl)-5-methylpyrimidin-2(1h)-one
     synonyms:
-    - '[(2R,3S,5R)-3-hydroxy-5-(5-methyl-2-oxo-pyrimidin-1-yl)oxolan-2-yl]methyl dihydrogen
-      phosphate'
     - T
     - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-5-methylpyrimidin-2(1H)-one
+    - '[(2R,3S,5R)-3-hydroxy-5-(5-methyl-2-oxo-pyrimidin-1-yl)oxolan-2-yl]methyl dihydrogen
+      phosphate'
     identifiers:
     - ns: pdb-ccd
       id: 5PY
@@ -3429,8 +3240,6 @@ monomers:
     - ns: pdb-ccd
       id: 5SE
     structure: C[Se]c1cn([C@H]2C[C@H]([C@H](O2)COP(=O)([O-])[O-])O)c(=O)nc1N
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -3470,9 +3279,9 @@ monomers:
     id: 63G
     name: (6s)-3-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-6-hydroxy-5,6,7,8-tetrahydropyrimido[1,2-a]purin-10(3h)-one
     synonyms:
-    - (6S)-3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-hydroxy-5,6,7,8-tetrahydropyrimido[1,2-a]purin-10(3H)-one
     - '[(2R,3S,5R)-3-hydroxy-5-[(6S)-6-hydroxy-10-oxo-5,6,7,8-tetrahydropyrimido[1,2-a]purin-3-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - (6S)-3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-hydroxy-5,6,7,8-tetrahydropyrimido[1,2-a]purin-10(3H)-one
     identifiers:
     - ns: pdb-ccd
       id: 63G
@@ -3512,9 +3321,9 @@ monomers:
     id: 64T
     name: 5-hydroxy-thymidine-5'-monophosphate
     synonyms:
-    - T
     - '[(2R,3S,5R)-3-hydroxy-5-[(5R)-5-hydroxy-5-methyl-2,4-dioxo-1,3-diazinan-1-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - T
     - 5-hydroxythymidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
@@ -3584,8 +3393,8 @@ monomers:
     id: 6HA
     name: 1',5'-anhydro-2',3'-dideoxy-2'-(adenin-9-yl)-6'-o-phosphoryl-d-arabino-hexitol
     synonyms:
-    - A
     - '[(2R,3S,5S)-5-(6-aminopurin-9-yl)-3-hydroxy-oxan-2-yl]methyl dihydrogen phosphate'
+    - A
     - 2-(6-amino-9H-purin-9-yl)-1,5-anhydro-2,3-dideoxy-6-O-phosphono-D-arabino-hexitol
     identifiers:
     - ns: pdb-ccd
@@ -3627,10 +3436,10 @@ monomers:
     id: 6HC
     name: 1',5'-anhydro-2',3'-dideoxy-2'-(cytosin-1-yl)-6'-o-phosphoryl-d-arabino-hexitol
     synonyms:
-    - C
     - 2-(4-amino-2-oxopyrimidin-1(2H)-yl)-1,5-anhydro-2,3-dideoxy-6-O-phosphono-D-arabino-hexitol
     - '[(2R,3S,5S)-5-(4-amino-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxan-2-yl]methyl dihydrogen
       phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 6HC
@@ -3728,37 +3537,6 @@ monomers:
     - ns: pdb-ccd
       id: 6MI
     structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)(O)O)n1c(=O)c(C)nc2c1[nH]c(N)nc2=O
-  6OG:
-    id: 6OG
-    name: 6-o-methyl guanosine-5'-monophosphate
-    synonyms:
-    - G
-    - 9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-methoxy-9H-purin-2-amine
-    - '[(2R,3S,5R)-5-(2-azanyl-6-methoxy-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    identifiers:
-    - ns: pdb-ccd
-      id: 6OG
-    structure: COc1nc(N)nc2c1ncn2[C@H]1C[C@@H]([C@H](O1)COP(=O)([O-])[O-])O
-    base_monomers:
-    - G
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 27
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 23
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 27
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 26
-      charge: -1
   6PO:
     id: 6PO
     name: 9-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-6-propoxy-9h-purin-2-amine
@@ -3793,22 +3571,20 @@ monomers:
     id: 77Y
     name: " 5-(3-(2-(1h-indol-3-yl)acetamide-n-yl)-1-propen-1-yl)-2'-deoxyuridine"
     synonyms:
-    - U
     - '[(2~{R},3~{S},5~{R})-5-[5-[(~{E})-3-[2-(1~{H}-indol-3-yl)ethanoylamino]prop-1-enyl]-2,4-bis(oxidanylidene)pyrimidin-1-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - U
     identifiers:
     - ns: pdb-ccd
       id: 77Y
     structure: O=C(Cc1c[nH]c2c1cccc2)NC/C=C/c1cn([C@H]2C[C@H]([C@H](O2)COP(=O)(O)O)O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
   7BG:
     id: 7BG
     name: 2-amino-7-benzyl-9-(2-deoxy-2-fluoro-5-o-phosphono-beta-d-arabinofuranosyl)-6-oxo-6,9-dihydro-1h-purin-7-ium
     synonyms:
+    - 2-amino-7-benzyl-9-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-6-oxo-6,9-dihydro-1H-purin-7-ium
     - '[(2R,3R,4S,5R)-5-[2-azanyl-6-oxidanylidene-7-(phenylmethyl)-1H-purin-7-ium-9-yl]-4-fluoranyl-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2-amino-7-benzyl-9-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-6-oxo-6,9-dihydro-1H-purin-7-ium
     identifiers:
     - ns: pdb-ccd
       id: 7BG
@@ -3851,9 +3627,9 @@ monomers:
     name: 7-deaza-2'-deoxyguanosine-5'-monophosphate
     synonyms:
     - G
+    - 2-amino-7-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3,7-dihydro-4H-pyrrolo[2,3-d]pyrimidin-4-one
     - '[(2R,3S,5R)-5-(2-amino-4-oxo-3H-pyrrolo[2,3-d]pyrimidin-7-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2-amino-7-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3,7-dihydro-4H-pyrrolo[2,3-d]pyrimidin-4-one
     identifiers:
     - ns: pdb-ccd
       id: 7GU
@@ -3888,15 +3664,24 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: 8AA
-    structure: '[O-]P(OC[C@H]1O[C@H](C[C@H]1O)n1c(nc2c1[nH]c(N)nc2=O)N(c1ccc2c(c1)cc1c(c2)cccc1)C(=O)C)O'
+    structure: '[O-]P(OC[C@H]1O[C@H](C[C@H]1O)n1c(nc2c1[nH]c(N)nc2=O)N(c1ccc2c(c1)cc1c(c2)cccc1)C(=O)C)[O-]'
     r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 13
+    l_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 2
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 13
+    l_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 1
+      charge: -1
   8AG:
     id: 8AG
     name: 8-[acetyl(anthracen-2-yl)amino]-2'-deoxyguanosine 5'-(dihydrogen phosphate)
@@ -3933,16 +3718,14 @@ monomers:
     - ns: pdb-ccd
       id: 8DT
     structure: CC(=O)NC/C=C/c1cn([C@H]2C[C@H]([C@H](O2)COP(=O)(O)O)O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
   8FG:
     id: 8FG
     name: n-(5'-phospho-2'-deoxyguanosin-8-yl)-2-acetylaminofluorene
     synonyms:
     - G
-    - 8-[acetyl(9H-fluoren-2-yl)amino]-2'-deoxyguanosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-[2-amino-8-(ethanoyl-(9H-fluoren-2-yl)amino)-6-oxo-1H-purin-9-yl]-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 8-[acetyl(9H-fluoren-2-yl)amino]-2'-deoxyguanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: 8FG
@@ -3971,9 +3754,9 @@ monomers:
     name: 8-oxo-2'-deoxy-guanosine-5'-monophosphate
     synonyms:
     - G
+    - 2'-deoxy-8-oxoguanosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(2-amino-6,8-dioxo-1,7-dihydropurin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-deoxy-8-oxoguanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: 8OG
@@ -4028,9 +3811,9 @@ monomers:
     id: 8YN
     name: pseudoisocytidine
     synonyms:
-    - C
     - '[(2~{R},3~{S},5~{R})-5-(2-azanyl-6-oxidanylidene-1~{H}-pyrimidin-5-yl)-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: 8YN
@@ -4052,9 +3835,9 @@ monomers:
     id: 93D
     name: (1r)-1,4-anhydro-2-deoxy-1-(2,4-diaminopyrimidin-5-yl)-5-o-phosphono-d-erythro-pentitol
     synonyms:
-    - (1R)-1,4-anhydro-2-deoxy-1-(2,4-diaminopyrimidin-5-yl)-5-O-phosphono-D-erythro-pentitol
     - '[(2~{R},3~{S},5~{R})-5-[2,4-bis(azanyl)pyrimidin-5-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - (1R)-1,4-anhydro-2-deoxy-1-(2,4-diaminopyrimidin-5-yl)-5-O-phosphono-D-erythro-pentitol
     identifiers:
     - ns: pdb-ccd
       id: 93D
@@ -4095,10 +3878,10 @@ monomers:
     id: A38
     name: 8-oxy deoxyadenosine-5'-monophosphate
     synonyms:
-    - '[(2R,3S,5R)-5-(6-amino-8-oxo-7H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
-      phosphate'
     - A
     - 2'-deoxy-8-oxoadenosine 5'-(dihydrogen phosphate)
+    - '[(2R,3S,5R)-5-(6-amino-8-oxo-7H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
+      phosphate'
     identifiers:
     - ns: pdb-ccd
       id: A38
@@ -4109,9 +3892,9 @@ monomers:
     id: A3A
     name: 2'deoxy-alpha-anomeric-adenosine-5'-phosphate
     synonyms:
+    - A
     - 2'-deoxy-5'-adenylic acid
     - '[(2R,3S,5S)-5-(6-aminopurin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen phosphate'
-    - A
     identifiers:
     - ns: pdb-ccd
       id: A3A
@@ -4122,9 +3905,9 @@ monomers:
     id: A40
     name: n2-methyl 2'-deoxyadenosine 5'-monophosphate
     synonyms:
+    - A
     - '[(2R,3S,5R)-5-(6-amino-2-methylamino-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - A
     - 2'-deoxy-2-(methylamino)adenosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
@@ -4136,9 +3919,9 @@ monomers:
     id: A43
     name: 3'-amino deoxyadenosine 5'-monophosphate
     synonyms:
-    - '[(2S,3S,5R)-3-amino-5-(6-aminopurin-9-yl)oxolan-2-yl]methyl dihydrogen phosphate'
-    - A
     - 3'-amino-2',3'-dideoxyadenosine 5'-(dihydrogen phosphate)
+    - A
+    - '[(2S,3S,5R)-3-amino-5-(6-aminopurin-9-yl)oxolan-2-yl]methyl dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
       id: A43
@@ -4149,10 +3932,10 @@ monomers:
     id: A47
     name: n6-methoxy adenosine 5'-monophosphate
     synonyms:
-    - 2'-deoxy-N-methoxyadenosine 5'-(dihydrogen phosphate)
     - A
     - '[(2R,3S,5R)-3-hydroxy-5-[6-(methoxyamino)purin-9-yl]oxolan-2-yl]methyl dihydrogen
       phosphate'
+    - 2'-deoxy-N-methoxyadenosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: A47
@@ -4164,13 +3947,13 @@ monomers:
     name: 9-(2-deoxy-2-fluoro-5-o-phosphono-beta-d-arabinofuranosyl)-9h-purin-6-amine
     synonyms:
     - 9-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-9H-purin-6-amine
+    - A
     - '[(2R,3R,4S,5R)-5-(6-aminopurin-9-yl)-4-fluoro-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - A
     identifiers:
     - ns: pdb-ccd
       id: A5L
-    structure: O[C@H]1[C@H](CO[P@](=O)(O)[O-])O[C@H]([C@@H]1F)n1cnc2c1ncnc2N
+    structure: O[C@H]1[C@H](COP(=O)([O-])[O-])O[C@H]([C@@H]1F)n1cnc2c1ncnc2N
     base_monomers:
     - A
     r_bond_atoms:
@@ -4214,8 +3997,8 @@ monomers:
     synonyms:
     - '[(2R,3S,5R)-3-hydroxy-5-[6-[[(2R)-2-hydroxy-2-phenyl-ethyl]amino]purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-deoxy-N-[(2R)-2-hydroxy-2-phenylethyl]adenosine 5'-(dihydrogen phosphate)
     - A
+    - 2'-deoxy-N-[(2R)-2-hydroxy-2-phenylethyl]adenosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: ABR
@@ -4274,8 +4057,8 @@ monomers:
     id: ABT
     name: 3'-azido-3'-deoxy-thymidine-5'-alpha borano triphosphate
     synonyms:
-    - N
     - 3'-azido-5'-O-[(1E,3S)-1-boranylidene-1,3,5,5-tetrahydroxy-3,5-dioxido-1lambda~5~-triphosphoxanyl]-3'-deoxythymidine
+    - N
     - '[[(2S,3S,5R)-3-azido-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methoxy-boranylidene-hydroxy-phosphoranyl]
       phosphono hydrogen phosphate'
     identifiers:
@@ -4286,10 +4069,10 @@ monomers:
     id: AD2
     name: 2'-deoxy-adenosine-3'-5'-diphosphate
     synonyms:
-    - 2'-deoxyadenosine 3',5'-bis(dihydrogen phosphate)
     - A
     - '[(2R,3S,5R)-5-(6-aminopurin-9-yl)-3-phosphonooxy-oxolan-2-yl]methyl dihydrogen
       phosphate'
+    - 2'-deoxyadenosine 3',5'-bis(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: AD2
@@ -4300,9 +4083,9 @@ monomers:
     id: AF2
     name: 2'-deoxy-2'-fluoroadenosine 5'-(dihydrogen phosphate)
     synonyms:
-    - 2'-deoxy-2'-fluoroadenosine 5'-(dihydrogen phosphate)
     - '[(2R,3R,4R,5R)-5-(6-aminopurin-9-yl)-4-fluoro-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-2'-fluoroadenosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: AF2
@@ -4330,9 +4113,9 @@ monomers:
     id: AFF
     name: 2-acetylaminofluorene-3-yl
     synonyms:
-    - N-(9H-fluoren-2-yl)ethanamide
     - N
     - N-9H-fluoren-2-ylacetamide
+    - N-(9H-fluoren-2-yl)ethanamide
     identifiers:
     - ns: pdb-ccd
       id: AFF
@@ -4341,13 +4124,13 @@ monomers:
     id: AS
     name: 2-deoxy-adenosine -5'-thio-monophosphate
     synonyms:
-    - 2'-deoxy-5'-O-thiophosphonoadenosine
     - A
+    - 2'-deoxy-5'-O-thiophosphonoadenosine
     - (2R,3S,5R)-5-(6-aminopurin-9-yl)-2-(dihydroxyphosphinothioyloxymethyl)oxolan-3-ol
     identifiers:
     - ns: pdb-ccd
       id: AS
-    structure: O[C@H]1C[C@H](O[C@@H]1CO[P@@](=S)(O)[O-])n1cnc2c1ncnc2N
+    structure: O[C@H]1C[C@H](O[C@@H]1COP(=S)([O-])[O-])n1cnc2c1ncnc2N
     base_monomers:
     - A
     r_bond_atoms:
@@ -4372,8 +4155,8 @@ monomers:
     name: 4'-thio-2'4'-dideoxyribofuranose-5'-phosphate
     synonyms:
     - 2-deoxy-5-O-phosphono-4-thio-alpha-D-erythro-pentofuranose
-    - '[(2R,3S,5S)-3,5-dihydroxythiolan-2-yl]methyl dihydrogen phosphate'
     - N
+    - '[(2R,3S,5S)-3,5-dihydroxythiolan-2-yl]methyl dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
       id: ASU
@@ -4391,10 +4174,10 @@ monomers:
     id: ATD
     name: thymidine-3'-phosphate
     synonyms:
+    - T
+    - 3'-thymidylic acid
     - '[(2R,3S,5S)-2-(hydroxymethyl)-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-3-yl]
       dihydrogen phosphate'
-    - 3'-thymidylic acid
-    - T
     identifiers:
     - ns: pdb-ccd
       id: ATD
@@ -4415,9 +4198,9 @@ monomers:
     name: 3'-azido-3'-deoxythymidine-5'-monophosphate
     synonyms:
     - T
-    - 3'-azido-3'-deoxythymidine 5'-(dihydrogen phosphate)
     - '[(2S,3S,5R)-3-azido-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 3'-azido-3'-deoxythymidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: ATM
@@ -4437,13 +4220,13 @@ monomers:
     id: B7C
     name: 3-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-7,8-dihydropyrido[2,3-d]pyrimidin-2(3h)-one
     synonyms:
+    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-7,8-dihydropyrido[2,3-d]pyrimidin-2(3H)-one
     - '[(2R,3S,5R)-3-hydroxy-5-(2-oxo-7,8-dihydropyrido[2,3-d]pyrimidin-3-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-7,8-dihydropyrido[2,3-d]pyrimidin-2(3H)-one
     identifiers:
     - ns: pdb-ccd
       id: B7C
-    structure: O[C@H]1C[C@@H](O[C@@H]1CO[P@@](=O)(O)[O-])n1cc2C=CCNc2nc1=O
+    structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1cc2C=CCNc2nc1=O
     base_monomers:
     - C
     r_bond_atoms:
@@ -4461,16 +4244,16 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 14
       charge: -1
   BGM:
     id: BGM
     name: 8-bromo-2'-deoxyguanosine-5'-monophosphate
     synonyms:
     - G
-    - 8-bromo-2'-deoxyguanosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(2-amino-8-bromo-6-oxo-1H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 8-bromo-2'-deoxyguanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: BGM
@@ -4526,16 +4309,14 @@ monomers:
     id: BRU
     name: 5-bromo-2'-deoxyuridine-5'-monophosphate
     synonyms:
-    - U
     - '[(2R,3S,5R)-5-(5-bromo-2,4-dioxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - U
     - 5-bromo-2'-deoxyuridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: BRU
     structure: O[C@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])n1cc(Br)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -4565,16 +4346,14 @@ monomers:
     - ns: pdb-ccd
       id: BVP
     structure: Br/C=C/c1cn([C@H]2C[C@@H]([C@@H](O2)COP(=O)(O)O)O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
   BZG:
     id: BZG
     name: 6-(benzyloxy)-9-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-9h-purin-2-amine
     synonyms:
     - '[(2R,3S,5R)-5-(2-azanyl-6-phenylmethoxy-purin-9-yl)-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 6-(benzyloxy)-9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-9H-purin-2-amine
     - N
+    - 6-(benzyloxy)-9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-9H-purin-2-amine
     identifiers:
     - ns: pdb-ccd
       id: BZG
@@ -4583,9 +4362,9 @@ monomers:
     id: C2S
     name: cytidine-5'-dithiophosphorate
     synonyms:
-    - C
     - 2'-deoxy-5'-O-[(dithiophosphono)]cytidine
     - 4-amino-1-[(2R,4S,5R)-4-hydroxy-5-[(hydroxy-sulfanyl-phosphinothioyl)oxymethyl]oxolan-2-yl]pyrimidin-2-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: C2S
@@ -4596,58 +4375,18 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
-  C34:
-    id: C34
-    name: n4-methyl-2'-deoxy-cytidine-5'-monophosphate
-    synonyms:
-    - C
-    - '[(2R,3S,5R)-3-hydroxy-5-(4-methylamino-2-oxo-pyrimidin-1-yl)oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    - 2'-deoxy-N-methylcytidine 5'-(dihydrogen phosphate)
-    identifiers:
-    - ns: pdb-ccd
-      id: C34
-    structure: CNc1ccn(c(=O)n1)[C@H]1C[C@H]([C@H](O1)COP(=O)([O-])[O-])O
-    base_monomers:
-    - C
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 24
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 20
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 24
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 23
-      charge: -1
   C36:
     id: C36
     name: 5-methyl-5-fluoro-2'-deoxy-cytidine-5'-monophosphate
     synonyms:
-    - C
     - 2'-deoxy-5-fluoro-5-(hydroxymethyl)cytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-[(5R)-4-amino-5-fluoro-5-(hydroxymethyl)-2-oxo-6H-pyrimidin-1-yl]-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: C36
@@ -4658,10 +4397,10 @@ monomers:
     id: C37
     name: 5-fluoro-2'-deoxy-cytidine-5'-monophosphate
     synonyms:
-    - C
     - '[(2R,3S,5R)-5-(4-amino-5-fluoro-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
     - 2'-deoxy-5-fluorocytidine 5'-(dihydrogen phosphate)
+    - C
     identifiers:
     - ns: pdb-ccd
       id: C37
@@ -4672,10 +4411,10 @@ monomers:
     id: C38
     name: 5-iodo-2'-deoxy-cytidine-5'-monophosphate
     synonyms:
-    - C
-    - 2'-deoxy-5-iodocytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(4-amino-5-iodo-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-5-iodocytidine 5'-(dihydrogen phosphate)
+    - C
     identifiers:
     - ns: pdb-ccd
       id: C38
@@ -4686,10 +4425,10 @@ monomers:
     id: C42
     name: 3'-amino-2'-deoxy-cytidine-5'-monophosphate
     synonyms:
-    - C
-    - 3'-amino-2',3'-dideoxycytidine 5'-(dihydrogen phosphate)
     - '[(2S,3S,5R)-3-amino-5-(4-amino-2-oxo-pyrimidin-1-yl)oxolan-2-yl]methyl dihydrogen
       phosphate'
+    - 3'-amino-2',3'-dideoxycytidine 5'-(dihydrogen phosphate)
+    - C
     identifiers:
     - ns: pdb-ccd
       id: C42
@@ -4700,10 +4439,10 @@ monomers:
     id: C45
     name: n4-methoxy-2'-deoxy-cytidine-5'-monophosphate
     synonyms:
-    - C
     - 2'-deoxy-N-methoxycytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-hydroxy-5-[4-(methoxyamino)-2-oxo-pyrimidin-1-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: C45
@@ -4714,10 +4453,10 @@ monomers:
     id: C46
     name: 6h,8h-3,4-dihydropyrimido[4,5-c][1,2]oxazin-7-0ne(cytidine)-5'-monophosphate
     synonyms:
-    - C
-    - 6-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-4,6-dihydro-1H-pyrimido[4,5-c][1,2]oxazin-7(3H)-one
     - '[(2R,3S,5R)-3-hydroxy-5-(7-oxo-3,4-dihydro-1H-pyrimido[4,5-c][1,2]oxazin-6-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 6-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-4,6-dihydro-1H-pyrimido[4,5-c][1,2]oxazin-7(3H)-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: C46
@@ -4728,10 +4467,10 @@ monomers:
     id: C49
     name: 4-thio,5-fluoro,5-methyl-2'-deoxy-cytidine-5'-monophosphate
     synonyms:
-    - C
-    - 2'-deoxy-5-fluoro-5-methyl-6-thioxocytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S)-5-[(5R)-5-fluoro-4-imino-5-methyl-2-oxo-6-sulfanylidene-1,3-diazinan-1-yl]-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-5-fluoro-5-methyl-6-thioxocytidine 5'-(dihydrogen phosphate)
+    - C
     identifiers:
     - ns: pdb-ccd
       id: C49
@@ -4742,10 +4481,10 @@ monomers:
     id: C4S
     name: 2'-deoxy-4'-thiocytidine 5'-(dihydrogen phosphate)
     synonyms:
-    - C
-    - 2'-deoxy-4'-thiocytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(4-amino-2-oxo-pyrimidin-1-yl)-3-hydroxy-thiolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-4'-thiocytidine 5'-(dihydrogen phosphate)
+    - C
     identifiers:
     - ns: pdb-ccd
       id: C4S
@@ -4803,15 +4542,6 @@ monomers:
     structure: O[C@@H]1C[C@H](O[C@@H]1CO[P@@](=O)(S)[O-])n1ccc(nc1=O)N
     base_monomers:
     - C
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   C7S:
     id: C7S
     name: 2'-deoxy-5'-o-thiophosphonocytidine
@@ -4825,23 +4555,14 @@ monomers:
     structure: O[C@@H]1C[C@H](O[C@H]1CO[P@](=O)(S)[O-])n1ccc(nc1=O)N
     base_monomers:
     - C
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   CBR:
     id: CBR
     name: 5-bromo-2'-deoxy-cytidine-5'-monophosphate
     synonyms:
-    - C
-    - 5-bromo-2'-deoxycytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(4-amino-5-bromo-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 5-bromo-2'-deoxycytidine 5'-(dihydrogen phosphate)
+    - C
     identifiers:
     - ns: pdb-ccd
       id: CBR
@@ -4869,10 +4590,10 @@ monomers:
     id: CDW
     name: (4r)-3-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-1,3-diazabicyclo[2.2.0]hex-5-en-2-one
     synonyms:
-    - C
     - (4R)-3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1,3-diazabicyclo[2.2.0]hex-5-en-2-one
     - '[(2R,3S,5R)-3-hydroxy-5-[(4R)-6-oxo-1,5-diazabicyclo[2.2.0]hex-2-en-5-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: CDW
@@ -4883,10 +4604,10 @@ monomers:
     id: CFL
     name: 4-amino-1-(2-deoxy-2-fluoro-5-o-phosphono-beta-d-arabinofuranosyl)pyrimidin-2(1h)-one
     synonyms:
-    - C
-    - 4-amino-1-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)pyrimidin-2(1H)-one
     - '[(2R,3R,4S,5R)-5-(4-amino-2-oxo-pyrimidin-1-yl)-4-fluoro-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 4-amino-1-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)pyrimidin-2(1H)-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: CFL
@@ -4926,9 +4647,9 @@ monomers:
     id: CGY
     name: (1r)-1,4-anhydro-2-deoxy-1-[2,6-diamino-5-(dihydroxyamino)pyridin-3-yl]-5-o-phosphono-d-erythro-pentitol
     synonyms:
+    - (1R)-1,4-anhydro-2-deoxy-1-[2,6-diamino-5-(dihydroxyamino)pyridin-3-yl]-5-O-phosphono-D-erythro-pentitol
     - '[(2~{R},3~{S},5~{R})-5-[2,6-bis(azanyl)-5-[bis(oxidanyl)amino]pyridin-3-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - (1R)-1,4-anhydro-2-deoxy-1-[2,6-diamino-5-(dihydroxyamino)pyridin-3-yl]-5-O-phosphono-D-erythro-pentitol
     identifiers:
     - ns: pdb-ccd
       id: CGY
@@ -4964,10 +4685,10 @@ monomers:
     id: CMR
     name: 2'-deoxy-cytidine-5'-rp-monomethylphosphonate
     synonyms:
-    - C
     - 2'-deoxy-5'-O-[(S)-hydroxy(methyl)phosphoryl]cytidine
     - '[(2R,3S,5R)-5-(4-amino-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methoxy-methyl-phosphinic
       acid'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: CMR
@@ -4978,27 +4699,18 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   CP1:
     id: CP1
     name: 2-(methylamino)-ethylglycine-carbonylmethylene-cytosine
     synonyms:
-    - C
     - N-[(4-amino-2-oxopyrimidin-1(2H)-yl)acetyl]-N-[2-(methylamino)ethyl]glycine
     - 2-[2-(4-amino-2-oxo-pyrimidin-1-yl)ethanoyl-(2-methylaminoethyl)amino]ethanoic
       acid
+    - C
     identifiers:
     - ns: pdb-ccd
       id: CP1
@@ -5009,10 +4721,10 @@ monomers:
     id: CSL
     name: (d)-2'-methylselenyl-2'-deoxycytidine-5'-phosphate
     synonyms:
-    - C
     - 2'-Se-methyl-2'-selenocytidine 5'-(dihydrogen phosphate)
     - '[(2R,3R,4R,5R)-5-(4-amino-2-oxo-pyrimidin-1-yl)-3-hydroxy-4-methylselanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: CSL
@@ -5029,7 +4741,7 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: CSM
-    structure: COC[C@H]1O[C@@H]2[C@@H]([C@]1(CO[P@@](=O)(O)[O-])O[C@@H]2n1ccc(=O)[nH]c1=O)O
+    structure: COC[C@H]1O[C@@H]2[C@@H]([C@]1(COP(=O)([O-])[O-])O[C@@H]2n1ccc(=O)[nH]c1=O)O
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -5045,46 +4757,15 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 17
-      charge: -1
-  CTG:
-    id: CTG
-    name: (5r,6s)-5,6-dihydro-5,6-dihydroxythymidine-5'-monophosphate
-    synonyms:
-    - T
-    - '[(2R,3S,5R)-5-[(5R,6S)-5,6-dihydroxy-5-methyl-2,4-dioxo-1,3-diazinan-1-yl]-3-hydroxy-oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    - 5,6-dihydroxythymidine 5'-(dihydrogen phosphate)
-    identifiers:
-    - ns: pdb-ccd
-      id: CTG
-    structure: O[C@@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])N1C(=O)NC(=O)[C@]([C@H]1O)(C)O
-    base_monomers:
-    - T
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 14
+      position: 16
       charge: -1
   CX2:
     id: CX2
     name: 2'-deoxy-5'-o-{(r)-hydroxy[(2-sulfanylethyl)amino]phosphoryl}cytidine
     synonyms:
+    - 2'-deoxy-5'-O-{(R)-hydroxy[(2-sulfanylethyl)amino]phosphoryl}cytidine
     - '[(2R,3S,5R)-5-(4-azanyl-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methoxy-N-(2-sulfanylethyl)phosphonamidic
       acid'
-    - 2'-deoxy-5'-O-{(R)-hydroxy[(2-sulfanylethyl)amino]phosphoryl}cytidine
     identifiers:
     - ns: pdb-ccd
       id: CX2
@@ -5095,19 +4776,10 @@ monomers:
     - molecule: Monomer
       element: O
       position: 14
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 2
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-      charge: -1
   D00:
     id: D00
     name: 2'-deoxy-n-ethylcytidine 5'-(dihydrogen phosphate)
@@ -5133,10 +4805,10 @@ monomers:
     id: D3
     name: 1-(2-deoxy-beta-d-ribofuranosyl)-4-(3-benzamido)phenylimidazole
     synonyms:
-    - N
-    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-4-{3-[(phenylcarbonyl)amino]phenyl}-1H-imidazole
     - '[(2R,3S,5R)-5-[4-(3-benzamidophenyl)imidazol-1-yl]-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - N
+    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-4-{3-[(phenylcarbonyl)amino]phenyl}-1H-imidazole
     identifiers:
     - ns: pdb-ccd
       id: D3
@@ -5162,8 +4834,8 @@ monomers:
     id: D33
     name: 1-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-1h-imidazole
     synonyms:
-    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1H-imidazole
     - N
+    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1H-imidazole
     - '[(2R,3S,5R)-3-hydroxy-5-imidazol-1-yl-oxolan-2-yl]methyl dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
@@ -5201,9 +4873,9 @@ monomers:
     id: D3T
     name: 2',3'-dideoxy-thymidine-5'-triphosphate
     synonyms:
+    - T
     - (hydroxy-phosphonooxy-phosphoryl) [(2S,5R)-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       hydrogen phosphate
-    - T
     identifiers:
     - ns: pdb-ccd
       id: D3T
@@ -5215,9 +4887,9 @@ monomers:
     name: '[(2~{r},3~{s},5~{r})-5-[4-azanyl-5-[2-(4-ethynylphenyl)ethynyl]-2-oxidanylidene-pyrimidin-1-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
     synonyms:
-    - C
     - '[(2~{R},3~{S},5~{R})-5-[4-azanyl-5-[2-(4-ethynylphenyl)ethynyl]-2-oxidanylidene-pyrimidin-1-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: D4B
@@ -5253,9 +4925,9 @@ monomers:
     id: DCT
     name: 2',3'-dideoxycytidine 5'-triphosphate
     synonyms:
-    - C
     - '[(2S,5R)-5-(4-amino-2-oxo-pyrimidin-1-yl)oxolan-2-yl]methyl (hydroxy-phosphonooxy-phosphoryl)
       hydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: DCT
@@ -5309,20 +4981,18 @@ monomers:
     synonyms:
     - '[(2R,3S,5R)-3-hydroxy-5-[(4R)-4-hydroxy-2-oxo-3,4-dihydropyrimidin-1-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - U
     - (4R)-1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-4-hydroxy-3,4-dihydropyrimidin-2(1H)-one
+    - U
     identifiers:
     - ns: pdb-ccd
       id: DDN
     structure: O[C@H]1C=CN(C(=O)N1)[C@@H]1C[C@@H]([C@H](O1)COP(=O)(O)O)O
-    base_monomers:
-    - dU
   DDX:
     id: DDX
     name: 2',3'-dehydro-2',3'-dideoxyribofuranose-5'-phosphate
     synonyms:
-    - N
     - '[(2S,5S)-5-hydroxy-2,5-dihydrofuran-2-yl]methyl dihydrogen phosphate'
+    - N
     identifiers:
     - ns: pdb-ccd
       id: DDX
@@ -5340,9 +5010,9 @@ monomers:
     id: DFT
     name: 1-[2-deoxyribofuranosyl]-2,4-difluoro-5-methyl-benzene-5'monophosphate
     synonyms:
-    - N
     - '[(2R,3S,5R)-5-(2,4-difluoro-5-methyl-phenyl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
       phosphate'
+    - N
     - (1R)-1,4-anhydro-2-deoxy-1-(2,4-difluoro-5-methylphenyl)-5-O-phosphono-D-erythro-pentitol
     identifiers:
     - ns: pdb-ccd
@@ -5369,9 +5039,9 @@ monomers:
     id: DG8
     name: 2'-deoxy-8-(pyren-1-ylamino)guanosine 5'-(dihydrogen phosphate)
     synonyms:
-    - 2'-deoxy-8-(pyren-1-ylamino)guanosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-[2-azanyl-6-oxidanylidene-8-(pyren-1-ylamino)-1H-purin-9-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-8-(pyren-1-ylamino)guanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: DG8
@@ -5404,9 +5074,9 @@ monomers:
     id: DN
     name: unknown 2'-deoxynucleotide
     synonyms:
-    - 1,4-anhydro-2-deoxy-5-O-phosphono-D-erythro-pentitol
-    - N
     - '[(2R,3S)-3-hydroxyoxolan-2-yl]methyl dihydrogen phosphate'
+    - N
+    - 1,4-anhydro-2-deoxy-5-O-phosphono-D-erythro-pentitol
     identifiers:
     - ns: pdb-ccd
       id: DN
@@ -5432,10 +5102,10 @@ monomers:
     id: DNR
     name: 2'-deoxy-n3-protonated cytidine-5'-monophosphate
     synonyms:
-    - C
+    - 2'-deoxy-5'-cytidylic acid
     - '[(2R,3S,5R)-5-(4-amino-2-oxo-pyrimidin-3-ium-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-deoxy-5'-cytidylic acid
+    - C
     identifiers:
     - ns: pdb-ccd
       id: DNR
@@ -5463,10 +5133,10 @@ monomers:
     id: DOC
     name: 2',3'-dideoxycytidine-5'-monophosphate
     synonyms:
-    - C
     - '[(2S,5R)-5-(4-amino-2-oxo-pyrimidin-1-yl)oxolan-2-yl]methyl dihydrogen phosphate'
     - '[(2S,5R)-5-(4-amino-2-oxopyrimidin-1(2H)-yl)tetrahydrofuran-2-yl]methyl dihydrogen
       phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: DOC
@@ -5486,9 +5156,9 @@ monomers:
     id: DPB
     name: (s)-1-[2'-deoxy-3',5'-o-(1-phosphono)benzylidene-b-d-threo-pentofuranosyl]thymine
     synonyms:
+    - T
     - '[(2S,4aS,6S,7aS)-6-(5-methyl-2,4-dioxo-pyrimidin-1-yl)-2-phenyl-4a,6,7,7a-tetrahydro-4H-furo[3,2-d][1,3]dioxin-2-yl]phosphonic
       acid'
-    - T
     - 1-{2-deoxy-3,5-O-[phenyl(phosphono)methylidene]-beta-L-threo-pentofuranosyl}-5-methylpyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: pdb-ccd
@@ -5509,8 +5179,8 @@ monomers:
     id: DPY
     name: 2-deoxyribofuranosyl-pyridine-2,6-dicarboxylic acid-5'-monophosphate
     synonyms:
-    - (1R)-1,4-anhydro-2-deoxy-1-(2,6-dicarboxypyridin-3-yl)-5-O-phosphono-D-erythro-pentitol
     - N
+    - (1R)-1,4-anhydro-2-deoxy-1-(2,6-dicarboxypyridin-3-yl)-5-O-phosphono-D-erythro-pentitol
     - 3-[(2R,4S,5R)-4-hydroxy-5-(phosphonooxymethyl)oxolan-2-yl]pyridine-2,6-dicarboxylic
       acid
     identifiers:
@@ -5530,8 +5200,6 @@ monomers:
     - ns: pdb-ccd
       id: DRM
     structure: O=c1ccn(c(=O)[nH]1)[C@@H]1CCC[C@@H]1OCP(=O)([O-])[O-]
-    base_monomers:
-    - dU
     l_bond_atoms:
     - molecule: Monomer
       element: P
@@ -5545,8 +5213,8 @@ monomers:
     id: DRP
     name: 2-deoxyribofuranosyl-pyridine-5'-monophosphate
     synonyms:
-    - N
     - '[(2R,3S,5R)-3-hydroxy-5-pyridin-3-yl-oxolan-2-yl]methyl dihydrogen phosphate'
+    - N
     - (1R)-1,4-anhydro-2-deoxy-5-O-phosphono-1-pyridin-3-yl-D-erythro-pentitol
     identifiers:
     - ns: pdb-ccd
@@ -5557,8 +5225,8 @@ monomers:
     name: 3',4'-dihydroxy-pentanal-5'-phosphate
     synonyms:
     - N
-    - 2-deoxy-5-O-phosphono-D-erythro-pentose
     - '[(2R,3S)-2,3-dihydroxy-5-oxo-pentyl] dihydrogen phosphate'
+    - 2-deoxy-5-O-phosphono-D-erythro-pentose
     identifiers:
     - ns: pdb-ccd
       id: DRZ
@@ -5584,15 +5252,13 @@ monomers:
     id: DUZ
     name: 5-(benzylcarbamoyl)-2'-deoxyuridine 5'-(dihydrogen phosphate)
     synonyms:
+    - 5-(benzylcarbamoyl)-2'-deoxyuridine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-[2,4-bis(oxidanylidene)-5-[(phenylmethyl)carbamoyl]pyrimidin-1-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 5-(benzylcarbamoyl)-2'-deoxyuridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: DUZ
     structure: O[C@@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])n1cc(C(=O)NCc2ccccc2)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -5652,10 +5318,10 @@ monomers:
     id: DZM
     name: 3-deaza-3-methyladenine
     synonyms:
-    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-7-methyl-1H-imidazo[4,5-c]pyridin-4-amine
-    - A
     - '[(2R,3S,5R)-5-(4-azanyl-7-methyl-imidazo[4,5-c]pyridin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - A
+    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-7-methyl-1H-imidazo[4,5-c]pyridin-4-amine
     identifiers:
     - ns: pdb-ccd
       id: DZM
@@ -5683,11 +5349,11 @@ monomers:
     id: E
     name: n-((-)-(7s,8r,9s,10r)[7,8,9-trihydroxy-7,8,9,10-tetra hydrobenzo[a]pyren-10-yl])-2'-deoxy-adenosine-5'-monophosphate
     synonyms:
-    - 2'-deoxy-N-[(7S,8R,9S,10R)-7,8,9-trihydroxy-7,8,9,10-tetrahydrobenzo[pqr]tetraphen-10-yl]adenosine
-      5'-(dihydrogen phosphate)
-    - A
     - '[(2R,3S,5R)-3-hydroxy-5-[6-[[(7S,8R,9S,10R)-7,8,9-trihydroxy-7,8,9,10-tetrahydrobenzo[a]pyren-10-yl]amino]purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - A
+    - 2'-deoxy-N-[(7S,8R,9S,10R)-7,8,9-trihydroxy-7,8,9,10-tetrahydrobenzo[pqr]tetraphen-10-yl]adenosine
+      5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: E
@@ -5715,10 +5381,10 @@ monomers:
     id: E1X
     name: phosphoric acid mono-[5-(1-ethyl-2,6-dioxo-1,2,3,6-tetrahydro-purin-9-yl)-3-hydroxy-tetrahydro-furan-2-ylmethyl]ester
     synonyms:
-    - 2'-deoxy-1-ethylxanthosine 5'-(dihydrogen phosphate)
     - A
     - '[(2R,3S,5R)-5-(1-ethyl-2,6-dioxo-3H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-1-ethylxanthosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: E1X
@@ -5760,10 +5426,10 @@ monomers:
     id: EDA
     name: 3-[2-deoxy-ribofuranosyl]-3h-1,3,4,5a,8-pentaaza-as-indacene-5'-monophosphate
     synonyms:
+    - A
     - '[(2R,3S,5R)-3-hydroxy-5-imidazo[2,1-f]purin-3-yl-oxolan-2-yl]methyl dihydrogen
       phosphate'
     - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3H-imidazo[2,1-i]purine
-    - A
     identifiers:
     - ns: pdb-ccd
       id: EDA
@@ -5837,7 +5503,7 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: EXC
-    structure: O[C@@H]1C[C@@H](O[C@H]1CO[P@](=O)(O)[O-])n1cc2oc3cc4c(cc3[nH]c2nc1=O)C(N(C4(C)C)O)(C)C
+    structure: O[C@@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])n1cc2oc3cc4c(cc3[nH]c2nc1=O)C(N(C4(C)C)O)(C)C
     base_monomers:
     - C
     r_bond_atoms:
@@ -5855,7 +5521,7 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 15
+      position: 14
       charge: -1
   F3H:
     id: F3H
@@ -5867,24 +5533,33 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: F3H
-    structure: F[C@H]1[C@H](O)[C@H](OC[C@@H]1n1cc(C)c(=O)[nH]c1=O)CO[P@@](=O)(O)[O-]
+    structure: F[C@H]1[C@H](O)[C@H](OC[C@@H]1n1cc(C)c(=O)[nH]c1=O)COP(=O)([O-])[O-]
     base_monomers:
     - T
     r_bond_atoms:
     - molecule: Monomer
       element: O
       position: 6
+    l_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 25
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 6
+    l_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 28
+      charge: -1
   F4H:
     id: F4H
     name: 1,5-anhydro-2,3-dideoxy-3-fluoro-2-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2h)-yl)-6-o-phosphono-d-mannitol
     synonyms:
-    - 1,5-anhydro-2,3-dideoxy-3-fluoro-2-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-6-O-phosphono-D-mannitol
     - '[(2R,3R,4R,5R)-4-fluoranyl-5-[5-methyl-2,4-bis(oxidanylidene)pyrimidin-1-yl]-3-oxidanyl-oxan-2-yl]methyl
       dihydrogen phosphate'
+    - 1,5-anhydro-2,3-dideoxy-3-fluoro-2-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-6-O-phosphono-D-mannitol
     identifiers:
     - ns: pdb-ccd
       id: F4H
@@ -5909,9 +5584,9 @@ monomers:
     id: F5H
     name: 3,7-anhydro-1,5,6-trideoxy-5-fluoro-6-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2h)-yl)-2-o-phosphono-d-glycero-l-altro-heptitol
     synonyms:
-    - 3,7-anhydro-1,5,6-trideoxy-5-fluoro-6-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-2-O-phosphono-D-glycero-L-altro-heptitol
     - '[(1S)-1-[(2S,3R,4S,5R)-4-fluoranyl-5-[5-methyl-2,4-bis(oxidanylidene)pyrimidin-1-yl]-3-oxidanyl-oxan-2-yl]ethyl]
       dihydrogen phosphate'
+    - 3,7-anhydro-1,5,6-trideoxy-5-fluoro-6-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-2-O-phosphono-D-glycero-L-altro-heptitol
     identifiers:
     - ns: pdb-ccd
       id: F5H
@@ -5920,13 +5595,13 @@ monomers:
     id: F6H
     name: 3,7-anhydro-1,5,6-trideoxy-5-fluoro-6-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2h)-yl)-2-o-phosphono-d-glycero-l-allo-heptitol
     synonyms:
+    - 3,7-anhydro-1,5,6-trideoxy-5-fluoro-6-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-2-O-phosphono-D-glycero-L-allo-heptitol
     - '[(1R)-1-[(2S,3R,4S,5R)-4-fluoranyl-5-[5-methyl-2,4-bis(oxidanylidene)pyrimidin-1-yl]-3-oxidanyl-oxan-2-yl]ethyl]
       dihydrogen phosphate'
-    - 3,7-anhydro-1,5,6-trideoxy-5-fluoro-6-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-2-O-phosphono-D-glycero-L-allo-heptitol
     identifiers:
     - ns: pdb-ccd
       id: F6H
-    structure: F[C@H]1[C@H](O)[C@H](OC[C@@H]1n1cc(C)c(=O)[nH]c1=O)[C@H](O[P@](=O)(O)[O-])C
+    structure: F[C@H]1[C@H](O)[C@H](OC[C@@H]1n1cc(C)c(=O)[nH]c1=O)[C@H](OP(=O)([O-])[O-])C
     l_bond_atoms:
     - molecule: Monomer
       element: P
@@ -5934,14 +5609,14 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 29
+      position: 28
       charge: -1
   F7H:
     id: F7H
     name: 4-azanyl-1-[(1~{s},2~{r},4~{s},6~{s},8~{r})-2,6-bis(oxidanyl)-9-oxatricyclo[4.3.0.0^{2,4}]nonan-8-yl]-5-methyl-pyrimidin-2-one
     synonyms:
-    - C
     - 4-azanyl-1-[(1~{S},2~{R},4~{S},6~{S},8~{R})-2,6-bis(oxidanyl)-9-oxatricyclo[4.3.0.0^{2,4}]nonan-8-yl]-5-methyl-pyrimidin-2-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: F7H
@@ -5965,8 +5640,8 @@ monomers:
     name: "[1',2'-dideoxy[2-amino-5-([9-hydroxy-aflatoxinb2-8-yl]-formyl-amino)-6-oxo-1,6-ihydro-pyrimidin-4-ylamino]-ribofuranose]-5-monophosphate\
       \ group"
     synonyms:
-    - N-(2-amino-5-{formyl[(6aS,8R,9R,9aR)-9-hydroxy-4-methoxy-1,11-dioxo-1,2,3,6a,8,9,9a,11-octahydrocyclopenta[c]furo[3',2':4,5]furo[2,3-h]chromen-8-yl]amino}-6-oxo-1,6-dihydropyrimidin-4-yl)-2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosylamine
     - N
+    - N-(2-amino-5-{formyl[(6aS,8R,9R,9aR)-9-hydroxy-4-methoxy-1,11-dioxo-1,2,3,6a,8,9,9a,11-octahydrocyclopenta[c]furo[3',2':4,5]furo[2,3-h]chromen-8-yl]amino}-6-oxo-1,6-dihydropyrimidin-4-yl)-2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosylamine
     identifiers:
     - ns: pdb-ccd
       id: FAG
@@ -5991,14 +5666,23 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: FAX
-    structure: O=CNc1c(ncnc1N)N[C@H]1C[C@H]([C@H](C1)O)CO[P@@](=O)(O)[O-]
+    structure: O=CNc1c(ncnc1N)N[C@H]1C[C@H]([C@H](C1)O)COP(=O)([O-])[O-]
+    l_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 23
+    l_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 25
+      charge: -1
   FDG:
     id: FDG
     name: 2-amino-9-(2-deoxy-2-fluoro-5-o-phosphono-beta-d-arabinofuranosyl)-7,9-dihydro-1h-purine-6,8-dione
     synonyms:
+    - 2-amino-9-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-7,9-dihydro-1H-purine-6,8-dione
     - '[(2R,3R,4S,5R)-5-(2-azanyl-6,8-dioxo-1,7-dihydropurin-9-yl)-4-fluoro-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2-amino-9-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-7,9-dihydro-1H-purine-6,8-dione
     identifiers:
     - ns: pdb-ccd
       id: FDG
@@ -6026,8 +5710,8 @@ monomers:
     id: FFD
     name: (1r)-1,4-anhydro-2-deoxy-1-(3-fluorophenyl)-5-o-phosphono-d-erythro-pentitol
     synonyms:
-    - N
     - (1R)-1,4-anhydro-2-deoxy-1-(3-fluorophenyl)-5-O-phosphono-D-erythro-pentitol
+    - N
     - '[(2R,3S,5R)-5-(3-fluorophenyl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
@@ -6038,9 +5722,9 @@ monomers:
     name: 2-amino-9-(2-deoxy-2-fluoro-5-o-phosphono-beta-d-arabinofuranosyl)-7-methyl-6-oxo-6,9-dihydro-1h-purin-7-ium
     synonyms:
     - G
+    - 2-amino-9-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-7-methyl-6-oxo-6,9-dihydro-1H-purin-7-ium
     - '[(2R,3R,4S,5R)-5-(2-amino-7-methyl-6-oxo-1H-purin-7-ium-9-yl)-4-fluoro-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2-amino-9-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-7-methyl-6-oxo-6,9-dihydro-1H-purin-7-ium
     identifiers:
     - ns: pdb-ccd
       id: FMG
@@ -6068,9 +5752,9 @@ monomers:
     id: FNU
     name: 6-amino-5-fluorouridine 5'-(dihydrogen phosphate)
     synonyms:
+    - 6-amino-5-fluorouridine 5'-(dihydrogen phosphate)
     - '[(2R,3S,4R,5R)-5-(6-azanyl-5-fluoro-2,4-dioxo-pyrimidin-1-yl)-3,4-dihydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 6-amino-5-fluorouridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: FNU
@@ -6116,19 +5800,10 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   G31:
     id: G31
     name: 3'-methyl-2',3'-deoxy-guanosine-5'-monophosphate
@@ -6175,9 +5850,9 @@ monomers:
     name: o6-ethyl-2'-deoxyguanosine-5'-monophosphate
     synonyms:
     - G
+    - 9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-ethoxy-9H-purin-2-amine
     - '[(2R,3S,5R)-5-(2-amino-6-ethoxy-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
       phosphate'
-    - 9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-ethoxy-9H-purin-2-amine
     identifiers:
     - ns: pdb-ccd
       id: G36
@@ -6203,36 +5878,22 @@ monomers:
     name: n2-ethanethiol-2'-deoxy-guanosine-5'-monophosphate
     synonyms:
     - G
-    - 2'-deoxy-N-(2-sulfanylethyl)guanosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-hydroxy-5-[6-oxo-2-(2-sulfanylethylamino)-1H-purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-N-(2-sulfanylethyl)guanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: G47
     structure: SCCNc1[nH]c(=O)c2c(n1)n(cn2)[C@@H]1C[C@@H]([C@H](O1)COP(=O)(O)O)O
     base_monomers:
     - G
-  G49:
-    id: G49
-    name: n2-methyl-2'-deoxy-guanosine-5'-monophosphate
-    synonyms:
-    - G
-    - 2'-deoxy-N-methylguanosine 5'-(dihydrogen phosphate)
-    - '[(2R,3S,5R)-3-hydroxy-5-(2-methylamino-6-oxo-1H-purin-9-yl)oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    identifiers:
-    - ns: pdb-ccd
-      id: G49
-    structure: CNc1[nH]c(=O)c2c(n1)n(cn2)[C@@H]1C[C@@H]([C@H](O1)COP(=O)(O)O)O
-    base_monomers:
-    - G
   GCK:
     id: GCK
     name: phosphoric acid 9-(2-guanidinoethoxy-3-(2-deoxy-beta-d-erythropentofuranosyl))-3h-pyrimido-[5,4-b][1,4]-benzooxazin-2-one]-5'-ester
     synonyms:
-    - C
     - '[amino-[2-[[3-[(2R,4S,5R)-4-hydroxy-5-(phosphonooxymethyl)oxolan-2-yl]-2-oxo-10H-pyrimido[5,4-b][1,4]benzoxazin-9-yl]oxy]ethylamino]methylidene]azanium'
     - 9-(2-{[amino(iminio)methyl]amino}ethoxy)-3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3H-pyrimido[5,4-b][1,4]benzoxazin-2(10H)-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: GCK
@@ -6318,9 +5979,9 @@ monomers:
     name: n7-2'-deoxy-guanosine-5'-monophosphate
     synonyms:
     - G
-    - 2-amino-7-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1,7-dihydro-6H-purin-6-one
     - '[(2R,3S,5R)-5-(2-amino-6-oxo-1H-purin-7-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
       phosphate'
+    - 2-amino-7-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1,7-dihydro-6H-purin-6-one
     identifiers:
     - ns: pdb-ccd
       id: GN7
@@ -6349,9 +6010,9 @@ monomers:
     name: guanosine-5'-thio-monophosphate
     synonyms:
     - G
+    - 2'-deoxy-5'-O-thiophosphonoguanosine
     - '[(2R,3S,5R)-5-(2-amino-6-oxo-1H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methoxy-sulfanyl-phosphinic
       acid'
-    - 2'-deoxy-5'-O-thiophosphonoguanosine
     identifiers:
     - ns: pdb-ccd
       id: GS
@@ -6362,27 +6023,18 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   GSR:
     id: GSR
     name: 2'-deoxy-n2-(r)styrene oxide guanosine monophosphate
     synonyms:
     - G
-    - 2'-deoxy-N-[(1R)-2-hydroxy-1-phenylethyl]guanosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-hydroxy-5-[2-[[(1R)-2-hydroxy-1-phenyl-ethyl]amino]-6-oxo-1H-purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-N-[(1R)-2-hydroxy-1-phenylethyl]guanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: GSR
@@ -6411,9 +6063,9 @@ monomers:
     name: 2'-deoxy-n2-(s)styrene oxide guanosine monophosphate
     synonyms:
     - G
-    - 2'-deoxy-N-[(1S)-2-hydroxy-1-phenylethyl]guanosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-hydroxy-5-[2-[[(1S)-2-hydroxy-1-phenyl-ethyl]amino]-6-oxo-1H-purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-N-[(1S)-2-hydroxy-1-phenylethyl]guanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: GSS
@@ -6441,13 +6093,13 @@ monomers:
     id: GX1
     name: 2'-deoxy-5'-o-{(s)-hydroxy[(2-sulfanylethyl)amino]phosphoryl}guanosine
     synonyms:
+    - 2'-deoxy-5'-O-{(S)-hydroxy[(2-sulfanylethyl)amino]phosphoryl}guanosine
     - '[(2R,3S,5R)-5-(2-azanyl-6-oxo-1H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methoxy-N-(2-sulfanylethyl)phosphonamidic
       acid'
-    - 2'-deoxy-5'-O-{(S)-hydroxy[(2-sulfanylethyl)amino]phosphoryl}guanosine
     identifiers:
     - ns: pdb-ccd
       id: GX1
-    structure: SCCN[P@](=O)(OC[C@@H]1O[C@H](C[C@H]1O)n1cnc2c1nc(N)[nH]c2=O)O
+    structure: SCCN[P@](=O)(OC[C@@H]1O[C@H](C[C@H]1O)n1cnc2c1nc(N)[nH]c2=O)[O-]
     base_monomers:
     - G
     r_bond_atoms:
@@ -6463,15 +6115,13 @@ monomers:
     name: 3-(2-hydroxyethyl)-2'-deoxyuridine-5'-monophosphate
     synonyms:
     - 2'-deoxy-3-(2-hydroxyethyl)uridine 5'-(dihydrogen phosphate)
-    - U
     - '[(2R,3S,5R)-3-hydroxy-5-[3-(2-hydroxyethyl)-2,4-dioxo-pyrimidin-1-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - U
     identifiers:
     - ns: pdb-ccd
       id: HEU
     structure: OCCn1c(=O)ccn(c1=O)[C@H]1C[C@H]([C@H](O1)COP(=O)([O-])[O-])O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -6494,10 +6144,10 @@ monomers:
     name: 2'-deoxy-n-[(2s,3s,5r)-5-hydroxy-2-pentyltetrahydrofuran-3-yl]guanosine
       5'-(dihydrogen phosphate)
     synonyms:
-    - 2'-deoxy-N-[(2S,3S,5R)-5-hydroxy-2-pentyltetrahydrofuran-3-yl]guanosine 5'-(dihydrogen
-      phosphate)
     - '[(2R,3S,5R)-3-oxidanyl-5-[6-oxidanylidene-2-[[(2S,3S,5R)-5-oxidanyl-2-pentyl-oxolan-3-yl]amino]-1H-purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-N-[(2S,3S,5R)-5-hydroxy-2-pentyltetrahydrofuran-3-yl]guanosine 5'-(dihydrogen
+      phosphate)
     identifiers:
     - ns: pdb-ccd
       id: HN0
@@ -6555,10 +6205,10 @@ monomers:
     id: HOL
     name: alpha-cholest-5-en-3-yl 3-[(2-deoxy-5-o-phosphono-alpha-d-glycero-pentofuranosyl)oxy]propylcarbamate
     synonyms:
-    - (3alpha,8alpha)-cholest-5-en-3-yl {3-[(2-deoxy-5-O-phosphono-alpha-D-erythro-pentofuranosyl)oxy]propyl}carbamate
+    - N
     - '[(3S,8S,9S,10R,13R,14S,17R)-10,13-dimethyl-17-[(2R)-6-methylheptan-2-yl]-2,3,4,7,8,9,11,12,14,15,16,17-dodecahydro-1H-cyclopenta[a]phenanthren-3-yl]
       N-[3-[(2S,4S,5R)-4-hydroxy-5-(phosphonooxymethyl)oxolan-2-yl]oxypropyl]carbamate'
-    - N
+    - (3alpha,8alpha)-cholest-5-en-3-yl {3-[(2-deoxy-5-O-phosphono-alpha-D-erythro-pentofuranosyl)oxy]propyl}carbamate
     identifiers:
     - ns: pdb-ccd
       id: HOL
@@ -6615,10 +6265,10 @@ monomers:
     id: IMC
     name: n1-[2-deoxy-ribofuranosyl]-[2-amino-5-methyl-4-oxo-4h-pyrimidine]-5'-monophosphate
     synonyms:
-    - C
     - '[(2R,3S,5R)-5-(2-amino-5-methyl-4-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
     - 2-amino-1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-5-methylpyrimidin-4(1H)-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: IMC
@@ -6646,9 +6296,9 @@ monomers:
     id: JDT
     name: 2'-deoxy-5-ethyluridine 5'-(dihydrogen phosphate)
     synonyms:
-    - 2'-deoxy-5-ethyluridine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(5-ethyl-2,4-dioxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-5-ethyluridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: JDT
@@ -6708,9 +6358,9 @@ monomers:
     id: LHO
     name: 2-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-6-methylisoquinoline-1(2h)-thione
     synonyms:
+    - 2-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-methylisoquinoline-1(2H)-thione
     - '[(2R,3S,5R)-5-(6-methyl-1-sulfanylidene-isoquinolin-2-yl)-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-6-methylisoquinoline-1(2H)-thione
     identifiers:
     - ns: pdb-ccd
       id: LHO
@@ -6762,9 +6412,9 @@ monomers:
     id: LTP
     name: 4-amino-1-{2-deoxy-5-o-[(r)-hydroxy(phosphonooxy)phosphoryl]-beta-l-erythro-pentofuranosyl}pyrimidin-2(1h)-one
     synonyms:
+    - 4-amino-1-{2-deoxy-5-O-[(R)-hydroxy(phosphonooxy)phosphoryl]-beta-L-erythro-pentofuranosyl}pyrimidin-2(1H)-one
     - '[(2S,3R,5S)-5-(4-azanyl-2-oxidanylidene-pyrimidin-1-yl)-3-oxidanyl-oxolan-2-yl]methyl
       phosphono hydrogen phosphate'
-    - 4-amino-1-{2-deoxy-5-O-[(R)-hydroxy(phosphonooxy)phosphoryl]-beta-L-erythro-pentofuranosyl}pyrimidin-2(1H)-one
     identifiers:
     - ns: pdb-ccd
       id: LTP
@@ -6826,9 +6476,9 @@ monomers:
     name: 1n-methyladenosine-5'-monophosphate
     synonyms:
     - A
+    - 2'-deoxy-1-methyladenosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(6-amino-1-methyl-purin-1-ium-9-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-deoxy-1-methyladenosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: MA7
@@ -6856,10 +6506,10 @@ monomers:
     id: MBZ
     name: 1-[2-deoxyribofuranosyl]-4-methyl-benzoimidazole-5'-monophosphate
     synonyms:
-    - N
-    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-4-methyl-1H-benzimidazole
     - '[(2R,3S,5R)-3-hydroxy-5-(4-methylbenzimidazol-1-yl)oxolan-2-yl]methyl dihydrogen
       phosphate'
+    - N
+    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-4-methyl-1H-benzimidazole
     identifiers:
     - ns: pdb-ccd
       id: MBZ
@@ -6877,9 +6527,9 @@ monomers:
     id: MCY
     name: 5-methyl-2'-deoxycytidine
     synonyms:
-    - C
-    - 4-amino-1-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)oxolan-2-yl]-5-methyl-pyrimidin-2-one
     - 2'-deoxy-5-methylcytidine
+    - 4-amino-1-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)oxolan-2-yl]-5-methyl-pyrimidin-2-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: MCY
@@ -6936,8 +6586,8 @@ monomers:
     id: MDQ
     name: 2'-deoxy-3-(oxidomethyl)cytidine 5'-(dihydrogen phosphate)
     synonyms:
-    - 2'-deoxy-3-(oxidomethyl)cytidine 5'-(dihydrogen phosphate)
     - '[6-azanyl-3-[(2R,4S,5R)-4-hydroxy-5-(phosphonooxymethyl)oxolan-2-yl]-2-oxo-pyrimidin-1-ium-1-yl]methanolate'
+    - 2'-deoxy-3-(oxidomethyl)cytidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: MDQ
@@ -6954,9 +6604,9 @@ monomers:
     id: MDR
     name: 9-(2-deoxy-beta-d-ribofuranosyl)-6-methylpurine
     synonyms:
+    - 9-(2-deoxy-beta-D-erythro-pentofuranosyl)-6-methyl-9H-purine
     - N
     - (2R,3S,5R)-2-(hydroxymethyl)-5-(6-methylpurin-9-yl)oxolan-3-ol
-    - 9-(2-deoxy-beta-D-erythro-pentofuranosyl)-6-methyl-9H-purine
     identifiers:
     - ns: pdb-ccd
       id: MDR
@@ -6965,9 +6615,9 @@ monomers:
     id: MDU
     name: 3-(hydroxymethyl)thymidine 5'-(dihydrogen phosphate)
     synonyms:
-    - 3-(hydroxymethyl)thymidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-hydroxy-5-[3-(hydroxymethyl)-5-methyl-2,4-dioxo-pyrimidin-1-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 3-(hydroxymethyl)thymidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: MDU
@@ -7024,9 +6674,9 @@ monomers:
     id: MF7
     name: n-{2-amino-5-[formyl(methyl)amino]-6-hydroxypyrimidin-4-yl}-2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosylamine
     synonyms:
-    - N-{2-amino-5-[formyl(methyl)amino]-6-hydroxypyrimidin-4-yl}-2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosylamine
     - '[(2R,3S,5R)-5-[[2-azanyl-5-[methanoyl(methyl)amino]-6-oxidanyl-pyrimidin-4-yl]amino]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - N-{2-amino-5-[formyl(methyl)amino]-6-hydroxypyrimidin-4-yl}-2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosylamine
     identifiers:
     - ns: pdb-ccd
       id: MF7
@@ -7045,56 +6695,6 @@ monomers:
     structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)(O)O)n1c(nc2c1[nH]c(N)nc2=O)N(c1ccc2c(c1)cccc2)C(=O)C
     base_monomers:
     - G
-  MFT:
-    id: MFT
-    name: 3-methylthymidine 5'-(dihydrogen phosphate)
-    synonyms:
-    - '[(2R,3S,5R)-5-(3,5-dimethyl-2,4-dioxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    - 3-methylthymidine 5'-(dihydrogen phosphate)
-    identifiers:
-    - ns: pdb-ccd
-      id: MFT
-    structure: O[C@H]1C[C@@H](O[C@@H]1COP(=O)(O)O)n1cc(C)c(=O)n(c1=O)C
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-  MG1:
-    id: MG1
-    name: 2'-deoxy-1-methylguanosine 5'-(dihydrogen phosphate)
-    synonyms:
-    - G
-    - 2'-deoxy-1-methylguanosine 5'-(dihydrogen phosphate)
-    - '[(2R,3S,5R)-5-(2-amino-1-methyl-6-oxo-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    identifiers:
-    - ns: pdb-ccd
-      id: MG1
-    structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)([O-])[O-])n1cnc2c1nc(N)n(c2=O)C
-    base_monomers:
-    - G
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 14
-      charge: -1
   MM7:
     id: MM7
     name: (1r)-1,4-anhydro-2-deoxy-1-(2-methoxy-4-methylphenyl)-5-o-phosphono-d-erythro-pentitol
@@ -7127,9 +6727,9 @@ monomers:
     id: MMT
     name: 5'-o-(dimethylamino)-thymidine
     synonyms:
-    - 1-[(2R,4S,5R)-5-(dimethylaminooxymethyl)-4-hydroxy-oxolan-2-yl]-5-methyl-pyrimidine-2,4-dione
     - T
     - 5'-O-(dimethylamino)thymidine
+    - 1-[(2R,4S,5R)-5-(dimethylaminooxymethyl)-4-hydroxy-oxolan-2-yl]-5-methyl-pyrimidine-2,4-dione
     identifiers:
     - ns: pdb-ccd
       id: MMT
@@ -7149,9 +6749,9 @@ monomers:
     name: n2-(3-mercaptopropyl)-2'-deoxyguanosine-5'-monophosphate
     synonyms:
     - G
+    - 2'-deoxy-N-(3-sulfanylpropyl)guanosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-hydroxy-5-[6-oxo-2-(3-sulfanylpropylamino)-1H-purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-deoxy-N-(3-sulfanylpropyl)guanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: MRG
@@ -7179,8 +6779,8 @@ monomers:
     id: MTR
     name: (5-methyl-6-oxo-1,6-dihydro-pyridin-3-yl)-1,2-dideoxy-ribofuranose-5-monophosphate
     synonyms:
-    - (1R)-1,4-anhydro-2-deoxy-1-(5-methyl-6-oxo-1,6-dihydropyridin-3-yl)-5-O-phosphono-D-erythro-pentitol
     - T
+    - (1R)-1,4-anhydro-2-deoxy-1-(5-methyl-6-oxo-1,6-dihydropyridin-3-yl)-5-O-phosphono-D-erythro-pentitol
     - '[(2R,3S,5R)-3-hydroxy-5-(5-methyl-6-oxo-1H-pyridin-3-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
     identifiers:
@@ -7295,16 +6895,14 @@ monomers:
     id: NDN
     name: 2'-deoxy-5-nitrouridine 5'-(dihydrogen phosphate)
     synonyms:
-    - U
-    - 2'-deoxy-5-nitrouridine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-hydroxy-5-(5-nitro-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-5-nitrouridine 5'-(dihydrogen phosphate)
+    - U
     identifiers:
     - ns: pdb-ccd
       id: NDN
     structure: O[C@@H]1C[C@@H](O[C@@H]1COP(=O)([O-])[O-])n1cc([N+](=O)[O-])c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     l_bond_atoms:
     - molecule: Monomer
       element: P
@@ -7318,10 +6916,10 @@ monomers:
     id: NMS
     name: 1-(o2-(2-methylamino-2-oxo-ethyl)-o5-hydroxyphosphinyl-beta-d-ribofuranosyl)thymine
     synonyms:
-    - T
     - 5-methyl-2'-O-[2-(methylamino)-2-oxoethyl]uridine 5'-(dihydrogen phosphate)
     - '[(2R,3R,4R,5R)-3-hydroxy-4-(2-methylamino-2-oxo-ethoxy)-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - T
     identifiers:
     - ns: pdb-ccd
       id: NMS
@@ -7349,9 +6947,9 @@ monomers:
     id: NMT
     name: 1-(o2-(methylcarbamoyl)-o5-hydroxyphosphinyl-beta-d-ribofuranosyl)thymine
     synonyms:
+    - T
     - '[(2R,3R,4R,5R)-3-hydroxy-4-(hydroxy-methylamino-methoxy)-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - T
     - 2'-O-[(S)-hydroxy(methylamino)methyl]-5-methyluridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
@@ -7391,8 +6989,8 @@ monomers:
     id: NR1
     name: (3r,4r)-3-hydroxy-4-[(phosphonooxy)methyl]pyrrolidinium
     synonyms:
-    - '[(3R,4R)-4-oxidanylpyrrolidin-1-ium-3-yl]methyl dihydrogen phosphate'
     - (3R,4R)-3-hydroxy-4-[(phosphonooxy)methyl]pyrrolidinium
+    - '[(3R,4R)-4-oxidanylpyrrolidin-1-ium-3-yl]methyl dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
       id: NR1
@@ -7450,10 +7048,10 @@ monomers:
     id: NYM
     name: 3'-deoxy-3'-aminothymidine monophosphate
     synonyms:
-    - N
-    - 3'-amino-3'-deoxythymidine 5'-(dihydrogen phosphate)
     - '[(2S,3S,5R)-3-amino-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - N
+    - 3'-amino-3'-deoxythymidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: NYM
@@ -7468,7 +7066,7 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: OGX
-    structure: SCCN[P@@](=O)(OC[C@@H]1O[C@H](C[C@H]1O)n1c(=O)[nH]c2c1nc(N)[nH]c2=O)O
+    structure: SCCN[P@@](=O)(OC[C@@H]1O[C@H](C[C@H]1O)n1c(=O)[nH]c2c1nc(N)[nH]c2=O)[O-]
     base_monomers:
     - G
     r_bond_atoms:
@@ -7483,15 +7081,13 @@ monomers:
     id: OHU
     name: 2'-deoxy-5-hydroxyuridine 5'-(dihydrogen phosphate)
     synonyms:
+    - 2'-deoxy-5-hydroxyuridine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-oxidanyl-5-[5-oxidanyl-2,4-bis(oxidanylidene)pyrimidin-1-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-deoxy-5-hydroxyuridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: OHU
     structure: O[C@@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])n1cc(O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -7544,16 +7140,14 @@ monomers:
     id: P2U
     name: 2'-deoxy-pseudouridine-5'monophosphate
     synonyms:
+    - (1R)-1,4-anhydro-2-deoxy-1-(2,4-dioxo-1,2,3,4-tetrahydropyrimidin-5-yl)-5-O-phosphono-D-erythro-pentitol
     - '[(2R,3S,5R)-5-(2,4-dioxo-1H-pyrimidin-5-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
       phosphate'
     - U
-    - (1R)-1,4-anhydro-2-deoxy-1-(2,4-dioxo-1,2,3,4-tetrahydropyrimidin-5-yl)-5-O-phosphono-D-erythro-pentitol
     identifiers:
     - ns: pdb-ccd
       id: P2U
     structure: O[C@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])c1c[nH]c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -7571,33 +7165,18 @@ monomers:
       element: O
       position: 15
       charge: -1
-  PBT:
-    id: PBT
-    name: '[3-hydroxy-5-(5-methyl-2,4-dioxotetrahydro-1(2h)-pyrimidinyl)tetrahydro-2-furanyl]methyl
-      dihydrogen phosphate'
-    synonyms:
-    - '[(2R,3S,5R)-3-hydroxy-5-[(5R)-5-methyl-2,4-dioxo-1,3-diazinan-1-yl]oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    - N
-    - 5'-thymidylic acid
-    identifiers:
-    - ns: pdb-ccd
-      id: PBT
-    structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)(O)O)N1C[C@H](C)C(=O)NC1=O
   PDU:
     id: PDU
     name: 5(1-propynyl)-2'-deoxyuridine-5-monophosphate
     synonyms:
     - '[(2R,3S,5R)-5-(2,4-dioxo-5-propyl-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - U
     - 2'-deoxy-5-propyluridine 5'-(dihydrogen phosphate)
+    - U
     identifiers:
     - ns: pdb-ccd
       id: PDU
     structure: CCCc1cn([C@@H]2C[C@@H]([C@H](O2)COP(=O)([O-])[O-])O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -7620,9 +7199,9 @@ monomers:
     name: 2'-deoxyguanosine-3',5'-diphosphate
     synonyms:
     - G
-    - 2'-deoxyguanosine 3',5'-bis(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(2-amino-6-oxo-1H-purin-9-yl)-2-(phosphonooxymethyl)oxolan-3-yl]
       dihydrogen phosphate'
+    - 2'-deoxyguanosine 3',5'-bis(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: PGN
@@ -7643,9 +7222,9 @@ monomers:
     name: 7-deaza-8-aza-2'-deoxyguanosine-5'-monophosphate
     synonyms:
     - G
+    - 6-amino-1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1,5-dihydro-4H-pyrazolo[3,4-d]pyrimidin-4-one
     - '[(2R,3S,5R)-5-(6-amino-4-oxo-5H-pyrazolo[5,4-d]pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 6-amino-1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1,5-dihydro-4H-pyrazolo[3,4-d]pyrimidin-4-one
     identifiers:
     - ns: pdb-ccd
       id: PPW
@@ -7673,8 +7252,8 @@ monomers:
     id: PRN
     name: purine 2'-deoxyribo-5'-monophosphate
     synonyms:
-    - 9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-9H-purine
     - A
+    - 9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-9H-purine
     - '[(2R,3S,5R)-3-hydroxy-5-purin-9-yl-oxolan-2-yl]methyl dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
@@ -7703,15 +7282,24 @@ monomers:
     id: PST
     name: thymidine-5'-thiophosphate
     synonyms:
-    - 5'-O-thiophosphonothymidine
-    - T
     - 1-[(2R,4S,5R)-5-(dihydroxyphosphinothioyloxymethyl)-4-hydroxy-oxolan-2-yl]-5-methyl-pyrimidine-2,4-dione
+    - T
+    - 5'-O-thiophosphonothymidine
     identifiers:
     - ns: pdb-ccd
       id: PST
-    structure: O[C@H]1C[C@H](O[C@@H]1CO[P@](=S)(O)[O-])n1cc(C)c(=O)[nH]c1=O
+    structure: O[C@H]1C[C@H](O[C@@H]1COP(=S)([O-])[O-])n1cc(C)c(=O)[nH]c1=O
     base_monomers:
     - T
+    l_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 12
+    l_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 15
+      charge: -1
   PVX:
     id: PVX
     name: n-(2-amino-5-{formyl[(6as,8r,9r,9ar)-9-hydroxy-4-methoxy-1,11-dioxo-1,6a,8,9,9a,11-hexahydrocyclopenta[c]furo[3',2':4,5]furo[2,3-h]chromen-8-yl]amino}-6-oxo-1,6-dihydropyrimidin-4-yl)-2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosylamine
@@ -7744,25 +7332,13 @@ monomers:
     structure: O[C@H]1[C@@H](CO[P@](=O)(c2c[nH]nc2C)O)O[C@H]([C@@H]1O)n1cnc2c1nc(N)[nH]c2=O
     base_monomers:
     - G
-  QBT:
-    id: QBT
-    name: '[(2r,3s,5r)-3-hydroxy-5-[(5s)-5-methyl-2,4-dioxo-1,3-diazinan-1-yl]oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    synonyms:
-    - T
-    - '[(2R,3S,5R)-3-hydroxy-5-[(5S)-5-methyl-2,4-dioxo-1,3-diazinan-1-yl]oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    identifiers:
-    - ns: pdb-ccd
-      id: QBT
-    structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)(O)O)N1C[C@H](C)C(=O)NC1=O
   R:
     id: R
     name: 2'-deoxy-n6-(r)styrene oxide adenosine monophosphate
     synonyms:
+    - A
     - '[(2R,3S,5R)-3-hydroxy-5-[6-[[(1R)-2-hydroxy-1-phenyl-ethyl]amino]purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - A
     - 2'-deoxy-N-[(1R)-2-hydroxy-1-phenylethyl]adenosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
@@ -7823,9 +7399,9 @@ monomers:
     id: RDG
     name: 2'-deoxy-n-(furan-2-ylmethyl)guanosine 5'-(dihydrogen phosphate)
     synonyms:
-    - 2'-deoxy-N-(furan-2-ylmethyl)guanosine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-[2-(furan-2-ylmethylamino)-6-oxidanylidene-1H-purin-9-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-N-(furan-2-ylmethyl)guanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: RDG
@@ -7844,8 +7420,8 @@ monomers:
     id: RMP
     name: 2'-deoxy-adenosine-5'-rp-monomethylphosphonate
     synonyms:
-    - 2'-deoxy-5'-O-[(S)-hydroxy(methyl)phosphoryl]adenosine
     - A
+    - 2'-deoxy-5'-O-[(S)-hydroxy(methyl)phosphoryl]adenosine
     - '[(2R,3S,5R)-5-(6-aminopurin-9-yl)-3-hydroxy-oxolan-2-yl]methoxy-methyl-phosphinic
       acid'
     identifiers:
@@ -7858,27 +7434,18 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   S4A:
     id: S4A
     name: 2'-deoxy-4'-thioadenosine 5'-(dihydrogen phosphate)
     synonyms:
     - '[(2R,3S,5R)-5-(6-aminopurin-9-yl)-3-hydroxy-thiolan-2-yl]methyl dihydrogen
       phosphate'
-    - 2'-deoxy-4'-thioadenosine 5'-(dihydrogen phosphate)
     - A
+    - 2'-deoxy-4'-thioadenosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: S4A
@@ -7920,9 +7487,9 @@ monomers:
     name: 6-thio-2'-deoxyguanosine-5'-monophosphate
     synonyms:
     - G
+    - 2-amino-9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1,9-dihydro-6H-purine-6-thione
     - '[(2R,3S,5R)-5-(2-amino-6-sulfanylidene-1H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2-amino-9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1,9-dihydro-6H-purine-6-thione
     identifiers:
     - ns: pdb-ccd
       id: S6G
@@ -7961,13 +7528,13 @@ monomers:
     id: SC
     name: 2-deoxy-cytidine-5'-thiophosphorate
     synonyms:
-    - C
     - 4-amino-1-[(2R,4S,5R)-5-(dihydroxyphosphinothioyloxymethyl)-4-hydroxy-oxolan-2-yl]pyrimidin-2-one
     - 2'-deoxy-5'-O-thiophosphonocytidine
+    - C
     identifiers:
     - ns: pdb-ccd
       id: SC
-    structure: O[C@H]1C[C@@H](O[C@H]1CO[P@](=S)(O)[O-])n1ccc(nc1=O)N
+    structure: O[C@H]1C[C@@H](O[C@H]1COP(=S)([O-])[O-])n1ccc(nc1=O)N
     base_monomers:
     - C
     r_bond_atoms:
@@ -8005,9 +7572,9 @@ monomers:
     name: 2-amino-9-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-9h-purine-6-selenol
     synonyms:
     - G
+    - 2-amino-9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-9H-purine-6-selenol
     - '[(2R,3S,5R)-5-(2-amino-6-selanyl-purin-9-yl)-3-hydroxy-oxolan-2-yl]methyl dihydrogen
       phosphate'
-    - 2-amino-9-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-9H-purine-6-selenol
     identifiers:
     - ns: pdb-ccd
       id: SDG
@@ -8052,28 +7619,19 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   SOS:
     id: SOS
     name: '[(1r,2s,4r)-4-({2-amino-5-[benzyl(formyl)amino]-6-oxo-1,6-dihydropyrimidin-4-yl}amino)-2-hydroxycyclopentyl]methyl
       dihydrogen phosphate'
     synonyms:
-    - '[(1R,2S,4R)-4-[[2-amino-5-(methanoyl-(phenylmethyl)amino)-6-oxo-1H-pyrimidin-4-yl]amino]-2-hydroxy-cyclopentyl]methyl
+    - '[(1R,2S,4R)-4-({2-amino-5-[benzyl(formyl)amino]-6-oxo-1,6-dihydropyrimidin-4-yl}amino)-2-hydroxycyclopentyl]methyl
       dihydrogen phosphate'
     - N
-    - '[(1R,2S,4R)-4-({2-amino-5-[benzyl(formyl)amino]-6-oxo-1,6-dihydropyrimidin-4-yl}amino)-2-hydroxycyclopentyl]methyl
+    - '[(1R,2S,4R)-4-[[2-amino-5-(methanoyl-(phenylmethyl)amino)-6-oxo-1H-pyrimidin-4-yl]amino]-2-hydroxy-cyclopentyl]methyl
       dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
@@ -8100,9 +7658,9 @@ monomers:
     id: SPT
     name: 5'-thio-thymidine phosphonic acid
     synonyms:
+    - T
     - '[(2S,3S,5R)-3-hydroxy-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methylsulfanylphosphonic
       acid'
-    - T
     - 5'-S-phosphono-5'-thiothymidine
     identifiers:
     - ns: pdb-ccd
@@ -8150,9 +7708,9 @@ monomers:
     id: T2S
     name: thymidine-5'-dithiophosphorate
     synonyms:
-    - 5'-O-[(dithiophosphono)]thymidine
     - T
     - 1-[(2R,4S,5R)-4-hydroxy-5-[(hydroxy-sulfanyl-phosphinothioyl)oxymethyl]oxolan-2-yl]-5-methyl-pyrimidine-2,4-dione
+    - 5'-O-[(dithiophosphono)]thymidine
     identifiers:
     - ns: pdb-ccd
       id: T2S
@@ -8163,26 +7721,17 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   T32:
     id: T32
     name: 6'-alpha-methyl carbocyclic thymidine 5'-monophosphate
     synonyms:
-    - T
     - '[(1R,2S,3S,5S)-5-hydroxy-2-methyl-3-(5-methyl-2,4-dioxo-pyrimidin-1-yl)cyclopentyl]methyl
       dihydrogen phosphate'
+    - T
     - '[(1R,2S,3S,5S)-5-hydroxy-2-methyl-3-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)cyclopentyl]methyl
       dihydrogen phosphate'
     identifiers:
@@ -8195,10 +7744,10 @@ monomers:
     id: T3P
     name: thymidine-3'-phosphate
     synonyms:
-    - 3'-thymidylic acid
-    - T
     - '[(2R,3S,5R)-2-(hydroxymethyl)-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-3-yl]
       dihydrogen phosphate'
+    - T
+    - 3'-thymidylic acid
     identifiers:
     - ns: pdb-ccd
       id: T3P
@@ -8218,10 +7767,10 @@ monomers:
     id: T48
     name: 6'-alpha-hydroxy carbocyclic thymidine 5'-monophosphate
     synonyms:
+    - '[(1R,2S,3S,5S)-2,5-dihydroxy-3-(5-methyl-2,4-dioxo-pyrimidin-1-yl)cyclopentyl]methyl
+      dihydrogen phosphate'
     - T
     - '[(1R,2S,3S,5S)-2,5-dihydroxy-3-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)cyclopentyl]methyl
-      dihydrogen phosphate'
-    - '[(1R,2S,3S,5S)-2,5-dihydroxy-3-(5-methyl-2,4-dioxo-pyrimidin-1-yl)cyclopentyl]methyl
       dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
@@ -8233,9 +7782,9 @@ monomers:
     id: T49
     name: s4'-2'deoxythymidine 5'-monophosphate
     synonyms:
+    - T
     - '[(2R,3S,5R)-3-hydroxy-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)thiolan-2-yl]methyl
       dihydrogen phosphate'
-    - T
     - 4'-thiothymidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
@@ -8278,16 +7827,14 @@ monomers:
     id: T5O
     name: 2'-deoxy-5-methoxyuridine 5'-(dihydrogen phosphate)
     synonyms:
+    - 2'-deoxy-5-methoxyuridine 5'-(dihydrogen phosphate)
+    - U
     - '[(2R,3S,5R)-3-hydroxy-5-(5-methoxy-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - U
-    - 2'-deoxy-5-methoxyuridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: T5O
     structure: COc1cn([C@@H]2C[C@@H]([C@@H](O2)COP(=O)([O-])[O-])O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -8345,7 +7892,7 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: T64
-    structure: O[C@@H]1C[C@H]2O[C@H]1CO[P@](=O)(O)O[C@@H]1C[C@H](N3[C@H](c4c(cn2c(=O)n4)C)[C@@](C)(O)C(=O)NC3=O)O[C@H]1CO[P@@](=O)(O)[O-]
+    structure: O[C@@H]1C[C@H]2O[C@H]1CO[P@](=O)(O)O[C@@H]1C[C@H](N3[C@H](c4c(cn2c(=O)n4)C)[C@@](C)(O)C(=O)NC3=O)O[C@H]1COP(=O)([O-])[O-]
     base_monomers:
     - T
     r_bond_atoms:
@@ -8363,16 +7910,16 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 48
+      position: 47
       charge: -1
   TA3:
     id: TA3
     name: (4s,5r)-3-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-5-methyl-1,3-diazabicyclo[2.2.0]hexan-2-one
     synonyms:
-    - (4S,5R)-3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-5-methyl-1,3-diazabicyclo[2.2.0]hexan-2-one
-    - T
     - '[(2R,3S,5R)-3-hydroxy-5-[(3R,4S)-3-methyl-6-oxo-1,5-diazabicyclo[2.2.0]hexan-5-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - T
+    - (4S,5R)-3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-5-methyl-1,3-diazabicyclo[2.2.0]hexan-2-one
     identifiers:
     - ns: pdb-ccd
       id: TA3
@@ -8391,24 +7938,33 @@ monomers:
     id: TAF
     name: 2'-deoxy-2'-fluoro-arabino-furanosyl thymine-5'-phosphate
     synonyms:
+    - T
     - '[(2R,3R,4S,5R)-4-fluoro-3-hydroxy-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
     - 1-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-5-methylpyrimidine-2,4(1H,3H)-dione
-    - T
     identifiers:
     - ns: pdb-ccd
       id: TAF
-    structure: O[C@@H]1[C@@H](CO[P@](=O)(O)[O-])O[C@H]([C@@H]1F)n1cc(C)c(=O)[nH]c1=O
+    structure: O[C@@H]1[C@@H](COP(=O)([O-])[O-])O[C@H]([C@@H]1F)n1cc(C)c(=O)[nH]c1=O
     base_monomers:
     - T
+    l_bond_atoms:
+    - molecule: Monomer
+      element: P
+      position: 8
+    l_displaced_atoms:
+    - molecule: Monomer
+      element: O
+      position: 11
+      charge: -1
   TC1:
     id: TC1
     name: 3-(5-phospho-2-deoxy-beta-d-ribofuranosyl)-2-oxo-1,3-diaza-phenothiazine
     synonyms:
-    - C
-    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3H-pyrimido[5,4-b][1,4]benzothiazin-2(10H)-one
     - '[(2R,3S,5R)-3-hydroxy-5-(2-oxo-10H-pyrimido[5,4-b][1,4]benzothiazin-3-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3H-pyrimido[5,4-b][1,4]benzothiazin-2(10H)-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: TC1
@@ -8419,27 +7975,18 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 12
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 15
-      charge: -1
   TCJ:
     id: TCJ
     name: '[(1~{s},2~{r},4~{r},6~{s},8~{r})-8-(4-azanyl-5-methyl-2-oxidanylidene-pyrimidin-1-yl)-6-oxidanyl-9-oxatricyclo[4.3.0.0^{2,4}]nonan-2-yl]
       dihydrogen phosphate'
     synonyms:
-    - C
     - '[(1~{S},2~{R},4~{R},6~{S},8~{R})-8-(4-azanyl-5-methyl-2-oxidanylidene-pyrimidin-1-yl)-6-oxidanyl-9-oxatricyclo[4.3.0.0^{2,4}]nonan-2-yl]
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: TCJ
@@ -8450,9 +7997,9 @@ monomers:
     id: TCP
     name: 5'-methylthymidine
     synonyms:
-    - 1-[(2R,4S,5R)-4-hydroxy-5-(methoxymethyl)oxolan-2-yl]-5-methyl-pyrimidine-2,4-dione
-    - T
     - 5'-O-methylthymidine
+    - T
+    - 1-[(2R,4S,5R)-4-hydroxy-5-(methoxymethyl)oxolan-2-yl]-5-methyl-pyrimidine-2,4-dione
     identifiers:
     - ns: pdb-ccd
       id: TCP
@@ -8494,9 +8041,9 @@ monomers:
     name: 5-(methylamino)thymidine 5'-(dihydrogen phosphate)
     synonyms:
     - T
-    - 5-(methylamino)thymidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-3-hydroxy-5-[(5R)-5-methyl-5-methylamino-2,4-dioxo-1,3-diazinan-1-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 5-(methylamino)thymidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: TDY
@@ -8559,8 +8106,8 @@ monomers:
     id: TFO
     name: '[2-(6-amino-9h-purin-9-yl)-1-methylethoxy]methylphosphonic acid'
     synonyms:
-    - '{[(1R)-2-(6-amino-9H-purin-9-yl)-1-methylethoxy]methyl}phosphonic acid'
     - A
+    - '{[(1R)-2-(6-amino-9H-purin-9-yl)-1-methylethoxy]methyl}phosphonic acid'
     - '[(2R)-1-(6-aminopurin-9-yl)propan-2-yl]oxymethylphosphonic acid'
     identifiers:
     - ns: pdb-ccd
@@ -8581,11 +8128,11 @@ monomers:
     id: TFT
     name: (l)-alpha-threofuranosyl-thymine-3'-monophosphate
     synonyms:
-    - '[(3S,4R,5R)-4-hydroxy-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-3-yl] dihydrogen
-      phosphate'
     - T
     - (3S,4R,5R)-4-hydroxy-5-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)tetrahydrofuran-3-yl
       dihydrogen phosphate
+    - '[(3S,4R,5R)-4-hydroxy-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-3-yl] dihydrogen
+      phosphate'
     identifiers:
     - ns: pdb-ccd
       id: TFT
@@ -8606,9 +8153,9 @@ monomers:
     name: 5'-thio-2'-deoxy-guanosine phosphonic acid
     synonyms:
     - G
+    - 2'-deoxy-5'-S-phosphono-5'-thioguanosine
     - '[(2S,3S,5R)-5-(2-amino-6-oxo-1H-purin-9-yl)-3-hydroxy-oxolan-2-yl]methylsulfanylphosphonic
       acid'
-    - 2'-deoxy-5'-S-phosphono-5'-thioguanosine
     identifiers:
     - ns: pdb-ccd
       id: TGP
@@ -8680,11 +8227,11 @@ monomers:
     id: TLC
     name: 2-o,3-ethdiyl-arabinofuranosyl-thymine-5'-monophosphate
     synonyms:
-    - '[(3aR,4R,6R,6aS)-3a-hydroxy-6-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)hexahydrofuro[3,4-b]furan-4-yl]methyl
-      dihydrogen phosphate'
     - '[(3aR,4R,6R,6aS)-3a-hydroxy-6-(5-methyl-2,4-dioxo-pyrimidin-1-yl)-3,4,6,6a-tetrahydro-2H-furo[4,3-b]furan-4-yl]methyl
       dihydrogen phosphate'
     - T
+    - '[(3aR,4R,6R,6aS)-3a-hydroxy-6-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)hexahydrofuro[3,4-b]furan-4-yl]methyl
+      dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
       id: TLC
@@ -8712,10 +8259,10 @@ monomers:
     id: TP1
     name: 2-(methylamino)-ethylglycine-carbonylmethylene-thymine
     synonyms:
-    - 2-[2-methylaminoethyl-[2-(5-methyl-2,4-dioxo-pyrimidin-1-yl)ethanoyl]amino]ethanoic
-      acid
     - T
     - N-[2-(methylamino)ethyl]-N-[(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)acetyl]glycine
+    - 2-[2-methylaminoethyl-[2-(5-methyl-2,4-dioxo-pyrimidin-1-yl)ethanoyl]amino]ethanoic
+      acid
     identifiers:
     - ns: pdb-ccd
       id: TP1
@@ -8726,10 +8273,10 @@ monomers:
     id: TPC
     name: 5'-thio-2'-deoxy-cytosine phosphonic acid
     synonyms:
-    - C
-    - 2'-deoxy-5'-S-phosphono-5'-thiocytidine
     - '[(2S,3S,5R)-5-(4-amino-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methylsulfanylphosphonic
       acid'
+    - 2'-deoxy-5'-S-phosphono-5'-thiocytidine
+    - C
     identifiers:
     - ns: pdb-ccd
       id: TPC
@@ -8782,16 +8329,14 @@ monomers:
     id: TTI
     name: 2'-deoxy-5-telluroxouridine 5'-(dihydrogen phosphate)
     synonyms:
-    - U
-    - 2'-deoxy-5-telluroxouridine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-(2,4-dioxo-5-tellanylidene-1,3-diazinan-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-5-telluroxouridine 5'-(dihydrogen phosphate)
+    - U
     identifiers:
     - ns: pdb-ccd
       id: TTI
     structure: O[C@H]1C[C@H](O[C@H]1COP(=O)(O)O)N1CC(=[TeH])C(=O)NC1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -8804,9 +8349,9 @@ monomers:
     id: TTM
     name: n3-ethyl-thymidine-5'-monophosphate
     synonyms:
+    - T
     - '[(2R,3S,5R)-5-(3-ethyl-5-methyl-2,4-dioxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - T
     - 3-ethylthymidine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
@@ -8835,9 +8380,9 @@ monomers:
     id: TX2
     name: 5'-o-{(r)-hydroxy[(2-sulfanylethyl)amino]phosphoryl}thymidine
     synonyms:
+    - 5'-O-{(R)-hydroxy[(2-sulfanylethyl)amino]phosphoryl}thymidine
     - '[(2R,3S,5R)-3-hydroxy-5-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methoxy-N-(2-sulfanylethyl)phosphonamidic
       acid'
-    - 5'-O-{(R)-hydroxy[(2-sulfanylethyl)amino]phosphoryl}thymidine
     identifiers:
     - ns: pdb-ccd
       id: TX2
@@ -8846,45 +8391,32 @@ monomers:
     - molecule: Monomer
       element: O
       position: 14
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 2
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 14
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 1
-      charge: -1
   U33:
     id: U33
     name: 5-bromo-2'-deoxy uridine
     synonyms:
+    - 5-bromo-2'-deoxyuridine
     - U
     - 5-bromo-1-[(2R,4S,5R)-4-hydroxy-5-(hydroxymethyl)oxolan-2-yl]pyrimidine-2,4-dione
-    - 5-bromo-2'-deoxyuridine
     identifiers:
     - ns: pdb-ccd
       id: U33
     structure: OC[C@@H]1O[C@H](C[C@@H]1O)n1cc(Br)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
   UBI:
     id: UBI
     name: 2'-deoxy-5-[(2-methylpropyl)carbamoyl]uridine 5'-(dihydrogen phosphate)
     synonyms:
-    - 2'-deoxy-5-[(2-methylpropyl)carbamoyl]uridine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-[5-(2-methylpropylcarbamoyl)-2,4-bis(oxidanylidene)pyrimidin-1-yl]-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 2'-deoxy-5-[(2-methylpropyl)carbamoyl]uridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: UBI
     structure: CC(CNC(=O)c1cn([C@H]2C[C@H]([C@H](O2)COP(=O)([O-])[O-])O)c(=O)[nH]c1=O)C
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -8906,16 +8438,14 @@ monomers:
     id: UCL
     name: 5-chloro-2'-deoxyuridine 5'-(dihydrogen phosphate)
     synonyms:
-    - U
     - '[(2R,3S,5R)-5-(5-chloro-2,4-dioxo-pyrimidin-1-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - U
     - 5-chloro-2'-deoxyuridine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: UCL
     structure: O[C@H]1C[C@H](O[C@@H]1COP(=O)(O)O)n1cc(Cl)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -8928,15 +8458,13 @@ monomers:
     id: UF2
     name: 1-(2-deoxy-2-fluoro-5-o-phosphono-beta-d-arabinofuranosyl)pyrimidine-2,4(1h,3h)-dione
     synonyms:
-    - 1-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)pyrimidine-2,4(1H,3H)-dione
     - '[(2R,3R,4S,5R)-5-[2,4-bis(oxidanylidene)pyrimidin-1-yl]-4-fluoranyl-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 1-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)pyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: pdb-ccd
       id: UF2
     structure: O[C@H]1[C@@H](COP(=O)(O)O)O[C@@H]([C@H]1F)n1ccc(=O)[nH]c1=O
-    base_monomers:
-    - dU
   UFP:
     id: UFP
     name: 5-fluoro-2'-deoxyuridine-5'-monophosphate
@@ -8957,42 +8485,18 @@ monomers:
     - molecule: Monomer
       element: H
       position: 1
-  UFR:
-    id: UFR
-    name: 2'-deoxy-5-formyluridine 5'-(dihydrogen phosphate)
-    synonyms:
-    - 2'-deoxy-5-formyluridine 5'-(dihydrogen phosphate)
-    - U
-    - '[(2R,3S,5R)-3-hydroxy-5-(5-methanoyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
-      dihydrogen phosphate'
-    identifiers:
-    - ns: pdb-ccd
-      id: UFR
-    structure: O=Cc1cn([C@@H]2C[C@@H]([C@H](O2)COP(=O)(O)O)O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
-    r_bond_atoms:
-    - molecule: Monomer
-      element: O
-      position: 20
-    r_displaced_atoms:
-    - molecule: Monomer
-      element: H
-      position: 20
   UFT:
     id: UFT
     name: 2'-deoxy-2'-fluorouridine 5'-(dihydrogen phosphate)
     synonyms:
     - 2'-deoxy-2'-fluorouridine 5'-(dihydrogen phosphate)
+    - U
     - '[(2R,3R,4R,5R)-5-(2,4-dioxopyrimidin-1-yl)-4-fluoro-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - U
     identifiers:
     - ns: pdb-ccd
       id: UFT
     structure: O[C@@H]1[C@H](COP(=O)([O-])[O-])O[C@H]([C@H]1F)n1ccc(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -9022,8 +8526,6 @@ monomers:
     - ns: pdb-ccd
       id: UMS
     structure: C[Se][C@@H]1[C@H](O)[C@H](O[C@@H]1n1ccc(=O)[nH]c1=O)COP(=O)([O-])[O-]
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -9046,16 +8548,14 @@ monomers:
     name: '[(1r,3r,4r,5s,7s)-3-(2,4-dioxo-3,4-dihydropyrimidin-1(2h)-yl)-7-hydroxy-5-methyl-2-oxabicyclo[2.2.1]hept-1-yl]methyl
       dihydrogen phosphate'
     synonyms:
-    - '[(1R,2S,4R,6R,7S)-6-(2,4-dioxopyrimidin-1-yl)-7-hydroxy-2-methyl-5-oxabicyclo[2.2.1]heptan-4-yl]methyl
-      dihydrogen phosphate'
     - '[(1R,3R,4R,5S,7S)-3-(2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)-7-hydroxy-5-methyl-2-oxabicyclo[2.2.1]hept-1-yl]methyl
+      dihydrogen phosphate'
+    - '[(1R,2S,4R,6R,7S)-6-(2,4-dioxopyrimidin-1-yl)-7-hydroxy-2-methyl-5-oxabicyclo[2.2.1]heptan-4-yl]methyl
       dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
       id: UMX
-    structure: C[C@H]1C[C@@]2([C@@H]([C@@H]1[C@@H](O2)n1ccc(=O)[nH]c1=O)O)CO[P@](=O)(O)[O-]
-    base_monomers:
-    - dU
+    structure: C[C@H]1C[C@@]2([C@@H]([C@@H]1[C@@H](O2)n1ccc(=O)[nH]c1=O)O)COP(=O)([O-])[O-]
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -9084,8 +8584,6 @@ monomers:
     - ns: pdb-ccd
       id: UPE
     structure: O[C@@H]1C[C@@H](O[C@H]1COP(=O)([O-])[O-])n1cc(C(=O)NCCc2ccccc2)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -9107,14 +8605,12 @@ monomers:
     id: UPS
     name: 2'-deoxy-5'-o-thiophosphonouridine
     synonyms:
-    - 1-[(2R,4S,5R)-5-(dihydroxyphosphinothioyloxymethyl)-4-hydroxy-oxolan-2-yl]pyrimidine-2,4-dione
     - 2'-deoxy-5'-O-thiophosphonouridine
+    - 1-[(2R,4S,5R)-5-(dihydroxyphosphinothioyloxymethyl)-4-hydroxy-oxolan-2-yl]pyrimidine-2,4-dione
     identifiers:
     - ns: pdb-ccd
       id: UPS
     structure: O[C@@H]1C[C@H](O[C@H]1COP(=S)([O-])[O-])n1ccc(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -9156,8 +8652,6 @@ monomers:
     - ns: pdb-ccd
       id: URX
     structure: C[C@@H]1C[C@@]2([C@H]([C@H]1[C@H](O2)n1ccc(=O)[nH]c1=O)O)COP(=O)([O-])[O-]
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -9187,22 +8681,18 @@ monomers:
     - ns: pdb-ccd
       id: US1
     structure: S[C@@H]1C[C@H](O[C@@H]1COP(=O)(O)O)n1ccc(=O)[nH]c1=O
-    base_monomers:
-    - dU
   US2:
     id: US2
     name: 2'-deoxy-5-(methylsulfanyl)uridine 5'-(dihydrogen phosphate)
     synonyms:
     - '[(2R,3S,5R)-3-hydroxy-5-(5-methylsulfanyl-2,4-dioxo-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - U
     - 2'-deoxy-5-(methylsulfanyl)uridine 5'-(dihydrogen phosphate)
+    - U
     identifiers:
     - ns: pdb-ccd
       id: US2
     structure: CSc1cn([C@@H]2C[C@H]([C@H](O2)COP(=O)(O)O)O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -9215,8 +8705,8 @@ monomers:
     id: US3
     name: 1-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-5-methyl-2-selanylpyrimidin-4(1h)-one
     synonyms:
-    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-5-methyl-2-selanylpyrimidin-4(1H)-one
     - T
+    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-5-methyl-2-selanylpyrimidin-4(1H)-one
     - '[(2R,3S,5R)-3-hydroxy-5-(5-methyl-4-oxo-2-selanyl-pyrimidin-1-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
     identifiers:
@@ -9259,16 +8749,14 @@ monomers:
     id: USM
     name: 2'-s-methyl-2'-thiouridine 5'-(dihydrogen phosphate)
     synonyms:
-    - U
     - '[(2R,3R,4R,5R)-5-(2,4-dioxopyrimidin-1-yl)-3-hydroxy-4-methylsulfanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
     - 2'-S-methyl-2'-thiouridine 5'-(dihydrogen phosphate)
+    - U
     identifiers:
     - ns: pdb-ccd
       id: USM
     structure: CS[C@H]1[C@H](O)[C@@H](O[C@H]1n1ccc(=O)[nH]c1=O)COP(=O)([O-])[O-]
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -9299,8 +8787,6 @@ monomers:
     - ns: pdb-ccd
       id: UVX
     structure: C=C1C[C@@]2([C@H]([C@H]1[C@H](O2)n1ccc(=O)[nH]c1=O)O)COP(=O)([O-])[O-]
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -9405,9 +8891,9 @@ monomers:
     name: '[(1s,4r,6r)-6-hydroxy-4-(adenin-9-yl)cyclohex-2-en-1-yl]methyl dihydrogen
       phosphate'
     synonyms:
+    - A
     - '[(1S,4R,6R)-4-(6-amino-9H-purin-9-yl)-6-hydroxycyclohex-2-en-1-yl]methyl dihydrogen
       phosphate'
-    - A
     - '[(1S,4R,6R)-4-(6-aminopurin-9-yl)-6-hydroxy-1-cyclohex-2-enyl]methyl dihydrogen
       phosphate'
     identifiers:
@@ -9452,11 +8938,11 @@ monomers:
     name: '[(1s,4r,6r)-6-hydroxy-4-(cytosin-9-yl)cyclohex-2-en-1-yl]methyl dihydrogen
       phosphate'
     synonyms:
-    - C
-    - '[(1S,4R,6R)-4-(4-amino-2-oxo-pyrimidin-1-yl)-6-hydroxy-1-cyclohex-2-enyl]methyl
-      dihydrogen phosphate'
     - '[(1S,4R,6R)-4-(4-amino-2-oxopyrimidin-1(2H)-yl)-6-hydroxycyclohex-2-en-1-yl]methyl
       dihydrogen phosphate'
+    - '[(1S,4R,6R)-4-(4-amino-2-oxo-pyrimidin-1-yl)-6-hydroxy-1-cyclohex-2-enyl]methyl
+      dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: XCL
@@ -9485,13 +8971,13 @@ monomers:
     name: '[(1r,4s,6s)-4-(4-amino-2-oxopyrimidin-1(2h)-yl)-6-hydroxycyclohex-2-en-1-yl]methyl
       dihydrogen phosphate'
     synonyms:
-    - C
     - '[(1R,4S,6S)-4-(4-azanyl-2-oxo-pyrimidin-1-yl)-6-hydroxy-cyclohex-2-en-1-yl]methyl
       dihydrogen phosphate'
+    - C
     identifiers:
     - ns: pdb-ccd
       id: XCR
-    structure: O[C@H]1C[C@H](C=C[C@H]1CO[P@@](=O)(O)[O-])n1ccc(nc1=O)N
+    structure: O[C@H]1C[C@H](C=C[C@H]1COP(=O)([O-])[O-])n1ccc(nc1=O)N
     base_monomers:
     - C
     r_bond_atoms:
@@ -9509,16 +8995,16 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 15
       charge: -1
   XCS:
     id: XCS
     name: (1r)-1-(4-amino-6-methyl-2-oxo-1,2-dihydroquinazolin-8-yl)-1,4-anhydro-2-deoxy-5-o-phosphono-d-erythro-pentitol
     synonyms:
+    - N
     - '[(2R,3S,5R)-5-(4-amino-6-methyl-2-oxo-1H-quinazolin-8-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
     - (1R)-1-(4-amino-6-methyl-2-oxo-1,2-dihydroquinazolin-8-yl)-1,4-anhydro-2-deoxy-5-O-phosphono-D-erythro-pentitol
-    - N
     identifiers:
     - ns: pdb-ccd
       id: XCS
@@ -9535,10 +9021,10 @@ monomers:
     id: XCT
     name: 4-amino-1-(2,3-dideoxy-6-o-phosphono-beta-d-erythro-hexopyranosyl)pyrimidin-2(1h)-one
     synonyms:
-    - C
     - '[(2R,3S,6R)-6-(4-amino-2-oxo-pyrimidin-1-yl)-3-hydroxy-oxan-2-yl]methyl dihydrogen
       phosphate'
     - 4-amino-1-(2,3-dideoxy-6-O-phosphono-beta-D-erythro-hexopyranosyl)pyrimidin-2(1H)-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: XCT
@@ -9559,10 +9045,10 @@ monomers:
     name: '{5-[4-{[4-(aminomethyl)benzyl]amino}-2-oxopyrimidin-1(2h)- yl]-3-hydroxytetrahydrofuran-2-yl}methyl
       dihydrogen phosphate'
     synonyms:
-    - C
+    - N-[4-(aminomethyl)benzyl]-2'-deoxycytidine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-[4-[[4-(aminomethyl)phenyl]methylamino]-2-oxo-pyrimidin-1-yl]-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - N-[4-(aminomethyl)benzyl]-2'-deoxycytidine 5'-(dihydrogen phosphate)
+    - C
     identifiers:
     - ns: pdb-ccd
       id: XCY
@@ -9590,9 +9076,9 @@ monomers:
     id: XFC
     name: 4-amino-1-(2-deoxy-2-fluoro-5-o-phosphono-beta-d-arabinofuranosyl)-2-oxo-1,2-dihydropyrimidine-5-carbaldehyde
     synonyms:
-    - 4-amino-1-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-2-oxo-1,2-dihydropyrimidine-5-carbaldehyde
     - '[(2~{R},3~{R},4~{S},5~{R})-5-(4-azanyl-5-methanoyl-2-oxidanylidene-pyrimidin-1-yl)-4-fluoranyl-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 4-amino-1-(2-deoxy-2-fluoro-5-O-phosphono-beta-D-arabinofuranosyl)-2-oxo-1,2-dihydropyrimidine-5-carbaldehyde
     identifiers:
     - ns: pdb-ccd
       id: XFC
@@ -9601,10 +9087,10 @@ monomers:
     id: XGA
     name: 6-amino-3-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-3,7-dihydro-8h-imidazo[4,5-g]quinazolin-8-one
     synonyms:
-    - 6-amino-3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3,7-dihydro-8H-imidazo[4,5-g]quinazolin-8-one
     - N
     - '[(2R,3S,5R)-5-(6-amino-8-oxo-7H-pyrimido[5,4-f]benzimidazol-3-yl)-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 6-amino-3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-3,7-dihydro-8H-imidazo[4,5-g]quinazolin-8-one
     identifiers:
     - ns: pdb-ccd
       id: XGA
@@ -9661,7 +9147,7 @@ monomers:
     identifiers:
     - ns: pdb-ccd
       id: XGR
-    structure: O[C@H]1C[C@H](C=C[C@H]1CO[P@](=O)(O)[O-])n1cnc2c1nc(N)[nH]c2=O
+    structure: O[C@H]1C[C@H](C=C[C@H]1COP(=O)([O-])[O-])n1cnc2c1nc(N)[nH]c2=O
     base_monomers:
     - G
     r_bond_atoms:
@@ -9679,16 +9165,16 @@ monomers:
     l_displaced_atoms:
     - molecule: Monomer
       element: O
-      position: 16
+      position: 15
       charge: -1
   XGU:
     id: XGU
     name: 2-amino-9-(2,3-dideoxy-6-o-phosphono-beta-d-erythro-hexopyranosyl)-1,9-dihydro-6h-purin-6-one
     synonyms:
     - G
-    - 2-amino-9-(2,3-dideoxy-6-O-phosphono-beta-D-erythro-hexopyranosyl)-1,9-dihydro-6H-purin-6-one
     - '[(2R,3S,6R)-6-(2-amino-6-oxo-1H-purin-9-yl)-3-hydroxy-oxan-2-yl]methyl dihydrogen
       phosphate'
+    - 2-amino-9-(2,3-dideoxy-6-O-phosphono-beta-D-erythro-hexopyranosyl)-1,9-dihydro-6H-purin-6-one
     identifiers:
     - ns: pdb-ccd
       id: XGU
@@ -9722,9 +9208,9 @@ monomers:
     name: '[(1r,4r,5s,6r)-5-fluoro-6-hydroxy-4-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2h)-yl)cyclohex-2-en-1-yl]methyl
       dihydrogen phosphate'
     synonyms:
-    - '[(1R,4R,5S,6R)-5-fluoranyl-4-[5-methyl-2,4-bis(oxidanylidene)pyrimidin-1-yl]-6-oxidanyl-cyclohex-2-en-1-yl]methyl
-      dihydrogen phosphate'
     - '[(1R,4R,5S,6R)-5-fluoro-6-hydroxy-4-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)cyclohex-2-en-1-yl]methyl
+      dihydrogen phosphate'
+    - '[(1R,4R,5S,6R)-5-fluoranyl-4-[5-methyl-2,4-bis(oxidanylidene)pyrimidin-1-yl]-6-oxidanyl-cyclohex-2-en-1-yl]methyl
       dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
@@ -9736,9 +9222,9 @@ monomers:
     id: XTH
     name: 1-(2,3-dideoxy-6-o-phosphono-beta-d-erythro-hexopyranosyl)-5-methylpyrimidine-2,4(1h,3h)-dione
     synonyms:
-    - T
     - '[(2R,3S,6R)-3-hydroxy-6-(5-methyl-2,4-dioxo-pyrimidin-1-yl)oxan-2-yl]methyl
       dihydrogen phosphate'
+    - T
     - 1-(2,3-dideoxy-6-O-phosphono-beta-D-erythro-hexopyranosyl)-5-methylpyrimidine-2,4(1H,3H)-dione
     identifiers:
     - ns: pdb-ccd
@@ -9760,10 +9246,10 @@ monomers:
     name: '[(1s,4r,6r)-6-hydroxy-4-(thymin-9-yl)cyclohex-2-en-1-yl]methyl dihydrogen
       phosphate'
     synonyms:
+    - '[(1S,4R,6R)-6-hydroxy-4-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)cyclohex-2-en-1-yl]methyl
+      dihydrogen phosphate'
     - T
     - '[(1S,4R,6R)-6-hydroxy-4-(5-methyl-2,4-dioxo-pyrimidin-1-yl)-1-cyclohex-2-enyl]methyl
-      dihydrogen phosphate'
-    - '[(1S,4R,6R)-6-hydroxy-4-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)cyclohex-2-en-1-yl]methyl
       dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
@@ -9793,9 +9279,9 @@ monomers:
     name: '[(1r,4s,6s)-6-hydroxy-4-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2h)-yl)cyclohex-2-en-1-yl]methyl
       dihydrogen phosphate'
     synonyms:
-    - T
     - '[(1R,4S,6S)-6-hydroxy-4-(5-methyl-2,4-dioxo-3,4-dihydropyrimidin-1(2H)-yl)cyclohex-2-en-1-yl]methyl
       dihydrogen phosphate'
+    - T
     - '[(1R,4S,6S)-6-hydroxy-4-(5-methyl-2,4-dioxo-pyrimidin-1-yl)-1-cyclohex-2-enyl]methyl
       dihydrogen phosphate'
     identifiers:
@@ -9845,10 +9331,10 @@ monomers:
     id: XUA
     name: 2'-se-methyl-2'-selenoadenosine 5'-(dihydrogen phosphate)
     synonyms:
-    - '[(2R,3R,4R,5R)-5-(6-aminopurin-9-yl)-3-hydroxy-4-methylselanyl-oxolan-2-yl]methyl
-      dihydrogen phosphate'
     - A
     - 2'-Se-methyl-2'-selenoadenosine 5'-(dihydrogen phosphate)
+    - '[(2R,3R,4R,5R)-5-(6-aminopurin-9-yl)-3-hydroxy-4-methylselanyl-oxolan-2-yl]methyl
+      dihydrogen phosphate'
     identifiers:
     - ns: pdb-ccd
       id: XUA
@@ -9877,9 +9363,9 @@ monomers:
     name: 2'-se-methyl-2'-selenoguanosine 5'-(dihydrogen phosphate)
     synonyms:
     - G
+    - 2'-Se-methyl-2'-selenoguanosine 5'-(dihydrogen phosphate)
     - '[(2R,3R,4R,5R)-5-(2-amino-6-oxo-1H-purin-9-yl)-3-hydroxy-4-methylselanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 2'-Se-methyl-2'-selenoguanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: XUG
@@ -9908,9 +9394,9 @@ monomers:
     name: 2'-deoxy-n6-(s)styrene oxide adenosine monophosphate
     synonyms:
     - 2'-deoxy-N-[(1S)-2-hydroxy-1-phenylethyl]adenosine 5'-(dihydrogen phosphate)
-    - A
     - '[(2R,3S,5R)-3-hydroxy-5-[6-[[(1S)-2-hydroxy-1-phenyl-ethyl]amino]purin-9-yl]oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - A
     identifiers:
     - ns: pdb-ccd
       id: Y
@@ -9938,9 +9424,9 @@ monomers:
     id: YCO
     name: 3-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)-1h-pyrimido[5,4-b][1,4]benzoxazin-2(3h)-one
     synonyms:
-    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1H-pyrimido[5,4-b][1,4]benzoxazin-2(3H)-one
     - '[(2R,3S,5R)-3-hydroxy-5-(2-oxo-1H-pyrimido[5,4-b][1,4]benzoxazin-3-yl)oxolan-2-yl]methyl
       dihydrogen phosphate'
+    - 3-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)-1H-pyrimido[5,4-b][1,4]benzoxazin-2(3H)-one
     identifiers:
     - ns: pdb-ccd
       id: YCO
@@ -9978,27 +9464,18 @@ monomers:
     - molecule: Monomer
       element: O
       position: 1
-    l_bond_atoms:
-    - molecule: Monomer
-      element: P
-      position: 11
     r_displaced_atoms:
     - molecule: Monomer
       element: H
       position: 1
-    l_displaced_atoms:
-    - molecule: Monomer
-      element: O
-      position: 14
-      charge: -1
   Z:
     id: Z
     name: 1-(2-deoxy-5-o-phosphono-beta-d-erythro-pentofuranosyl)pyrimidin-2(1h)-one
     synonyms:
-    - C
-    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)pyrimidin-2(1H)-one
     - '[(2R,3S,5R)-3-hydroxy-5-(2-oxopyrimidin-1-yl)oxolan-2-yl]methyl dihydrogen
       phosphate'
+    - 1-(2-deoxy-5-O-phosphono-beta-D-erythro-pentofuranosyl)pyrimidin-2(1H)-one
+    - C
     identifiers:
     - ns: pdb-ccd
       id: Z
@@ -10026,16 +9503,14 @@ monomers:
     id: ZDU
     name: 5-(3-aminopropyl)-2'-deoxyuridine-5'-monophosphate
     synonyms:
+    - 5-(3-aminopropyl)-2'-deoxyuridine 5'-(dihydrogen phosphate)
     - '[(2R,3S,5R)-5-[5-(3-aminopropyl)-2,4-dioxo-pyrimidin-1-yl]-3-hydroxy-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 5-(3-aminopropyl)-2'-deoxyuridine 5'-(dihydrogen phosphate)
     - U
     identifiers:
     - ns: pdb-ccd
       id: ZDU
     structure: NCCCc1cn([C@H]2C[C@@H]([C@H](O2)COP(=O)([O-])[O-])O)c(=O)[nH]c1=O
-    base_monomers:
-    - dU
     r_bond_atoms:
     - molecule: Monomer
       element: O
@@ -10068,9 +9543,9 @@ monomers:
     id: F74
     name: 8-chloro-2'-deoxyguanosine 5'-(dihydrogen phosphate)
     synonyms:
+    - 8-chloro-2'-deoxyguanosine 5'-(dihydrogen phosphate)
     - '[(2~{R},3~{S},5~{R})-5-(2-azanyl-8-chloranyl-6-oxidanylidene-3~{H}-purin-9-yl)-3-oxidanyl-oxolan-2-yl]methyl
       dihydrogen phosphate'
-    - 8-chloro-2'-deoxyguanosine 5'-(dihydrogen phosphate)
     identifiers:
     - ns: pdb-ccd
       id: F74
