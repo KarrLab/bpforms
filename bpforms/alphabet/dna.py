@@ -633,6 +633,10 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                         if identifier.ns == 'pdb-ccd':
                             monomer = None
                             break
+                if monomer is not None and (\
+                    (monomer.l_bond_atoms and not pdb_monomer.l_bond_atoms) or \
+                    (monomer.r_bond_atoms and not pdb_monomer.r_bond_atoms)):
+                    monomer = None
 
             if monomer is not None:
                 merge_with_new = True

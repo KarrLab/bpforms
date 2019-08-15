@@ -1532,19 +1532,18 @@ class BpFormTestCase(unittest.TestCase):
 
     def test_from_str(self):
         self.assertTrue(dna.DnaForm().from_str('AAA').is_equal(dna.DnaForm([
-            dna.canonical_dna_alphabet.monomers.A, dna.canonical_dna_alphabet.monomers.A, dna.canonical_dna_alphabet.monomers.A,
+            dna.dna_alphabet.monomers.A, 
+            dna.dna_alphabet.monomers.A, 
+            dna.dna_alphabet.monomers.A,
         ])))
 
         self.assertTrue(dna.DnaForm().from_str('ACTG').is_equal(dna.DnaForm([
-            dna.canonical_dna_alphabet.monomers.A, dna.canonical_dna_alphabet.monomers.C,
-            dna.canonical_dna_alphabet.monomers.T, dna.canonical_dna_alphabet.monomers.G,
+            dna.dna_alphabet.monomers.A, dna.dna_alphabet.monomers.C,
+            dna.dna_alphabet.monomers.T, dna.dna_alphabet.monomers.G,
         ])))
 
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'not in alphabet'):
-            self.assertTrue(dna.DnaForm().from_str('EAA').is_equal(dna.DnaForm([
-                dna.canonical_dna_alphabet.monomers.A, dna.canonical_dna_alphabet.monomers.A,
-                dna.canonical_dna_alphabet.monomers.A,
-            ])))
+            dna.CanonicalDnaForm().from_str('EAA')
 
         dna_form_1 = ('AA[id: "dI"'
                       + ' | name: "2\'-deoxyinosine"'
@@ -1571,8 +1570,8 @@ class BpFormTestCase(unittest.TestCase):
         self.assertEqual(list(dna_form_2.seq[2].base_monomers)[0].id, 'adenine')
         self.assertIn(dna_form_2.seq[2].export('smiles'), [dIMP_smiles, 'OCC1OC(CC1O)n1cnc2c1ncnc2O'])
         dna_form_3 = dna.DnaForm([
-            dna.canonical_dna_alphabet.monomers.A,
-            dna.canonical_dna_alphabet.monomers.A,
+            dna.dna_alphabet.monomers.A,
+            dna.dna_alphabet.monomers.A,
             core.Monomer(
                 id='dI',
                 name="2'-deoxyinosine",
@@ -1593,10 +1592,10 @@ class BpFormTestCase(unittest.TestCase):
                 delta_charge=3,
                 start_position=3,
                 end_position=5,
-                base_monomers=[dna.canonical_dna_alphabet.monomers.A],
+                base_monomers=[dna.dna_alphabet.monomers.A],
                 comments="A purine 2'-deoxyribonucleoside that is inosine ...",
             ),
-            dna.canonical_dna_alphabet.monomers.A,
+            dna.dna_alphabet.monomers.A,
         ])
         self.assertEqual(str(dna_form_2), dna_form_1.replace(dIMP_smiles, 'OCC1OC(CC1O)n1cnc2c1ncnc2O'))
         self.assertTrue(dna_form_2.is_equal(dna_form_3))
@@ -1604,27 +1603,27 @@ class BpFormTestCase(unittest.TestCase):
         self.assertTrue(dna.DnaForm().from_str(
             'AA[id: "dI"'
             ' | position: 3-]A').is_equal(dna.DnaForm([
-                dna.canonical_dna_alphabet.monomers.A,
-                dna.canonical_dna_alphabet.monomers.A,
+                dna.dna_alphabet.monomers.A,
+                dna.dna_alphabet.monomers.A,
                 core.Monomer(
                     id='dI',
                     start_position=3,
                     end_position=None,
                 ),
-                dna.canonical_dna_alphabet.monomers.A,
+                dna.dna_alphabet.monomers.A,
             ])))
 
         self.assertTrue(dna.DnaForm().from_str(
             'AA[id: "dI"'
             ' | position: -5]A').is_equal(dna.DnaForm([
-                dna.canonical_dna_alphabet.monomers.A,
-                dna.canonical_dna_alphabet.monomers.A,
+                dna.dna_alphabet.monomers.A,
+                dna.dna_alphabet.monomers.A,
                 core.Monomer(
                     id='dI',
                     start_position=None,
                     end_position=5,
                 ),
-                dna.canonical_dna_alphabet.monomers.A,
+                dna.dna_alphabet.monomers.A,
             ])))
 
         alphabet = core.Alphabet()
