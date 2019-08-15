@@ -605,8 +605,17 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
 
     polymer_w = (width - (cols - 1) * polymer_margin) / cols
     max_n_tracks = math.ceil(max_polymer_len / nt_per_track)
-    polymer_h = (polymer_label_font_size + polymer_label_sep) \
-        + track_h * max_n_tracks + track_sep * (max_n_tracks - 1)
+    polymer_hs = [0] * math.ceil(len(polymers) / cols)
+    for i_polymer, polymer in enumerate(polymers):
+        n_tracks = math.ceil(len(polymer.seq) / nt_per_track)
+        polymer_h = (polymer_label_font_size + polymer_label_sep) \
+            + track_h * n_tracks + track_sep * (n_tracks - 1)
+        i_row = math.floor(i_polymer / cols)
+        polymer_hs[i_row] = max(polymer_h, polymer_hs[i_row])
+
+    cum_polymer_h = []
+    for i_row, polymer_h in enumerate(polymer_hs):
+        cum_polymer_h.append(sum(polymer_hs[0:i_row]))
 
     legend_rows = []
 
@@ -647,7 +656,7 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
 
         # size
         'width': width,
-        'height': polymer_h * math.ceil(len(polymers) / cols) + \
+        'height': sum(polymer_hs) + \
         polymer_margin * (math.ceil(len(polymers) / cols)-1) + \
         (len(legend_rows) >= 1) * (\
             legend_sep + \
@@ -656,7 +665,7 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
         'h_padding': h_padding,
         'cols': cols,
         'polymer_w': polymer_w,
-        'polymer_h': polymer_h,
+        'cum_polymer_h': cum_polymer_h,
         'polymer_margin': polymer_margin,
 
         # track

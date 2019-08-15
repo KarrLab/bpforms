@@ -70,8 +70,8 @@
     </style>
 
     {% for polymer in polymers %}
-    {% set i_row = (loop.index0 / cols)|round(0, 'floor') %}
-    <g class="polymer" transform="translate({{ (loop.index0 % cols) * (polymer_w + polymer_margin) }}, {{ i_row * (polymer_h + polymer_margin) + polymer_label_font_size + polymer_label_sep }})">
+    {% set i_row = (loop.index0 / cols)|round(0, 'floor')|int %}
+    <g class="polymer" transform="translate({{ (loop.index0 % cols) * (polymer_w + polymer_margin) }}, {{ cum_polymer_h[i_row] + i_row * polymer_margin + polymer_label_font_size + polymer_label_sep }})">
         {% if polymer.label %}
         <text class="polymer_label" x="{{ h_padding + track_w / 2}}" y="-{{ polymer_label_font_size + polymer_label_sep}}">{{ polymer.label }}</text>
         {% endif %}
@@ -150,12 +150,12 @@
             onmouseout="hideTooltip();"
             {% endif %}
             d="M {{ x_link.l_polymer_col * (polymer_w + polymer_margin) + h_padding + (x_link.l_pos - 1) * px_per_nt }}
-                 {{ polymer_label_font_size + polymer_label_sep + x_link.l_polymer_row * (polymer_h + polymer_margin) + nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.l_track }}
+                 {{ polymer_label_font_size + polymer_label_sep + cum_polymer_h[x_link.l_polymer_row] + x_link.l_polymer_row * polymer_margin + nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.l_track }}
                a {{ radius }} {{ radius }}
                  1 0 1
                  {{ radius }} -{{ radius }}
                L {{ x_link.r_polymer_col * (polymer_w + polymer_margin) + h_padding + (x_link.r_pos - 1) * px_per_nt - radius }}
-                {{ polymer_label_font_size + polymer_label_sep + x_link.r_polymer_row * (polymer_h + polymer_margin) + nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track - radius }}
+                {{ polymer_label_font_size + polymer_label_sep + cum_polymer_h[x_link.r_polymer_row] + x_link.r_polymer_row * polymer_margin + nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track - radius }}
                  a {{ radius }} {{ radius }}
                    1 0 1
                    {{ radius }} {{ radius }}"/>
