@@ -499,20 +499,6 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
             else:
                 x_link['tooltip'] = None
             x_links.append(x_link)
-        x_links = sorted(x_links, key=lambda x: (x['l_track'], x['r_track'], x['l_pos'], x['r_pos']))
-        offset = 0
-        prev_track = -1
-        prev_pos = -1
-        for x_link in x_links:
-            if x_link['l_track'] == x_link['r_track'] and \
-                    x_link['l_track'] == prev_track and \
-                    x_link['l_pos'] <= prev_pos:
-                offset += 1
-            else:
-                offset = 0
-                prev_track = x_link['r_track']
-                prev_pos = x_link['r_pos']
-            x_link['offset'] = offset
 
         polymers_context.append({
             'label': polymer_labels.get(i_polymer, None),
@@ -563,32 +549,72 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
         inter_x_link_context['tooltip'] = getattr(x_link, 'comments', None)
         inter_x_links_context.append(inter_x_link_context)
 
-    inter_x_links_context = sorted(inter_x_links_context, key=lambda x: (
+    all_x_links = list(inter_x_links_context)
+    for i_polymer, polymer in enumerate(polymers_context):
+        for x_link in polymer['x_links']:
+            x_link['l_polymer_row'] = x_link['r_polymer_row'] = math.floor(i_polymer / cols)
+            x_link['l_polymer_col'] = x_link['r_polymer_col'] = i_polymer % cols
+            all_x_links.append(x_link)
+
+    sorted_x_links = sorted(all_x_links, key=lambda x: (
+        x['l_polymer_row'] == x['r_polymer_row'] and x['l_track'] == x['r_track'],
         x['l_polymer_row'], x['r_polymer_row'],
-        x['l_polymer_col'], x['r_polymer_col'],
         x['l_track'], x['r_track'],
-        x['l_pos'], x['r_pos']))
+        x['l_polymer_col'], x['l_pos'],
+        x['r_polymer_col'], x['r_pos']))
     offset = 0
+    prev_horz = False
     prev_row = -1
     prev_col = -1
     prev_track = -1
     prev_pos = -1
-    for x_link in inter_x_links_context:
-        if x_link['l_polymer_row'] == x_link['r_polymer_row'] and \
-                x_link['l_polymer_col'] == x_link['r_polymer_col'] and \
+    for x_link in sorted_x_links:
+        if prev_horz and x_link['l_polymer_row'] == x_link['r_polymer_row'] and \
                 x_link['l_track'] == x_link['r_track'] and \
                 x_link['l_polymer_row'] == prev_row and \
-                x_link['l_polymer_col'] == prev_col and \
                 x_link['l_track'] == prev_track and \
-                x_link['l_pos'] <= prev_pos:
+                (x_link['l_polymer_col'] < prev_col or
+                 (x_link['l_polymer_col'] == prev_col and x_link['l_pos'] <= prev_pos)):
             offset += 1
         else:
             offset = 0
-            prev_row = x_link['l_polymer_row']
-            prev_col = x_link['l_polymer_col']
+            prev_horz = x_link['l_polymer_row'] == x_link['r_polymer_row'] and \
+                x_link['l_track'] == x_link['r_track']
+            prev_row = x_link['r_polymer_row']
+            prev_col = x_link['r_polymer_col']
             prev_track = x_link['r_track']
             prev_pos = x_link['r_pos']
-        x_link['offset'] = offset
+        x_link['v_offset'] = offset
+
+    sorted_x_links = sorted(all_x_links, key=lambda x: (
+        x['l_polymer_col'] == x['r_polymer_col'] and x['l_pos'] == x['r_pos'],
+        x['l_polymer_col'], x['r_polymer_col'],
+        x['l_pos'], x['r_pos'],
+        x['l_polymer_row'], x['l_track'],
+        x['r_polymer_row'], x['r_track'],))
+    offset = 0
+    prev_vert = False
+    prev_row = -1
+    prev_col = -1
+    prev_track = -1
+    prev_pos = -1
+    for x_link in sorted_x_links:
+        if prev_vert and x_link['l_polymer_col'] == x_link['r_polymer_col'] and \
+                x_link['l_pos'] == x_link['r_pos'] and \
+                x_link['l_polymer_col'] == prev_col and \
+                x_link['l_pos'] == prev_pos and \
+                (x_link['l_polymer_row'] < prev_row or
+                 (x_link['l_polymer_row'] == prev_row and x_link['l_track'] <= prev_track)):
+            offset += 1
+        else:
+            offset = 0
+            prev_vert = x_link['l_polymer_col'] == x_link['r_polymer_col'] and \
+                x_link['l_pos'] == x_link['r_pos']
+            prev_row = x_link['r_polymer_row']
+            prev_col = x_link['r_polymer_col']
+            prev_track = x_link['r_track']
+            prev_pos = x_link['r_pos']
+        x_link['h_offset'] = offset
 
     # read template
     with open(pkg_resources.resource_filename('bpforms', 'genomic_viz.template.svg')) as file:

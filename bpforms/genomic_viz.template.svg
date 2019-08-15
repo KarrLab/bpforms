@@ -118,13 +118,19 @@
 
         <!-- intra-stand crosslinks -->
         <g class="intra_x_links">
-            {% for x_link in polymer.x_links %}
-              {% set radius = x_link_radius + x_link_stroke_width * 2 * x_link.offset %}
+            {% for x_link in polymer.x_links %}              
             <path
                 {% if x_link.tooltip %}
                 onmousemove="showTooltip(evt, '{{ x_link.tooltip|escape }}');"
                 onmouseout="hideTooltip();"
                 {% endif %}
+                {% if (x_link.r_pos - x_link.l_pos) < 5 %}
+                d="M {{ h_padding + (x_link.l_pos - 1) * px_per_nt + 2 * x_link_stroke_width * x_link.h_offset }}
+                     {{ nc_label_h + nc_label_sep * 3/2 + (track_h + track_sep) * x_link.l_track + seq_font_size }}
+                   L {{ h_padding + (x_link.r_pos - 1) * px_per_nt + 2 * x_link_stroke_width * x_link.h_offset }}
+                    {{ nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track }}"
+                {% else %}
+                {% set radius = x_link_radius + x_link_stroke_width * 2 * x_link.v_offset %}
                 d="M {{ h_padding + (x_link.l_pos - 1) * px_per_nt }}
                      {{ nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.l_track }}
                    a {{ radius }} {{ radius }}
@@ -134,7 +140,9 @@
                     {{ nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track - radius }}
                      a {{ radius }} {{ radius }}
                        1 0 1
-                       {{ radius }} {{ radius }}"/>
+                       {{ radius }} {{ radius }}"
+               {% endif %}
+               />
              {% endfor %}
         </g>
     </g>
@@ -142,13 +150,19 @@
 
     <!-- inter-polymer crosslinks -->
     <g class="inter_x_links">
-        {% for x_link in inter_x_links %}
-          {% set radius = x_link_radius + x_link_stroke_width * 2 * x_link.offset %}
+        {% for x_link in inter_x_links %}          
         <path
             {% if x_link.tooltip %}
             onmousemove="showTooltip(evt, '{{ x_link.tooltip|escape }}');"
             onmouseout="hideTooltip();"
             {% endif %}
+            {% if (x_link.l_polymer_col == x_link.r_polymer_col) and ((x_link.r_pos - x_link.l_pos) < 5) %}
+            d="M {{ x_link.l_polymer_col * (polymer_w + polymer_margin) + h_padding + (x_link.l_pos - 1) * px_per_nt + 2 * x_link_stroke_width * x_link.h_offset }}
+                 {{ polymer_label_font_size + polymer_label_sep + cum_polymer_h[x_link.l_polymer_row] + x_link.l_polymer_row * polymer_margin + nc_label_h + nc_label_sep * 3/2 + (track_h + track_sep) * x_link.l_track + seq_font_size}}
+               L {{ x_link.r_polymer_col * (polymer_w + polymer_margin) + h_padding + (x_link.r_pos - 1) * px_per_nt + 2 * x_link_stroke_width * x_link.h_offset }}
+                {{ polymer_label_font_size + polymer_label_sep + cum_polymer_h[x_link.r_polymer_row] + x_link.r_polymer_row * polymer_margin + nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track }}"
+            {% else %}
+            {% set radius = x_link_radius + x_link_stroke_width * 2 * x_link.v_offset %}
             d="M {{ x_link.l_polymer_col * (polymer_w + polymer_margin) + h_padding + (x_link.l_pos - 1) * px_per_nt }}
                  {{ polymer_label_font_size + polymer_label_sep + cum_polymer_h[x_link.l_polymer_row] + x_link.l_polymer_row * polymer_margin + nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.l_track }}
                a {{ radius }} {{ radius }}
@@ -158,7 +172,9 @@
                 {{ polymer_label_font_size + polymer_label_sep + cum_polymer_h[x_link.r_polymer_row] + x_link.r_polymer_row * polymer_margin + nc_label_h + nc_label_sep/2 + (track_h + track_sep) * x_link.r_track - radius }}
                  a {{ radius }} {{ radius }}
                    1 0 1
-                   {{ radius }} {{ radius }}"/>
+                   {{ radius }} {{ radius }}"
+            {% endif %}
+            />
          {% endfor %}
     </g>
 
