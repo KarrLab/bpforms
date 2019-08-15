@@ -22,12 +22,47 @@ URL = 'http://modomics.genesilico.pl/sequences/list/'
 
 def run():
     # create dict of MODOMICS single character monomer codes
-    monomer_codes = {}
+    modomics_short_code_to_monomer = {}
     for monomer in bpforms.rna_alphabet.monomers.values():
-        for synonym in monomer.synonyms:
-            if len(synonym) == 1:
-                monomer_codes[synonym.upper()] = monomer
-                break
+        for identifier in monomer.identifiers:
+            if identifier.ns == 'modomics.short_name':
+                modomics_short_code_to_monomer[identifier.id] = monomer
+    modomics_short_code_to_monomer['a'] = bpforms.rna_alphabet.monomers.get('A')
+    modomics_short_code_to_monomer['c'] = bpforms.rna_alphabet.monomers.get('C')
+    modomics_short_code_to_monomer['g'] = bpforms.rna_alphabet.monomers.get('G')
+    modomics_short_code_to_monomer['u'] = bpforms.rna_alphabet.monomers.get('U')
+    modomics_short_code_to_monomer['b'] = bpforms.rna_alphabet.monomers.get('0522U')
+    modomics_short_code_to_monomer['B'] = bpforms.rna_alphabet.monomers.get('0C')
+    modomics_short_code_to_monomer['E'] = bpforms.rna_alphabet.monomers.get('662A')
+    modomics_short_code_to_monomer['h'] = bpforms.rna_alphabet.monomers.get('21511U')
+    # modomics_short_code_to_monomer['H'] = bpforms.rna_alphabet.monomers.get('0C')
+    modomics_short_code_to_monomer['J'] = bpforms.rna_alphabet.monomers.get('0U')
+    modomics_short_code_to_monomer['l'] = bpforms.rna_alphabet.monomers.get('253U')
+    modomics_short_code_to_monomer['L'] = bpforms.rna_alphabet.monomers.get('2G')
+    modomics_short_code_to_monomer['K'] = bpforms.rna_alphabet.monomers.get('1G')
+    modomics_short_code_to_monomer['M'] = bpforms.rna_alphabet.monomers.get('42C')
+    # modomics_short_code_to_monomer['N'] = bpforms.rna_alphabet.monomers.get('?U')
+    modomics_short_code_to_monomer['P'] = bpforms.rna_alphabet.monomers.get('9U')
+    modomics_short_code_to_monomer['R'] = bpforms.rna_alphabet.monomers.get('22G')
+    modomics_short_code_to_monomer['T'] = bpforms.rna_alphabet.monomers.get('5U')
+    modomics_short_code_to_monomer['Z'] = bpforms.rna_alphabet.monomers.get('09U')
+    modomics_short_code_to_monomer['7'] = bpforms.rna_alphabet.monomers.get('7G')
+    modomics_short_code_to_monomer['#'] = bpforms.rna_alphabet.monomers.get('0G')
+    modomics_short_code_to_monomer[':'] = bpforms.rna_alphabet.monomers.get('0A')
+    modomics_short_code_to_monomer['='] = bpforms.rna_alphabet.monomers.get('6A')
+    modomics_short_code_to_monomer['?'] = bpforms.rna_alphabet.monomers.get('5C')
+    modomics_short_code_to_monomer['λ'] = bpforms.rna_alphabet.monomers.get('04C')
+    modomics_short_code_to_monomer['"'] = bpforms.rna_alphabet.monomers.get('1A')
+    modomics_short_code_to_monomer["'"] = bpforms.rna_alphabet.monomers.get('3C')    
+    modomics_short_code_to_monomer[','] = bpforms.rna_alphabet.monomers.get('522U')
+    modomics_short_code_to_monomer['\\'] = bpforms.rna_alphabet.monomers.get('05U')
+    modomics_short_code_to_monomer['ℑ'] = bpforms.rna_alphabet.monomers.get('00G')
+    modomics_short_code_to_monomer[']'] = bpforms.rna_alphabet.monomers.get('19U')
+    modomics_short_code_to_monomer['ˆ'] = bpforms.rna_alphabet.monomers.get('00A')
+    modomics_short_code_to_monomer['gluQtRNA'] = bpforms.rna_alphabet.monomers.get('105G')
+    modomics_short_code_to_monomer['m22G'] = bpforms.rna_alphabet.monomers.get('22G')
+    # modomics_short_code_to_monomer[';'] = bpforms.rna_alphabet.monomers.get('?G')
+    # modomics_short_code_to_monomer['<'] = bpforms.rna_alphabet.monomers.get('?C')
 
     # create cache for web queries
     cache_name = os.path.join('examples', 'modomics')
@@ -35,9 +70,13 @@ def run():
     session.mount('http://modomics.genesilico.pl', requests.adapters.HTTPAdapter(max_retries=5))
 
     # parse rRNA and tRNA data
-    ssu_rna_forms = run_rrna(session, monomer_codes, 'SSU', os.path.join('examples', 'modomics.ssu-rrna.tsv'))
-    lsu_rna_forms = run_rrna(session, monomer_codes, 'LSU', os.path.join('examples', 'modomics.lsu-rrna.tsv'))
-    trna_forms, trna_canonical_code_freq, trna_code_freq = run_trna(session, monomer_codes, os.path.join('examples', 'modomics.trna.tsv'))
+    monomer_codes = {}
+    ssu_rna_forms = run_rrna(session, modomics_short_code_to_monomer, monomer_codes,
+                             'SSU', os.path.join('examples', 'modomics.ssu-rrna.tsv'))
+    lsu_rna_forms = run_rrna(session, modomics_short_code_to_monomer, monomer_codes,
+                             'LSU', os.path.join('examples', 'modomics.lsu-rrna.tsv'))
+    trna_forms, trna_canonical_code_freq, trna_code_freq = run_trna(
+        session, modomics_short_code_to_monomer, monomer_codes, os.path.join('examples', 'modomics.trna.tsv'))
 
     # plot distribution of tRNA monomeric forms
     plot_trna_code_freq(monomer_codes, trna_code_freq)
@@ -46,7 +85,7 @@ def run():
     return ssu_rna_forms, lsu_rna_forms, trna_forms, trna_canonical_code_freq, trna_code_freq
 
 
-def run_rrna(session, monomer_codes, type, out_filename):
+def run_rrna(session, modomics_short_code_to_monomer, monomer_codes, type, out_filename):
     response = session.get(URL + type + '/')
     response.raise_for_status()
 
@@ -63,12 +102,32 @@ def run_rrna(session, monomer_codes, type, out_filename):
 
         rna_form = bpforms.RnaForm()
         unsupported_codes = set()
-        for code in cells[5].text.strip().replace('-', '').replace('_', '').upper():
-            monomer = monomer_codes.get(code, None)
-            if monomer is None:
-                unsupported_codes.add(code)
-                monomer = bpforms.Monomer(id=code)
-            rna_form.seq.append(monomer)
+        for child in cells[5].children:
+            if child.name is None or child.name == 'span':
+                if child.name is None:
+                    text = str(child)
+                else:
+                    text = child.text
+
+                for code in text.strip().replace('-', '').replace('_', ''):
+                    monomer = modomics_short_code_to_monomer.get(code, None)
+                    if monomer is None:
+                        unsupported_codes.add(code)
+                        monomer = bpforms.Monomer(id=code)
+                    else:
+                        monomer_codes[code] = monomer
+                    rna_form.seq.append(monomer)
+            elif child.name == 'a':
+                code = child.get('href').replace('/modifications/', '')
+                monomer = modomics_short_code_to_monomer.get(code, None)
+                if monomer is None:
+                    unsupported_codes.add(code)
+                    monomer = bpforms.Monomer(id=code)
+                else:
+                    monomer_codes[code] = monomer
+                rna_form.seq.append(monomer)
+            else:
+                raise Exception('Unsupported child {}'.format(child.name))
 
         rna_forms.append({
             'GenBank': cells[2].text,
@@ -84,7 +143,7 @@ def run_rrna(session, monomer_codes, type, out_filename):
     return rna_forms
 
 
-def run_trna(session, monomer_codes, out_filename):
+def run_trna(session, modomics_short_code_to_monomer, monomer_codes, out_filename):
     response = session.get(URL + 'tRNA/')
     response.raise_for_status()
 
@@ -107,16 +166,38 @@ def run_trna(session, monomer_codes, out_filename):
 
         rna_form = bpforms.RnaForm()
         unsupported_codes = set()
-        for code in cells[5].text.strip().replace('-', '').replace('_', '').upper():
-            monomer = monomer_codes.get(code, None)
-            if monomer is None:
-                unsupported_codes.add(code)
-                monomer = bpforms.Monomer(id=code)
+        for child in cells[5].children:
+            if child.name is None or child.name == 'span':
+                if child.name is None:
+                    text = str(child)
+                else:
+                    text = child.text
+
+                for code in text.strip().replace('-', '').replace('_', ''):
+                    monomer = modomics_short_code_to_monomer.get(code, None)
+                    if monomer is None:
+                        unsupported_codes.add(code)
+                        monomer = bpforms.Monomer(id=code)
+                    else:
+                        monomer_codes[code] = monomer
+                        if code not in code_freq:
+                            code_freq[code] = 0
+                        code_freq[code] += 1
+                    rna_form.seq.append(monomer)
+            elif child.name == 'a':
+                code = child.get('href').replace('/modifications/', '')
+                monomer = modomics_short_code_to_monomer.get(code, None)
+                if monomer is None:
+                    unsupported_codes.add(code)
+                    monomer = bpforms.Monomer(id=code)
+                else:
+                    monomer_codes[code] = monomer
+                    if code not in code_freq:
+                        code_freq[code] = 0
+                    code_freq[code] += 1
+                rna_form.seq.append(monomer)
             else:
-                if code not in code_freq:
-                    code_freq[code] = 0
-                code_freq[code] += 1
-            rna_form.seq.append(monomer)
+                raise Exception('Unsupported child {}'.format(child.name))
 
         rna_forms.append({
             'Amino acid type': cells[1].text,
@@ -271,10 +352,10 @@ def plot_codes(code_freq, monomer_codes, title, axis, ignore_canonical=False):
         'fontsize': 10,
         'fontweight': 'regular',
         'fontfamily': 'Raleway',
-        })
+    })
     axis.set_title(title, fontdict={
         'fontsize': 10,
         'fontweight': 'regular',
         'fontfamily': 'Raleway',
-        })
+    })
     axis.set_xlim((-0.75, len(id_freqs) - 0.25))
