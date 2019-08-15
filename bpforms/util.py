@@ -325,15 +325,15 @@ def read_from_fasta(filename, alphabet):
 
 
 def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_features=None,
-                      width=800, polymer_cols=1, polymer_margin=25,
-                      nt_per_track=100, track_sep=10,
-                      polymer_label_font_size=15, seq_font_size=13, tick_label_font_size=10,
-                      legend_font_size=13, tooltip_font_size=13,
-                      x_link_stroke_width=2, x_link_radius=4,
-                      axis_stroke_width=0.5,
-                      seq_color='#000000', non_canonical_color='#e74624',
-                      intra_x_link_color='#2daae1', inter_x_link_color='#90e227',
-                      axis_color='#000000', polymer_label_color='#000000'):
+                    width=800, cols=1, polymer_margin=25,
+                    nt_per_track=100, track_sep=10,
+                    polymer_label_font_size=15, seq_font_size=13, tick_label_font_size=10,
+                    legend_font_size=13, tooltip_font_size=13,
+                    x_link_stroke_width=2, x_link_radius=4,
+                    axis_stroke_width=0.5,
+                    seq_color='#000000', non_canonical_color='#e74624',
+                    intra_x_link_color='#2daae1', inter_x_link_color='#90e227',
+                    axis_color='#000000', polymer_label_color='#000000'):
     """ Get a genomic visualization of the :obj:`BpForm`
 
     Args:
@@ -349,7 +349,7 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
               indices of polymers to a list of position ranges of the type 
               of feature
         width (:obj:`int`, optional): width
-        polymer_cols (:obj:`int`, optional): number of columns of polymers
+        cols (:obj:`int`, optional): number of columns of polymers
         polymer_margin (:obj:`int`, optional): horizontal and vertical spacing between polymers
         nt_per_track (:obj:`int`, optional): number of nucleotides per track
         track_sep (:obj:`int`, optional): vertical separation between tracks in pixels
@@ -404,6 +404,7 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
         seq_tracks = []
         monomer_seq = polymer.seq
         canonical_seq = polymer.get_canonical_seq()
+
         n_tracks = math.ceil(len(monomer_seq) / nt_per_track)
         max_nc_label_len = 0
         has_non_canonical = False
@@ -523,10 +524,10 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
     for x_link in inter_crosslinks:
         l = int(float(x_link.get_l_bond_atoms()[0].subunit))
         r = int(float(x_link.get_r_bond_atoms()[0].subunit))
-        l_polymer_row = math.floor(l / polymer_cols)
-        l_polymer_col = l % polymer_cols
-        r_polymer_row = math.floor(r / polymer_cols)
-        r_polymer_col = r % polymer_cols
+        l_polymer_row = math.floor(l / cols)
+        l_polymer_col = l % cols
+        r_polymer_row = math.floor(r / cols)
+        r_polymer_col = r % cols
 
         l = x_link.get_l_bond_atoms()[0].monomer
         r = x_link.get_r_bond_atoms()[0].monomer
@@ -559,7 +560,7 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
                 'r_track': r_track,
                 'r_pos': r_pos,
             }
-        inter_x_link_context['tooltip'] = getattr(x_link, 'type', 'Crosslink')
+        inter_x_link_context['tooltip'] = getattr(x_link, 'comments', None)
         inter_x_links_context.append(inter_x_link_context)
 
     inter_x_links_context = sorted(inter_x_links_context, key=lambda x: (
@@ -602,7 +603,7 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
         + axis_sep + tick_len + tick_label_sep + tick_label_font_size * 0.25
     legend_sep = polymer_margin
 
-    polymer_w = (width - (polymer_cols - 1) * polymer_margin) / polymer_cols
+    polymer_w = (width - (cols - 1) * polymer_margin) / cols
     max_n_tracks = math.ceil(max_polymer_len / nt_per_track)
     polymer_h = (polymer_label_font_size + polymer_label_sep) \
         + track_h * max_n_tracks + track_sep * (max_n_tracks - 1)
@@ -646,14 +647,14 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
 
         # size
         'width': width,
-        'height': polymer_h * math.ceil(len(polymers) / polymer_cols) + \
-        polymer_margin * (math.ceil(len(polymers) / polymer_cols)-1) + \
+        'height': polymer_h * math.ceil(len(polymers) / cols) + \
+        polymer_margin * (math.ceil(len(polymers) / cols)-1) + \
         (len(legend_rows) >= 1) * (\
             legend_sep + \
             len(legend_rows) * legend_font_size + \
             (len(legend_rows) - 1) * legend_label_sep),
         'h_padding': h_padding,
-        'polymer_cols': polymer_cols,
+        'cols': cols,
         'polymer_w': polymer_w,
         'polymer_h': polymer_h,
         'polymer_margin': polymer_margin,

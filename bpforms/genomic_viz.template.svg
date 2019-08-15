@@ -70,8 +70,8 @@
     </style>
 
     {% for polymer in polymers %}
-    {% set i_row = (loop.index0 / polymer_cols)|round(0, 'floor') %}
-    <g class="polymer" transform="translate({{ (loop.index0 % polymer_cols) * (polymer_w + polymer_margin) }}, {{ i_row * (polymer_h + polymer_margin) + polymer_label_font_size + polymer_label_sep }})">
+    {% set i_row = (loop.index0 / cols)|round(0, 'floor') %}
+    <g class="polymer" transform="translate({{ (loop.index0 % cols) * (polymer_w + polymer_margin) }}, {{ i_row * (polymer_h + polymer_margin) + polymer_label_font_size + polymer_label_sep }})">
         {% if polymer.label %}
         <text class="polymer_label" x="{{ h_padding + track_w / 2}}" y="-{{ polymer_label_font_size + polymer_label_sep}}">{{ polymer.label }}</text>
         {% endif %}

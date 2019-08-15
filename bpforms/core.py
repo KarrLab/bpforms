@@ -1111,7 +1111,7 @@ class Monomer(object):
         roots = self.get_root_monomers()
         root_codes = list(set(monomer_codes.get(root, default_code) for root in roots))
 
-        if len(root_codes) == 1:
+        if len(root_codes) == 1 and len(root_codes[0]) == 1:
             return root_codes[0]
         else:
             return default_code

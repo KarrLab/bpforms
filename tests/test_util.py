@@ -322,7 +322,7 @@ class UtilTestCase(unittest.TestCase):
                 mock.Mock(
                     get_l_bond_atoms=lambda: [mock.Mock(subunit='2', monomer=150)],
                     get_r_bond_atoms=lambda: [mock.Mock(subunit='1', monomer=50)],
-                    type='Disulfide',
+                    comments='Disulfide',
                 ),
             ],
             polymer_labels={
@@ -334,7 +334,7 @@ class UtilTestCase(unittest.TestCase):
             seq_features=seq_features,
             width=1200,
             nt_per_track=80,
-            polymer_cols=2)
+            cols=2)
         self.assertIsInstance(svg, str)
 
         # with open(os.path.join('.', 'test.svg'), 'w') as file:
