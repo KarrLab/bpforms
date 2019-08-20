@@ -1,5 +1,5 @@
 start: seq (attr_sep global_attr)* WS?
-seq: (WS|monomer)+
+seq: (WS|monomer)((WS? knick)? (WS|monomer))*
 ?monomer: alphabet_monomer | inline_monomer
 alphabet_monomer: CHAR | DELIMITED_CHARS
 inline_monomer: OPEN_SQ_BRACKET WS? inline_monomer_attr (attr_sep inline_monomer_attr)* WS? CLOSE_SQ_BRACKET
@@ -41,6 +41,8 @@ inline_crosslink_attr: inline_crosslink_atom | inline_crosslink_comments
 inline_crosslink_atom: inline_crosslink_atom_type field_sep INT atom_element INT atom_charge?
 inline_crosslink_atom_type: (LEFT_BOND_ATOM_FIELD_NAME | RIGHT_BOND_ATOM_FIELD_NAME | LEFT_DISPLACED_ATOM_FIELD_NAME | RIGHT_DISPLACED_ATOM_FIELD_NAME)
 inline_crosslink_comments: COMMENTS_FIELD_NAME field_sep ESCAPED_STRING
+
+knick: ":"
 
 circular: "circular"
 

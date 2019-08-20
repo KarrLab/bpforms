@@ -274,7 +274,7 @@ class UtilTestCase(unittest.TestCase):
 
     def test_gen_genomic_viz(self):
         form = protein.ProteinForm().from_str(
-            ('ACRGCRGAARGCHILCA{SEL}RC' * 30) + (
+            ('ACR:GCRGAARGCH:ILCA{SEL}RC' * 30) + (
                 ' | x-link: ['
                 '   l-bond-atom: 2S11'
                 ' | r-bond-atom: 5S11'
@@ -338,4 +338,4 @@ class UtilTestCase(unittest.TestCase):
         self.assertIsInstance(svg, str)
 
         # with open(os.path.join('.', 'test.svg'), 'w') as file:
-        #    file.write(svg)
+        #     file.write(svg)

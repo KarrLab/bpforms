@@ -92,6 +92,14 @@ def build(dirname=default_dirname):
             r-displaced-atom: 3H11
         ]''', dirname, 'crosslink-protein-sulfide-bond', show_atom_nums=False)
 
+    draw_polymer(bpforms.ProteinForm, '''
+        C:AC | x-link: [
+            l-bond-atom: 1S11 |
+            l-displaced-atom: 1H11 |
+            r-bond-atom: 3S11 |
+            r-displaced-atom: 3H11
+        ]''', dirname, 'knick-protein', show_atom_nums=False)
+
 
 def draw_monomer(Form, monomer, dirname, filename, show_atom_nums=False,
                  width=250, height=150, format='svg'):

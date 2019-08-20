@@ -2613,6 +2613,9 @@ class BondSet(set):
         if self.__class__ != other.__class__:
             return False
 
+        if len(self) != len(other):
+            return False
+
         o_bonds = set(other)
         for s_bond in self:
             match = False
@@ -2620,6 +2623,118 @@ class BondSet(set):
                 if s_bond.is_equal(o_bond):
                     match = True
                     o_bonds.remove(o_bond)
+                    break
+            if not match:
+                return False
+        return True
+
+
+class Knick(object):
+    """ Knick between adjacent monomeric forms
+
+    Attributes:
+        position (:obj:`int`): position of knick (:math:`1 \ldots L-1`) where
+            :math:`1` indicates a knick between the first and second residues,
+            :math:`2` indicates a knick between the second and third residues, etc.
+    """
+
+    def __init__(self, position=None):
+        """
+        Args:
+            position (:obj:`int`, optional): position of knick
+        """
+        self.position = position
+
+    @property
+    def position(self):
+        """ Get the position
+
+        Returns:
+            :obj:`int`: position
+        """
+        return self._position
+
+    @position.setter
+    def position(self, value):
+        """ Set the position
+
+        Args:
+            value (:obj:`int`): position
+        """
+        if value is not None:
+            if (not isinstance(value, (int, float)) or value != int(value) or value < 1):
+                raise ValueError('`position` must be a positive integer or None')
+            value = int(value)
+        self._position = value
+
+    def is_equal(self, other):
+        return self is other or (
+            self.__class__ is other.__class__ and
+            self.position == other.position)
+
+
+class KnickSet(set):
+    """ Set of knicks """
+
+    def add(self, knick):
+        """ Add a knick
+
+        Args:
+            knick (:obj:`Knick`): knick
+
+        Raises:
+            :obj:`ValueError`: if the `knick` is not an instance of `Knick`
+        """
+        if not isinstance(knick, Knick):
+            raise ValueError('`knick` must be an instance of `Knick`')
+        super(KnickSet, self).add(knick)
+
+    def update(self, knicks):
+        """ Add a set of knicks
+
+        Args:
+            knicks (iterable of :obj:`Knick`): knicks
+        """
+        for knick in knicks:
+            self.add(knick)
+
+    def symmetric_difference_update(self, other):
+        """ Remove common elements with other and add elements from other not in self
+
+        Args:
+            other (:obj:`KnickSet`): other set of knicks
+        """
+        for o in other:
+            if o in self:
+                self.remove(o)
+            else:
+                self.add(o)
+
+    def is_equal(self, other):
+        """ Check if two sets of knicks are semantically equal
+
+        Args:
+            other (:obj:`KnickSet`): other set of knicks
+
+        Returns:
+            :obj:`bool`: :obj:`True`, if the knicks sets are semantically equal
+        """
+        if self is other:
+            return True
+
+        if self.__class__ != other.__class__:
+            return False
+
+        if len(self) != len(other):
+            return False
+
+        o_knicks = set(other)
+        for s_knick in self:
+            match = False
+            for o_knick in set(o_knicks):
+                if s_knick.is_equal(o_knick):
+                    match = True
+                    o_knicks.remove(o_knick)
                     break
             if not match:
                 return False
@@ -2636,6 +2751,7 @@ class BpForm(object):
         bond (:obj:`Bond`): bonds between (backbones of) monomeric forms
         circular (:obj:`bool`): if :obj:`True`, indicates that the biopolymer is circular
         crosslinks (:obj:`BondSet`): crosslinking intrachain bonds
+        knicks (:obj:`KnickSet`): set of knicks
         features (:obj:`BpFormFeatureSet`): set of features
 
         _parser (:obj:`lark.Lark`): parser
@@ -2643,7 +2759,8 @@ class BpForm(object):
 
     DEFAULT_FASTA_CODE = '?'
 
-    def __init__(self, seq=None, alphabet=None, backbone=None, bond=None, circular=False, crosslinks=None):
+    def __init__(self, seq=None, alphabet=None, backbone=None, bond=None, circular=False,
+                 crosslinks=None, knicks=None):
         """
         Args:
             seq (:obj:`MonomerSequence`, optional): sequence of monomeric forms of the biopolymer
@@ -2652,6 +2769,7 @@ class BpForm(object):
             bond (:obj:`Bond`, optional): bonds between (backbones of) monomeric forms
             circular (:obj:`bool`, optional): if :obj:`True`, indicates that the biopolymer is circular
             crosslinks (:obj:`BondSet`, optional): crosslinking intrachain bonds
+            knicks (:obj:`KnickSet`, optional): set of knicks
         """
         if alphabet is None:
             alphabet = Alphabet()
@@ -2661,6 +2779,8 @@ class BpForm(object):
             bond = Bond()
         if crosslinks is None:
             crosslinks = BondSet()
+        if knicks is None:
+            knicks = KnickSet()
 
         self.seq = seq or MonomerSequence()
         self.alphabet = alphabet
@@ -2668,6 +2788,7 @@ class BpForm(object):
         self.bond = bond
         self.circular = circular
         self.crosslinks = crosslinks
+        self.knicks = knicks
         self.features = BpFormFeatureSet(self)
 
     @property
@@ -2799,6 +2920,26 @@ class BpForm(object):
         self._crosslinks = value
 
     @property
+    def knicks(self):
+        """ Get the knicks
+
+        Returns:
+            :obj:`KnickSet`: knicks
+        """
+        return self._knicks
+
+    @knicks.setter
+    def knicks(self, value):
+        """ Set the knicks
+
+        Args:
+            value (:obj:`list` of :obj:`KnickSet`): knicks
+        """
+        if not isinstance(value, KnickSet):
+            raise ValueError('`knicks` must be an instance of `KnickSet`')
+        self._knicks = value
+
+    @property
     def features(self):
         """ Get the features
 
@@ -2837,7 +2978,8 @@ class BpForm(object):
                                  and self.backbone.is_equal(other.backbone)
                                  and self.bond.is_equal(other.bond)
                                  and self.circular == other.circular
-                                 and self.crosslinks.is_equal(other.crosslinks))
+                                 and self.crosslinks.is_equal(other.crosslinks)
+                                 and self.knicks.is_equal(other.knicks))
 
     def diff(self, other):
         """ Determine the semantic difference between two biopolymer forms
@@ -2875,7 +3017,7 @@ class BpForm(object):
         if diff:
             return '\n'.join(diff)
 
-        # sequence, crosslinks, circularity
+        # sequence, crosslinks, knicks, circularity
         if len(self.seq) != len(other.seq):
             diff.append('Length {} != {}'.format(
                 len(self.seq), len(other.seq)))
@@ -2902,6 +3044,23 @@ class BpForm(object):
                     diff.append('Crosslink {} not in other'.format(link))
             for o_link in o_crosslinks:
                 diff.append('Crosslink {} not in self'.format(o_link))
+
+        if len(self.knicks) != len(other.knicks):
+            diff.append('Number of knicks {} != {}'.format(
+                len(self.knicks), len(other.knicks)))
+        else:
+            o_knicks = list(other.knicks)
+            for knick in self.knicks:
+                match = False
+                for o_knick in list(o_knicks):
+                    if knick.is_equal(o_knick):
+                        match = True
+                        o_knicks.remove(o_knick)
+                        break
+                if not match:
+                    diff.append('Knick {} not in other'.format(knick.position))
+            for o_knick in o_knicks:
+                diff.append('Knick {} not in self'.format(o_knick._position))
 
         if self.circular != other.circular:
             diff.append('Circularity {} != {}'.format(
@@ -3077,17 +3236,28 @@ class BpForm(object):
                                        self.seq[atom.monomer - 1].structure, atom, bonding_monomer_hydrogens,
                                        el_table, errors)
 
-        # check that monomers 1 .. L-1 can bond to right
+        # knicks
+        max_knick_pos = len(self.seq) - 1
+        knick_positions = set()
+        for knick in self.knicks:
+            if knick.position > max_knick_pos:
+                errors.append('Knick position {} must be less than or equal to {}'.format(
+                    knick.position, max_knick_pos))
+            knick_positions.add(knick.position)
+        if len(knick_positions) < len(self.knicks):
+            errors.append('Knick positions be unique')
+
+        # check that monomers 1 .. L-1 can bond to right (except at locations of knicks)
         for i_monomer, monomer in enumerate(self.seq[0:-1]):
-            if not self.can_monomer_bond_right(monomer):
+            if (i_monomer + 1) not in knick_positions and not self.can_monomer_bond_right(monomer):
                 errors.append('Monomeric form {} must be able to bond to the right'.format(i_monomer + 1))
 
         if self.circular and not self.can_monomer_bond_right(self.seq[-1]):
             errors.append('Monomeric form {} must be able to bond to the right'.format(len(self.seq)))
 
-        # check that monomers 2 .. L can bond to left
+        # check that monomers 2 .. L can bond to left (except at locations of knicks)
         for i_monomer, monomer in enumerate(self.seq[1:]):
-            if not self.can_monomer_bond_left(monomer):
+            if (i_monomer + 1) not in knick_positions and not self.can_monomer_bond_left(monomer):
                 errors.append('Monomeric form {} must be able to bond to the left'.format(i_monomer + 2))
 
         if self.circular and not self.can_monomer_bond_left(self.seq[0]):
@@ -3320,8 +3490,10 @@ class BpForm(object):
             self._bond_monomer_backbone(mol, subunit_atoms, atom_map)
 
         # bond left/right pairs of subunits
-        for left_atoms, right_atoms in zip(atoms[0:-1], atoms[1:]):
-            self._bond_subunits(mol, left_atoms, right_atoms, atom_map)
+        knick_positions = set(knick.position for knick in self.knicks)
+        for i_position, (left_atoms, right_atoms) in enumerate(zip(atoms[0:-1], atoms[1:])):
+            if (i_position + 1) not in knick_positions:
+                self._bond_subunits(mol, left_atoms, right_atoms, atom_map)
 
         # circularity
         if self.circular:
@@ -3481,12 +3653,15 @@ class BpForm(object):
             for atom in monomer.backbone_displaced_atoms:
                 formula[atom.element] -= count
 
-        for monomer in self.seq[0:-1]:
-            for atom in monomer.r_displaced_atoms:
-                formula[atom.element] -= 1
-        for monomer in self.seq[1:]:
-            for atom in monomer.l_displaced_atoms:
-                formula[atom.element] -= 1
+        knick_positions = set(knick.position for knick in self.knicks)
+        for i_monomer, monomer in enumerate(self.seq[0:-1]):
+            if (i_monomer + 1) not in knick_positions:
+                for atom in monomer.r_displaced_atoms:
+                    formula[atom.element] -= 1
+        for i_monomer, monomer in enumerate(self.seq[1:]):
+            if (i_monomer + 1) not in knick_positions:
+                for atom in monomer.l_displaced_atoms:
+                    formula[atom.element] -= 1
         if self.circular:
             for atom in self.seq[-1].r_displaced_atoms:
                 formula[atom.element] -= 1
@@ -3500,7 +3675,8 @@ class BpForm(object):
 
         return formula \
             + backbone_formula * n_backbone \
-            + self.bond.get_formula(none_position=False) * (len(self.seq) - (1 - self.circular))
+            + self.bond.get_formula(none_position=False) \
+            * (len(self.seq) - (1 - self.circular) - len(self.knicks))
 
     def get_mol_wt(self):
         """ Get the molecular weight
@@ -3529,12 +3705,15 @@ class BpForm(object):
             for atom in monomer.backbone_displaced_atoms:
                 charge -= atom.charge * count
 
-        for monomer in self.seq[0:-1]:
-            for atom in monomer.r_displaced_atoms:
-                charge -= atom.charge
-        for monomer in self.seq[1:]:
-            for atom in monomer.l_displaced_atoms:
-                charge -= atom.charge
+        knick_positions = set(knick.position for knick in self.knicks)
+        for i_monomer, monomer in enumerate(self.seq[0:-1]):
+            if (i_monomer + 1) not in knick_positions:
+                for atom in monomer.r_displaced_atoms:
+                    charge -= atom.charge
+        for i_monomer, monomer in enumerate(self.seq[1:]):
+            if (i_monomer + 1) not in knick_positions:
+                for atom in monomer.l_displaced_atoms:
+                    charge -= atom.charge
         if self.circular:
             for atom in self.seq[-1].r_displaced_atoms:
                 charge -= atom.charge
@@ -3548,7 +3727,8 @@ class BpForm(object):
 
         return charge \
             + backbone_charge * n_backbone \
-            + self.bond.get_charge(none_position=False) * (len(self.seq) - (1 - self.circular))
+            + self.bond.get_charge(none_position=False) \
+            * (len(self.seq) - (1 - self.circular) - len(self.knicks))
 
     def __str__(self):
         """ Get a string representation of the biopolymer form
@@ -3557,8 +3737,9 @@ class BpForm(object):
             :obj:`str`: string representation of the biopolymer form
         """
         alphabet_monomers = {monomer: code for code, monomer in self.alphabet.monomers.items()}
+        knick_positions = set(knick.position for knick in self.knicks)
         val = ''
-        for monomer in self.seq:
+        for i_monomer, monomer in enumerate(self.seq):
             code = alphabet_monomers.get(monomer, None)
             if code:
                 if len(code) == 1:
@@ -3567,6 +3748,8 @@ class BpForm(object):
                     val += '{' + code + '}'
             else:
                 val += monomer.__str__(alphabet=self.alphabet)
+            if (i_monomer + 1) in knick_positions:
+                val += ':'
 
         # circular
         if self.circular:
@@ -3592,41 +3775,32 @@ class BpForm(object):
             :obj:`BpForm`: biopolymer form
         """
         class ParseTreeTransformer(lark.Transformer):
-            def __init__(self, bp_form):
+            def __init__(self, form):
                 super(ParseTreeTransformer, self).__init__()
-                self.bp_form = bp_form
-                bp_form.seq.clear()
-                bp_form.crosslinks.clear()
-                bp_form.circular = False
+                self.form = form
+                form.seq.clear()
+                form.crosslinks.clear()
+                form.knicks.clear()
+                form.circular = False
 
             @lark.v_args(inline=True)
             def start(self, *args):
-                for arg_type, arg_val in args[0::2]:
-                    if arg_type in ['seq', 'circular']:
-                        setattr(self.bp_form, arg_type, arg_val)
-                    else:
-                        set_val = getattr(self.bp_form, arg_type)
-                        for other in set_val:
-                            if arg_val.is_equal(other):
-                                str_arg_val = str(arg_val)
-                                raise ValueError(f'`{arg_type}` cannot contain {str_arg_val} multiple times')
-                        set_val.add(arg_val)
-                return self.bp_form
+                return self.form
 
             @lark.v_args(inline=True)
-            def seq(self, *seq):
-                monomer_seq = []
-                for monomer in seq:
-                    if isinstance(monomer, Monomer):
-                        monomer_seq.append(monomer)
-                return ('seq', monomer_seq)
+            def seq(self, *args):
+                for arg in args:
+                    if isinstance(arg, Monomer):
+                        self.form.seq.append(arg)
+                    elif isinstance(arg, lark.tree.Tree) and arg.data == 'knick':
+                        self.form.knicks.add(Knick(len(self.form.seq)))
 
             @lark.v_args(inline=True)
             def alphabet_monomer(self, code):
                 code = code.value
                 if code[0] == '{' and code[-1] == '}':
                     code = code[1:-1]
-                monomer = self.bp_form.alphabet.monomers.get(code, None)
+                monomer = self.form.alphabet.monomers.get(code, None)
                 if monomer is None:
                     raise ValueError('"{}" not in alphabet'.format(code))
                 return monomer
@@ -3749,7 +3923,7 @@ class BpForm(object):
                 monomers = []
                 for arg in args:
                     if arg.type in ['CHAR', 'CHARS']:
-                        monomer = self.bp_form.alphabet.monomers.get(arg.value, None)
+                        monomer = self.form.alphabet.monomers.get(arg.value, None)
                         if monomer is None:
                             raise ValueError('"{}" not in alphabet'.format(arg.value))
                         monomers.append(monomer)
@@ -3758,7 +3932,7 @@ class BpForm(object):
             @lark.v_args(inline=True)
             def base_monomer(self, *args):
                 code = args[-2].value
-                monomer = self.bp_form.alphabet.monomers.get(code, None)
+                monomer = self.form.alphabet.monomers.get(code, None)
                 if monomer is None:
                     raise ValueError('"{}" not in alphabet'.format(code))
                 return ('base_monomers', monomer)
@@ -3771,7 +3945,12 @@ class BpForm(object):
             def crosslink(self, *args):
                 for arg in args:
                     if isinstance(arg, BondBase):
-                        return ('crosslinks', arg)
+                        for crosslink in self.form.crosslinks:
+                            if arg.is_equal(crosslink):
+                                raise ValueError('Crosslink {} cannot be repeated'.format(
+                                    args))
+                        self.form.crosslinks.add(arg)
+                        return
 
             @lark.v_args(inline=True)
             def onto_crosslink(self, *args):
@@ -3837,7 +4016,7 @@ class BpForm(object):
 
             @lark.v_args(inline=True)
             def circular(self, *args):
-                return ('circular', True)
+                self.form.circular = True
 
         tree = self._parser.parse(string)
         parse_tree_transformer = ParseTreeTransformer(self)

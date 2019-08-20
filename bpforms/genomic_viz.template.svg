@@ -43,6 +43,11 @@
             stroke-width: {{ x_link_stroke_width }}px;
             fill: none;
         }
+        .knicks {
+            stroke: {{ knick_color}};
+            stroke-width: {{ knick_stroke_width }}px;
+            fill: none;
+        }
 
         .polymer_label {
             font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
@@ -118,7 +123,7 @@
 
         <!-- intra-stand crosslinks -->
         <g class="intra_x_links">
-            {% for x_link in polymer.x_links %}              
+            {% for x_link in polymer.x_links %}
             <path
                 {% if x_link.tooltip %}
                 onmousemove="showTooltip(evt, '{{ x_link.tooltip|escape }}');"
@@ -144,6 +149,22 @@
                {% endif %}
                />
              {% endfor %}
+        </g>
+
+        <!-- knicks crosslinks -->
+        <g class="knicks">
+            {% for knick in polymer.knicks %}
+            <line
+                {% if knick.tooltip %}
+                onmousemove="showTooltip(evt, '{{ knick.tooltip|escape }}');"
+                onmouseout="hideTooltip();"
+                {% endif %}
+                x1="{{ h_padding + (knick.pos - 1 + 0.5) * px_per_nt }}" 
+                x2="{{ h_padding + (knick.pos - 1 + 0.5) * px_per_nt }}" 
+                y1="{{ nc_label_h + nc_label_sep + (track_h + track_sep) * knick.track }}" 
+                y2="{{ nc_label_h + nc_label_sep + seq_font_size + (track_h + track_sep) * knick.track }}"
+                />
+            {% endfor %}
         </g>
     </g>
     {% endfor %}

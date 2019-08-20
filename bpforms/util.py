@@ -330,9 +330,11 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
                     polymer_label_font_size=15, seq_font_size=13, tick_label_font_size=10,
                     legend_font_size=13, tooltip_font_size=13,
                     x_link_stroke_width=2, x_link_radius=4,
+                    knick_stroke_width=2,
                     axis_stroke_width=0.5,
                     seq_color='#000000', non_canonical_color='#e74624',
                     intra_x_link_color='#2daae1', inter_x_link_color='#90e227',
+                    knick_color='#dabe2e',
                     axis_color='#000000', polymer_label_color='#000000'):
     """ Get a genomic visualization of the :obj:`BpForm`
 
@@ -360,11 +362,13 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
         tooltip_font_size (:obj:`float`, optional): font size of tooltip
         x_link_stroke_width (:obj:`float`, optional): stroke width of crosslinks
         x_link_radius (:obj:`float`, optional): radius of crosslinks line
+        knick_stroke_width (:obj:`float`, optional): stroke width of knicks
         axis_stroke_width (:obj:`float`, optional): stroke width of axis
         seq_color (:obj:`str`, optional): color of canonical monomers
         non_canonical_color (:obj:`str`, optional): color of non-canonical monomers
         intra_x_link_color (:obj:`str`, optional): colors of intrastrand crosslinks
         inter_x_link_color (:obj:`str`, optional): colors of interstrand crosslinks
+        knick_color (:obj:`str`, optional): colors of knicks
         axis_color (:obj:`str`, optional): color of axis
         polymer_label_color (:obj:`str`, optional): color of polymer labels
 
@@ -386,6 +390,8 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
     if not polymer_labels:
         polymer_label_font_size = 0
     polymer_label_sep = 0.5 * polymer_label_font_size
+
+    has_knicks = False
 
     polymers_context = []
     for i_polymer, polymer in enumerate(polymers):
@@ -500,10 +506,21 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
                 x_link['tooltip'] = None
             x_links.append(x_link)
 
+        if polymer.knicks:
+            has_knicks = True
+        knicks = []
+        for knick in polymer.knicks:
+            knicks.append({
+                'pos': (knick.position - 1) % nt_per_track + 1,
+                'track': math.floor((knick.position - 1) / nt_per_track),
+                'tooltip': None,
+            })
+
         polymers_context.append({
             'label': polymer_labels.get(i_polymer, None),
             'seq_tracks': seq_tracks,
             'x_links': x_links,
+            'knicks': knicks,
         })
 
     inter_x_links_context = []
@@ -671,6 +688,13 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
             'symbol': None,
             'stroke_width': x_link_stroke_width,
         })
+    if has_knicks:
+        legend_rows.append({
+            'label': 'Knick',
+            'color': knick_color,
+            'symbol': None,
+            'stroke_width': knick_stroke_width,
+        })
 
     context = {
         # BpForm
@@ -723,6 +747,7 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
 
         # stroke widths
         'x_link_stroke_width': x_link_stroke_width,
+        'knick_stroke_width': knick_stroke_width,
         'axis_stroke_width': axis_stroke_width,
 
         # colors
@@ -730,6 +755,7 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
         'non_canonical_color': non_canonical_color,
         'intra_x_link_color': intra_x_link_color,
         'inter_x_link_color': inter_x_link_color,
+        'knick_color': knick_color,
         'axis_color': axis_color,
         'polymer_label_color': polymer_label_color,
     }

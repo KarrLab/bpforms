@@ -25,7 +25,7 @@
 
       <div class="grid-x grid-padding-x blue">
         <div class="large-7 cell">
-          <p><i>BpForms</i> is a toolkit for unambiguously describing the molecular structure (atoms and bonds) of DNA, RNA, and proteins, including non-canonical monomeric forms (subunits which compose polymers), circular topologies, and crosslinks. By concretely describing the molecular structure of biopolymers, <i>BpForms</i> aims to help epigenomics, transcriptomics, proteomics, systems biology, and synthetic biology researchers share and integrate information about DNA modification, post-transcriptional modification, post-translational modification, expanded genetic codes, and synthetic parts. In particular, <i>BpForms</i> was developed to help researchers collaboratively develop whole-cell computational models <a href="https://www.wholecell.org"><i class="fi-link"></i></a>.</p>
+          <p><i>BpForms</i> is a toolkit for unambiguously describing the molecular structure (atoms and bonds) of DNA, RNA, and proteins, including non-canonical monomeric forms (subunits which compose polymers), crosslinks, knicks, and circular topologies. By concretely describing the molecular structure of biopolymers, <i>BpForms</i> aims to help epigenomics, transcriptomics, proteomics, systems biology, and synthetic biology researchers share and integrate information about DNA modification, post-transcriptional modification, post-translational modification, expanded genetic codes, and synthetic parts. In particular, <i>BpForms</i> was developed to help researchers collaboratively develop whole-cell computational models <a href="https://www.wholecell.org"><i class="fi-link"></i></a>.</p>
 
           <p><i>BpForms</i> includes a grammar for describing biopolymer forms and three consensus alphabets of non-canonical monomeric forms of DNA nucleotide monophosphates, RNA nucleotide monophosphates, and protein amino acids. <i>BpForms</i> also includes four software tools for verifying descriptions of biopolymer forms and calculating properties such as their molecular structure, formula, molecular weight, and charge: this website, a JSON REST API <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>, a command line interface <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>, and a Python API <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>. <i>BpForms</i> is available open-source <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a> under the MIT license.</p>
           <p><i>BpForms</i> can be combined with <i>BcForms</i> to concretely describe the primary structure of complexes.</p>
@@ -49,6 +49,7 @@
                         </ul>
                       </li>
                       <li><a href="#crosslinks">Crosslinks</a></li>
+                      <li><a href="#knicks">Knicks</a></li>
                       <li><a href="#topology">Circularity</a></li>
                     </ul>
                   </li>
@@ -108,7 +109,7 @@
                 </select>
             </label>
 
-            <label>Enter a sequence of monomeric forms and, optionally, a set of crosslinks. See the documentation below for more information about the syntax.
+            <label>Enter a sequence of monomeric forms and, optionally, sets of crosslinks and knicks. See the documentation below for more information about the syntax.
                 <textarea
                     id="monomer_seq_in"
                     placeholder='AC{m2A}CC{dI}G'></textarea>
@@ -178,6 +179,7 @@
             <li><i>BpForms</i> can represent a wider range of monomeric forms, including monomeric forms that are not described in pre-defined alphabets. See the Alphabets section below for more information.</li>
             <li><i>BpForms</i> can capture left and right caps such as 5' caps.</li>
             <li><i>BpForms</i> can capture intrastrand crosslinks (additional bonds between non-adjacent monomeric forms).</li>
+            <li><i>BpForms</i> can capture knicks (absence of a bond between adjacent monomeric forms).</li>
             <li><i>BpForms</i> can capture linear and circular topologies of polymers.</li>
             <li><i>BpForms</i> has concrete semantics for generating molecular structures from its compressed representation of sequences of monomeric forms.</li>
           </ul>
@@ -185,7 +187,8 @@
           <p class="before_list"><i>BpForms</i> descriptions of biopolymers consists of three parts separated by pipes ("|") (e.g., <tt>A{pSer}Y | circular | x-link: [...]</tt>):</p>
           <ul>
             <li>A sequence of strings that indicate monomeric forms of an alphabet bonded together (e.g., <tt>A{pSer}Y</tt>. As described below, <i>BpForms</i> includes six alphabets of hundreds of monomeric forms of DNA, RNA, and proteins, and users can define additional alphabets.</li>
-            <li>An optional set of crosslinks which describe bonds between non-adjacent monomeric forms (e.g., <tt>x-link: [...]</tt>). See below for additional information.</li>
+            <li>An optional set of crosslinks which describe bonds between non-adjacent monomeric forms (e.g., <tt>x-link: [...]</tt>). See below <a href="#crosslinks"><i class="fi-link"></i></a> for additional information.</li>
+            <li>An optional set of knicks which describe adjacent monomeric forms that are not covalently bonded (e.g., <tt>A:C</tt>). See below <a href="#knicks"><i class="fi-link"></i></a> for additional information.</li>
             <li>An optional attribute for indicating the circularity of the polymer (e.g., <tt>circular</tt>). See below for additional information.</li>
           </ul>
 
@@ -519,6 +522,34 @@
             </div>
           </div>
         </div>
+
+      <div class="large-5 cell grammar">
+          <a name="knicks"></a>
+          <h3>Knicks between adjacent monomers</h3>
+          <p>The <tt>:</tt> notation can be used to indicate a knick between adjacent monomeric forms.</p>
+      </div>
+      <div class="large-7 cell example">
+          <h3>Example</h3>
+          <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+              <p>The example below illustrates how to describe a tripeptide with knick between the first and second residues and a disulfide bond between the first and third residues. Such a peptide could be generated by knicking the form of the peptide that doesn't contain the knick. The blue line indicates the disulfide bond (crosslink). The green lines indicate the bonds between the successive amino acids. The black labels indicate the positions of monomeric forms within the sequence.</p>
+            </div>
+            <div class="large-8 cell syntax">
+              <p class="before_list">Ontology-defined crosslink</p>
+              <pre>C:AC | x-link: [type: "disulfide"
+      l: 1
+    | r: 3
+]</pre>
+            </div>
+            <div class="large-4 cell image">
+              <a data-fancybox="gallery"
+                href="img/example/knick-protein.svg"
+                data-width="600">
+                <img src="img/example/knick-protein.svg"/>
+              </a>
+            </div>
+          </div>
+      </div>
 
       <div class="large-5 cell grammar">
           <a name="topology"></a>
