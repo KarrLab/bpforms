@@ -71,6 +71,7 @@ bpforms/web/img/crosslink/
 examples/*.fasta
 examples/*.obo
 examples/*.owl
+examples/*.pdf
 examples/*.pkl
 examples/*.png
 examples/*.sqlite

@@ -53,7 +53,7 @@ def run():
     modomics_short_code_to_monomer['?'] = bpforms.rna_alphabet.monomers.get('5C')
     modomics_short_code_to_monomer['λ'] = bpforms.rna_alphabet.monomers.get('04C')
     modomics_short_code_to_monomer['"'] = bpforms.rna_alphabet.monomers.get('1A')
-    modomics_short_code_to_monomer["'"] = bpforms.rna_alphabet.monomers.get('3C')    
+    modomics_short_code_to_monomer["'"] = bpforms.rna_alphabet.monomers.get('3C')
     modomics_short_code_to_monomer[','] = bpforms.rna_alphabet.monomers.get('522U')
     modomics_short_code_to_monomer['\\'] = bpforms.rna_alphabet.monomers.get('05U')
     modomics_short_code_to_monomer['ℑ'] = bpforms.rna_alphabet.monomers.get('00G')
@@ -315,18 +315,19 @@ def plot_trna_code_freq(monomer_codes, trna_code_freq):
     fig, axes = pyplot.subplots(nrows=1, ncols=2, gridspec_kw={'width_ratios': [1, 16]})
     fig.set_size_inches(9.3, 1.5)
     plot_codes(trna_canonical_code_freq, monomer_codes,
-               'Frequency of modifications',
-               axes[0], ignore_canonical=False)
+               axes[0], ignore_canonical=False, title='Frequency of modifications')
     plot_codes(trna_code_freq, monomer_codes,
-               'Frequency of modified monomeric forms',
-               axes[1], ignore_canonical=True)
+               axes[1], ignore_canonical=True, title='Frequency of modified monomeric forms')
     fig.savefig(os.path.join('bpforms', 'web', 'img', 'example', 'modomics.trna.code-freq.svg'),
                 transparent=True,
                 bbox_inches=matplotlib.transforms.Bbox([[0.4, -0.1], [8.35, 1.5]]))
     pyplot.close(fig)
 
 
-def plot_codes(code_freq, monomer_codes, title, axis, ignore_canonical=False):
+def plot_codes(code_freq, monomer_codes, axis, ignore_canonical=False, use_rel=True,
+               title=None, x_axis_label=None, y_axis_label='Frequency (%)',
+               axis_font_size=10, tick_font_size=6, font_family='Raleway',
+               x_label_pad=None):
     monomer_ids = {}
     for code, monomer in bpforms.rna_alphabet.monomers.items():
         monomer_ids[monomer] = code
@@ -342,20 +343,43 @@ def plot_codes(code_freq, monomer_codes, title, axis, ignore_canonical=False):
 
     y_pos = numpy.arange(len(id_freqs))
     freq = numpy.array([id_freq[2] for id_freq in id_freqs])
-    freq = freq / numpy.sum(freq) * 100.
+    if use_rel:
+        freq = freq / numpy.sum(freq) * 100.
     x_tick_labels = {id: y_pos for y_pos, (_, id, _) in enumerate(id_freqs)}
 
-    axis.bar(y_pos, freq, align='center', alpha=0.5)
+    bars = axis.bar(y_pos, freq, align='center', alpha=1.0, edgecolor="none")
+
     axis.set_xticks(y_pos)
-    axis.set_xticklabels(x_tick_labels, rotation=270, fontsize=6, fontfamily='Raleway')
-    axis.set_ylabel('Frequency (%)', fontdict={
-        'fontsize': 10,
+    axis.set_xticklabels(x_tick_labels, rotation=270, fontsize=tick_font_size, fontfamily=font_family)
+    axis.tick_params(axis='x', pad=2)
+    if x_axis_label:
+        axis.set_xlabel(x_axis_label, fontdict={
+            'fontsize': axis_font_size,
+            'fontweight': 'regular',
+            'fontfamily': 'Raleway',
+        }, labelpad=x_label_pad)
+
+    if use_rel:
+        y_tick_labels = (str(int(tick)) for tick in axis.get_yticks())
+    else:
+        y_tick_labels = [str(int(tick * 1e-5)) for tick in axis.get_yticks()]
+        y_tick_labels[0] = '0'
+    axis.set_yticklabels(y_tick_labels, fontsize=tick_font_size, fontfamily=font_family)
+    axis.tick_params(axis='y', pad=2)
+    axis.set_ylabel(y_axis_label, fontdict={
+        'fontsize': axis_font_size,
         'fontweight': 'regular',
         'fontfamily': 'Raleway',
     })
+
     axis.set_title(title, fontdict={
-        'fontsize': 10,
+        'fontsize': axis_font_size,
         'fontweight': 'regular',
         'fontfamily': 'Raleway',
     })
     axis.set_xlim((-0.75, len(id_freqs) - 0.25))
+
+    axis.spines['right'].set_visible(False)
+    axis.spines['top'].set_visible(False)
+
+    return axis, bars
