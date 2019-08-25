@@ -18,6 +18,7 @@ import importlib
 import jinja2
 import math
 import openbabel
+import os
 import pkg_resources
 import shutil
 
@@ -761,3 +762,138 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
     }
 
     return template.render(**context)
+
+
+def export_alphabets_to_obo(alphabets=None, max_monomers=None, filename=None):
+    """ Exports alphabets to OBO format
+
+    Args:
+        alphabets (:obj:`list` of :obj:`core.Alphabet`, optional): alphabets to export
+        max_monomers (:obj:`float`, optional): maximum number of monomers to export
+        filename (:obj:`str`, optional): path to export alphabets
+    """
+    import pronto
+
+    class Term(pronto.Term):
+        @property
+        @pronto.utils.output_str
+        def obo(self):
+            result = super(Term, self).obo
+            for key, val in self.other.items():
+                result += '\n{}: {}'.format(key, val)
+            return result
+
+    if alphabets is None:
+        alphabets = [dna.dna_alphabet, rna.rna_alphabet, protein.protein_alphabet]
+    if filename is None:
+        filename = pkg_resources.resource_filename('bpforms',
+                                                   os.path.join('alphabet', 'onto.obo'))
+
+    # create ontology
+    onto = pronto.Ontology()
+
+    onto.meta['synonymtypedef'] = [
+        'structure "SMILES-encoded structure" EXACT',
+        'backbone_bond_atoms "Backbone bond atoms" EXACT',
+        'backbone_displaced_atoms "Backbone displaced atoms" EXACT',
+        'l_bond_atoms "Left bond atoms" EXACT',
+        'l_displaced_atoms "Left displaced atoms" EXACT',
+        'r_bond_atoms "Right bond atoms" EXACT',
+        'r_displaced_atoms "Right displaced atoms" EXACT',
+        'delta_mass "Delta mass" EXACT',
+        'delta_charge "Delta charge" EXACT',
+    ]
+
+    derives_from = pronto.Relationship('derives_from', direction='bottomup')
+    onto.typedefs = [derives_from]
+
+    # add terms to ontology
+    alphabet_type_term = Term(
+        id='BpForms:alphabet',
+        name='alphabet')
+    onto.include(alphabet_type_term)
+
+    monomer_type_term = Term(
+        id='BpForms:monomer',
+        name='monomeric form',
+        synonyms=[
+            pronto.Synonym('residue', 'BROAD'),
+            pronto.Synonym('monomer', 'BROAD'),
+        ])
+    onto.include(monomer_type_term)
+
+    for alphabet in alphabets:
+        alphabet_term = Term(
+            id='BpForms:' + alphabet.id,
+            name=alphabet.name,
+            desc=alphabet.description,
+            relations={
+                pronto.Relationship('is_a'): [alphabet_type_term.id],
+            })
+        onto.include(alphabet_term)
+
+        for code, monomer in list(alphabet.monomers.items())[0:max_monomers]:
+            synonyms = []
+            for syn in monomer.synonyms:
+                synonyms.append(pronto.Synonym(syn, 'BROAD'))
+            for identifier in monomer.identifiers:
+                synonyms.append(pronto.Synonym(
+                    '{}: {}'.format(identifier.ns, identifier.id),
+                    'EXACT'))
+
+            relations = {
+                pronto.Relationship('is_a'): [monomer_type_term.id],
+                pronto.Relationship('part_of'): [alphabet_term.id],
+            }
+
+            other = {'structure': monomer.export('smiles')}
+            for atom_type in ['backbone_bond_atoms', 'backbone_displaced_atoms',
+                              'l_bond_atoms', 'l_displaced_atoms',
+                              'r_bond_atoms', 'r_displaced_atoms']:
+                atoms = getattr(monomer, atom_type)
+                if atoms:
+                    other[atom_type] = ', '.join(_atom_to_str(atom) for atom in atoms)
+            if monomer.delta_mass:
+                other['delta_mass'] = monomer.delta_mass
+            if monomer.delta_charge:
+                other['delta_charge'] = monomer.delta_charge
+
+            term = Term(
+                id='BpForms:{}:{}'.format(alphabet.id, code),
+                name=monomer.name or '',
+                desc=monomer.comments or '',
+                relations=relations,
+                other=other,
+                synonyms=synonyms,
+            )
+            onto.include(term)
+
+    for alphabet in alphabets:
+        monomer_codes = {monomer: code for code, monomer in alphabet.monomers.items()}
+        for code, monomer in list(alphabet.monomers.items())[0:max_monomers]:
+            monomer_term = onto['BpForms:{}:{}'.format(alphabet.id, code)]
+            for base_monomer in monomer.base_monomers:
+                base_monomer_term = onto.get('BpForms:{}:{}'.format(
+                    alphabet.id, monomer_codes[base_monomer]), None)
+                if base_monomer_term is not None:
+                    monomer_term.relations[derives_from] = [base_monomer_term]
+
+    # export ontology
+    with open(filename, 'w') as file:
+        file.write(onto.obo)
+
+
+def _atom_to_str(atom):
+    """ Get the string representation of an atom in a monomeric form in an
+    alphabet
+
+    Args:
+        atom (:obj:`core.Atom`): atom
+
+    Returns:
+        :obj:`str`: string representation
+    """
+    if atom.charge:
+        return '{0}{1}{2:+d}'.format(atom.element, atom.position, atom.charge)
+    else:
+        return '{0}{1}'.format(atom.element, atom.position)

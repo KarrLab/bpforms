@@ -62,6 +62,7 @@ bpforms/alphabet/resid/
 bpforms/alphabet/protein.sqlite
 bpforms/alphabet/protein.report.txt
 bpforms/alphabet/pdb/
+bpforms/alphabet/onto.obo
 bpforms/web/data/
 bpforms/web/img/alphabet/
 bpforms/web/img/example/

@@ -339,3 +339,14 @@ class UtilTestCase(unittest.TestCase):
 
         # with open(os.path.join('.', 'test.svg'), 'w') as file:
         #     file.write(svg)
+
+    def test_export_alphabets_to_obo(self):
+        filename = os.path.join(self.tempdir, 'test.obo')
+        util.export_alphabets_to_obo(
+            alphabets=[dna.dna_alphabet],
+            max_monomers=10,
+            filename=filename,
+        )
+        self.assertTrue(os.path.isfile(filename))
+
+        # util.export_alphabets_to_obo()
