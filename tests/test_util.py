@@ -14,6 +14,7 @@ from bpforms import util
 from wc_utils.util.chem import EmpiricalFormula
 import mock
 import os
+import pronto
 import requests
 import shutil
 import tempfile
@@ -340,13 +341,16 @@ class UtilTestCase(unittest.TestCase):
         # with open(os.path.join('.', 'test.svg'), 'w') as file:
         #     file.write(svg)
 
-    def test_export_alphabets_to_obo(self):
+    def test_export_ontos_to_obo(self):
         filename = os.path.join(self.tempdir, 'test.obo')
-        util.export_alphabets_to_obo(
+        util.export_ontos_to_obo(
             alphabets=[dna.dna_alphabet],
-            max_monomers=10,
             filename=filename,
+            _max_monomers=10,
         )
         self.assertTrue(os.path.isfile(filename))
+
+        # check that pronto can parse ontology
+        pronto.Ontology(filename)
 
         # util.export_alphabets_to_obo()

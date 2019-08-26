@@ -764,13 +764,13 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
     return template.render(**context)
 
 
-def export_alphabets_to_obo(alphabets=None, max_monomers=None, filename=None):
-    """ Exports alphabets to OBO format
+def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None,):
+    """ Exports alphabets of residues and ontology of crosslinks to OBO format
 
     Args:
-        alphabets (:obj:`list` of :obj:`core.Alphabet`, optional): alphabets to export
-        max_monomers (:obj:`float`, optional): maximum number of monomers to export
+        alphabets (:obj:`list` of :obj:`core.Alphabet`, optional): alphabets to export        
         filename (:obj:`str`, optional): path to export alphabets
+        _max_monomers (:obj:`float`, optional): maximum number of monomers to export
     """
     import pronto
 
@@ -780,7 +780,8 @@ def export_alphabets_to_obo(alphabets=None, max_monomers=None, filename=None):
         def obo(self):
             result = super(Term, self).obo
             for key, val in self.other.items():
-                result += '\n{}: {}'.format(key, val)
+                for v in val:
+                    result += '\n{}: {}'.format(key, v)
             return result
 
     if alphabets is None:
@@ -832,7 +833,7 @@ def export_alphabets_to_obo(alphabets=None, max_monomers=None, filename=None):
             })
         onto.include(alphabet_term)
 
-        for code, monomer in list(alphabet.monomers.items())[0:max_monomers]:
+        for code, monomer in list(alphabet.monomers.items())[0:_max_monomers]:
             synonyms = []
             for syn in monomer.synonyms:
                 synonyms.append(pronto.Synonym(syn, 'BROAD'))
@@ -846,17 +847,17 @@ def export_alphabets_to_obo(alphabets=None, max_monomers=None, filename=None):
                 pronto.Relationship('part_of'): [alphabet_term.id],
             }
 
-            other = {'structure': monomer.export('smiles')}
+            other = {'structure': [monomer.export('smiles')]}
             for atom_type in ['backbone_bond_atoms', 'backbone_displaced_atoms',
                               'l_bond_atoms', 'l_displaced_atoms',
                               'r_bond_atoms', 'r_displaced_atoms']:
                 atoms = getattr(monomer, atom_type)
                 if atoms:
-                    other[atom_type] = ', '.join(_atom_to_str(atom) for atom in atoms)
+                    other[atom_type] = [_atom_to_str(atom) for atom in atoms]
             if monomer.delta_mass:
-                other['delta_mass'] = monomer.delta_mass
+                other['delta_mass'] = [monomer.delta_mass]
             if monomer.delta_charge:
-                other['delta_charge'] = monomer.delta_charge
+                other['delta_charge'] = [monomer.delta_charge]
 
             term = Term(
                 id='BpForms:{}:{}'.format(alphabet.id, code),
@@ -870,7 +871,7 @@ def export_alphabets_to_obo(alphabets=None, max_monomers=None, filename=None):
 
     for alphabet in alphabets:
         monomer_codes = {monomer: code for code, monomer in alphabet.monomers.items()}
-        for code, monomer in list(alphabet.monomers.items())[0:max_monomers]:
+        for code, monomer in list(alphabet.monomers.items())[0:_max_monomers]:
             monomer_term = onto['BpForms:{}:{}'.format(alphabet.id, code)]
             for base_monomer in monomer.base_monomers:
                 base_monomer_term = onto.get('BpForms:{}:{}'.format(
