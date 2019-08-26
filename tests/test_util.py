@@ -347,10 +347,9 @@ class UtilTestCase(unittest.TestCase):
             alphabets=[dna.dna_alphabet],
             filename=filename,
             _max_monomers=10,
+            _max_xlinks=10,
         )
         self.assertTrue(os.path.isfile(filename))
 
         # check that pronto can parse ontology
         pronto.Ontology(filename)
-
-        # util.export_alphabets_to_obo()

@@ -764,14 +764,16 @@ def gen_genomic_viz(polymers, inter_crosslinks=None, polymer_labels=None, seq_fe
     return template.render(**context)
 
 
-def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None,):
+def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None, _max_xlinks=None):
     """ Exports alphabets of residues and ontology of crosslinks to OBO format
 
     Args:
         alphabets (:obj:`list` of :obj:`core.Alphabet`, optional): alphabets to export        
         filename (:obj:`str`, optional): path to export alphabets
-        _max_monomers (:obj:`float`, optional): maximum number of monomers to export
+        _max_monomers (:obj:`int`, optional): maximum number of monomers to export
+        _max_xlinks (:obj:`int`, optional): maximum number of crosslinks to export
     """
+    from .xlink.core import crosslinks_onto
     import pronto
 
     class Term(pronto.Term):
@@ -805,10 +807,12 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None,):
         'delta_charge "Delta charge" EXACT',
     ]
 
-    derives_from = pronto.Relationship('derives_from', direction='bottomup')
-    onto.typedefs = [derives_from]
+    derives_from_relation = pronto.Relationship('derives_from', direction='bottomup')
+    l_monomer_relation = pronto.Relationship('l_monomer', direction='bottomup')
+    r_monomer_relation = pronto.Relationship('r_monomer', direction='bottomup')
+    onto.typedefs = [derives_from_relation, l_monomer_relation, r_monomer_relation]
 
-    # add terms to ontology
+    # add terms for monomers to ontology
     alphabet_type_term = Term(
         id='BpForms:alphabet',
         name='alphabet')
@@ -823,6 +827,12 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None,):
         ])
     onto.include(monomer_type_term)
 
+    xlink_type_term = Term(
+        id='BpForms:crosslink',
+        name='crosslink')
+    onto.include(xlink_type_term)
+
+    monomer_to_term = {}
     for alphabet in alphabets:
         alphabet_term = Term(
             id='BpForms:' + alphabet.id,
@@ -869,6 +879,8 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None,):
             )
             onto.include(term)
 
+            monomer_to_term[monomer] = term
+
     for alphabet in alphabets:
         monomer_codes = {monomer: code for code, monomer in alphabet.monomers.items()}
         for code, monomer in list(alphabet.monomers.items())[0:_max_monomers]:
@@ -877,7 +889,34 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None,):
                 base_monomer_term = onto.get('BpForms:{}:{}'.format(
                     alphabet.id, monomer_codes[base_monomer]), None)
                 if base_monomer_term is not None:
-                    monomer_term.relations[derives_from] = [base_monomer_term]
+                    monomer_term.relations[derives_from_relation] = [base_monomer_term]
+
+    # add terms for crosslinks to ontology
+    for xlink in list(crosslinks_onto.values())[0:_max_xlinks]:
+        relations = {
+            pronto.Relationship('is_a'): [xlink_type_term.id],
+        }
+
+        l_monomer_term = monomer_to_term.get(xlink.l_monomer, None)
+        r_monomer_term = monomer_to_term.get(xlink.r_monomer, None)
+        if l_monomer_term:
+            relations[l_monomer_relation] = [l_monomer_term]
+        if r_monomer_term:
+            relations[r_monomer_relation] = [r_monomer_term]
+
+        other = {}
+        for atom_type in ['l_bond_atoms', 'r_bond_atoms', 'l_displaced_atoms', 'r_displaced_atoms']:
+            other[atom_type] = [_atom_to_str(atom) for atom in getattr(xlink, atom_type)]
+
+        term = Term(
+            id='BpForms:crosslink:{}'.format(xlink.id),
+            name=xlink.name or '',
+            synonyms=[pronto.Synonym(syn, 'BROAD') for syn in xlink.synonyms],
+            desc=xlink.comments or '',
+            relations=relations,
+            other=other,
+        )
+        onto.include(term)
 
     # export ontology
     with open(filename, 'w') as file:

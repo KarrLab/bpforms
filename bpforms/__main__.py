@@ -174,7 +174,7 @@ class BuildAlphabetsController(cement.Controller):
         description = ('Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, '
                        'the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database')
         help = ('Build DNA, RNA, and protein alphabets from DNAmod, MODOMICS, '
-                       'the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database')
+                'the PDB Chemical Component Dictionary, RESID, and the RNA Modification Database')
         stacked_on = 'base'
         stacked_type = 'nested'
         arguments = [
@@ -220,6 +220,39 @@ class VizAlphabetController(cement.Controller):
         print('Visualization saved to {}'.format(args.path))
 
 
+class ExportOntosController(cement.Controller):
+    """ Export alphabets of residues and ontology of crosslinks to OBO file """
+
+    class Meta:
+        label = 'export-ontos'
+        description = 'Export alphabets of residues and ontology of crosslinks to OBO file'
+        help = 'Export alphabets of residues and ontology of crosslinks to OBO file'
+        stacked_on = 'base'
+        stacked_type = 'nested'
+        arguments = [
+            (['filename'], dict(type=str, help='Path to save ontology')),
+            (['--alphabet'], dict(type=str, default=None, dest='alphabets', action='append',
+                                  help='Id of alphabet to export. Defualt: export all alphabets')),
+            (['--max-monomers'], dict(type=int, default=None, help='Maximum number of monomers to export')),
+            (['--max-xlinks'], dict(type=int, default=None, help='Maximum number of crosslinks to export')),
+        ]
+
+    @cement.ex(hide=True)
+    def _default(self):
+        args = self.app.pargs
+
+        if args.alphabets is None:
+            alphabets = None
+        else:
+            alphabets = [bpforms.util.get_alphabet(alph) for alph in args.alphabets]
+
+        bpforms.util.export_ontos_to_obo(filename=args.filename,
+                                         alphabets=alphabets,
+                                         _max_monomers=args.max_monomers,
+                                         _max_xlinks=args.max_xlinks)
+        print('Ontology saved to {}'.format(args.filename))
+
+
 class App(cement.App):
     """ Command line application """
     class Meta:
@@ -232,6 +265,7 @@ class App(cement.App):
             GetMajorMicroSpeciesController,
             BuildAlphabetsController,
             VizAlphabetController,
+            ExportOntosController,
         ]
 
 

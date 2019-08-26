@@ -226,6 +226,21 @@ class CliTestCase(unittest.TestCase):
                 self.assertEqual(captured.stdout.get_text(), 'Visualization saved to {}'.format(path))
         self.assertTrue(os.path.isfile(path))
 
+    def test_export_ontos(self):
+        path = os.path.join(self.tempdir, 'onto.obo')
+
+        with capturer.CaptureOutput(merged=False, relay=False) as captured:
+            with __main__.App(argv=['export-ontos', path,
+                                    '--alphabet', 'protein',
+                                    '--max-monomers', '10',
+                                    '--max-xlinks', '10']) as app:
+                # run app
+                app.run()
+
+                # test that the CLI produced the correct output
+                self.assertEqual(captured.stdout.get_text(), 'Ontology saved to {}'.format(path))
+        self.assertTrue(os.path.isfile(path))
+
 
 class BuildAlphabetsCliTestCase(unittest.TestCase):
     def setUp(self):
