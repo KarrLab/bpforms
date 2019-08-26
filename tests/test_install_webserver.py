@@ -5,9 +5,15 @@
 :Copyright: 2019, Karr Lab
 :License: MIT
 """
-
+import requests
 import sys
 import unittest
+
+try:
+    response = requests.get('http://modomics.genesilico.pl/modifications/')
+    modomics_available = response.status_code == 200 and response.elapsed.total_seconds() < 2.0
+except requests.exceptions.ConnectionError:
+    modomics_available = False
 
 
 class InstallServerTestCase(unittest.TestCase):
@@ -21,4 +27,4 @@ class InstallServerTestCase(unittest.TestCase):
 
     def test(self):
         import install_webserver
-        install_webserver.build(['dna'], pro_max_num_proteins=0)
+        install_webserver.build(['dna'], build_modomics=modomics_available, pro_max_num_proteins=0)
