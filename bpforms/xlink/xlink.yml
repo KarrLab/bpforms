@@ -16,7 +16,7 @@ A,C:
 disulfide:
   synonyms:
   - L-cystine
-  common_name: disulfide
+  name: disulfide
   l_monomer_alphabet: protein
   l_monomer: C
   l_bond_atoms:
@@ -32,7 +32,7 @@ disulfide:
 AA0126:
   synonyms:
   - N-(L-isoaspartyl)-glycine
-  common_name: isoaspartyl_glycine_isopeptide
+  name: isoaspartyl_glycine_isopeptide
   l_monomer_alphabet: protein
   l_monomer: D
   l_bond_atoms:
@@ -49,7 +49,7 @@ AA0126:
 AA0206:
   synonyms:
   - S-glycyl-L-cysteine
-  common_name: glycine_cysteine_thioester
+  name: glycine_cysteine_thioester
   l_monomer_alphabet: protein
   l_monomer: G
   l_bond_atoms:
@@ -66,7 +66,7 @@ AA0206:
 AA0360:
   synonyms:
   - N-(L-isoglutamyl)-glycine
-  common_name: isoglutamyl_glycine_isopeptide
+  name: isoglutamyl_glycine_isopeptide
   l_monomer_alphabet: protein
   l_monomer: G
   l_bond_atoms:
@@ -98,7 +98,7 @@ AA0368:
 AA0411:
   synonyms:
   - S-(L-alanyl)-L-cysteine
-  common_name: alanine_cysteine_thioester
+  name: alanine_cysteine_thioester
   l_monomer_alphabet: protein
   l_monomer: A
   l_bond_atoms:
@@ -115,7 +115,7 @@ AA0411:
 AA0413:
   synonyms:
   - S-(L-methionyl)-L-cysteine
-  common_name: methionine_cysteine_thioester
+  name: methionine_cysteine_thioester
   l_monomer_alphabet: protein
   l_monomer: C
   l_bond_atoms:
@@ -132,7 +132,7 @@ AA0413:
 AA0414:
   synonyms:
   - S-(L-phenylalanyl)-L-cysteine
-  common_name: phenylalanine_cysteine_thioester
+  name: phenylalanine_cysteine_thioester
   l_monomer_alphabet: protein
   l_monomer: F
   l_bond_atoms:
@@ -149,7 +149,7 @@ AA0414:
 AA0415:
   synonyms:
   - S-(L-threonyl)-L-cysteine
-  common_name: threonine_cysteine_thioester
+  name: threonine_cysteine_thioester
   l_monomer_alphabet: protein
   l_monomer: T
   l_bond_atoms:
@@ -166,7 +166,7 @@ AA0415:
 AA0416:
   synonyms:
   - S-(L-tyrosyl)-L-cysteine
-  common_name: tyrosine_cysteine_thioester
+  name: tyrosine_cysteine_thioester
   l_monomer_alphabet: protein
   l_monomer: Y
   l_bond_atoms:
@@ -183,7 +183,7 @@ AA0416:
 AA0417:
   synonyms:
   - S-(L-tryptophanyl)-L-cysteine
-  common_name: tryptophan_cysteine_thioester
+  name: tryptophan_cysteine_thioester
   l_monomer_alphabet: protein
   l_monomer: W
   l_bond_atoms:
@@ -200,7 +200,7 @@ AA0417:
 AA0495:
   synonyms:
   - O-glycyl-L-serine
-  common_name: serine_glycinate_ester
+  name: serine_glycinate_ester
   l_monomer_alphabet: protein
   l_monomer: G
   l_bond_atoms:
@@ -283,7 +283,7 @@ C,D:
 C,L:
   synonyms:
   - S-(L-leucyl)-L-cysteine
-  common_name: leucine_cysteine_thioester
+  name: leucine_cysteine_thioester
   l_monomer_alphabet: protein
   l_monomer: C
   l_bond_atoms:
@@ -315,7 +315,7 @@ C,M:
 C,Q:
   synonyms:
   - S-(L-isoglutamyl)-L-cysteine
-  common_name: isoglutamyl_cysteine_thioester
+  name: isoglutamyl_cysteine_thioester
   l_monomer_alphabet: protein
   l_monomer: C
   l_bond_atoms:
@@ -379,7 +379,7 @@ D,K:
 D,T:
   synonyms:
   - O-isoaspartyl-L-threonine
-  common_name: threonine_aspartic_ester
+  name: threonine_aspartic_ester
   l_monomer_alphabet: protein
   l_monomer: D
   l_bond_atoms:
@@ -395,7 +395,7 @@ D,T:
 E,S:
   synonyms:
   - O-(L-isoglutamyl)-L-serine
-  common_name: isoglutamyl_serine_ester
+  name: isoglutamyl_serine_ester
   l_monomer_alphabet: protein
   l_monomer: E
   l_bond_atoms:
@@ -411,7 +411,7 @@ E,S:
 F,S:
   synonyms:
   - O-(L-phenylalanyl)-L-serine
-  common_name: phenylalanine_serine_ester
+  name: phenylalanine_serine_ester
   l_monomer_alphabet: protein
   l_monomer: F
   l_bond_atoms:
@@ -443,7 +443,7 @@ F,V:
 G,K:
   synonyms:
   - N6-glycyl-L-lysine
-  common_name: glycyl_lysine_isopeptide
+  name: glycyl_lysine_isopeptide
   l_monomer_alphabet: protein
   l_monomer: G
   l_bond_atoms:
@@ -461,7 +461,7 @@ G,K:
 G,T:
   synonyms:
   - O-glycyl-L-threonine
-  common_name: threonine_glycinate_ester
+  name: threonine_glycinate_ester
   l_monomer_alphabet: protein
   l_monomer: G
   l_bond_atoms:
@@ -478,7 +478,7 @@ G,T:
 K,N:
   synonyms:
   - N6-(L-isoaspartyl)-L-lysine
-  common_name: isoaspartyl_lysine_isopeptide
+  name: isoaspartyl_lysine_isopeptide
   l_monomer_alphabet: protein
   l_monomer: K
   l_bond_atoms:
@@ -497,7 +497,7 @@ K,N:
 K,Q:
   synonyms:
   - N6-(L-isoglutamyl)-L-lysine
-  common_name: isoglutamyl_lysine_isopeptide
+  name: isoglutamyl_lysine_isopeptide
   l_monomer_alphabet: protein
   l_monomer: K
   l_bond_atoms:

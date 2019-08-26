@@ -982,6 +982,28 @@ class BackboneTestCase(unittest.TestCase):
 
 
 class BondTestCase(unittest.TestCase):
+    def test_set_id(self):
+        bond = core.Bond()
+        bond.id = None
+        bond.id = 'a'
+        with self.assertRaises(ValueError):
+            bond.id = 2
+
+    def test_set_name(self):
+        bond = core.Bond()
+        bond.name = None
+        bond.name = 'a'
+        with self.assertRaises(ValueError):
+            bond.name = 2
+
+    def test_set_synonyms(self):
+        bond = core.Bond()
+        bond.synonyms = set(['a', 'b'])
+        bond.synonyms = ['a', 'b', 'c']
+        bond.synonyms = ('a', 'b', 'c', 'd')
+        with self.assertRaises(ValueError):
+            bond.synonyms = None
+
     def test_set_l_bond_atoms(self):
         bond = core.Bond()
         bond.l_bond_atoms = []

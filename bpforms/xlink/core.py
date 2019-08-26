@@ -37,6 +37,10 @@ def load_onto(filename=onto_filename):
         bond = Bond()
         onto[id] = bond
 
+        bond.id = id
+        bond.name = bond_dict.get('name', None)
+        bond.synonyms = bond_dict.get('synonyms', [])        
+
         l_alph = get_alphabet(bond_dict['l_monomer_alphabet'])
         r_alph = get_alphabet(bond_dict['r_monomer_alphabet'])
         bond.l_monomer = l_alph.monomers.get(bond_dict['l_monomer'])
@@ -46,6 +50,8 @@ def load_onto(filename=onto_filename):
             for atom in bond_dict[atom_type]:
                 element, position, charge = parse_atom(atom)
                 getattr(bond, atom_type).append(Atom(Monomer, element, position=position, charge=charge))
+
+        bond.comments = bond_dict.get('comments', None)
 
     crosslink_to_id = {xlink: id for id, xlink in onto.items()}
 

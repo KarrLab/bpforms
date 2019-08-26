@@ -299,7 +299,7 @@ class Monomer(object):
             value (:obj:`str`): id
 
         Raises:
-            :obj:`ValueError`: if `value` is not a a string or None
+            :obj:`ValueError`: if `value` is not a string or None
         """
         if value and not isinstance(value, str):
             raise ValueError('`id` must be a string or None')
@@ -322,7 +322,7 @@ class Monomer(object):
             value (:obj:`str`): name
 
         Raises:
-            :obj:`ValueError`: if `value` is not a a string or None
+            :obj:`ValueError`: if `value` is not a string or None
         """
         if value and not isinstance(value, str):
             raise ValueError('`name` must be a string or None')
@@ -2092,6 +2092,9 @@ class Bond(BondBase):
     """ Bond between monomeric forms (inter-residue bond or crosslink)
 
     Attributes:
+        id (:obj:`str`): id
+        name (:obj:`str`): name
+        synonyms (:obj:`SynonymSet`): synonyms
         l_monomer (:obj:`Monomer`): left monomeric form
         r_monomer (:obj:`Monomer`): right monomeric form
         l_bond_atoms (:obj:`AtomList`): atoms from left monomeric form that bond with right monomeric form
@@ -2101,12 +2104,16 @@ class Bond(BondBase):
         comments (:obj:`str`): comments
     """
 
-    def __init__(self, l_monomer=None, r_monomer=None,
+    def __init__(self, id=None, name=None, synonyms=None, 
+                 l_monomer=None, r_monomer=None,
                  l_bond_atoms=None, r_bond_atoms=None,
                  l_displaced_atoms=None, r_displaced_atoms=None,
                  comments=None):
         """
         Args:
+            id (:obj:`str`, optional): id
+            name (:obj:`str`, optional): name
+            synonyms (:obj:`SynonymSet`, optional): synonyms
             l_monomer (:obj:`Monomer`, optional): left monomeric form
             r_monomer (:obj:`Monomer`, optional): right monomeric form
             l_bond_atoms (:obj:`AtomList`, optional): atoms from left monomeric form that bond with right monomeric form
@@ -2115,6 +2122,9 @@ class Bond(BondBase):
             r_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomeric form displaced by bond
             comments (:obj:`str`, optional): comments
         """
+        self.id = id
+        self.name = name
+        self.synonyms = synonyms or SynonymSet()
         self.l_monomer = l_monomer
         self.r_monomer = r_monomer
         self.l_bond_atoms = l_bond_atoms or AtomList()
@@ -2122,6 +2132,77 @@ class Bond(BondBase):
         self.l_displaced_atoms = l_displaced_atoms or AtomList()
         self.r_displaced_atoms = r_displaced_atoms or AtomList()
         self.comments = comments
+
+    @property
+    def id(self):
+        """ Get id
+
+        Returns:
+            :obj:`str`: id
+        """
+        return self._id
+
+    @id.setter
+    def id(self, value):
+        """ Set id
+
+        Args:
+            value (:obj:`str`): id
+
+        Raises:
+            :obj:`ValueError`: if `value` is not a string or None
+        """
+        if value is not None and not isinstance(value, str):
+            raise ValueError('`id` must be a string or None')
+        self._id = value
+
+    @property
+    def name(self):
+        """ Get name
+
+        Returns:
+            :obj:`str`: name
+        """
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        """ Set name
+
+        Args:
+            value (:obj:`str`): name
+
+        Raises:
+            :obj:`ValueError`: if `value` is not a string or None
+        """
+        if value is not None and not isinstance(value, str):
+            raise ValueError('`name` must be a string or None')
+        self._name = value
+
+    @property
+    def synonyms(self):
+        """ Get synonyms
+
+        Returns:
+            :obj:`SynonymSet`: synonyms
+        """
+        return self._synonyms
+
+    @synonyms.setter
+    def synonyms(self, value):
+        """ Set synonyms
+
+        Args:
+            value (:obj:`SynonymSet`): synonyms
+
+        Raises:
+            :obj:`ValueError`: if `synonyms` is not an instance of `SynonymSet`
+        """
+        if value is None:
+            raise ValueError('`synonyms` must be an instance `SynonymSet`')
+        if not isinstance(value, SynonymSet):
+            value = SynonymSet(value)
+        self._synonyms = value
 
     @property
     def l_monomer(self):
