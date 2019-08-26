@@ -98,7 +98,7 @@ def build(dirname=default_dirname):
             l-displaced-atom: 1H11 |
             r-bond-atom: 3S11 |
             r-displaced-atom: 3H11
-        ]''', dirname, 'knick-protein', show_atom_nums=False)
+        ]''', dirname, 'nick-protein', show_atom_nums=False)
 
 
 def draw_monomer(Form, monomer, dirname, filename, show_atom_nums=False,

@@ -43,9 +43,9 @@
             stroke-width: {{ x_link_stroke_width }}px;
             fill: none;
         }
-        .knicks {
-            stroke: {{ knick_color}};
-            stroke-width: {{ knick_stroke_width }}px;
+        .nicks {
+            stroke: {{ nick_color}};
+            stroke-width: {{ nick_stroke_width }}px;
             fill: none;
         }
 
@@ -151,18 +151,18 @@
              {% endfor %}
         </g>
 
-        <!-- knicks crosslinks -->
-        <g class="knicks">
-            {% for knick in polymer.knicks %}
+        <!-- nicks crosslinks -->
+        <g class="nicks">
+            {% for nick in polymer.nicks %}
             <line
-                {% if knick.tooltip %}
-                onmousemove="showTooltip(evt, '{{ knick.tooltip|escape }}');"
+                {% if nick.tooltip %}
+                onmousemove="showTooltip(evt, '{{ nick.tooltip|escape }}');"
                 onmouseout="hideTooltip();"
                 {% endif %}
-                x1="{{ h_padding + (knick.pos - 1 + 0.5) * px_per_nt }}" 
-                x2="{{ h_padding + (knick.pos - 1 + 0.5) * px_per_nt }}" 
-                y1="{{ nc_label_h + nc_label_sep + (track_h + track_sep) * knick.track }}" 
-                y2="{{ nc_label_h + nc_label_sep + seq_font_size + (track_h + track_sep) * knick.track }}"
+                x1="{{ h_padding + (nick.pos - 1 + 0.5) * px_per_nt }}" 
+                x2="{{ h_padding + (nick.pos - 1 + 0.5) * px_per_nt }}" 
+                y1="{{ nc_label_h + nc_label_sep + (track_h + track_sep) * nick.track }}" 
+                y2="{{ nc_label_h + nc_label_sep + seq_font_size + (track_h + track_sep) * nick.track }}"
                 />
             {% endfor %}
         </g>

@@ -1186,73 +1186,73 @@ class BondSetTestCase(unittest.TestCase):
         self.assertFalse(bonds_1.is_equal(set()))
 
 
-class KnickTestCase(unittest.TestCase):
+class NickTestCase(unittest.TestCase):
     def test_init(self):
-        knick = core.Knick(position=3)
-        self.assertEqual(knick.position, 3)
+        nick = core.Nick(position=3)
+        self.assertEqual(nick.position, 3)
 
     def test_get_set_position(self):
-        knick = core.Knick()
-        knick.position = 4
-        self.assertEqual(knick.position, 4)
+        nick = core.Nick()
+        nick.position = 4
+        self.assertEqual(nick.position, 4)
 
         with self.assertRaises(ValueError):
-            knick.position = 4.1
+            nick.position = 4.1
 
     def test_is_equal(self):
-        knick1 = core.Knick()
-        knick2 = core.Knick()
-        knick3 = core.Knick(position=3)
-        knick4 = core.Knick(position=3)
-        knick5 = core.Knick(position=4)
+        nick1 = core.Nick()
+        nick2 = core.Nick()
+        nick3 = core.Nick(position=3)
+        nick4 = core.Nick(position=3)
+        nick5 = core.Nick(position=4)
 
-        self.assertTrue(knick1.is_equal(knick1))
-        self.assertTrue(knick1.is_equal(knick2))
-        self.assertFalse(knick1.is_equal(knick3))
-        self.assertTrue(knick3.is_equal(knick4))
-        self.assertFalse(knick3.is_equal(knick5))
+        self.assertTrue(nick1.is_equal(nick1))
+        self.assertTrue(nick1.is_equal(nick2))
+        self.assertFalse(nick1.is_equal(nick3))
+        self.assertTrue(nick3.is_equal(nick4))
+        self.assertFalse(nick3.is_equal(nick5))
 
 
-class KnickSetTestCase(unittest.TestCase):
+class NickSetTestCase(unittest.TestCase):
     def test_add(self):
-        knick_set = core.KnickSet()
-        knick = core.Knick()
-        knick_set.add(knick)
-        self.assertIn(knick, knick_set)
-        with self.assertRaisesRegex(ValueError, 'must be an instance of `Knick`'):
-            knick_set.add(9)
+        nick_set = core.NickSet()
+        nick = core.Nick()
+        nick_set.add(nick)
+        self.assertIn(nick, nick_set)
+        with self.assertRaisesRegex(ValueError, 'must be an instance of `Nick`'):
+            nick_set.add(9)
 
     def test_update(self):
-        knick_set = core.KnickSet()
-        knicks = [core.Knick(position=3), core.Knick(position=5), core.Knick(position=7)]
-        knick_set.update(knicks[0:2])
-        self.assertIn(knicks[0], knick_set)
-        self.assertIn(knicks[1], knick_set)
-        self.assertNotIn(knicks[2], knick_set)
+        nick_set = core.NickSet()
+        nicks = [core.Nick(position=3), core.Nick(position=5), core.Nick(position=7)]
+        nick_set.update(nicks[0:2])
+        self.assertIn(nicks[0], nick_set)
+        self.assertIn(nicks[1], nick_set)
+        self.assertNotIn(nicks[2], nick_set)
 
     def test_symmetric_difference_update(self):
-        knick_1 = core.Knick(position=3)
-        knick_2 = core.Knick(position=5)
-        knick_3 = core.Knick(position=7)
+        nick_1 = core.Nick(position=3)
+        nick_2 = core.Nick(position=5)
+        nick_3 = core.Nick(position=7)
 
-        knicks_1 = core.KnickSet([knick_1, knick_2])
-        knicks_2 = core.KnickSet([knick_1, knick_3])
-        knicks_1.symmetric_difference_update(knicks_2)
-        self.assertEqual(knicks_1, core.KnickSet([knick_2, knick_3]))
+        nicks_1 = core.NickSet([nick_1, nick_2])
+        nicks_2 = core.NickSet([nick_1, nick_3])
+        nicks_1.symmetric_difference_update(nicks_2)
+        self.assertEqual(nicks_1, core.NickSet([nick_2, nick_3]))
 
     def test_is_equal(self):
-        knick_1 = core.Knick(position=3)
-        knick_2 = core.Knick(position=5)
-        knick_3 = core.Knick(position=7)
+        nick_1 = core.Nick(position=3)
+        nick_2 = core.Nick(position=5)
+        nick_3 = core.Nick(position=7)
 
-        knicks_1 = core.KnickSet([knick_1, knick_2])
-        knicks_2 = core.KnickSet([knick_1, knick_2])
-        knicks_3 = core.KnickSet([knick_1, knick_3])
+        nicks_1 = core.NickSet([nick_1, nick_2])
+        nicks_2 = core.NickSet([nick_1, nick_2])
+        nicks_3 = core.NickSet([nick_1, nick_3])
 
-        self.assertTrue(knicks_1.is_equal(knicks_1))
-        self.assertTrue(knicks_1.is_equal(knicks_2))
-        self.assertFalse(knicks_1.is_equal(knicks_3))
-        self.assertFalse(knicks_1.is_equal(set()))
+        self.assertTrue(nicks_1.is_equal(nicks_1))
+        self.assertTrue(nicks_1.is_equal(nicks_2))
+        self.assertFalse(nicks_1.is_equal(nicks_3))
+        self.assertFalse(nicks_1.is_equal(set()))
 
 
 class BpFormTestCase(unittest.TestCase):
@@ -1331,15 +1331,15 @@ class BpFormTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             bp_form.crosslinks = None
 
-    def test_get_set_knicks(self):
+    def test_get_set_nicks(self):
         bp_form = core.BpForm()
 
-        knicks = core.KnickSet()
-        bp_form.knicks = knicks
-        self.assertEqual(bp_form.knicks, knicks)
+        nicks = core.NickSet()
+        bp_form.nicks = nicks
+        self.assertEqual(bp_form.nicks, nicks)
 
         with self.assertRaises(ValueError):
-            bp_form.knicks = None
+            bp_form.nicks = None
 
     def test_is_equal(self):
         bp_form_1 = core.BpForm(seq=core.MonomerSequence(
@@ -1357,13 +1357,13 @@ class BpFormTestCase(unittest.TestCase):
             [core.Monomer(id='A'), core.Monomer(id='B')]), circular=True)
         bp_form_8 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]),
-            knicks=core.KnickSet([core.Knick(position=1)]))
+            nicks=core.NickSet([core.Nick(position=1)]))
         bp_form_9 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]),
-            knicks=core.KnickSet([core.Knick(position=1)]))
+            nicks=core.NickSet([core.Nick(position=1)]))
         bp_form_10 = core.BpForm(seq=core.MonomerSequence(
             [core.Monomer(id='A'), core.Monomer(id='B')]),
-            knicks=core.KnickSet([core.Knick(position=2)]))
+            nicks=core.NickSet([core.Nick(position=2)]))
         self.assertTrue(bp_form_1.is_equal(bp_form_1))
         self.assertTrue(bp_form_1.is_equal(bp_form_2))
         self.assertFalse(bp_form_1.is_equal(bp_form_3))
@@ -1412,23 +1412,23 @@ class BpFormTestCase(unittest.TestCase):
         form_2 = dna.DnaForm().from_str('A|x-link:[l-bond-atom: 1C1]')
         self.assertEqual(form_1.diff(form_2), None)
 
-        # knicks
+        # nicks
         form_1 = dna.DnaForm().from_str('AA')
         form_2 = dna.DnaForm().from_str('AA')
-        form_2.knicks.add(core.Knick(position=1))
-        self.assertIn('Number of knicks 0 != 1', form_1.diff(form_2))
+        form_2.nicks.add(core.Nick(position=1))
+        self.assertIn('Number of nicks 0 != 1', form_1.diff(form_2))
 
         form_1 = dna.DnaForm().from_str('AAA')
-        form_1.knicks.add(core.Knick(position=1))
+        form_1.nicks.add(core.Nick(position=1))
         form_2 = dna.DnaForm().from_str('AAA')
-        form_2.knicks.add(core.Knick(position=2))
+        form_2.nicks.add(core.Nick(position=2))
         self.assertIn('not in self', form_1.diff(form_2))
         self.assertIn('not in other', form_1.diff(form_2))
 
         form_1 = dna.DnaForm().from_str('AAA')
         form_2 = dna.DnaForm().from_str('AAA')
-        form_1.knicks.add(core.Knick(position=1))
-        form_2.knicks.add(core.Knick(position=1))
+        form_1.nicks.add(core.Nick(position=1))
+        form_2.nicks.add(core.Nick(position=1))
         self.assertEqual(form_1.diff(form_2), None)
 
         # circularity
@@ -1898,35 +1898,35 @@ class BpFormTestCase(unittest.TestCase):
         with self.assertRaisesRegex(lark.exceptions.VisitError, 'not in ontology'):
             protein.ProteinForm().from_str(onto_form_str)
 
-    def test_from_str_knicks(self):
+    def test_from_str_nicks(self):
         form1 = dna.DnaForm().from_str('A:AA')
         form2 = dna.DnaForm().from_str('AAA')
-        form2.knicks.add(core.Knick(position=1))
+        form2.nicks.add(core.Nick(position=1))
         self.assertTrue(form1.is_equal(form2))
 
         form1 = dna.DnaForm().from_str('AA:A')
         form2 = dna.DnaForm().from_str('AAA')
-        form2.knicks.add(core.Knick(position=2))
+        form2.nicks.add(core.Nick(position=2))
         self.assertTrue(form1.is_equal(form2))
 
         form1 = dna.DnaForm().from_str('A:A:A')
         form2 = dna.DnaForm().from_str('AAA')
-        form2.knicks.add(core.Knick(position=1))
-        form2.knicks.add(core.Knick(position=2))
+        form2.nicks.add(core.Nick(position=1))
+        form2.nicks.add(core.Nick(position=2))
         self.assertTrue(form1.is_equal(form2))
 
-    def test__str__knicks(self):
+    def test__str__nicks(self):
         form = dna.DnaForm().from_str('AAA')
-        form.knicks.add(core.Knick(position=1))
+        form.nicks.add(core.Nick(position=1))
         self.assertEqual(str(form), 'A:AA')
 
         form = dna.DnaForm().from_str('AAA')
-        form.knicks.add(core.Knick(position=2))
+        form.nicks.add(core.Nick(position=2))
         self.assertEqual(str(form), 'AA:A')
 
         form = dna.DnaForm().from_str('AAA')
-        form.knicks.add(core.Knick(position=1))
-        form.knicks.add(core.Knick(position=2))
+        form.nicks.add(core.Nick(position=1))
+        form.nicks.add(core.Nick(position=2))
         self.assertEqual(str(form), 'A:A:A')
 
     def test_from_str_circular(self):
@@ -1963,7 +1963,7 @@ class BpFormTestCase(unittest.TestCase):
                 self.assertEqual(atom.GetAtomicNum(),
                                  dna.dna_alphabet.monomers.C.structure.GetAtom(i_atom + 1).GetAtomicNum())
 
-    def test_get_structure_with_knick(self):
+    def test_get_structure_with_nick(self):
         form = protein.ProteinForm().from_str('CAC | x-link: [type: "disulfide" | l: 1 | r: 3]')
         self.assertEqual(form.export('smiles'),
                          'C1(=O)[C@@H]([NH3+])CSSC[C@@H](C(=O)O)NC(=O)[C@H](C)N1')
@@ -1971,7 +1971,7 @@ class BpFormTestCase(unittest.TestCase):
                          EmpiricalFormula('C9H16N3O4S2'))
         self.assertEqual(form.get_charge(), 1)
 
-        form.knicks.add(core.Knick(position=1))
+        form.nicks.add(core.Nick(position=1))
         self.assertEqual(form.export('smiles'),
                          'OC(=O)[C@@H]([NH3+])CSSC[C@@H](C(=O)O)NC(=O)[C@H](C)[NH3+]')
         self.assertEqual(form.get_formula(),
@@ -2341,18 +2341,18 @@ class BpFormTestCase(unittest.TestCase):
         ))
         self.assertNotEqual(form.validate(), [])
 
-    def test_validate_knicks(self):
+    def test_validate_nicks(self):
         form = dna.DnaForm().from_str('AAA')
-        form.knicks.add(core.Knick(position=1))
+        form.nicks.add(core.Nick(position=1))
         self.assertEqual(form.validate(), [])
 
         form = dna.DnaForm().from_str('AAA')
-        form.knicks.add(core.Knick(position=4))
+        form.nicks.add(core.Nick(position=4))
         self.assertNotEqual(form.validate(), [])
 
         form = dna.DnaForm().from_str('AAA')
-        form.knicks.add(core.Knick(position=2))
-        form.knicks.add(core.Knick(position=2))
+        form.nicks.add(core.Nick(position=2))
+        form.nicks.add(core.Nick(position=2))
         self.assertNotEqual(form.validate(), [])
 
         form = dna.DnaForm()
@@ -2371,7 +2371,7 @@ class BpFormTestCase(unittest.TestCase):
             l_displaced_atoms=[core.Atom(core.Monomer, 'O', position=12, charge=-1)],
         ))
         self.assertNotEqual(form.validate(), [])
-        form.knicks.add(core.Knick(position=1))
+        form.nicks.add(core.Nick(position=1))
         self.assertEqual(form.validate(), [])
 
     def test_get_image(self):
