@@ -3822,7 +3822,9 @@ class BpForm(object):
             bond.SetBegin(l_atom)
             bond.SetEnd(r_atom)
             bond.SetBondOrder(order.value)
-            if stereo == BondStereo.wedge:
+            if stereo is None:
+                pass
+            elif stereo == BondStereo.wedge:
                 bond.SetWedge()
             elif stereo == BondStereo.hash:
                 bond.SetHash()
