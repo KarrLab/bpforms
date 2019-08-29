@@ -2497,7 +2497,7 @@ class Bond(BondBase):
         """ Get the order
 
         Returns:
-            :obj:`BondORder`: order
+            :obj:`BondOrder`: order
         """
         return self.order
 
@@ -2721,7 +2721,7 @@ class OntoBond(BondBase):
         """ Get the order
 
         Returns:
-            :obj:`BondORder`: order
+            :obj:`BondOrder`: order
         """
         return self.type.order
 
