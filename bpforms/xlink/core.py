@@ -6,7 +6,7 @@
 :License: MIT
 """
 
-from bpforms.core import Atom, Bond, Monomer, parse_yaml
+from bpforms.core import Atom, Bond, BondOrder, BondStereo, Monomer, parse_yaml
 from bpforms.util import get_alphabet
 from ruamel import yaml
 import importlib
@@ -50,6 +50,13 @@ def load_onto(filename=onto_filename):
             for atom in bond_dict[atom_type]:
                 element, position, charge = parse_atom(atom)
                 getattr(bond, atom_type).append(Atom(Monomer, element, position=position, charge=charge))
+
+        bond.order = BondOrder[bond_dict.get('order', 'single')]
+        stereo = bond_dict.get('stereo', None)
+        if stereo is None:
+            bond.stereo = None
+        else:
+            bond.stereo = BondStereo[stereo]
 
         bond.comments = bond_dict.get('comments', None)
 

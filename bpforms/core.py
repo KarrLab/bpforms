@@ -11,6 +11,7 @@ from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_m
 import abc
 import attrdict
 import copy
+import enum
 import itertools
 import lark
 import openbabel
@@ -1997,6 +1998,22 @@ class Backbone(object):
         return True
 
 
+class BondOrder(int, enum.Enum):
+    """ Bond order """
+    single = 1
+    double = 2
+    triple = 3
+    aromatic = 4
+
+
+class BondStereo(int, enum.Enum):
+    """ Bond stereochemistry """
+    wedge = 1
+    hash = 2
+    up = 3
+    down = 4
+
+
 class BondBase(abc.ABC):
     @abc.abstractmethod
     def get_l_bond_atoms(self):
@@ -2031,6 +2048,24 @@ class BondBase(abc.ABC):
 
         Returns:
             :obj:`list` of :obj:`Atom`: left bond atoms
+        """
+        pass  # pragma: no cover
+
+    @abc.abstractmethod
+    def get_order(self):
+        """ Get the order
+
+        Returns:
+            :obj:`BondOrder`: order
+        """
+        pass  # pragma: no cover
+
+    @abc.abstractmethod
+    def get_stereo(self):
+        """ Get the stereochemistry
+
+        Returns:
+            :obj:`BondStereo`: stereochemistry
         """
         pass  # pragma: no cover
 
@@ -2101,6 +2136,8 @@ class Bond(BondBase):
         r_bond_atoms (:obj:`AtomList`): atoms from right monomeric form that bond with left monomeric form
         l_displaced_atoms (:obj:`AtomList`): atoms from left monomeric form displaced by bond
         r_displaced_atoms (:obj:`AtomList`): atoms from right monomeric form displaced by bond
+        order (:obj:`BondOrder`): order
+        stereo (:obj:`BondStereo`): stereochemistry
         comments (:obj:`str`): comments
     """
 
@@ -2108,6 +2145,7 @@ class Bond(BondBase):
                  l_monomer=None, r_monomer=None,
                  l_bond_atoms=None, r_bond_atoms=None,
                  l_displaced_atoms=None, r_displaced_atoms=None,
+                 order=BondOrder.single, stereo=None,
                  comments=None):
         """
         Args:
@@ -2120,6 +2158,8 @@ class Bond(BondBase):
             r_bond_atoms (:obj:`AtomList`, optional): atoms from right monomeric form that bond with left monomeric form
             l_displaced_atoms (:obj:`AtomList`, optional): atoms from left monomeric form displaced by bond
             r_displaced_atoms (:obj:`AtomList`, optional): atoms from right monomeric form displaced by bond
+            order (:obj:`BondOrder`, optional): order
+            stereo (:obj:`BondStereo`, optional): stereochemistry
             comments (:obj:`str`, optional): comments
         """
         self.id = id
@@ -2131,6 +2171,8 @@ class Bond(BondBase):
         self.r_bond_atoms = r_bond_atoms or AtomList()
         self.l_displaced_atoms = l_displaced_atoms or AtomList()
         self.r_displaced_atoms = r_displaced_atoms or AtomList()
+        self.order = order
+        self.stereo = stereo
         self.comments = comments
 
     @property
@@ -2351,6 +2393,52 @@ class Bond(BondBase):
         self._r_displaced_atoms = value
 
     @property
+    def order(self):
+        """ Get the order
+
+        Returns:
+            :obj:`BondOrder`: order
+        """
+        return self._order
+
+    @order.setter
+    def order(self, value):
+        """ Set the order
+
+        Args:
+            value (:obj:`BondOrder`): order
+
+        Raises:
+            :obj:`ValueError`: if `order` is not an instance of `BondOrder`
+        """
+        if not isinstance(value, BondOrder):
+            raise ValueError('`order` must be an instance of `BondOrder`')
+        self._order = value
+
+    @property
+    def stereo(self):
+        """ Get the stereochemistry
+
+        Returns:
+            :obj:`BondStereo`: stereochemistry
+        """
+        return self._stereo
+
+    @stereo.setter
+    def stereo(self, value):
+        """ Set the stereo
+
+        Args:
+            value (:obj:`BondStereo`): stereochemistry
+
+        Raises:
+            :obj:`ValueError`: if `stereo` is not an instance of `BondStereo`
+        """
+        if value is not None and not isinstance(value, BondStereo):
+            raise ValueError('`stereo` must be an instance of `BondStereo` or `None`')
+        self._stereo = value
+
+    @property
     def comments(self):
         """ Get comments
 
@@ -2405,6 +2493,22 @@ class Bond(BondBase):
         """
         return self.r_displaced_atoms
 
+    def get_order(self):
+        """ Get the order
+
+        Returns:
+            :obj:`BondORder`: order
+        """
+        return self.order
+
+    def get_stereo(self):
+        """ Get the stereochemistry
+
+        Returns:
+            :obj:`BondStereo`: stereochemistry
+        """
+        return self.stereo
+
     def is_equal(self, other):
         """ Determine if two bonds are semantically equal
 
@@ -2428,6 +2532,10 @@ class Bond(BondBase):
                 or not self.r_bond_atoms.is_equal(other.r_bond_atoms) \
                 or not self.l_displaced_atoms.is_equal(other.l_displaced_atoms) \
                 or not self.r_displaced_atoms.is_equal(other.r_displaced_atoms):
+            return False
+        if self.order != other.order:
+            return False
+        if self.stereo != other.stereo:
             return False
         if self.comments != other.comments:
             return False
@@ -2456,6 +2564,11 @@ class Bond(BondBase):
                                                    atom.element,
                                                    atom.position or '',
                                                    charge))
+
+        if self.order != BondOrder.single:
+            attrs.append('order: "{}"'.format(self.order.name))
+        if self.stereo is not None:
+            attrs.append('stereo: "{}"'.format(self.stereo.name))
 
         if self.comments:
             attrs.append('comments: "{}"'.format(self.comments.replace('"', '\\"')))
@@ -2603,6 +2716,22 @@ class OntoBond(BondBase):
             atoms.append(Atom(atom.molecule, atom.element,
                               position=atom.position, charge=atom.charge, monomer=self.l_monomer))
         return atoms
+
+    def get_order(self):
+        """ Get the order
+
+        Returns:
+            :obj:`BondORder`: order
+        """
+        return self.type.order
+
+    def get_stereo(self):
+        """ Get the stereochemistry
+
+        Returns:
+            :obj:`BondStereo`: stereochemistry
+        """
+        return self.type.stereo
 
     def __str__(self):
         """ Generate string representation of bond
@@ -3582,8 +3711,9 @@ class BpForm(object):
 
         # crosslinks
         i_crosslinks_bond_atoms = []
-        for crosslink_atoms in crosslinks_atoms:
-            i_crosslinks_bond_atoms.append(self._form_crosslink(mol, crosslink_atoms, atom_map))
+        for crosslink, crosslink_atoms in zip(self.crosslinks, crosslinks_atoms):
+            i_crosslinks_bond_atoms.append(self._form_crosslink(mol, crosslink_atoms, atom_map, 
+                crosslink.get_order(), crosslink.get_stereo()))
 
         # include all hydrogens
         if include_all_hydrogens:
@@ -3675,7 +3805,7 @@ class BpForm(object):
             if r_atom_charge:
                 r_atom.SetFormalCharge(r_atom.GetFormalCharge() + r_atom_charge)
 
-    def _form_crosslink(self, mol, atoms, atom_map):
+    def _form_crosslink(self, mol, atoms, atom_map, order, stereo):
         """ Form bond(s) for a crosslink
 
         Args:
@@ -3684,12 +3814,22 @@ class BpForm(object):
             atom_map (:obj:`dict`): dictionary which maps indices (1-based) of monomeric forms
                 to dictionaries which map types of components of monomeric forms ('monomer' or 'backbone')
                 to dictionaries which map indices (1-based) of atoms to atoms (instances of :obj:`openbabel.OBAtom`)
+            order (:obj:`BondOrder`): order
+            stereo (:obj:`BondStereo`): stereochemistry
         """
         for (l_atom, _, _), (r_atom, _, _) in zip(atoms['l_bond_atoms'], atoms['r_bond_atoms']):
             bond = openbabel.OBBond()
             bond.SetBegin(l_atom)
             bond.SetEnd(r_atom)
-            bond.SetBondOrder(1)
+            bond.SetBondOrder(order.value)
+            if stereo == BondStereo.wedge:
+                bond.SetWedge()
+            elif stereo == BondStereo.hash:
+                bond.SetHash()
+            elif stereo == BondStereo.up:
+                bond.SetUp()
+            elif stereo == BondStereo.down:
+                bond.SetDown()
             assert mol.AddBond(bond)
 
         for atom, i_monomer, i_atom in itertools.chain(atoms['l_displaced_atoms'], atoms['r_displaced_atoms']):
@@ -4067,7 +4207,7 @@ class BpForm(object):
                 for arg in args:
                     if isinstance(arg, lark.tree.Tree) and arg.data == 'inline_crosslink_attr':
                         attr, val = arg.children[0]
-                        if attr == 'comments':
+                        if attr in ['order', 'stereo', 'comments']:
                             setattr(bond, attr, val)
                         else:
                             attr_val_list = getattr(bond, attr)
@@ -4090,6 +4230,14 @@ class BpForm(object):
             @lark.v_args(inline=True)
             def inline_crosslink_atom_type(self, *args):
                 return args[0].value.replace('-', '_') + 's'
+
+            @lark.v_args(inline=True)
+            def inline_crosslink_order(self, *args):
+                return ('order', BondOrder[args[-2].value])
+
+            @lark.v_args(inline=True)
+            def inline_crosslink_stereo(self, *args):
+                return ('stereo', BondStereo[args[-2].value])
 
             @lark.v_args(inline=True)
             def inline_crosslink_comments(self, *args):

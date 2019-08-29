@@ -1032,6 +1032,19 @@ class BondTestCase(unittest.TestCase):
         with self.assertRaises(ValueError):
             bond.r_displaced_atoms = None
 
+    def test_set_order(self):
+        bond = core.Bond()
+        bond.order = core.BondOrder.double
+        with self.assertRaises(ValueError):
+            bond.order = None
+
+    def test_set_stereo(self):
+        bond = core.Bond()
+        bond.stereo = None
+        bond.stereo = core.BondStereo.down
+        with self.assertRaises(ValueError):
+            bond.stereo = 2
+
     def test_get_formula(self):
         bond = core.Bond()
 
@@ -1061,7 +1074,9 @@ class BondTestCase(unittest.TestCase):
         bond_7 = core.Bond(l_monomer=core.Monomer())
         bond_8 = core.Bond(l_monomer=core.Monomer())
         bond_9 = core.Bond(r_monomer=core.Monomer())
-        bond_10 = core.Bond(comments='a comment')
+        bond_10 = core.Bond(order=core.BondOrder.double)
+        bond_11 = core.Bond(stereo=core.BondStereo.up)
+        bond_12 = core.Bond(comments='a comment')
         self.assertTrue(bond_1.is_equal(bond_1))
         self.assertTrue(bond_1.is_equal(bond_2))
         self.assertFalse(bond_1.is_equal({}))
@@ -1074,6 +1089,8 @@ class BondTestCase(unittest.TestCase):
         self.assertTrue(bond_7.is_equal(bond_8))
         self.assertFalse(bond_1.is_equal(bond_9))
         self.assertFalse(bond_1.is_equal(bond_10))
+        self.assertFalse(bond_1.is_equal(bond_11))
+        self.assertFalse(bond_1.is_equal(bond_12))
 
     def test_str(self):
         bond = core.Bond(l_bond_atoms=[core.Atom(core.Monomer, 'H')])
@@ -1084,6 +1101,12 @@ class BondTestCase(unittest.TestCase):
 
         bond = core.Bond(r_displaced_atoms=[core.Atom(core.Monomer, 'C', position=3, charge=4)])
         self.assertEqual(str(bond), '[r-displaced-atom: C3+4]')
+
+        bond = core.Bond(order=core.BondOrder.triple)
+        self.assertEqual(str(bond), '[order: "triple"]')
+
+        bond = core.Bond(stereo=core.BondStereo.up)
+        self.assertEqual(str(bond), '[stereo: "up"]')
 
         bond = core.Bond(comments='a comment')
         self.assertEqual(str(bond), '[comments: "a comment"]')
@@ -1984,6 +2007,43 @@ class BpFormTestCase(unittest.TestCase):
                 atom = structure.GetAtom(atom_map[2]['monomer'][i_atom + 1])
                 self.assertEqual(atom.GetAtomicNum(),
                                  dna.dna_alphabet.monomers.C.structure.GetAtom(i_atom + 1).GetAtomicNum())
+
+    def test_get_structure_with_xlink_stereo(self):
+        form = protein.ProteinForm().from_str('CAC'
+                                              ' | x-link: ['
+                                              '   l-bond-atom: 1S11'
+                                              ' | r-bond-atom: 3S11'
+                                              ' | l-displaced-atom: 1H11'
+                                              ' | r-displaced-atom: 3H11'
+                                              ' | order: "double"'
+                                              ' | stereo: "up"'
+                                              ']'
+                                              )
+        self.assertEqual(list(form.crosslinks)[0].order, core.BondOrder.double)
+        self.assertEqual(list(form.crosslinks)[0].stereo, core.BondStereo.up)
+
+        form = protein.ProteinForm().from_str('CAC'
+                                              ' | x-link: ['
+                                              '   l-bond-atom: 1S11'
+                                              ' | r-bond-atom: 3S11'
+                                              ' | l-displaced-atom: 1H11'
+                                              ' | r-displaced-atom: 3H11'
+                                              ' | order: "single"'
+                                              ' | stereo: "wedge"'
+                                              ']'
+                                              )
+        self.assertEqual(form.export('smiles'), 'C1(=O)[C@@H]([NH3+])CSSC[C@@H](C(=O)O)NC(=O)[C@H](C)N1')
+
+        form = protein.ProteinForm().from_str('CAC'
+                                              ' | x-link: ['
+                                              '   l-bond-atom: 1S11'
+                                              ' | r-bond-atom: 3S11'
+                                              ' | l-displaced-atom: 1H11'
+                                              ' | r-displaced-atom: 3H11'
+                                              ' | order: "double"'
+                                              ']'
+                                              )
+        self.assertEqual(form.export('smiles'), 'C1(=O)[C@@H]([NH3+])C[S]=[S]C[C@@H](C(=O)O)NC(=O)[C@H](C)N1')
 
     def test_get_structure_with_nick(self):
         form = protein.ProteinForm().from_str('CAC | x-link: [type: "disulfide" | l: 1 | r: 3]')

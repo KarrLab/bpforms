@@ -805,6 +805,8 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None, _max_
         'r_displaced_atoms "Right displaced atoms" EXACT',
         'delta_mass "Delta mass" EXACT',
         'delta_charge "Delta charge" EXACT',
+        'bond_order "Bond order" EXACT',
+        'bond_stereo "Bond stereochemistry" EXACT',
     ]
 
     derives_from_relation = pronto.Relationship('derives_from', direction='bottomup')
@@ -907,6 +909,10 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None, _max_
         other = {}
         for atom_type in ['l_bond_atoms', 'r_bond_atoms', 'l_displaced_atoms', 'r_displaced_atoms']:
             other[atom_type] = [_atom_to_str(atom) for atom in getattr(xlink, atom_type)]
+
+        other['bond_order'] = [xlink.order.name]
+        if xlink.stereo:
+            other['bond_stereo'] = [xlink.stereo.name]
 
         term = Term(
             id='BpForms:crosslink:{}'.format(xlink.id),

@@ -37,9 +37,11 @@ onto_crosslink_monomer_type: /[lr]/
 onto_crosslink_type: "type" field_sep QUOTE_DELIMITER CHARS QUOTE_DELIMITER
 
 inline_crosslink: (inline_crosslink_attr (attr_sep inline_crosslink_attr)*)?
-inline_crosslink_attr: inline_crosslink_atom | inline_crosslink_comments
+inline_crosslink_attr: inline_crosslink_atom | inline_crosslink_order | inline_crosslink_stereo | inline_crosslink_comments
 inline_crosslink_atom: inline_crosslink_atom_type field_sep INT atom_element INT atom_charge?
 inline_crosslink_atom_type: (LEFT_BOND_ATOM_FIELD_NAME | RIGHT_BOND_ATOM_FIELD_NAME | LEFT_DISPLACED_ATOM_FIELD_NAME | RIGHT_DISPLACED_ATOM_FIELD_NAME)
+inline_crosslink_order: "order" field_sep QUOTE_DELIMITER /(single|double|triple|aromatic)/ QUOTE_DELIMITER
+inline_crosslink_stereo: "stereo" field_sep QUOTE_DELIMITER /(wedge|hash|up|down)/ QUOTE_DELIMITER
 inline_crosslink_comments: COMMENTS_FIELD_NAME field_sep ESCAPED_STRING
 
 nick: ":"
