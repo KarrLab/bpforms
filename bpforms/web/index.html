@@ -51,6 +51,7 @@
                       <li><a href="#crosslinks">Crosslinks</a></li>
                       <li><a href="#nicks">Nicks</a></li>
                       <li><a href="#topology">Circularity</a></li>
+                      <li><a href="#coordinate-system">Coordinate system</a></li>
                     </ul>
                   </li>
                   <li><a href="#interfaces">User interfaces</a>
@@ -576,6 +577,41 @@
             </div>
           </div>
         </div>
+
+        <div class="large-5 cell grammar">
+          <a name="coordinate-system"></a>
+          <h3>Coordinate system</h3>
+          <p>Each residue, and atom represented by <i>BpForms</i> has a unique coordinate. The coordinate of each residue is its position within the residue sequence of its parent polymer. The coordinate of each atom is a tuple of the coordinate of its parent residue and its position within the canonical SMILES ordering of the atoms in its parent residue prior to incorporation into polymers (which can be displayed by Open Babel).</p>
+        </div>
+        <div class="large-7 cell example">
+          <h3>Example</h3>
+          <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+              <p>The example below illustrates the atom coordinates for the modified amino acid N<sup>5</sup>-methyl-L-arginine.</p>
+            </div>
+            <div class="large-8 cell syntax">
+              <pre>[id: "AA0305"
+  | name: "N5-methyl-L-arginine"
+  | structure: "OC(=O)[C@H](CCCN(C(=[NH2])N)C)
+                [NH3+]"
+  | l-bond-atom: N16-1
+  | l-displaced-atom: H16+1
+  | l-displaced-atom: H16
+  | r-bond-atom: C2
+  | r-displaced-atom: O1
+  | r-displaced-atom: H1
+  ]</pre>
+            </div>
+            <div class="large-4 cell image">
+              <a data-fancybox="gallery"
+                href="img/example/left-right-bonds-AA0305.svg"
+                data-width="600">
+                <img src="img/example/left-right-bonds-AA0305.svg"/>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="grid-x grid-padding-x blue">
