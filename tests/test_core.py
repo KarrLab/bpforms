@@ -2258,6 +2258,23 @@ class BpFormTestCase(unittest.TestCase):
         form.bond.r_bond_atoms = []
         self.assertNotEqual(form.validate(), [])
 
+        form = dna.DnaForm()
+        form.from_str('[structure: "OC(=O)[C@@H]([NH3+])CS"]')
+        self.assertEqual(form.validate(), [])
+
+        form = dna.DnaForm()
+        form.from_str('[structure: "OC(=O)[C@@H]([NH3+])CS" | position: 2-1]')
+        self.assertNotEqual(form.validate(), [])
+
+        form = dna.DnaForm()
+        form.from_str('[structure: "OC(=O)[C@@H]([NH3+])CS" | position: 1-2]')
+        self.assertNotEqual(form.validate(), [])
+
+        form = dna.DnaForm()
+        form.from_str('[structure: "OC(=O)[C@@H]([NH3+])CS" | position: 2-1]A')
+        self.assertNotEqual(form.validate(), [])
+
+
     def test_validate_circular(self):
         form = protein.ProteinForm()
         form.from_str('CCC')

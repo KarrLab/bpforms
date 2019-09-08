@@ -2141,7 +2141,7 @@ class Bond(BondBase):
         comments (:obj:`str`): comments
     """
 
-    def __init__(self, id=None, name=None, synonyms=None, 
+    def __init__(self, id=None, name=None, synonyms=None,
                  l_monomer=None, r_monomer=None,
                  l_bond_atoms=None, r_bond_atoms=None,
                  l_displaced_atoms=None, r_displaced_atoms=None,
@@ -3503,6 +3503,20 @@ class BpForm(object):
                 if crosslink.is_equal(other_crosslink):
                     errors.append('Crosslink {} cannot be repeated'.format(str(crosslink)))
 
+        # uncertainty
+        for i_monomer, monomer in enumerate(self.seq):
+            if monomer.start_position is not None and monomer.start_position > len(self.seq):
+                errors.append('Start position for monomer {} must be less than the length fo the sequence {}'.format(
+                    i_monomer, len(self.seq)))
+            if monomer.end_position is not None and monomer.end_position > len(self.seq):
+                errors.append('End position for monomer {} must be less than the length fo the sequence {}'.format(
+                    i_monomer, len(self.seq)))
+            if monomer.start_position is not None and \
+                    monomer.end_position is not None and \
+                    monomer.start_position > monomer.end_position:
+                errors.append('Start position {} for monomer {} must be less than or equal to the end position {}'.format(
+                    monomer.start_position, i_monomer, monomer.end_position))
+
         # return errors
         return errors
 
@@ -3712,8 +3726,8 @@ class BpForm(object):
         # crosslinks
         i_crosslinks_bond_atoms = []
         for crosslink, crosslink_atoms in zip(self.crosslinks, crosslinks_atoms):
-            i_crosslinks_bond_atoms.append(self._form_crosslink(mol, crosslink_atoms, atom_map, 
-                crosslink.get_order(), crosslink.get_stereo()))
+            i_crosslinks_bond_atoms.append(self._form_crosslink(mol, crosslink_atoms, atom_map,
+                                                                crosslink.get_order(), crosslink.get_stereo()))
 
         # include all hydrogens
         if include_all_hydrogens:
