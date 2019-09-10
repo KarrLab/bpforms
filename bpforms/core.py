@@ -3506,10 +3506,10 @@ class BpForm(object):
         # uncertainty
         for i_monomer, monomer in enumerate(self.seq):
             if monomer.start_position is not None and monomer.start_position > len(self.seq):
-                errors.append('Start position for monomer {} must be less than the length fo the sequence {}'.format(
+                errors.append('Start position for monomer {} must be less than the length of the sequence {}'.format(
                     i_monomer, len(self.seq)))
             if monomer.end_position is not None and monomer.end_position > len(self.seq):
-                errors.append('End position for monomer {} must be less than the length fo the sequence {}'.format(
+                errors.append('End position for monomer {} must be less than the length of the sequence {}'.format(
                     i_monomer, len(self.seq)))
             if monomer.start_position is not None and \
                     monomer.end_position is not None and \
