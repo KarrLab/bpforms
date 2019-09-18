@@ -1,4 +1,4 @@
-""" Test of bpforms.core
+""" Test of REST API
 
 :Author: Jonathan Karr <karr@mssm.edu>
 :Date: 2019-01-31
