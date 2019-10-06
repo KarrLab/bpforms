@@ -91,5 +91,5 @@ top_five = (monomer_code_freq['8U'] +
             monomer_code_freq['9U'] +
             monomer_code_freq['5U'] +
             monomer_code_freq['74U'] +
-            monomer_code_freq['7G']) /
+            monomer_code_freq['7G']) / \
 sum(monomer_code_freq.values())
