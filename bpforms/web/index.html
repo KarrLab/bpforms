@@ -25,7 +25,7 @@
 
       <div class="grid-x grid-padding-x blue">
         <div class="large-7 cell">
-          <p><i>BpForms</i> is a toolkit for unambiguously describing the molecular structure (atoms and bonds) of DNA, RNA, and proteins, including non-canonical monomeric forms (subunits which compose polymers), crosslinks, nicks, and circular topologies. By concretely describing the molecular structure of biopolymers, <i>BpForms</i> aims to help epigenomics, transcriptomics, proteomics, systems biology, and synthetic biology researchers share and integrate information about DNA modification, post-transcriptional modification, post-translational modification, expanded genetic codes, and synthetic parts. In particular, <i>BpForms</i> was developed to help researchers collaboratively develop whole-cell computational models <a href="https://www.wholecell.org"><i class="fi-link"></i></a>.</p>
+          <p><i>BpForms</i> is a toolkit for unambiguously describing the molecular structure (atoms and bonds) of DNA, RNA, and proteins, including non-canonical monomeric forms (subunits which compose polymers), crosslinks, nicks, and circular topologies. By concretely describing the molecular structure of biopolymers, <i>BpForms</i> aims to help epigenomics, transcriptomics, proteomics, systems biology, and synthetic biology researchers share and integrate information about DNA modification, post-transcriptional modification, post-translational modification, expanded genetic codes, and synthetic parts. In particular, <i>BpForms</i> was developed to help researchers collaboratively develop whole-cell computational models <a href="https://www.wholecell.org"><i class="fi-link"></i></a>. See the use cases below for more information <a href="#use-cases"><i class="fi-arrow-down"></i></a>.</p>
 
           <p><i>BpForms</i> includes a grammar for describing biopolymer forms and three consensus alphabets of non-canonical monomeric forms of DNA nucleotide monophosphates, RNA nucleotide monophosphates, and protein amino acids. <i>BpForms</i> also includes four software tools for verifying descriptions of biopolymer forms and calculating properties such as their molecular structure, formula, molecular weight, and charge: this website, a JSON REST API <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>, a command line interface <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>, and a Python API <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>. <i>BpForms</i> is available open-source <a href="https://github.com/KarrLab/bpforms"><i class="fi-social-github"></i></a> under the MIT license.</p>
           <p><i>BpForms</i> can be combined with <i>BcForms</i> to concretely describe the primary structure of complexes.</p>
@@ -188,8 +188,8 @@
           <p class="before_list"><i>BpForms</i> descriptions of biopolymers consists of three parts separated by pipes ("|") (e.g., <tt>A{pSer}Y | circular | x-link: [...]</tt>):</p>
           <ul>
             <li>A sequence of strings that indicate monomeric forms of an alphabet bonded together (e.g., <tt>A{pSer}Y</tt>. As described below, <i>BpForms</i> includes six alphabets of hundreds of monomeric forms of DNA, RNA, and proteins, and users can define additional alphabets.</li>
-            <li>An optional set of crosslinks which describe bonds between non-adjacent monomeric forms (e.g., <tt>x-link: [...]</tt>). See below <a href="#crosslinks"><i class="fi-link"></i></a> for additional information.</li>
-            <li>An optional set of nicks which describe adjacent monomeric forms that are not covalently bonded (e.g., <tt>A:C</tt>). See below <a href="#nicks"><i class="fi-link"></i></a> for additional information.</li>
+            <li>An optional set of crosslinks which describe bonds between non-adjacent monomeric forms (e.g., <tt>x-link: [...]</tt>). See below <a href="#crosslinks"><i class="fi-arrow-down"></i></a> for additional information.</li>
+            <li>An optional set of nicks which describe adjacent monomeric forms that are not covalently bonded (e.g., <tt>A:C</tt>). See below <a href="#nicks"><i class="fi-arrow-down"></i></a> for additional information.</li>
             <li>An optional attribute for indicating the circularity of the polymer (e.g., <tt>circular</tt>). See below for additional information.</li>
           </ul>
 
@@ -622,7 +622,7 @@
         </div>
         <div class="large-3 cell">
           <h3>Webform</h3>
-          The webform above <a href="#form"><i class="fi-link"></i></a> can be used to validate <i>BpForms</i> and calculate their properties.
+          The webform above <a href="#form"><i class="fi-arrow-up"></i></a> can be used to validate <i>BpForms</i> and calculate their properties.
         </div>
         <div class="large-3 cell">
           <a name="rest"></a>
@@ -1011,11 +1011,11 @@ GRPLSSYGMDSRPPMAIFELLDYIVNEPPPKLPSGVFSLEFQDFVNKCLIKNPAERADLKQLMVHAFIKRSDAEEVDFAG
         </div>
         <div class="large-6 cell">
           <h3>Documentation for the grammar</h3>
-          Documentation for the grammar is available above <a href="#grammar"><i class="fi-link"></i></a>. The definition of the grammar is available at GitHub <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i>.</a>
+          Documentation for the grammar is available above <a href="#grammar"><i class="fi-arrow-up"></i></a>. The definition of the grammar is available at GitHub <a href="https://raw.githubusercontent.com/KarrLab/bpforms/master/bpforms/grammar.lark"><i class="fi-link"></i>.</a>
         </div>
         <div class="large-6 cell">
           <h3>Definitions of the monomeric forms in the alphabets</h3>
-          Documentation for the alphabets is available above <a href="#alphabets"><i class="fi-link"></i></a>. This includes images and detailed information about each monomeric form in each alphabet.
+          Documentation for the alphabets is available above <a href="#alphabets"><i class="fi-arrow-up"></i></a>. This includes images and detailed information about each monomeric form in each alphabet.
         </div>
         <div class="large-6 cell">
           <h3>Query builder for the REST API</h3>
