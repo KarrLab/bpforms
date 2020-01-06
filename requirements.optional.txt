@@ -3,4 +3,4 @@ flask
 flask_restplus
 
 [onto_export]
-pronto
+pronto >= 1

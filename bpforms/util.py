@@ -776,16 +776,6 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None, _max_
     from .xlink.core import crosslinks_onto
     import pronto
 
-    class Term(pronto.Term):
-        @property
-        @pronto.utils.output_str
-        def obo(self):
-            result = super(Term, self).obo
-            for key, val in self.other.items():
-                for v in val:
-                    result += '\n{}: {}'.format(key, v)
-            return result
-
     if alphabets is None:
         alphabets = [dna.dna_alphabet, rna.rna_alphabet, protein.protein_alphabet]
     if filename is None:
@@ -795,68 +785,57 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None, _max_
     # create ontology
     onto = pronto.Ontology()
 
-    onto.meta['synonymtypedef'] = [
-        'structure "SMILES-encoded structure" EXACT',
-        'backbone_bond_atoms "Backbone bond atoms" EXACT',
-        'backbone_displaced_atoms "Backbone displaced atoms" EXACT',
-        'l_bond_atoms "Left bond atoms" EXACT',
-        'l_displaced_atoms "Left displaced atoms" EXACT',
-        'r_bond_atoms "Right bond atoms" EXACT',
-        'r_displaced_atoms "Right displaced atoms" EXACT',
-        'delta_mass "Delta mass" EXACT',
-        'delta_charge "Delta charge" EXACT',
-        'bond_order "Bond order" EXACT',
-        'bond_stereo "Bond stereochemistry" EXACT',
-    ]
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('structure', 'SMILES-encoded structure', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('backbone_bond_atoms', 'Backbone bond atoms', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('backbone_displaced_atoms', 'Backbone displaced atoms', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('l_bond_atoms', 'Left bond atoms', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('l_displaced_atoms', 'Left displaced atoms', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('r_bond_atoms', 'Right bond atoms', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('r_displaced_atoms', 'Right displaced atoms', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('delta_mass', 'Delta mass', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('delta_charge', 'Delta charge', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('bond_order', 'Bond order', 'EXACT'))
+    onto.metadata.synonymtypedefs.add(pronto.SynonymType('bond_stereo', 'Bond stereochemistry', 'EXACT'))
 
-    derives_from_relation = pronto.Relationship('derives_from', direction='bottomup')
-    l_monomer_relation = pronto.Relationship('l_monomer', direction='bottomup')
-    r_monomer_relation = pronto.Relationship('r_monomer', direction='bottomup')
-    onto.typedefs = [derives_from_relation, l_monomer_relation, r_monomer_relation]
+    is_a_relationship = onto.get_relationship('is_a')
+    part_of_relationship = onto.create_relationship('part_of')
+    derives_from_relationship = onto.create_relationship('derives_from')
+    l_monomer_relationship = onto.create_relationship('l_monomer')
+    r_monomer_relationship = onto.create_relationship('r_monomer')
 
     # add terms for monomers to ontology
-    alphabet_type_term = Term(
-        id='BpForms:alphabet',
-        name='alphabet')
-    onto.include(alphabet_type_term)
+    alphabet_type_term = onto.create_term(id='BpForms:alphabet')
+    alphabet_type_term.name = 'alphabet'
 
-    monomer_type_term = Term(
-        id='BpForms:monomer',
-        name='monomeric form',
-        synonyms=[
-            pronto.Synonym('residue', 'BROAD'),
-            pronto.Synonym('monomer', 'BROAD'),
-        ])
-    onto.include(monomer_type_term)
+    monomer_type_term = onto.create_term(id='BpForms:monomer')
+    monomer_type_term.name = 'monomeric form'
+    monomer_type_term.add_synonym('residue', scope='BROAD')
+    monomer_type_term.add_synonym('monomer', scope='BROAD')
 
-    xlink_type_term = Term(
-        id='BpForms:crosslink',
-        name='crosslink')
-    onto.include(xlink_type_term)
+    xlink_type_term = onto.create_term(id='BpForms:crosslink')
+    xlink_type_term.name = 'crosslink'
 
     monomer_to_term = {}
     for alphabet in alphabets:
-        alphabet_term = Term(
-            id='BpForms:' + alphabet.id,
-            name=alphabet.name,
-            desc=alphabet.description,
-            relations={
-                pronto.Relationship('is_a'): [alphabet_type_term.id],
-            })
-        onto.include(alphabet_term)
+        alphabet_term = onto.create_term(id='BpForms:' + alphabet.id)
+        alphabet_term.name = alphabet.name
+        alphabet_term.desc = alphabet.description
+        alphabet_term.relationships = {
+            is_a_relationship: [alphabet_type_term],
+        }
 
         for code, monomer in list(alphabet.monomers.items())[0:_max_monomers]:
             synonyms = []
             for syn in monomer.synonyms:
-                synonyms.append(pronto.Synonym(syn, 'BROAD'))
+                synonyms.append(pronto.SynonymData(syn, scope='BROAD'))
             for identifier in monomer.identifiers:
-                synonyms.append(pronto.Synonym(
+                synonyms.append(pronto.SynonymData(
                     '{}: {}'.format(identifier.ns, identifier.id),
-                    'EXACT'))
+                    scope='EXACT'))
 
-            relations = {
-                pronto.Relationship('is_a'): [monomer_type_term.id],
-                pronto.Relationship('part_of'): [alphabet_term.id],
+            relationships = {
+                is_a_relationship: [monomer_type_term],
+                part_of_relationship: [alphabet_term],
             }
 
             other = {'structure': [monomer.export('smiles')]}
@@ -871,40 +850,40 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None, _max_
             if monomer.delta_charge:
                 other['delta_charge'] = [monomer.delta_charge]
 
-            term = Term(
-                id='BpForms:{}:{}'.format(alphabet.id, code),
-                name=monomer.name or '',
-                desc=monomer.comments or '',
-                relations=relations,
-                other=other,
-                synonyms=synonyms,
-            )
-            onto.include(term)
+            term = onto.create_term(id='BpForms:{}_{}'.format(alphabet.id, code))
+            term.name = monomer.name or None
+            term.desc = monomer.comments or ''
+            term.relationships = relationships
+            term.other = other
+            for syn in synonyms:
+                term.add_synonym(syn.description, scope=syn.scope)
 
             monomer_to_term[monomer] = term
 
     for alphabet in alphabets:
         monomer_codes = {monomer: code for code, monomer in alphabet.monomers.items()}
         for code, monomer in list(alphabet.monomers.items())[0:_max_monomers]:
-            monomer_term = onto['BpForms:{}:{}'.format(alphabet.id, code)]
+            monomer_term = onto['BpForms:{}_{}'.format(alphabet.id, code)]
+            relationships = {}
             for base_monomer in monomer.base_monomers:
-                base_monomer_term = onto.get('BpForms:{}:{}'.format(
+                base_monomer_term = onto.get('BpForms:{}_{}'.format(
                     alphabet.id, monomer_codes[base_monomer]), None)
                 if base_monomer_term is not None:
-                    monomer_term.relations[derives_from_relation] = [base_monomer_term]
+                    relationships[derives_from_relationship] = [base_monomer_term]
+            monomer_term.relationships = relationships
 
     # add terms for crosslinks to ontology
     for xlink in list(crosslinks_onto.values())[0:_max_xlinks]:
-        relations = {
-            pronto.Relationship('is_a'): [xlink_type_term.id],
+        relationships = {
+            is_a_relationship: [xlink_type_term],
         }
 
         l_monomer_term = monomer_to_term.get(xlink.l_monomer, None)
         r_monomer_term = monomer_to_term.get(xlink.r_monomer, None)
         if l_monomer_term:
-            relations[l_monomer_relation] = [l_monomer_term]
+            relationships[l_monomer_relationship] = [l_monomer_term]
         if r_monomer_term:
-            relations[r_monomer_relation] = [r_monomer_term]
+            relationships[r_monomer_relationship] = [r_monomer_term]
 
         other = {}
         for atom_type in ['l_bond_atoms', 'r_bond_atoms', 'l_displaced_atoms', 'r_displaced_atoms']:
@@ -914,19 +893,17 @@ def export_ontos_to_obo(alphabets=None, filename=None, _max_monomers=None, _max_
         if xlink.stereo:
             other['bond_stereo'] = [xlink.stereo.name]
 
-        term = Term(
-            id='BpForms:crosslink:{}'.format(xlink.id),
-            name=xlink.name or '',
-            synonyms=[pronto.Synonym(syn, 'BROAD') for syn in xlink.synonyms],
-            desc=xlink.comments or '',
-            relations=relations,
-            other=other,
-        )
-        onto.include(term)
+        term = onto.create_term(id='BpForms:crosslink_{}'.format(xlink.id))
+        term.name = xlink.name or None
+        for syn in xlink.synonyms:
+            term.add_synonym(syn, scope='BROAD')
+        term.desc = xlink.comments or ''
+        term.relationships = relationships
+        term.other = other
 
     # export ontology
-    with open(filename, 'w') as file:
-        file.write(onto.obo)
+    with open(filename, 'wb') as file:
+        onto.dump(file)
 
 
 def _atom_to_str(atom):
