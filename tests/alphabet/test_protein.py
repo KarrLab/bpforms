@@ -10,6 +10,7 @@ from bpforms.core import Alphabet, Identifier, IdentifierSet, Monomer
 from bpforms.alphabet import protein
 from bpforms.util import validate_bpform_bonds
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
+import bs4
 import openbabel
 import os.path
 import pkg_resources
@@ -21,6 +22,16 @@ import unittest
 ALA_smiles = 'C[C@H]([NH3+])C(=O)O'
 di_ALA_smiles = 'C[C@H]([NH3+])C(=O)N[C@@H](C)C(=O)O'
 tri_ALA_smiles = 'C[C@H]([NH3+])C(=O)N[C@@H](C)C(=O)N[C@@H](C)C(=O)O'
+
+resid_available = False
+try:
+    response = requests.get('https://proteininformationresource.org/cgi-bin/resid?id=AA0037')
+    response.raise_for_status()
+    soup = bs4.BeautifulSoup(response.text, features="lxml")
+    if soup.select('p.annot'):
+        resid_available = True
+except requests.exceptions.RequestException:
+    pass
 
 
 class ProteinTestCase(unittest.TestCase):
@@ -158,6 +169,7 @@ class ProteinTestCase(unittest.TestCase):
         self.assertTrue(builder.is_terminus(mol.GetAtom(26), mol.GetAtom(2)))
         self.assertFalse(builder.is_terminus(mol.GetAtom(26), mol.GetAtom(10)))
 
+    @unittest.skipIf(not resid_available, 'RESID server not available')
     def test_ProteinAlphabetBuilder_get_resid_monomer_details(self):
         path = os.path.join(self.dirname, 'alphabet.yml')
         session = requests.Session()
@@ -189,6 +201,7 @@ class ProteinTestCase(unittest.TestCase):
         self.assertEqual(index_n, 6)
         self.assertEqual(index_c, 2)
 
+    @unittest.skipIf(not resid_available, 'RESID server not available')
     def test_ProteinAlphabetBuilder(self):
         pdb_dir = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.pdb'))
         if os.path.isdir(pdb_dir):

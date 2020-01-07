@@ -12,6 +12,7 @@ from bpforms.alphabet import protein
 from bpforms import core
 from bpforms import util
 from wc_utils.util.chem import EmpiricalFormula
+import bs4
 import mock
 import os
 import pronto
@@ -25,6 +26,16 @@ try:
     modomics_available = response.status_code == 200 and response.elapsed.total_seconds() < 2.0
 except requests.exceptions.ConnectionError:
     modomics_available = False
+
+resid_available = False
+try:
+    response = requests.get('https://proteininformationresource.org/cgi-bin/resid?id=AA0037')
+    response.raise_for_status()
+    soup = bs4.BeautifulSoup(response.text, features="lxml")
+    if soup.select('p.annot'):
+        resid_available = True
+except requests.exceptions.RequestException:
+    pass
 
 
 class UtilTestCase(unittest.TestCase):
@@ -65,15 +76,18 @@ class UtilTestCase(unittest.TestCase):
         self.assertFalse(os.path.isfile(rna.filename))
         self.assertFalse(os.path.isfile(protein.filename))
 
-        alphabets = ['dna', 'protein']
+        alphabets = ['dna']
         if modomics_available:
             alphabets.append('rna')
+        if resid_available:
+            alphabets.append('protein')
         util.build_alphabets(alphabets=alphabets, _max_monomers=3)
 
         self.assertTrue(os.path.isfile(dna.filename))
         if modomics_available:
             self.assertTrue(os.path.isfile(rna.filename))
-        self.assertTrue(os.path.isfile(protein.filename))
+        if resid_available:
+            self.assertTrue(os.path.isfile(protein.filename))
 
     def test_gen_html_viz_alphabet(self):
         filename = os.path.join(self.tempdir, 'alphabet.html')

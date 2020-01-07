@@ -12,10 +12,17 @@ import json
 import nbconvert.preprocessors
 import nbformat
 import os
+import requests
 import shutil
 import sys
 import tempfile
 import unittest
+
+try:
+    response = requests.get('http://modomics.genesilico.pl/modifications/')
+    modomics_available = response.status_code == 200 and response.elapsed.total_seconds() < 2.0
+except requests.exceptions.ConnectionError:
+    modomics_available = False
 
 
 @unittest.skipIf(os.getenv('CIRCLECI', '0') in ['1', 'true'], 'Jupyter server not setup in CircleCI')
@@ -52,6 +59,7 @@ class ExamplesTestCase(unittest.TestCase):
         bouhaddou_et_al_plos_comput_biol_2018.run()
         self.assertTrue(os.path.isfile(bouhaddou_et_al_plos_comput_biol_2018.OUT_FILENAME))
 
+    @unittest.skipIf(not modomics_available, 'MODOMICS server not accesssible')
     def test_modomics(self):
         import modomics
         modomics.run()
