@@ -13,7 +13,8 @@ from .alphabet import protein
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from wc_utils.util.chem import draw_molecule, OpenBabelUtils
+from wc_utils.util.chem import OpenBabelUtils
+from wc_utils.util.chem.marvin import draw_molecule
 import importlib
 import jinja2
 import math

@@ -11,7 +11,8 @@ from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, B
                           BpFormsWarning)
 from bpforms.alphabet.core import (download_pdb_ccd, parse_pdb_ccd, get_pdb_ccd_open_babel_mol,
                                    get_can_smiles)
-from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species
+from wc_utils.util.chem import EmpiricalFormula
+from wc_utils.util.chem.marvin import get_major_micro_species
 import bs4
 import csv
 import io

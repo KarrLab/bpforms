@@ -7,7 +7,8 @@
 """
 
 from ruamel import yaml
-from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species, draw_molecule, OpenBabelUtils
+from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
+from wc_utils.util.chem.marvin import get_major_micro_species, draw_molecule
 import abc
 import attrdict
 import copy

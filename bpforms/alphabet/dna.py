@@ -13,7 +13,8 @@ from bpforms.alphabet.core import (download_pdb_ccd, parse_pdb_ccd, get_pdb_ccd_
                                    get_can_smiles)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from wc_utils.util.chem import EmpiricalFormula, get_major_micro_species
+from wc_utils.util.chem import EmpiricalFormula
+from wc_utils.util.chem.marvin import get_major_micro_species
 import csv
 import math
 import openbabel
