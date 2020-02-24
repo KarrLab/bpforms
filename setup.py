@@ -16,7 +16,6 @@ name = 'bpforms'
 dirname = os.path.dirname(__file__)
 package_data = {
     name: [
-        'VERSION',
         'grammar.lark',
         'alphabet/*.yml',  # alphabets
         'xlink/*.yml',  # crosslink ontology

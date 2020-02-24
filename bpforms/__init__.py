@@ -1,8 +1,7 @@
 import pkg_resources
 
 # read version
-with open(pkg_resources.resource_filename('bpforms', 'VERSION'), 'r') as file:
-    __version__ = file.read().strip()
+from ._version import __version__
 
 from .core import (Identifier, IdentifierSet, SynonymSet, Monomer, MonomerSequence, MonomerDict,
                    Backbone, BondBase, Bond, BondOrder, BondStereo, OntoBond, BondSet, Atom, AtomList,
