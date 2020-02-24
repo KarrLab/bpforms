@@ -1,9 +1,6 @@
 # description
 README.rst
 
-# version
-include bpforms/VERSION
-
 # license
 include LICENSE
 
