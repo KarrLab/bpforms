@@ -16,7 +16,10 @@ from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
 from wc_utils.util.chem.marvin import get_major_micro_species
 import bpforms.xlink.core
 import glob
-import jnius
+try:
+    import jnius
+except ModuleNotFoundError: # pragma: no cover
+    pass # pragma: no cover
 import openbabel
 import os.path
 import pandas

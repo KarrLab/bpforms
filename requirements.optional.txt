@@ -6,6 +6,7 @@ pronto >= 1
 
 [protonation]
 wc_utils[protonation] >= 0.0.14
+pyjnius
 
 [rest_api]
 flask
