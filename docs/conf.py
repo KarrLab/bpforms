@@ -59,6 +59,7 @@ author = u'Karr Lab'
 # built documents.
 #
 # The short X.Y version.
+import re
 filename = os.path.join(os.path.dirname(__file__), "..", "bpforms", "_version.py")
 if os.path.isfile(filename):
     verstrline = open(filename, "rt").read()
