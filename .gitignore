@@ -86,3 +86,6 @@ examples/pro_input_viz.zip
 
 # Paul's temporary work
 paulTmpTests
+
+# assets for building Docker image
+Dockerfile_assets/

@@ -31,7 +31,9 @@
 *BpForms* can be combined with [*BcForms*](https://www.bcforms.org) to concretely describe the primary structure of complexes.
 
 ## Installation
-1. Install the third-party dependencies listed below. Detailed installation instructions are available in [An Introduction to Whole-Cell Modeling](http://docs.karrlab.org/intro_to_wc_modeling/master/0.0.1/installation.html).
+The following is a brief guide to installing `BpForms`. The [Dockerfile](Dockerfile) in the repository contains detailed instructions for how to install `BpForms` in Ubuntu Linux.
+
+1. Install the third-party dependencies listed below.
 
     * [ChemAxon Marvin](https://chemaxon.com/products/marvin): optional to calculate major protonation and tautomerization states
       * [Java](https://www.java.com) >= 1.8

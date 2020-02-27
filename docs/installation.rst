@@ -1,10 +1,12 @@
 Installation
 ============
 
+The following is a brief guide to installing `BpForms`. The `Dockerfile <https://github.com/KarrLab/bpforms/blob/master/Dockerfile>`_ in the `BpForms` Git repository contains detailed instructions for how to install `BpForms` in Ubuntu Linux.
+
 Prerequisites
 --------------------------
 
-First, install the third-party packages listed below. Detailed installation instructions are available in `An Introduction to Whole-Cell Modeling <http://docs.karrlab.org/intro_to_wc_modeling/master/0.0.1/installation.html>`_.
+First, install the third-party packages listed below. 
 
 * `ChemAxon Marvin <https://chemaxon.com/products/marvin>`_: optional to calculate major protonation and tautomerization states
 
@@ -29,5 +31,6 @@ Latest revision from GitHub
 ---------------------------
 Run the following command to install the latest version from GitHub.::
 
+    pip install git+https://github.com/KarrLab/pkg_utils.git#egg=pkg_utils[all]
     pip install git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils[all]
     pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms[all]
