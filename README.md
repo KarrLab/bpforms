@@ -35,7 +35,7 @@ The following is a brief guide to installing `BpForms`. The [Dockerfile](Dockerf
 
 1. Install the third-party dependencies listed below.
 
-    * [ChemAxon Marvin](https://chemaxon.com/products/marvin): optional to calculate major protonation and tautomerization states
+    * [ChemAxon Marvin](https://chemaxon.com/products/marvin): optional to calculate major protonation and tautomerization states and draw molecules
       * [Java](https://www.java.com) >= 1.8
     * [Open Babel](http://openbabel.org)
     * [Pip](https://pip.pypa.io) >= 19.0
@@ -60,14 +60,33 @@ The following is a brief guide to installing `BpForms`. The [Dockerfile](Dockerf
 
     * Install the latest revision from GitHub:
       ```
-      pip install git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils[all]
+      pip install git+https://github.com/KarrLab/pkg_utils.git#egg=pkg_utils
+      pip install git+https://github.com/KarrLab/wc_utils.git#egg=wc_utils[chem]
       pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms
       ```
 
-    * To install the rest API, `BpForms` must be installed with the `[all]` option:
+    * To calculate major protonation and tautomerization states, `BpForms` must be installed with the `[protontation]` option:
       ```
-      pip install bpforms[all]
-      pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms[all]
+      pip install bpforms[protontation]
+      pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms[protontation]
+      ```
+
+    * To draw molecules, `BpForms` must be installed with the `[draw]` option:
+      ```
+      pip install bpforms[draw]
+      pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms[draw]
+      ```
+
+    * To export the alphabets in OBO format, `BpForms` must be installed with the `[onto_export]` option:
+      ```
+      pip install bpforms[onto_export]
+      pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms[onto_export]
+      ```
+
+    * To install the rest API, `BpForms` must be installed with the `[rest_api]` option:
+      ```
+      pip install bpforms[rest_api]
+      pip install git+https://github.com/KarrLab/bpforms.git#egg=bpforms[rest_api]
       ```
 
 ## Examples, tutorial, and documentation
