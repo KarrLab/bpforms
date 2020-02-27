@@ -10,10 +10,10 @@ from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence,
                           Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet,
                           BpFormsWarning)
 from bpforms.alphabet.core import download_pdb_ccd, parse_pdb_ccd
+from bpforms.marvin import get_major_micro_species
 from bs4 import BeautifulSoup
 from ftplib import FTP
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
-from wc_utils.util.chem.marvin import get_major_micro_species
 import bpforms.xlink.core
 import glob
 import jnius
@@ -26,6 +26,7 @@ import requests
 import requests_cache
 import warnings
 import zipfile
+
 
 filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'protein.yml'))
 protein_alphabet = Alphabet().from_yaml(filename)
@@ -320,6 +321,8 @@ class ProteinAlphabetBuilder(AlphabetBuilder):
         conv.SetOptions('c', conv.OUTOPTIONS)
         smiles = conv.WriteString(pdb_mol).partition('\t')[0]
         if ph is not None:
+            if not get_major_micro_species:
+                raise ImportError("Marvin must be installed to calculate the major microspecies")
             smiles = get_major_micro_species(smiles, 'smiles', 'smiles', ph, major_tautomer=major_tautomer, dearomatize=dearomatize)
         smiles_mol = openbabel.OBMol()
         assert conv.SetInFormat('smi')

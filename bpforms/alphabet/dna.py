@@ -11,10 +11,10 @@ from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence, B
                           BpFormsWarning)
 from bpforms.alphabet.core import (download_pdb_ccd, parse_pdb_ccd, get_pdb_ccd_open_babel_mol,
                                    get_can_smiles)
+from bpforms.marvin import get_major_micro_species
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from wc_utils.util.chem import EmpiricalFormula
-from wc_utils.util.chem.marvin import get_major_micro_species
 import csv
 import math
 import openbabel
@@ -23,7 +23,6 @@ import pkg_resources
 import requests
 import sqlalchemy
 import warnings
-
 
 dna_mod_filename = pkg_resources.resource_filename('bpforms', os.path.join('alphabet', 'DNAmod.sqlite'))
 
@@ -634,9 +633,9 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                         if identifier.ns == 'pdb-ccd':
                             monomer = None
                             break
-                if monomer is not None and (\
-                    (monomer.l_bond_atoms and not pdb_monomer.l_bond_atoms) or \
-                    (monomer.r_bond_atoms and not pdb_monomer.r_bond_atoms)):
+                if monomer is not None and (
+                    (monomer.l_bond_atoms and not pdb_monomer.l_bond_atoms) or
+                        (monomer.r_bond_atoms and not pdb_monomer.r_bond_atoms)):
                     monomer = None
 
             if monomer is not None:

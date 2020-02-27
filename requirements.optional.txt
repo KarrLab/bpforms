@@ -1,6 +1,12 @@
-[rest_api]
-flask
-flask_restplus
+[draw]
+wc_utils[protonation] >= 0.0.13
 
 [onto_export]
 pronto >= 1
+
+[protonation]
+wc_utils[protonation] >= 0.0.13
+
+[rest_api]
+flask
+flask_restplus
