@@ -10,11 +10,11 @@ from . import core
 from .alphabet import dna
 from .alphabet import rna
 from .alphabet import protein
-from .marvin import draw_molecule
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from wc_utils.util.chem import OpenBabelUtils
+from wc_utils.util.chem.marvin import draw_molecule
 import importlib
 import jinja2
 import math

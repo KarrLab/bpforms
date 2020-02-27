@@ -13,4 +13,4 @@ requests_cache
 ruamel.yaml >= 0.15
 setuptools
 sqlalchemy
-wc_utils[chem] >= 0.0.13
+wc_utils[chem] >= 0.0.14

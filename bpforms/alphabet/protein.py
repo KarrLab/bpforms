@@ -10,10 +10,10 @@ from bpforms.core import (Alphabet, AlphabetBuilder, Monomer, MonomerSequence,
                           Bond, Atom, BpForm, Identifier, IdentifierSet, SynonymSet,
                           BpFormsWarning)
 from bpforms.alphabet.core import download_pdb_ccd, parse_pdb_ccd
-from bpforms.marvin import get_major_micro_species
 from bs4 import BeautifulSoup
 from ftplib import FTP
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
+from wc_utils.util.chem.marvin import get_major_micro_species
 import bpforms.xlink.core
 import glob
 import jnius

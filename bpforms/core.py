@@ -8,7 +8,7 @@
 
 from ruamel import yaml
 from wc_utils.util.chem import EmpiricalFormula, OpenBabelUtils
-from bpforms.marvin import get_major_micro_species, draw_molecule
+from wc_utils.util.chem.marvin import get_major_micro_species, draw_molecule
 import abc
 import attrdict
 import copy
