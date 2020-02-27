@@ -59,7 +59,7 @@ author = u'Karr Lab'
 # built documents.
 #
 # The short X.Y version.
-filename = os.path.join(os.path.dirname(__file__), "..", "_version.py")
+filename = os.path.join(os.path.dirname(__file__), "..", "bpforms", "_version.py")
 if os.path.isfile(filename):
     verstrline = open(filename, "rt").read()
     VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
