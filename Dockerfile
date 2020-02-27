@@ -130,5 +130,5 @@ RUN if [ "$test" = "1" ]; then \
           build-essential \
           libpython3-dev \
       && apt-get autoremove -y \
-      && rm -rf /var/lib/apt/lists/* \
+      && rm -rf /var/lib/apt/lists/*; \
     fi
