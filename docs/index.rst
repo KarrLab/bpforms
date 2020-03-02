@@ -34,6 +34,7 @@ Contents
    installation.rst
    tutorial.rst
    alphabets.rst
+   crosslinks.rst
    integrations.rst
    resources.rst
    comparison.rst

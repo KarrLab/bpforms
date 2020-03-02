@@ -37,6 +37,7 @@
               <div class="large-6 cell">
                 <ul>
                   <li><a href="#calculator">Web application</a></li>
+                  <li><a href="#features">Features</a>
                   <li><a href="#grammar">Grammar</a>
                     <ul>
                       <li><a href="#alphabets">Alphabets</a></li>
@@ -54,6 +55,7 @@
                       <li><a href="#coordinate-system">Coordinate system</a></li>
                     </ul>
                   </li>
+                  <li><a href="#verification">Verification of descriptions of polymers</a></li>
                   <li><a href="#interfaces">User interfaces</a>
                     <ul>
                       <li><a href="#calculator">Webform</a></li>
@@ -168,9 +170,32 @@
       </div>
 
       <div class="grid-x grid-padding-x orange">
+        <a name="features"></a>
+        <div class="large-12 cell">
+            <h2>Features</h2>
+        </div>
+        <div class="large-12 cell">
+          <p class="before_list">
+            <i>BpForms</i> has the following features:
+          </p>
+          <ul>
+            <li><b>Concrete:</b> To help researchers communicate and integrate data about macromolecules, the grammar can capture the primary structures of polymers, including non-canonical (NC) residues, caps, crosslinks, and nicks.</li>
+            <li><b>Abstract:</b> To facilitate network research, <i>BpForms</i> uses alphabets of residues and an ontology of crosslinks to abstract the structures of polymers.</li>
+            <li><b>Extensible:</b> To capture any polymer, users can define residues and crosslinks inline or define custom alphabets and ontologies.</li>
+            <li><b>Structured coordinates:</b> To compose residues and crosslinks into polymers, each residue and atom has a unique coordinate relative to its parent.</li>
+            <li><b>Context-free:</b> To help integrate information about the processes which synthesize and modify macromolecules, the grammar captures the structures of macromolecules separately from the processes which generate them.</li>
+            <li><b>User-friendly:</b> To ensure <i>BpForms</i> is easy to use, the grammar is human-readable, and <i>BpForms</i> includes a web application and a command-line program.</li>
+            <li><b>Machine-readable:</b> The grammar is machine-readable to enable analyses of macromolecules.</li>
+            <li><b>Composable:</b> To facilitate network research, <i>BpForms</i> includes protocols for composing the grammar with formats such as BioPAX, CellML, SBML, and SBOL.</li>
+            <li><b>Backward-compatible:</b> <i>BpForms</i> is backward compatible with the IUPAC/IUBMB format to maximize compatibility with existing formats, software, and knowledge.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid-x grid-padding-x blue">
         <a name="grammar"></a>
         <div class="large-12 cell">
-            <h2><i>BpForms</i> grammar</h2>
+            <h2>Grammar for polymers</h2>
         </div>
 
         <div class="large-5 cell grammar">
@@ -611,7 +636,19 @@
             </div>
           </div>
         </div>
+      </div>
 
+      <div class="grid-x grid-padding-x orange">
+        <a name="verification"></a>
+        <div class="large-12 cell">
+          <h2>Syntactic and semantic verification of descriptions of complexes</h2>
+          <p>To help quality control information about macromolecules, the <i>BpForms</i> user interfaces include methods for verifying the syntactic and semantic correctness of complexes:</p>
+          <ul>
+            <li>Check that each residue has a defined structure, each atom that bonds an adjacent residue has a defined element and position which is consistent with the structure of its parent residue, and each pair of consecutive residues can form a bond. 
+            <li>Check that the element and position of each atom in each crosslink are consistent with the structure of its parent residue. For example, this can identify invalid proteins that contain consecutive residues that cannot bond because the first residue lacks a carboxyl terminus or the second residue lacks an amino terminus.</li>
+            <li>Check that each subunit is semantically concrete and that the element and position of each atom in each crosslink are consistent with the structure of its parent residue.</li>
+          </ul>
+        </div>
       </div>
 
       <div class="grid-x grid-padding-x blue">
@@ -627,17 +664,17 @@
         <div class="large-3 cell">
           <a name="rest"></a>
           <h3>JSON REST API</h3>
-          A JSON REST API is available at <a href="https://bpforms.org/api">https://bpforms.org/api</a>.
+          A JSON REST API is available at <a href="https://bpforms.org/api">https://bpforms.org/api</a>. Documentation is available by opening this URL in your browser.
         </div>
         <div class="large-3 cell">
           <a name="cli"></a>
           <h3>Command line interface</h3>
-          A command line interface is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
+          A command line interface is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>. Installation instructions and documentation are available at docs.karrlab.org <a href="https://docs.karrlab.org/bpforms/"><i class="fi-link"></i></a>.
         </div>
         <div class="large-3 cell">
           <a name="library"></a>
           <h3>Python library</h3>
-          A Python library is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>.
+          A Python library is available from PyPI <a href="https://pypi.python.org/pypi/bpforms"><i class="fi-link"></i></a>. Installation instructions are available at docs.karrlab.org <a href="https://docs.karrlab.org/bpforms/master/installation.html"><i class="fi-link"></i></a>. Documentation is available inline by running <tt>bpforms --help</tt>.
         </div>
       </div>
 
@@ -1026,6 +1063,10 @@ GRPLSSYGMDSRPPMAIFELLDYIVNEPPPKLPSGVFSLEFQDFVNKCLIKNPAERADLKQLMVHAFIKRSDAEEVDFAG
           Documentation for the REST API is available at bpforms.org/api <a href="https://www.bpforms.org/api"><i class="fi-link"></i></a>.
         </div>
         <div class="large-6 cell">
+          <h3>Installation instructions for the CLI and Python API</h3>
+          Installation instructions are available at docs.karrlab.org <a href="https://docs.karrlab.org/bpforms/master/installation.html"><i class="fi-link"></i></a>. A minimal Dockerfile <a href="https://github.com/KarrLab/bpforms/blob/master/Dockerfile"><i class="fi-link"></i></a> is also available from the Git repository.
+        </div>
+        <div class="large-6 cell">
           <h3>Documentation for the command line program</h3>
           Documentation for the command line program is available inline by running <tt>bpforms --help</tt>.
         </div>
@@ -1035,7 +1076,7 @@ GRPLSSYGMDSRPPMAIFELLDYIVNEPPPKLPSGVFSLEFQDFVNKCLIKNPAERADLKQLMVHAFIKRSDAEEVDFAG
         </div>
         <div class="large-6 cell">
           <h3>Documentation for the Python API</h3>
-          Detailed documentation for the Python API is available at docs.karrlab.org <a href="https://docs.karrlab.org/bpforms"><i class="fi-link"></i></a>.
+          Documentation for the Python API is available at docs.karrlab.org <a href="https://docs.karrlab.org/bpforms"><i class="fi-link"></i></a>.
         </div>
         <div class="large-6 cell">
           <h3>Comparison with other resources</h3>
