@@ -1,5 +1,5 @@
 Interoperating between ontologies and with other formats
--------------------------------------------------------
+--------------------------------------------------------
 
 Interoperating between user alphabets of residues
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

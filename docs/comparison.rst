@@ -1,7 +1,17 @@
 Comparison of `BpForms` with other formats, databases, and software
 -------------------------------------------------------------------
 
-Advantages over BioPAX
+Comparison with `BigSMILES <https://doi.org/10.1021/acscentsci.9b00476>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* `BpForms` is backward compatible with the IUPAC/IUBMB format
+* `BpForms` supports high-level naming of residues, crosslinks, nicks, and circularity
+* With `BcForms`, `BpForms` can be compared into yet more abstract descriptions of complexes
+* `BpForms` can capture missing or uncertain knowledge about molecules
+* There are software tools for working with `BpForms`
+
+
+Comparison with BioPAX
 ^^^^^^^^^^^^^^^^^^^^^^
 
 * `BpForms` can represent non-canonical DNA, RNA, and proteins
@@ -11,13 +21,21 @@ Advantages over BioPAX
 * `BpForms` includes software for interpreting descriptions of non-canonical biopolymers. This enables calculations of properties such as chemical formulae, masses, and charges, which is essential for modeling and other applications.
 
 
-Advantages over DNAmod
+Comparison with DNAmod
 ^^^^^^^^^^^^^^^^^^^^^^
 
 * The `BpForms` DNA alphabet is internally consistent. Each monomeric form represents a nucleotide monophosphate. This ensures the monomeric forms can be composed into polymers, as the semantic meaning of the polymers is well-defined.
 
+Comparison with `HELM <https://www.pistoiaalliance.org/helm-project/>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Advantages over MODOMICS
+* The `BpForms` grammar is fully backward compatible with the IUPAC/IUBMB format. While the HELM format is similar to the IUPAC/IUBMB format, the HELM representation of an unmodified sequence is not equivalent to its IUPAC/IUBMB representation.
+* `BpForms` supports inline definitions of residues. This enables users to describe molecules that involve new residues without having to create their own alphabet or edit the public alphabets. In contrast, HELM has a more hierarchical design that requires users to describe all new residues in a custom alphabet. We believe this is more cumbersome, particular for use cases where users want to embed descriptions of molecules into other files (e.g., Excel workbooks or PDF documents) without having to deal with references to files that define alphabets.
+* `BpForms` provides a high-level representation of crosslinks. HELM does not support this.
+* `BpForms` can capture missing or uncertain information about molecules, which is essential for biological research. HELM does not support this.
+* With `BcForms`, `BpForms` can be composed into yet higher-level descriptions of complexes. In contrast, HELM can only capture complexes whose subunits are linked by crosslinks. `BcForms` is more flexible, and can represent a complex as a bag of subunits. This flexibility is essential for representing complexes that do not involve crosslinks or for which crosslink information is not available.
+
+Comparison with MODOMICS
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 * `BpForms` can represent DNA, RNA, and proteins including the diversity of ids of monomeric forms used by MODOMICS, RESID, and other databases.
@@ -33,7 +51,8 @@ Advantages over MODOMICS
 * `BpForms` includes software for error checking descriptions of non-canonical biopolymers. This includes verifying that monomeric forms that only have left bonding sites (e.g. 5' caps) only appear at the first position and that monomeric forms that only have right bonding sites (e.g. 3' caps) only appear at the last position.
 * `BpForms` includes software for interpreting descriptions of non-canonical biopolymers. This enables calculations of properties such as chemical formulae, masses, and charges, which is essential for modeling and other applications.
 
-Advantages over the `PDB Chemical Component Dictionary/Ligand <http://www.rcsb.org/pdb/ligand/chemAdvSearch.do>`_
+
+Comparison with the `PDB Chemical Component Dictionary/Ligand <http://www.rcsb.org/pdb/ligand/chemAdvSearch.do>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * The `BpForms` protein alphabet includes numerous additional monomeric forms from RESID.
@@ -41,7 +60,7 @@ Advantages over the `PDB Chemical Component Dictionary/Ligand <http://www.rcsb.o
 * The composition of `BpForms` monomeric forms into sequences is well defined. The `BpForms` protein alphabet explicitly describes the location of the C and N termini of each monomeric form. This enables the `BpForms` software to verify that BpForms describe valid atomic structures. The semantics for combining PDB CCD monomeric forms into sequences is unclear. Consequently, sequences of PDB CCD monomeric forms cannot be validated. In particular, monomeric forms with multiple C and N termini have ambiguous bonding becuase the PDB CCD monomeric forms do not capture the left and right bonding sites.
 
 
-Advantages over `PDB format <http://www.wwpdb.org/documentation/file-format>`_
+Comparison with `PDB format <http://www.wwpdb.org/documentation/file-format>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * `BpForms` is a more compact, human readable description of the primary structure of biopolymers.
@@ -49,7 +68,7 @@ Advantages over `PDB format <http://www.wwpdb.org/documentation/file-format>`_
 * `BpForms` is easier to embed into other standards and formats.
 
 
-Advantages over `PDB SEQRES annotations <http://www.wwpdb.org/documentation/file-format>`_
+Comparison with `PDB SEQRES annotations <http://www.wwpdb.org/documentation/file-format>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * `BpForms` can capture any monomeric form, including monomeric forms which are not part of the PDB Chemical Component Dictionary.
@@ -59,7 +78,7 @@ Advantages over `PDB SEQRES annotations <http://www.wwpdb.org/documentation/file
 * There is no defined semantics for generating atomic structures from PDB SEQRES annotations.
 * The `BpForms` software can verify that `BpForms` describe valid atomic structures. PDB SEQRES annotations cannot be verified because there is no defined semantics for generating atomic structures from these annotations.
 
-Advantages over `ProForma Proteoform Notation <http://www.topdownproteomics.org/resources/proforma/>`_
+Comparison with `ProForma Proteoform Notation <http://www.topdownproteomics.org/resources/proforma/>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * `BpForms` can represent DNA, RNA, and proteins.
@@ -75,7 +94,7 @@ Advantages over `ProForma Proteoform Notation <http://www.topdownproteomics.org/
 * `BpForms` includes software for interpreting descriptions of non-canonical biopolymers. This enables calculations of properties such as chemical formulae, masses, and charges, which is essential for modeling and other applications.
 
 
-Advantages over RESID
+Comparison with RESID
 ^^^^^^^^^^^^^^^^^^^^^
 
 * Each monomeric form in the `BpForms` protein alphabet has a defined structure. This gaurantees that polymers have well-defined structures. In constrast, RESID has numerous entires without defined structures.
@@ -83,13 +102,13 @@ Advantages over RESID
 * The `BpForms` protein alphabet encompasses entries from additional databases.
 
 
-Advantages over the RNA Modification Database
+Comparison with the RNA Modification Database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * Each monomeric form in the `BpForms` protein alphabet has a machine-readable structure. This gaurantees that polymers have well-defined structures. In constrast, RESID has numerous entires without defined structures. In contrast, the RNA Modification Database only provides images and CAS ids, neither or which can easily be converted into SMILES.
 
 
-Advantages over the Synthetic Biology Open Language (SBOL)
+Comparison with the Synthetic Biology Open Language (SBOL)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * `BpForms` concretely captures the primary structure of non-canonical biopolymers. In particular, it concretely captures the covalent bonds between monomeric forms. In contrast, SBOL's sequence annotations capture insufficient information to define the primary structure of a non-canonical biopolymer. The chemical meaning of these sequence annotations are unclear.
@@ -97,3 +116,10 @@ Advantages over the Synthetic Biology Open Language (SBOL)
 * `BpForms` can capture uncertainity in the structures of biopolymers. This is essential for proteomics.
 * `BpForms` is easier to embed into other files such as SBML-encoded models.
 * `BpForms` includes software for interpreting descriptions of non-canonical biopolymers. This enables calculations of properties such as chemical formulae, masses, and charges, which is essential for modeling and other applications.
+
+
+Comparison with the `World-wide Monomer Reference Database <http://www.monomer.org/#/main>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* The `BpForms` alphabets include many more residues.
+* The residues in the `BpForms` alphabets include synonyms, comments, and unification links with other databases.
