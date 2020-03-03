@@ -35,10 +35,12 @@ Contents
    tutorial.rst
    alphabets.rst
    crosslinks.rst
+   version-management.rst
+   interoperability.rst
    integrations.rst
    resources.rst
    comparison.rst
-   future.rst
+   limitations.rst
    contributing.rst
    API documentation <source/modules.rst>
    about.rst

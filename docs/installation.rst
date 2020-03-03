@@ -6,7 +6,7 @@ The following is a brief guide to installing `BpForms`. The `Dockerfile <https:/
 Prerequisites
 --------------------------
 
-First, install the third-party packages listed below. 
+First, install the third-party packages listed below.
 
 * `ChemAxon Marvin <https://chemaxon.com/products/marvin>`_: optional to calculate major protonation and tautomerization states
 

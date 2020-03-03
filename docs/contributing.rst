@@ -3,7 +3,7 @@
 Contributing to `BpForms`
 -------------------------
 
-We welcome contributions to `BpForms`, including to the software and alphabets. Please use Git pull requests to contribute to `BpForms`.
+We welcome contributions to `BpForms`, including to the software, alphabets of residues, and ontology of crosslinks. Please use GitHub pull requests to contribute to `BpForms` or contact us by email.
 
 #. Create a fork of the `BpForms` Git repository. Please see the `GitHub documentation <https://help.github.com/articles/fork-a-repo/>`_ for more information.
 #. Edit the code and/or alphabets.

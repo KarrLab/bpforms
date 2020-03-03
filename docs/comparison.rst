@@ -1,5 +1,5 @@
-Advantages of `BpForms` over previous formats, databases, and software tools
-----------------------------------------------------------------------------
+Comparison of `BpForms` with other formats, databases, and software
+-------------------------------------------------------------------
 
 Advantages over BioPAX
 ^^^^^^^^^^^^^^^^^^^^^^
