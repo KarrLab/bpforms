@@ -5,7 +5,7 @@ set_alphabet = function(data, status, jqXHR) {
     alphabet_id = document.URL.substr(i_hash + 1)
 
     $('#alphabet_heading').html(data['name'] + ' alphabet')
-    $('#alphabet_description').html(data['description'])
+    $('#alphabet_description').html(data['description'] + '.')
 
     var html = ''
 
