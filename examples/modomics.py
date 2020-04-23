@@ -17,7 +17,7 @@ import os
 import requests
 import requests_cache
 
-URL = 'http://modomics.genesilico.pl/sequences/list/'
+URL = 'https://iimcb.genesilico.pl/modomics/sequences/'
 
 
 def run():
@@ -67,14 +67,12 @@ def run():
     # create cache for web queries
     cache_name = os.path.join('examples', 'modomics')
     session = requests_cache.core.CachedSession(cache_name, backend='sqlite', expire_after=None)
-    session.mount('http://modomics.genesilico.pl', requests.adapters.HTTPAdapter(max_retries=5))
+    session.mount(URL, requests.adapters.HTTPAdapter(max_retries=5))
 
     # parse rRNA and tRNA data
     monomer_codes = {}
-    ssu_rna_forms = run_rrna(session, modomics_short_code_to_monomer, monomer_codes,
-                             'SSU', os.path.join('examples', 'modomics.ssu-rrna.tsv'))
-    lsu_rna_forms = run_rrna(session, modomics_short_code_to_monomer, monomer_codes,
-                             'LSU', os.path.join('examples', 'modomics.lsu-rrna.tsv'))
+    rrna_forms = run_rrna(session, modomics_short_code_to_monomer, monomer_codes,
+                             os.path.join('examples', 'modomics.rrna.tsv'))
     trna_forms, trna_canonical_code_freq, trna_code_freq = run_trna(
         session, modomics_short_code_to_monomer, monomer_codes, os.path.join('examples', 'modomics.trna.tsv'))
 
@@ -82,15 +80,21 @@ def run():
     plot_trna_code_freq(monomer_codes, trna_code_freq)
 
     # return results
-    return ssu_rna_forms, lsu_rna_forms, trna_forms, trna_canonical_code_freq, trna_code_freq
+    return rrna_forms, trna_forms, trna_canonical_code_freq, trna_code_freq
 
 
-def run_rrna(session, modomics_short_code_to_monomer, monomer_codes, type, out_filename):
-    response = session.get(URL + type + '/')
+def run_rrna(session, modomics_short_code_to_monomer, monomer_codes, out_filename):
+    response = session.get(URL, params={
+        'RNA_type': 'rRNA',
+        'RNA_subtype': 'all',
+        'organism': 'all species',
+        'vis_type': 'Modomics symbols',
+    })
+
     response.raise_for_status()
 
     doc = bs4.BeautifulSoup(response.text, 'lxml')
-    table = doc.find('table', {'class': 'tabseq'})
+    table = doc.find('table', {'id': 'tseq'})
     tbody = table.find('tbody')
     rows = tbody.find_all('tr')
     rna_forms = []
@@ -118,7 +122,7 @@ def run_rrna(session, modomics_short_code_to_monomer, monomer_codes, type, out_f
                         monomer_codes[code] = monomer
                     rna_form.seq.append(monomer)
             elif child.name == 'a':
-                code = child.get('href').replace('/modifications/', '')
+                code = child.get('href').replace('/modomics/modifications/', '')
                 monomer = modomics_short_code_to_monomer.get(code, None)
                 if monomer is None:
                     unsupported_codes.add(code)
@@ -130,28 +134,31 @@ def run_rrna(session, modomics_short_code_to_monomer, monomer_codes, type, out_f
                 raise Exception('Unsupported child {}'.format(child.name))
 
         rna_forms.append({
-            'GenBank': cells[2].text,
-            'Organism': cells[3].text,
-            'Organellum': cells[4].text,
+            'GenBank': cells[0].find('a').text.strip(),
+            'Organism': cells[3].text.strip(),
+            'Organellum': cells[4].text.strip(),
+            'Type': cells[2].text.strip(),
             'Sequence (MODOMICS)': cells[5].text.strip().replace('-', '').replace('_', ''),
         })
         analyze_form(rna_form, unsupported_codes, rna_forms[-1])
 
     # save results to tab-separated file
-    save_results(rna_forms, ['GenBank'], out_filename)
+    save_results(rna_forms, ['GenBank', 'Type'], out_filename)
 
     return rna_forms
 
 
 def run_trna(session, modomics_short_code_to_monomer, monomer_codes, out_filename):
-    response = session.get(URL + 'tRNA/')
+    response = session.get(URL, params={
+        'RNA_type': 'tRNA',
+        'RNA_subtype': 'all',
+        'organism': 'all species',
+        'vis_type': 'Modomics symbols',
+    })
     response.raise_for_status()
 
-    text = response.text \
-        .replace('<td><AU</td>', '<td>&lt;AU</td>') \
-        .replace('<td><AA</td>', '<td>&lt;AA</td>')
-    doc = bs4.BeautifulSoup(text, 'lxml')
-    table = doc.find('table', {'class': 'tabseq'})
+    doc = bs4.BeautifulSoup(response.text, 'lxml')
+    table = doc.find('table', {'id': 'tseq'})
     tbody = table.find('tbody')
     rows = tbody.find_all('tr')
     rna_forms = []
@@ -159,9 +166,6 @@ def run_trna(session, modomics_short_code_to_monomer, monomer_codes, out_filenam
     code_freq = {}
     canonical_code_freq = {'A': 0, 'C': 0, 'G': 0, 'U': 0}
     for row in rows:
-        if not isinstance(row, bs4.element.Tag):
-            continue
-
         cells = row.find_all('td')
 
         rna_form = bpforms.RnaForm()
@@ -185,7 +189,7 @@ def run_trna(session, modomics_short_code_to_monomer, monomer_codes, out_filenam
                         code_freq[code] += 1
                     rna_form.seq.append(monomer)
             elif child.name == 'a':
-                code = child.get('href').replace('/modifications/', '')
+                code = child.get('href').replace('/modomics/modifications/', '')
                 monomer = modomics_short_code_to_monomer.get(code, None)
                 if monomer is None:
                     unsupported_codes.add(code)
@@ -200,10 +204,10 @@ def run_trna(session, modomics_short_code_to_monomer, monomer_codes, out_filenam
                 raise Exception('Unsupported child {}'.format(child.name))
 
         rna_forms.append({
-            'Amino acid type': cells[1].text,
-            'Anticodon': cells[2].text,
-            'Organism': cells[3].text,
-            'Organellum': cells[4].text,
+            'Amino acid type': cells[1].text.strip(),
+            'Anticodon': cells[2].text.strip(),
+            'Organism': cells[3].text.strip(),
+            'Organellum': cells[4].text.strip(),
             'Sequence (MODOMICS)': cells[5].text.strip().replace('-', '').replace('_', ''),
         })
         analyze_form(rna_form, unsupported_codes, rna_forms[-1])
@@ -318,6 +322,8 @@ def plot_trna_code_freq(monomer_codes, trna_code_freq):
                axes[0], ignore_canonical=False, title='Frequency of modifications')
     plot_codes(trna_code_freq, monomer_codes,
                axes[1], ignore_canonical=True, title='Frequency of modified monomeric forms')
+    if not os.path.isdir(os.path.join('bpforms', 'web', 'img', 'example')):
+        os.makedirs(os.path.join('bpforms', 'web', 'img', 'example'))
     fig.savefig(os.path.join('bpforms', 'web', 'img', 'example', 'modomics.trna.code-freq.svg'),
                 transparent=True,
                 bbox_inches=matplotlib.transforms.Bbox([[0.4, -0.1], [8.35, 1.5]]))

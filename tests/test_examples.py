@@ -19,7 +19,7 @@ import tempfile
 import unittest
 
 try:
-    response = requests.get('http://modomics.genesilico.pl/modifications/')
+    response = requests.get('https://iimcb.genesilico.pl/modomics/')
     modomics_available = response.status_code == 200 and response.elapsed.total_seconds() < 2.0
 except requests.exceptions.ConnectionError:
     modomics_available = False
@@ -63,7 +63,11 @@ class ExamplesTestCase(unittest.TestCase):
     def test_modomics(self):
         import modomics
         modomics.run()
-        filename = os.path.join('examples', 'modomics.ssu-rrna.tsv')
+
+        filename = os.path.join('examples', 'modomics.rrna.tsv')
+        self.assertTrue(os.path.isfile(filename))
+
+        filename = os.path.join('examples', 'modomics.trna.tsv')
         self.assertTrue(os.path.isfile(filename))
 
     def test_pro(self):
