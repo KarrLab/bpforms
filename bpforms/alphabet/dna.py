@@ -29,7 +29,7 @@ dna_mod_filename = pkg_resources.resource_filename('bpforms', os.path.join('alph
 
 def get_dnamod(filename):
     if not os.path.isfile(filename):
-        response = requests.get('https://dnamod.hoffmanlab.org/DNAmod.sqlite')
+        response = requests.get('https://hoffmanlab.org/proj/dnamod/DNAmod.sqlite')
         with open(filename, 'wb') as file:
             file.write(response.content)
 
@@ -134,7 +134,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         alphabet.name = 'DNA nucleotide monophosphates'
         alphabet.description = ('The canonical DNA nucleotide monophosphates, '
                                 'plus the non-canonical DNA nucleotide monophosphates based on '
-                                '<a href="https://dnamod.hoffmanlab.org">DNAmod</a> and '
+                                '<a href="https://hoffmanlab.org/proj/dnamod">DNAmod</a> and '
                                 '<a href="http://repairtoire.genesilico.pl/damage/">REPAIRtoire</a>')
 
         # build from sources
@@ -213,6 +213,7 @@ class DnaAlphabetBuilder(AlphabetBuilder):
         all_base_monomers_codes = {}
         all_base_monomers_ids = {}
         invalid_nucleobases = []
+        uncatalogued_monomers = []
         for item in with_smiles.all():
             row = session.query(self.ExpandedAlphabet).filter(self.ExpandedAlphabet.nameid == item.nameid).first()
             if row is None:
@@ -320,13 +321,16 @@ class DnaAlphabetBuilder(AlphabetBuilder):
                 monomer.r_bond_atoms = [Atom(Monomer, element='O', position=monomers[monomer.id]['r_bond_atom'])]
                 monomer.r_displaced_atoms = [Atom(Monomer, element='H', position=monomers[monomer.id]['r_bond_atom'])]
             else:
-                raise Exception('Structure and atom indices need to be cataloged for {}'.format(monomer.id))
+                uncatalogued_monomers.append(monomer.id)                
 
             alphabet.monomers[chars] = monomer
 
             monomer_nameids[item.nameid] = monomer
             all_base_monomers_codes[monomer] = base_monomer_codes
             all_base_monomers_ids[monomer] = base_monomer_ids
+
+        if uncatalogued_monomers:
+            raise Exception('Structure and atom indices need to be cataloged for {}'.format(', '.join(uncatalogued_monomers)))
 
         for monomer, base_monomer_codes in all_base_monomers_codes.items():
             for base_monomer_code in base_monomer_codes:

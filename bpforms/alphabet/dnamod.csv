@@ -46,4 +46,9 @@ DHdU,"5,6-dihydroxy-2'-deoxyuridine",,OC[C@H]1O[C@H](C[C@@H]1O)n1c(=O)[nH]c(=O)c
 dhpdU,"2'-deoxy-5-(4,5-dihydroxypentyl)uridine",,OCC(CCCc1cn([C@@H]2O[C@@H]([C@H](C2)O)CO)c(=O)[nH]c1=O)O,OCC(CCCC1=C[N+](C(=O)NC1=O)([C@@H]1O[C@@H]([C@H](C1)O)CO)C1OC(C(C1)O)COP(=O)([O-])[O-])O,34,37,31
 5-NeOmdU,5-(2-aminoethoxy)methyl-2'-deoxyuridine,,[NH3+]CCOCc1cn([C@@H]2O[C@@H]([C@H](C2)O)CO)c(=O)[nH]c1=O,[NH3+]CCOCC1=C[N+](C(=O)NC1=O)([C@@H]1O[C@@H]([C@H](C1)O)CO)C1OC(C(C1)O)COP(=O)([O-])[O-],36,39,33
 J,(beta-D-glucopyranosyloxymethyl)deoxyuridine 5'-monophosphate,,OC[C@H]1O[C@@H](OCc2cn([C@@H]3O[C@@H]([C@H](C3)O)COP(=O)([O-])[O-])c(=O)[nH]c2=O)[C@@H]([C@H]([C@@H]1O)O)O,OC[C@H]1O[C@@H](OCc2cn([C@@H]3O[C@@H]([C@H](C3)O)COP(=O)([O-])[O-])c(=O)[nH]c2=O)[C@@H]([C@H]([C@@H]1O)O)O,24,27,21
-dI,2'-deoxyinosine,,OC[C@H]1O[C@H](C[C@@H]1O)n1cnc2c1nc[nH]c2=O,OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O,30,33,34
+dI,2'-deoxyinosine,,OC[C@H]1O[C@H](C[C@@H]1O)n1cnc2c1nc[nH]c2=O,OC[C@H]1O[C@H](C[C@@H]1O)[N+]1(C=Nc2c1nc[nH]c2=O)C1CC(C(O1)COP(=O)([O-])[O-])O,29,32,33
+xI,hypoxanthine,,O=c1[nH]cnc2c1[nH]cn2,OC1CC(OC1COP(=O)([O-])[O-])N1CNC2C1NCNC2=O,9,12,1
+3mHyp,3-methylhypoxanthine,,Cn1cnc(=O)c2c1nc[nH]2,OC1CC(OC1COP(=O)([O-])[O-])n1cnc2c1n(C)cnc2=O,9,12,1
+1mHyp,1-methylhypoxanthine,,Cn1cnc2c(c1=O)[nH]cn2,OC1CC(OC1COP(=O)([O-])[O-])N1CNC2C1NCN(C2=O)C,9,12,1
+7mHyp,7-methylhypoxanthine,,Cn1cnc2c1c(=O)[nH]cn2,OC1CC(OC1COP(=O)([O-])[O-])n1c[n+](c2c1nc[nH]c2=O)C,9,12,1
+9mHyp,9-methylhypoxanthine,,O=c1[nH]cnc2c1ncn2C,OC1CC(OC1COP(=O)([O-])[O-])[N+]1(C)C=NC2C1NCNC2,9,12,1
