@@ -31,6 +31,7 @@ class LargeBpFormsTestCase(unittest.TestCase):
     def test_protein(self):
         self.verify_large_polymers(protein.ProteinForm, 'ACDE')
 
+    @unittest.skipIf(os.getenv('CI', '0') in ['1', 'true'], 'Test requires too much resource for continuous integration')
     def test_get_structure(self):
         form = protein.ProteinForm().from_str('ARCGY' * 100)
         structure, _ = form.get_structure()
