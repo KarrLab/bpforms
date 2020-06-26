@@ -10,3 +10,7 @@ downstream_dependencies:
   - bcforms
 email_notifications:
   - karr@mssm.edu
+static_analyses:
+  ignore_unused_requirements:
+    - ruamel.yaml
+  ignore_missing_requirements: []
