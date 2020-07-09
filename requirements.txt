@@ -6,7 +6,7 @@ configobj
 jinja2
 lark_parser >= 0.6.6
 mendeleev
-openbabel
+openbabel < 3
 pandas
 requests
 requests_cache
