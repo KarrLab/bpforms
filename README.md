@@ -90,20 +90,23 @@ The following is a brief guide to installing `BpForms`. The [Dockerfile](Dockerf
       ```
 
 ## Examples, tutorial, and documentation
-Please see the [documentation](https://docs.karrlab.org/bpforms). An [interactive tutorial](https://sandbox.karrlab.org/notebooks/bpforms/Tutorial.ipynb) is also available in the whole-cell modeling sandbox.
+Please see the [documentation](https://docs.karrlab.org/bpforms). An [interactive tutorial](https://sandbox.karrlab.org/tree/bpforms) is also available in the whole-cell modeling sandbox.
 
 ## License
 The package is released under the [MIT license](LICENSE).
 
 ## Citing `BpForms`
-Lang PF, Chebaro Y & Jonathan R. Karr. BpForms: a toolkit for concretely describing modified DNA, RNA and proteins. arXiv:1903.10042. [:link:](https://arxiv.org/abs/1903.10042)
+Lang PF, Chebaro Y, Zheng X, Sekar JAP, Shaikh B, Natale DA & Karr JR. BpForms and BcForms: a toolkit for concretely describing non-canonical polymers and complexes to facilitate global biochemical networks. Genome Biology. [:link:](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02025-z)
 
 ## Development team
 This package was developed by the [Karr Lab](https://www.karrlab.org) at the Icahn School of Medicine at Mount Sinai in New York, USA.
 
 * [Jonathan Karr](https://www.karrlab.org)
 * [Yassmine Chebaro](https://www.linkedin.com/in/yassmine-chebaro-6bb8a05/)
-* [Paul Lang](http://www.dtc.ox.ac.uk/people/17/langp/)
+* [Paul Lang](https://www.linkedin.com/in/paulflang/)
+* John Sekar
+* Bilal Shaikh
+* Darren Natale
 
 ## Questions and comments
 Please contact the [Karr Lab](mailto:info@karrlab.org) with any questions or comments.
