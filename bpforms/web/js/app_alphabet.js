@@ -121,13 +121,13 @@ set_alphabet = function(data, status, jqXHR) {
             html += '<tr><th>Base<br/>monomer(s)</th><td>' + monomer['base_monomers'].join(', ') + '</td></tr>'
 
         // binds backbone?
-        html += '<tr><th>Binds<br/>backbone?</th><td>' + (monomer['binds_backbone'] ? 'Yes' : 'No') + '</td></tr>'
+        html += '<tr><th>Bonds<br/>backbone?</th><td>' + (monomer['bonds_backbone'] ? 'Yes' : 'No') + '</td></tr>'
 
         // binds left?
-        html += '<tr><th>Binds<br/>left?</th><td>' + (monomer['binds_left'] ? 'Yes' : 'No') + '</td></tr>'
+        html += '<tr><th>Bonds<br/>left?</th><td>' + (monomer['bonds_left'] ? 'Yes' : 'No') + '</td></tr>'
 
         // binds right?
-        html += '<tr><th>Binds<br/>right?</th><td>' + (monomer['binds_right'] ? 'Yes' : 'No') + '</td></tr>'
+        html += '<tr><th>Bonds<br/>right?</th><td>' + (monomer['bonds_right'] ? 'Yes' : 'No') + '</td></tr>'
 
         // structure
         html += '<tr><th>Structure<br/>(SMILES)</th><td>' + monomer['structure'] + '</td></tr>'
